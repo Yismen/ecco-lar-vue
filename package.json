@@ -1,0 +1,25 @@
+{
+  "private": true,
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-util": "^3.0.7"
+  },
+  "dependencies": {
+    "admin-lte": "^2.3.2",
+    "bootbox": "^4.4.0",
+    "bootstrap": "^3.3.6",
+    "bootstrap-sass": "^3.0.0",
+    "dropzone": "^4.3.0",
+    "font-awesome": "^4.6.1",
+    "icheck": "^1.0.2",
+    "jquery": "^2.2.0",
+    "laravel-elixir": "^3.0.0",
+    "laravel-elixir-vueify": "^1.0.3",
+    "moment": "^2.11.2",
+    "summernote": "^0.8.1",
+    "vue": "^1.0.22",
+    "vue-progressbar": "^0.2.5",
+    "vue-resource": "^0.7.0",
+    "vue-validator": "^2.1.1"
+  }
+}

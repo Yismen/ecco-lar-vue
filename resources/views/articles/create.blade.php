@@ -1,0 +1,27 @@
+@extends('layouts.main')
+
+@section('content')
+<br>
+	<div class="container">
+		<div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+			<div class="well">
+					{!! Form::model($article, ['route'=>'articles.store', 'method'=>'POST', 'class'=>'form-horizontal']) !!}
+						<legend>Create Post</legend>
+
+						@include( 'articles._form' )
+
+					{!! Form::close() !!}
+			</div>
+		</div>
+	</div>
+
+	{{-- @include('articles._modal_forms') --}}
+@stop
+
+@section('scripts')
+	
+	@include( 'layouts.tinyMce.basic', ['item'=>'#body'])		
+	
+@stop
+
+
