@@ -29,7 +29,7 @@ class EmployeesController extends Controller {
 	{
 		$employees = Cache::get('employees', $this->getEmployees($employees, $request));
 
-		Cache::put('employees', $employees, 180);
+		Cache::put('employees', $employees, 5000);
 
 		if ($request->ajax()) return $employees;
 
@@ -38,7 +38,7 @@ class EmployeesController extends Controller {
 		return view('employees.index', compact('employees'));
 	}
 
-	public function getEmployees($employees, $request)
+	private function getEmployees($employees, $request)
 	{
 		$status = $request->input('status');
 		$search = $request->input('search');
@@ -75,6 +75,8 @@ class EmployeesController extends Controller {
 		$this->validateRequest($request, $employee);
 
 		$employee = $employee->create($request->all());
+
+		Cache::forget('employees');
 
 		return \Redirect::route('employees.index')
 			->withSuccess("Succesfully added employee [$request->first_name $request->last_name];");
@@ -119,6 +121,8 @@ class EmployeesController extends Controller {
 		$this->validateRequest($request, $employee);
 
 		$employee->update($request->all());
+
+		Cache::forget('employees');
 
 		return redirect()->route('admin.employees.edit', $employee->id)
 			->withSuccess("Succesfully updated employee [$request->first_name $request->last_name]");
@@ -240,7 +244,9 @@ class EmployeesController extends Controller {
 	 */
 	public function destroy(Employee $employee)
 	{
+		Cache::forget('employees');
 		return $employee;
+
 	}
 
 	public function updatePhoto(Employee $employee, Request $request)
@@ -316,7 +322,7 @@ class EmployeesController extends Controller {
 	 * validates employees request against a set of rules. Prevent continues if validation fails
 	 * @return boolean validation passed|failed
 	 */
-	public function validateRequest(Request $request, $employee)
+	private function validateRequest(Request $request, $employee)
 	{
 		return $this->validate($request, [
 		    'first_name' => 'required',
@@ -339,7 +345,7 @@ class EmployeesController extends Controller {
 	 * @param  model $employees the current employees query
 	 * @return query            collections of employees
 	 */
-	public function applyScopeStatusToTheQuery($status, $employees)
+	private function applyScopeStatusToTheQuery($status, $employees)
 	{
 
 		if (!$status || !in_array($status, ['actives', 'inactives'])) return $employees;
@@ -355,7 +361,7 @@ class EmployeesController extends Controller {
 	 * @param  model $employees the current employees query
 	 * @return query            collections of employees
 	 */
-	public function applySearchScopeToTheQuery($search, $employees)
+	private function applySearchScopeToTheQuery($search, $employees)
 	{
 
 		if (!$search) return $employees;

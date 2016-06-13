@@ -36,4 +36,12 @@ class Card extends Model {
 
 		return $employees->lists('fullName', 'id');
 	}
+	/**
+	 * --------------------------------------------------
+	 * Scopes
+	 */
+	public function scopeUnassigned($query)
+	{
+		return $query->has('employee', false);
+	}
 }

@@ -88,11 +88,6 @@ class Employee extends Model {
 		return $this->hasOne('App\Card');
 	}
 
-	public function missingCardIds()
-	{
-		return $this->hasMany('App\Card');
-	}
-
 	public function punch()
 	{
 		return $this->hasOne('App\Punch');
@@ -115,6 +110,11 @@ class Employee extends Model {
 	public function scopeInactives($query)
 	{
 		return $query->has('termination');	
+	}
+
+	public function scopeMissingCard($query)
+	{
+		return $query->has('card', false);
 	}
 
 /**
