@@ -8,7 +8,7 @@
 					Systems Items List
 					 (
 						 <small>
-						 	<a href="{{ route('systems.create') }}">
+						 	<a href="{{ route('admin.systems.create') }}">
 						 		<i class="fa fa-plus"></i>
 						 	</a>
 						 </small>
@@ -30,10 +30,10 @@
 						@foreach ($systems as $system)
 							<tr>
 								<td>
-									<a href="{{ route('systems.show', $system->id) }}">{{ ucwords(trim($system->name ))}}</a>
+									<a href="{{ route('admin.systems.show', $system->id) }}">{{ ucwords(trim($system->name ))}}</a>
 								</td>
 								<td>
-									<a href="{{ route('systems.edit', $system->id) }}" class="btn btn-warning">
+									<a href="{{ route('admin.systems.edit', $system->id) }}" class="btn btn-warning">
 										<i class="fa fa-edit"></i>
 									</a>
 									{{-- {!! delete_button('systems.destroy', $system->id, ['class'=>'btn btn-danger','label'=>'<i class="fa fa-trash"></i>']) !!}  --}}

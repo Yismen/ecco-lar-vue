@@ -5,7 +5,7 @@
 	<div class="col-sm-8 col-sm-offset-2">
 		{{-- {{ dd($employee) }} --}}
 		<div class="well row">
-			{!! Form::model($user, ['route'=>['users.update', $user->username], 'method'=>'PUT', 'class'=>'form-horizontal', 'role'=>'form']) !!}		
+			{!! Form::model($user, ['route'=>['admin.users.update', $user->id], 'method'=>'PUT', 'class'=>'form-horizontal', 'role'=>'form']) !!}		
 				<div class="form-group">
 					<legend>Edit Menu {{ $user->name }}</legend>
 				</div>
@@ -15,7 +15,7 @@
 				<div class="col-sm-10 col-sm-offset-2">
 					<button type="submit" class="btn btn-primary form-control">Save</button>
 					<br><br>
-					<a href="{{ route('users.index') }}"><< Return to Users List</a>
+					<a href="{{ route('admin.users.index') }}"><< Return to Users List</a>
 				</div>
 			
 			{!! Form::close() !!}

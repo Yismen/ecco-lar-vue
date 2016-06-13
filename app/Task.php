@@ -59,6 +59,11 @@ class Task extends Model {
 		$query->whereCompleted(1);
 	}
 
+	public function scopePending($query)
+	{
+		$query->whereCompleted(0);
+	}
+
 	/**
 	 * -------------------------------------------------------------
 	 * Mutators

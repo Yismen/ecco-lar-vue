@@ -43,7 +43,7 @@
 	</tbody>
 </table>
 
-{{ $notes->render() }}
+{{-- {{ $notes->render() }} --}}
 
 @else
 {{-- false expr --}}

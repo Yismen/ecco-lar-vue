@@ -1,5 +1,5 @@
 <?php
-// ini_set('xdebug.max_nesting_level', 200);
+ini_set('xdebug.max_nesting_level', 200);
 /*
 |--------------------------------------------------------------------------
 | Routes File
@@ -33,15 +33,39 @@ Route::group(['middleware' => 'web'], function () {
 		return view('learn-vue.index', compact('employees'));
 	});
 
-	Route::get('api/employees', 'EmployeesController@index');
+	Route::get('api/employees', function(){
+		return App\Employee::paginate(25);
+	});
 
 	Route::delete('api/employees/{id}', function($id){
-		return App\Employee::find(1);
+		$employee = App\Employee::find($id);
+		$employee->delete();
+		return $employee;
 	});
 		
 	/**
-	 * Vuew Routes
+	 * Vue Routes
 	 */
+	Route::group(['prefix'=>'api'], function(){
+		Route::delete('tasks/removeCompleted', ['uses'=>'TasksController@removeCompleted']);
+		Route::bind('tasks', function($id){
+			return App\Task::foruser()->findOrFail($id);
+		});
+		Route::resource('tasks', 'TasksController');
+
+		Route::get('notes', 'TasksController@index');
+
+		Route::group(['prefix'=>'notes'], function(){
+			/**
+			 * Notes
+			 */
+			Route::bind('admin', function($slug){
+				return App\Note::whereSlug($slug)->firstOrFail();
+			});
+			Route::resource('admin', 'NotesController');
+		});
+
+	});
 
 	/**
 	 * -------------------------------------------------

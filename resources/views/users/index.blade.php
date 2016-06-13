@@ -8,7 +8,7 @@
 					Users List
 					 (
 						 <small>
-						 	<a href="{{ route('users.create') }}">
+						 	<a href="{{ route('admin.users.create') }}">
 						 		<i class="fa fa-plus"></i>
 						 	</a>
 						 </small>
@@ -30,13 +30,13 @@
 						@foreach ($users as $user)
 							<tr>
 								<td>
-									<a href="{{ route('users.show', $user->username) }}">{{ $user->name }}</a>
+									<a href="{{ route('admin.users.show', $user->username) }}">{{ $user->name }}</a>
 								</td>
 								<td>
-									<a href="{{ route('users.edit', $user->username) }}" class="btn btn-warning">
+									<a href="{{ route('admin.users.edit', $user->username) }}" class="btn btn-warning">
 										<i class="fa fa-edit"></i>
 									</a>
-									{!! delete_button('users.destroy', $user->username, ['class'=>'btn btn-danger','label'=>'<i class="fa fa-trash"></i>']) !!}
+									{{-- {!! delete_button('admin.users.destroy', $user->username, ['class'=>'btn btn-danger','label'=>'<i class="fa fa-trash"></i>']) !!} --}}
 								</td>
 							</tr>
 						@endforeach

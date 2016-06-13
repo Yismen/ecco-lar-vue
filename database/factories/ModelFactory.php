@@ -20,6 +20,14 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     ];
 });
 
+$factory->define(App\Task::class, function (Faker\Generator $faker) {
+    return [
+        'user_id' => 1,
+        'task_name' => $faker->sentence,
+    ];
+});
+
+
 
 
 // $factory->define(App\User::class, function (Faker\Generator $faker) {

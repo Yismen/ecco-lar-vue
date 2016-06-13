@@ -2,7 +2,7 @@
 
 @section('content')
 	<div class="container">
-		<div class="row">
+		<div class="box box-primary pad">
 			<div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
 			<br>
 				<div class="">
@@ -47,11 +47,11 @@
 								</tr>
 								<tr>
 									<td>
-										{!! HTML::linkRoute("contacts.index", "Return to Contacts") !!}
+										{!! HTML::linkRoute("admin.contacts.index", "Return to Contacts") !!}
 									</td>									
 									<td>
 										@if ($contact->username == Auth::user()->username)
-											{!! HTML::linkRoute("contacts.edit", "Edit", $contact->id, ['class'=>'btn btn-warning']) !!}
+											{!! HTML::linkRoute("admin.contacts.edit", "Edit", $contact->id, ['class'=>'btn btn-warning']) !!}
 										@endif
 									</td>
 								</tr>

@@ -2,13 +2,13 @@
 @extends('layouts.'.$layout->app(), ['page_header'=>'title', 'page_description'=>'description'])
 
 @section('content')
-	<div class=" col-sm-12">
-		<div class="well row ">
+	<div class="container">
+		<div class="box box-primary pad">
 				<h3 class="page-header">
 					Clients Items List
 					 (
 						 <small>
-						 	<a href="{{ route('clients.create') }}">
+						 	<a href="{{ route('admin.clients.create') }}">
 						 		<i class="fa fa-plus"></i>
 						 	</a>
 						 </small>
@@ -31,13 +31,13 @@
 						@foreach ($clients as $client)
 							<tr>
 								<td>
-									<a href="{{ route('clients.show', $client->id) }}">{{ strtoupper($client->name) }}</a>
+									<a href="{{ route('admin.clients.show', $client->id) }}">{{ strtoupper($client->name) }}</a>
 								</td>
 								<td>
 									{{ $client->goal }}
 								</td>
 								<td>
-									<a href="{{ route('clients.edit', $client->id) }}" class="btn btn-warning">
+									<a href="{{ route('admin.clients.edit', $client->id) }}" class="btn btn-warning">
 										<i class="fa fa-edit">	</i> Edit
 									</a>
 								</td>

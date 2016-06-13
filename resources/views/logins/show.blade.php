@@ -23,7 +23,7 @@
 						<th>System: </th>
 						<td>
 							@if ($login->system)
-								<a href="{{ route('systems.show', $login->system->id) }}">{{ $login->system->name }}</a>
+								<a href="{{ route('admin.systems.show', $login->system->id) }}">{{ $login->system->name }}</a>
 							@else
 								System not assigned
 							@endif
@@ -33,9 +33,9 @@
 
 				</tbody>
 			</table>
-			<a href="{{ route('logins.edit', $login->id) }}" class="btn btn-warning"> Edit </a>
+			<a href="{{ route('admin.logins.edit', $login->id) }}" class="btn btn-warning"> Edit </a>
 			<hr>
-			<a href="{{ route('logins.index') }}" class=""> << Return to Logins List </a>
+			<a href="{{ route('admin.logins.index') }}" class=""> << Return to Logins List </a>
 			
 		</div>
 		{{-- /. Row --}}

@@ -1923,6 +1923,2719 @@ function merge(target, source, deep) {
 }
 
 },{}],27:[function(require,module,exports){
+/*!
+ * vue-router v0.7.13
+ * (c) 2016 Evan You
+ * Released under the MIT License.
+ */
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+  typeof define === 'function' && define.amd ? define(factory) :
+  global.VueRouter = factory();
+}(this, function () { 'use strict';
+
+  var babelHelpers = {};
+
+  babelHelpers.classCallCheck = function (instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  };
+  function Target(path, matcher, delegate) {
+    this.path = path;
+    this.matcher = matcher;
+    this.delegate = delegate;
+  }
+
+  Target.prototype = {
+    to: function to(target, callback) {
+      var delegate = this.delegate;
+
+      if (delegate && delegate.willAddRoute) {
+        target = delegate.willAddRoute(this.matcher.target, target);
+      }
+
+      this.matcher.add(this.path, target);
+
+      if (callback) {
+        if (callback.length === 0) {
+          throw new Error("You must have an argument in the function passed to `to`");
+        }
+        this.matcher.addChild(this.path, target, callback, this.delegate);
+      }
+      return this;
+    }
+  };
+
+  function Matcher(target) {
+    this.routes = {};
+    this.children = {};
+    this.target = target;
+  }
+
+  Matcher.prototype = {
+    add: function add(path, handler) {
+      this.routes[path] = handler;
+    },
+
+    addChild: function addChild(path, target, callback, delegate) {
+      var matcher = new Matcher(target);
+      this.children[path] = matcher;
+
+      var match = generateMatch(path, matcher, delegate);
+
+      if (delegate && delegate.contextEntered) {
+        delegate.contextEntered(target, match);
+      }
+
+      callback(match);
+    }
+  };
+
+  function generateMatch(startingPath, matcher, delegate) {
+    return function (path, nestedCallback) {
+      var fullPath = startingPath + path;
+
+      if (nestedCallback) {
+        nestedCallback(generateMatch(fullPath, matcher, delegate));
+      } else {
+        return new Target(startingPath + path, matcher, delegate);
+      }
+    };
+  }
+
+  function addRoute(routeArray, path, handler) {
+    var len = 0;
+    for (var i = 0, l = routeArray.length; i < l; i++) {
+      len += routeArray[i].path.length;
+    }
+
+    path = path.substr(len);
+    var route = { path: path, handler: handler };
+    routeArray.push(route);
+  }
+
+  function eachRoute(baseRoute, matcher, callback, binding) {
+    var routes = matcher.routes;
+
+    for (var path in routes) {
+      if (routes.hasOwnProperty(path)) {
+        var routeArray = baseRoute.slice();
+        addRoute(routeArray, path, routes[path]);
+
+        if (matcher.children[path]) {
+          eachRoute(routeArray, matcher.children[path], callback, binding);
+        } else {
+          callback.call(binding, routeArray);
+        }
+      }
+    }
+  }
+
+  function map (callback, addRouteCallback) {
+    var matcher = new Matcher();
+
+    callback(generateMatch("", matcher, this.delegate));
+
+    eachRoute([], matcher, function (route) {
+      if (addRouteCallback) {
+        addRouteCallback(this, route);
+      } else {
+        this.add(route);
+      }
+    }, this);
+  }
+
+  var specials = ['/', '.', '*', '+', '?', '|', '(', ')', '[', ']', '{', '}', '\\'];
+
+  var escapeRegex = new RegExp('(\\' + specials.join('|\\') + ')', 'g');
+
+  var noWarning = false;
+  function warn(msg) {
+    if (!noWarning && typeof console !== 'undefined') {
+      console.error('[vue-router] ' + msg);
+    }
+  }
+
+  function tryDecode(uri, asComponent) {
+    try {
+      return asComponent ? decodeURIComponent(uri) : decodeURI(uri);
+    } catch (e) {
+      warn('malformed URI' + (asComponent ? ' component: ' : ': ') + uri);
+    }
+  }
+
+  function isArray(test) {
+    return Object.prototype.toString.call(test) === "[object Array]";
+  }
+
+  // A Segment represents a segment in the original route description.
+  // Each Segment type provides an `eachChar` and `regex` method.
+  //
+  // The `eachChar` method invokes the callback with one or more character
+  // specifications. A character specification consumes one or more input
+  // characters.
+  //
+  // The `regex` method returns a regex fragment for the segment. If the
+  // segment is a dynamic of star segment, the regex fragment also includes
+  // a capture.
+  //
+  // A character specification contains:
+  //
+  // * `validChars`: a String with a list of all valid characters, or
+  // * `invalidChars`: a String with a list of all invalid characters
+  // * `repeat`: true if the character specification can repeat
+
+  function StaticSegment(string) {
+    this.string = string;
+  }
+  StaticSegment.prototype = {
+    eachChar: function eachChar(callback) {
+      var string = this.string,
+          ch;
+
+      for (var i = 0, l = string.length; i < l; i++) {
+        ch = string.charAt(i);
+        callback({ validChars: ch });
+      }
+    },
+
+    regex: function regex() {
+      return this.string.replace(escapeRegex, '\\$1');
+    },
+
+    generate: function generate() {
+      return this.string;
+    }
+  };
+
+  function DynamicSegment(name) {
+    this.name = name;
+  }
+  DynamicSegment.prototype = {
+    eachChar: function eachChar(callback) {
+      callback({ invalidChars: "/", repeat: true });
+    },
+
+    regex: function regex() {
+      return "([^/]+)";
+    },
+
+    generate: function generate(params) {
+      var val = params[this.name];
+      return val == null ? ":" + this.name : val;
+    }
+  };
+
+  function StarSegment(name) {
+    this.name = name;
+  }
+  StarSegment.prototype = {
+    eachChar: function eachChar(callback) {
+      callback({ invalidChars: "", repeat: true });
+    },
+
+    regex: function regex() {
+      return "(.+)";
+    },
+
+    generate: function generate(params) {
+      var val = params[this.name];
+      return val == null ? ":" + this.name : val;
+    }
+  };
+
+  function EpsilonSegment() {}
+  EpsilonSegment.prototype = {
+    eachChar: function eachChar() {},
+    regex: function regex() {
+      return "";
+    },
+    generate: function generate() {
+      return "";
+    }
+  };
+
+  function parse(route, names, specificity) {
+    // normalize route as not starting with a "/". Recognition will
+    // also normalize.
+    if (route.charAt(0) === "/") {
+      route = route.substr(1);
+    }
+
+    var segments = route.split("/"),
+        results = [];
+
+    // A routes has specificity determined by the order that its different segments
+    // appear in. This system mirrors how the magnitude of numbers written as strings
+    // works.
+    // Consider a number written as: "abc". An example would be "200". Any other number written
+    // "xyz" will be smaller than "abc" so long as `a > z`. For instance, "199" is smaller
+    // then "200", even though "y" and "z" (which are both 9) are larger than "0" (the value
+    // of (`b` and `c`). This is because the leading symbol, "2", is larger than the other
+    // leading symbol, "1".
+    // The rule is that symbols to the left carry more weight than symbols to the right
+    // when a number is written out as a string. In the above strings, the leading digit
+    // represents how many 100's are in the number, and it carries more weight than the middle
+    // number which represents how many 10's are in the number.
+    // This system of number magnitude works well for route specificity, too. A route written as
+    // `a/b/c` will be more specific than `x/y/z` as long as `a` is more specific than
+    // `x`, irrespective of the other parts.
+    // Because of this similarity, we assign each type of segment a number value written as a
+    // string. We can find the specificity of compound routes by concatenating these strings
+    // together, from left to right. After we have looped through all of the segments,
+    // we convert the string to a number.
+    specificity.val = '';
+
+    for (var i = 0, l = segments.length; i < l; i++) {
+      var segment = segments[i],
+          match;
+
+      if (match = segment.match(/^:([^\/]+)$/)) {
+        results.push(new DynamicSegment(match[1]));
+        names.push(match[1]);
+        specificity.val += '3';
+      } else if (match = segment.match(/^\*([^\/]+)$/)) {
+        results.push(new StarSegment(match[1]));
+        specificity.val += '2';
+        names.push(match[1]);
+      } else if (segment === "") {
+        results.push(new EpsilonSegment());
+        specificity.val += '1';
+      } else {
+        results.push(new StaticSegment(segment));
+        specificity.val += '4';
+      }
+    }
+
+    specificity.val = +specificity.val;
+
+    return results;
+  }
+
+  // A State has a character specification and (`charSpec`) and a list of possible
+  // subsequent states (`nextStates`).
+  //
+  // If a State is an accepting state, it will also have several additional
+  // properties:
+  //
+  // * `regex`: A regular expression that is used to extract parameters from paths
+  //   that reached this accepting state.
+  // * `handlers`: Information on how to convert the list of captures into calls
+  //   to registered handlers with the specified parameters
+  // * `types`: How many static, dynamic or star segments in this route. Used to
+  //   decide which route to use if multiple registered routes match a path.
+  //
+  // Currently, State is implemented naively by looping over `nextStates` and
+  // comparing a character specification against a character. A more efficient
+  // implementation would use a hash of keys pointing at one or more next states.
+
+  function State(charSpec) {
+    this.charSpec = charSpec;
+    this.nextStates = [];
+  }
+
+  State.prototype = {
+    get: function get(charSpec) {
+      var nextStates = this.nextStates;
+
+      for (var i = 0, l = nextStates.length; i < l; i++) {
+        var child = nextStates[i];
+
+        var isEqual = child.charSpec.validChars === charSpec.validChars;
+        isEqual = isEqual && child.charSpec.invalidChars === charSpec.invalidChars;
+
+        if (isEqual) {
+          return child;
+        }
+      }
+    },
+
+    put: function put(charSpec) {
+      var state;
+
+      // If the character specification already exists in a child of the current
+      // state, just return that state.
+      if (state = this.get(charSpec)) {
+        return state;
+      }
+
+      // Make a new state for the character spec
+      state = new State(charSpec);
+
+      // Insert the new state as a child of the current state
+      this.nextStates.push(state);
+
+      // If this character specification repeats, insert the new state as a child
+      // of itself. Note that this will not trigger an infinite loop because each
+      // transition during recognition consumes a character.
+      if (charSpec.repeat) {
+        state.nextStates.push(state);
+      }
+
+      // Return the new state
+      return state;
+    },
+
+    // Find a list of child states matching the next character
+    match: function match(ch) {
+      // DEBUG "Processing `" + ch + "`:"
+      var nextStates = this.nextStates,
+          child,
+          charSpec,
+          chars;
+
+      // DEBUG "  " + debugState(this)
+      var returned = [];
+
+      for (var i = 0, l = nextStates.length; i < l; i++) {
+        child = nextStates[i];
+
+        charSpec = child.charSpec;
+
+        if (typeof (chars = charSpec.validChars) !== 'undefined') {
+          if (chars.indexOf(ch) !== -1) {
+            returned.push(child);
+          }
+        } else if (typeof (chars = charSpec.invalidChars) !== 'undefined') {
+          if (chars.indexOf(ch) === -1) {
+            returned.push(child);
+          }
+        }
+      }
+
+      return returned;
+    }
+
+    /** IF DEBUG
+    , debug: function() {
+      var charSpec = this.charSpec,
+          debug = "[",
+          chars = charSpec.validChars || charSpec.invalidChars;
+       if (charSpec.invalidChars) { debug += "^"; }
+      debug += chars;
+      debug += "]";
+       if (charSpec.repeat) { debug += "+"; }
+       return debug;
+    }
+    END IF **/
+  };
+
+  /** IF DEBUG
+  function debug(log) {
+    console.log(log);
+  }
+
+  function debugState(state) {
+    return state.nextStates.map(function(n) {
+      if (n.nextStates.length === 0) { return "( " + n.debug() + " [accepting] )"; }
+      return "( " + n.debug() + " <then> " + n.nextStates.map(function(s) { return s.debug() }).join(" or ") + " )";
+    }).join(", ")
+  }
+  END IF **/
+
+  // Sort the routes by specificity
+  function sortSolutions(states) {
+    return states.sort(function (a, b) {
+      return b.specificity.val - a.specificity.val;
+    });
+  }
+
+  function recognizeChar(states, ch) {
+    var nextStates = [];
+
+    for (var i = 0, l = states.length; i < l; i++) {
+      var state = states[i];
+
+      nextStates = nextStates.concat(state.match(ch));
+    }
+
+    return nextStates;
+  }
+
+  var oCreate = Object.create || function (proto) {
+    function F() {}
+    F.prototype = proto;
+    return new F();
+  };
+
+  function RecognizeResults(queryParams) {
+    this.queryParams = queryParams || {};
+  }
+  RecognizeResults.prototype = oCreate({
+    splice: Array.prototype.splice,
+    slice: Array.prototype.slice,
+    push: Array.prototype.push,
+    length: 0,
+    queryParams: null
+  });
+
+  function findHandler(state, path, queryParams) {
+    var handlers = state.handlers,
+        regex = state.regex;
+    var captures = path.match(regex),
+        currentCapture = 1;
+    var result = new RecognizeResults(queryParams);
+
+    for (var i = 0, l = handlers.length; i < l; i++) {
+      var handler = handlers[i],
+          names = handler.names,
+          params = {};
+
+      for (var j = 0, m = names.length; j < m; j++) {
+        params[names[j]] = captures[currentCapture++];
+      }
+
+      result.push({ handler: handler.handler, params: params, isDynamic: !!names.length });
+    }
+
+    return result;
+  }
+
+  function addSegment(currentState, segment) {
+    segment.eachChar(function (ch) {
+      var state;
+
+      currentState = currentState.put(ch);
+    });
+
+    return currentState;
+  }
+
+  function decodeQueryParamPart(part) {
+    // http://www.w3.org/TR/html401/interact/forms.html#h-17.13.4.1
+    part = part.replace(/\+/gm, '%20');
+    return tryDecode(part, true);
+  }
+
+  // The main interface
+
+  var RouteRecognizer = function RouteRecognizer() {
+    this.rootState = new State();
+    this.names = {};
+  };
+
+  RouteRecognizer.prototype = {
+    add: function add(routes, options) {
+      var currentState = this.rootState,
+          regex = "^",
+          specificity = {},
+          handlers = [],
+          allSegments = [],
+          name;
+
+      var isEmpty = true;
+
+      for (var i = 0, l = routes.length; i < l; i++) {
+        var route = routes[i],
+            names = [];
+
+        var segments = parse(route.path, names, specificity);
+
+        allSegments = allSegments.concat(segments);
+
+        for (var j = 0, m = segments.length; j < m; j++) {
+          var segment = segments[j];
+
+          if (segment instanceof EpsilonSegment) {
+            continue;
+          }
+
+          isEmpty = false;
+
+          // Add a "/" for the new segment
+          currentState = currentState.put({ validChars: "/" });
+          regex += "/";
+
+          // Add a representation of the segment to the NFA and regex
+          currentState = addSegment(currentState, segment);
+          regex += segment.regex();
+        }
+
+        var handler = { handler: route.handler, names: names };
+        handlers.push(handler);
+      }
+
+      if (isEmpty) {
+        currentState = currentState.put({ validChars: "/" });
+        regex += "/";
+      }
+
+      currentState.handlers = handlers;
+      currentState.regex = new RegExp(regex + "$");
+      currentState.specificity = specificity;
+
+      if (name = options && options.as) {
+        this.names[name] = {
+          segments: allSegments,
+          handlers: handlers
+        };
+      }
+    },
+
+    handlersFor: function handlersFor(name) {
+      var route = this.names[name],
+          result = [];
+      if (!route) {
+        throw new Error("There is no route named " + name);
+      }
+
+      for (var i = 0, l = route.handlers.length; i < l; i++) {
+        result.push(route.handlers[i]);
+      }
+
+      return result;
+    },
+
+    hasRoute: function hasRoute(name) {
+      return !!this.names[name];
+    },
+
+    generate: function generate(name, params) {
+      var route = this.names[name],
+          output = "";
+      if (!route) {
+        throw new Error("There is no route named " + name);
+      }
+
+      var segments = route.segments;
+
+      for (var i = 0, l = segments.length; i < l; i++) {
+        var segment = segments[i];
+
+        if (segment instanceof EpsilonSegment) {
+          continue;
+        }
+
+        output += "/";
+        output += segment.generate(params);
+      }
+
+      if (output.charAt(0) !== '/') {
+        output = '/' + output;
+      }
+
+      if (params && params.queryParams) {
+        output += this.generateQueryString(params.queryParams);
+      }
+
+      return output;
+    },
+
+    generateQueryString: function generateQueryString(params) {
+      var pairs = [];
+      var keys = [];
+      for (var key in params) {
+        if (params.hasOwnProperty(key)) {
+          keys.push(key);
+        }
+      }
+      keys.sort();
+      for (var i = 0, len = keys.length; i < len; i++) {
+        key = keys[i];
+        var value = params[key];
+        if (value == null) {
+          continue;
+        }
+        var pair = encodeURIComponent(key);
+        if (isArray(value)) {
+          for (var j = 0, l = value.length; j < l; j++) {
+            var arrayPair = key + '[]' + '=' + encodeURIComponent(value[j]);
+            pairs.push(arrayPair);
+          }
+        } else {
+          pair += "=" + encodeURIComponent(value);
+          pairs.push(pair);
+        }
+      }
+
+      if (pairs.length === 0) {
+        return '';
+      }
+
+      return "?" + pairs.join("&");
+    },
+
+    parseQueryString: function parseQueryString(queryString) {
+      var pairs = queryString.split("&"),
+          queryParams = {};
+      for (var i = 0; i < pairs.length; i++) {
+        var pair = pairs[i].split('='),
+            key = decodeQueryParamPart(pair[0]),
+            keyLength = key.length,
+            isArray = false,
+            value;
+        if (pair.length === 1) {
+          value = 'true';
+        } else {
+          //Handle arrays
+          if (keyLength > 2 && key.slice(keyLength - 2) === '[]') {
+            isArray = true;
+            key = key.slice(0, keyLength - 2);
+            if (!queryParams[key]) {
+              queryParams[key] = [];
+            }
+          }
+          value = pair[1] ? decodeQueryParamPart(pair[1]) : '';
+        }
+        if (isArray) {
+          queryParams[key].push(value);
+        } else {
+          queryParams[key] = value;
+        }
+      }
+      return queryParams;
+    },
+
+    recognize: function recognize(path, silent) {
+      noWarning = silent;
+      var states = [this.rootState],
+          pathLen,
+          i,
+          l,
+          queryStart,
+          queryParams = {},
+          isSlashDropped = false;
+
+      queryStart = path.indexOf('?');
+      if (queryStart !== -1) {
+        var queryString = path.substr(queryStart + 1, path.length);
+        path = path.substr(0, queryStart);
+        if (queryString) {
+          queryParams = this.parseQueryString(queryString);
+        }
+      }
+
+      path = tryDecode(path);
+      if (!path) return;
+
+      // DEBUG GROUP path
+
+      if (path.charAt(0) !== "/") {
+        path = "/" + path;
+      }
+
+      pathLen = path.length;
+      if (pathLen > 1 && path.charAt(pathLen - 1) === "/") {
+        path = path.substr(0, pathLen - 1);
+        isSlashDropped = true;
+      }
+
+      for (i = 0, l = path.length; i < l; i++) {
+        states = recognizeChar(states, path.charAt(i));
+        if (!states.length) {
+          break;
+        }
+      }
+
+      // END DEBUG GROUP
+
+      var solutions = [];
+      for (i = 0, l = states.length; i < l; i++) {
+        if (states[i].handlers) {
+          solutions.push(states[i]);
+        }
+      }
+
+      states = sortSolutions(solutions);
+
+      var state = solutions[0];
+
+      if (state && state.handlers) {
+        // if a trailing slash was dropped and a star segment is the last segment
+        // specified, put the trailing slash back
+        if (isSlashDropped && state.regex.source.slice(-5) === "(.+)$") {
+          path = path + "/";
+        }
+        return findHandler(state, path, queryParams);
+      }
+    }
+  };
+
+  RouteRecognizer.prototype.map = map;
+
+  var genQuery = RouteRecognizer.prototype.generateQueryString;
+
+  // export default for holding the Vue reference
+  var exports$1 = {};
+  /**
+   * Warn stuff.
+   *
+   * @param {String} msg
+   */
+
+  function warn$1(msg) {
+    /* istanbul ignore next */
+    if (typeof console !== 'undefined') {
+      console.error('[vue-router] ' + msg);
+    }
+  }
+
+  /**
+   * Resolve a relative path.
+   *
+   * @param {String} base
+   * @param {String} relative
+   * @param {Boolean} append
+   * @return {String}
+   */
+
+  function resolvePath(base, relative, append) {
+    var query = base.match(/(\?.*)$/);
+    if (query) {
+      query = query[1];
+      base = base.slice(0, -query.length);
+    }
+    // a query!
+    if (relative.charAt(0) === '?') {
+      return base + relative;
+    }
+    var stack = base.split('/');
+    // remove trailing segment if:
+    // - not appending
+    // - appending to trailing slash (last segment is empty)
+    if (!append || !stack[stack.length - 1]) {
+      stack.pop();
+    }
+    // resolve relative path
+    var segments = relative.replace(/^\//, '').split('/');
+    for (var i = 0; i < segments.length; i++) {
+      var segment = segments[i];
+      if (segment === '.') {
+        continue;
+      } else if (segment === '..') {
+        stack.pop();
+      } else {
+        stack.push(segment);
+      }
+    }
+    // ensure leading slash
+    if (stack[0] !== '') {
+      stack.unshift('');
+    }
+    return stack.join('/');
+  }
+
+  /**
+   * Forgiving check for a promise
+   *
+   * @param {Object} p
+   * @return {Boolean}
+   */
+
+  function isPromise(p) {
+    return p && typeof p.then === 'function';
+  }
+
+  /**
+   * Retrive a route config field from a component instance
+   * OR a component contructor.
+   *
+   * @param {Function|Vue} component
+   * @param {String} name
+   * @return {*}
+   */
+
+  function getRouteConfig(component, name) {
+    var options = component && (component.$options || component.options);
+    return options && options.route && options.route[name];
+  }
+
+  /**
+   * Resolve an async component factory. Have to do a dirty
+   * mock here because of Vue core's internal API depends on
+   * an ID check.
+   *
+   * @param {Object} handler
+   * @param {Function} cb
+   */
+
+  var resolver = undefined;
+
+  function resolveAsyncComponent(handler, cb) {
+    if (!resolver) {
+      resolver = {
+        resolve: exports$1.Vue.prototype._resolveComponent,
+        $options: {
+          components: {
+            _: handler.component
+          }
+        }
+      };
+    } else {
+      resolver.$options.components._ = handler.component;
+    }
+    resolver.resolve('_', function (Component) {
+      handler.component = Component;
+      cb(Component);
+    });
+  }
+
+  /**
+   * Map the dynamic segments in a path to params.
+   *
+   * @param {String} path
+   * @param {Object} params
+   * @param {Object} query
+   */
+
+  function mapParams(path, params, query) {
+    if (params === undefined) params = {};
+
+    path = path.replace(/:([^\/]+)/g, function (_, key) {
+      var val = params[key];
+      /* istanbul ignore if */
+      if (!val) {
+        warn$1('param "' + key + '" not found when generating ' + 'path for "' + path + '" with params ' + JSON.stringify(params));
+      }
+      return val || '';
+    });
+    if (query) {
+      path += genQuery(query);
+    }
+    return path;
+  }
+
+  var hashRE = /#.*$/;
+
+  var HTML5History = (function () {
+    function HTML5History(_ref) {
+      var root = _ref.root;
+      var onChange = _ref.onChange;
+      babelHelpers.classCallCheck(this, HTML5History);
+
+      if (root && root !== '/') {
+        // make sure there's the starting slash
+        if (root.charAt(0) !== '/') {
+          root = '/' + root;
+        }
+        // remove trailing slash
+        this.root = root.replace(/\/$/, '');
+        this.rootRE = new RegExp('^\\' + this.root);
+      } else {
+        this.root = null;
+      }
+      this.onChange = onChange;
+      // check base tag
+      var baseEl = document.querySelector('base');
+      this.base = baseEl && baseEl.getAttribute('href');
+    }
+
+    HTML5History.prototype.start = function start() {
+      var _this = this;
+
+      this.listener = function (e) {
+        var url = location.pathname + location.search;
+        if (_this.root) {
+          url = url.replace(_this.rootRE, '');
+        }
+        _this.onChange(url, e && e.state, location.hash);
+      };
+      window.addEventListener('popstate', this.listener);
+      this.listener();
+    };
+
+    HTML5History.prototype.stop = function stop() {
+      window.removeEventListener('popstate', this.listener);
+    };
+
+    HTML5History.prototype.go = function go(path, replace, append) {
+      var url = this.formatPath(path, append);
+      if (replace) {
+        history.replaceState({}, '', url);
+      } else {
+        // record scroll position by replacing current state
+        history.replaceState({
+          pos: {
+            x: window.pageXOffset,
+            y: window.pageYOffset
+          }
+        }, '', location.href);
+        // then push new state
+        history.pushState({}, '', url);
+      }
+      var hashMatch = path.match(hashRE);
+      var hash = hashMatch && hashMatch[0];
+      path = url
+      // strip hash so it doesn't mess up params
+      .replace(hashRE, '')
+      // remove root before matching
+      .replace(this.rootRE, '');
+      this.onChange(path, null, hash);
+    };
+
+    HTML5History.prototype.formatPath = function formatPath(path, append) {
+      return path.charAt(0) === '/'
+      // absolute path
+      ? this.root ? this.root + '/' + path.replace(/^\//, '') : path : resolvePath(this.base || location.pathname, path, append);
+    };
+
+    return HTML5History;
+  })();
+
+  var HashHistory = (function () {
+    function HashHistory(_ref) {
+      var hashbang = _ref.hashbang;
+      var onChange = _ref.onChange;
+      babelHelpers.classCallCheck(this, HashHistory);
+
+      this.hashbang = hashbang;
+      this.onChange = onChange;
+    }
+
+    HashHistory.prototype.start = function start() {
+      var self = this;
+      this.listener = function () {
+        var path = location.hash;
+        var raw = path.replace(/^#!?/, '');
+        // always
+        if (raw.charAt(0) !== '/') {
+          raw = '/' + raw;
+        }
+        var formattedPath = self.formatPath(raw);
+        if (formattedPath !== path) {
+          location.replace(formattedPath);
+          return;
+        }
+        // determine query
+        // note it's possible to have queries in both the actual URL
+        // and the hash fragment itself.
+        var query = location.search && path.indexOf('?') > -1 ? '&' + location.search.slice(1) : location.search;
+        self.onChange(path.replace(/^#!?/, '') + query);
+      };
+      window.addEventListener('hashchange', this.listener);
+      this.listener();
+    };
+
+    HashHistory.prototype.stop = function stop() {
+      window.removeEventListener('hashchange', this.listener);
+    };
+
+    HashHistory.prototype.go = function go(path, replace, append) {
+      path = this.formatPath(path, append);
+      if (replace) {
+        location.replace(path);
+      } else {
+        location.hash = path;
+      }
+    };
+
+    HashHistory.prototype.formatPath = function formatPath(path, append) {
+      var isAbsoloute = path.charAt(0) === '/';
+      var prefix = '#' + (this.hashbang ? '!' : '');
+      return isAbsoloute ? prefix + path : prefix + resolvePath(location.hash.replace(/^#!?/, ''), path, append);
+    };
+
+    return HashHistory;
+  })();
+
+  var AbstractHistory = (function () {
+    function AbstractHistory(_ref) {
+      var onChange = _ref.onChange;
+      babelHelpers.classCallCheck(this, AbstractHistory);
+
+      this.onChange = onChange;
+      this.currentPath = '/';
+    }
+
+    AbstractHistory.prototype.start = function start() {
+      this.onChange('/');
+    };
+
+    AbstractHistory.prototype.stop = function stop() {
+      // noop
+    };
+
+    AbstractHistory.prototype.go = function go(path, replace, append) {
+      path = this.currentPath = this.formatPath(path, append);
+      this.onChange(path);
+    };
+
+    AbstractHistory.prototype.formatPath = function formatPath(path, append) {
+      return path.charAt(0) === '/' ? path : resolvePath(this.currentPath, path, append);
+    };
+
+    return AbstractHistory;
+  })();
+
+  /**
+   * Determine the reusability of an existing router view.
+   *
+   * @param {Directive} view
+   * @param {Object} handler
+   * @param {Transition} transition
+   */
+
+  function canReuse(view, handler, transition) {
+    var component = view.childVM;
+    if (!component || !handler) {
+      return false;
+    }
+    // important: check view.Component here because it may
+    // have been changed in activate hook
+    if (view.Component !== handler.component) {
+      return false;
+    }
+    var canReuseFn = getRouteConfig(component, 'canReuse');
+    return typeof canReuseFn === 'boolean' ? canReuseFn : canReuseFn ? canReuseFn.call(component, {
+      to: transition.to,
+      from: transition.from
+    }) : true; // defaults to true
+  }
+
+  /**
+   * Check if a component can deactivate.
+   *
+   * @param {Directive} view
+   * @param {Transition} transition
+   * @param {Function} next
+   */
+
+  function canDeactivate(view, transition, next) {
+    var fromComponent = view.childVM;
+    var hook = getRouteConfig(fromComponent, 'canDeactivate');
+    if (!hook) {
+      next();
+    } else {
+      transition.callHook(hook, fromComponent, next, {
+        expectBoolean: true
+      });
+    }
+  }
+
+  /**
+   * Check if a component can activate.
+   *
+   * @param {Object} handler
+   * @param {Transition} transition
+   * @param {Function} next
+   */
+
+  function canActivate(handler, transition, next) {
+    resolveAsyncComponent(handler, function (Component) {
+      // have to check due to async-ness
+      if (transition.aborted) {
+        return;
+      }
+      // determine if this component can be activated
+      var hook = getRouteConfig(Component, 'canActivate');
+      if (!hook) {
+        next();
+      } else {
+        transition.callHook(hook, null, next, {
+          expectBoolean: true
+        });
+      }
+    });
+  }
+
+  /**
+   * Call deactivate hooks for existing router-views.
+   *
+   * @param {Directive} view
+   * @param {Transition} transition
+   * @param {Function} next
+   */
+
+  function deactivate(view, transition, next) {
+    var component = view.childVM;
+    var hook = getRouteConfig(component, 'deactivate');
+    if (!hook) {
+      next();
+    } else {
+      transition.callHooks(hook, component, next);
+    }
+  }
+
+  /**
+   * Activate / switch component for a router-view.
+   *
+   * @param {Directive} view
+   * @param {Transition} transition
+   * @param {Number} depth
+   * @param {Function} [cb]
+   */
+
+  function activate(view, transition, depth, cb, reuse) {
+    var handler = transition.activateQueue[depth];
+    if (!handler) {
+      saveChildView(view);
+      if (view._bound) {
+        view.setComponent(null);
+      }
+      cb && cb();
+      return;
+    }
+
+    var Component = view.Component = handler.component;
+    var activateHook = getRouteConfig(Component, 'activate');
+    var dataHook = getRouteConfig(Component, 'data');
+    var waitForData = getRouteConfig(Component, 'waitForData');
+
+    view.depth = depth;
+    view.activated = false;
+
+    var component = undefined;
+    var loading = !!(dataHook && !waitForData);
+
+    // "reuse" is a flag passed down when the parent view is
+    // either reused via keep-alive or as a child of a kept-alive view.
+    // of course we can only reuse if the current kept-alive instance
+    // is of the correct type.
+    reuse = reuse && view.childVM && view.childVM.constructor === Component;
+
+    if (reuse) {
+      // just reuse
+      component = view.childVM;
+      component.$loadingRouteData = loading;
+    } else {
+      saveChildView(view);
+
+      // unbuild current component. this step also destroys
+      // and removes all nested child views.
+      view.unbuild(true);
+
+      // build the new component. this will also create the
+      // direct child view of the current one. it will register
+      // itself as view.childView.
+      component = view.build({
+        _meta: {
+          $loadingRouteData: loading
+        },
+        created: function created() {
+          this._routerView = view;
+        }
+      });
+
+      // handle keep-alive.
+      // when a kept-alive child vm is restored, we need to
+      // add its cached child views into the router's view list,
+      // and also properly update current view's child view.
+      if (view.keepAlive) {
+        component.$loadingRouteData = loading;
+        var cachedChildView = component._keepAliveRouterView;
+        if (cachedChildView) {
+          view.childView = cachedChildView;
+          component._keepAliveRouterView = null;
+        }
+      }
+    }
+
+    // cleanup the component in case the transition is aborted
+    // before the component is ever inserted.
+    var cleanup = function cleanup() {
+      component.$destroy();
+    };
+
+    // actually insert the component and trigger transition
+    var insert = function insert() {
+      if (reuse) {
+        cb && cb();
+        return;
+      }
+      var router = transition.router;
+      if (router._rendered || router._transitionOnLoad) {
+        view.transition(component);
+      } else {
+        // no transition on first render, manual transition
+        /* istanbul ignore if */
+        if (view.setCurrent) {
+          // 0.12 compat
+          view.setCurrent(component);
+        } else {
+          // 1.0
+          view.childVM = component;
+        }
+        component.$before(view.anchor, null, false);
+      }
+      cb && cb();
+    };
+
+    var afterData = function afterData() {
+      // activate the child view
+      if (view.childView) {
+        activate(view.childView, transition, depth + 1, null, reuse || view.keepAlive);
+      }
+      insert();
+    };
+
+    // called after activation hook is resolved
+    var afterActivate = function afterActivate() {
+      view.activated = true;
+      if (dataHook && waitForData) {
+        // wait until data loaded to insert
+        loadData(component, transition, dataHook, afterData, cleanup);
+      } else {
+        // load data and insert at the same time
+        if (dataHook) {
+          loadData(component, transition, dataHook);
+        }
+        afterData();
+      }
+    };
+
+    if (activateHook) {
+      transition.callHooks(activateHook, component, afterActivate, {
+        cleanup: cleanup,
+        postActivate: true
+      });
+    } else {
+      afterActivate();
+    }
+  }
+
+  /**
+   * Reuse a view, just reload data if necessary.
+   *
+   * @param {Directive} view
+   * @param {Transition} transition
+   */
+
+  function reuse(view, transition) {
+    var component = view.childVM;
+    var dataHook = getRouteConfig(component, 'data');
+    if (dataHook) {
+      loadData(component, transition, dataHook);
+    }
+  }
+
+  /**
+   * Asynchronously load and apply data to component.
+   *
+   * @param {Vue} component
+   * @param {Transition} transition
+   * @param {Function} hook
+   * @param {Function} cb
+   * @param {Function} cleanup
+   */
+
+  function loadData(component, transition, hook, cb, cleanup) {
+    component.$loadingRouteData = true;
+    transition.callHooks(hook, component, function () {
+      component.$loadingRouteData = false;
+      component.$emit('route-data-loaded', component);
+      cb && cb();
+    }, {
+      cleanup: cleanup,
+      postActivate: true,
+      processData: function processData(data) {
+        // handle promise sugar syntax
+        var promises = [];
+        if (isPlainObject(data)) {
+          Object.keys(data).forEach(function (key) {
+            var val = data[key];
+            if (isPromise(val)) {
+              promises.push(val.then(function (resolvedVal) {
+                component.$set(key, resolvedVal);
+              }));
+            } else {
+              component.$set(key, val);
+            }
+          });
+        }
+        if (promises.length) {
+          return promises[0].constructor.all(promises);
+        }
+      }
+    });
+  }
+
+  /**
+   * Save the child view for a kept-alive view so that
+   * we can restore it when it is switched back to.
+   *
+   * @param {Directive} view
+   */
+
+  function saveChildView(view) {
+    if (view.keepAlive && view.childVM && view.childView) {
+      view.childVM._keepAliveRouterView = view.childView;
+    }
+    view.childView = null;
+  }
+
+  /**
+   * Check plain object.
+   *
+   * @param {*} val
+   */
+
+  function isPlainObject(val) {
+    return Object.prototype.toString.call(val) === '[object Object]';
+  }
+
+  /**
+   * A RouteTransition object manages the pipeline of a
+   * router-view switching process. This is also the object
+   * passed into user route hooks.
+   *
+   * @param {Router} router
+   * @param {Route} to
+   * @param {Route} from
+   */
+
+  var RouteTransition = (function () {
+    function RouteTransition(router, to, from) {
+      babelHelpers.classCallCheck(this, RouteTransition);
+
+      this.router = router;
+      this.to = to;
+      this.from = from;
+      this.next = null;
+      this.aborted = false;
+      this.done = false;
+    }
+
+    /**
+     * Abort current transition and return to previous location.
+     */
+
+    RouteTransition.prototype.abort = function abort() {
+      if (!this.aborted) {
+        this.aborted = true;
+        // if the root path throws an error during validation
+        // on initial load, it gets caught in an infinite loop.
+        var abortingOnLoad = !this.from.path && this.to.path === '/';
+        if (!abortingOnLoad) {
+          this.router.replace(this.from.path || '/');
+        }
+      }
+    };
+
+    /**
+     * Abort current transition and redirect to a new location.
+     *
+     * @param {String} path
+     */
+
+    RouteTransition.prototype.redirect = function redirect(path) {
+      if (!this.aborted) {
+        this.aborted = true;
+        if (typeof path === 'string') {
+          path = mapParams(path, this.to.params, this.to.query);
+        } else {
+          path.params = path.params || this.to.params;
+          path.query = path.query || this.to.query;
+        }
+        this.router.replace(path);
+      }
+    };
+
+    /**
+     * A router view transition's pipeline can be described as
+     * follows, assuming we are transitioning from an existing
+     * <router-view> chain [Component A, Component B] to a new
+     * chain [Component A, Component C]:
+     *
+     *  A    A
+     *  | => |
+     *  B    C
+     *
+     * 1. Reusablity phase:
+     *   -> canReuse(A, A)
+     *   -> canReuse(B, C)
+     *   -> determine new queues:
+     *      - deactivation: [B]
+     *      - activation: [C]
+     *
+     * 2. Validation phase:
+     *   -> canDeactivate(B)
+     *   -> canActivate(C)
+     *
+     * 3. Activation phase:
+     *   -> deactivate(B)
+     *   -> activate(C)
+     *
+     * Each of these steps can be asynchronous, and any
+     * step can potentially abort the transition.
+     *
+     * @param {Function} cb
+     */
+
+    RouteTransition.prototype.start = function start(cb) {
+      var transition = this;
+
+      // determine the queue of views to deactivate
+      var deactivateQueue = [];
+      var view = this.router._rootView;
+      while (view) {
+        deactivateQueue.unshift(view);
+        view = view.childView;
+      }
+      var reverseDeactivateQueue = deactivateQueue.slice().reverse();
+
+      // determine the queue of route handlers to activate
+      var activateQueue = this.activateQueue = toArray(this.to.matched).map(function (match) {
+        return match.handler;
+      });
+
+      // 1. Reusability phase
+      var i = undefined,
+          reuseQueue = undefined;
+      for (i = 0; i < reverseDeactivateQueue.length; i++) {
+        if (!canReuse(reverseDeactivateQueue[i], activateQueue[i], transition)) {
+          break;
+        }
+      }
+      if (i > 0) {
+        reuseQueue = reverseDeactivateQueue.slice(0, i);
+        deactivateQueue = reverseDeactivateQueue.slice(i).reverse();
+        activateQueue = activateQueue.slice(i);
+      }
+
+      // 2. Validation phase
+      transition.runQueue(deactivateQueue, canDeactivate, function () {
+        transition.runQueue(activateQueue, canActivate, function () {
+          transition.runQueue(deactivateQueue, deactivate, function () {
+            // 3. Activation phase
+
+            // Update router current route
+            transition.router._onTransitionValidated(transition);
+
+            // trigger reuse for all reused views
+            reuseQueue && reuseQueue.forEach(function (view) {
+              return reuse(view, transition);
+            });
+
+            // the root of the chain that needs to be replaced
+            // is the top-most non-reusable view.
+            if (deactivateQueue.length) {
+              var _view = deactivateQueue[deactivateQueue.length - 1];
+              var depth = reuseQueue ? reuseQueue.length : 0;
+              activate(_view, transition, depth, cb);
+            } else {
+              cb();
+            }
+          });
+        });
+      });
+    };
+
+    /**
+     * Asynchronously and sequentially apply a function to a
+     * queue.
+     *
+     * @param {Array} queue
+     * @param {Function} fn
+     * @param {Function} cb
+     */
+
+    RouteTransition.prototype.runQueue = function runQueue(queue, fn, cb) {
+      var transition = this;
+      step(0);
+      function step(index) {
+        if (index >= queue.length) {
+          cb();
+        } else {
+          fn(queue[index], transition, function () {
+            step(index + 1);
+          });
+        }
+      }
+    };
+
+    /**
+     * Call a user provided route transition hook and handle
+     * the response (e.g. if the user returns a promise).
+     *
+     * If the user neither expects an argument nor returns a
+     * promise, the hook is assumed to be synchronous.
+     *
+     * @param {Function} hook
+     * @param {*} [context]
+     * @param {Function} [cb]
+     * @param {Object} [options]
+     *                 - {Boolean} expectBoolean
+     *                 - {Boolean} postActive
+     *                 - {Function} processData
+     *                 - {Function} cleanup
+     */
+
+    RouteTransition.prototype.callHook = function callHook(hook, context, cb) {
+      var _ref = arguments.length <= 3 || arguments[3] === undefined ? {} : arguments[3];
+
+      var _ref$expectBoolean = _ref.expectBoolean;
+      var expectBoolean = _ref$expectBoolean === undefined ? false : _ref$expectBoolean;
+      var _ref$postActivate = _ref.postActivate;
+      var postActivate = _ref$postActivate === undefined ? false : _ref$postActivate;
+      var processData = _ref.processData;
+      var cleanup = _ref.cleanup;
+
+      var transition = this;
+      var nextCalled = false;
+
+      // abort the transition
+      var abort = function abort() {
+        cleanup && cleanup();
+        transition.abort();
+      };
+
+      // handle errors
+      var onError = function onError(err) {
+        postActivate ? next() : abort();
+        if (err && !transition.router._suppress) {
+          warn$1('Uncaught error during transition: ');
+          throw err instanceof Error ? err : new Error(err);
+        }
+      };
+
+      // since promise swallows errors, we have to
+      // throw it in the next tick...
+      var onPromiseError = function onPromiseError(err) {
+        try {
+          onError(err);
+        } catch (e) {
+          setTimeout(function () {
+            throw e;
+          }, 0);
+        }
+      };
+
+      // advance the transition to the next step
+      var next = function next() {
+        if (nextCalled) {
+          warn$1('transition.next() should be called only once.');
+          return;
+        }
+        nextCalled = true;
+        if (transition.aborted) {
+          cleanup && cleanup();
+          return;
+        }
+        cb && cb();
+      };
+
+      var nextWithBoolean = function nextWithBoolean(res) {
+        if (typeof res === 'boolean') {
+          res ? next() : abort();
+        } else if (isPromise(res)) {
+          res.then(function (ok) {
+            ok ? next() : abort();
+          }, onPromiseError);
+        } else if (!hook.length) {
+          next();
+        }
+      };
+
+      var nextWithData = function nextWithData(data) {
+        var res = undefined;
+        try {
+          res = processData(data);
+        } catch (err) {
+          return onError(err);
+        }
+        if (isPromise(res)) {
+          res.then(next, onPromiseError);
+        } else {
+          next();
+        }
+      };
+
+      // expose a clone of the transition object, so that each
+      // hook gets a clean copy and prevent the user from
+      // messing with the internals.
+      var exposed = {
+        to: transition.to,
+        from: transition.from,
+        abort: abort,
+        next: processData ? nextWithData : next,
+        redirect: function redirect() {
+          transition.redirect.apply(transition, arguments);
+        }
+      };
+
+      // actually call the hook
+      var res = undefined;
+      try {
+        res = hook.call(context, exposed);
+      } catch (err) {
+        return onError(err);
+      }
+
+      if (expectBoolean) {
+        // boolean hooks
+        nextWithBoolean(res);
+      } else if (isPromise(res)) {
+        // promise
+        if (processData) {
+          res.then(nextWithData, onPromiseError);
+        } else {
+          res.then(next, onPromiseError);
+        }
+      } else if (processData && isPlainOjbect(res)) {
+        // data promise sugar
+        nextWithData(res);
+      } else if (!hook.length) {
+        next();
+      }
+    };
+
+    /**
+     * Call a single hook or an array of async hooks in series.
+     *
+     * @param {Array} hooks
+     * @param {*} context
+     * @param {Function} cb
+     * @param {Object} [options]
+     */
+
+    RouteTransition.prototype.callHooks = function callHooks(hooks, context, cb, options) {
+      var _this = this;
+
+      if (Array.isArray(hooks)) {
+        this.runQueue(hooks, function (hook, _, next) {
+          if (!_this.aborted) {
+            _this.callHook(hook, context, next, options);
+          }
+        }, cb);
+      } else {
+        this.callHook(hooks, context, cb, options);
+      }
+    };
+
+    return RouteTransition;
+  })();
+
+  function isPlainOjbect(val) {
+    return Object.prototype.toString.call(val) === '[object Object]';
+  }
+
+  function toArray(val) {
+    return val ? Array.prototype.slice.call(val) : [];
+  }
+
+  var internalKeysRE = /^(component|subRoutes|fullPath)$/;
+
+  /**
+   * Route Context Object
+   *
+   * @param {String} path
+   * @param {Router} router
+   */
+
+  var Route = function Route(path, router) {
+    var _this = this;
+
+    babelHelpers.classCallCheck(this, Route);
+
+    var matched = router._recognizer.recognize(path);
+    if (matched) {
+      // copy all custom fields from route configs
+      [].forEach.call(matched, function (match) {
+        for (var key in match.handler) {
+          if (!internalKeysRE.test(key)) {
+            _this[key] = match.handler[key];
+          }
+        }
+      });
+      // set query and params
+      this.query = matched.queryParams;
+      this.params = [].reduce.call(matched, function (prev, cur) {
+        if (cur.params) {
+          for (var key in cur.params) {
+            prev[key] = cur.params[key];
+          }
+        }
+        return prev;
+      }, {});
+    }
+    // expose path and router
+    this.path = path;
+    // for internal use
+    this.matched = matched || router._notFoundHandler;
+    // internal reference to router
+    Object.defineProperty(this, 'router', {
+      enumerable: false,
+      value: router
+    });
+    // Important: freeze self to prevent observation
+    Object.freeze(this);
+  };
+
+  function applyOverride (Vue) {
+    var _Vue$util = Vue.util;
+    var extend = _Vue$util.extend;
+    var isArray = _Vue$util.isArray;
+    var defineReactive = _Vue$util.defineReactive;
+
+    // override Vue's init and destroy process to keep track of router instances
+    var init = Vue.prototype._init;
+    Vue.prototype._init = function (options) {
+      options = options || {};
+      var root = options._parent || options.parent || this;
+      var router = root.$router;
+      var route = root.$route;
+      if (router) {
+        // expose router
+        this.$router = router;
+        router._children.push(this);
+        /* istanbul ignore if */
+        if (this._defineMeta) {
+          // 0.12
+          this._defineMeta('$route', route);
+        } else {
+          // 1.0
+          defineReactive(this, '$route', route);
+        }
+      }
+      init.call(this, options);
+    };
+
+    var destroy = Vue.prototype._destroy;
+    Vue.prototype._destroy = function () {
+      if (!this._isBeingDestroyed && this.$router) {
+        this.$router._children.$remove(this);
+      }
+      destroy.apply(this, arguments);
+    };
+
+    // 1.0 only: enable route mixins
+    var strats = Vue.config.optionMergeStrategies;
+    var hooksToMergeRE = /^(data|activate|deactivate)$/;
+
+    if (strats) {
+      strats.route = function (parentVal, childVal) {
+        if (!childVal) return parentVal;
+        if (!parentVal) return childVal;
+        var ret = {};
+        extend(ret, parentVal);
+        for (var key in childVal) {
+          var a = ret[key];
+          var b = childVal[key];
+          // for data, activate and deactivate, we need to merge them into
+          // arrays similar to lifecycle hooks.
+          if (a && hooksToMergeRE.test(key)) {
+            ret[key] = (isArray(a) ? a : [a]).concat(b);
+          } else {
+            ret[key] = b;
+          }
+        }
+        return ret;
+      };
+    }
+  }
+
+  function View (Vue) {
+
+    var _ = Vue.util;
+    var componentDef =
+    // 0.12
+    Vue.directive('_component') ||
+    // 1.0
+    Vue.internalDirectives.component;
+    // <router-view> extends the internal component directive
+    var viewDef = _.extend({}, componentDef);
+
+    // with some overrides
+    _.extend(viewDef, {
+
+      _isRouterView: true,
+
+      bind: function bind() {
+        var route = this.vm.$route;
+        /* istanbul ignore if */
+        if (!route) {
+          warn$1('<router-view> can only be used inside a ' + 'router-enabled app.');
+          return;
+        }
+        // force dynamic directive so v-component doesn't
+        // attempt to build right now
+        this._isDynamicLiteral = true;
+        // finally, init by delegating to v-component
+        componentDef.bind.call(this);
+
+        // locate the parent view
+        var parentView = undefined;
+        var parent = this.vm;
+        while (parent) {
+          if (parent._routerView) {
+            parentView = parent._routerView;
+            break;
+          }
+          parent = parent.$parent;
+        }
+        if (parentView) {
+          // register self as a child of the parent view,
+          // instead of activating now. This is so that the
+          // child's activate hook is called after the
+          // parent's has resolved.
+          this.parentView = parentView;
+          parentView.childView = this;
+        } else {
+          // this is the root view!
+          var router = route.router;
+          router._rootView = this;
+        }
+
+        // handle late-rendered view
+        // two possibilities:
+        // 1. root view rendered after transition has been
+        //    validated;
+        // 2. child view rendered after parent view has been
+        //    activated.
+        var transition = route.router._currentTransition;
+        if (!parentView && transition.done || parentView && parentView.activated) {
+          var depth = parentView ? parentView.depth + 1 : 0;
+          activate(this, transition, depth);
+        }
+      },
+
+      unbind: function unbind() {
+        if (this.parentView) {
+          this.parentView.childView = null;
+        }
+        componentDef.unbind.call(this);
+      }
+    });
+
+    Vue.elementDirective('router-view', viewDef);
+  }
+
+  var trailingSlashRE = /\/$/;
+  var regexEscapeRE = /[-.*+?^${}()|[\]\/\\]/g;
+  var queryStringRE = /\?.*$/;
+
+  // install v-link, which provides navigation support for
+  // HTML5 history mode
+  function Link (Vue) {
+    var _Vue$util = Vue.util;
+    var _bind = _Vue$util.bind;
+    var isObject = _Vue$util.isObject;
+    var addClass = _Vue$util.addClass;
+    var removeClass = _Vue$util.removeClass;
+
+    var onPriority = Vue.directive('on').priority;
+    var LINK_UPDATE = '__vue-router-link-update__';
+
+    var activeId = 0;
+
+    Vue.directive('link-active', {
+      priority: 9999,
+      bind: function bind() {
+        var _this = this;
+
+        var id = String(activeId++);
+        // collect v-links contained within this element.
+        // we need do this here before the parent-child relationship
+        // gets messed up by terminal directives (if, for, components)
+        var childLinks = this.el.querySelectorAll('[v-link]');
+        for (var i = 0, l = childLinks.length; i < l; i++) {
+          var link = childLinks[i];
+          var existingId = link.getAttribute(LINK_UPDATE);
+          var value = existingId ? existingId + ',' + id : id;
+          // leave a mark on the link element which can be persisted
+          // through fragment clones.
+          link.setAttribute(LINK_UPDATE, value);
+        }
+        this.vm.$on(LINK_UPDATE, this.cb = function (link, path) {
+          if (link.activeIds.indexOf(id) > -1) {
+            link.updateClasses(path, _this.el);
+          }
+        });
+      },
+      unbind: function unbind() {
+        this.vm.$off(LINK_UPDATE, this.cb);
+      }
+    });
+
+    Vue.directive('link', {
+      priority: onPriority - 2,
+
+      bind: function bind() {
+        var vm = this.vm;
+        /* istanbul ignore if */
+        if (!vm.$route) {
+          warn$1('v-link can only be used inside a router-enabled app.');
+          return;
+        }
+        this.router = vm.$route.router;
+        // update things when the route changes
+        this.unwatch = vm.$watch('$route', _bind(this.onRouteUpdate, this));
+        // check v-link-active ids
+        var activeIds = this.el.getAttribute(LINK_UPDATE);
+        if (activeIds) {
+          this.el.removeAttribute(LINK_UPDATE);
+          this.activeIds = activeIds.split(',');
+        }
+        // no need to handle click if link expects to be opened
+        // in a new window/tab.
+        /* istanbul ignore if */
+        if (this.el.tagName === 'A' && this.el.getAttribute('target') === '_blank') {
+          return;
+        }
+        // handle click
+        this.handler = _bind(this.onClick, this);
+        this.el.addEventListener('click', this.handler);
+      },
+
+      update: function update(target) {
+        this.target = target;
+        if (isObject(target)) {
+          this.append = target.append;
+          this.exact = target.exact;
+          this.prevActiveClass = this.activeClass;
+          this.activeClass = target.activeClass;
+        }
+        this.onRouteUpdate(this.vm.$route);
+      },
+
+      onClick: function onClick(e) {
+        // don't redirect with control keys
+        /* istanbul ignore if */
+        if (e.metaKey || e.ctrlKey || e.shiftKey) return;
+        // don't redirect when preventDefault called
+        /* istanbul ignore if */
+        if (e.defaultPrevented) return;
+        // don't redirect on right click
+        /* istanbul ignore if */
+        if (e.button !== 0) return;
+
+        var target = this.target;
+        if (target) {
+          // v-link with expression, just go
+          e.preventDefault();
+          this.router.go(target);
+        } else {
+          // no expression, delegate for an <a> inside
+          var el = e.target;
+          while (el.tagName !== 'A' && el !== this.el) {
+            el = el.parentNode;
+          }
+          if (el.tagName === 'A' && sameOrigin(el)) {
+            e.preventDefault();
+            var path = el.pathname;
+            if (this.router.history.root) {
+              path = path.replace(this.router.history.rootRE, '');
+            }
+            this.router.go({
+              path: path,
+              replace: target && target.replace,
+              append: target && target.append
+            });
+          }
+        }
+      },
+
+      onRouteUpdate: function onRouteUpdate(route) {
+        // router.stringifyPath is dependent on current route
+        // and needs to be called again whenver route changes.
+        var newPath = this.router.stringifyPath(this.target);
+        if (this.path !== newPath) {
+          this.path = newPath;
+          this.updateActiveMatch();
+          this.updateHref();
+        }
+        if (this.activeIds) {
+          this.vm.$emit(LINK_UPDATE, this, route.path);
+        } else {
+          this.updateClasses(route.path, this.el);
+        }
+      },
+
+      updateActiveMatch: function updateActiveMatch() {
+        this.activeRE = this.path && !this.exact ? new RegExp('^' + this.path.replace(/\/$/, '').replace(queryStringRE, '').replace(regexEscapeRE, '\\$&') + '(\\/|$)') : null;
+      },
+
+      updateHref: function updateHref() {
+        if (this.el.tagName !== 'A') {
+          return;
+        }
+        var path = this.path;
+        var router = this.router;
+        var isAbsolute = path.charAt(0) === '/';
+        // do not format non-hash relative paths
+        var href = path && (router.mode === 'hash' || isAbsolute) ? router.history.formatPath(path, this.append) : path;
+        if (href) {
+          this.el.href = href;
+        } else {
+          this.el.removeAttribute('href');
+        }
+      },
+
+      updateClasses: function updateClasses(path, el) {
+        var activeClass = this.activeClass || this.router._linkActiveClass;
+        // clear old class
+        if (this.prevActiveClass && this.prevActiveClass !== activeClass) {
+          toggleClasses(el, this.prevActiveClass, removeClass);
+        }
+        // remove query string before matching
+        var dest = this.path.replace(queryStringRE, '');
+        path = path.replace(queryStringRE, '');
+        // add new class
+        if (this.exact) {
+          if (dest === path ||
+          // also allow additional trailing slash
+          dest.charAt(dest.length - 1) !== '/' && dest === path.replace(trailingSlashRE, '')) {
+            toggleClasses(el, activeClass, addClass);
+          } else {
+            toggleClasses(el, activeClass, removeClass);
+          }
+        } else {
+          if (this.activeRE && this.activeRE.test(path)) {
+            toggleClasses(el, activeClass, addClass);
+          } else {
+            toggleClasses(el, activeClass, removeClass);
+          }
+        }
+      },
+
+      unbind: function unbind() {
+        this.el.removeEventListener('click', this.handler);
+        this.unwatch && this.unwatch();
+      }
+    });
+
+    function sameOrigin(link) {
+      return link.protocol === location.protocol && link.hostname === location.hostname && link.port === location.port;
+    }
+
+    // this function is copied from v-bind:class implementation until
+    // we properly expose it...
+    function toggleClasses(el, key, fn) {
+      key = key.trim();
+      if (key.indexOf(' ') === -1) {
+        fn(el, key);
+        return;
+      }
+      var keys = key.split(/\s+/);
+      for (var i = 0, l = keys.length; i < l; i++) {
+        fn(el, keys[i]);
+      }
+    }
+  }
+
+  var historyBackends = {
+    abstract: AbstractHistory,
+    hash: HashHistory,
+    html5: HTML5History
+  };
+
+  // late bind during install
+  var Vue = undefined;
+
+  /**
+   * Router constructor
+   *
+   * @param {Object} [options]
+   */
+
+  var Router = (function () {
+    function Router() {
+      var _this = this;
+
+      var _ref = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+
+      var _ref$hashbang = _ref.hashbang;
+      var hashbang = _ref$hashbang === undefined ? true : _ref$hashbang;
+      var _ref$abstract = _ref.abstract;
+      var abstract = _ref$abstract === undefined ? false : _ref$abstract;
+      var _ref$history = _ref.history;
+      var history = _ref$history === undefined ? false : _ref$history;
+      var _ref$saveScrollPosition = _ref.saveScrollPosition;
+      var saveScrollPosition = _ref$saveScrollPosition === undefined ? false : _ref$saveScrollPosition;
+      var _ref$transitionOnLoad = _ref.transitionOnLoad;
+      var transitionOnLoad = _ref$transitionOnLoad === undefined ? false : _ref$transitionOnLoad;
+      var _ref$suppressTransitionError = _ref.suppressTransitionError;
+      var suppressTransitionError = _ref$suppressTransitionError === undefined ? false : _ref$suppressTransitionError;
+      var _ref$root = _ref.root;
+      var root = _ref$root === undefined ? null : _ref$root;
+      var _ref$linkActiveClass = _ref.linkActiveClass;
+      var linkActiveClass = _ref$linkActiveClass === undefined ? 'v-link-active' : _ref$linkActiveClass;
+      babelHelpers.classCallCheck(this, Router);
+
+      /* istanbul ignore if */
+      if (!Router.installed) {
+        throw new Error('Please install the Router with Vue.use() before ' + 'creating an instance.');
+      }
+
+      // Vue instances
+      this.app = null;
+      this._children = [];
+
+      // route recognizer
+      this._recognizer = new RouteRecognizer();
+      this._guardRecognizer = new RouteRecognizer();
+
+      // state
+      this._started = false;
+      this._startCb = null;
+      this._currentRoute = {};
+      this._currentTransition = null;
+      this._previousTransition = null;
+      this._notFoundHandler = null;
+      this._notFoundRedirect = null;
+      this._beforeEachHooks = [];
+      this._afterEachHooks = [];
+
+      // trigger transition on initial render?
+      this._rendered = false;
+      this._transitionOnLoad = transitionOnLoad;
+
+      // history mode
+      this._root = root;
+      this._abstract = abstract;
+      this._hashbang = hashbang;
+
+      // check if HTML5 history is available
+      var hasPushState = typeof window !== 'undefined' && window.history && window.history.pushState;
+      this._history = history && hasPushState;
+      this._historyFallback = history && !hasPushState;
+
+      // create history object
+      var inBrowser = Vue.util.inBrowser;
+      this.mode = !inBrowser || this._abstract ? 'abstract' : this._history ? 'html5' : 'hash';
+
+      var History = historyBackends[this.mode];
+      this.history = new History({
+        root: root,
+        hashbang: this._hashbang,
+        onChange: function onChange(path, state, anchor) {
+          _this._match(path, state, anchor);
+        }
+      });
+
+      // other options
+      this._saveScrollPosition = saveScrollPosition;
+      this._linkActiveClass = linkActiveClass;
+      this._suppress = suppressTransitionError;
+    }
+
+    /**
+     * Allow directly passing components to a route
+     * definition.
+     *
+     * @param {String} path
+     * @param {Object} handler
+     */
+
+    // API ===================================================
+
+    /**
+    * Register a map of top-level paths.
+    *
+    * @param {Object} map
+    */
+
+    Router.prototype.map = function map(_map) {
+      for (var route in _map) {
+        this.on(route, _map[route]);
+      }
+      return this;
+    };
+
+    /**
+     * Register a single root-level path
+     *
+     * @param {String} rootPath
+     * @param {Object} handler
+     *                 - {String} component
+     *                 - {Object} [subRoutes]
+     *                 - {Boolean} [forceRefresh]
+     *                 - {Function} [before]
+     *                 - {Function} [after]
+     */
+
+    Router.prototype.on = function on(rootPath, handler) {
+      if (rootPath === '*') {
+        this._notFound(handler);
+      } else {
+        this._addRoute(rootPath, handler, []);
+      }
+      return this;
+    };
+
+    /**
+     * Set redirects.
+     *
+     * @param {Object} map
+     */
+
+    Router.prototype.redirect = function redirect(map) {
+      for (var path in map) {
+        this._addRedirect(path, map[path]);
+      }
+      return this;
+    };
+
+    /**
+     * Set aliases.
+     *
+     * @param {Object} map
+     */
+
+    Router.prototype.alias = function alias(map) {
+      for (var path in map) {
+        this._addAlias(path, map[path]);
+      }
+      return this;
+    };
+
+    /**
+     * Set global before hook.
+     *
+     * @param {Function} fn
+     */
+
+    Router.prototype.beforeEach = function beforeEach(fn) {
+      this._beforeEachHooks.push(fn);
+      return this;
+    };
+
+    /**
+     * Set global after hook.
+     *
+     * @param {Function} fn
+     */
+
+    Router.prototype.afterEach = function afterEach(fn) {
+      this._afterEachHooks.push(fn);
+      return this;
+    };
+
+    /**
+     * Navigate to a given path.
+     * The path can be an object describing a named path in
+     * the format of { name: '...', params: {}, query: {}}
+     * The path is assumed to be already decoded, and will
+     * be resolved against root (if provided)
+     *
+     * @param {String|Object} path
+     * @param {Boolean} [replace]
+     */
+
+    Router.prototype.go = function go(path) {
+      var replace = false;
+      var append = false;
+      if (Vue.util.isObject(path)) {
+        replace = path.replace;
+        append = path.append;
+      }
+      path = this.stringifyPath(path);
+      if (path) {
+        this.history.go(path, replace, append);
+      }
+    };
+
+    /**
+     * Short hand for replacing current path
+     *
+     * @param {String} path
+     */
+
+    Router.prototype.replace = function replace(path) {
+      if (typeof path === 'string') {
+        path = { path: path };
+      }
+      path.replace = true;
+      this.go(path);
+    };
+
+    /**
+     * Start the router.
+     *
+     * @param {VueConstructor} App
+     * @param {String|Element} container
+     * @param {Function} [cb]
+     */
+
+    Router.prototype.start = function start(App, container, cb) {
+      /* istanbul ignore if */
+      if (this._started) {
+        warn$1('already started.');
+        return;
+      }
+      this._started = true;
+      this._startCb = cb;
+      if (!this.app) {
+        /* istanbul ignore if */
+        if (!App || !container) {
+          throw new Error('Must start vue-router with a component and a ' + 'root container.');
+        }
+        /* istanbul ignore if */
+        if (App instanceof Vue) {
+          throw new Error('Must start vue-router with a component, not a ' + 'Vue instance.');
+        }
+        this._appContainer = container;
+        var Ctor = this._appConstructor = typeof App === 'function' ? App : Vue.extend(App);
+        // give it a name for better debugging
+        Ctor.options.name = Ctor.options.name || 'RouterApp';
+      }
+
+      // handle history fallback in browsers that do not
+      // support HTML5 history API
+      if (this._historyFallback) {
+        var _location = window.location;
+        var _history = new HTML5History({ root: this._root });
+        var path = _history.root ? _location.pathname.replace(_history.rootRE, '') : _location.pathname;
+        if (path && path !== '/') {
+          _location.assign((_history.root || '') + '/' + this.history.formatPath(path) + _location.search);
+          return;
+        }
+      }
+
+      this.history.start();
+    };
+
+    /**
+     * Stop listening to route changes.
+     */
+
+    Router.prototype.stop = function stop() {
+      this.history.stop();
+      this._started = false;
+    };
+
+    /**
+     * Normalize named route object / string paths into
+     * a string.
+     *
+     * @param {Object|String|Number} path
+     * @return {String}
+     */
+
+    Router.prototype.stringifyPath = function stringifyPath(path) {
+      var generatedPath = '';
+      if (path && typeof path === 'object') {
+        if (path.name) {
+          var extend = Vue.util.extend;
+          var currentParams = this._currentTransition && this._currentTransition.to.params;
+          var targetParams = path.params || {};
+          var params = currentParams ? extend(extend({}, currentParams), targetParams) : targetParams;
+          generatedPath = encodeURI(this._recognizer.generate(path.name, params));
+        } else if (path.path) {
+          generatedPath = encodeURI(path.path);
+        }
+        if (path.query) {
+          // note: the generated query string is pre-URL-encoded by the recognizer
+          var query = this._recognizer.generateQueryString(path.query);
+          if (generatedPath.indexOf('?') > -1) {
+            generatedPath += '&' + query.slice(1);
+          } else {
+            generatedPath += query;
+          }
+        }
+      } else {
+        generatedPath = encodeURI(path ? path + '' : '');
+      }
+      return generatedPath;
+    };
+
+    // Internal methods ======================================
+
+    /**
+    * Add a route containing a list of segments to the internal
+    * route recognizer. Will be called recursively to add all
+    * possible sub-routes.
+    *
+    * @param {String} path
+    * @param {Object} handler
+    * @param {Array} segments
+    */
+
+    Router.prototype._addRoute = function _addRoute(path, handler, segments) {
+      guardComponent(path, handler);
+      handler.path = path;
+      handler.fullPath = (segments.reduce(function (path, segment) {
+        return path + segment.path;
+      }, '') + path).replace('//', '/');
+      segments.push({
+        path: path,
+        handler: handler
+      });
+      this._recognizer.add(segments, {
+        as: handler.name
+      });
+      // add sub routes
+      if (handler.subRoutes) {
+        for (var subPath in handler.subRoutes) {
+          // recursively walk all sub routes
+          this._addRoute(subPath, handler.subRoutes[subPath],
+          // pass a copy in recursion to avoid mutating
+          // across branches
+          segments.slice());
+        }
+      }
+    };
+
+    /**
+     * Set the notFound route handler.
+     *
+     * @param {Object} handler
+     */
+
+    Router.prototype._notFound = function _notFound(handler) {
+      guardComponent('*', handler);
+      this._notFoundHandler = [{ handler: handler }];
+    };
+
+    /**
+     * Add a redirect record.
+     *
+     * @param {String} path
+     * @param {String} redirectPath
+     */
+
+    Router.prototype._addRedirect = function _addRedirect(path, redirectPath) {
+      if (path === '*') {
+        this._notFoundRedirect = redirectPath;
+      } else {
+        this._addGuard(path, redirectPath, this.replace);
+      }
+    };
+
+    /**
+     * Add an alias record.
+     *
+     * @param {String} path
+     * @param {String} aliasPath
+     */
+
+    Router.prototype._addAlias = function _addAlias(path, aliasPath) {
+      this._addGuard(path, aliasPath, this._match);
+    };
+
+    /**
+     * Add a path guard.
+     *
+     * @param {String} path
+     * @param {String} mappedPath
+     * @param {Function} handler
+     */
+
+    Router.prototype._addGuard = function _addGuard(path, mappedPath, _handler) {
+      var _this2 = this;
+
+      this._guardRecognizer.add([{
+        path: path,
+        handler: function handler(match, query) {
+          var realPath = mapParams(mappedPath, match.params, query);
+          _handler.call(_this2, realPath);
+        }
+      }]);
+    };
+
+    /**
+     * Check if a path matches any redirect records.
+     *
+     * @param {String} path
+     * @return {Boolean} - if true, will skip normal match.
+     */
+
+    Router.prototype._checkGuard = function _checkGuard(path) {
+      var matched = this._guardRecognizer.recognize(path, true);
+      if (matched) {
+        matched[0].handler(matched[0], matched.queryParams);
+        return true;
+      } else if (this._notFoundRedirect) {
+        matched = this._recognizer.recognize(path);
+        if (!matched) {
+          this.replace(this._notFoundRedirect);
+          return true;
+        }
+      }
+    };
+
+    /**
+     * Match a URL path and set the route context on vm,
+     * triggering view updates.
+     *
+     * @param {String} path
+     * @param {Object} [state]
+     * @param {String} [anchor]
+     */
+
+    Router.prototype._match = function _match(path, state, anchor) {
+      var _this3 = this;
+
+      if (this._checkGuard(path)) {
+        return;
+      }
+
+      var currentRoute = this._currentRoute;
+      var currentTransition = this._currentTransition;
+
+      if (currentTransition) {
+        if (currentTransition.to.path === path) {
+          // do nothing if we have an active transition going to the same path
+          return;
+        } else if (currentRoute.path === path) {
+          // We are going to the same path, but we also have an ongoing but
+          // not-yet-validated transition. Abort that transition and reset to
+          // prev transition.
+          currentTransition.aborted = true;
+          this._currentTransition = this._prevTransition;
+          return;
+        } else {
+          // going to a totally different path. abort ongoing transition.
+          currentTransition.aborted = true;
+        }
+      }
+
+      // construct new route and transition context
+      var route = new Route(path, this);
+      var transition = new RouteTransition(this, route, currentRoute);
+
+      // current transition is updated right now.
+      // however, current route will only be updated after the transition has
+      // been validated.
+      this._prevTransition = currentTransition;
+      this._currentTransition = transition;
+
+      if (!this.app) {
+        (function () {
+          // initial render
+          var router = _this3;
+          _this3.app = new _this3._appConstructor({
+            el: _this3._appContainer,
+            created: function created() {
+              this.$router = router;
+            },
+            _meta: {
+              $route: route
+            }
+          });
+        })();
+      }
+
+      // check global before hook
+      var beforeHooks = this._beforeEachHooks;
+      var startTransition = function startTransition() {
+        transition.start(function () {
+          _this3._postTransition(route, state, anchor);
+        });
+      };
+
+      if (beforeHooks.length) {
+        transition.runQueue(beforeHooks, function (hook, _, next) {
+          if (transition === _this3._currentTransition) {
+            transition.callHook(hook, null, next, {
+              expectBoolean: true
+            });
+          }
+        }, startTransition);
+      } else {
+        startTransition();
+      }
+
+      if (!this._rendered && this._startCb) {
+        this._startCb.call(null);
+      }
+
+      // HACK:
+      // set rendered to true after the transition start, so
+      // that components that are acitvated synchronously know
+      // whether it is the initial render.
+      this._rendered = true;
+    };
+
+    /**
+     * Set current to the new transition.
+     * This is called by the transition object when the
+     * validation of a route has succeeded.
+     *
+     * @param {Transition} transition
+     */
+
+    Router.prototype._onTransitionValidated = function _onTransitionValidated(transition) {
+      // set current route
+      var route = this._currentRoute = transition.to;
+      // update route context for all children
+      if (this.app.$route !== route) {
+        this.app.$route = route;
+        this._children.forEach(function (child) {
+          child.$route = route;
+        });
+      }
+      // call global after hook
+      if (this._afterEachHooks.length) {
+        this._afterEachHooks.forEach(function (hook) {
+          return hook.call(null, {
+            to: transition.to,
+            from: transition.from
+          });
+        });
+      }
+      this._currentTransition.done = true;
+    };
+
+    /**
+     * Handle stuff after the transition.
+     *
+     * @param {Route} route
+     * @param {Object} [state]
+     * @param {String} [anchor]
+     */
+
+    Router.prototype._postTransition = function _postTransition(route, state, anchor) {
+      // handle scroll positions
+      // saved scroll positions take priority
+      // then we check if the path has an anchor
+      var pos = state && state.pos;
+      if (pos && this._saveScrollPosition) {
+        Vue.nextTick(function () {
+          window.scrollTo(pos.x, pos.y);
+        });
+      } else if (anchor) {
+        Vue.nextTick(function () {
+          var el = document.getElementById(anchor.slice(1));
+          if (el) {
+            window.scrollTo(window.scrollX, el.offsetTop);
+          }
+        });
+      }
+    };
+
+    return Router;
+  })();
+
+  function guardComponent(path, handler) {
+    var comp = handler.component;
+    if (Vue.util.isPlainObject(comp)) {
+      comp = handler.component = Vue.extend(comp);
+    }
+    /* istanbul ignore if */
+    if (typeof comp !== 'function') {
+      handler.component = null;
+      warn$1('invalid component for route "' + path + '".');
+    }
+  }
+
+  /* Installation */
+
+  Router.installed = false;
+
+  /**
+   * Installation interface.
+   * Install the necessary directives.
+   */
+
+  Router.install = function (externalVue) {
+    /* istanbul ignore if */
+    if (Router.installed) {
+      warn$1('already installed.');
+      return;
+    }
+    Vue = externalVue;
+    applyOverride(Vue);
+    View(Vue);
+    Link(Vue);
+    exports$1.Vue = Vue;
+    Router.installed = true;
+  };
+
+  // auto install
+  /* istanbul ignore if */
+  if (typeof window !== 'undefined' && window.Vue) {
+    window.Vue.use(Router);
+  }
+
+  return Router;
+
+}));
+},{}],28:[function(require,module,exports){
+!function(t,e){"object"==typeof exports&&"object"==typeof module?module.exports=e():"function"==typeof define&&define.amd?define([],e):"object"==typeof exports?exports.VueSpinner=e():t.VueSpinner=e()}(this,function(){return function(t){function e(n){if(i[n])return i[n].exports;var a=i[n]={exports:{},id:n,loaded:!1};return t[n].call(a.exports,a,a.exports,e),a.loaded=!0,a.exports}var i={};return e.m=t,e.c=i,e.p="",e(0)}([function(t,e,i){"use strict";function n(t){return t&&t.__esModule?t:{"default":t}}var a=i(91),r=n(a),o=i(88),s=n(o),l=i(85),d=n(l),p=i(93),f=n(p),c=i(83),u=n(c),v=i(98),m=n(v),y=i(94),b=n(y),h=i(87),g=n(h),x=i(90),S=n(x),k=i(97),w=n(k),D=i(95),Y=n(D),z=i(96),_=n(z),R=i(89),L=n(R),M=i(92),X=n(M),B=i(84),C=n(B),j=i(86),O=n(j),F={PulseLoader:r["default"],GridLoader:s["default"],ClipLoader:d["default"],RiseLoader:f["default"],BeatLoader:u["default"],SyncLoader:m["default"],RotateLoader:b["default"],FadeLoader:g["default"],PacmanLoader:S["default"],SquareLoader:w["default"],ScaleLoader:Y["default"],SkewLoader:_["default"],MoonLoader:L["default"],RingLoader:X["default"],BounceLoader:C["default"],DotLoader:O["default"]};t.exports=F},function(t,e){t.exports=function(){var t=[];return t.toString=function(){for(var t=[],e=0;e<this.length;e++){var i=this[e];i[2]?t.push("@media "+i[2]+"{"+i[1]+"}"):t.push(i[1])}return t.join("")},t.i=function(e,i){"string"==typeof e&&(e=[[null,e,""]]);for(var n={},a=0;a<this.length;a++){var r=this[a][0];"number"==typeof r&&(n[r]=!0)}for(a=0;a<e.length;a++){var o=e[a];"number"==typeof o[0]&&n[o[0]]||(i&&!o[2]?o[2]=i:i&&(o[2]="("+o[2]+") and ("+i+")"),t.push(o))}},t}},function(t,e,i){function n(t,e){for(var i=0;i<t.length;i++){var n=t[i],a=u[n.id];if(a){a.refs++;for(var r=0;r<a.parts.length;r++)a.parts[r](n.parts[r]);for(;r<n.parts.length;r++)a.parts.push(d(n.parts[r],e))}else{for(var o=[],r=0;r<n.parts.length;r++)o.push(d(n.parts[r],e));u[n.id]={id:n.id,refs:1,parts:o}}}}function a(t){for(var e=[],i={},n=0;n<t.length;n++){var a=t[n],r=a[0],o=a[1],s=a[2],l=a[3],d={css:o,media:s,sourceMap:l};i[r]?i[r].parts.push(d):e.push(i[r]={id:r,parts:[d]})}return e}function r(t,e){var i=y(),n=g[g.length-1];if("top"===t.insertAt)n?n.nextSibling?i.insertBefore(e,n.nextSibling):i.appendChild(e):i.insertBefore(e,i.firstChild),g.push(e);else{if("bottom"!==t.insertAt)throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");i.appendChild(e)}}function o(t){t.parentNode.removeChild(t);var e=g.indexOf(t);e>=0&&g.splice(e,1)}function s(t){var e=document.createElement("style");return e.type="text/css",r(t,e),e}function l(t){var e=document.createElement("link");return e.rel="stylesheet",r(t,e),e}function d(t,e){var i,n,a;if(e.singleton){var r=h++;i=b||(b=s(e)),n=p.bind(null,i,r,!1),a=p.bind(null,i,r,!0)}else t.sourceMap&&"function"==typeof URL&&"function"==typeof URL.createObjectURL&&"function"==typeof URL.revokeObjectURL&&"function"==typeof Blob&&"function"==typeof btoa?(i=l(e),n=c.bind(null,i),a=function(){o(i),i.href&&URL.revokeObjectURL(i.href)}):(i=s(e),n=f.bind(null,i),a=function(){o(i)});return n(t),function(e){if(e){if(e.css===t.css&&e.media===t.media&&e.sourceMap===t.sourceMap)return;n(t=e)}else a()}}function p(t,e,i,n){var a=i?"":n.css;if(t.styleSheet)t.styleSheet.cssText=x(e,a);else{var r=document.createTextNode(a),o=t.childNodes;o[e]&&t.removeChild(o[e]),o.length?t.insertBefore(r,o[e]):t.appendChild(r)}}function f(t,e){var i=e.css,n=e.media;e.sourceMap;if(n&&t.setAttribute("media",n),t.styleSheet)t.styleSheet.cssText=i;else{for(;t.firstChild;)t.removeChild(t.firstChild);t.appendChild(document.createTextNode(i))}}function c(t,e){var i=e.css,n=(e.media,e.sourceMap);n&&(i+="\n/*# sourceMappingURL=data:application/json;base64,"+btoa(unescape(encodeURIComponent(JSON.stringify(n))))+" */");var a=new Blob([i],{type:"text/css"}),r=t.href;t.href=URL.createObjectURL(a),r&&URL.revokeObjectURL(r)}var u={},v=function(t){var e;return function(){return"undefined"==typeof e&&(e=t.apply(this,arguments)),e}},m=v(function(){return/msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase())}),y=v(function(){return document.head||document.getElementsByTagName("head")[0]}),b=null,h=0,g=[];t.exports=function(t,e){e=e||{},"undefined"==typeof e.singleton&&(e.singleton=m()),"undefined"==typeof e.insertAt&&(e.insertAt="bottom");var i=a(t);return n(i,e),function(t){for(var r=[],o=0;o<i.length;o++){var s=i[o],l=u[s.id];l.refs--,r.push(l)}if(t){var d=a(t);n(d,e)}for(var o=0;o<r.length;o++){var l=r[o];if(0===l.refs){for(var p=0;p<l.parts.length;p++)l.parts[p]();delete u[l.id]}}}};var x=function(){var t=[];return function(e,i){return t[e]=i,t.filter(Boolean).join("\n")}}()},,,,,,,,,,,,,,,,,function(t,e){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e["default"]={name:"BeatLoader",props:{loading:{type:Boolean,"default":!0},color:{type:String,"default":"#5dc596"},size:{type:String,"default":"15px"},margin:{type:String,"default":"2px"},radius:{type:String,"default":"100%"}},data:function(){return{spinnerStyle:{backgroundColor:this.color,height:this.size,width:this.size,margin:this.margin,borderRadius:this.radius}}}}},function(t,e){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e["default"]={name:"BounceLoader",props:{loading:{type:Boolean,"default":!0},color:{type:String,"default":"#5dc596"},size:{type:String,"default":"60px"},margin:{type:String,"default":"2px"},radius:{type:String,"default":"100%"}},data:function(){return{spinnerStyle:{backgroundColor:this.color,height:this.size,width:this.size,borderRadius:this.radius,opacity:.6,position:"absolute",top:0,left:0}}},computed:{spinnerBasicStyle:function(){return{height:this.size,width:this.size,position:"relative"}}}}},function(t,e){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e["default"]={name:"ClipLoader",props:{loading:{type:Boolean,"default":!0},color:{type:String,"default":"#5dc596"},size:{type:String,"default":"35px"},radius:{type:String,"default":"100%"}},computed:{spinnerStyle:function(){return{height:this.size,width:this.size,borderWidth:"2px",borderStyle:"solid",borderColor:this.color+" "+this.color+" transparent",borderRadius:this.radius,background:"transparent !important"}}}}},function(t,e){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e["default"]={name:"DotLoader",props:{loading:{type:Boolean,"default":!0},color:{type:String,"default":"#5dc596"},size:{type:String,"default":"60px"},margin:{type:String,"default":"2px"},radius:{type:String,"default":"100%"}},computed:{spinnerStyle:function(){return{backgroundColor:this.color,height:parseFloat(this.size)/2+"px",width:parseFloat(this.size)/2+"px",borderRadius:this.radius}},spinnerBasicStyle:function(){return{height:this.size,width:this.size,position:"relative"}}}}},function(t,e){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e["default"]={name:"FadeLoader",props:{loading:{type:Boolean,"default":!0},color:{type:String,"default":"#5dc596"},height:{type:String,"default":"15px"},width:{type:String,"default":"5px"},margin:{type:String,"default":"2px"},radius:{type:String,"default":"2px"}},data:function(){return{spinnerStyle:{backgroundColor:this.color,height:this.height,width:this.width,margin:this.margin,borderRadius:this.radius},radius:"20px"}},computed:{ngRadius:function(){return"-"+this.radius},quarter:function(){return parseFloat(this.radius)/2+parseFloat(this.radius)/5.5+"px"},ngQuarter:function(){return"-"+this.quarter},animationStyle1:function(){return{top:this.radius,left:0,animationDelay:"0.12s"}},animationStyle2:function(){return{top:this.quarter,left:this.quarter,animationDelay:"0.24s",transform:"rotate(-45deg)"}},animationStyle3:function(){return{top:0,left:this.radius,animationDelay:"0.36s",transform:"rotate(90deg)"}},animationStyle4:function(){return{top:this.ngQuarter,left:this.quarter,animationDelay:"0.48s",transform:"rotate(45deg)"}},animationStyle5:function(){return{top:this.ngRadius,left:0,animationDelay:"0.60s"}},animationStyle6:function(){return{top:this.ngQuarter,left:this.ngQuarter,animationDelay:"0.72s",transform:"rotate(-45deg)"}},animationStyle7:function(){return{top:0,left:this.ngRadius,animationDelay:"0.84s",transform:"rotate(90deg)"}},animationStyle8:function(){return{top:this.quarter,left:this.ngQuarter,animationDelay:"0.96s",transform:"rotate(45deg)"}}}}},function(t,e){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e["default"]={name:"GridLoader",props:{loading:{type:Boolean,"default":!0},color:{type:String,"default":"#5dc596"},size:{type:String,"default":"15px"},margin:{type:String,"default":"2px"},radius:{type:String,"default":"100%"}},data:function(){return{spinnerStyle:{backgroundColor:this.color,width:this.size,height:this.size,margin:this.margin,borderRadius:this.radius}}},computed:{animationStyle:function(){return{animationName:"v-gridStretchDelay",animationIterationCount:"infinite",animationTimingFunction:"ease",animationFillMode:"both",display:"inline-block"}},animationStyle1:function(){return{animationDelay:this.delay(),animationDuration:this.duration()}},animationStyle2:function(){return{animationDelay:this.delay(),animationDuration:this.duration()}},animationStyle3:function(){return{animationDelay:this.delay(),animationDuration:this.duration()}},animationStyle4:function(){return{animationDelay:this.delay(),animationDuration:this.duration()}},animationStyle5:function(){return{animationDelay:this.delay(),animationDuration:this.duration()}},animationStyle6:function(){return{animationDelay:this.delay(),animationDuration:this.duration()}},animationStyle7:function(){return{animationDelay:this.delay(),animationDuration:this.duration()}},animationStyle8:function(){return{animationDelay:this.delay(),animationDuration:this.duration()}},animationStyle9:function(){return{animationDelay:this.delay(),animationDuration:this.duration()}},containerStyle:function(){return{width:3*parseFloat(this.size)+6*parseFloat(this.margin)+"px",fontSize:0}}},methods:{random:function(t){return Math.random()*t},delay:function(){return this.random(100)/100-.2+"s"},duration:function(){return this.random(100)/100+.6+"s"}}}},function(t,e){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e["default"]={name:"MoonLoader",props:{loading:{type:Boolean,"default":!0},color:{type:String,"default":"#5dc596"},size:{type:String,"default":"60px"},margin:{type:String,"default":"2px"},radius:{type:String,"default":"100%"}},data:function(){return{spinnerStyle:{height:this.size,width:this.size,borderRadius:this.radius}}},computed:{moonSize:function(){return parseFloat(this.size)/7},spinnerMoonStyle:function(){return{height:this.moonSize+"px",width:this.moonSize+"px",borderRadius:this.radius}},animationStyle2:function(){return{top:parseFloat(this.size)/2-this.moonSize/2+"px",backgroundColor:this.color}},animationStyle3:function(){return{border:this.moonSize+"px solid "+this.color}}}}},function(t,e){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e["default"]={name:"PacmanLoader",props:{loading:{type:Boolean,"default":!0},color:{type:String,"default":"#5dc596"},size:{type:String,"default":"25px"},margin:{type:String,"default":"2px"},radius:{type:String,"default":"100%"}},data:function(){return{spinnerDelay2:{animationDelay:"0.25s"},spinnerDelay3:{animationDelay:"0.50s"},spinnerDelay4:{animationDelay:"0.75s"},spinnerDelay5:{animationDelay:"1s"}}},computed:{spinnerStyle:function(){return{backgroundColor:this.color,width:this.size,height:this.size,margin:this.margin,borderRadius:this.radius}},border1:function(){return this.size+" solid transparent"},border2:function(){return this.size+" solid "+this.color},spinnerStyle1:function(){return{width:0,height:0,borderTop:this.border2,borderRight:this.border1,borderBottom:this.border2,borderLeft:this.border2,borderRadius:this.size}},animationStyle:function(){return{width:"10px",height:"10px",transform:"translate(0, "+-parseFloat(this.size)/4+"px)",position:"absolute",top:"25px",left:"100px",animationName:"v-pacmanStretchDelay",animationDuration:"1s",animationIterationCount:"infinite",animationTimingFunction:"linear",animationFillMode:"both"}}}}},function(t,e){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e["default"]={name:"PulseLoader",props:{loading:{type:Boolean,"default":!0},color:{type:String,"default":"#5dc596"},size:{type:String,"default":"15px"},margin:{type:String,"default":"2px"},radius:{type:String,"default":"100%"}},data:function(){return{spinnerStyle:{backgroundColor:this.color,width:this.size,height:this.size,margin:this.margin,borderRadius:this.radius,display:"inline-block",animationName:"v-pulseStretchDelay",animationDuration:"0.75s",animationIterationCount:"infinite",animationTimingFunction:"cubic-bezier(.2,.68,.18,1.08)",animationFillMode:"both"},spinnerDelay1:{animationDelay:"0.12s"},spinnerDelay2:{animationDelay:"0.24s"},spinnerDelay3:{animationDelay:"0.36s"}}}}},function(t,e){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e["default"]={name:"RingLoader",props:{loading:{type:Boolean,"default":!0},color:{type:String,"default":"#5dc596"},size:{type:String,"default":"60px"},margin:{type:String,"default":"2px"},radius:{type:String,"default":"100%"}},computed:{spinnerStyle:function(){return{height:this.size,width:this.size,border:parseFloat(this.size)/10+"px solid"+this.color,opacity:.4,borderRadius:this.radius}},spinnerBasicStyle:function(){return{height:this.size,width:this.size,position:"relative"}}}}},function(t,e){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e["default"]={name:"RiseLoader",props:{loading:{type:Boolean,"default":!0},color:{type:String,"default":"#5dc596"},size:{type:String,"default":"15px"},margin:{type:String,"default":"2px"},radius:{type:String,"default":"100%"}},data:function(){return{spinnerStyle:{backgroundColor:this.color,height:this.size,width:this.size,margin:this.margin,borderRadius:this.radius}}}}},function(t,e){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e["default"]={name:"RotateLoader",props:{loading:{type:Boolean,"default":!0},color:{type:String,"default":"#5dc596"},size:{type:String,"default":"15px"},margin:{type:String,"default":"2px"},radius:{type:String,"default":"100%"}},data:function(){return{spinnerStyle:{backgroundColor:this.color,height:this.size,width:this.size,margin:this.margin,borderRadius:this.radius}}}}},function(t,e){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e["default"]={name:"ScaleLoader",props:{loading:{type:Boolean,"default":!0},color:{type:String,"default":"#5dc596"},height:{type:String,"default":"35px"},width:{type:String,"default":"4px"},margin:{type:String,"default":"2px"},radius:{type:String,"default":"2px"}},data:function(){return{spinnerStyle:{backgroundColor:this.color,height:this.height,width:this.width,margin:this.margin,borderRadius:this.radius,display:"inline-block",animationName:"v-scaleStretchDelay",animationDuration:"1s",animationIterationCount:"infinite",animationTimingFunction:"cubic-bezier(.2,.68,.18,1.08)",animationFillMode:"both"},spinnerDelay1:{animationDelay:"0.1s"},spinnerDelay2:{animationDelay:"0.2s"},spinnerDelay3:{animationDelay:"0.3s"},spinnerDelay4:{animationDelay:"0.4s"},spinnerDelay5:{animationDelay:"0.5s"}}}}},function(t,e){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e["default"]={name:"SkewLoader",props:{loading:{type:Boolean,"default":!0},color:{type:String,"default":"#5dc596"},size:{type:String,"default":"20px"}},data:function(){return{spinnerStyle:{height:0,width:0,borderLeft:this.size+" solid transparent",borderRight:this.size+" solid transparent",borderBottom:this.size+" solid "+this.color}}}}},function(t,e){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e["default"]={name:"SquareLoader",props:{loading:{type:Boolean,"default":!0},color:{type:String,"default":"#5dc596"},size:{type:String,"default":"50px"}},data:function(){return{spinnerStyle:{backgroundColor:this.color,height:this.size,width:this.size}}}}},function(t,e){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e["default"]={name:"SyncLoader",props:{loading:{type:Boolean,"default":!0},color:{type:String,"default":"#5dc596"},size:{type:String,"default":"15px"},margin:{type:String,"default":"2px"},radius:{type:String,"default":"100%"}},data:function(){return{spinnerStyle:{backgroundColor:this.color,height:this.size,width:this.size,margin:this.margin,borderRadius:this.radius,display:"inline-block",animationName:"v-syncStretchDelay",animationDuration:"0.6s",animationIterationCount:"infinite",animationTimingFunction:"ease-in-out",animationFillMode:"both"},spinnerDelay1:{animationDelay:"0.07s"},spinnerDelay2:{animationDelay:"0.14s"},spinnerDelay3:{animationDelay:"0.21s"}}}}},function(t,e,i){e=t.exports=i(1)(),e.push([t.id,"@-webkit-keyframes v-syncStretchDelay{33%{-webkit-transform:translateY(10px);transform:translateY(10px)}66%{-webkit-transform:translateY(-10px);transform:translateY(-10px)}to{-webkit-transform:translateY(0);transform:translateY(0)}}@keyframes v-syncStretchDelay{33%{-webkit-transform:translateY(10px);transform:translateY(10px)}66%{-webkit-transform:translateY(-10px);transform:translateY(-10px)}to{-webkit-transform:translateY(0);transform:translateY(0)}}",""])},function(t,e,i){e=t.exports=i(1)(),e.push([t.id,".v-spinner .v-fade{-webkit-animation:v-fadeStretchDelay 1.2s infinite ease-in-out;animation:v-fadeStretchDelay 1.2s infinite ease-in-out;-webkit-animation-fill-mode:both;animation-fill-mode:both;position:absolute}@-webkit-keyframes v-fadeStretchDelay{50%{-webkit-opacity:.3;opacity:.3}to{-webkit-opacity:1;opacity:1}}@keyframes v-fadeStretchDelay{50%{-webkit-opacity:.3;opacity:.3}to{-webkit-opacity:1;opacity:1}}",""])},function(t,e,i){e=t.exports=i(1)(),e.push([t.id,".v-spinner{text-align:center}.v-spinner .v-clip{-webkit-animation:v-clipDelay .75s 0s infinite linear;animation:v-clipDelay .75s 0s infinite linear;-webkit-animation-fill-mode:both;animation-fill-mode:both;display:inline-block}@-webkit-keyframes v-clipDelay{0%{-webkit-transform:rotate(0deg) scale(1);transform:rotate(0deg) scale(1)}50%{-webkit-transform:rotate(180deg) scale(.8);transform:rotate(180deg) scale(.8)}to{-webkit-transform:rotate(1turn) scale(1);transform:rotate(1turn) scale(1)}}@keyframes v-clipDelay{0%{-webkit-transform:rotate(0deg) scale(1);transform:rotate(0deg) scale(1)}50%{-webkit-transform:rotate(180deg) scale(.8);transform:rotate(180deg) scale(.8)}to{-webkit-transform:rotate(1turn) scale(1);transform:rotate(1turn) scale(1)}}",""])},function(t,e,i){e=t.exports=i(1)(),e.push([t.id,".v-spinner .v-beat{-webkit-animation:v-beatStretchDelay .7s infinite linear;animation:v-beatStretchDelay .7s infinite linear;-webkit-animation-fill-mode:both;animation-fill-mode:both;display:inline-block}.v-spinner .v-beat-odd{-webkit-animation-delay:0s;animation-delay:0s}.v-spinner .v-beat-even{-webkit-animation-delay:.35s;animation-delay:.35s}@-webkit-keyframes v-beatStretchDelay{50%{-webkit-transform:scale(.75);transform:scale(.75);-webkit-opacity:.2;opacity:.2}to{-webkit-transform:scale(1);transform:scale(1);-webkit-opacity:1;opacity:1}}@keyframes v-beatStretchDelay{50%{-webkit-transform:scale(.75);transform:scale(.75);-webkit-opacity:.2;opacity:.2}to{-webkit-transform:scale(1);transform:scale(1);-webkit-opacity:1;opacity:1}}",""])},function(t,e,i){e=t.exports=i(1)(),e.push([t.id,".v-spinner{text-align:center}.v-spinner .v-skew{-webkit-animation:v-skewDelay 3s 0s infinite cubic-bezier(.09,.57,.49,.9);animation:v-skewDelay 3s 0s infinite cubic-bezier(.09,.57,.49,.9);-webkit-animation-fill-mode:both;animation-fill-mode:both;display:inline-block}@-webkit-keyframes v-skewDelay{25%{-webkit-transform:perspective(100px) rotateX(180deg) rotateY(0);transform:perspective(100px) rotateX(180deg) rotateY(0)}50%{-webkit-transform:perspective(100px) rotateX(180deg) rotateY(180deg);transform:perspective(100px) rotateX(180deg) rotateY(180deg)}75%{-webkit-transform:perspective(100px) rotateX(0) rotateY(180deg);transform:perspective(100px) rotateX(0) rotateY(180deg)}to{-webkit-transform:perspective(100px) rotateX(0) rotateY(0);transform:perspective(100px) rotateX(0) rotateY(0)}}@keyframes v-skewDelay{25%{-webkit-transform:perspective(100px) rotateX(180deg) rotateY(0);transform:perspective(100px) rotateX(180deg) rotateY(0)}50%{-webkit-transform:perspective(100px) rotateX(180deg) rotateY(180deg);transform:perspective(100px) rotateX(180deg) rotateY(180deg)}75%{-webkit-transform:perspective(100px) rotateX(0) rotateY(180deg);transform:perspective(100px) rotateX(0) rotateY(180deg)}to{-webkit-transform:perspective(100px) rotateX(0) rotateY(0);transform:perspective(100px) rotateX(0) rotateY(0)}}",""])},function(t,e,i){e=t.exports=i(1)(),e.push([t.id,"@-webkit-keyframes v-gridStretchDelay{0%{-webkit-transform:scale(1);transform:scale(1)}50%{-webkit-transform:scale(.5);transform:scale(.5);-webkit-opacity:.7;opacity:.7}to{-webkit-transform:scale(1);transform:scale(1);-webkit-opacity:1;opacity:1}}@keyframes v-gridStretchDelay{0%{-webkit-transform:scale(1);transform:scale(1)}50%{-webkit-transform:scale(.5);transform:scale(.5);-webkit-opacity:.7;opacity:.7}to{-webkit-transform:scale(1);transform:scale(1);-webkit-opacity:1;opacity:1}}",""])},function(t,e,i){e=t.exports=i(1)(),e.push([t.id,".v-spinner .v-rotate1{-webkit-animation:v-rotateStretchDelay 1s 0s infinite cubic-bezier(.7,-.13,.22,.86);animation:v-rotateStretchDelay 1s 0s infinite cubic-bezier(.7,-.13,.22,.86);-webkit-animation-fill-mode:both;animation-fill-mode:both;display:inline-block;position:relative}.v-spinner .v-rotate2{opacity:.8;position:absolute;top:0;left:-28px}.v-spinner .v-rotate3{opacity:.8;position:absolute;top:0;left:25px}@-webkit-keyframes v-rotateStretchDelay{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}50%{-webkit-transform:rotate(180deg);transform:rotate(180deg)}to{-webkit-transform:rotate(1turn);transform:rotate(1turn)}}@keyframes v-rotateStretchDelay{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}50%{-webkit-transform:rotate(180deg);transform:rotate(180deg)}to{-webkit-transform:rotate(1turn);transform:rotate(1turn)}}",""])},function(t,e,i){e=t.exports=i(1)(),e.push([t.id,".v-spinner .v-moon1{position:relative}.v-spinner .v-moon1,.v-spinner .v-moon2{-webkit-animation:v-moonStretchDelay .6s 0s infinite linear;animation:v-moonStretchDelay .6s 0s infinite linear;-webkit-animation-fill-mode:forwards;animation-fill-mode:forwards}.v-spinner .v-moon2{opacity:.8;position:absolute}.v-spinner .v-moon3{opacity:.1}@-webkit-keyframes v-moonStretchDelay{to{-webkit-transform:rotate(1turn);transform:rotate(1turn)}}@keyframes v-moonStretchDelay{to{-webkit-transform:rotate(1turn);transform:rotate(1turn)}}",""])},function(t,e,i){e=t.exports=i(1)(),e.push([t.id,"@-webkit-keyframes v-pulseStretchDelay{0%,80%{-webkit-transform:scale(1);transform:scale(1);-webkit-opacity:1;opacity:1}45%{-webkit-transform:scale(.1);transform:scale(.1);-webkit-opacity:.7;opacity:.7}}@keyframes v-pulseStretchDelay{0%,80%{-webkit-transform:scale(1);transform:scale(1);-webkit-opacity:1;opacity:1}45%{-webkit-transform:scale(.1);transform:scale(.1);-webkit-opacity:.7;opacity:.7}}",""])},function(t,e,i){e=t.exports=i(1)(),e.push([t.id,".v-spinner{text-align:center}.v-spinner .v-square{-webkit-animation:v-squareDelay 3s 0s infinite cubic-bezier(.09,.57,.49,.9);animation:v-squareDelay 3s 0s infinite cubic-bezier(.09,.57,.49,.9);-webkit-animation-fill-mode:both;animation-fill-mode:both;-webkit-perspective:100px;perspective:100px;display:inline-block}@-webkit-keyframes v-squareDelay{25%{-webkit-transform:rotateX(180deg) rotateY(0);transform:rotateX(180deg) rotateY(0)}50%{-webkit-transform:rotateX(180deg) rotateY(180deg);transform:rotateX(180deg) rotateY(180deg)}75%{-webkit-transform:rotateX(0) rotateY(180deg);transform:rotateX(0) rotateY(180deg)}to{-webkit-transform:rotateX(0) rotateY(0);transform:rotateX(0) rotateY(0)}}@keyframes v-squareDelay{25%{-webkit-transform:rotateX(180deg) rotateY(0);transform:rotateX(180deg) rotateY(0)}50%{-webkit-transform:rotateX(180deg) rotateY(180deg);transform:rotateX(180deg) rotateY(180deg)}75%{-webkit-transform:rotateX(0) rotateY(180deg);transform:rotateX(0) rotateY(180deg)}to{-webkit-transform:rotateX(0) rotateY(0);transform:rotateX(0) rotateY(0)}}",""])},function(t,e,i){e=t.exports=i(1)(),e.push([t.id,".v-spinner .v-bounce2{-webkit-animation:v-bounceStretchDelay 2s 1s infinite ease-in-out;animation:v-bounceStretchDelay 2s 1s infinite ease-in-out;-webkit-animation-fill-mode:both;animation-fill-mode:both}.v-spinner .v-bounce3{-webkit-animation:v-bounceStretchDelay 2s 0s infinite ease-in-out;animation:v-bounceStretchDelay 2s 0s infinite ease-in-out;-webkit-animation-fill-mode:both;animation-fill-mode:both}@-webkit-keyframes v-bounceStretchDelay{0%,to{-webkit-transform:scale(0);transform:scale(0)}50%{-webkit-transform:scale(1);transform:scale(1)}}@keyframes v-bounceStretchDelay{0%,to{-webkit-transform:scale(0);transform:scale(0)}50%{-webkit-transform:scale(1);transform:scale(1)}}",""])},function(t,e,i){e=t.exports=i(1)(),e.push([t.id,".v-spinner .v-dot1{-webkit-animation:v-dotRotate 2s 0s infinite linear;animation:v-dotRotate 2s 0s infinite linear;-webkit-animation-fill-mode:forwards;animation-fill-mode:forwards}.v-spinner .v-dot2{-webkit-animation:v-dotBounce 2s 0s infinite linear;animation:v-dotBounce 2s 0s infinite linear;animation-fill-mode:forwards;top:0;bottom:auto}.v-spinner .v-dot2,.v-spinner .v-dot3{-webkit-animation-fill-mode:forwards;position:'absolute'}.v-spinner .v-dot3{-webkit-animation:v-dotBounce 2s -1s infinite linear;animation:v-dotBounce 2s -1s infinite linear;animation-fill-mode:forwards;top:auto;bottom:0}@-webkit-keyframes v-dotRotate{to{-webkit-transform:rotate(1turn);transform:rotate(1turn)}}@keyframes v-dotRotate{to{-webkit-transform:rotate(1turn);transform:rotate(1turn)}}@-webkit-keyframes v-dotBounce{0%,to{-webkit-transform:scale(0);transform:scale(0)}50%{-webkit-transform:scale(1);transform:scale(1)}}@keyframes v-dotBounce{0%,to{-webkit-transform:scale(0);transform:scale(0)}50%{-webkit-transform:scale(1);transform:scale(1)}}",""])},function(t,e,i){e=t.exports=i(1)(),e.push([t.id,".v-spinner .v-ring2{-webkit-animation:v-ringRightRotate 2s 0s infinite linear;animation:v-ringRightRotate 2s 0s infinite linear;animation-fill-mode:forwards}.v-spinner .v-ring2,.v-spinner .v-ring3{-webkit-animation-fill-mode:forwards;-webkit-perspective:800px;perspective:800px;position:absolute;top:0;left:0}.v-spinner .v-ring3{-webkit-animation:v-ringLeftRotate 2s 0s infinite linear;animation:v-ringLeftRotate 2s 0s infinite linear;animation-fill-mode:forwards}@-webkit-keyframes v-ringRightRotate{0%{-webkit-transform:rotateX(0deg) rotateY(0deg) rotate(0deg);transform:rotateX(0deg) rotateY(0deg) rotate(0deg)}to{-webkit-transform:rotateX(180deg) rotateY(1turn) rotate(1turn);transform:rotateX(180deg) rotateY(1turn) rotate(1turn)}}@keyframes v-ringRightRotate{0%{-webkit-transform:rotateX(0deg) rotateY(0deg) rotate(0deg);transform:rotateX(0deg) rotateY(0deg) rotate(0deg)}to{-webkit-transform:rotateX(180deg) rotateY(1turn) rotate(1turn);transform:rotateX(180deg) rotateY(1turn) rotate(1turn)}}@-webkit-keyframes v-ringLeftRotate{0%{-webkit-transform:rotateX(0deg) rotateY(0deg) rotate(0deg);transform:rotateX(0deg) rotateY(0deg) rotate(0deg)}to{-webkit-transform:rotateX(1turn) rotateY(180deg) rotate(1turn);transform:rotateX(1turn) rotateY(180deg) rotate(1turn)}}@keyframes v-ringLeftRotate{0%{-webkit-transform:rotateX(0deg) rotateY(0deg) rotate(0deg);transform:rotateX(0deg) rotateY(0deg) rotate(0deg)}to{-webkit-transform:rotateX(1turn) rotateY(180deg) rotate(1turn);transform:rotateX(1turn) rotateY(180deg) rotate(1turn)}}",""])},function(t,e,i){e=t.exports=i(1)(),e.push([t.id,".v-spinner{text-align:center}@-webkit-keyframes v-scaleStretchDelay{0%,to{-webkit-transform:scaleY(1);transform:scaleY(1)}50%{-webkit-transform:scaleY(.4);transform:scaleY(.4)}}@keyframes v-scaleStretchDelay{0%,to{-webkit-transform:scaleY(1);transform:scaleY(1)}50%{-webkit-transform:scaleY(.4);transform:scaleY(.4)}}",""])},function(t,e,i){e=t.exports=i(1)(),e.push([t.id,".v-spinner{text-align:center}.v-spinner .v-rise-odd{-webkit-animation:v-riseOddDelay 1s 0s infinite cubic-bezier(.15,.46,.9,.6);animation:v-riseOddDelay 1s 0s infinite cubic-bezier(.15,.46,.9,.6);animation-fill-mode:both}.v-spinner .v-rise-even,.v-spinner .v-rise-odd{-webkit-animation-fill-mode:both;display:inline-block}.v-spinner .v-rise-even{-webkit-animation:v-riseEvenDelay 1s 0s infinite cubic-bezier(.15,.46,.9,.6);animation:v-riseEvenDelay 1s 0s infinite cubic-bezier(.15,.46,.9,.6);animation-fill-mode:both}@-webkit-keyframes v-riseOddDelay{25{-webkit-transform:translateY(30px);transform:translateY(30px)}0%{-webkit-transform:scale(.4);transform:scale(.4)}50%{-webkit-transform:scale(1.1);transform:scale(1.1)}75%{-webkit-transform:translateY(-30px);transform:translateY(-30px)}to{-webkit-transform:translateY(0) scale(.75);transform:translateY(0) scale(.75)}}@keyframes v-riseOddDelay{25{-webkit-transform:translateY(30px);transform:translateY(30px)}0%{-webkit-transform:scale(.4);transform:scale(.4)}50%{-webkit-transform:scale(1.1);transform:scale(1.1)}75%{-webkit-transform:translateY(-30px);transform:translateY(-30px)}to{-webkit-transform:translateY(0) scale(.75);transform:translateY(0) scale(.75)}}@-webkit-keyframes v-riseEvenDelay{25{-webkit-transform:translateY(-30px);transform:translateY(-30px)}0%{-webkit-transform:scale(1.1);transform:scale(1.1)}50%{-webkit-transform:scale(.4);transform:scale(.4)}75%{-webkit-transform:translateY(30px);transform:translateY(30px)}to{-webkit-transform:translateY(0) scale(1);transform:translateY(0) scale(1)}}@keyframes v-riseEvenDelay{25{-webkit-transform:translateY(-30px);transform:translateY(-30px)}0%{-webkit-transform:scale(1.1);transform:scale(1.1)}50%{-webkit-transform:scale(.4);transform:scale(.4)}75%{-webkit-transform:translateY(30px);transform:translateY(30px)}to{-webkit-transform:translateY(0) scale(1);transform:translateY(0) scale(1)}}",""])},function(t,e,i){e=t.exports=i(1)(),e.push([t.id,".v-spinner{text-align:center}@-webkit-keyframes v-pacmanStretchDelay{75%{-webkit-opacity:.7;opacity:.7}to{-webkit-transform:translate(-100px,-6.25px);transform:translate(-100px,-6.25px)}}@keyframes v-pacmanStretchDelay{75%{-webkit-opacity:.7;opacity:.7}to{-webkit-transform:translate(-100px,-6.25px);transform:translate(-100px,-6.25px)}}",""])},function(t,e,i){var n=i(35);"string"==typeof n&&(n=[[t.id,n,""]]);i(2)(n,{});n.locals&&(t.exports=n.locals)},function(t,e,i){var n=i(36);"string"==typeof n&&(n=[[t.id,n,""]]);i(2)(n,{});n.locals&&(t.exports=n.locals)},function(t,e,i){var n=i(37);"string"==typeof n&&(n=[[t.id,n,""]]);i(2)(n,{});n.locals&&(t.exports=n.locals)},function(t,e,i){var n=i(38);"string"==typeof n&&(n=[[t.id,n,""]]);i(2)(n,{});n.locals&&(t.exports=n.locals)},function(t,e,i){var n=i(39);"string"==typeof n&&(n=[[t.id,n,""]]);i(2)(n,{});n.locals&&(t.exports=n.locals)},function(t,e,i){var n=i(40);"string"==typeof n&&(n=[[t.id,n,""]]);i(2)(n,{});n.locals&&(t.exports=n.locals)},function(t,e,i){var n=i(41);"string"==typeof n&&(n=[[t.id,n,""]]);i(2)(n,{});n.locals&&(t.exports=n.locals)},function(t,e,i){var n=i(42);"string"==typeof n&&(n=[[t.id,n,""]]);i(2)(n,{});n.locals&&(t.exports=n.locals)},function(t,e,i){var n=i(43);"string"==typeof n&&(n=[[t.id,n,""]]);i(2)(n,{});n.locals&&(t.exports=n.locals)},function(t,e,i){var n=i(44);"string"==typeof n&&(n=[[t.id,n,""]]);i(2)(n,{});n.locals&&(t.exports=n.locals)},function(t,e,i){var n=i(45);"string"==typeof n&&(n=[[t.id,n,""]]);i(2)(n,{});n.locals&&(t.exports=n.locals)},function(t,e,i){var n=i(46);"string"==typeof n&&(n=[[t.id,n,""]]);i(2)(n,{});n.locals&&(t.exports=n.locals)},function(t,e,i){var n=i(47);"string"==typeof n&&(n=[[t.id,n,""]]);i(2)(n,{});n.locals&&(t.exports=n.locals)},function(t,e,i){var n=i(48);"string"==typeof n&&(n=[[t.id,n,""]]);i(2)(n,{});n.locals&&(t.exports=n.locals)},function(t,e,i){
+var n=i(49);"string"==typeof n&&(n=[[t.id,n,""]]);i(2)(n,{});n.locals&&(t.exports=n.locals)},function(t,e,i){var n=i(50);"string"==typeof n&&(n=[[t.id,n,""]]);i(2)(n,{});n.locals&&(t.exports=n.locals)},function(t,e){t.exports='<div class=v-spinner v-show=loading><div class="v-beat v-beat-odd" v-bind:style=spinnerStyle></div><div class="v-beat v-beat-even" v-bind:style=spinnerStyle></div><div class="v-beat v-beat-odd" v-bind:style=spinnerStyle></div></div>'},function(t,e){t.exports='<div class=v-spinner v-show=loading><div class="v-bounce v-bounce1" v-bind:style=spinnerBasicStyle><div class="v-bounce v-bounce2" v-bind:style=spinnerStyle></div><div class="v-bounce v-bounce3" v-bind:style=spinnerStyle></div></div></div>'},function(t,e){t.exports="<div class=v-spinner v-show=loading><div class=v-clip v-bind:style=spinnerStyle></div></div>"},function(t,e){t.exports='<div class=v-spinner v-show=loading><div class="v-dot v-dot1" v-bind:style=spinnerBasicStyle><div class="v-dot v-dot2" v-bind:style=spinnerStyle></div><div class="v-dot v-dot3" v-bind:style=spinnerStyle></div></div></div>'},function(t,e){t.exports='<div class=v-spinner v-bind:style="{position: \'relative\', fontSize: 0}" v-show=loading><div class="v-fade v-fade1" v-bind:style=[spinnerStyle,animationStyle1]></div><div class="v-fade v-fade2" v-bind:style=[spinnerStyle,animationStyle2]></div><div class="v-fade v-fade3" v-bind:style=[spinnerStyle,animationStyle3]></div><div class="v-fade v-fade4" v-bind:style=[spinnerStyle,animationStyle4]></div><div class="v-fade v-fade5" v-bind:style=[spinnerStyle,animationStyle5]></div><div class="v-fade v-fade6" v-bind:style=[spinnerStyle,animationStyle6]></div><div class="v-fade v-fade7" v-bind:style=[spinnerStyle,animationStyle7]></div><div class="v-fade v-fade8" v-bind:style=[spinnerStyle,animationStyle8]></div></div>'},function(t,e){t.exports='<div class=v-spinner v-bind:style=containerStyle v-show=loading><div class="v-grid v-grid1" v-bind:style=[spinnerStyle,animationStyle,animationStyle1]></div><div class="v-grid v-grid2" v-bind:style=[spinnerStyle,animationStyle,animationStyle2]></div><div class="v-grid v-grid3" v-bind:style=[spinnerStyle,animationStyle,animationStyle3]></div><div class="v-grid v-grid4" v-bind:style=[spinnerStyle,animationStyle,animationStyle4]></div><div class="v-grid v-grid5" v-bind:style=[spinnerStyle,animationStyle,animationStyle5]></div><div class="v-grid v-grid6" v-bind:style=[spinnerStyle,animationStyle,animationStyle6]></div><div class="v-grid v-grid7" v-bind:style=[spinnerStyle,animationStyle,animationStyle7]></div><div class="v-grid v-grid8" v-bind:style=[spinnerStyle,animationStyle,animationStyle8]></div><div class="v-grid v-grid9" v-bind:style=[spinnerStyle,animationStyle,animationStyle9]></div></div>'},function(t,e){t.exports='<div class=v-spinner v-show=loading><div class="v-moon v-moon1" v-bind:style=spinnerStyle><div class="v-moon v-moon2" v-bind:style=[spinnerMoonStyle,animationStyle2]></div><div class="v-moon v-moon3" v-bind:style=[spinnerStyle,animationStyle3]></div></div></div>'},function(t,e){t.exports='<div class=v-spinner v-bind:style="{position: \'relative\', fontSize: 0}" v-show=loading><div class="v-pacman v-pacman1" v-bind:style=spinnerStyle1></div><div class="v-pacman v-pacman2" v-bind:style=[spinnerStyle,animationStyle,spinnerDelay2]></div><div class="v-pacman v-pacman3" v-bind:style=[spinnerStyle,animationStyle,spinnerDelay3]></div><div class="v-pacman v-pacman4" v-bind:style=[spinnerStyle,animationStyle,spinnerDelay4]></div><div class="v-pacman v-pacman5" v-bind:style=[spinnerStyle,animationStyle,spinnerDelay5]></div></div>'},function(t,e){t.exports='<div class=v-spinner v-show=loading><div class="v-pulse v-pulse1" v-bind:style=[spinnerStyle,spinnerDelay1]></div><div class="v-pulse v-pulse2" v-bind:style=[spinnerStyle,spinnerDelay2]></div><div class="v-pulse v-pulse3" v-bind:style=[spinnerStyle,spinnerDelay3]></div></div>'},function(t,e){t.exports='<div class=v-spinner v-show=loading><div class="v-ring v-ring1" v-bind:style=spinnerBasicStyle><div class="v-ring v-ring2" v-bind:style=spinnerStyle></div><div class="v-ring v-ring3" v-bind:style=spinnerStyle></div></div></div>'},function(t,e){t.exports='<div class=v-spinner v-show=loading><div class="v-rise v-rise-odd" v-bind:style=spinnerStyle></div><div class="v-rise v-rise-even" v-bind:style=spinnerStyle></div><div class="v-rise v-rise-odd" v-bind:style=spinnerStyle></div><div class="v-rise v-rise-even" v-bind:style=spinnerStyle></div><div class="v-rise v-rise-odd" v-bind:style=spinnerStyle></div></div>'},function(t,e){t.exports='<div class=v-spinner v-show=loading><div class="v-rotate v-rotate1" v-bind:style=spinnerStyle><div class="v-rotate v-rotate2" v-bind:style=spinnerStyle></div><div class="v-rotate v-rotate3" v-bind:style=spinnerStyle></div></div></div>'},function(t,e){t.exports='<div class=v-spinner v-show=loading><div class="v-scale v-scale1" v-bind:style=[spinnerStyle,spinnerDelay1]></div><div class="v-scale v-scale2" v-bind:style=[spinnerStyle,spinnerDelay2]></div><div class="v-scale v-scale3" v-bind:style=[spinnerStyle,spinnerDelay3]></div><div class="v-scale v-scale4" v-bind:style=[spinnerStyle,spinnerDelay4]></div><div class="v-scale v-scale5" v-bind:style=[spinnerStyle,spinnerDelay5]></div></div>'},function(t,e){t.exports="<div class=v-spinner v-show=loading><div class=v-skew v-bind:style=spinnerStyle></div></div>"},function(t,e){t.exports="<div class=v-spinner v-show=loading><div class=v-square v-bind:style=spinnerStyle></div></div>"},function(t,e){t.exports='<div class=v-spinner v-show=loading><div class="v-sync v-sync1" v-bind:style=[spinnerStyle,spinnerDelay1]></div><div class="v-sync v-sync2" v-bind:style=[spinnerStyle,spinnerDelay2]></div><div class="v-sync v-sync3" v-bind:style=[spinnerStyle,spinnerDelay3]></div></div>'},function(t,e,i){var n,a;i(54),n=i(19),a=i(67),t.exports=n||{},t.exports.__esModule&&(t.exports=t.exports["default"]),a&&(("function"==typeof t.exports?t.exports.options:t.exports).template=a)},function(t,e,i){var n,a;i(61),n=i(20),a=i(68),t.exports=n||{},t.exports.__esModule&&(t.exports=t.exports["default"]),a&&(("function"==typeof t.exports?t.exports.options:t.exports).template=a)},function(t,e,i){var n,a;i(53),n=i(21),a=i(69),t.exports=n||{},t.exports.__esModule&&(t.exports=t.exports["default"]),a&&(("function"==typeof t.exports?t.exports.options:t.exports).template=a)},function(t,e,i){var n,a;i(62),n=i(22),a=i(70),t.exports=n||{},t.exports.__esModule&&(t.exports=t.exports["default"]),a&&(("function"==typeof t.exports?t.exports.options:t.exports).template=a)},function(t,e,i){var n,a;i(52),n=i(23),a=i(71),t.exports=n||{},t.exports.__esModule&&(t.exports=t.exports["default"]),a&&(("function"==typeof t.exports?t.exports.options:t.exports).template=a)},function(t,e,i){var n,a;i(56),n=i(24),a=i(72),t.exports=n||{},t.exports.__esModule&&(t.exports=t.exports["default"]),a&&(("function"==typeof t.exports?t.exports.options:t.exports).template=a)},function(t,e,i){var n,a;i(58),n=i(25),a=i(73),t.exports=n||{},t.exports.__esModule&&(t.exports=t.exports["default"]),a&&(("function"==typeof t.exports?t.exports.options:t.exports).template=a)},function(t,e,i){var n,a;i(66),n=i(26),a=i(74),t.exports=n||{},t.exports.__esModule&&(t.exports=t.exports["default"]),a&&(("function"==typeof t.exports?t.exports.options:t.exports).template=a)},function(t,e,i){var n,a;i(59),n=i(27),a=i(75),t.exports=n||{},t.exports.__esModule&&(t.exports=t.exports["default"]),a&&(("function"==typeof t.exports?t.exports.options:t.exports).template=a)},function(t,e,i){var n,a;i(63),n=i(28),a=i(76),t.exports=n||{},t.exports.__esModule&&(t.exports=t.exports["default"]),a&&(("function"==typeof t.exports?t.exports.options:t.exports).template=a)},function(t,e,i){var n,a;i(65),n=i(29),a=i(77),t.exports=n||{},t.exports.__esModule&&(t.exports=t.exports["default"]),a&&(("function"==typeof t.exports?t.exports.options:t.exports).template=a)},function(t,e,i){var n,a;i(57),n=i(30),a=i(78),t.exports=n||{},t.exports.__esModule&&(t.exports=t.exports["default"]),a&&(("function"==typeof t.exports?t.exports.options:t.exports).template=a)},function(t,e,i){var n,a;i(64),n=i(31),a=i(79),t.exports=n||{},t.exports.__esModule&&(t.exports=t.exports["default"]),a&&(("function"==typeof t.exports?t.exports.options:t.exports).template=a)},function(t,e,i){var n,a;i(55),n=i(32),a=i(80),t.exports=n||{},t.exports.__esModule&&(t.exports=t.exports["default"]),a&&(("function"==typeof t.exports?t.exports.options:t.exports).template=a)},function(t,e,i){var n,a;i(60),n=i(33),a=i(81),t.exports=n||{},t.exports.__esModule&&(t.exports=t.exports["default"]),a&&(("function"==typeof t.exports?t.exports.options:t.exports).template=a)},function(t,e,i){var n,a;i(51),n=i(34),a=i(82),t.exports=n||{},t.exports.__esModule&&(t.exports=t.exports["default"]),a&&(("function"==typeof t.exports?t.exports.options:t.exports).template=a)}])});
+},{}],29:[function(require,module,exports){
 (function (process,global){
 /*!
  * Vue.js v1.0.24
@@ -11955,7 +14668,7 @@ setTimeout(function () {
 
 module.exports = Vue;
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"_process":1}],28:[function(require,module,exports){
+},{"_process":1}],30:[function(require,module,exports){
 var inserted = exports.cache = {}
 
 exports.insert = function (css) {
@@ -11975,55 +14688,65 @@ exports.insert = function (css) {
   return elem
 }
 
-},{}],29:[function(require,module,exports){
-var __vueify_style__ = require("vueify-insert-css").insert("\n    .Nba {\n        color:red;\n    }\n\n    .Nba--players {\n        color:green;\n    }\n\n    .Nba--blue {\n        color: blue;\n    }\n")
+},{}],31:[function(require,module,exports){
+var __vueify_style__ = require("vueify-insert-css").insert("\n")
 'use strict';
 
 exports.__esModule = true;
 exports['default'] = {
 
-    props: {
-        players: [],
-
-        type: { 'default': 'players' },
-
-        employees: []
+    components: {
+        loading: require('./Loading.vue')
     },
 
-    created: function created() {
-        this.fetchEmployees();
+    props: {
+        employees: [],
+        loading: require('./Loading.vue')
+    },
+
+    computed: {
+        remaining: function remaining() {
+            return this.employees ? this.employees.length : 0;
+        }
     },
 
     methods: {
 
         fetchEmployees: function fetchEmployees() {
 
-            var employees = this.$http.get('api/employees');
+            // this.loading.show_loading = true;
 
             this.$http.get('api/employees').then(function (success) {
                 this.employees = success.data.data;
             }, function (errors) {
                 console.log(errors);
             });
+
+            // this.loading.show_loading = false;
         },
 
         deleteEmployee: function deleteEmployee(employee) {
             this.$http['delete']('api/employees/' + employee.id).then(function (data) {
+                console.log(data);
                 this.employees.$remove(employee);
             }, function (errors) {});
         }
+    },
+
+    created: function created() {
+        this.fetchEmployees();
     }
 
 };
 module.exports = exports['default'];
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n    <div class=\"Nba\">\n        <div class=\"Nba--title\">\n            <h1><slot></slot></h1>\n        </div>\n\n        <ul class=\"list-group\">\n            <li class=\"list-group-item\" v-for=\"employee in employees\">\n                <a href=\"#\">{{ employee.full_name }}</a>\n\n                <a class=\"pull-right\" @click=\"deleteEmployee(employee)\">X</a>\n            </li>\n        </ul>\n\n        <div class=\"Nba--{{ type }}\">\n            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n        </div>\n    </div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n    <div class=\"Employee\" _v-654c1e0e=\"\">\n        <div class=\"Employee--title\" _v-654c1e0e=\"\">\n            <h1 _v-654c1e0e=\"\">\n                <slot _v-654c1e0e=\"\">Employees List</slot> \n                <span v-show=\"remaining\" _v-654c1e0e=\"\">({{ remaining }})</span>\n                <a class=\"pull-right\" @click=\"fetchEmployees\" _v-654c1e0e=\"\">\n                    Refresh\n                </a>\n            </h1>\n        </div>\n        <loading _v-654c1e0e=\"\"></loading>\n        <ul class=\"list-group\" _v-654c1e0e=\"\">\n            <li class=\"list-group-item\" v-for=\"employee in employees\" _v-654c1e0e=\"\">\n                <a href=\"#\" _v-654c1e0e=\"\">{{ employee.full_name }}, {{ employee.id }}</a>\n\n                <a class=\"pull-right\" @click=\"deleteEmployee(employee)\" _v-654c1e0e=\"\">X</a>\n            </li>\n        </ul>\n    </div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
-  var id = "f:\\wamp\\www\\dainsys3\\resources\\assets\\js\\app\\components\\Nba.vue"
+  var id = "f:\\wamp\\www\\dainsys3\\resources\\assets\\js\\app\\components\\Employee.vue"
   module.hot.dispose(function () {
-    require("vueify-insert-css").cache["\n    .Nba {\n        color:red;\n    }\n\n    .Nba--players {\n        color:green;\n    }\n\n    .Nba--blue {\n        color: blue;\n    }\n"] = false
+    require("vueify-insert-css").cache["\n"] = false
     document.head.removeChild(__vueify_style__)
   })
   if (!module.hot.data) {
@@ -12032,19 +14755,191 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, module.exports.template)
   }
 })()}
-},{"vue":27,"vue-hot-reload-api":2,"vueify-insert-css":28}],30:[function(require,module,exports){
-var __vueify_style__ = require("vueify-insert-css").insert("\n\n")
+},{"./Loading.vue":32,"vue":29,"vue-hot-reload-api":2,"vueify-insert-css":30}],32:[function(require,module,exports){
+var __vueify_style__ = require("vueify-insert-css").insert("\n")
 "use strict";
 
-module.exports = {};
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\t<div class=\"Alert\">\t\t\n\t\t<h2><slot></slot></h2>\t\n\t\t<div>TAsk: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>\t\n\t</div>\n"
+exports.__esModule = true;
+exports["default"] = {
+  props: {
+    show_loading: {
+      "default": false
+    }
+  }
+};
+module.exports = exports["default"];
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\t<div class=\"progress\" v-show=\"show_loading\" _v-00f6710c=\"\">\n\t  <div class=\"progress-bar progress-bar-striped active\" role=\"progressbar\" aria-valuenow=\"100\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 100%\" _v-00f6710c=\"\">\n\t    <span class=\"sr-only\" _v-00f6710c=\"\">Loading, Please wait</span>\n\t  </div>\n\t</div>\n"
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  var id = "f:\\wamp\\www\\dainsys3\\resources\\assets\\js\\app\\components\\Loading.vue"
+  module.hot.dispose(function () {
+    require("vueify-insert-css").cache["\n"] = false
+    document.head.removeChild(__vueify_style__)
+  })
+  if (!module.hot.data) {
+    hotAPI.createRecord(id, module.exports)
+  } else {
+    hotAPI.update(id, module.exports, module.exports.template)
+  }
+})()}
+},{"vue":29,"vue-hot-reload-api":2,"vueify-insert-css":30}],33:[function(require,module,exports){
+var __vueify_style__ = require("vueify-insert-css").insert("\n")
+'use strict';
+
+exports.__esModule = true;
+exports['default'] = {
+	data: function data() {
+		return {
+			routes: [{ name: 'Tasks', path: '/tasks' }, { name: 'Notes Admin', path: '/notes/admin' }, { name: 'Notes', path: '/notes' }]
+		};
+	}
+};
+module.exports = exports['default'];
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\t<div class=\"navbar\" _v-5b7e9f82=\"\">\n\t\t<div class=\"container-fluid\" _v-5b7e9f82=\"\">\n\t\t\t<a class=\"navbar-brand\" href=\"#\" _v-5b7e9f82=\"\">Vue Js</a>\n\t\t\t<ul class=\"nav navbar-nav\" _v-5b7e9f82=\"\">\n\t\t\t\t<li class=\"active\" v-for=\"route in routes\" _v-5b7e9f82=\"\">\n                    <a v-link=\"{ path: route.path }\" _v-5b7e9f82=\"\">{{ route.name | uppercase }}</a>\n                    <!-- <a v-link=\"{ path: route.path }\">Go to Foo</a> -->\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t</div>\n\t</div>\n\t<!-- /. Nav Bar -->\n"
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  var id = "f:\\wamp\\www\\dainsys3\\resources\\assets\\js\\app\\components\\Menu.vue"
+  module.hot.dispose(function () {
+    require("vueify-insert-css").cache["\n"] = false
+    document.head.removeChild(__vueify_style__)
+  })
+  if (!module.hot.data) {
+    hotAPI.createRecord(id, module.exports)
+  } else {
+    hotAPI.update(id, module.exports, module.exports.template)
+  }
+})()}
+},{"vue":29,"vue-hot-reload-api":2,"vueify-insert-css":30}],34:[function(require,module,exports){
+var __vueify_style__ = require("vueify-insert-css").insert("\n\t.Tasks .task-completed[_v-44696536] {\n\t\tcolor: #cacaca;\n\t\ttext-decoration: line-through;\n\t}\n\n\t\n")
+'use strict';
+
+exports.__esModule = true;
+exports['default'] = {
+	props: {
+		show: false,
+		tasks: null,
+		isCompleted: [],
+		inProgress: [],
+		loadingResource: {
+			'default': null
+		}
+	},
+
+	components: {
+		modal: require('./modal.vue')
+	},
+
+	computed: {
+		tasksCount: function tasksCount() {
+			return this.tasks ? this.tasks.length : 0;
+		},
+
+		isCompleted: function isCompleted() {
+			if (!this.tasks) return [];
+
+			return this.tasks.filter(function (task) {
+				return task.completed;
+			});
+		},
+
+		inProgress: function inProgress() {
+			if (!this.tasks) return [];
+
+			return this.tasks.filter(function (task) {
+				return !task.completed;
+			});
+		}
+	},
+
+	methods: {
+		fetchTasks: function fetchTasks() {
+			this.loadingResource = true;
+
+			// import some from 'vue-strap';
+
+			// console.log(some);
+
+			this.$http('/api/tasks').then(function (success) {
+
+				this.loadingResource = null;
+				return this.tasks = success.data.data;
+			});
+		},
+
+		ok: function ok() {},
+
+		cancel: function cancel() {},
+
+		removeCompleted: function removeCompleted() {
+			var vm = this;
+
+			bootbox.confirm({
+				message: "Are you sure?",
+				title: "Please proceede carefully!",
+				buttons: {
+					confirm: {
+						label: 'Delete',
+						className: 'btn-danger'
+					}
+				},
+				callback: function callback(result) {
+					if (result) {
+						vm.$http['delete']('/api/tasks/removeCompleted').then(function (success) {
+							vm.isCompleted.filter(function (task) {
+								vm.tasks.$remove(task);
+							});
+							// vm.fetchTasks();
+						});
+					}
+				}
+			});
+		},
+
+		removeTask: function removeTask(task) {
+			var vm = this;
+
+			bootbox.confirm({
+				message: "Are you sure?",
+				title: "Please proceede carefully!",
+				buttons: {
+					confirm: {
+						label: 'Delete',
+						className: 'btn-danger'
+					}
+				},
+				callback: function callback(result) {
+					if (result) {
+						vm.$http['delete']('/api/tasks/' + task.id).then(function (success) {
+							vm.tasks.$remove(task);
+						});
+					}
+				}
+			});
+		},
+
+		changeTask: function changeTask(task) {
+			this.$http.put('/api/tasks/' + task.id, task);
+		}
+	},
+
+	created: function created() {
+		this.fetchTasks();
+	}
+
+};
+module.exports = exports['default'];
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\t<!-- <div v-if=\"loadingResource\">\n\t\t<div class=\"progress\">\n\t\t  <div class=\"progress-bar progress-bar-striped active\" role=\"progressbar\" aria-valuenow=\"100\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 100%\">\n\t\t    <span>Loading, Please wait</span>\n\t\t  </div>\n\t\t</div>\n\t</div> -->\n\t<div class=\"Tasks\" _v-44696536=\"\">\n\t\t<h1 _v-44696536=\"\">\n\t\t\t<slot _v-44696536=\"\">Your</slot>'s Tasks! \n\t\t\t<span v-show=\"tasksCount\" _v-44696536=\"\">({{ tasksCount }})</span>\n\t\t\t<span class=\"pull-right\" _v-44696536=\"\">\n\t\t\t\t<button class=\"btn btn-success\" @click=\"fetchTasks\" _v-44696536=\"\">\n\t\t\t\t\t<i class=\"fa fa-refresh\" _v-44696536=\"\"></i>\n\t\t\t\t</button>\n\t\t\t\t<button class=\"btn btn-primary\" @click=\"this.$router.go('/learn/create')\" _v-44696536=\"\">\n\t\t\t\t\t<i class=\"fa fa-plus\" _v-44696536=\"\"></i>\n\t\t\t\t</button>\n\t\t\t</span>\n\t\t</h1>\n\n\t\t<!-- Pending Tasks -->\n\t\t<div v-show=\"inProgress.length\" _v-44696536=\"\">\n\t\t\t<h3 _v-44696536=\"\">Pending Tasks ({{ inProgress.length }})</h3><table class=\"table table-condensed\" _v-44696536=\"\">\n\t\t\t\t\n\t\t\t\t<tbody _v-44696536=\"\">\n\t\t\t\t\t<tr v-for=\"task in inProgress\" class=\"animated\" transition=\"fade\" _v-44696536=\"\">\n\t\t\t\t\t\t<td _v-44696536=\"\">\n\n\t\t\t\t\t\t\t<div class=\"checkbox\" _v-44696536=\"\">\n\t\t\t\t\t\t\t\t<label :class=\"{'task-completed':task.completed}\" transition=\"completed\" _v-44696536=\"\">\n\t\t\t\t\t\t\t\t\t<input type=\"checkbox\" value=\"1\" @change=\"changeTask(task)\" v-model=\"task.completed\" _v-44696536=\"\">\n\t\t\t\t\t\t\t\t\t{{ task.task_name }}\n\t\t\t\t\t\t\t\t</label>\n\t\t\t\t\t\t\t</div>\t\t\t\t\t\t\n\t\t\t\t\t\t</td>\n\t\t\t\t\t\t<td class=\"col-xs-1\" _v-44696536=\"\">\n\t\t\t\t\t\t\t<button clas=\"btn btn-danger\" @click=\"show = true\" _v-44696536=\"\">x</button>\n\t\t\t\t\t\t\t<modal title=\"Modal Title\" :show.sync=\"show\" @ok=\"ok\" @cancel=\"cancel\" _v-44696536=\"\">\n\t\t\t\t\t\t\t    <div _v-44696536=\"\">Modal Body</div>\n\n\t\t\t\t\t\t\t    <div slot=\"header\" _v-44696536=\"\">Modal Header</div>\n\t\t\t\t\t\t\t    <div slot=\"title\" _v-44696536=\"\">Modal Title</div>\n\t\t\t\t\t\t\t    <div slot=\"footer\" _v-44696536=\"\">Modal Footer</div>\n\t\t\t\t\t\t\t</modal>\n\t\t\t\t\t\t\t<!-- <a \n\t\t\t\t\t\t\t\thref=\"#\"\n\t\t\t\t\t\t\t\tclass=\"pull-right\"\n\t\t\t\t\t\t\t\t@click.prevent=\"removeTask(task)\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t<i class=\"fa fa-remove\"></i>\n\t\t\t\t\t\t\t</a> -->\n\t\t\t\t\t\t</td>\n\t\t\t\t\t</tr>\n\t\t\t\t</tbody>\n\t\t\t</table>\n\t\t</div>\n\n\t\t<!-- Completed Tasks -->\n\t\t<div v-show=\"isCompleted.length\" _v-44696536=\"\">\n\t\t\t<h3 _v-44696536=\"\">Completed Tasks  ({{ isCompleted.length }})\n\n\t\t\t\t<button class=\"btn btn-danger pull-right\" @click=\"removeCompleted\" _v-44696536=\"\">\n\t\t\t\t\t<i class=\"fa fa-trash\" _v-44696536=\"\"></i>\n\t\t\t\t</button>\n\t\t\t</h3>\n\t\t\t<table class=\"table table-condensed\" _v-44696536=\"\">\n\t\t\t\t \n\t\t\t\t<tbody _v-44696536=\"\">\n\t\t\t\t\t<tr v-for=\"task in isCompleted\" class=\"animated\" transition=\"fade\" _v-44696536=\"\">\n\t\t\t\t\t\t<td _v-44696536=\"\">\n\n\t\t\t\t\t\t\t<div class=\"checkbox\" _v-44696536=\"\">\n\t\t\t\t\t\t\t\t<label :class=\"{'task-completed':task.completed}\" transition=\"completed\" _v-44696536=\"\">\n\t\t\t\t\t\t\t\t\t<input type=\"checkbox\" value=\"1\" @change=\"changeTask(task)\" v-model=\"task.completed\" _v-44696536=\"\">\n\t\t\t\t\t\t\t\t\t{{ task.task_name }}\n\t\t\t\t\t\t\t\t</label>\n\t\t\t\t\t\t\t</div>\t\t\t\t\t\t\n\t\t\t\t\t\t</td>\n\t\t\t\t\t\t<td class=\"col-xs-1\" _v-44696536=\"\">\n\t\t\t\t\t\t\t<a href=\"#\" class=\"pull-right\" @click.prevent=\"removeTask(task)\" _v-44696536=\"\">\n\t\t\t\t\t\t\t\t<i class=\"fa fa-remove\" _v-44696536=\"\"></i>\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t</td>\n\t\t\t\t\t</tr>\n\t\t\t\t</tbody>\n\t\t\t</table>\n\t\t</div>\n\n\t\t<div v-if=\"tasksCount\" _v-44696536=\"\">\n\t\t\t<div class=\"alert alert-info\" _v-44696536=\"\">\n\t\t\t\t<strong _v-44696536=\"\">No Tasks!</strong> Mo more tasks, please add some...\n\t\t\t</div>\n\t\t</div>\n\t</div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   var id = "f:\\wamp\\www\\dainsys3\\resources\\assets\\js\\app\\components\\Task.vue"
   module.hot.dispose(function () {
-    require("vueify-insert-css").cache["\n\n"] = false
+    require("vueify-insert-css").cache["\n\t.Tasks .task-completed[_v-44696536] {\n\t\tcolor: #cacaca;\n\t\ttext-decoration: line-through;\n\t}\n\n\t\n"] = false
     document.head.removeChild(__vueify_style__)
   })
   if (!module.hot.data) {
@@ -12053,27 +14948,473 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update(id, module.exports, module.exports.template)
   }
 })()}
-},{"vue":27,"vue-hot-reload-api":2,"vueify-insert-css":28}],31:[function(require,module,exports){
+},{"./modal.vue":35,"vue":29,"vue-hot-reload-api":2,"vueify-insert-css":30}],35:[function(require,module,exports){
+var __vueify_style__ = require("vueify-insert-css").insert("\n    .modal[_v-454e8fc6] {\n        display: block;\n    }\n    .modal-transition[_v-454e8fc6] {\n        -webkit-transition: all .6s ease;\n        transition: all .6s ease;\n    }\n    .modal-leave[_v-454e8fc6] {\n        /* 样式没什么用，但可以让根标签的transitionEnd生效，以去掉modal-leave */\n        border-radius: 1px !important;\n    }\n    .modal-transition .modal-dialog[_v-454e8fc6], .modal-transition .modal-backdrop[_v-454e8fc6] {\n        -webkit-transition: all .5s ease;\n        transition: all .5s ease;\n    }\n    .modal-enter .modal-dialog[_v-454e8fc6], .modal-leave .modal-dialog[_v-454e8fc6] {\n        opacity: 0;\n        -webkit-transform: translateY(-30%);\n                transform: translateY(-30%);\n    }\n    .modal-enter .modal-backdrop[_v-454e8fc6], .modal-leave .modal-backdrop[_v-454e8fc6] {\n        opacity: 0;\n    }\n")
+/**
+     * Bootstrap Style Modal Component for Vue
+     * Depend on Bootstrap.css
+     */
 'use strict';
 
-var Vue = require('vue');
-window.Vue = Vue;
+exports.__esModule = true;
+exports['default'] = {
+    props: {
+        show: {
+            type: Boolean,
+            twoWay: true,
+            'default': false
+        },
+        title: {
+            type: String,
+            'default': 'Modal'
+        },
+        small: {
+            type: Boolean,
+            'default': false
+        },
+        large: {
+            type: Boolean,
+            'default': false
+        },
+        full: {
+            type: Boolean,
+            'default': false
+        },
+        // 为true时无法通过点击遮罩层关闭modal
+        force: {
+            type: Boolean,
+            'default': false
+        },
+        // 自定义组件transition
+        transition: {
+            type: String,
+            'default': 'modal'
+        },
+        // 确认按钮text
+        okText: {
+            type: String,
+            'default': 'OK'
+        },
+        // 取消按钮text
+        cancelText: {
+            type: String,
+            'default': 'Cancel'
+        },
+        // 确认按钮className
+        okClass: {
+            type: String,
+            'default': 'btn blue'
+        },
+        // 取消按钮className
+        cancelClass: {
+            type: String,
+            'default': 'btn red btn-outline'
+        },
+        // 点击确定时关闭Modal
+        // 默认为false，由父组件控制prop.show来关闭
+        closeWhenOK: {
+            type: Boolean,
+            'default': false
+        }
+    },
+    data: function data() {
+        return {
+            duration: null
+        };
+    },
+    computed: {
+        modalClass: function modalClass() {
+            return {
+                'modal-lg': this.large,
+                'modal-sm': this.small,
+                'modal-full': this.full
+            };
+        }
+    },
+    created: function created() {
+        if (this.show) {
+            document.body.className += ' modal-open';
+        }
+    },
+    beforeDestroy: function beforeDestroy() {
+        document.body.className = document.body.className.replace(' modal-open', '');
+    },
+    watch: {
+        show: function show(value) {
+            // 在显示时去掉body滚动条，防止出现双滚动条
+            if (value) {
+                document.body.className += ' modal-open';
+            }
+            // 在modal动画结束后再加上body滚动条
+            else {
+                    if (!this.duration) {
+                        this.duration = window.getComputedStyle(this.$el)['transition-duration'].replace('s', '') * 1000;
+                    }
+                    window.setTimeout(function () {
+                        document.body.className = document.body.className.replace(' modal-open', '');
+                    }, this.duration || 0);
+                }
+        }
+    },
+    methods: {
+        ok: function ok() {
+            this.$emit('ok');
+            if (this.closeWhenOK) {
+                this.show = false;
+            }
+        },
+        cancel: function cancel() {
+            this.$emit('cancel');
+            this.show = false;
+        },
+        // 点击遮罩层
+        clickMask: function clickMask() {
+            if (!this.force) {
+                this.cancel();
+            }
+        }
+    }
+};
+module.exports = exports['default'];
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n    <div v-show=\"show\" :transition=\"transition\" _v-454e8fc6=\"\">\n        <div class=\"modal\" @click.self=\"clickMask\" _v-454e8fc6=\"\">\n            <div class=\"modal-dialog\" :class=\"modalClass\" v-el:dialog=\"\" _v-454e8fc6=\"\">\n                <div class=\"modal-content\" _v-454e8fc6=\"\">\n                    <!--Header-->\n                    <div class=\"modal-header\" _v-454e8fc6=\"\">\n                        <slot name=\"header\" _v-454e8fc6=\"\">\n                            <a type=\"button\" class=\"close\" @click=\"cancel\" _v-454e8fc6=\"\">x</a>\n                            <h4 class=\"modal-title\" _v-454e8fc6=\"\">\n                                <slot name=\"title\" _v-454e8fc6=\"\">\n                                    {{title}}\n                                </slot>\n                            </h4>\n                        </slot>\n                    </div>\n                    <!--Container-->\n                    <div class=\"modal-body\" _v-454e8fc6=\"\">\n                        <slot _v-454e8fc6=\"\"></slot>\n                    </div>\n                    <!--Footer-->\n                    <div class=\"modal-footer\" _v-454e8fc6=\"\">\n                        <slot name=\"footer\" _v-454e8fc6=\"\">\n                            <button type=\"button\" :class=\"cancelClass\" @click=\"cancel\" _v-454e8fc6=\"\">{{cancelText}}</button>\n                            <button type=\"button\" :class=\"okClass\" @click=\"ok\" _v-454e8fc6=\"\">{{okText}}</button>\n                        </slot>\n                    </div>\n                </div>\n            </div>\n        </div>\n        <div class=\"modal-backdrop in\" _v-454e8fc6=\"\"></div>\n    </div>\n"
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  var id = "f:\\wamp\\www\\dainsys3\\resources\\assets\\js\\app\\components\\modal.vue"
+  module.hot.dispose(function () {
+    require("vueify-insert-css").cache["\n    .modal[_v-454e8fc6] {\n        display: block;\n    }\n    .modal-transition[_v-454e8fc6] {\n        -webkit-transition: all .6s ease;\n        transition: all .6s ease;\n    }\n    .modal-leave[_v-454e8fc6] {\n        /* 样式没什么用，但可以让根标签的transitionEnd生效，以去掉modal-leave */\n        border-radius: 1px !important;\n    }\n    .modal-transition .modal-dialog[_v-454e8fc6], .modal-transition .modal-backdrop[_v-454e8fc6] {\n        -webkit-transition: all .5s ease;\n        transition: all .5s ease;\n    }\n    .modal-enter .modal-dialog[_v-454e8fc6], .modal-leave .modal-dialog[_v-454e8fc6] {\n        opacity: 0;\n        -webkit-transform: translateY(-30%);\n                transform: translateY(-30%);\n    }\n    .modal-enter .modal-backdrop[_v-454e8fc6], .modal-leave .modal-backdrop[_v-454e8fc6] {\n        opacity: 0;\n    }\n"] = false
+    document.head.removeChild(__vueify_style__)
+  })
+  if (!module.hot.data) {
+    hotAPI.createRecord(id, module.exports)
+  } else {
+    hotAPI.update(id, module.exports, module.exports.template)
+  }
+})()}
+},{"vue":29,"vue-hot-reload-api":2,"vueify-insert-css":30}],36:[function(require,module,exports){
+var __vueify_style__ = require("vueify-insert-css").insert("\n")
+'use strict';
+
+exports.__esModule = true;
+exports['default'] = {
+
+  data: function data() {
+    return {
+      notes: [],
+      searchNote: null
+    };
+  },
+
+  components: {
+    notelist: require('./_list.vue')
+  },
+
+  methods: {
+    fetchNotes: function fetchNotes() {
+      this.$http('/api/notes/admin').then(function (response) {
+        this.notes = response.data;
+      });
+    }
+  },
+
+  created: function created() {
+    this.fetchNotes();
+  }
+};
+module.exports = exports['default'];
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\t<div class=\"row\" _v-df4bebe6=\"\">\n\t\t<notelist :list=\"notes\" _v-df4bebe6=\"\"></notelist>\n\t\t\n\t\t<!-- /. Results -->\n\t</div>\n"
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  var id = "f:\\wamp\\www\\dainsys3\\resources\\assets\\js\\app\\components\\notes\\Note.vue"
+  module.hot.dispose(function () {
+    require("vueify-insert-css").cache["\n"] = false
+    document.head.removeChild(__vueify_style__)
+  })
+  if (!module.hot.data) {
+    hotAPI.createRecord(id, module.exports)
+  } else {
+    hotAPI.update(id, module.exports, module.exports.template)
+  }
+})()}
+},{"./_list.vue":38,"vue":29,"vue-hot-reload-api":2,"vueify-insert-css":30}],37:[function(require,module,exports){
+var __vueify_style__ = require("vueify-insert-css").insert("\n")
+'use strict';
+
+exports.__esModule = true;
+exports['default'] = {
+  data: function data() {
+    return {
+      notes: [],
+      searchNote: null,
+      loading: false,
+      newNote: { index: null, title: null, body: null, updating: null }
+    };
+  },
+
+  components: {
+    notelist: require('./_list.vue'),
+    PulseLoader: require('vue-spinner/dist/vue-spinner.min')
+  },
+
+  methods: {
+    resetNotes: function resetNotes() {
+      return this.newNote = { index: null, title: null, body: null, updating: null };
+    },
+
+    fetchNotes: function fetchNotes() {
+      this.loading = true;
+      this.$http('/api/notes/admin').then(function (response) {
+        this.notes = response.data;
+        // this.loading = false;
+      });
+    },
+
+    create: function create() {
+      this.$http.post('/api/notes/admin', this.newNote).then(function (response) {
+        this.notes.push(response.data);
+        this.resetNotes();
+      });
+    },
+
+    updateNote: function updateNote() {
+      var note = this.newNote;
+      this.$http.put('/api/notes/admin/' + note.slug, note).then(function (response) {
+        this.notes.$set(note.index, response.data);
+        this.resetNotes();
+      });
+      document.getElementById('title').focus();
+    },
+
+    cancelUpdate: function cancelUpdate() {
+      this.resetNotes();
+    }
+
+  },
+
+  created: function created() {
+    this.fetchNotes();
+  }
+};
+module.exports = exports['default'];
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\t<!-- <skew-loader :loading=\"loading\"></skew-loader> -->\n\t<div class=\"row\" _v-25dc9c9d=\"\">\n\t\t<div class=\"col-sm-4\" _v-25dc9c9d=\"\">\n\t\t\t<form method=\"POST\" role=\"form\" @submit.prevent=\"updateNote()\" _v-25dc9c9d=\"\">\n\t\t\t\t<legend _v-25dc9c9d=\"\">Notes</legend>\n\t\t\t\n\t\t\t\t<div class=\"form-group\" _v-25dc9c9d=\"\">\n\t\t\t\t\t<label for=\"title\" _v-25dc9c9d=\"\">Note Title:</label>\n\t\t\t\t\t<input type=\"text\" class=\"form-control\" id=\"title\" placeholder=\"Input field\" v-model=\"newNote.title\" _v-25dc9c9d=\"\">\n\t\t\t\t</div>\n\t\t\t\n\t\t\t\t<div class=\"form-group\" _v-25dc9c9d=\"\">\n\t\t\t\t\t<label _v-25dc9c9d=\"\">Note Content:</label>\n\t\t\t\t\t<textarea name=\"body\" id=\"body\" cols=\"30\" rows=\"10\" class=\"form-control\" v-model=\"newNote.body\" _v-25dc9c9d=\"\"></textarea>\n\t\t\t\t</div>\n\t\t\t\n\t\t\t\t<div class=\"form-group\" _v-25dc9c9d=\"\">\n\t\t\t\t\t<label for=\"title\" _v-25dc9c9d=\"\">Tags:</label>\n\t\t\t\t\t<input type=\"text\" class=\"form-control\" id=\"tags\" placeholder=\"Input field\" v-model=\"newNote.tags\" _v-25dc9c9d=\"\">\n\t\t\t\t\t<span class=\"help-block\" _v-25dc9c9d=\"\">Use commas to separate tags</span>\n\t\t\t\t</div>\n\t\t\t\n\t\t\t\t<button class=\"btn btn-primary\" @click.prevent=\"create\" v-if=\"!newNote.updating\" _v-25dc9c9d=\"\">Create</button>\n\t\t\t\t\n\t\t\t\t<button type=\"submit\" v-if=\"newNote.updating\" class=\"btn btn-default\" @click.prevent=\"cancelUpdate\" _v-25dc9c9d=\"\">Cancel</button>\n\t\t\t\t\n\t\t\t\t<button type=\"submit\" v-if=\"newNote.updating\" class=\"btn btn-info\" @click.prevent=\"updateNote()\" _v-25dc9c9d=\"\">Update</button>\n\t\t\t</form>\n\t\t</div>\n\t\t<!-- /. Form -->\n\t\t<div class=\"col-sm-8\" _v-25dc9c9d=\"\">\t\t\t\n\t\t\t<notelist :list=\"notes\" admin=\"true\" _v-25dc9c9d=\"\"></notelist>\n\t\t</div>\n\t\t<!-- /. Results -->\n\t</div>\n"
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  var id = "f:\\wamp\\www\\dainsys3\\resources\\assets\\js\\app\\components\\notes\\Note_admin.vue"
+  module.hot.dispose(function () {
+    require("vueify-insert-css").cache["\n"] = false
+    document.head.removeChild(__vueify_style__)
+  })
+  if (!module.hot.data) {
+    hotAPI.createRecord(id, module.exports)
+  } else {
+    hotAPI.update(id, module.exports, module.exports.template)
+  }
+})()}
+},{"./_list.vue":38,"vue":29,"vue-hot-reload-api":2,"vue-spinner/dist/vue-spinner.min":28,"vueify-insert-css":30}],38:[function(require,module,exports){
+var __vueify_style__ = require("vueify-insert-css").insert("\n ")
+"use strict";
+
+exports.__esModule = true;
+exports["default"] = {
+
+  data: function data() {
+    return {
+      searchNote: null
+    };
+  },
+
+  props: {
+    list: [],
+    admin: { "default": false }
+  },
+
+  methods: {
+    editNote: function editNote(note, index) {
+      // console.log(note, index)
+      this.$parent.newNote = note;
+      this.$parent.newNote.index = index;
+      this.$parent.newNote.updating = true;
+      document.getElementById('title').focus();
+    },
+
+    removeNote: function removeNote(note) {
+      var vm = this;
+
+      bootbox.confirm({
+        message: "Are you sure?",
+        title: "Please proceede carefully!",
+        buttons: {
+          confirm: {
+            label: 'Delete',
+            className: 'btn-danger'
+          }
+        },
+        callback: function callback(result) {
+          if (result) {
+            vm.$http["delete"]('/api/notes/admin/' + note.slug).then(function (success) {
+              vm.list.$remove(note);
+            });
+          }
+        }
+      });
+    }
+
+  }
+};
+module.exports = exports["default"];
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\t<div class=\"col-sm-12\" v-if=\"list.length\" _v-1cefd4dc=\"\">\n\t\t<div class=\"input-group\" _v-1cefd4dc=\"\">\n\t\t\t<input type=\"text\" class=\"form-control\" id=\"exampleInputAmount\" placeholder=\"Search Note\" v-model=\"searchNote\" _v-1cefd4dc=\"\">\n\t\t\t<div class=\"input-group-addon\" _v-1cefd4dc=\"\"><i class=\"fa fa-search\" _v-1cefd4dc=\"\"></i></div>\n\t\t</div>\n\t\t<div class=\"col-sm-12 \" _v-1cefd4dc=\"\"><!-- pre-scrollable -->\n\t\t\t<div v-for=\"note in list | filterBy searchNote\" class=\"animated\" transition=\"fade\" _v-1cefd4dc=\"\">\n\t\t\t\t<h3 _v-1cefd4dc=\"\">\n\t\t\t\t\t{{ note.title }}\n\t\t\t\t\t<div v-if=\"admin\" _v-1cefd4dc=\"\">\n\t\t\t\t\t\t<a href=\"\" class=\"pull-right \" @click.prevent=\"removeNote(note)\" style=\"margin: 0 10px ;\" _v-1cefd4dc=\"\">\n\t\t\t\t\t\t\t<small class=\"text-danger\" _v-1cefd4dc=\"\"><i class=\"fa fa-remove\" _v-1cefd4dc=\"\"></i></small>\n\t\t\t\t\t\t</a>\n\n\t\t\t\t\t\t<a href=\"\" class=\"pull-right\" @click.prevent=\"editNote(note, $index)\" _v-1cefd4dc=\"\">\n\t\t\t\t\t\t\t<small _v-1cefd4dc=\"\"><i class=\"fa fa-pencil\" _v-1cefd4dc=\"\"></i></small>\n\t\t\t\t\t\t</a>\n\t\t\t\t\t</div>\n\t\t\t\t</h3>\n\t\t\t\t<!-- /. Title -->\n\n\t\t\t\t<p _v-1cefd4dc=\"\">{{{ note.body }}}</p>\n\t\t\t\t\t<!-- parseTag(note.tags) -->\n\t\t\t\t<p v-if=\"note.tags\" _v-1cefd4dc=\"\">\n\t\t\t\t\t<strong _v-1cefd4dc=\"\">Tags: </strong>\n\t\t\t\t\t<span style=\"margin-right: 3px;\" class=\"label label-info\" v-for=\"tag in note.tag_list\" _v-1cefd4dc=\"\">{{ tag }}</span>\n\t\t\t\t</p>\n\n\t\t\t\t<hr _v-1cefd4dc=\"\">\n\n\t\t\t</div>\n\t\t</div>\n\t</div>\n"
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  var id = "f:\\wamp\\www\\dainsys3\\resources\\assets\\js\\app\\components\\notes\\_list.vue"
+  module.hot.dispose(function () {
+    require("vueify-insert-css").cache["\n "] = false
+    document.head.removeChild(__vueify_style__)
+  })
+  if (!module.hot.data) {
+    hotAPI.createRecord(id, module.exports)
+  } else {
+    hotAPI.update(id, module.exports, module.exports.template)
+  }
+})()}
+},{"vue":29,"vue-hot-reload-api":2,"vueify-insert-css":30}],39:[function(require,module,exports){
+var __vueify_style__ = require("vueify-insert-css").insert("\n")
+'use strict';
+
+exports.__esModule = true;
+exports['default'] = {
+  data: function data() {
+    return {
+
+      newTask: {
+        task_name: ''
+      }
+
+    };
+  },
+
+  methods: {
+    createTask: function createTask() {
+
+      // return console.log(this.newTask)
+      this.$http.post('/api/tasks', { task_name: this.newTask.task_name }).then(function (response) {
+        this.newTask.task_name = '';
+        this.$router.go('/learn');
+        // console.log(response);
+      });
+    }
+  }
+};
+module.exports = exports['default'];
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\t<form action=\"#\" method=\"POST\" role=\"form\" @submit.prevent=\"createTask\" _v-7e43db2c=\"\">\n\t\t<legend _v-7e43db2c=\"\">Create Task</legend>\n\t\n\t\t<div class=\"form-group\" _v-7e43db2c=\"\">\n\t\t\t<label for=\"\" _v-7e43db2c=\"\">Task:</label>\n\t\t\t<input type=\"text\" class=\"form-control\" id=\"\" placeholder=\"Input field\" v-model=\"newTask.task_name\" _v-7e43db2c=\"\">\n\t\t</div>\t\n\t\n\t\t<button type=\"submit\" class=\"btn btn-primary\" @click.prevent=\"createTask\" _v-7e43db2c=\"\">Create</button>\n\t</form>\n"
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  var id = "f:\\wamp\\www\\dainsys3\\resources\\assets\\js\\app\\components\\tasks\\Create.vue"
+  module.hot.dispose(function () {
+    require("vueify-insert-css").cache["\n"] = false
+    document.head.removeChild(__vueify_style__)
+  })
+  if (!module.hot.data) {
+    hotAPI.createRecord(id, module.exports)
+  } else {
+    hotAPI.update(id, module.exports, module.exports.template)
+  }
+})()}
+},{"vue":29,"vue-hot-reload-api":2,"vueify-insert-css":30}],40:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports["default"] = {
+
+    request: function request(_request) {
+        return _request;
+    },
+
+    response: function response(_response) {
+        switch (_response.status) {
+            case 401:
+                // User is no authorized.
+                // location.reload();
+                console.log(_response);
+                window.location.assign("/admin/login");
+                break;
+
+            case 404:
+                // Api route requested was not found
+                console.log(_response);
+                this.response_errors = _response.statusText;
+                break;
+
+            case 405:
+                // Api returned method is not allowed
+                console.log(_response);
+                this.response_errors = _response.statusText;
+                break;
+
+            case 422:
+                // Validation Errors in the backend
+                console.log(_response);
+                this.response_errors = _response.statusText;
+                break;
+
+            case 500:
+                // Internal server error, most likely token error
+                console.log(_response);
+                window.location.assign("/admin/login");
+                this.response_errors = _response.statusText;
+                break;
+            case 200:
+                break;
+        }
+        return _response;
+    }
+
+};
+module.exports = exports["default"];
+
+},{}],41:[function(require,module,exports){
+'use strict';
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
 /**
- * Required Components
+ * Required Components 
  */
-var NbaComponent = require('./components/Nba.vue');
-var TaskComponent = require('./components/Task.vue');
+
+var _componentsMenuVue = require('./components/Menu.vue');
+
+var _componentsMenuVue2 = _interopRequireDefault(_componentsMenuVue);
+
+var _componentsTaskVue = require('./components/Task.vue');
+
+var _componentsTaskVue2 = _interopRequireDefault(_componentsTaskVue);
+
+// Vue.component('mymenu', MenuComponent);
 
 /**
  * Require Libraries
  */
+var Vue = require('vue');
+window.Vue = Vue;var VueRouter = require('vue-router');
 var VueResource = require('vue-resource');
+// var progress = require('vue-progressbar');
 // var progress = require('./app.js');
 
 /**
  * Libraries to use. These libraries are added as part of the constructor.
- * Whithin the instance they can be referenced with the 'this' key
+ * Whithin the instance they can be referenced with the 'this' key.
  */
+Vue.use(VueRouter);
 Vue.use(VueResource);
 // Vue.use(progress);
 
@@ -12081,70 +15422,54 @@ Vue.use(VueResource);
  * Configuration session
  */
 Vue.config.debug = true; // Comment this line for production
+Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#_token').getAttribute('value');
 
-Vue.http.interceptors.push({
+/**
+ * Override Transitions
+ */
+Vue.transition('fade', {
+    enterClass: 'fadeIn',
+    leaveClass: 'fadeOut'
+});
+Vue.transition('faderight', {
+    enterClass: 'fadeInRight',
+    leaveClass: 'fadeOutRight'
+});
+Vue.transition('fadeleft', {
+    enterClass: 'fadeInLeft',
+    leaveClass: 'fadeOutLeft'
+});
 
-  request: function request(_request) {
-    console.log(Vue.loadingResource);
-    return _request;
-  },
+/**
+ * Intercepting the http
+*/
+Vue.http.interceptors.push(require('./config/interceptors.js'));
 
-  response: function response(_response) {
-    console.log('Response:', _response);
-    switch (_response.status) {
-
-      case 401:
-        // User is no authorized.
-        Vue.response_errors = _response.statusText;
-        break;
-
-      case 404:
-        // Api route requested was not found
-        Vue.response_errors = _response.statusText;
-        break;
-
-      case 405:
-        // Api returned method is not allowed
-        Vue.response_errors = _response.statusText;
-        break;
-
-      case 422:
-        // Validation Errors in the backend
-        Vue.response_errors = _response.statusText;
-        break;
-
-      case 500:
-        // Internal server error, most likely token error
-        Vue.response_errors = _response.statusText;
-        break;
+/**
+ * Vue Router configuration
+ */
+var App = Vue.extend({
+    data: function data() {
+        return {
+            somedata: 'Some dummy data'
+        };
+    },
+    components: {
+        mymenu: _componentsMenuVue2['default']
     }
-
-    // this.loadingResource = false;
-    return _response;
-  }
-
 });
 
-new Vue({
-  el: 'body',
-
-  data: {
-    response_errors: null,
-    loadingResource: null
-  },
-
-  components: {
-    nba: NbaComponent,
-    tasks: TaskComponent
-  },
-
-  // progress: progress
-  ready: function ready() {
-    // console.log()
-  }
-
+var router = new VueRouter();
+router.map({
+    '/': { component: require('./components/Employee.vue') },
+    '/notes': { component: require('./components/notes/Note.vue') },
+    '/notes/admin': { component: require('./components/notes/Note_admin.vue') },
+    '/tasks/create': { component: require('./components/tasks/Create.vue') },
+    '/tasks': { component: _componentsTaskVue2['default'] }
 });
 
-},{"./components/Nba.vue":29,"./components/Task.vue":30,"vue":27,"vue-resource":16}]},{},[31]);
+router.start(App, 'body');
+
+},{"./components/Employee.vue":31,"./components/Menu.vue":33,"./components/Task.vue":34,"./components/notes/Note.vue":36,"./components/notes/Note_admin.vue":37,"./components/tasks/Create.vue":39,"./config/interceptors.js":40,"vue":29,"vue-resource":16,"vue-router":27}]},{},[41]);
 
 //# sourceMappingURL=main.js.map

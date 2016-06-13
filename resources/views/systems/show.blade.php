@@ -19,10 +19,10 @@
 					<strong>URL: </strong>{{ $system->url }}
 				</li>
 			</ul>
-			<a href="{{ route('systems.edit', $system->id) }}" class="btn btn-warning"> Edit </a>
+			<a href="{{ route('admin.systems.edit', $system->id) }}" class="btn btn-warning"> Edit </a>
 			{{-- {!! delete_button('systems.destroy', $system->id, ['class'=>"btn btn-danger", 'label' => 'Delete']) !!} --}}
 			<hr>
-			<a href="{{ route('systems.index') }}" class=""> << Return to Systems List</a>
+			<a href="{{ route('admin.systems.index') }}" class=""> << Return to Systems List</a>
 		</div>
 		{{-- /. Row --}}
 	@else

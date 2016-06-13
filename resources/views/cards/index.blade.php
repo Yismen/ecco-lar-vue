@@ -1,18 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
-	<div class=" col-sm-12">
-		<div class="well row ">
-				<h3 class="page-header">
-					Cards Items List
-					 (
-						 <small>
-						 	<a href="{{ route('admin.cards.create') }}">
-						 		<i class="fa fa-plus"></i>
-						 	</a>
-						 </small>
-					 )
-				</h3>
+	<div class="container">
+		<div class="box box-primary pad">
+			<h3 class="page-header">
+				Cards Items List 
+			 	<a href="{{ route('admin.cards.create') }}">
+			 		<i class="fa fa-plus"></i>
+			 	</a>						 
+			</h3>
+
 			@if ($cards->isEmpty())
 				<div class="bs-callout bs-callout-warning">
 					<h1>No Cards has been added yet, please add one</h1>
@@ -23,7 +20,11 @@
 						<tr>
 							<th>Card</th>
 							<th>Employee</th>
-							<th class="col-xs-3">Actions</th>
+							<th class="col-xs-3">
+								<a href="{{ route('admin.cards.create') }}">
+							 		<i class="fa fa-plus"></i>
+							 	</a>
+							</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -36,8 +37,8 @@
 									<a href="{{ route('admin.employees.show', $card->employee->id) }}">{{ $card->employee->fullName }}</a>
 								</td>
 								<td>
-									<a href="{{ route('admin.cards.edit', $card->card) }}" class="btn btn-warning">
-										<i class="fa fa-edit">	</i> Edit
+									<a href="{{ route('admin.cards.edit', $card->card) }}" class="">
+										<i class="fa fa-pencil"></i>
 									</a>
 								</td>
 							</tr>

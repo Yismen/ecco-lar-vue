@@ -7,7 +7,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta id="_token" value="{{ csrf_token() }}">  <!-- Laravel token -->
+        <meta id="_token" name="_token" value="{{ csrf_token() }}">  <!-- Laravel token -->
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <title>Ecco | {{ $page_header or 'Admin Header' }}</title>
@@ -106,12 +106,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- ./wrapper -->
         <!-- REQUIRED JS SCRIPTS -->
         <script src="{{ elixir('js/all.js') }}"></script>
-
-
-        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.22/vue.js"></script> -->
-       <!--  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.7.0/vue-resource.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-validator/2.1.1/vue-validator.min.js"></script> -->
-        <script src="{{ elixir('js/main.js') }}"></script>
         <!-- Optionally, you can add Slimscroll and FastClick plugins.
         Both of these plugins are recommended to enhance the
         user experience. Slimscroll is required when using the

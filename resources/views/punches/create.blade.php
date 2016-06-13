@@ -4,7 +4,7 @@
 @section('content')
 	<div class="col-sm-8 col-sm-offset-2">
 		<div class="well row ">
-			{!! Form::open(['route'=>['punches.store'], 'method'=>'POST', 'class'=>'form-horizontal', 'role'=>'form']) !!}		
+			{!! Form::open(['route'=>['admin.punches.store'], 'method'=>'POST', 'class'=>'form-horizontal', 'role'=>'form']) !!}		
 				<div class="form-group">
 					<legend>New Punch ID</legend>
 				</div>
@@ -14,7 +14,7 @@
 				<div class="col-sm-10 col-sm-offset-2">
 					<button type="submit" class="btn btn-primary form-control">Create</button>
 					<hr>	
-					<a href="{{ route('punches.index') }}"><< Cancel and return to Punches List</a>
+					<a href="{{ route('admin.punches.index') }}"><< Cancel and return to Punches List</a>
 				</div>
 			
 			{!! Form::close() !!}

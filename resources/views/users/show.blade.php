@@ -28,10 +28,10 @@
 					<strong>Is Admin?: </strong>{{ $user->is_admin ? 'Yes, this user is admin' : 'No admin' }}
 				</li>
 			</ul>
-			<a href="{{ route('users.edit', $user->username) }}" class="btn btn-warning"> Edit </a>
-			{!! delete_button('users.destroy', $user->username, ['class'=>"btn btn-danger", 'label' => 'Delete']) !!}
+			<a href="{{ route('admin.users.edit', $user->username) }}" class="btn btn-warning"> Edit </a>
+			{{-- {!! delete_button('users.destroy', $user->username, ['class'=>"btn btn-danger", 'label' => 'Delete']) !!} --}}
 			<hr>
-			<a href="{{ route('users.index') }}" class=""> << Return to Users List </a>
+			<a href="{{ route('admin.users.index') }}" class=""> << Return to Users List </a>
 		</div>
 		{{-- /. Row --}}
 	@else

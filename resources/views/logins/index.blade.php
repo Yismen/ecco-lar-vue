@@ -8,7 +8,7 @@
 					Logins Items List
 					 (
 						 <small>
-						 	<a href="{{ route('logins.create') }}">
+						 	<a href="{{ route('admin.logins.create') }}">
 						 		<i class="fa fa-plus"></i>
 						 	</a>
 						 </small>
@@ -32,10 +32,10 @@
 						@foreach ($logins as $login)
 							<tr>
 								<td>
-									<a href="{{ route('logins.show', $login->id) }}">{{ $login->login }}</a>
+									<a href="{{ route('admin.logins.show', $login->id) }}">{{ $login->login }}</a>
 								</td>
 								<td>
-									<a href="{{ route('systems.show', $login->system->id) }}">{{ ucwords(trim($login->system->name)) }}</a>
+									<a href="{{ route('admin.systems.show', $login->system->id) }}">{{ ucwords(trim($login->system->name)) }}</a>
 								</td>
 								<td>
 									<a href="{{ route('admin.employees.show', $login->employee->id) }}">
@@ -44,7 +44,7 @@
 									</a>
 								</td>
 								<td>
-									<a href="{{ route('logins.edit', $login->id) }}" class="btn btn-warning">
+									<a href="{{ route('admin.logins.edit', $login->id) }}" class="btn btn-warning">
 										<i class="fa fa-edit"></i>
 									</a>
 									{{-- {!! delete_button('logins.destroy', $login->id, ['class'=>'btn btn-danger','label'=>'<i class="fa fa-trash"></i>']) !!}  --}}

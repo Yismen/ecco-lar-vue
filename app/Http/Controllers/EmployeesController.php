@@ -238,9 +238,9 @@ class EmployeesController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy(Employee $employee)
 	{
-		//
+		return $employee;
 	}
 
 	public function updatePhoto(Employee $employee, Request $request)

@@ -1,9 +1,9 @@
 <?php namespace App\Http\Controllers;
 
-// use App\Http\Requests;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-use App\Http\Requests\CreateTaskRequest;
+// use App\Http\Requests\Request;
 use App\Task;
 
 
@@ -21,11 +21,17 @@ class TasksController extends Controller {
 		// $this->middleware('authorize');
 	}
 
-	public function index(Task $tasks)
+	public function index(Task $tasks, Request $request)
 	{
-		$tasks = $tasks->foruser()->paginate(10);
+		$tasks = $tasks
+				// ->pending()
+				->foruser()
+				->latest()
+				->paginate(25);
+
+		if ($request->ajax()) return $tasks;
 		
-		return view('tasks.index', compact('tasks'));
+		return view('tasks.index');
 	}
 
 	/**
@@ -33,9 +39,9 @@ class TasksController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function create()
+	public function create(Task $task)
 	{
-		return view('tasks.create');
+		return view('tasks.create', compact('task'));
 	}
 
 	/**
@@ -43,11 +49,14 @@ class TasksController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(Task $task, CreateTaskRequest $request)
+	public function store(Task $task, Request $request)
 	{
-		// $request['user_id'] = $request>user()->id;
-		$request['user_id'] = \Auth::id();
-		$task->create($request->all());
+		$this->validate($request, [
+		    'task_name' => 'required|min:5',
+		]);
+		$task = auth()->user()->tasks()->create($request->all());
+
+		if ($request->ajax()) return $task;
 
 		return \Redirect::route('tasks.index')->withSuccess("Your task [$request->task_name] has been created;");
 	}
@@ -69,7 +78,7 @@ class TasksController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit(Task $task,  CreateTaskRequest $request)
+	public function edit(Task $task,  Request $request)
 	{
 		return $request->all();
 	}
@@ -78,12 +87,21 @@ class TasksController extends Controller {
 	 * Update the specified resource in storage.
 	 * 
 	 * @param  Task              $task    [Model Object]
-	 * @param  CreateTaskRequest $request [Request object]
+	 * @param  Request $request [Request object]
 	 * @return [redirect]                 [Response]
 	 */
-	public function update(Task $task,  CreateTaskRequest $request)
+	public function update(Task $task,  Request $request)
 	{
-		return $request;
+		$this->validate($request, [
+		    'id' => 'required|integer',
+		    'completed' => 'required|boolean',
+		]);
+
+		$task->update($request->all());
+
+		if ($request->ajax()) return $task;
+
+		return redirect()->back()->withError("Only ajax allowed...");	
 	}
 
 	/**
@@ -92,13 +110,11 @@ class TasksController extends Controller {
 	 * @param  object  $task
 	 * @return Response
 	 */
-	public function destroy(Task $task)
+	public function destroy(Task $task, Request $request)
 	{
-		$executed = $task->destroy($task->id);
+		$task->delete();
 
-		if ( \Input::ajax() ) {
-			return $executed;
-		}
+		if ( $request->ajax() ) return $task;
 
 		return redirect()->back()->withWarning("Your task [$task->task_name] has been removed");
 	}
@@ -108,19 +124,17 @@ class TasksController extends Controller {
 	 * 
 	 * @return [type] [description]
 	 */
-	public function getAjaxUpdate()
+	public function removeCompleted(Task $tasks, Request $request)
 	{
-		if ( \Input::ajax() ) {
-			$task = Task::find(\Input::get('parentId'));
 
-			$task->completed = \Input::get('elemVal', 0);
+		$tasks = $tasks->whereCompleted(true)->get();
 
-			$task->save();
+		foreach ($tasks as $task) {
+			$task->delete();
+		}
+		if ($request->ajax()) return $tasks;
 
-			return $task;
-		} else {
-			return redirect()->back()->withError("Only ajax allowed...");
-		}		
+		return redirect()->back()->withError("Only ajax allowed...");	
 
 	}
 	

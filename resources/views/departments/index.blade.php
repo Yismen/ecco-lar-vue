@@ -3,7 +3,10 @@
 
 @section('content')
 	<div class="container">
-		Show list of Departments
+		<div class="box box-primary pad">
+
+			{{ $departments }}
+		</div>
 	</div>
 @stop
 

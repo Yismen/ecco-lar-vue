@@ -21,9 +21,9 @@
 
 				</tbody>
 			</table>
-			<a href="{{ route('punches.edit', $punch->punch) }}" class="btn btn-warning"> Edit </a>
+			<a href="{{ route('admin.punches.edit', $punch->punch) }}" class="btn btn-warning"> Edit </a>
 			<hr>
-			<a href="{{ route('punches.index') }}" class=""> << Return to Cards List </a>
+			<a href="{{ route('admin.punches.index') }}" class=""> << Return to Cards List </a>
 			
 		</div>
 		{{-- /. Row --}}

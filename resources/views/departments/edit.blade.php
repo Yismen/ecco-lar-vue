@@ -2,11 +2,11 @@
 @extends('layouts.'.$layout->app(), ['page_header'=>'title', 'page_description'=>'description'])
 
 @section('content')
-	<div class="col-sm-8 col-sm-offset-1">
-		<div class="row ">
+	<div class="container">
+		<div class="box box-primary pad">
 			<br>
 			<div class="jumbotron">				
-				{!! Form::model($departments, ['route'=>['departments.update', $departments->id], 'class'=>'form-horizontal', 'method'=>'PUT', 'role'=>'form']) !!}		
+				{!! Form::model($departments, ['route'=>['admin.departments.update', $departments->id], 'class'=>'form-horizontal', 'method'=>'PUT', 'role'=>'form']) !!}		
 					<div class="form-group">
 						<legend>Edit HH RR Department [{{ $departments->department }}]</legend>
 					</div>						
@@ -16,7 +16,7 @@
 				{!! Form::close() !!}
 
 				<hr>
-				{!! link_to_route('departments.create', 'Cancel and Return') !!}
+				{!! link_to_route('admin.departments.create', 'Cancel and Return') !!}
 
 			</div>
 		</div>

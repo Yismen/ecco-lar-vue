@@ -12,6 +12,9 @@ use Illuminate\Http\Request;
 
 class NotesController extends Controller
 {
+    function __construct() {
+        $this->middleware('auth', ['except'=>['index', 'show']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -19,12 +22,12 @@ class NotesController extends Controller
      */
     public function index(Note $notes, Request $request)
     {
+        // Cache::forget('notes');
+        $notes = Cache::rememberForever('notes', function() use($notes) {
+            return $notes->get();
+        });
 
-        $notes = $notes->paginate(15);
-
-        if ($request->ajax()) {
-        	return view('notes.admin.partials.list', compact('notes'));
-        }
+        if ($request->ajax()) return $notes;
         
         return view('notes.admin.index', compact('notes'));
     }
@@ -36,9 +39,7 @@ class NotesController extends Controller
      */
     public function create(Note $note)
     {
-        // if ($request->ajax()) {
-        // 	return $note
-        // }
+        if ($request->ajax()) return $note;
         
         return view('notes.admin.create', compact('note'));
     }
@@ -56,7 +57,11 @@ class NotesController extends Controller
             'body' => 'required|max:5000|min:3',
         ]);
 
-        $note->create($request->all());
+        $note = $note->create($request->all());
+
+        Cache::forget('notes');
+
+        if ($request->ajax()) return $note;
 
         return redirect()->route('admin.notes.index')
         	->withSuccess("Your note $note->name has been created");
@@ -68,12 +73,9 @@ class NotesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Note $note, Request $request, Search $search)
+    public function show(Note $note, Request $request)
     {
-        if ($request->ajax()) {
-        	return $note;
-        }
-        
+        if ($request->ajax()) return $note;        
 
         return view('notes.admin.show', compact('note'));
     }
@@ -86,6 +88,8 @@ class NotesController extends Controller
      */
     public function edit(Note $note)
     {
+        if ($request->ajax()) return $note; 
+
         return view('notes.admin.edit', compact('note'));
     }
 
@@ -98,13 +102,16 @@ class NotesController extends Controller
      */
     public function update(Request $request, Note $note)
     {
-
         $this->validate($request, [
             'title' => 'required|max:80|min:3',
             'body' => 'required|max:5000|min:3',
         ]);
 
         $note->update($request->all());
+
+        Cache::forget('notes');
+        
+        if ($request->ajax()) return $note; 
 
         return redirect()->route('admin.notes.show', $note->slug)
             ->withSuccess("Note type $note->name has been updated!");
@@ -116,9 +123,13 @@ class NotesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Note $note)
+    public function destroy(Note $note, Request $request)
     {
         $note->delete();
+
+        Cache::forget('notes');
+
+        if ($request->ajax()) return $note;
         
         return redirect()->route('admin.notes.index')
             ->withDanger("Note $note->name has been removed!");

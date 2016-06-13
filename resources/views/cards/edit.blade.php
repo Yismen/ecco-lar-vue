@@ -2,9 +2,8 @@
 @extends('layouts.'.$layout->app(), ['page_header'=>'title', 'page_description'=>'description'])
 
 @section('content')
-	<div class="col-sm-8 col-sm-offset-2">
-		{{-- {{ dd($employee) }} --}}
-		<div class="well row">
+	<div class="container">
+		<div class="box box-primary pad">
 			{!! Form::model($card, ['route'=>['admin.cards.update', $card->card], 'method'=>'PUT', 'class'=>'form-horizontal', 'role'=>'form']) !!}	
 				<div class="form-group">
 					<legend>Edit Login {{ $card->card }}</legend>

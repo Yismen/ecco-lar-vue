@@ -3,8 +3,8 @@
 
 @section('content')
 	@if ($position)
-		<div class="col-sm-4 col-sm-offset-4 well row">
-			<ul class="list-group">
+		<div class="container">
+			<div class="box box-primary pad">
 				<li class="list-group-item">
 					<strong>Name: </strong>{{ $position->name }}
 				</li>
@@ -18,10 +18,10 @@
 					<strong>Saraly: </strong>RD$ {{ $position->salary }}
 				</li>
 			</ul>
-			<a href="{{ route('positions.edit', $position->id) }}" class="btn btn-warning"> Edit </a>
+			<a href="{{ route('admin.payments.edit', $position->id) }}" class="btn btn-warning"> Edit </a>
 			{{-- {!! delete_button('positions.destroy', $position->name, ['class'=>"btn btn-danger", 'label' => 'Delete']) !!} --}}
 			<hr>
-			<a href="{{ route('positions.index') }}" class=""> << Return to Positions List </a>
+			<a href="{{ route('admin.payments.index') }}" class=""> << Return to Positions List </a>
 		</div>
 		{{-- /. Row --}}
 	@else

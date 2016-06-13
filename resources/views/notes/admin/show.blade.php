@@ -15,7 +15,7 @@
 						@foreach ($note->tagList as $tag)	
 							<span class="label label-info">{{ ucwords($tag) }}</span>
 						@endforeach
-					</div>
+					</div>					
 
 					<hr>
 

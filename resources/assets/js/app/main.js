@@ -1,21 +1,25 @@
 var Vue = require('vue');
 window.Vue = Vue;
 /**
- * Required Components
+ * Required Components 
  */
-var NbaComponent = require('./components/Nba.vue');
-var TaskComponent = require('./components/Task.vue');
+import MenuComponent from './components/Menu.vue';
+import TaskComponent from './components/Task.vue';
+// Vue.component('mymenu', MenuComponent);
 
 /**
  * Require Libraries
  */
+var VueRouter = require('vue-router');
 var VueResource = require('vue-resource');
+// var progress = require('vue-progressbar');
 // var progress = require('./app.js');
 
 /**
  * Libraries to use. These libraries are added as part of the constructor.
- * Whithin the instance they can be referenced with the 'this' key
+ * Whithin the instance they can be referenced with the 'this' key.
  */
+Vue.use(VueRouter);
 Vue.use(VueResource);
 // Vue.use(progress);
 
@@ -23,67 +27,50 @@ Vue.use(VueResource);
  * Configuration session
  */
 Vue.config.debug = true // Comment this line for production
+Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#_token').getAttribute('value');
 
-Vue.http.interceptors.push({
+/**
+ * Override Transitions
+ */
+Vue.transition('fade', {
+    enterClass: 'fadeIn',
+    leaveClass: 'fadeOut'
+});
+Vue.transition('faderight', {
+    enterClass: 'fadeInRight',
+    leaveClass: 'fadeOutRight'
+});
+Vue.transition('fadeleft', {
+    enterClass: 'fadeInLeft',
+    leaveClass: 'fadeOutLeft'
+});
 
-    request: function (request) {
-    	console.log(Vue.loadingResource)
-        return request;
+/**
+ * Intercepting the http
+*/
+Vue.http.interceptors.push(require('./config/interceptors.js'));
+
+/**
+ * Vue Router configuration
+ */
+var App = Vue.extend({
+    data() {
+        return {
+            somedata: 'Some dummy data'
+        }
     },
-
-    response: function (response) {
-    	console.log('Response:', response);
-    	switch (response.status){
-
-    		case 401: 
-    			// User is no authorized.
-    			Vue.response_errors = response.statusText;
-    			break;
-
-    		case 404:
-    			// Api route requested was not found
-    			Vue.response_errors = response.statusText;
-    			break;
-
-    		case 405:
-    			// Api returned method is not allowed
-    			Vue.response_errors = response.statusText;
-    			break;
-    			
-    		case 422:
-    			// Validation Errors in the backend
-    			Vue.response_errors = response.statusText;
-    			break;
-    			
-    		case 500:
-    			// Internal server error, most likely token error
-    			Vue.response_errors = response.statusText;
-    			break;
-    	}
-
-    	// this.loadingResource = false;
-        return response;
+    components: {
+        mymenu: MenuComponent
     }
-
 });
 
- 
-new Vue({
-	el: 'body', 
-
-	data: {
-		response_errors: null,
-		loadingResource: null
-	},
-
-	components: {
-		nba: NbaComponent,
-		tasks: TaskComponent,
-		// progress: progress
-	},
-
-	ready: function() {
-		// console.log()
-	}
-
+var router = new VueRouter();
+router.map({
+    '/': {component: require('./components/Employee.vue')},
+    '/notes': {component: require('./components/notes/Note.vue')},
+    '/notes/admin': {component: require('./components/notes/Note_admin.vue')},
+    '/tasks/create': {component: require('./components/tasks/Create.vue')},
+    '/tasks': {component: TaskComponent},
 });
+
+router.start(App, 'body');

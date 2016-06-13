@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers;
 
-use App\Http\Requests\RolesRequests;
+use App\Http\Requests;
 
 use App\Http\Controllers\Controller;
 
@@ -52,7 +52,7 @@ class RolesController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(Role $role, RolesRequests $requests, User $users, Permission $permissions, Menu $menus)
+	public function store(Role $role, Request $requests, User $users, Permission $permissions, Menu $menus)
 	{
 		$this->createRole($role, $requests, $users, $permissions, $menus);
 
@@ -93,7 +93,7 @@ class RolesController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update(Role $role, RolesRequests $requests, User $users, Permission $permissions, Menu $menus)
+	public function update(Role $role, Request $requests, User $users, Permission $permissions, Menu $menus)
 	{
 		$this->updateRole($role, $requests, $users, $permissions, $menus);
 

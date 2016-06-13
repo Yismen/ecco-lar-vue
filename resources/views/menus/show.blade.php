@@ -25,9 +25,9 @@
 					<strong>Icon Class: </strong>{{ $menu->icon }} <i class="{{ $menu->icon }}"></i>
 				</li>
 			</ul>
-			<a href="{{ route('menus.edit', $menu->name) }}" class="btn btn-warning"> Edit </a>
+			<a href="{{ route('admin.menus.edit', $menu->name) }}" class="btn btn-warning"> Edit </a>
 			<hr>
-			<a href="{{ route('menus.index') }}" class=""> << Return to Menus List </a>
+			<a href="{{ route('admin.menus.index') }}" class=""> << Return to Menus List </a>
 		</div>
 		{{-- /. Row --}}
 	@else

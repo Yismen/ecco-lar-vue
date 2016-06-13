@@ -1,18 +1,15 @@
 @inject('layout', 'App\Layout')
-@extends('layouts.'.$layout->app(), ['page_header'=>'title', 'page_description'=>'description'])
+@extends('layouts.'.$layout->app(), ['page_header'=>'Roles', 'page_description'=>'Roles list'])
 
 @section('content')
 	<div class=" col-sm-12">
 		<div class="well row ">
 				<h3 class="page-header">
-					Roles Items List
-					 (
-						 <small>
-						 	<a href="{{ route('roles.create') }}">
-						 		<i class="fa fa-plus"></i>
-						 	</a>
-						 </small>
-					 )
+					Roles List 
+				 	<a href="{{ route('roles.create') }}">
+				 		<i class="fa fa-plus"></i>
+				 	</a>
+
 				</h3>
 			@if ($roles->isEmpty())
 				<div class="bs-callout bs-callout-warning">
@@ -24,7 +21,11 @@
 						<tr>
 							<th>Role Item</th>
 							<th>Description</th>
-							<th class="col-xs-3">Actions</th>
+							<th class="col-xs-3">
+								<a href="{{ route('roles.create') }}">
+							 		Add <i class="fa fa-plus"></i>
+							 	</a>
+							</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -37,10 +38,12 @@
 									{{ $role->description }}
 								</td>
 								<td>
-									<a href="{{ route('roles.edit', $role->name) }}" class="btn btn-warning">
-										<i class="fa fa-edit"></i>
+									<a href="{{ route('roles.edit', $role->name) }}" class="">
+										<i class="fa fa-pencil"></i>
 									</a>
-									{!! delete_button('roles.destroy', $role->name, ['class'=>'btn btn-danger','label'=>'<i class="fa fa-trash"></i>']) !!}
+									{{-- {!! delete_button('roles.destroy', $role->name, ['class'=>'btn btn-danger','label'=>'<i class="fa fa-trash"></i>']) !!}
+									 --}}
+
 								</td>
 							</tr>
 						@endforeach

@@ -27,6 +27,8 @@ class Note extends Model implements SluggableInterface
       'tags'
     ];
 
+    protected $appends = ['tag_list'];
+
     /**
      * Attributes that should be mutated as dates.
      * @var array
@@ -55,7 +57,16 @@ class Note extends Model implements SluggableInterface
     public function getTagListAttribute()
     {
       $tags = explode(',', $this->tags);
-      return (object)$tags;
+
+      $output = [];
+
+      foreach ($tags as $value) {
+        $value = trim($value);
+        $value = ucfirst($value);
+        array_push($output, $value);
+      }
+
+      return $this->attributes['tag_list'] = (object)$output;
     }
 
     public function getTitleAttribute($title)

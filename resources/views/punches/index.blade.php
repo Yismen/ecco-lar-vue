@@ -8,7 +8,7 @@
 					Punches Items List
 					 (
 						 <small>
-						 	<a href="{{ route('punches.create') }}">
+						 	<a href="{{ route('admin.punches.create') }}">
 						 		<i class="fa fa-plus"></i>
 						 	</a>
 						 </small>
@@ -31,13 +31,13 @@
 						@foreach ($punches as $punch)
 							<tr>
 								<td>
-									<a href="{{ route('punches.show', $punch->punch) }}">{{ $punch->punch }}</a>
+									<a href="{{ route('admin.punches.show', $punch->punch) }}">{{ $punch->punch }}</a>
 								</td>
 								<td>
 									<a href="{{ route('admin.employees.show', $punch->employee->id) }}">{{ $punch->employee->fullName }}</a>
 								</td>
 								<td>
-									<a href="{{ route('punches.edit', $punch->punch) }}" class="btn btn-warning">
+									<a href="{{ route('admin.punches.edit', $punch->punch) }}" class="btn btn-warning">
 										<i class="fa fa-edit">	</i> Edit
 									</a>
 								</td>

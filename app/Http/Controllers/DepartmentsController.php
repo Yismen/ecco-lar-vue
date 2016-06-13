@@ -13,9 +13,12 @@ class DepartmentsController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index(Department $departments)
 	{
-		return redirect()->orderBy('department')->route('departments.create');
+		$departments = $departments->orderBy('department')->get();
+		
+		return view('departments.index', compact('departments'));
+
 	}
 
 	/**

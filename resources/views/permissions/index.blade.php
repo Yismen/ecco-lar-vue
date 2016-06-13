@@ -2,13 +2,13 @@
 @extends('layouts.'.$layout->app(), ['page_header'=>'title', 'page_description'=>'description'])
 
 @section('content')
-	<div class=" col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
-		<div class="well row ">
+	<div class="container">
+		<div class="box box-primary pad">
 				<h3 class="page-header">
 					Permissions Items List
 					 (
 						 <small>
-						 	<a href="{{ route('permissions.create') }}">
+						 	<a href="{{ route('admin.permissions.create') }}">
 						 		<i class="fa fa-plus"></i>
 						 	</a>
 						 </small>
@@ -19,7 +19,7 @@
 					<h1>No permissions has been added yet, please add one</h1>
 				</div>
 			@else
-				<table class="table table-condensed table-hover">
+				<table class="table table-condensed table-hover table-striped">
 					<thead>
 						<tr>
 							<th>Permission Item</th>
@@ -31,16 +31,16 @@
 						@foreach ($permissions as $permission)
 							<tr>
 								<td>
-									<a href="{{ route('permissions.show', $permission->name) }}">{{ $permission->display_name }}</a>
+									<a href="{{ route('admin.permissions.show', $permission->name) }}">{{ $permission->display_name }}</a>
 								</td>
 								<td>
 									{{ $permission->description }}
 								</td>
 								<td>
-									<a href="{{ route('permissions.edit', $permission->name) }}" class="btn btn-warning">
-										<i class="fa fa-edit"></i>
+									<a href="{{ route('admin.permissions.edit', $permission->name) }}" class="">
+										<i class="fa fa-pencil"></i>
 									</a>
-									{!! delete_button('permissions.destroy', $permission->name, ['class'=>'btn btn-danger','label'=>'<i class="fa fa-trash"></i>']) !!}
+									{{-- {!! delete_button('admin.permissions.destroy', $permission->name, ['class'=>'btn btn-danger','label'=>'<i class="fa fa-trash"></i>']) !!} --}}
 								</td>
 							</tr>
 						@endforeach
@@ -54,3 +54,4 @@
 @section('scripts')
 	
 @stop
+

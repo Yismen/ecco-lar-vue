@@ -3,12 +3,12 @@
 
 @section('content')
 	<div class="container">
+		<div class="box box-primary pad">
 		
 		<div class="col-sm-8 col-sm-offset-1">
-		<div class="row ">
 			<br>
 			<div class="jumbotron">				
-				{!! Form::open(['route'=>['departments.store'], 'class'=>'form-horizontal', 'role'=>'form']) !!}		
+				{!! Form::open(['route'=>['admin.departments.store'], 'class'=>'form-horizontal', 'role'=>'form']) !!}		
 					<div class="form-group">
 						<legend>Create A New HH RR Department</legend>
 					</div>						
@@ -34,10 +34,10 @@
 										{{ $department->department }}
 									</td>
 									<td>
-										{!! link_to_route('departments.edit', 'Edit', $department->id, ['class'=>'btn btn-warning']) !!}
+										{!! link_to_route('admin.departments.edit', 'Edit', $department->id, ['class'=>'btn btn-warning']) !!}
 									</td>
 									<td>
-										{!! delete_form(['departments.destroy', $department->id]) !!}
+										{{-- {!! delete_form(['departments.destroy', $department->id]) !!}  --}}
 									</td>
 								</tr>
 							@endforeach
@@ -49,9 +49,6 @@
 				{{-- /. Pagination Links --}}
 			</div>
 		</div>
-	</div>
-
-	
 	</div>
 @stop
 
