@@ -3,7 +3,6 @@
 
 @section('content')
 	<div class="container">
-		<div class="box box-primary pad">
 			<div class="col-sm-8 col-sm-offset-2">
 				<div class="box box-primary pad">
 
@@ -120,6 +119,6 @@
 					
 				</div>
 			</div>
-		</div>
+		
 	</div>
 @endsection

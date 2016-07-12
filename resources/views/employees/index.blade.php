@@ -3,65 +3,65 @@
 
 @section('content')
 	<div class="container">
-		<div class="box box-primary pad">
-			<div class="col-sm-8 col-sm-offset-2">
-
+		<div class="col-sm-10 col-sm-offset-1">
+			<div class="box box-primary pad">
 				<div class="row">
+					<div class="col-sm-12">
 
-					<div class="col-md-5 pull-left">
+						<div class="col-md-5 pull-left">
+							
+							<ul class="nav navbar-nav">
+								<li class="">
+									<span>Filters:</span>
+								</li>
+								<li>
+									<a href="{{ route('admin.employees.index') }}" class="">All</a>
+								</li>
+								<li class="active">
+									<a class="active" href="{{ route('admin.employees.index', ['status'=>'actives']) }}">Actives</a>
+								</li>
+								<li>
+									<a href="{{ route('admin.employees.index', ['status'=>'inactives']) }}">Inactives</a>
+								</li>
+							</ul>
+						</div><!-- /. Navigation -->
+
+						<div class="col-md-7 pull-right">
+							{!! Form::open(['route'=>['admin.employees.index'], 'method'=>'GET', 'id'=>'search_form', 'class'=>'', 'role'=>'form', 'autocomplete'=>"off"]) !!}		
+								<div class="form-group">
+
+									<div class="input-group">
+								      <input 
+								      	type="search" 
+								      	name="search"
+								      	id="inputSearch" 
+								      	class="form-control"
+								      	 required="required" 
+								      	 title="Search employees" 
+								      	placeholder="Search by name, ID or Phone"
+								      >
+								      <span class="input-group-btn">
+								        <button class="btn btn-default" type="submit">
+											<i class="fa fa-search"></i>
+								        </button>
+								      </span>
+								    </div><!-- /. Input-group -->
+								    <span class="help-block">Separate criterias by spaces.</span>
+
+								</div><!-- /. form group -->
+							{!! Form::close() !!}
+						</div><!-- /. Search box -->
+					</div><!-- /. Row - Search box -->
+
+					<div class="col-sm-12">
+
+
+						<div class="employees">			
+							@include('employees._employees')
+						</div>
 						
-						<ul class="nav navbar-nav">
-							<li class="">
-								<span>Filters:</span>
-							</li>
-							<li>
-								<a href="{{ route('admin.employees.index') }}" class="">All</a>
-							</li>
-							<li class="active">
-								<a class="active" href="{{ route('admin.employees.index', ['status'=>'actives']) }}">Actives</a>
-							</li>
-							<li>
-								<a href="{{ route('admin.employees.index', ['status'=>'inactives']) }}">Inactives</a>
-							</li>
-						</ul>
-					</div><!-- /. Navigation -->
-
-					<div class="col-md-7 pull-right">
-						{!! Form::open(['route'=>['admin.employees.index'], 'method'=>'GET', 'id'=>'search_form', 'class'=>'', 'role'=>'form', 'autocomplete'=>"off"]) !!}		
-							<div class="form-group">
-
-								<div class="input-group">
-							      <input 
-							      	type="search" 
-							      	name="search"
-							      	id="inputSearch" 
-							      	class="form-control"
-							      	 required="required" 
-							      	 title="Search employees" 
-							      	placeholder="Search by name, ID or Phone"
-							      >
-							      <span class="input-group-btn">
-							        <button class="btn btn-default" type="submit">
-										<i class="fa fa-search"></i>
-							        </button>
-							      </span>
-							    </div><!-- /. Input-group -->
-							    <span class="help-block">Separate criterias by spaces.</span>
-
-							</div><!-- /. form group -->
-						{!! Form::close() !!}
-					</div><!-- /. Search box -->
-				</div><!-- /. Row - Search box -->
-
-				<div class="box box-primary pad">
-
-
-					<div class="employees">			
-						@include('employees._employees')
-					</div>
-					
-				</div><!-- /. Primary box -->
-
+					</div><!-- /. Primary box -->
+				</div>
 			</div>
 		</div>
 	</div>
@@ -72,17 +72,19 @@
 @section('scripts')
 	<script>
 		(function($){
-			$(document).on('click', 'ul.pagination a', function(event) {
-				event.preventDefault();
-				var url = $(this).prop('href');
-				var page = url.split('page=')[1];
-				destiny = $('.employees');
+			applyDataTables();
 
-				showLoading(destiny);
+			// $(document).on('click', 'ul.pagination a', function(event) {
+			// 	event.preventDefault();
+			// 	var url = $(this).prop('href');
+			// 	var page = url.split('page=')[1];
+			// 	destiny = $('.employees');
 
-				performAjax(url, destiny);
+			// 	showLoading(destiny);
 
-			});
+			// 	performAjax(url, destiny);
+
+			// });
 
 			$(document).on('submit', '#search_form', function(event){
 				event.preventDefault();
@@ -120,15 +122,22 @@
 					type: 'GET',
 				})
 				.done(function(data) {
+					console.log(data);
 					destiny.html(data);
+
+					applyDataTables();
+
+
 				})
 				.fail(function(error) {
+					console.log(error);
 					handleError(error);
 				});
 
 			}
 
-			function showLoading(destiny){
+			function showLoading(destiny)
+			{
 				destiny.html('<div class="progress">'+
 				  '<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">'+
 				    '<span class="">Loading, please wait...</span>'+
@@ -136,19 +145,27 @@
 				'</div>');
 			};
 
-			function handleError(error){
+			function handleError(error)
+			{
 				if(error.status == 401){
 					bootbox.alert("Session expired. Please log back in.", function(){
 						location.reload();
 					});
+
+					setTimeout(function() {
+						location.reload();
+					}, 5000);
 				    				
 				}
 			};
 
+			function applyDataTables()
+			{
+				$('#employees-table').DataTable();
+			}
+
 		})(jQuery);
 
 	</script>
-
-	<script>
 	
 @stop

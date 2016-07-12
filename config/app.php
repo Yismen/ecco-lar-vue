@@ -156,6 +156,7 @@ return [
         App\Providers\ViewsComposerServiceProvider::class,
         App\Providers\LayoutServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class,
+        Yajra\Datatables\DatatablesServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -214,6 +215,7 @@ return [
         'Html'      => Collective\Html\HtmlFacade::class,
         'Image'     => Intervention\Image\Facades\Image::class,
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
+        'Datatables'=> Yajra\Datatables\Facades\Datatables::class,
 
     ],
 

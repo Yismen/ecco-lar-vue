@@ -1,7 +1,9 @@
 <div class="col-sm-12">
 	{!! Form::model($employee, ['route'=>['admin.employees.termination', $employee->id], 'method'=>'POST', 'class'=>'form-horizontal', 'role'=>'form', 'autocomplete'=>"off"]) !!}		
 		<div class="form-group">
-			<legend>Edit Termination for {{ $employee->full_name }}, Current status is {{ $employee->status }} </legend>
+			<legend>Edit Termination for {{ $employee->full_name }}, Current status is 				
+				<span class="alert alert-primary">{{ $employee->status }} </span>
+			</legend>
 		</div>
 	
 		{{-- Display Errors --}}
@@ -78,7 +80,19 @@
 	{!! Form::close() !!}
 
 	@if ($employee->termination)
-		{!! Form::open(['method' => 'POST', 'route' => ['admin.employees.reactivate', $employee], 'class' => 'form-horizontal']) !!}
+		<hr>
+		{!! Form::model($employee, ['method' => 'POST', 'route' => ['admin.employees.reactivate', $employee], 'class' => 'form-horizontal']) !!}
+		
+		
+			<div class="form-group {{ $errors->has('hire_date') ? 'has-error' : null }}">
+				{!! Form::label('hire_date', 'Hire Date:', ['class'=>'col-sm-5 control-label']) !!}
+				<div class="input-group">
+					<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+					{!! Form::input('date', 'hire_date', null, ['class'=>'form-control', 'placeholder'=>'Hire Date']) !!}
+				</div>
+				<span class="help-block pull-right">If you are re-activating, please dont forget to update the hire date.</span>
+			</div>
+			<!-- /. Hire Date -->
 		
 		
 		    <div class="btn-group pull-right">

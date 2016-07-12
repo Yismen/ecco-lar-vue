@@ -12,7 +12,8 @@
         "zizaco/entrust": "dev-laravel-5",
         "intervention/image" : "*", 
         "maatwebsite/excel": "*",
-        "doctrine/dbal": "^v2.5.4"
+        "doctrine/dbal": "^v2.5.4",
+        "yajra/laravel-datatables-oracle": "^6.13"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -25,7 +25,11 @@ class Department extends Model {
 	 */
 	public function employees()
 	{
-		return $this->belongsToMany('App\Employee');
+		return $this->hasMany('App\Employee');
+	}
+	public function employees_count()
+	{
+		return $this->employees()->count();
 	}
 	
 

@@ -1,10 +1,10 @@
 <?php namespace App\Http\Controllers;
 
-// use App\Http\PositionsRequests;
+// use App\Http\Request;
 use App\Http\Controllers\Controller;
 
-use App\Http\Requests\PositionsRequests;
 
+use Illuminate\Http\Request;
 use App\Position;
 
 class PositionsController extends Controller {
@@ -39,10 +39,10 @@ class PositionsController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(Position $position, PositionsRequests $requests)
+	public function store(Position $position, Request $requests)
 	{
 		$position = $position->create($requests->all());
-		return redirect()->route('positions.index')
+		return redirect()->route('admin.positions.index')
 			->withSuccess("Position $position->name has been created!");
 	}
 
@@ -74,11 +74,11 @@ class PositionsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update(Position $position, PositionsRequests $requests)
+	public function update(Position $position, Request $requests)
 	{
 		$position->update($requests->all());
 
-		return redirect()->route('positions.show', $position->id)
+		return redirect()->route('admin.positions.show', $position->id)
 			->withSuccess("Position $position->name has been ubdated!!");
 	}
 
@@ -88,11 +88,11 @@ class PositionsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy(Position $position, PositionsRequests $requests)
+	public function destroy(Position $position, Request $requests)
 	{
 		$position->delete();
 		
-		return redirect()->route('positions.index')
+		return redirect()->route('admin.positions.index')
 			->withWarning("Position $position->name has been removed!");
 	}
 

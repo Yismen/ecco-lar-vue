@@ -22,7 +22,9 @@ class CardsController extends Controller {
 	 */
 	public function index(Card $cards)
 	{
-		return $cards = $cards->unassigned()->with('employee')->paginate(10);
+		$cards = $cards->with('employee')->paginate(10);
+
+		// return $unassigned = $cards->get();
 
 		return view('cards.index', compact('cards'));
 	}

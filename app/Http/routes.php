@@ -11,8 +11,6 @@ ini_set('xdebug.max_nesting_level', 200);
 |
 */
 
-
-
    
 
 /*
@@ -27,21 +25,21 @@ ini_set('xdebug.max_nesting_level', 200);
 */
 
 Route::group(['middleware' => 'web'], function () {
-	Route::get('learn', function(){
+	// Route::get('learn', function(){
 
-		$employees = App\Employee::get();
-		return view('learn-vue.index', compact('employees'));
-	});
+	// 	$employees = App\Employee::get();
+	// 	return view('learn-vue.index', compact('employees'));
+	// });
 
-	Route::get('api/employees', function(){
-		return App\Employee::paginate(25);
-	});
+	// Route::get('api/employees', function(){
+	// 	return App\Employee::paginate(25);
+	// });
 
-	Route::delete('api/employees/{id}', function($id){
-		$employee = App\Employee::find($id);
-		$employee->delete();
-		return $employee;
-	});
+	// Route::delete('api/employees/{id}', function($id){
+	// 	$employee = App\Employee::find($id);
+	// 	$employee->delete();
+	// 	return $employee;
+	// });
 		
 	/**
 	 * Vue Routes

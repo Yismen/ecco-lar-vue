@@ -9,10 +9,12 @@ use App\ImageUploader;
 use App\Login;
 use App\Punch;
 use App\Termination;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\ImageManagerStatic as Image;
+use Yajra\Datatables\Facades\Datatables;
 
 class EmployeesController extends Controller {
 
@@ -25,20 +27,25 @@ class EmployeesController extends Controller {
 	 * @Get("/employees")
 	 * @return Response
 	 */
-	public function index(Employee $employees, Request $request)
+	public function index(Employee $employees, Request $request,  Carbon $carbon)
 	{
-		$employees = Cache::get('employees', $this->getEmployees($employees, $request));
+		// return Datatables::eloquent($employees->query())->make(true);
+		$employees = $this->getEmployees($employees, $request, $carbon);
+		// $employees = Cache::rememberForever('employees', function() {
+		// 	return $this->getEmployees($employees, $request);
 
-		Cache::put('employees', $employees, 5000);
+		// });
 
-		if ($request->ajax()) return $employees;
+		// if ($request->ajax()) return Datatables::eloquent($employees->query())->make(true);
+		// if ($request->ajax()) return $employees = $this->getEmployees($employees, $request, $carbon);
 
+		// return view('employees.index-datatables');
 		if ($request->ajax())	return view('employees._employees', compact('employees'));
 
 		return view('employees.index', compact('employees'));
 	}
 
-	private function getEmployees($employees, $request)
+	private function getEmployees($employees, $request, $carbon)
 	{
 		$status = $request->input('status');
 		$search = $request->input('search');
@@ -47,7 +54,14 @@ class EmployeesController extends Controller {
 
 		$employees = $this->applySearchScopeToTheQuery($search, $employees);
 
-		$employees = $employees->orderBy('first_name')->paginate(10)->appends(['status'=>$status, 'search'=>$search]);
+		$employees = $employees
+			->orderBy('hire_date')
+			->orderBy('first_name')
+			// ->where('hire_date', '>=', $carbon->month(5))
+			->with('positions')
+			->get();
+			// ->paginate(50)
+			// ->appends(['status'=>$status, 'search'=>$search]);
 
 		return $employees;
 	}
@@ -78,7 +92,7 @@ class EmployeesController extends Controller {
 
 		Cache::forget('employees');
 
-		return \Redirect::route('employees.index')
+		return \Redirect::route('admin.employees.index')
 			->withSuccess("Succesfully added employee [$request->first_name $request->last_name];");
 		
 	}
@@ -306,11 +320,15 @@ class EmployeesController extends Controller {
 
 	}
 
-	public function reactivate($employee)
+	public function reactivate($employee, Request $request)
 	{
+		// return $request->all();
+		// return $employee;
 		if ($employee->termination) {
 			$employee->termination->delete();
 		}
+
+		$employee->update($request->all());
 		
 
 		return redirect()->route('admin.employees.edit', $employee->id)

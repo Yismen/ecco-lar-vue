@@ -9,6 +9,7 @@
 // 	'as'=>'admin.employees.search',
 // 	'uses'=>'EmployeesController@search',
 // ]);
+use Yajra\Datatables\Facades\Datatables;
 
 Route::post('employees/reactivate/{employees}', [
 	'as'=>'admin.employees.reactivate',
@@ -40,6 +41,19 @@ Route::post('employees/updatePhoto/{employees}', [
 	'uses'=>'EmployeesController@updatePhoto',
 ]);
 
+// use Yajra\Datatables\Facades\Datatables;
+
+
+Route::get('datatables/employees', function(){
+
+	return Datatables::eloquent(
+		App\Employee::query()
+			->with('positions')
+			->with('termination')
+	)->make(true);
+});
+
+
 
 Route::bind('employees', function($id){
 	return App\Employee::whereId($id)
@@ -52,3 +66,18 @@ Route::bind('employees', function($id){
 		->firstOrFail();
 });
 Route::resource('employees', 'EmployeesController');
+
+
+// Route::group(['prefix'=>'api'], function(){
+// 	Route::bind('employees', function($id){
+// 		return App\Employee::whereId($id)
+// 			->with('department')
+// 			->with('maritals')
+// 			->with('positions')
+// 			->with('genders')
+// 			->with('addresses')
+// 			->with('logins')
+// 			->firstOrFail();
+// 	});
+// 	Route::resource('employees', 'EmployeesController');
+// });
