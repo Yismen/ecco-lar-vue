@@ -5,7 +5,7 @@
 		<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 			<div class="box box-primary pad">
 
-				{!! Form::model($profile, ['route'=>['profiles.update', $profile->id], 'method'=>'PUT',  'class'=>'', 'role'=>'form', 'autocomplete'=>"off", 'files' => true]) !!}		
+				{!! Form::model($profile, ['route'=>['admin.profiles.update', $profile->id], 'method'=>'PUT',  'class'=>'', 'role'=>'form', 'autocomplete'=>"off", 'files' => true]) !!}		
 					<div class="form-group">
 						<legend>Update Your Profile</legend>
 					</div>

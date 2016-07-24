@@ -4,7 +4,7 @@
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 	<div class="well">
-				{!! Form::model($profile, ['route'=>['profiles.store'], 'class'=>'', 'role'=>'form', 'autocomplete'=>"off", 'files' => true]) !!}		
+				{!! Form::model($profile, ['route'=>['admin.profiles.store'], 'class'=>'', 'role'=>'form', 'autocomplete'=>"off", 'files' => true]) !!}		
 					<div class="form-group">
 						<legend>Create Your Profile</legend>
 					</div>

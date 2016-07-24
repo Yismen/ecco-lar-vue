@@ -144,15 +144,15 @@ class ProfilesController extends Controller
     public function update(Request $request, Profile $profile, Image $img)
     {
         $this->validate($request, [
-            'photo' => 'image|max:4000',
-            'gender' => 'required',
-            'name' => 'required|max:70',
-            'bio' => 'max:4500',
-            'phone' => 'max:50',
+            'photo'     => 'image|max:4000',
+            'gender'    => 'required',
+            'name'      => 'required|max:70',
+            'bio'       => 'max:4500',
+            'phone'     => 'max:50',
             'education' => 'max:150',
-            'skills' => 'max:90',
-            'work' => 'max:100',
-            'location' => 'max:100',
+            'skills'    => 'max:90',
+            'work'      => 'max:100',
+            'location'  => 'max:100',
         ]);
 
         $user = $profile->user;
@@ -160,7 +160,7 @@ class ProfilesController extends Controller
         //Update the User name with the new value passed
         $user->name = $request->input('name');
         $user->save();
-
+        
 
         // Save the image
         $photoPath = $this->saveImage($request, $user);
@@ -209,18 +209,20 @@ class ProfilesController extends Controller
             }
             return null;
         };
+
+        $this->validate($request, [
+            'photo'=>'image|file|max:200'
+        ]);
+
         /**
          * Copy the photo
          */
         $file = $request->file('photo');
         $localPath = 'images/profiles/'; // local folder where the image will be loaded to
+        // $localPath = storage_path('app/public/images/profiles/'); // local folder where the image will be loaded to
         $fileName = sha1($user->id . $user->name); // $fileName = str_random(40); //username sha1ed, so it is unique
         $extension = "." . $file->getClientOriginalExtension(); // $fileName = str_random(40); //username sha1ed, so it is unique
         $extendedName = $localPath . $fileName . $extension;
-
-        // $img = \File::get($file);
-
-        // $save = \File::put($extendedName, $img);
 
         // create instance
         $img = Image::make($request->file('photo'));

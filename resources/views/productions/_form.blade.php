@@ -15,9 +15,9 @@
 {{-- /. Errors --}}
 
 <div class="form-group">
-    {!! Form::label('production', 'Import Production', ['class' => 'col-sm-3 control-label']) !!}
+    {!! Form::label('file', 'Import Production', ['class' => 'col-sm-3 control-label']) !!}
     <div class="col-sm-9">
-	    {!! Form::file('production', ['class' => 'required']) !!}
+	    {!! Form::file('file[]', ['class' => 'required', 'multiple']) !!}
 	    <p class="help-block">Help block text</p>
     </div>
 </div>

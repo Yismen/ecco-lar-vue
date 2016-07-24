@@ -8,7 +8,7 @@
 				<div class="row">
 					<div class="col-sm-12">
 
-						<div class="col-md-5 pull-left">
+						<div class="col-md-12">
 							
 							<ul class="nav navbar-nav">
 								<li class="">
@@ -22,6 +22,15 @@
 								</li>
 								<li>
 									<a href="{{ route('admin.employees.index', ['status'=>'inactives']) }}">Inactives</a>
+								</li>
+								<li>
+									<a href="{{ route('admin.employees.index', ['status'=>'inactives']) }}">Missing Card Ids</a>
+								</li>
+								<li>
+									<a href="{{ route('admin.employees.index', ['status'=>'inactives']) }}">Missing Punch ID</a>
+								</li>
+								<li>
+									<a href="{{ route('admin.employees.index', ['status'=>'inactives']) }}">Missing Photos</a>
 								</li>
 							</ul>
 						</div><!-- /. Navigation -->
@@ -46,7 +55,7 @@
 								        </button>
 								      </span>
 								    </div><!-- /. Input-group -->
-								    <span class="help-block">Separate criterias by spaces.</span>
+								    <span class="help-block">Separate criterias by commas (,).</span>
 
 								</div><!-- /. form group -->
 							{!! Form::close() !!}
@@ -72,19 +81,19 @@
 @section('scripts')
 	<script>
 		(function($){
-			applyDataTables();
+			// applyDataTables();
 
-			// $(document).on('click', 'ul.pagination a', function(event) {
-			// 	event.preventDefault();
-			// 	var url = $(this).prop('href');
-			// 	var page = url.split('page=')[1];
-			// 	destiny = $('.employees');
+			$(document).on('click', 'ul.pagination a', function(event) {
+				event.preventDefault();
+				var url = $(this).prop('href');
+				var page = url.split('page=')[1];
+				destiny = $('.employees');
 
-			// 	showLoading(destiny);
+				showLoading(destiny);
 
-			// 	performAjax(url, destiny);
+				performAjax(url, destiny);
 
-			// });
+			});
 
 			$(document).on('submit', '#search_form', function(event){
 				event.preventDefault();
@@ -125,7 +134,7 @@
 					console.log(data);
 					destiny.html(data);
 
-					applyDataTables();
+					// applyDataTables();
 
 
 				})

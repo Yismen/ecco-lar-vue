@@ -1,5 +1,6 @@
 <?php namespace App;
 
+use App\Employee;
 use Illuminate\Database\Eloquent\Model;
 
 class Position extends Model {
@@ -19,6 +20,11 @@ class Position extends Model {
 	public function payments()
 	{
 		return $this->belongsTo('App\Payment', 'payment_id');
+	}
+
+	public function employees()
+	{
+		return $this->hasMany(Employee::class);
 	}
 
 	/**

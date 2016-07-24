@@ -15,7 +15,7 @@ class DepartmentsController extends Controller {
 	 */
 	public function index(Department $departments)
 	{
-		$departments = $departments->orderBy('department')->get();
+		$departments = $departments->orderBy('department')->with('positions.employees')->get();
 		
 		return view('departments.index', compact('departments'));
 

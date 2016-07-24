@@ -39,5 +39,6 @@ return [
     /**
      * DataTables internal index id response column name.
      */
-    'index_column' => 'DT_Row_Index',
+    'index_column' => 'id',
+    // 'index_column' => 'DT_Row_Index',
 ];

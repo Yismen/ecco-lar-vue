@@ -17,6 +17,8 @@ class PositionsController extends Controller {
 	public function index(Position $positions)
 	{
 		$positions = $positions
+			->orderBy('department_id')
+			->orderBy('name')
 			->with('departments')
 			->with('payments')
 			->paginate(10);

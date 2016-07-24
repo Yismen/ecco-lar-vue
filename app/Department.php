@@ -1,5 +1,6 @@
 <?php namespace App;
 
+use App\Position;
 use Illuminate\Database\Eloquent\Model;
 
 class Department extends Model {
@@ -17,6 +18,11 @@ class Department extends Model {
 	public function getDepartmentAttribute($department)
 	{
 		return ucwords($department);
+	}
+
+	public function positions()
+	{
+		return $this->hasMany(Position::class);
 	}
 
 	/**

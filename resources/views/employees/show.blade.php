@@ -7,7 +7,7 @@
 				<div class="box box-primary pad">
 
 					<div class="row">
-						<div class="col-sm-6">
+						<div class="col-sm-6 text-centered">
 
 							<img src="{{ file_exists($employee->photo) ? asset($employee->photo) : 'http://placehold.it/200x200' }}" class="img-circle img-responsive img-center profile-image animated" alt="Image" width="200px">
 							

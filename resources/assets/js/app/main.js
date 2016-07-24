@@ -67,6 +67,7 @@ var App = Vue.extend({
 var router = new VueRouter();
 router.map({
     '/': {component: require('./components/Employee.vue')},
+    '/employees': {component: require('./components/Employee.vue')},
     '/notes': {component: require('./components/notes/Note.vue')},
     '/notes/admin': {component: require('./components/notes/Note_admin.vue')},
     '/tasks/create': {component: require('./components/tasks/Create.vue')},

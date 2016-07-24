@@ -5,7 +5,7 @@
 -->
 <style type="text/css">
     .navbar-user-photo img{
-        height:25px;
+        height:20px;
     }
 </style>
 

@@ -48,7 +48,7 @@
 <div class="form-group {{ $errors->has('is_active') ? 'has-error' : null }}">
 	{!! Form::label('is_active', 'User Is Active:', ['class'=>'col-sm-2 control-label']) !!}
 	<div class="col-sm-10">
-		{!! Form::select('is_active', $activeList, null, ['class'=>'form-control', 'id'=>'is_active'])!!}
+		{!! Form::select('is_active', $user->activeList, null, ['class'=>'form-control', 'id'=>'is_active'])!!}
 	</div>
 	{{-- {!! $errors->first('roles', '<span class="text-danger">:message</span>') !!} --}}
 </div>
@@ -58,7 +58,7 @@
 <div class="form-group {{ $errors->has('is_admin') ? 'has-error' : null }}">
 	{!! Form::label('is_admin', 'User Is Admin:', ['class'=>'col-sm-2 control-label']) !!}
 	<div class="col-sm-10">
-		{!! Form::select('is_admin', $adminList, null, ['class'=>'form-control', 'id'=>'is_admin'])!!}
+		{!! Form::select('is_admin', $user->adminList, null, ['class'=>'form-control', 'id'=>'is_admin'])!!}
 		<span class="help-block text-danger">Very dangerous. If you make the user admin it will 
 			have access to every module of the app.</span>
 	</div>
@@ -67,22 +67,40 @@
 <!-- /. User Is Admin -->
 
 <!-- Roles -->
-<div class="form-group {{ $errors->has('roles') ? 'has-error' : null }}">
+{{-- <div class="form-group {{ $errors->has('roles') ? 'has-error' : null }}">
 	{!! Form::label('roles', 'Roles:', ['class'=>'col-sm-2 control-label']) !!}
 	<div class="col-sm-10">
-		{!! Form::select('roles_lists[]', $rolesList, null, ['class'=>'form-control', 'multiple'=>"multiple", 'id'=>'roles_lists'])!!}
+		{!! Form::select('roles[]', $rolesList, null, ['class'=>'form-control', 'multiple'=>"multiple", 'id'=>'roles_lists'])!!}
 		<span class="help-block">!! Select the roles that will be served with this menu item:</span>
 	</div>
-	{{-- {!! $errors->first('roles', '<span class="text-danger">:message</span>') !!} --}}
+</div>--}}
+<!-- /. Roles -->
+
+<!-- Roles -->
+<div class="form-group {{ $errors->has('roles') ? 'has-error' : null }}">	
+	{!! Form::label('roles', 'Roles:', ['class'=>'col-sm-2 control-label']) !!}
+	<div class="col-sm-10">
+		@foreach ($user->rolesList as $role)			
+			<div class="checkbox">
+				<label>
+					{!! Form::checkbox('roles[]', $role->id, null, []) !!}
+					{{ $role->display_name }}
+				</label>
+			</div>
+		@endforeach
+	</div>
 </div>
 <!-- /. Roles -->
 
+
+{{-- 
 <link rel="stylesheet" href="{{ asset('plugins/select2/dist/css/select2.min.css') }}">
 <script src="{{ asset('plugins/select2/dist/js/select2.min.js') }}"></script>
 <script>
 	jQuery(document).ready(function($) {
-		$('#roles_lists').select2();
+		$('#roles').select2();
 	});
 </script>
+ --}}
 
 

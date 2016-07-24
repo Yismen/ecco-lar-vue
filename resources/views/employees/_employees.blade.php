@@ -44,10 +44,15 @@
 				<h3>No Employees saved yet...</h3>
 			@endif
 		</tbody>
-		{{-- <tfoot>
+		<tfoot>
 			<tr>
-				<th colspan="50">{!! $employees->render() !!}</th>
+				<th colspan="50">
+					{!! $employees->render() !!}
+					<span class="help-block">
+						Showing page {!! $employees->count() !!} out of {!! $employees->total() !!} records.
+					</span>
+				</th>
 			</tr>
-		</tfoot> --}}
+		</tfoot>
 	</table>
 </div>	

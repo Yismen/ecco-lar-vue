@@ -1,12 +1,10 @@
-<div class="well row ">
+<div class="com-sm-12 ">
 		<h3 class="page-header">
 			Productions Items List
 			 (
-				 <small>
-				 	<a href="{{ route('productions.create') }}">
+				 	<a href="{{ route('admin.productions.create') }}">
 				 		<i class="fa fa-plus"></i>
 				 	</a>
-				 </small>
 			 )
 		</h3>
 		<ul>
@@ -28,7 +26,7 @@
 			<h1>No Productions has been added yet, please add one</h1>
 		</div>
 	@else
-		<table class="table table-condensed table-hover">
+		<table class="table table-condensed table-hover table-bordered">
 			<thead>
 				<tr>
 					<th>Date</th>
@@ -38,6 +36,7 @@
 					<th>Records</th>
 					<th>TP</th>
 					<th>Client</th>
+					<th>Source</th>
 					{{-- <th>Source</th> --}}
 					<th class="col-xs-3">Actions</th>
 				</tr>
@@ -46,10 +45,10 @@
 				@foreach ($productions as $production)
 					<tr>
 						<td>
-							<a href="{{ route('productions.show_date', $production->insert_date) }}">{{ $production->insert_date }}</a>
+							<a href="{{ route('admin.productions.show_date', $production->insert_date) }}">{{ $production->insert_date }}</a>
 						</td>
 						<td>
-							<a href="{{ route('productions.show_employee', $production->employee_id) }}">{{ $production->employee_id }}</a>
+							<a href="{{ route('admin.productions.show_employee', $production->employee_id) }}">{{ $production->employee_id }}</a>
 						</td>
 						<td>
 							<a href="{{ route('admin.employees.show', $production->employee_id) }}">{{ $production->employee->fullName }}</a>
@@ -57,10 +56,11 @@
 						<td>{{ $production->production_hours }}</td>
 						<td>{{ $production->production }}</td>
 						<td>{{ number_format($production->production / $production->production_hours, 2) }}</td>
-						<td>{{ $production->client }}</td>
+						<td>{{ $production->client->name }}</td>
+						<td>{{ $production->source->name }}</td>
 						{{-- <td>{{ $production->source }}</td> --}}
 						<td>
-							<a href="{{ route('productions.edit', $production->id) }}" class="btn btn-warning">
+							<a href="{{ route('admin.productions.edit', $production->id) }}" class="btn btn-warning">
 								<i class="fa fa-edit">	</i> Edit
 							</a>
 						</td>

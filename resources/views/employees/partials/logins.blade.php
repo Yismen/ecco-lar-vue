@@ -1,8 +1,5 @@
 <div class="col-sm-12">
-	
-	<h1>Logins... Under construction...</h1>
-	{{ $employee->logins }}
-	{!! Form::open(['route'=>['admin.employees.edit', $employee->id], 'method'=>'POST', 'class'=>'form-horizontal', 'role'=>'form', 'autocomplete'=>"off"]) !!}	<!-- logins.edit -->	
+	{!! Form::open(['route'=>['admin.employees.login.create', $employee->id], 'method'=>'POST', 'class'=>'form-', 'role'=>'form', 'autocomplete'=>"off", 'id'=>'logins_form']) !!}	<!-- logins.edit -->	
 		<div class="form-group">
 			<legend>Login</legend>
 		</div>
@@ -20,26 +17,41 @@
 				</div>
 			</div>
 		@endif
+
+		<div class="ajax-messages"></div>
 		{{-- /. Errors --}}
-		<h1>Esto se esta volviendo interesante. Es probable que sea preferible no hacer esto aqui...</h1>
-		@foreach ($employee->logins as $login)
-			<!-- Login -->
-			<div class="form-group {{ $errors->has('login') ? 'has-error' : null }}">
-				{!! Form::label('login', 'Login:', ['class'=>'col-sm-2 control-label']) !!}
-				<div class="col-sm-10">
-					{!! Form::input('text', 'login', null, ['class'=>'form-control', 'placeholder'=>'Login']) !!}
-				</div>
+
+		<div class="col-sm-6">
+			<div class="form-group {{ $errors->has('login') ? 'has-error' : null }} login-group">
+				{!! Form::label('login', 'Login:', ['class'=>'']) !!}
+				{!! Form::input('text', 'login', null, ['class'=>'form-control', 'placeholder'=>'Login']) !!}
 			</div>
 			<!-- /. Login -->
+		</div>
 
-			<!-- System -->
-			<div class="form-group {{ $errors->has('system_id') ? 'has-error' : null }}">
-				{!! Form::label('system_id', 'System:', ['class'=>'col-sm-2 control-label']) !!}
-				<div class="col-sm-10">
-					{!! Form::select('system_id', $employee->systemsList, null, ['class'=>'form-control input-sm']) !!}
-				</div>
+		<div class="col-sm-6">
+			<div class="form-group {{ $errors->has('system_id') ? 'has-error' : null }} system-group">
+				{!! Form::label('system_id', 'System:', ['class'=>'']) !!}
+				{!! Form::select('system_id', $employee->systemsList, null, ['class'=>'form-control']) !!}
 			</div>
-			<!-- /. System -->							
-		@endforeach
+			<!-- /. System -->
+		</div>
+
+		<div class="col-sm-12">
+			<button class="btn btn-primary" id="create_login" type="submit">Create</button>
+		</div>
+
+
+		
 	{!! Form::close() !!}
+
+	<hr>
+	<div id="logins_list">
+		
+		@include('employees.partials._logins')
+		
+	</div>
+
+	
+	
 </div>

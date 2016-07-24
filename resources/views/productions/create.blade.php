@@ -2,10 +2,10 @@
 @extends('layouts.'.$layout->app(), ['page_header'=>'title', 'page_description'=>'description'])
 
 @section('content')
-	<div class="col-sm-8 col-sm-offset-2">
-		<div class="well row ">
+	<div class="container">
 
-			{!! Form::open(['route'=>['productions.store'], 'method'=>'POST', 'class'=>'form-horizontal', 'role'=>'form', 'files' => true]) !!}		
+		<div class="box box-primary pad">
+			{!! Form::open(['route'=>['admin.productions.store'], 'method'=>'POST', 'class'=>'', 'role'=>'form', 'files' => true]) !!}		
 				<div class="form-group">
 					<legend>Import Production Data</legend>
 				</div>
@@ -13,18 +13,27 @@
 				@include('productions._form')
 
 				<div class="col-sm-10 col-sm-offset-2">
-					<button type="submit" class="btn btn-primary form-control">Import <i class="fa fa-upload"></i></button>
+					<button type="submit" class="btn btn-primary">Import <i class="fa fa-upload"></i></button>
 				</div>
 			
 			{!! Form::close() !!}
-			<br>
+			
+			{{--
 			<hr>
+			
 			<div class="drag-files">
-				<h3>Drag and Drop files here</h3>
+				<h3 class="page-header">Import Production Data</h3>
+				<h5>Drag and Drop files here...</h5>
+				{!! Form::open(['route'=>['admin.productions.store'], 'method'=>'POST', 'class'=>'dropzone', 'role'=>'form', 'autocomplete'=>"off", 'id'=>"my-awesome-dropzone"]) !!}		
+					<!-- <div class="form-group">
+						<legend>Drag and drop files heress.</legend>
+					</div> -->
+				
+				{!! Form::close() !!}
 			</div>
-		
+			 Hide the dropzonejs form. Ajax implementation is sligtly deffered for another moment. --}}
 			<hr>	
-			<a href="{{ route('productions.index') }}"><< Cancel and return to Production List</a>
+			<a href="{{ route('admin.productions.index') }}"><< Cancel and return to Production List</a>
 		</div>
 		
 	</div>

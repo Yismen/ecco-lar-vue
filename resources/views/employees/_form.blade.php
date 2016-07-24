@@ -79,13 +79,7 @@
 			{!! Form::select('has_kids', $employee->hasKidsList, null, ['class'=>'form-control input-sm']) !!}
 		</div>
 	</div>
-	<div class="col-sm-6">
-		<div class="form-group {{ $errors->has('department_id') ? 'has-error' : null }}">
-			{!! Form::label('department_id', 'Department:', ['class'=>'']) !!}
-			{!! Form::select('department_id', $employee->departmentsList, null, ['class'=>'form-control input-sm']) !!}
-		</div>
-	</div>
-	<!-- /. Department -->
+	
 	<div class="col-sm-6">
 		<div class="form-group {{ $errors->has('position_id') ? 'has-error' : null }}">
 			{!! Form::label('position_id', 'Position:', ['class'=>'']) !!}

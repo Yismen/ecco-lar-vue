@@ -5,7 +5,7 @@
 	<div class="col-sm-8 col-sm-offset-2">
 		{{-- {{ dd($employee) }} --}}
 		<div class="well row">
-			{!! Form::model($production, ['route'=>['productions.update', $production->id], 'method'=>'PUT', 'class'=>'form-horizontal', 'role'=>'form']) !!}	
+			{!! Form::model($production, ['route'=>['admin.productions.update', $production->id], 'method'=>'PUT', 'class'=>'form-horizontal', 'role'=>'form']) !!}	
 				<div class="form-group form-group-sm">
 					<legend>Edit Production for {{ $production->employee->fullName }}</legend>
 				</div>
@@ -64,7 +64,7 @@
 
 				<div class="col-sm-6 col-sm-offset-2">
 					<button type="submit" class="btn btn-primary">Update</button>	
-					<a href="{{ route('productions.index') }}" class="btn btn-default">Cancel</a>				
+					<a href="{{ route('admin.productions.index') }}" class="btn btn-default">Cancel</a>				
 				</div>
 			
 			{!! Form::close() !!}

@@ -49,6 +49,18 @@ class User extends Authenticatable
     {
         return $this->id == $model->user_id;
     }
+
+    public function userHasProfileOrCreate()
+    {
+        // if the user is logged in check if has profile, otherwies ask to create one.
+        
+        if (Auth::check()) {
+            if (Auth::user()->has('profile')) {
+                return $this->profile;
+            }
+        }
+        return false;
+    }
     
     /**
      * ==========================================
@@ -65,6 +77,16 @@ class User extends Authenticatable
         return \Auth::user()->is_admin
             ? \App\Role::with('menus')->get()
             : $this->roles()->get();
+    }
+
+    public function getActiveListAttribute()
+    {   
+        return ['0' => 'Inactive', '1'=>'Active User'];
+    }
+
+    public function getAdminListAttribute()
+    {   
+        return ['0' => 'Not Admin', '1'=>'Admin User'];
     }
     
     /**

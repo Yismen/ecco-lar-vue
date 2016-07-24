@@ -1,20 +1,12 @@
 <?php namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-
-use App\Http\Requests\ProductionsRequests;
-// use Illuminate\Http\Request;
-// use App\Http\Requests;
-
-use Maatwebsite\Excel\Facades\Excel;
-
-use Carbon\Carbon;
-
-use Storage;
-
 use App\Production;
-
-// use Illuminate\Http\Request;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+use Maatwebsite\Excel\Facades\Excel;
+use Storage;
 
 class ProductionsController extends Controller {
 
@@ -24,8 +16,8 @@ class ProductionsController extends Controller {
 					'name',
 					'production_hours',
 					'production',
-					'client',
-					'source',
+					'client_id',
+					'source_id',
 				];
 
 	/**
@@ -35,7 +27,11 @@ class ProductionsController extends Controller {
 	 */
 	public function index(Production $productions)
 	{
-		$productions = $productions->with('employee')->paginate(10);
+		$productions = $productions
+						->with('employee')
+						->orderby('insert_date')
+						->orderby('source_id')
+						->paginate(10);
 
 		return view('productions.index', compact('productions'));
 	}
@@ -49,73 +45,40 @@ class ProductionsController extends Controller {
 	{
 		return view('productions.create', compact('production'));
 	}
-
+	
+	public function saveData(Production $production, Request $request)
+	{
+		
+	}
+	
 	/**
 	 * Store a newly created resource in storage.
 	 *
 	 * @return Response
 	 */
-	public function saveData(Production $production, ProductionsRequests $request)
-	{
-		
-	}
-	public function store(Production $production, ProductionsRequests $request)
-	{
-		// foreach (\Request::file('production') as $request) {
-		// 	$this->saveData($production, $request);
-		// }
 
-		$localPath = 'storage/productions/daily_data/'; // local folder where the image will be loaded to
-		$file = $request->file('production');
-		$fileName = $file->getClientOriginalName(); // $fileName = str_random(40); //username sha1ed, so it is unique
+	public function store(Production $production, Request $request)
+	{
+		$this->validate($request, [
+			'file.*' => 'required|file|max:3000|mimetypes:application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+		]);
 
-		// validate file name, first indicatio if the correct file has been selected
-		if(! stripos($fileName, 'roduction_data')) {
-			return redirect()->route('productions.create')
-				// ->withResponse(302)
-				->withDanger("Seems like the wrong file was selected. Make sure you pick a 'production_data' file!");
+		foreach ($request->file('file') as $file) {
+
+			if (!$this->checkFileName($file->getClientOriginalName(), $request)) {
+				if($request->ajax()) return response()->json([
+					'type'=>'error',
+					'message'=>'Seems like the wrong file was selected. Make sure you pick a \'production_data\' file!'
+				]);
+				return redirect()->route('admin.productions.create')
+					->withDanger("Seems like the wrong file was selected. Make sure you pick a 'production_data' file!");
+			};
+
+			$this->loadDataToDB($production, $file);
 		}
-
-		// Import the data from the excel file
-		$data = Excel::load($file)->toArray();
-
-		if ($data) {
-			// save a copy of the file to a local folder in the server
-			$file->move($localPath, $fileName);
-
-			foreach ($data as $row) {
-				//validate if the fields passed are in the allowed fields array
-				foreach ($row as $field=>$value) {
-					if (!$this->validField($field)) { 
-						return redirect()->route('productions.create')
-							// ->withResponse(302)
-							->withDanger("Field $field is not part of the list of columns. Please make sure you selected the correct file");
-					}
-				}
-
-				// delete any previous instance of this record
-				$exists = $production
-						->whereInsertDate($row['insert_date'])
-						->whereEmployeeId($row['employee_id'])
-						->whereClient($row['client'])
-						->whereSource($row['source'])
-						->first();
-
-				if ($exists) {
-					$exists->delete();
-				}
-
-				Production::create($row);
-					
-			}
-
-		} else {
-			return $load;
-		}	
-
-		return redirect()->route('productions.index')
-				->withSuccess("Data added.");	
-
+		
+		return redirect()->route('admin.productions.index')
+			->withSuccess("Production $production->id has been updated");
 		
 	}
 
@@ -148,7 +111,7 @@ class ProductionsController extends Controller {
 	 * @param  int  Production $production
 	 * @return Response
 	 */
-	public function update(Production $production, ProductionsRequests $request)
+	public function update(Production $production, Request $request)
 	{
 		$production->update($request->all());
 		
@@ -167,13 +130,91 @@ class ProductionsController extends Controller {
 		//
 	}
 
+	public function show_date(Request $request, $date)
+	{
+		return $date;
+		return $request->all();
+	}
+
+	/**
+	 * [loadDataToDB description]
+	 * @param  [type] $data       [description]
+	 * @param  [type] $production [description]
+	 * @return [type]             [description]
+	 */
+	private function loadDataToDB($production, $file)
+	{
+		$data = Excel::load($file)->toArray();
+
+		foreach ($data as $row) {
+			//validate if the fields passed are in the allowed fields array
+			foreach ($row as $field=>$value) {
+				if (!$this->validField($field)) { 
+					return redirect()->route('admin.productions.create')
+						// ->withResponse(302)
+						->withDanger("Field $field is not part of the list of columns. Please make sure you selected the correct file");
+				}
+			}				
+
+			$this->removeIfExistis($row);
+
+			$row['year']  = true;
+			$row['month'] = true;
+			$row['week']  = true;
+
+			$production = $production->create($row);
+				
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Remove previous instances of the model.
+	 * @param  Production $production [description]
+	 * @return [type]                 [description]
+	 */
+	private function removeIfExistis($row)
+	{
+		$remove = Production::whereInsertDate($row['insert_date'])
+						->whereEmployeeId($row['employee_id'])
+						->whereClientId($row['client_id'])
+						->whereSourceId($row['source_id'])
+						->first();
+
+		if ($remove) $remove->delete();
+
+		return $this;
+	}
+
+	public function show_employee(Request $request, $date)
+	{
+		return $date;
+		return $request->all();
+	}
+
 	/**
 	 * Validate if the passed field is in the valid field array
 	 * @param  string $field field in the file
 	 * @return boolean        the field is in the array
 	 */
-	public function validField($field)
+	private function validField($field)
 	{
 		return in_array($field, $this->requiredFields);
+	}
+
+	/**
+	 * Check if the correct file has been selected, based on the name of the file.
+	 * @param  string $fileName :The name of the file.
+	 * @param  object $request  :the Laravel request object.
+	 * @return [type]           [description]
+	 */
+	private function checkFileName($fileName, $request)
+	{
+		if(!stripos($fileName, 'roduction_data')) {
+			return false;			
+		}
+
+		return true;
 	}
 }

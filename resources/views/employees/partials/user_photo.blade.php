@@ -1,7 +1,7 @@
 
 <div class="col-sm-12">
 	<div class="col-sm-6">
-		<img src="{{ file_exists($employee->photo) ? asset($employee->photo) : 'http://placehold.it/200x200' }}" class="img-circle img-responsive img-center profile-image animated" alt="Image" id="show-photo">
+		<img src="{{ file_exists($employee->photo) ? asset($employee->photo) : 'http://placehold.it/200x200' }}" class="img-circle img-responsive img-center profile-image animated" alt="Image" id="show-photo" with="200">
 	</div>
 	<div class="col-sm-6">
 		{!! Form::open(['route' => ['admin.employees.updatePhoto', $employee->id], 'method' => 'POST', 'files' => true, 'id'=>'photo_form']) !!}

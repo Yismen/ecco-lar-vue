@@ -40,4 +40,19 @@ class Login extends Model {
 		// dd(\App\Employee::lists('first_name', 'id'));
 		return \App\System::lists('name', 'id');
 	}
+
+	/**
+	 * ----------------------------------------
+	 * Mutators
+	 */
+	
+	public function setLoginAttribute($login)
+	{
+		// $login = trim($login);
+		// $login = str_replace(' ', '', $login);
+		$login = strtolower($login);
+
+		$this->attributes['login'] = $login;
+		// $this->attributes['login'] = strtoupper(trim($name));
+	}
 }

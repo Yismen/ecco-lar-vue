@@ -19,7 +19,6 @@ class Employee extends Model {
 		'gender_id',
 		'marital_id',
 		'has_kids',
-		'department_id',
 		'position_id',
 		'photo',
 	];
@@ -122,6 +121,14 @@ class Employee extends Model {
  * Accessors
  * -------------------------------------------------------
  */
+	/**
+	 * return a list array of the systems, including name and id
+	 * @return array a list of systems registered.
+	 */
+	public function getSystemsListAttribute()
+	{
+		return \App\System::lists('display_name', 'id');
+	}
 	
 	/**
 	 * determine if the user is active or inactive
@@ -256,11 +263,6 @@ class Employee extends Model {
 	public function getMaritalsListAttribute()
 	{
 		return Marital::lists('name', 'id');
-	}
-
-	public function getSystemsListAttribute()
-	{
-		return \App\System::lists('display_name', 'id');
 	}
 
 	/**

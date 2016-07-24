@@ -21,6 +21,7 @@
 					<thead>
 						<tr>
 							<th>Position Name</th>
+							<th>Department</th>
 							<th class="col-xs-3">								 
 								<a href="{{ route('admin.positions.create') }}">
 									Add 
@@ -34,6 +35,10 @@
 							<tr>
 								<td>
 									<a href="{{ route('admin.positions.show', $position->id) }}">{{ $position->name }}</a>
+								</td>
+
+								<td>
+									<a href="{{ route('admin.departments.show', $position->departments->id) }}">{{ $position->departments->department }}</a>
 								</td>
 								<td>
 									<a href="{{ route('admin.positions.edit', $position->id) }}" rel="tooltip" title="Edit" data-placement="left">

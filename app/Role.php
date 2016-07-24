@@ -2,10 +2,14 @@
 
 namespace App;
 
+use App\Menu;
+use App\User;
+use App\Permission;
 use Zizaco\Entrust\EntrustRole;
 
 class Role extends EntrustRole
 {
+
 	protected $fillable = ['name', 'display_name', 'description'];
 	/**
 	 * Each role belongs to many menus
@@ -18,17 +22,17 @@ class Role extends EntrustRole
 	 */
 	public function menus()
 	{
-		return $this->belongsToMany('App\Menu')->orderBy('name', 'ASC');
+		return $this->belongsToMany(Menu::class);
 	}
 
 	public function users()
 	{
-		return $this->belongsTo(\App\User::class);
+		return $this->belongsToMany(User::class);
 	}
 
 	public function perms()
 	{
-		return $this->belongsTo(\App\Permission::class);
+	    return $this->belongsToMany(Permission::class);
 	}
 	
 	/**
@@ -45,20 +49,21 @@ class Role extends EntrustRole
 	 * ======================================
 	 * Accessors
 	 */
-	public function getUsersListsAttribute()
+	public function getUsersListAttribute()
 	{
-		return $this->users ? $this->users->lists('id') : \App\User::lists('id');
+		return User::orderBy('name')->lists('name', 'id');
 	}
 
-	public function getPermissionsListsAttribute()
+	public function getPermissionsListAttribute()
 	{
 		// return $this->perms->lists('id');
-		return $this->perms ? $this->perms->lists('id') : \App\Permission::lists('id');
+		return Permission::orderBy('display_name')->lists('display_name', 'id');
 	}
 
-	public function getMenusListsAttribute()
+	public function getMenusListAttribute()
 	{
-		return $this->menus->lists('id');
+		return Menu::orderBy('display_name')->lists('display_name', 'id');
+		
 	}
 
 	/**

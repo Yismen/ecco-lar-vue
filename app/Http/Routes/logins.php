@@ -17,7 +17,7 @@
  * Logins
  */
 Route::bind('logins', function($login){	
-	return App\Login::whereId($id)
+	return App\Login::whereId($login)
 		->with('employee')
 		->with('system')
 		->firstOrFail();

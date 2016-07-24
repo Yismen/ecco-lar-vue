@@ -1,12 +1,11 @@
-<?php namespace App\Http\Controllers;
+<?php 
 
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-// use Illuminate\Http\Request;
-// use App\Http\Requests;
-use App\Http\Requests\UsersRequests;
 
 use App\User;
-use App\Role;
 
 class UsersController extends Controller {
 
@@ -19,13 +18,12 @@ class UsersController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index(User $users, Role $roles)
+	public function index(User $users)
 	{
-		 // $message = 'No Tiene acceso a este recurso.';
 
-   //      return redirect()->back(302)->withSuccess($message);
-
-		$users = $users->paginate(10);
+		$users = $users
+						->with('roles.perms')
+						->paginate(10);
 
 		return view('users.index', compact('users'));
 	}
@@ -67,13 +65,9 @@ class UsersController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit(User $user, Role $roles)
+	public function edit(User $user)
 	{
-		$activeList = ['0' => 'Inactive', '1'=>'Active User'];
-		$adminList = ['0' => 'Not Admin', '1'=>'Admin User'];
-		$rolesList = $roles->lists('display_name', 'id');
-
-		return view('users.edit', compact('user', 'activeList', 'adminList', 'rolesList'));
+		return view('users.edit', compact('user'));
 	}
 
 	/**
@@ -82,11 +76,11 @@ class UsersController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update(User $user, UsersRequests $requests)
+	public function update(User $user, Request $requests)
 	{
 		$this->updateUser($user, $requests);
 
-		return redirect()->route('users.show', $user->username)
+		return redirect()->route('admin.users.show', $user->username)
 			->withSuccess("User $user->name has been updated.");
 	}
 
@@ -110,7 +104,7 @@ class UsersController extends Controller {
 	{
 		$user->update($requests->all());
 
-		return $this->syncRoles($user, $requests->get('roles_lists'));
+		return $this->syncRoles($user, $requests->input('roles'));
 	}
 
 	/**

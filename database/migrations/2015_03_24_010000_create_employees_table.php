@@ -29,7 +29,6 @@ class CreateEmployeesTable extends Migration {
 			$table->tinyInteger('gender_id')->unsigned()->index();
 			$table->tinyInteger('marital_id')->unsigned()->index();
 			$table->string('has_kids', 10)->default(0);
-			$table->tinyInteger('position_id')->unsigned()->index();
 			$table->tinyInteger('department_id')->unsigned()->index();
 			// $table->integer('salary_id')->unsigned()->index();
 			$table->string('photo', 80);
@@ -42,7 +41,6 @@ class CreateEmployeesTable extends Migration {
 				->onDelete('cascade')->onUpdate('cascade');
 			$table->foreign('position_id')->references('id')->on('positions')
 				->onDelete('cascade')->onUpdate('cascade');
-			$table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade')->onUpdate('cascade');
 
 		});
 

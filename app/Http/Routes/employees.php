@@ -9,52 +9,30 @@
 // 	'as'=>'admin.employees.search',
 // 	'uses'=>'EmployeesController@search',
 // ]);
-use Yajra\Datatables\Facades\Datatables;
+// 
+Route::post('employees/logins/{employees}', ['as'=>'admin.employees.login.create', 'uses'=>'EmployeesController@createLogin']);
 
-Route::post('employees/reactivate/{employees}', [
-	'as'=>'admin.employees.reactivate',
-	'uses'=>'EmployeesController@reactivate',
-]);
+Route::post('employees/logins/{employees}/update', ['as'=>'admin.employees.login.update', 'uses'=>'EmployeesController@updateLogin']);
 
-Route::post('employees/terminations/{employees}', [
-	'as'=>'admin.employees.termination',
-	'uses'=>'EmployeesController@updateTermination',
-]);
+Route::post('employees/reactivate/{employees}', ['as'=>'admin.employees.reactivate','uses'=>'EmployeesController@reactivate']);
 
-Route::post('employees/updateAddress/{employees}', [
-	'as'=>'admin.employees.updateAddress',
-	'uses'=>'EmployeesController@updateAddress',
-]);
+Route::post('employees/terminations/{employees}', ['as'=>'admin.employees.termination','uses'=>'EmployeesController@updateTermination']);
 
-Route::post('employees/updateCard/{employees}', [
-	'as'=>'admin.employees.updateCard',
-	'uses'=>'EmployeesController@updateCard',
-]);
+Route::post('employees/updateAddress/{employees}', ['as'=>'admin.employees.updateAddress','uses'=>'EmployeesController@updateAddress']);
 
-Route::post('employees/updatePunch/{employees}', [
-	'as'=>'admin.employees.updatePunch',
-	'uses'=>'EmployeesController@updatePunch',
-]);
+Route::post('employees/updateCard/{employees}', ['as'=>'admin.employees.updateCard','uses'=>'EmployeesController@updateCard']);
 
-Route::post('employees/updatePhoto/{employees}', [
-	'as'=>'admin.employees.updatePhoto',
-	'uses'=>'EmployeesController@updatePhoto',
-]);
+Route::post('employees/updatePunch/{employees}', ['as'=>'admin.employees.updatePunch','uses'=>'EmployeesController@updatePunch']);
 
-// use Yajra\Datatables\Facades\Datatables;
+Route::post('employees/updatePhoto/{employees}', ['as'=>'admin.employees.updatePhoto','uses'=>'EmployeesController@updatePhoto']);
 
 
-Route::get('datatables/employees', function(){
+// Route::get('datatables/employees', ['as'=>'admin.employees.datatables-list', 'uses'=>'EmployeesController@dataTables']);
+Route::get('employees', ['as'=>'admin.employees.datatables-list', 'uses'=>'EmployeesController@index']);
 
-	return Datatables::eloquent(
-		App\Employee::query()
-			->with('positions')
-			->with('termination')
-	)->make(true);
-});
-
-
-
+/**
+ * 
+ */
 Route::bind('employees', function($id){
 	return App\Employee::whereId($id)
 		->with('department')
@@ -66,6 +44,7 @@ Route::bind('employees', function($id){
 		->firstOrFail();
 });
 Route::resource('employees', 'EmployeesController');
+
 
 
 // Route::group(['prefix'=>'api'], function(){

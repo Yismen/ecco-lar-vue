@@ -24,46 +24,11 @@ ini_set('xdebug.max_nesting_level', 200);
 |
 */
 
+
 Route::group(['middleware' => 'web'], function () {
-	// Route::get('learn', function(){
-
-	// 	$employees = App\Employee::get();
-	// 	return view('learn-vue.index', compact('employees'));
-	// });
-
-	// Route::get('api/employees', function(){
-	// 	return App\Employee::paginate(25);
-	// });
-
-	// Route::delete('api/employees/{id}', function($id){
-	// 	$employee = App\Employee::find($id);
-	// 	$employee->delete();
-	// 	return $employee;
-	// });
-		
 	/**
 	 * Vue Routes
 	 */
-	Route::group(['prefix'=>'api'], function(){
-		Route::delete('tasks/removeCompleted', ['uses'=>'TasksController@removeCompleted']);
-		Route::bind('tasks', function($id){
-			return App\Task::foruser()->findOrFail($id);
-		});
-		Route::resource('tasks', 'TasksController');
-
-		Route::get('notes', 'TasksController@index');
-
-		Route::group(['prefix'=>'notes'], function(){
-			/**
-			 * Notes
-			 */
-			Route::bind('admin', function($slug){
-				return App\Note::whereSlug($slug)->firstOrFail();
-			});
-			Route::resource('admin', 'NotesController');
-		});
-
-	});
 
 	/**
 	 * -------------------------------------------------
@@ -71,7 +36,7 @@ Route::group(['middleware' => 'web'], function () {
 	 * -------------------------------------------------
 	 */
 	Route::get('/', function () {
-	    return view('welcome');
+		return view('welcome');
 	});
 
 	Route::get('notes', ['as'=>'notes.index', 'uses'=>'NotesController@getNotes']);
@@ -88,7 +53,11 @@ Route::group(['middleware' => 'web'], function () {
 	    Route::auth();  
 
 	    Route::get('/', function () {
-		    return view('welcome');
+			$user = Auth::user();
+
+			if(!$user->profile) return redirect()->route('admin.profiles.create');
+
+	    	return view('welcome', compact('user'));
 		});
 
 		/**
@@ -135,4 +104,11 @@ Route::group(['middleware' => 'web'], function () {
 			
 	});
     
+});
+
+Route::group(['prefix'=>'api'], function(){
+	/**
+	 * Employees
+	 */
+	// Route::get('employees', ['uses'=>'EmployeesController@index']);
 });

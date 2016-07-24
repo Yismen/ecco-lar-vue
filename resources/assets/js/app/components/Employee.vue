@@ -16,7 +16,7 @@
         <ul class="list-group">
             <li 
                 class="list-group-item" 
-                v-for="employee in employees"
+                v-for:="employee in employees"
             >
                 <a href="#">{{ employee.full_name }}, {{ employee.id }}</a>
 
@@ -47,12 +47,12 @@
     methods: {
 
         fetchEmployees: function(){
-
             // this.loading.show_loading = true;
 
             this.$http.get('api/employees')
                 .then(function(success) {
-                    this.employees = success.data.data;
+                    console.log(success);
+                    this.employees = success.data;
                 }, function(errors){
                     console.log(errors);
                 });

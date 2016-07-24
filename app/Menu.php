@@ -1,5 +1,6 @@
 <?php namespace App;
 
+use App\Role;
 use Illuminate\Database\Eloquent\Model;
 
 class Menu extends Model {
@@ -15,13 +16,13 @@ class Menu extends Model {
 	 */
 	public function roles()
 	{
-		return $this->belongsToMany('App\Role');
+		return $this->belongsToMany(Role::class);
 	}
 
 
 	public function getRolesListsAttribute()
 	{
-		return $this->roles->lists('id');
+		return Role::orderBy('display_name')->lists('id');
 	}
 
 }

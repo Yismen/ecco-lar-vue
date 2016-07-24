@@ -14,12 +14,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\ImageManagerStatic as Image;
-use Yajra\Datatables\Facades\Datatables;
+use Yajra\Datatables\Datatables;
 
 class EmployeesController extends Controller {
 
 	function __construct() {
-		$this->middleware('clear_cache:employees', ['except'=>['index', 'show', 'create', 'edit']]);
+		// $this->middleware('clear_cache:employees', ['except'=>['index', 'show', 'create', 'edit']]);
 	}
 	/**
 	 * Display a listing of the resource.
@@ -27,20 +27,11 @@ class EmployeesController extends Controller {
 	 * @Get("/employees")
 	 * @return Response
 	 */
-	public function index(Employee $employees, Request $request,  Carbon $carbon)
+	public function index(Employee $employees, Request $request,  Carbon $carbon, Datatables $datatables)
 	{
-		// return Datatables::eloquent($employees->query())->make(true);
 		$employees = $this->getEmployees($employees, $request, $carbon);
-		// $employees = Cache::rememberForever('employees', function() {
-		// 	return $this->getEmployees($employees, $request);
 
-		// });
-
-		// if ($request->ajax()) return Datatables::eloquent($employees->query())->make(true);
-		// if ($request->ajax()) return $employees = $this->getEmployees($employees, $request, $carbon);
-
-		// return view('employees.index-datatables');
-		if ($request->ajax())	return view('employees._employees', compact('employees'));
+		if ($request->ajax()) return view('employees._employees', compact('employees'));
 
 		return view('employees.index', compact('employees'));
 	}
@@ -54,14 +45,16 @@ class EmployeesController extends Controller {
 
 		$employees = $this->applySearchScopeToTheQuery($search, $employees);
 
+		// $employees = $this->appyDatesScopesToTheQuery($search, $employees, $carbon);
+
 		$employees = $employees
 			->orderBy('hire_date')
 			->orderBy('first_name')
 			// ->where('hire_date', '>=', $carbon->month(5))
 			->with('positions')
-			->get();
-			// ->paginate(50)
-			// ->appends(['status'=>$status, 'search'=>$search]);
+			// ->get();
+			->paginate(10)
+			->appends(['status'=>$status, 'search'=>$search]);
 
 		return $employees;
 	}
@@ -226,7 +219,36 @@ class EmployeesController extends Controller {
 			->withSuccess("Punch ID Updated");
 	}
 
-	public function updateLogin(Employee $employee, Login $login, UpdateEmployeeLoginRequests $request)
+	public function createLogin(Employee $employee, Login $login, Request $request)
+	{
+
+		$this->validate($request, [
+		    'login' => 'required|unique:logins,login,NULL,id,system_id,'.$request->input('system_id'),
+		    'system_id' => 'required|exists:systems,id',
+		]);
+
+		$newlogin = $employee->logins()->create($request->all());
+		$loginsList = $employee->logins;
+
+		Cache::forget('employees');
+
+		if ($request->ajax()) {
+			// return view('employees.partials._logins', compact('loginsList'));
+			return response()->json([
+				'status'   => 1, 
+				'employee' => $employee, 
+				'newlogin' => $newlogin, 
+				'system'   => $newlogin->system, 
+				'system2'   => $request->login, 
+				'message'  => "$employee->first_name's login [$request->login] has been created!"
+			]);
+		}
+
+		return redirect()->route('admin.employees.edit', $employee->id)
+			->withSuccess("Succesfully created [$request->login]");
+	}
+
+	public function updateLogin(Employee $employee, Login $login, Request $request)
 	{
 		if ($employee->logins) {
 			$employee->logins->update($request->all());
@@ -365,8 +387,11 @@ class EmployeesController extends Controller {
 	 */
 	private function applyScopeStatusToTheQuery($status, $employees)
 	{
+		// if (!$status) {
+		// 	$status = 'actives';
+		// }
 
-		if (!$status || !in_array($status, ['actives', 'inactives'])) return $employees;
+		if (!in_array($status, ['actives', 'inactives'])) return $employees;
 
 		
 		return $employees = $employees->$status();
@@ -384,7 +409,7 @@ class EmployeesController extends Controller {
 
 		if (!$search) return $employees;
 
-		$search = explode(' ', $search);
+		$search = explode(',', $search);
 
 		foreach ($search  as $q) {
 			$q = trim($q);
@@ -393,11 +418,18 @@ class EmployeesController extends Controller {
 				->orWhere('last_name', 'like', "%$q%")
 				->orWhere('personal_id', 'like', "%$q%")
 				->orWhere('cellphone_number', 'like', "%$q%")
+				// ->orWhere('status', '=', "$q")
+				// ->orWhereHas('positions.name', 'like', "%$q%")
 				->orWhere('secondary_phone', 'like', "%$q%")
 				->orWhere('id', 'like', $q);
 		}
 		
 		return $employees;
 		
+	}
+
+	private function appyDatesScopesToTheQuery($search, $employees, $carbon)
+	{
+
 	}
 }

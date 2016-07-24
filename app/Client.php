@@ -10,6 +10,10 @@ class Client extends Model {
  * ----------------------------------------------------------------------
  * Relatioships
  */
+public function productions()
+{
+    return $this->hasMany('App\Production');
+}
 
 /**
  * ---------------------------------------------------------------------

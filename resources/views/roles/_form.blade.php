@@ -45,10 +45,18 @@
 <!-- /. Description -->
 
 <!-- Users -->
-<div class="form-group {{ $errors->has('roles') ? 'has-error' : null }}">
-	{!! Form::label('roles', 'Users:', ['class'=>'col-sm-2 control-label']) !!}
+<div class="form-group {{ $errors->has('users') ? 'has-error' : null }}">
+	{!! Form::label('users', 'Users:', ['class'=>'col-sm-2 control-label']) !!}
 	<div class="col-sm-10">
-		{!! Form::select('users_lists[]', $usersLists, null, ['class'=>'form-control', 'multiple'=>"multiple", 'id'=>'users_lists'])!!}
+		{{-- {!! Form::select('users_lists[]', $role->usersList, null, ['class'=>'form-control', 'multiple'=>"multiple", 'id'=>'users_lists'])!!} --}}
+		@foreach ($role->usersList as $key=>$value)			
+			<div class="checkbox">
+				<label>
+					{!! Form::checkbox('users[]', $key, null, []) !!}
+					{{ $value }}
+				</label>
+			</div>
+		@endforeach
 		<span class="help-block">!! Select the roles that will be served with this Role item:</span>
 	</div>
 	{{-- {!! $errors->first('roles', '<span class="text-danger">:message</span>') !!} --}}
@@ -57,9 +65,17 @@
 
 <!-- Permissions -->
 <div class="form-group {{ $errors->has('roles') ? 'has-error' : null }}">
-	{!! Form::label('roles', 'Permissions:', ['class'=>'col-sm-2 control-label']) !!}
+	{!! Form::label('perms', 'Permissions:', ['class'=>'col-sm-2 control-label']) !!}
 	<div class="col-sm-10">
-		{!! Form::select('permissions_lists[]', $permissionsLists, null, ['class'=>'form-control', 'multiple'=>"multiple", 'id'=>'permissions_lists'])!!}
+		{!! Form::select('perms[]', $role->permissionsList, null, ['class'=>'form-control', 'multiple'=>"multiple", 'id'=>'permissions_lists', 'style'=>'width: 100%'])!!}
+		@foreach ($role->permissionsList as $key=>$value)			
+			<div class="checkbox">
+				<label>
+					{!! Form::checkbox('perms[]', $key, null, []) !!}
+					{{ $value }}
+				</label>
+			</div>
+		@endforeach
 		<span class="help-block">!! Select the roles that will be served with this Role item:</span>
 	</div>
 	{{-- {!! $errors->first('roles', '<span class="text-danger">:message</span>') !!} --}}
@@ -67,22 +83,31 @@
 <!-- /. Permissions -->
 
 <!-- Menus -->
-<div class="form-group {{ $errors->has('roles') ? 'has-error' : null }}">
-	{!! Form::label('roles', 'Menus:', ['class'=>'col-sm-2 control-label']) !!}
+{{-- <div class="form-group {{ $errors->has('menus') ? 'has-error' : null }}">
+	{!! Form::label('menus', 'Menus:', ['class'=>'col-sm-2 control-label']) !!}
 	<div class="col-sm-10">
-		{!! Form::select('menus_lists[]', $menusLists, null, ['class'=>'form-control', 'multiple'=>"multiple", 'id'=>'menus_lists'])!!}
+		{!! Form::select('menus[]', $role->menusList, null, ['class'=>'form-control', 'multiple'=>"multiple", 'id'=>'menus'])!!}
 		<span class="help-block">!! Select the roles that will be served with this Role item:</span>
 	</div>
-	{{-- {!! $errors->first('roles', '<span class="text-danger">:message</span>') !!} --}}
+</div> --}}
+
+<div class="form-group {{ $errors->has('menus') ? 'has-error' : null }}">	
+	{!! Form::label('menus', 'Menus:', ['class'=>'col-sm-2 control-label']) !!}
+	<div class="col-sm-10">
+		@foreach ($role->menusList as $key=>$value)			
+			<div class="checkbox">
+				<label>
+					{!! Form::checkbox('menus[]', $key, null, []) !!}
+					{{ $value }}
+				</label>
+			</div>
+		@endforeach
+	</div>
 </div>
 <!-- /. Menus -->
 
-<link rel="stylesheet" href="{{ asset('plugins/select2/dist/css/select2.min.css') }}">
-<script src="{{ asset('plugins/select2/dist/js/select2.min.js') }}"></script>
-<script>
-	jQuery(document).ready(function($) {
-		$('#users_lists, #permissions_lists, #menus_lists').select2();
-	});
-</script>
+@section('scripts')
+	
+@stop
 
 
