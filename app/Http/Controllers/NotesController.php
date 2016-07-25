@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests;
+// use App\Http\Requests;
 use App\Note;
 use App\Search;
 use Cache;
@@ -37,7 +37,7 @@ class NotesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Note $note)
+    public function create(Note $note, Request $request)
     {
         if ($request->ajax()) return $note;
         
@@ -86,7 +86,7 @@ class NotesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Note $note)
+    public function edit(Note $note, Request $request)
     {
         if ($request->ajax()) return $note; 
 

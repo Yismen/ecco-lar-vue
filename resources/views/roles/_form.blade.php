@@ -67,7 +67,8 @@
 <div class="form-group {{ $errors->has('roles') ? 'has-error' : null }}">
 	{!! Form::label('perms', 'Permissions:', ['class'=>'col-sm-2 control-label']) !!}
 	<div class="col-sm-10">
-		{!! Form::select('perms[]', $role->permissionsList, null, ['class'=>'form-control', 'multiple'=>"multiple", 'id'=>'permissions_lists', 'style'=>'width: 100%'])!!}
+	
+		{{-- {!! Form::select('perms[]', $role->permissionsList, null, ['class'=>'form-control', 'multiple'=>"multiple", 'id'=>'permissions_lists', 'style'=>'width: 100%'])!!} --}}
 		@foreach ($role->permissionsList as $key=>$value)			
 			<div class="checkbox">
 				<label>
