@@ -4,11 +4,14 @@
  * departments Routes
  * ------------------------------------------------
  */
+Route::get('departments/list', 'DepartmentsController@getList');
 
 Route::bind('departments', function($id){
 	return App\Department::whereId($id)
-		->with('departments')
-		->with('payments')
+		->with(['positions'=>function($query) {
+                    $query->orderBy('name');
+                }])
+		// ->with('employees')
 		->firstOrFail();
 });
 

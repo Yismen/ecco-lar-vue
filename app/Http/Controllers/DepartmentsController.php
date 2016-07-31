@@ -1,9 +1,12 @@
-<?php namespace App\Http\Controllers;
+<?php 
 
-use App\Http\Requests\CreateDepartmentsRequest;
-use App\Http\Controllers\Controller;
+namespace App\Http\Controllers;
 
 use App\Department;
+use Illuminate\Http\Request;
+// use App\Http\Requests\Request;
+use App\Http\Controllers\Controller;
+use Yajra\Datatables\Facades\Datatables;
 
 
 class DepartmentsController extends Controller {
@@ -13,10 +16,10 @@ class DepartmentsController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index(Department $departments)
+	public function index(Department $departments, Request $request)
 	{
-		$departments = $departments->orderBy('department')->with('positions.employees')->get();
-		
+		$departments = $departments->orderBy('department')->paginate(15);
+
 		return view('departments.index', compact('departments'));
 
 	}
@@ -26,11 +29,11 @@ class DepartmentsController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function create(Department $departments)
+	public function create(Department $department)
 	{
-		$departments =  $departments->orderBy('department')->paginate(10);
+		$department =  $department->orderBy('department')->paginate(10);
 
-		return view('departments.create', compact('departments'));
+		return view('departments.create', compact('department'));
 	}
 
 	/**
@@ -38,11 +41,12 @@ class DepartmentsController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(CreateDepartmentsRequest $request, Department $departments)
+	public function store(Request $request, Department $department)
 	{
-		$departments->create($request->all());
+		$department->create($request->all());
 
-		return \Redirect::route('departments.create')->withSuccess("Succesfully created department [$request->department];");
+		return redirect()->route('admin.departments.create')
+			->withSuccess("Department $department->department has been added!");
 
 	}
 
@@ -52,9 +56,9 @@ class DepartmentsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show()
+	public function show(Department $department)
 	{
-		//
+		return view('departments.show', compact('department'));
 	}
 
 	/**
@@ -74,11 +78,11 @@ class DepartmentsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update(CreateDepartmentsRequest $request, Department $departments)
+	public function update(Request $request, Department $department)
 	{
-		$departments->update($request->all());
+		$department->update($request->all());
 
-		return redirect()->route('departments.create')->withSuccess("HH RR Department $departments->department has been updated");
+		return redirect()->route('admin.departments.create')->withSuccess("HH RR Department $department->department has been updated");
 	}
 
 	/**
@@ -92,7 +96,7 @@ class DepartmentsController extends Controller {
 		$departments->destroy($departments->id);
 
 		return redirect()
-			->route('departments.create')
+			->route('admin.departments.index')
 			->withWarning("HH RR Department $departments->department has been removed");
 
 	}

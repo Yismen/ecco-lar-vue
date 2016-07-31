@@ -61,15 +61,15 @@ class ProfilesController extends Controller
     public function store(Request $request, User $user, Image $img)
     {
         $this->validate($request, [
-            'photo' => 'image|max:4000',
-            'gender' => 'required',
-            'name' => 'required|max:70',
-            'bio' => 'max:4500',
-            'phone' => 'max:50',
-            'education' => 'max:150',
-            'skills' => 'max:90',
-            'work' => 'max:100',
-            'location' => 'max:100',
+            'photo'     => 'image|max:4000',
+            'gender'    => 'required',
+            'name'      => 'required|max:70',
+            'bio'       => 'max:4500',
+            'phone'     => 'max:50',
+            'education' => 'max:1500',
+            'skills'    => 'max:300',
+            'work'      => 'max:1000',
+            'location'  => 'max:100',
         ]);
         // update the user with the name given
         // store the data for the profile, associated to the current user        
@@ -149,9 +149,9 @@ class ProfilesController extends Controller
             'name'      => 'required|max:70',
             'bio'       => 'max:4500',
             'phone'     => 'max:50',
-            'education' => 'max:150',
-            'skills'    => 'max:90',
-            'work'      => 'max:100',
+            'education' => 'max:1500',
+            'skills'    => 'max:300',
+            'work'      => 'max:1000',
             'location'  => 'max:100',
         ]);
 

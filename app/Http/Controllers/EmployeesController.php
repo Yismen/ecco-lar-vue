@@ -1,4 +1,6 @@
-<?php namespace App\Http\Controllers;
+<?php 
+
+namespace App\Http\Controllers;
 
 use App\Address;
 use App\Card;
@@ -41,22 +43,35 @@ class EmployeesController extends Controller {
 		$status = $request->input('status');
 		$search = $request->input('search');
 
-		$employees = $this->applyScopeStatusToTheQuery($status, $employees);
-
-		$employees = $this->applySearchScopeToTheQuery($search, $employees);
+		
 
 		// $employees = $this->appyDatesScopesToTheQuery($search, $employees, $carbon);
 
-		$employees = $employees
-			->orderBy('hire_date')
-			->orderBy('first_name')
-			// ->where('hire_date', '>=', $carbon->month(5))
-			->with('positions')
-			// ->get();
-			->paginate(10)
-			->appends(['status'=>$status, 'search'=>$search]);
+			$employees = $this->applyScopeStatusToTheQuery($status, $employees);
 
-		return $employees;
+			$employees = $this->applySearchScopeToTheQuery($search, $employees);
+		    $employees = $employees
+				->orderBy('hire_date')
+				->orderBy('first_name')
+				// ->where('hire_date', '>=', $carbon->month(5))
+				->with('positions')
+				// ->get();
+				->paginate(10)
+				->appends(['status'=>$status, 'search'=>$search]);
+
+			return $employees;
+
+		return Cache::rememberForever('employees', function() use ($employees, $status, $search){
+			return $employees
+				->orderBy('hire_date')
+				->orderBy('first_name')
+				// ->where('hire_date', '>=', $carbon->month(5))
+				->with('positions')
+				// ->get();
+				->paginate(10)
+				->appends(['status'=>$status, 'search'=>$search]);
+		});
+			
 	}
 
 	/**

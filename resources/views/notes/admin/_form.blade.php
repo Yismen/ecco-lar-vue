@@ -27,9 +27,5 @@
 <!-- /. Content -->
 
 @section('scripts')
-	<script type="text/javascript">
-		(function($){
-			$('textarea#body').summernote();			
-		})(jQuery);			
-	</script>
+	
 @stop

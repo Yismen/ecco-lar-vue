@@ -1,69 +1,50 @@
-@extends('layouts.main')
+@inject('layout', 'App\Layout')
+@extends('layouts.'.$layout->app(), ['page_header'=>'Departments', 'page_description'=>'Show details of the department.'])
 
 @section('content')
 	<div class="container">
-		<div class="box box-primary pad">
-			<div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
-			<br>
-				<div class="">
-					<div class="table-responsive">
-						<h4>Contact Details</h4>
-						<table class="table table-hover">
+    	<div class="row">
+			<div class="col-sm-8 col-sm-offset-2">
+				<div class="box box-primary pad">
+					<h3 class="page-header">
+						Showing details for department {{ $department->department }} 
+						<a href="{{ route('admin.departments.edit', $department->id) }}"><i class="fa fa-pencil"></i></a>
+					</h3>
+
+					@if (!$department->positions->count())
+
+						<div class="alert alert-danger">
+							<strong>Alone!</strong> This department has not been given any position yet. 
+							<a class="pull-right btn btn-primary" href="{{ route('admin.positions.create') }}"><i class="fa fa-plus"></i> Add</a>
+						</div>
+					@else
+						<h3>Positions</h3>
+						<table class="table table-condensed">
 							<thead>
-								
-							</thead>
-							<tbody>
 								<tr>
 									<th>Name</th>
-									<td>{{ $contact->name }}</td>
+									<th class="col-xs-3">
+										<a href="{{ route('admin.positions.create') }}"><i class="fa fa-plus"></i> Add Position</a>
+									</th>
 								</tr>
-								<tr>
-									<th>Main Phone Contact</th>
-									<td>{{ $contact->main_phone }}</td>
-								</tr>
-								<tr>									
-									<th>Email Address</th>
-									<td>{!! HTML::mailto($contact->email, $contact->email) !!}</td>
-								</tr>
-								<tr>
-									<th>Works At</th>
-									<td>{{ $contact->works_at }}</td>
-								</tr>
-								<tr>
-									<th>Works As</th>
-									<td>{{ $contact->position }}</td>
-								</tr>
-								<tr>
-									<th>Secondary Phone</th>
-									<td>{{ $contact->secondary_phone }}</td>
-								</tr>
-								<tr>
-									<th>Visibility</th>
-									<td>{{ $contact->public ? 'Public' : 'Private' }}</td>
-								</tr>
-								<tr>
-									<th>Create by</th>
-									<td>{{ $contact->user->name }}</td>
-								</tr>
-								<tr>
-									<td>
-										{!! HTML::linkRoute("admin.contacts.index", "Return to Contacts") !!}
-									</td>									
-									<td>
-										@if ($contact->username == Auth::user()->username)
-											{!! HTML::linkRoute("admin.contacts.edit", "Edit", $contact->id, ['class'=>'btn btn-warning']) !!}
-										@endif
-									</td>
-								</tr>
+							</thead>
+							<tbody>
+								@foreach ($department->positions as $position)
+									<tr>
+										<td>
+											<a href="{{ route('admin.positions.show', $position->id) }}">{{ $position->name }}</a>
+										</td>
+										<td>
+											<a href="{{ route('admin.positions.edit', $position->id) }}"><i class="fa fa-pencil"></i> Edit</a>
+										</td>
+									</tr>
+								@endforeach
 							</tbody>
 						</table>
-					</div>
+					@endif
+				<p>@include('departments._back-to-home')</p>
 				</div>
 			</div>
 		</div>
 	</div>
-@stop
-
-@section('scripts')
-	
-@stop
+@endsection

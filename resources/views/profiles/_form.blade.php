@@ -93,11 +93,5 @@
 </div>
 <!-- /. Location Info -->
 
-@section('scripts')
-	<script>
-		(function($){
-			$('textarea#location, textarea#bio, textarea#work, textarea#location, textarea#education').summernote();
-		})(jQuery);
-	</script>
-@stop
+	
 

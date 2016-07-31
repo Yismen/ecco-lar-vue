@@ -65,8 +65,7 @@
 	  	function search(url, data, resultsDiv)
 	  	{
 	  		return $.get(url, data, function(data, textStatus, xhr) {
-			  		resultsDiv.html(data);				  						
-	  			;
+			  	resultsDiv.html(data);	
 	  		});
 	  	}
 

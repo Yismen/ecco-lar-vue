@@ -16,11 +16,11 @@ var nodeModules = '../../../node_modules';
 elixir(function(mix) {
     // mix.sass('app.scss');
     
-    // mix.copy('node_modules/bootstrap/fonts', 'public/build/fonts');
-    // mix.copy('node_modules/font-awesome/fonts', 'public/build/fonts');
-    // mix.copy('node_modules/datatables.net-dt/images', 'public/build/images');
-    // mix.copy('node_modules/summernote/dist/font', 'public/build/css/font');
-    // mix.copy('node_modules/icheck/skins/square/blue.png', 'public/build/css');
+    mix.copy('node_modules/bootstrap/fonts', 'public/build/fonts');
+    mix.copy('node_modules/font-awesome/fonts', 'public/build/fonts');
+    mix.copy('node_modules/datatables.net-dt/images', 'public/build/images');
+    mix.copy('node_modules/summernote/dist/font', 'public/build/css/font');
+    mix.copy('node_modules/icheck/skins/square/blue.png', 'public/build/css');
 
 	mix.styles([		
         nodeModules + '/bootstrap/dist/css/bootstrap.min.css',
@@ -34,14 +34,15 @@ elixir(function(mix) {
         nodeModules + '/dropzone/dist/dropzone.css',
         nodeModules + '/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css',
         nodeModules + '/icheck/skins/square/blue.css',
-        // nodeModules + '/datatables.net-bs/css/dataTables.bootstrap.css',
         nodeModules + '/datatables.net-dt/css/jquery.dataTables.css',
+        nodeModules + '/datatables.net-bs/css/dataTables.bootstrap.css',
+        nodeModules + '/datatables.net-buttons-dt/css/buttons.dataTables.css',
         'my-css-updates.css',
 	]);
 
 	mix.scripts([		
-        nodeModules + '/jquery/dist/jquery.min.js',
-        nodeModules + '/bootstrap/dist/js/bootstrap.min.js',
+        nodeModules + '/jquery/dist/jquery.js',
+        nodeModules + '/bootstrap/dist/js/bootstrap.js',
         nodeModules + '/admin-lte/dist/js/app.min.js',
         nodeModules + '/bootbox/bootbox.min.js',
         nodeModules + '/select2/dist/js/select2.min.js',
@@ -49,13 +50,15 @@ elixir(function(mix) {
         nodeModules + '/icheck/icheck.js',
         nodeModules + '/summernote/dist/summernote.js',
         nodeModules + '/dropzone/dist/dropzone.js',
+        nodeModules + '/js-cookie/src/js.cookie.js',
         nodeModules + '/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js',
         nodeModules + '/datatables.net/js/jquery.dataTables.js',
-        // nodeModules + '/datatables.net-dt/js/dataTables.bootstrap.js',
+        nodeModules + '/datatables.net-buttons/js/dataTables.buttons.js',
+        // nodeModules + '/datatables.net-bs/js/dataTables.bootstrap.js',
         'app.js',
-        'datepicker-config.js',
-        'destroy-confirmation.js',
-        'hide-flashes.js',
+        'ajaxSetup.js',
+        'confirmBeforeDestroy.js',
+        'destroyFlashMessage.js',
 	]);
 
     // mix.browserify('app/main.js');
@@ -64,7 +67,7 @@ elixir(function(mix) {
 		'js/main.js', 
 		'js/all.js', 
 		'css/all.css'
-		]);
+	]);
 
 	// mix.browserSync({
 	// 	proxy: 'localhost:8000',

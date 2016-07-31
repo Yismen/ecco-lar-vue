@@ -1,5 +1,6 @@
 <?php namespace App;
 
+use App\Employee;
 use App\Position;
 use Illuminate\Database\Eloquent\Model;
 
@@ -31,7 +32,7 @@ class Department extends Model {
 	 */
 	public function employees()
 	{
-		return $this->hasMany('App\Employee');
+		return $this->hasMany(Employee::class);
 	}
 	public function employees_count()
 	{

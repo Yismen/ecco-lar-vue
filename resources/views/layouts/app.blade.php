@@ -7,13 +7,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta id="_token" name="_token" value="{{ csrf_token() }}">  <!-- Laravel token -->
+        <meta id="_token" name="_token" content="{{ csrf_token() }}">  <!-- Laravel token -->
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <title>Ecco | {{ $page_header or 'Admin Header' }}</title>
 
         <link rel="stylesheet" type="text/css" href="{{ elixir('css/all.css') }}">
-
+    
         <!-- Ionicons -->
         <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
@@ -45,7 +45,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     |               | sidebar-mini                            |
     |*********************************************************|
     -->
-    <body class="hold-transition skin-blue sidebar-collapse sidebar-mini">   
+    <body class="hold-transition skin-blue sidebar-collapse sidebar-mini">  
         <div class="wrapper">
             <!-- Main Header -->
             {{-- @inject('user', 'App\Layout') --}}
@@ -79,6 +79,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     |************************************|
                      -->
                     @include('layouts.partials.flashes')
+                    @include('layouts.partials.spinner')
+
                     @yield('content')
                 </section>
                 <!-- /.content -->

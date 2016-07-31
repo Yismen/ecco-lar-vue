@@ -1,14 +1,13 @@
+
 @inject('layout', 'App\Layout')
-@extends('layouts.'.$layout->app(), ['page_header'=>'title', 'page_description'=>'description'])
+@extends('layouts.'.$layout->app(), ['page_header'=>'Departments', 'page_description'=>'Create a new department.'])
 
 @section('content')
 	<div class="container">
-		<div class="box box-primary pad">
-		
-		<div class="col-sm-8 col-sm-offset-1">
-			<br>
-			<div class="jumbotron">				
-				{!! Form::open(['route'=>['admin.departments.store'], 'class'=>'form-horizontal', 'role'=>'form']) !!}		
+    	<div class="row">
+			<div class="col-sm-8 col-sm-offset-2">
+				<div class="box box-primary pad big-box">
+					{!! Form::open(['route'=>['admin.departments.store'], 'class'=>'form-horizontal', 'role'=>'form']) !!}		
 					<div class="form-group">
 						<legend>Create A New HH RR Department</legend>
 					</div>						
@@ -16,42 +15,9 @@
 					@include('departments._form')				
 				
 				{!! Form::close() !!}
-
-				@if ($departments->total() == 0)
-					<h3>There are not departments created</h3>
-				@else
-					<table class="table table-condensed table-hover">
-						<thead>
-							<tr>
-								<th>Department Name</th>
-								<th colspan="2">Action</th>
-							</tr>
-						</thead>
-						<tbody>
-							@foreach ( $departments as $department)
-								<tr>
-									<td>
-										{{ $department->department }}
-									</td>
-									<td>
-										{!! link_to_route('admin.departments.edit', 'Edit', $department->id, ['class'=>'btn btn-warning']) !!}
-									</td>
-									<td>
-										{{-- {!! delete_form(['departments.destroy', $department->id]) !!}  --}}
-									</td>
-								</tr>
-							@endforeach
-						</tbody>
-					</table>
-				@endif
-				{{-- Pagination Links --}}
-				{!! $departments->render() !!}
-				{{-- /. Pagination Links --}}
+				@include('departments._back-to-home')
+				</div>
 			</div>
 		</div>
 	</div>
-@stop
-
-@section('scripts')
-	
-@stop
+@endsection

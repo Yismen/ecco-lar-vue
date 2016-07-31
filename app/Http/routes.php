@@ -26,9 +26,6 @@ ini_set('xdebug.max_nesting_level', 200);
 
 
 Route::group(['middleware' => 'web'], function () {
-	/**
-	 * Vue Routes
-	 */
 
 	/**
 	 * -------------------------------------------------
@@ -66,6 +63,10 @@ Route::group(['middleware' => 'web'], function () {
 		 * ---------------------------------------------
 		 */
 	    Route::group(['middleware' => 'auth'], function() {	
+			Route::get('test-datatables', 'TestController@testDatatablesView')->name('test.datatables');
+			Route::get('test-datatables/data', 'TestController@testDatatablesData')->name('test.datatables.data');
+
+			
 
 			/**
 			 * =========================================
