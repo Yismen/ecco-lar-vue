@@ -1,5 +1,7 @@
 <?php
 
+use Carbon\Carbon;
+
 /*
 |--------------------------------------------------------------------------
 | Model Factories
@@ -24,6 +26,19 @@ $factory->define(App\Task::class, function (Faker\Generator $faker) {
     return [
         'user_id' => 1,
         'task_name' => $faker->sentence,
+    ];
+});
+
+$factory->define(App\Production::class, function (Faker\Generator $faker) {
+    return [
+        'insert_date' => Carbon::today(),
+        'employee_id' => $faker->randomElement(array_flatten((array)\App\Employee::lists('id'))),
+        'name' => $faker->name,
+        'production_hours' => $faker->numberBetween(5,12),
+        'production' => $faker->numberBetween(100,450),
+        'reason_id' => $faker->randomElement(array_flatten((array)\App\Reason::lists('id'))),
+        'client_id' => $faker->randomElement(array_flatten((array)\App\Client::lists('id'))),
+        'source_id' => $faker->randomElement(array_flatten((array)\App\Source::lists('id'))),
     ];
 });
 

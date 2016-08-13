@@ -319,4 +319,60 @@ class Employee extends Model {
 	{
 		$this->attributes['date_of_birth'] = Carbon::parse($date_of_birth);
 	}
+
+	/**
+	 * Methods
+	 */
+	public function inactivate(Carbon $carbon)
+	{
+		///// under construction
+		return $this->termination()->save([
+			'termination_date'=>$carbon->now(),
+			'termination_type_id'=>$carbon->now(),
+			'termination_reason_id'=>$carbon->now(),
+			'can_be_rehired'=>$carbon->now(),
+			]);
+	}
+
+
+
+	protected function createOrUpdateAddress($request)
+	{
+		$address = [
+				'sector'         => $request->input('sector'),
+				'street_address' => $request->input('street_address'),
+				'city'           => $request->input('city'),
+				];
+
+		if ($this->addresses) {
+			return $this->addresses->update($address);
+		}
+		
+		$newAddress = new Address($address);
+		return $this->addresses()->save($newAddress);
+	}
+
+	public function createOrUpdateCard($request)
+	{
+		$newCard = ['card'=>$request->input('card')];
+		
+		if ($this->card) {
+			return $this->card()->update($newCard);
+		}
+
+		$card = new Card($newCard);
+		return $this->card()->save($card);
+	}
+
+	public function createOrUpdatePunch($request)
+	{
+		$newPunch = ['punch'=>$request->input('punch')];
+		
+		if ($this->card) {
+			return $this->punch()->update($newPunch);
+		}
+
+		$card = new Punch($newPunch);
+		return $this->punch()->save($card);
+	}
 }

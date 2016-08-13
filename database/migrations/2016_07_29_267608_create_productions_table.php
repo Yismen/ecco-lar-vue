@@ -15,17 +15,22 @@ class CreateProductionsTable extends Migration {
 		Schema::create('productions', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->timestamp('insert_date');
+			$table->date('insert_date');
 			$table->integer('year')->unsigned();
 			$table->integer('month')->unsigned();
 			$table->integer('week')->unsigned();
 			$table->integer('employee_id')->unsigned()->index();
 			$table->string('name', 120);
 			$table->double('production_hours', 15, 4)->unsigned();
+            $table->double('downtime', 15, 4)->unsigned()->default(0);
 			$table->integer('production')->unsigned();
-			// $table->string('client', 100);
+            $table->integer('reason_id')->unsigned()->nullable();
 			$table->integer('client_id')->unsigned();
 			$table->integer('source_id')->unsigned();
+			$table->foreign('reason_id')->references('id')->on('reasons');
+            $table->string('unique_id')->unique();
+
+            $table->index(['reason_id', 'client_id', 'source_id']);
 
 			$table->timestamps();
 			

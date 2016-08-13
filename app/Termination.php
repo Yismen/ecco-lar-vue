@@ -38,4 +38,9 @@ class Termination extends Model {
 		return Carbon::parse($this->attributes['termination_date'])->format('Y-m-d');
 	}
 
+	public function terminateEmployee($employee, $request)
+	{
+		
+	}
+
 }

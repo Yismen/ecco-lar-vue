@@ -2,26 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use App\Address;
-use App\Card;
-use App\Department;
-use App\Employee;
-use App\Http\Controllers\Controller;
-use App\ImageUploader;
 use App\Login;
-use App\Punch;
-use App\Termination;
+use App\Employee;
 use Carbon\Carbon;
+use App\Department;
+use App\Termination;
+use App\ImageUploader;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\File;
-use Intervention\Image\ImageManagerStatic as Image;
 use Yajra\Datatables\Datatables;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Cache;
+use App\Http\Controllers\Traits\EmployeesTrait;
+use Intervention\Image\ImageManagerStatic as Image;
+use App\Providers\EmployeeServiceProvider as EmployeeProvider;
 
 class EmployeesController extends Controller {
 
-	function __construct() {
+	protected $provider;
+	private $e_trait;
+	private $request;
+	private $carbon;
+	function __construct(EmployeesTrait $e_trait, Request $request, Carbon $carbon) {
 		// $this->middleware('clear_cache:employees', ['except'=>['index', 'show', 'create', 'edit']]);
+		// 
+		// $this->provider = new EmployeeProvider('employees');
+		$this->e_trait = $e_trait;
+		$this->request = $request;
+		$this->carbon = $carbon;
 	}
 	/**
 	 * Display a listing of the resource.
@@ -29,11 +37,12 @@ class EmployeesController extends Controller {
 	 * @Get("/employees")
 	 * @return Response
 	 */
-	public function index(Employee $employees, Request $request,  Carbon $carbon, Datatables $datatables)
+	public function index(Employee $employees, Datatables $datatables)
 	{
-		$employees = $this->getEmployees($employees, $request, $carbon);
+		// dd($this->provider->all());
+		$employees = $this->getEmployees($employees, $this->request, $this->carbon);
 
-		if ($request->ajax()) return view('employees._employees', compact('employees'));
+		if ($this->request->ajax()) return view('employees._employees', compact('employees'));
 
 		return view('employees.index', compact('employees'));
 	}
@@ -43,34 +52,19 @@ class EmployeesController extends Controller {
 		$status = $request->input('status');
 		$search = $request->input('search');
 
-		
+		$employees = $this->applyScopeStatusToTheQuery($status, $employees);
 
-		// $employees = $this->appyDatesScopesToTheQuery($search, $employees, $carbon);
+		$employees = $this->applySearchScopeToTheQuery($search, $employees);
+	    $employees = $employees
+			->orderBy('hire_date')
+			->orderBy('first_name')
+			// ->where('hire_date', '>=', $carbon->month(5))
+			->with('positions')
+			// ->get();
+			->paginate(10)
+			->appends(['status'=>$status, 'search'=>$search]);
 
-			$employees = $this->applyScopeStatusToTheQuery($status, $employees);
-
-			$employees = $this->applySearchScopeToTheQuery($search, $employees);
-		    $employees = $employees
-				->orderBy('hire_date')
-				->orderBy('first_name')
-				// ->where('hire_date', '>=', $carbon->month(5))
-				->with('positions')
-				// ->get();
-				->paginate(10)
-				->appends(['status'=>$status, 'search'=>$search]);
-
-			return $employees;
-
-		return Cache::rememberForever('employees', function() use ($employees, $status, $search){
-			return $employees
-				->orderBy('hire_date')
-				->orderBy('first_name')
-				// ->where('hire_date', '>=', $carbon->month(5))
-				->with('positions')
-				// ->get();
-				->paginate(10)
-				->appends(['status'=>$status, 'search'=>$search]);
-		});
+		return $employees;
 			
 	}
 
@@ -82,8 +76,6 @@ class EmployeesController extends Controller {
 	 */
 	public function create(Employee $employee, Department $departments)
 	{
-		// $departments = $departments->lists('department', 'id');
-
 		return view('employees.create', compact('employee', 'departments'));	
 	}
 
@@ -123,9 +115,7 @@ class EmployeesController extends Controller {
 	 * @return Response
 	 */
 	public function edit(Employee $employee)
-	{		
-		// return $employee;
-
+	{
 		return view('employees.edit', compact('employee'));
 	}
 
@@ -151,30 +141,15 @@ class EmployeesController extends Controller {
 
 	}
 
-	public function updateAddress(Employee $employee, Address $address, Request $request)
+	public function updateAddress(Employee $employee, Request $request)
 	{
-		$this->validate($request, [
-			'sector'         => 'required',
-			'street_address' => 'required',
-			'city'           => 'required',		
-		]);
+		$this->validateAddressRequest($request);
 
-		if ($employee->addresses) {
-			$employee->addresses->update($request->all());
-		} else {
-			$newAddress = new $address([
-				'sector'         => $request->input('sector'),
-				'street_address' => $request->input('street_address'),
-				'city'           => $request->input('city'),
-				]);
-
-			$employee->addresses()->save($newAddress);
-		}
+		$employee->createOrUpdateAddress($request);		
 
 		if ($request->ajax()) {
 			return response()->json([
-				'status'  => 1, 
-				'employee' => $employee, 
+				'type' => 'success', 
 				'message' => "$employee->first_name's address updated!"
 				]);
 		}
@@ -184,23 +159,15 @@ class EmployeesController extends Controller {
 
 	}
 
-	public function updateCard(Employee $employee, Card $card, Request $request)
+	public function updateCard(Employee $employee, Request $request)
 	{
-		$this->validate($request, [
-			'card'        => 'required|numeric|digits:8|', 
-		]);
+		$this->validateCardRequest($request);
 
-		if ($employee->card) {
-			$employee->card->update($request->all());
-		} else {
-			$card = new $card(['card'=>$request->input('card')]);
-			$employee->card()->save($card);
-		}
+		$employee->createOrUpdateCard($request);		
 
 		if ($request->ajax()) {
 			return response()->json([
-				'status'  => 1, 
-				'employee' => $employee, 
+				'type' => 'success', 
 				'message' => "$employee->first_name's Card updated!"
 				]);
 		}
@@ -209,18 +176,13 @@ class EmployeesController extends Controller {
 			->withSuccess("Card Number Updated");
 	}
 
-	public function updatePunch(Employee $employee, Punch $punch, Request $request)
+	public function updatePunch(Employee $employee, Request $request)
 	{
 		$this->validate($request, [		    
-			'punch'        => 'required|numeric|digits:5', 
+			'punch' => 'required|numeric|digits:5', 
 		]);
 
-		if ($employee->punch) {
-			$employee->punch->update($request->all());
-		} else {
-			$punch = new $punch(['punch'=>$request->input('punch')]);
-			$employee->punch()->save($punch);
-		}
+		$employee->createOrUpdatePunch($request);
 
 		if ($request->ajax()) {
 			return response()->json([
@@ -302,6 +264,11 @@ class EmployeesController extends Controller {
 
 	public function updatePhoto(Employee $employee, Request $request)
 	{
+		// $this->validatePhoto($request)
+		// 	->crateImage('images/employees/')
+		// 	->saveImage()
+		// 	->updateEmployee();
+			
 		$this->validate($request, [
 		    'photo' => 'required|image|max:3000',
 		]);
@@ -317,9 +284,8 @@ class EmployeesController extends Controller {
 
 		if ($request->ajax()) {
 			return response()->json([
-				'status' => 1, 
 				'photo' => url($employee->photo), 
-				'employee' => $employee,
+				'type' => 'success',
 				'message' => "$employee->first_name's photo has been updated!"
 				]);
 		}
@@ -446,5 +412,22 @@ class EmployeesController extends Controller {
 	private function appyDatesScopesToTheQuery($search, $employees, $carbon)
 	{
 
+	}
+
+	protected function validateAddressRequest($request)
+	{
+		$this->validate($request, [
+			'sector'         => 'required',
+			'street_address' => 'required',
+			'city'           => 'required',		
+		]);
+
+		return $this;
+	}
+
+	protected function validateCardRequest($request)
+	{
+		$this->validate($request, ['card'=> 'required|numeric|digits:8|']);
+		return $this;
 	}
 }

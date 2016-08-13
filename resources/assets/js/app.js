@@ -3,13 +3,12 @@
  * @param  {$} $ jquery Object
  */
 (function($) {
-  $(document).ready(function() {
 
     $.fn.dataTable.ext.errMode = 'none';
     
     $('.main-spinner').hide();
 
-		$.each($('select,input,textarea'), function(index, val) {
+	$.each($('select,input,textarea'), function(index, val) {
       var el = $(val);
       var elType = $(el).prop('localName');
       var inputType = $(el).prop('type');
@@ -18,6 +17,7 @@
        * Apply datepicker plugin to all the input with the type of date in the app
        */
       if(inputType == 'date') {
+        $(el).prop('type', "text");
         el.datepicker({
           format: 'yyyy-mm-dd',
           todayHighlight: true,
@@ -56,6 +56,4 @@
       }
             
     });
-
-	});
 })(jQuery);

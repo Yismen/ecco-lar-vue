@@ -26,10 +26,27 @@ ini_set('xdebug.max_nesting_level', 200);
 
 
 Route::group(['middleware' => 'web'], function () {
+	/**
+	 * ----------------------------------------------
+	 * Test routes.									|
+	 * These routes are used for development, 		|
+	 * ----------------------------------------------
+	 */	
+	Route::get('test_plugin', function(){
+		return view('test.plugin-test');		
+	})->name('test.plugin');
+	Route::post('test_plugin/data', function(){
+		// return response()->json(["here"=>"here we go", "there"=>"We have more"], 422);
+		$output = '<div class="row col-sm-12"><div class="alert alert-success">';
+		$output .=	Request::input('new');
+		$output .= '</div></div>';
+		return response()->html($output);
+
+	})->name('test_plugin.data');
 
 	/**
 	 * -------------------------------------------------
-	 * Site routes. Usually for guests
+	 * Site routes. Usually for guests 				   |
 	 * -------------------------------------------------
 	 */
 	Route::get('/', function () {
@@ -38,12 +55,16 @@ Route::group(['middleware' => 'web'], function () {
 
 	Route::get('notes', ['as'=>'notes.index', 'uses'=>'NotesController@getNotes']);
 	Route::get('notes/search', ['as'=>'notes.search', 'uses'=>'NotesController@searchNotes']);
+	Route::get('date_calc', ['as'=>'date_calc.index', 'uses'=>'DateCalcController@index']);
+	Route::get('date_calc/from_today', ['as'=>'date_calc.diff_from_today', 'uses'=>'DateCalcController@diffFromToday']);
+	Route::get('date_calc/range_diff', ['as'=>'date_calc.range_diff', 'uses'=>'DateCalcController@rangeDiff']);
+
 
 
 	/**
-	 * ---------------------------------------------
-	 * Admin Routes
-	 * ---------------------------------------------
+	 * ----------------------------------------------
+	 * Admin Routes 								|
+	 * ----------------------------------------------
 	 */
 	Route::group(['prefix' => 'admin'], function() {
 	    
@@ -58,9 +79,9 @@ Route::group(['middleware' => 'web'], function () {
 		});
 
 		/**
-		 * ---------------------------------------------
-		 * Admin routes requiring authentication
-		 * ---------------------------------------------
+		 * ----------------------------------------------
+		 * Admin routes requiring authentication        |
+		 * ----------------------------------------------
 		 */
 	    Route::group(['middleware' => 'auth'], function() {	
 			Route::get('test-datatables', 'TestController@testDatatablesView')->name('test.datatables');
@@ -69,9 +90,9 @@ Route::group(['middleware' => 'web'], function () {
 			
 
 			/**
-			 * =========================================
-			 * Home Routes
-			 * =========================================
+			 * ------------------------------------------
+			 * Home Routes 								|
+			 * ------------------------------------------
 			 */
 	    	Route::get('/home', function(){
 	    		return Auth::user()->rolesList;
@@ -80,7 +101,7 @@ Route::group(['middleware' => 'web'], function () {
 
 	        /**
 			 * =========================================
-			 * Note Routes
+			 * Note Routes 								|
 			 * =========================================
 			 */
 			Route::bind('notes', function($slug) {
@@ -107,9 +128,10 @@ Route::group(['middleware' => 'web'], function () {
     
 });
 
-Route::group(['prefix'=>'api'], function(){
+Route::group(['prefix'=>'api', 'middleware'=>'api'], function(){
+
 	/**
 	 * Employees
 	 */
-	// Route::get('employees', ['uses'=>'EmployeesController@index']);
+	Route::get('employees', ['uses'=>'EmployeesController@index']);
 });

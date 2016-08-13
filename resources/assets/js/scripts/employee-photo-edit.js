@@ -1,4 +1,4 @@
-		(function($){
+(function($){
 			$(document).on('submit', '#photo_form', function(event) {
 				event.preventDefault();
 				var form = $(this);
@@ -14,10 +14,10 @@
 				})
 				.progress(function(data){
 					alert(data);
-					console.log(data.total);
+					// console.log(data.total);
 				})
 				.done(function(results) {
-					console.log(results);
+					// console.log(results);
 					$(form).fadeTo('fast', .5, function() {
 						$('.errors-area').html('<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong>Success!</strong> '+results.message+' ...</div>');
 						$('#photo_form_group')
@@ -28,7 +28,7 @@
 
 				})
 				.fail(function(results) {
-					console.log(results.responseText);
+					// console.log(results.responseText);
 					$(form).fadeTo('fast', .5, function() {
 						$('.errors-area').html('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong>Error!</strong> '+results.responseJSON.photo+' ...</div>');
 						$('#photo_form_group')
@@ -40,7 +40,7 @@
 					$('.spinner').fadeOut('fast');
 				});
 				
-				console.log(ajax);
+				// console.log(ajax);
 				
 			});
 		})(jQuery);

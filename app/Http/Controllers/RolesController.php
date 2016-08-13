@@ -47,7 +47,7 @@ class RolesController extends Controller {
 	{
 
 		return view('roles.create', compact('role'));
-	};
+	}
 
 	/**
 	 * Store a newly created resource in storage.

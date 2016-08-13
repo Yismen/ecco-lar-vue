@@ -33,7 +33,8 @@
       <li class="user-header">
         @include('layouts.partials.user-photo')
         <p>
-          {{ $user->name }} - {{ $user->profile->work or null }}
+          {{ $user->name }}
+          {{-- {{ $user->name }} - <h5>{!! $user->profile->work or null !!}</h5> --}}
           <small>Member since {{ $user->created_at->toFormattedDateString() }}</small>
         </p>
       </li>

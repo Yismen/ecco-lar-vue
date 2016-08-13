@@ -43,6 +43,7 @@ class DepartmentsController extends Controller {
 	 */
 	public function store(Request $request, Department $department)
 	{
+		return $request->all();
 		$department->create($request->all());
 
 		return redirect()->route('admin.departments.create')

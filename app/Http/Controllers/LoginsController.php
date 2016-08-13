@@ -1,9 +1,11 @@
-<?php namespace App\Http\Controllers;
+<?php 
 
-use App\Http\Requests\LoginsRequests;
-use App\Http\Controllers\Controller;
+namespace App\Http\Controllers;
+
 
 use App\Login;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class LoginsController extends Controller {
 
@@ -36,11 +38,13 @@ class LoginsController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(Login $login, LoginsRequests $requests)
+	public function store(Login $login, Request $requests)
 	{
+		$this->validateRequest($requests);
+
 		$login->create($requests->all());
 
-		return redirect()->route('logins.show', $login->id)
+		return redirect()->route('admin.logins.show', $login->id)
 			->withSuccess("Login $login->login has been created!");
 	}
 
@@ -72,11 +76,11 @@ class LoginsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update(Login $login, LoginsRequests $requests)
+	public function update(Login $login, Request $requests)
 	{
 		$login->update($requests->all());
 
-		return redirect()->route('logins.show', $login->id)
+		return redirect()->route('admin.logins.show', $login->id)
 			->withSuccess("Login $login->login has been updated!");
 	}
 
@@ -86,9 +90,20 @@ class LoginsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy(Login $login)
 	{
-		//
+		$login->delete();
+
+		return redirect()->route('admin.logins.index')
+			->withDanger("Login $login->login has been removed.");
+	}
+
+	private function validateRequest($request)
+	{
+		return $this->validate($request, [
+			'login' => 'required',
+			'employee_id' => 'required|exists:employees,id',
+		]);
 	}
 
 }

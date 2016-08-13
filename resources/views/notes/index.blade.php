@@ -10,10 +10,10 @@
 						<div class="form-group">
 							<div class="form-group {{ $errors->has('search') ? 'has-error' : null }}">
 								<div class="input-group">
+									{!! Form::input('text', 'search', null, ['class'=>'form-control', 'placeholder'=>'Search Note', 'id'=>'search']) !!}
 								      <span class="input-group-btn">
 								        <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
 								      </span>
-									{!! Form::input('text', 'search', null, ['class'=>'form-control', 'placeholder'=>'Search Note', 'id'=>'search']) !!}
 								</div>
 								@if ($errors->has('search'))
 									<span class="help-block text-danger">{{ $errors->first('search') }}</span>
@@ -35,7 +35,8 @@
 
 @section('scripts')
 	<script type="text/javascript">
-	  (function($){
+
+	  ;(function($){
 	  	$('#search-notes-form').first().on('submit', function(event){
 	  		event.preventDefault();
 	  		var form = $(this);
@@ -44,26 +45,38 @@
 	  		var resultsDiv = $('#results-div');
 
 	  		resultsDiv.fadeOut('fast', function() {
-	  			search(url, data, resultsDiv);
+	  			PerformSearch(url, data, resultsDiv);
 			  		resultsDiv.html(data);	  
 	  		}).fadeIn('fast')
 
 
 	  	});
 
-	  	$('#search').on('keyup', function(event) {
-	  		event.preventDefault();
+	  	//setup before functions
+		var typingTimer;                //timer identifier
+		var $input = $('#search');
+
+		//on keyup, start the countdown
+		$input.on('keyup', function () {
+			var doneTypingInterval = 800;  //time in ms, 5 second for example
+		  	clearTimeout(typingTimer);
+
 	  		var form = $(this).parents('form').first();
 	  		var data = form.serializeArray();
 	  		var url = form.prop('action');
 	  		var resultsDiv = $('#results-div');
 
-	  		search(url, data, resultsDiv);
+		  	typingTimer = setTimeout(function (){ PerformSearch(url, data, resultsDiv); }, doneTypingInterval);
+		});
 
-	  	});
+		//on keydown, clear the countdown 
+		$input.on('keydown', function () {
+		  clearTimeout(typingTimer);
+		});
 
-	  	function search(url, data, resultsDiv)
+	  	function PerformSearch(url, data, resultsDiv)
 	  	{
+	  		console.log("searching")
 	  		return $.get(url, data, function(data, textStatus, xhr) {
 			  	resultsDiv.html(data);	
 	  		});

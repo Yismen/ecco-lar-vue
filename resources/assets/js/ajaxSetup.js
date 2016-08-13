@@ -1,4 +1,4 @@
-(function($){
+;(function($){
     /**
      * Config all ajax requestes before they are executed.
      */
@@ -10,16 +10,9 @@
 
             // $('.main-spinner').parent('.content').hide();
             $('.main-spinner').show();
-            console.log("before it sends: ");
 
-            var xsrf;
-            var tokenName = 'XSRF-TOKEN';
-
-            if (localStorage.getItem(tokenName)) {xsrf = localStorage.getItem(tokenName)}
-            if (sessionStorage.getItem(tokenName)) {xsrf = sessionStorage.getItem(tokenName)}
-            if (Cookies.get(tokenName)) {xsrf = Cookies.get(tokenName)}
-
-            xhr.setRequestHeader('Authorization', 'Bearer ' + xsrf);
+            // attacheBearer(xhr);
+           
         },//beforeSend
       /**
        * This is executed once the ajax request is completed
@@ -62,10 +55,20 @@
                         window.location.reload();
                     }
                 },
-            },
-            callback: function(){
-                // window.location.reload();
             }
         });
+    }
+
+    function attacheBearer(xhr) {
+         console.log("before it sends: ");
+
+            var xsrf;
+            var tokenName = 'XSRF-TOKEN';
+
+            if (localStorage.getItem(tokenName)) {xsrf = localStorage.getItem(tokenName)}
+            if (sessionStorage.getItem(tokenName)) {xsrf = sessionStorage.getItem(tokenName)}
+            if (Cookies.get(tokenName)) {xsrf = Cookies.get(tokenName)}
+
+            xhr.setRequestHeader('Authorization', 'Bearer ' + xsrf);
     }
 })(jQuery);

@@ -17,7 +17,7 @@
 					<h1>No Positions has been added yet, please add one</h1>
 				</div>
 			@else
-				<table class="table table-condensed table-hover">
+				<table class="table table-condensed table-striped">
 					<thead>
 						<tr>
 							<th>Position Name</th>

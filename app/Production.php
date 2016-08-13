@@ -3,12 +3,13 @@
 namespace App;
 
 use Carbon\Carbon;
+use App\Reason;
 use Illuminate\Database\Eloquent\Model;
 
 class Production extends Model 
 {
 
-	protected $fillable = ['insert_date', 'year', 'month', 'week', 'employee_id', 'name', 'production_hours', 'production', 'client_id', 'source_id'];
+	protected $fillable = ['insert_date', 'year', 'month', 'week', 'employee_id', 'name', 'production_hours', 'downtime', 'production', 'client_id', 'source_id', 'reason_id', 'unique_id'];
 
 	 protected $casts = [
 		'employee_id' => 'integer',
@@ -37,6 +38,11 @@ class Production extends Model
 	    return $this->belongsTo('App\Client');
 	}
 
+	public function reason()
+	{
+	    return $this->belongsTo(Reason::class);
+	}
+
 	/**
 	 * =============================================================
 	 * Scopes
@@ -48,7 +54,7 @@ class Production extends Model
 	 */
 	public function getInsertDateAttribute( $date )
 	{
-		return Carbon::parse( $date )->format('m-d-Y');
+		return Carbon::parse( $date )->format('Y-m-d');
 	}
 
 	public function getYearAttribute()
@@ -84,6 +90,11 @@ class Production extends Model
 	public function setWeekAttribute($date)
 	{
 		$this->attributes['week'] = Carbon::parse($this->attribute['insert_date'])->weekOfYear;
+	}
+	
+	public function setUniqueIdAttribute($unique_id)
+	{
+		return $this->attributes['unique_id'] = $this->attributes['insert_date'].'-'.$this->attributes['employee_id'].'-'.$this->attributes['client_id'].'-'.$this->attributes['source_id'];
 	}
 	
 	/**

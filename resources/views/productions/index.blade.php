@@ -1,5 +1,5 @@
 @inject('layout', 'App\Layout')
-@extends('layouts.'.$layout->app(), ['page_header'=>'title', 'page_description'=>'description'])
+@extends('layouts.'.$layout->app(), ['page_header'=>'Production', 'page_description'=>'Manage productions data.'])
 
 @section('content')
 	
@@ -8,11 +8,11 @@
 		<div class="box box-primary pad">
 
 			<div class="row">
-				<div class="col-sm-4 col-sm-push-8">
+				<div class="col-sm-12">
 					@include('productions._dashboard')
 				</div>
 
-				<div class="col-sm-8 col-sm-pull-4">
+				<div class="col-sm-12">
 					@include('productions._home')
 				</div>
 			</div>
@@ -24,7 +24,6 @@
 @stop
 
 @section('scripts')
-	
 @stop
 
 

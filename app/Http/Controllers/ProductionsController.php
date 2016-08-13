@@ -1,12 +1,13 @@
 <?php namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Production;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
-use Maatwebsite\Excel\Facades\Excel;
 use Storage;
+use Carbon\Carbon;
+use App\Production;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Input;
 
 class ProductionsController extends Controller {
 
@@ -15,9 +16,11 @@ class ProductionsController extends Controller {
 					'employee_id',
 					'name',
 					'production_hours',
+					'downtime',
 					'production',
 					'client_id',
 					'source_id',
+					'reason_id',
 				];
 
 	/**
@@ -28,10 +31,24 @@ class ProductionsController extends Controller {
 	public function index(Production $productions)
 	{
 		$productions = $productions
-						->with('employee')
+						->groupBy('insert_date')
+						->groupBy('client_id')
+						->groupBy('source_id')
 						->orderby('insert_date')
-						->orderby('source_id')
-						->paginate(10);
+						->with('source')
+						->with('client')
+						->select(DB::raw('
+							insert_date,
+							year,
+							month,
+							week,
+							sum(production) AS production,
+							sum(production_hours) AS production_hours,
+							sum(downtime) AS downtime,
+							source_id,
+							client_id
+							'))
+						->paginate(5);
 
 		return view('productions.index', compact('productions'));
 	}
@@ -78,7 +95,7 @@ class ProductionsController extends Controller {
 		}
 		
 		return redirect()->route('admin.productions.index')
-			->withSuccess("Production $production->id has been updated");
+			->withSuccess("Production data loaded to the production table.");
 		
 	}
 
@@ -130,9 +147,16 @@ class ProductionsController extends Controller {
 		//
 	}
 
-	public function show_date(Request $request, $date)
+	public function show_date(Request $request, Production $production, Carbon $carbon, $date)
 	{
-		return $date;
+		$productions =  $production
+			->whereInsertDate($date)
+			->with('reason')
+			->with('source')
+			->with('client')
+			->paginate(25);
+
+		return view('productions.show_date', compact('productions'));
 		return $request->all();
 	}
 
@@ -158,10 +182,11 @@ class ProductionsController extends Controller {
 
 			$this->removeIfExistis($row);
 
-			$row['year']  = true;
-			$row['month'] = true;
-			$row['week']  = true;
-
+			// these values will be mutated by the model
+			$row['year']  = str_random(4);
+			$row['month'] = str_random(2);
+			$row['week']  = str_random(2);
+			$row['unique_id']  = str_random(20);
 			$production = $production->create($row);
 				
 		}

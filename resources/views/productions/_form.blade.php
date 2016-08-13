@@ -18,7 +18,7 @@
     {!! Form::label('file', 'Import Production', ['class' => 'col-sm-3 control-label']) !!}
     <div class="col-sm-9">
 	    {!! Form::file('file[]', ['class' => 'required', 'multiple']) !!}
-	    <p class="help-block">Help block text</p>
+	    <p class="help-block">Select one or multiple production files to upload.</p>
     </div>
 </div>
 

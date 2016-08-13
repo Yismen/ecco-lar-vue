@@ -12,7 +12,7 @@
 						<legend>Create A New HH RR Department</legend>
 					</div>						
 				
-					@include('departments._form')				
+					@include('departments._form')		
 				
 				{!! Form::close() !!}
 				@include('departments._back-to-home')
@@ -21,3 +21,4 @@
 		</div>
 	</div>
 @endsection
+
