@@ -1,13 +1,5 @@
 <?php
 
-
-	/**
-	 * downtimes routes
-	 * ------------------------------------------------------
-	 */
-
-
-
 /**
  * downtimes index route
  */
@@ -40,9 +32,7 @@ Route::bind('downtimes', function($id){
 	return App\Downtime::with('employee')->with('reason')->findOrFail($id);
 });
 
-Route::resource('downtimes', 'DowntimesController', [
-
-]);
+Route::resource('downtimes', 'DowntimesController');
 
 
 

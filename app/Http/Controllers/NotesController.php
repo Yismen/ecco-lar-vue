@@ -164,10 +164,6 @@ class NotesController extends Controller
      */
     public function searchNotes(Request $request, Note $notes, Search $search)
     {
-        // $this->validate($request, [
-        //     'search' => 'required|min:2',
-        // ]);
-
         $notes = $search->find($notes, ['title', 'tags', 'body']);
 
         if ($request->ajax()) {
