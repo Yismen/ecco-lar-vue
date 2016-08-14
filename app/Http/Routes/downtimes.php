@@ -28,6 +28,8 @@ Route::get('downtimes/searchByValue', [
 	'permissions'=>['downtimes_viewer'],
 ]);
 
+Route::get('downtimes/import', 'DowntimesController@importByDate');
+
 Route::bind('downtimes', function($id){
 	return App\Downtime::with('employee')->with('reason')->findOrFail($id);
 });

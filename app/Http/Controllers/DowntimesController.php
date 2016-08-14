@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 use App\Downtime;
 
 class DowntimesController extends Controller {
+	private $request;
+
+	public function __construct(Request $request)
+	{
+		$this->request = $request;
+	}
+
 
 	/**
 	 * Display a listing of the resource.
@@ -122,6 +129,17 @@ class DowntimesController extends Controller {
 	public function searchByValue(Downtime $downtime, Request $request)
 	{
 		return $request->all();
+	}
+
+	public function importByDate(Downtime $downtime)
+	{
+		dd($this->request);
+		// Check if there is data for this date. Ask whether to import or not.
+		// Import actives based on the import date, where Production == null.
+		// Fill the table
+			// add edit link
+			// Filld edit form
+			// Save. 
 	}
 
 }
