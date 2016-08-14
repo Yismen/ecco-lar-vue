@@ -15,8 +15,9 @@ class CreateDowntimesTable extends Migration {
 		Schema::create('downtimes', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->date('insert_date');
 			$table->integer('employee_id')->unsigned()->index();
-			$table->dateTime('insert_date');
+			$table->string('name', 200);
 			$table->integer('year')->unsigned();
 			$table->integer('month')->unsigned();
 			$table->integer('week')->unsigned();

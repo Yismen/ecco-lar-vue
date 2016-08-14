@@ -9,7 +9,7 @@
 	</a>
 	<ul class="nav navbar-nav navbar-right">
 		<li>
-			<a href="{{ route('downtimes.create') }}">
+			<a href="{{ route('admin.downtimes.create') }}">
 				Add Down Time
 				 <i class="fa fa-plus"></i>
 			</a>
@@ -21,7 +21,7 @@
 	<hr>
 
 	<div class="">
-		{!! Form::open(['route'=>['downtimes.searchScope'], 'method'=>'GET', 'class'=>'form-horizontal', 'role'=>'form', 'autocomplete'=>"off"]) !!}
+		{!! Form::open(['route'=>['admin.downtimes.searchScope'], 'method'=>'GET', 'class'=>'form-horizontal', 'role'=>'form', 'autocomplete'=>"off"]) !!}
 			<div class="form-group form-group-sm">
 				<label for="search_date" class="col-sm-2 control-label">Search Values:</label>
 				<div class="col-sm-10">
@@ -51,7 +51,7 @@
 	</div>
 
 	<div class="">
-		{!! Form::open(['route'=>['downtimes.searchByValue'], 'method'=>'GET', 'class'=>'form-horizontal', 'role'=>'form', 'autocomplete'=>"off", 'id'=>'searchByValue']) !!}	
+		{!! Form::open(['route'=>['admin.downtimes.searchByValue'], 'method'=>'GET', 'class'=>'form-horizontal', 'role'=>'form', 'autocomplete'=>"off", 'id'=>'searchByValue']) !!}	
 
 				<div class="form-group form-group-sm">
 					<label for="search_value" class="col-sm-2 control-label">Search Date:</label>
@@ -77,7 +77,7 @@
 				</div>
 		{!! Form::close() !!}
 	</div>
-		{!! Form::open(['route'=>['downtimes.searchRange'], 'method'=>'GET', 'class'=>'form-horizontal', 'role'=>'form', 'autocomplete'=>"off", 'id'=>'searchRange']) !!}	
+		{!! Form::open(['route'=>['admin.downtimes.searchRange'], 'method'=>'GET', 'class'=>'form-horizontal', 'role'=>'form', 'autocomplete'=>"off", 'id'=>'searchRange']) !!}	
 				<div class="form-group form-group-sm">
 					<div class="col-sm-5">
 						<div class="form-group">

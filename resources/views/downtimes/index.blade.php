@@ -1,6 +1,6 @@
 
 @inject('layout', 'App\Layout')
-@extends('layouts.'.$layout->app(), ['page_header'=>'title', 'page_description'=>'description'])
+@extends('layouts.'.$layout->app(), ['page_header'=>'Downtimes', 'page_description'=>'Manage downtimes per day.'])
 
 @section('content')
 	<div class=" col-sm-8 col-sm-offset-2">
@@ -23,9 +23,9 @@
 					From: <i class="fa fa-calendar"> </i> {{ $downtime->from_time }}
 					To: <i class="fa fa-calendar"> </i> {{ $downtime->to_time }}
 					<br><br>
-					<a href="{{ route('downtimes.show', $downtime->id) }}"><i class="fa fa-eye"></i></a>
+					<a href="{{ route('admin.downtimes.show', $downtime->id) }}"><i class="fa fa-eye"></i></a>
 					{{ number_format($downtime->from_time - $downtime->to_time - ($downtime->break_time/60), 2) }} Hours, {{ $downtime->reason->reason }},
-					<a href="{{ route('downtimes.edit', $downtime->id) }}"><i class="fa fa-pencil"> </i></a>
+					<a href="{{ route('admin.downtimes.edit', $downtime->id) }}"><i class="fa fa-pencil"> </i></a>
 				</div>
 			@endforeach
 		@endunless

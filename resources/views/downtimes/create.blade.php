@@ -4,7 +4,7 @@
 @section('content')
 	<div class="col-sm-8 col-sm-offset-2">
 		<div class="row well">
-			{!! Form::open(['route'=>['downtimes.store'], 'method'=>'POST', 'class'=>'form-horizontal', 'role'=>'form']) !!}		
+			{!! Form::open(['route'=>['admin.downtimes.store'], 'method'=>'POST', 'class'=>'form-horizontal', 'role'=>'form']) !!}		
 				<div class="form-group">
 					<legend>New Card ID</legend>
 				</div>
@@ -14,7 +14,7 @@
 				<div class="col-sm-10 col-sm-offset-2">
 					<button type="submit" class="btn btn-primary form-control">Create</button>
 					<hr>	
-					<a href="{{ route('downtimes.index') }}"><< Cancel</a>
+					<a href="{{ route('admin.downtimes.index') }}"><< Cancel</a>
 				</div>
 			
 			{!! Form::close() !!}
