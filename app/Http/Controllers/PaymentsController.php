@@ -29,7 +29,7 @@ class paymentsController extends Controller {
 	 */
 	public function create(Payment $payment)
 	{
-		return view('payments.create', compact('position'));
+		return view('payments.create', compact('payment'));
 	}
 
 	/**
@@ -50,10 +50,6 @@ class paymentsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show(Payment $payment)
-	{
-		return view('payments.show', compact('position'));
-	}
 
 	/**
 	 * Show the form for editing the specified resource.
@@ -63,7 +59,7 @@ class paymentsController extends Controller {
 	 */
 	public function edit(Payment $payment)
 	{
-		return view('payments.edit', compact('position'));
+		return view('payments.edit', compact('payment'));
 	}
 
 	/**
@@ -77,7 +73,7 @@ class paymentsController extends Controller {
 		$payment->update($requests->all());
 
 		return redirect()->route('payments.show', $payment->id)
-			->withSuccess("Position $payment->name has been ubdated!!");
+			->withSuccess("payment $payment->name has been ubdated!!");
 	}
 
 	/**
@@ -91,7 +87,7 @@ class paymentsController extends Controller {
 		$payment->delete();
 
 		return redirect()->route('payments.index')
-			->withWarning("Position $payment->name has been removed!");
+			->withWarning("payment $payment->name has been removed!");
 	}
 
 }

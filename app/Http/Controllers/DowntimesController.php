@@ -23,17 +23,19 @@ class DowntimesController extends Controller {
 	 */
 	public function index(Downtime $downtimes, $scope = null, $args = null)
 	{
+
+		return view('downtimes.index');
 		// dd($scope);
-		if ($scope) {
-			$downtimes = $downtimes->$scope($args);
-		}
+		// if ($scope) {
+		// 	$downtimes = $downtimes->$scope($args);
+		// }
 
-		$downtimes = $downtimes
-			->with('employee')
-			->with('reason')
-			->get();
+		// $downtimes = $downtimes
+		// 	->with('employee')
+		// 	->with('reason')
+		// 	->get();
 
-		return view('downtimes.index', compact('downtimes'));
+		// return view('downtimes.index', compact('downtimes'));
 	}
 	/**
 	 * apply filter to the query based on the value of the date field
@@ -67,7 +69,7 @@ class DowntimesController extends Controller {
 	{
 		$downtime->create($requests->all());
 
-		return redirect()->route('downtimes.index')
+		return redirect()->route('admin.downtimes.index')
 			->withSuccess("Added downtime for user employee $downtime->employee_id ...");
 	}
 
@@ -101,9 +103,12 @@ class DowntimesController extends Controller {
 	 */
 	public function update(Downtime $downtime, Request $requests)
 	{
+
+		$this->request->reason_id = str_random(10);
+
 		$downtime->update($requests->all());
 		
-		return redirect()->route('downtimes.index')
+		return redirect()->route('admin.downtimes.index')
 			->withSuccess("Added downtime for user employee $downtime->employee_id has been updated");
 	}
 
@@ -117,7 +122,7 @@ class DowntimesController extends Controller {
 	{
 		$downtime->delete();
 
-		return redirect()->route('downtimes.index')
+		return redirect()->route('admin.downtimes.index')
 			->withWarning("Data for record $downtime->id has been removed...");
 	}
 
@@ -131,15 +136,26 @@ class DowntimesController extends Controller {
 		return $request->all();
 	}
 
+
 	public function importByDate(Downtime $downtime)
 	{
-		dd($this->request);
+		$downtimes = $downtime
+			->with('employee')
+			->orderBy('name', 'ASC')
+			->where('insert_date', $this->request->input('insert_date'))
+			->get();
+
+		if ($this->request->ajax()) {
+			return view('downtimes._results', compact('downtimes'));
+			return view('downtimes._results-table', compact('downtimes'));
+		}
 		// Check if there is data for this date. Ask whether to import or not.
 		// Import actives based on the import date, where Production == null.
 		// Fill the table
 			// add edit link
 			// Filld edit form
 			// Save. 
+		return view('downtimes.index', compact('downtimes'))->withInputs('old');
 	}
 
 }

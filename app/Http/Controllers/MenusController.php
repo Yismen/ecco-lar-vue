@@ -1,10 +1,10 @@
 <?php namespace App\Http\Controllers;
 
-// use App\Http\Requests;
+use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-// use Illuminate\Http\Request;
-use App\Http\Requests\MenusRequests;
+use Illuminate\Http\Request;
+// use App\Http\Requests\Request;
 use App\Menu;
 use App\Role;
 use App\Permission;
@@ -24,7 +24,7 @@ class MenusController extends Controller {
 	 */
 	public function index(Menu $menus)
 	{
-		$menus = $menus->get();
+		$menus = $menus->orderBy('display_name', 'ASC')->get();
 
 		return view('menus.index', compact('menus'));
 	}
@@ -46,11 +46,11 @@ class MenusController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(Menu $menu, MenusRequests $requests, Permission $permission)
+	public function store(Menu $menu, Request $requests, Permission $permission)
 	{
 		$this->createMenu($menu, $requests, $permission);
 
-		return redirect()->route('menus.index')
+		return redirect()->route('admin.menus.index')
 			->withSuccess("Menu $menu->display_name has bee created.");
 	}
 
@@ -84,11 +84,11 @@ class MenusController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update(Menu $menu, MenusRequests $requests)
+	public function update(Menu $menu, Request $requests)
 	{
 		$this->updateMenu($menu, $requests);
 
-		return redirect()->route('menus.show', $menu->name)
+		return redirect()->route('admin.menus.show', $menu->name)
 			->withSuccess("Menu $menu->display_name has been updated.");
 	}
 
@@ -104,7 +104,7 @@ class MenusController extends Controller {
 
 		$this->destroyPermissions($menu, $permission);
 
-		return redirect()->route('menus.index')
+		return redirect()->route('admin.menus.index')
 			->withWarning("Menu collection [$menu->display_name] has been removed!");
 	}
 

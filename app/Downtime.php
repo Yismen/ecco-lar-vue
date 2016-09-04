@@ -70,15 +70,28 @@ public function scopeThisWeek($query)
 		return Carbon::parse($date)->format('Y-m-d');
 	}
 
-	// public function getFromTimeAttribute($time)
-	// {
-	// 	return Carbon::parse($time)->format('H:i:s');
-	// }
+	public function getFromTimeAttribute($time)
+	{
+		return Carbon::parse($time)->format('H:i:s');
+	}
 
-	// public function getToTimeAttribute($time)
-	// {
-	// 	return Carbon::parse($time)->format('H:i:s');
-	// }
+	public function getToTimeAttribute($time)
+	{
+		return Carbon::parse($time)->format('H:i:s');
+	}
+
+	public function getTotalHoursAttribute($time)
+	{
+		$from_time = Carbon::parse($this->attributes['from_time']);
+		
+		$diff_in_hours = $from_time->diffInHours(
+			Carbon::parse($this->attributes['to_time']), false
+			);
+
+		$break_time = $this->attributes['break_time'] / 60; 
+		
+		return $this->attributes['total_hours'] = $diff_in_hours - $break_time;
+	}
 /**
  * ===============================================================
  * Mutators
@@ -87,7 +100,7 @@ public function scopeThisWeek($query)
 
 	public function setInsertDateAttribute($date)
 	{
-		$this->attributes['insert_date'] = Carbon::parse($date);
+		$this->attributes['insert_date'] = Carbon::parse($date)->format('Y-m-d');
 	}
 
 	public function setYearAttribute($date)
@@ -115,13 +128,19 @@ public function scopeThisWeek($query)
 
 		$break_time = $this->attributes['break_time'] / 60; 
 
-		return $this->attributes['tota_hours'] = $diff_in_hours - $break_time;
+		return $this->attributes['total_hours'] = $diff_in_hours - $break_time;
 	}
 
 	
 	public function setUniqueIdAttribute($unique_id)
 	{
 		return $this->attributes['unique_id'] = $this->attributes['insert_date'].'-'.$this->attributes['employee_id'];
+	}
+
+	public function setNameAttribute($name)
+	{
+		$name = Employee::where('id', $this->attributes['employee_id'])->first();
+		$this->attributes['name'] = $name->fullName;
 	}
 
 

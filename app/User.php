@@ -39,6 +39,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(Task::class);
     }
+
+    public function passwords()
+    {
+        return $this->hasMany('App\Password');
+    }
     
     /**
      * ========================================

@@ -6,13 +6,9 @@
 		<div class="box box-primary pad">
 				<h3 class="page-header">
 					Payments Items List
-					 (
-						 <small>
-						 	<a href="{{ route('admin.payments.create') }}">
-						 		<i class="fa fa-plus"></i>
+						 	<a href="{{ route('admin.payments.create') }}" class="pull-right btn btn-primary">
+						 		<i class="fa fa-plus"></i> Create
 						 	</a>
-						 </small>
-					 )
 				</h3>
 			@if ($payments->isEmpty())
 				<div class="bs-callout bs-callout-warning">

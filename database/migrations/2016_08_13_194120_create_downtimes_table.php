@@ -21,10 +21,10 @@ class CreateDowntimesTable extends Migration {
 			$table->integer('year')->unsigned();
 			$table->integer('month')->unsigned();
 			$table->integer('week')->unsigned();
-			$table->dateTime('from_time');
-			$table->dateTime('to_time');
+			$table->time('from_time');
+			$table->time('to_time');
 			$table->integer('break_time')->unsigned();
-			$table->integer('total_hours')->unsigned();
+			$table->double('total_hours', 2, 2)->unsigned();
 			$table->integer('reason_id')->unsigned()->index();
             $table->string('unique_id')->unique();
 			

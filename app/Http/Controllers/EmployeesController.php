@@ -13,21 +13,15 @@ use Yajra\Datatables\Datatables;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Cache;
-use App\Http\Controllers\Traits\EmployeesTrait;
 use Intervention\Image\ImageManagerStatic as Image;
 use App\Providers\EmployeeServiceProvider as EmployeeProvider;
 
 class EmployeesController extends Controller {
 
 	protected $provider;
-	private $e_trait;
 	private $request;
 	private $carbon;
-	function __construct(EmployeesTrait $e_trait, Request $request, Carbon $carbon) {
-		// $this->middleware('clear_cache:employees', ['except'=>['index', 'show', 'create', 'edit']]);
-		// 
-		// $this->provider = new EmployeeProvider('employees');
-		$this->e_trait = $e_trait;
+	function __construct(Request $request, Carbon $carbon) {
 		$this->request = $request;
 		$this->carbon = $carbon;
 	}
@@ -39,7 +33,6 @@ class EmployeesController extends Controller {
 	 */
 	public function index(Employee $employees, Datatables $datatables)
 	{
-		// dd($this->provider->all());
 		$employees = $this->getEmployees($employees, $this->request, $this->carbon);
 
 		if ($this->request->ajax()) return view('employees._employees', compact('employees'));

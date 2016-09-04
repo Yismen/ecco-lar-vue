@@ -25,6 +25,7 @@
             before: null, // Function: a function to be called before the plugin executes
             callback: null, // Function: a function to be called after the plugin executes
             data: {},
+            debug: false, // if set to true, log the the object
             dataType: null, // (Other values: xml, json, script, or html)
             errorsDiv: '#errors', // the div where error messages will be displayed
             event: 'submit',
@@ -67,15 +68,19 @@
                 $('#results').fadeTo('slow', 0.3);
 
                 _that.getResults(_that.getData()).then(function(response){
-                    if (typeof _that.options.callback =='function') {
-                        _that.callback();
-                    }
-
+                   
                 }, function(errors) {
                     
                 }).always(function(){
                     $(el).fadeTo('slow', 1);
                     $('#results').fadeTo('slow', 1);
+                    if (_that.options.debug == true) {
+                        console.log(_that)
+                    }
+                     if (typeof _that.options.callback =='function') {
+                        _that.callback();
+                    }
+
                 });
                                     
             });
@@ -141,9 +146,17 @@
             return response
                 .success(function(response){
 
+                    if (_that.options.debug == true) {
+                        console.log(response)
+                    }
                     _that.handleSuccess(response);
 
-                }).error(function(errors){                           
+                }).error(function(errors){ 
+
+                    if (_that.options.debug == true) {
+                        console.log(errors)
+                    }
+
                     var errorCode = errors.status;
                     var errorsObject = _that.parseErrorsObjet(errors); 
                     /**

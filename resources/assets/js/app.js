@@ -25,6 +25,13 @@
         });
       }
 
+     if(inputType == 'time') {
+        $(el).prop('type', "text");
+        el.timepicker({
+            showMeridian: false
+        });
+      }
+
       /**
        * Apply select2 plugin to all the selects in the app
        */

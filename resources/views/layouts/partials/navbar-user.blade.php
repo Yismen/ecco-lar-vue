@@ -42,10 +42,14 @@
       <li class="user-body">
         <div class="row">
           <div class="col-xs-4 text-center">
-            <a href="#">Followers</a>
+            <a href="{{ route('admin.passwords.index') }}">
+              <i class="fa fa-user-group"></i> Contacts
+            </a>
           </div>
           <div class="col-xs-4 text-center">
-            <a href="#">Sales</a>
+            <a href="{{ route('admin.passwords.index') }}">
+              <i class="fa fa-key"></i> Vault
+            </a>
           </div>
           <div class="col-xs-4 text-center">
             <a href="#">Friends</a>

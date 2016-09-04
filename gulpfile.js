@@ -22,24 +22,25 @@ elixir(function(mix) {
     // mix.copy('node_modules/summernote/dist/font', 'public/build/css/font');
     // mix.copy('node_modules/icheck/skins/square/blue.png', 'public/build/css');
 
-	// mix.styles([		
- //        nodeModules + '/bootstrap/dist/css/bootstrap.min.css',
- //        nodeModules + '/admin-lte/dist/css/AdminLTE.min.css',
- //        nodeModules + '/admin-lte/plugins/daterangepicker/daterangepicker.css',
- //        nodeModules + '/admin-lte/dist/css/skins/_all-skins.css',
- //        nodeModules + '/font-awesome/css/font-awesome.min.css',
- //        nodeModules + '/animate.css/animate.min.css',
- //        nodeModules + '/select2/dist/css/select2.min.css',
- //        nodeModules + '/select2-bootstrap-theme/dist/select2-bootstrap.css',
- //        nodeModules + '/summernote/dist/summernote.css',
- //        nodeModules + '/dropzone/dist/dropzone.css',
- //        nodeModules + '/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css',
- //        nodeModules + '/icheck/skins/square/blue.css',
- //        nodeModules + '/datatables.net-dt/css/jquery.dataTables.css',
- //        nodeModules + '/datatables.net-bs/css/dataTables.bootstrap.css',
- //        nodeModules + '/datatables.net-buttons-dt/css/buttons.dataTables.css',
- //        'my-css-updates.css',
-	// ]);
+	mix.styles([		
+        nodeModules + '/bootstrap/dist/css/bootstrap.min.css',
+        nodeModules + '/admin-lte/dist/css/AdminLTE.min.css',
+        nodeModules + '/admin-lte/plugins/daterangepicker/daterangepicker.css',
+        nodeModules + '/admin-lte/dist/css/skins/_all-skins.css',
+        nodeModules + '/font-awesome/css/font-awesome.min.css',
+        nodeModules + '/animate.css/animate.min.css',
+        nodeModules + '/select2/dist/css/select2.min.css',
+        nodeModules + '/select2-bootstrap-theme/dist/select2-bootstrap.css',
+        nodeModules + '/summernote/dist/summernote.css',
+        nodeModules + '/dropzone/dist/dropzone.css',
+        nodeModules + '/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css',
+        nodeModules + '/bootstrap-timepicker/css/bootstrap-timepicker.css',
+        nodeModules + '/icheck/skins/square/blue.css',
+        nodeModules + '/datatables.net-dt/css/jquery.dataTables.css',
+        nodeModules + '/datatables.net-bs/css/dataTables.bootstrap.css',
+        nodeModules + '/datatables.net-buttons-dt/css/buttons.dataTables.css',
+        'my-css-updates.css',
+	]);
 
 	mix.scripts([		
         nodeModules + '/jquery/dist/jquery.js',
@@ -54,8 +55,11 @@ elixir(function(mix) {
         nodeModules + '/dropzone/dist/dropzone.js',
         nodeModules + '/js-cookie/src/js.cookie.js',
         nodeModules + '/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js',
+        nodeModules + '/bootstrap-timepicker/js/bootstrap-timepicker.js',
+        // nodeModules + '/node_modules/admin-lte/plugins/timepicker/bootstrap-timepicker.js',
         nodeModules + '/datatables.net/js/jquery.dataTables.js',
         nodeModules + '/datatables.net-buttons/js/dataTables.buttons.js',
+
         // nodeModules + '/datatables.net-bs/js/dataTables.bootstrap.js',
         'app.js',
         'ajaxSetup.js',
@@ -64,10 +68,10 @@ elixir(function(mix) {
         'destroyFlashMessage.js',
 	]);
 
-    // mix.browserify('app/main.js');
+    mix.browserify('passwords/app.js', 'public/js/passwords.js');
 
 	mix.version([
-		'js/main.js', 
+		'js/passwords.js', 
 		'js/all.js', 
 		'css/all.css'
 	]);

@@ -1,26 +1,33 @@
 @inject('layout', 'App\Layout')
-@extends('layouts.'.$layout->app(), ['page_header'=>'Roles Management', 'page_description'=>'Edit roles to change their interaction with the system.'])
+@extends('layouts.'.$layout->app(), ['page_header'=>'Roles Management', 'page_description'=>'Edit Roles to change their interaction with the system.'])
 
 @section('content')
 	<div class="container">
     	<div class="row">
 			<div class="col-sm-8 col-sm-offset-2">
 				<div class="box box-primary pad">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="page-header">Edit Role {{ $role->display_name }}</div>
+								{!! Form::model($role, ['route'=>['admin.roles.update', $role->name], 'method'=>'PUT', 'class'=>'form-horizontal', 'role'=>'form']) !!}		
+								
+									@include('roles._form')
 
-					<div class="page-header">Edit Role {{ $role->display_name }}</div>
-					{!! Form::model($role, ['route'=>['admin.roles.update', $role->name], 'method'=>'PUT', 'class'=>'form-horizontal', 'role'=>'form']) !!}		
-					
-						@include('roles._form')
-
-						<div class="col-sm-10 col-sm-offset-2">
-							<button type="submit" class="btn btn-primary form-control">Update</button>
-							<br><br>
-							<a href="{{ route('admin.roles.index') }}"><< Return to Roles List</a>
+									<div class="col-sm-10 col-sm-offset-2">
+										<button type="submit" class="btn btn-primary form-control">Update</button>
+										<br><br>
+										<a href="{{ route('admin.roles.index') }}"><< Return to Roles List</a>
+									</div>
+								
+								{!! Form::close() !!}
 						</div>
+					</div>
 					
-					{!! Form::close() !!}
 				</div>
 			</div>
 		</div>
 	</div>
 @endsection
+@section('scripts')
+
+@stop

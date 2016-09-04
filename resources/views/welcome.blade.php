@@ -17,8 +17,8 @@
                         </div>
                         <div class="col-xs-6">
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium, libero nam illo asperiores ad, iste itaque eligendi est sed accusantium deserunt recusandae at, optio, quis. Mollitia nostrum atque, repellendus esse?
-                            {{ Auth::user() }}
-                            {{ Auth::user()->profile }}
+                            <pre>{{ Auth::user() }}</pre>
+                            <pre>{{ Auth::user()->profile }}</pre>
                         </div>
                     </div>
                 @else

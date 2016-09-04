@@ -1,5 +1,10 @@
 <?php
 ini_set('xdebug.max_nesting_level', 200);
+
+// \DB::listen(function($sql) {
+// 	echo $sql->sql;
+//     var_dump($sql);
+// });
 /*
 |--------------------------------------------------------------------------
 | Routes File
@@ -11,7 +16,11 @@ ini_set('xdebug.max_nesting_level', 200);
 |
 */
 
-   
+ Route::group(['prefix'=>'api', 'middleware'=>['auth', 'api']], function(){
+	foreach (File::allFiles(__DIR__.'/Routes/ApiRoutes') as $partial) {
+		require_once $partial;
+	}
+});  
 
 /*
 |--------------------------------------------------------------------------
@@ -73,7 +82,7 @@ Route::group(['middleware' => 'web'], function () {
 	    Route::get('/', function () {
 			$user = Auth::user();
 
-			if(!$user->profile) return redirect()->route('admin.profiles.create');
+			if($user && !$user->profile) return redirect()->route('admin.profiles.create');
 
 	    	return view('welcome', compact('user'));
 		});
@@ -84,6 +93,7 @@ Route::group(['middleware' => 'web'], function () {
 		 * ----------------------------------------------
 		 */
 	    Route::group(['middleware' => 'auth'], function() {	
+	    	Route::get('passwords', 'PasswordController@home')->name('admin.passwords.index');
 			Route::get('test-datatables', 'TestController@testDatatablesView')->name('test.datatables');
 			Route::get('test-datatables/data', 'TestController@testDatatablesData')->name('test.datatables.data');
 
@@ -120,18 +130,8 @@ Route::group(['middleware' => 'web'], function () {
 				require_once $partial;
 			}
 	    }); // middleware auth
-
-	  
-
-			
 	});
     
 });
 
-Route::group(['prefix'=>'api', 'middleware'=>'api'], function(){
 
-	/**
-	 * Employees
-	 */
-	Route::get('employees', ['uses'=>'EmployeesController@index']);
-});

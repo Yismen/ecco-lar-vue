@@ -12,6 +12,16 @@ use Carbon\Carbon;
 | database. Just tell the factory how a default model should look.
 |
 */
+$factory->define(App\Password::class, function(Faker\Generator $faker){
+    return [
+        'user_id'=>1,
+        'slug' => str_slug($faker->lastName),
+        'title' => $faker->lastName,
+        'url' => $faker->url,
+        'username' => $faker->email,
+        'password' => str_random(10),
+    ];
+});
 
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
@@ -39,6 +49,26 @@ $factory->define(App\Production::class, function (Faker\Generator $faker) {
         'reason_id' => $faker->randomElement(array_flatten((array)\App\Reason::lists('id'))),
         'client_id' => $faker->randomElement(array_flatten((array)\App\Client::lists('id'))),
         'source_id' => $faker->randomElement(array_flatten((array)\App\Source::lists('id'))),
+    ];
+});
+
+$factory->define(App\Downtime::class, function(Faker\Generator $faker){
+    $carbon = new Carbon;
+    $employee_id = $faker->randomElement(array_flatten((array)\App\Employee::lists('id')));
+    $name = \App\Employee::find($employee_id)->fullName;
+    return [
+        'insert_date' => Carbon::today(),
+        'year' => 'sr',
+        'month' => 'sr',
+        'week' => 'sr',
+        'employee_id' => $employee_id,
+        'name'        => $name,
+        'from_time'   => $carbon->timestamp,
+        'to_time'     => $carbon->timestamp,
+        'break_time'  => 60,
+        'total_hours' => $faker->randomFloat(2, 5, 10),
+        'reason_id' => $faker->randomElement(array_flatten((array)\App\Reason::lists('id'))),
+        'unique_id'   => $faker->randomNumber(3),
     ];
 });
 

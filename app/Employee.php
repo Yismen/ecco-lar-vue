@@ -77,6 +77,16 @@ class Employee extends Model {
 		return $this->hasOne('App\Address', 'employee_id');
 	}
 
+	public function productions()
+	{
+		return $this->hasMany('App\Production');
+	}
+
+	public function hours()
+	{
+		return $this->hasMany('App\Hour');
+	}
+
 	public function logins()
 	{
 		return $this->hasMany('App\Login');
@@ -106,6 +116,43 @@ class Employee extends Model {
 		return $query->has('termination', false);
 	}
 
+	public function scopeHiredSince($query, $date)
+	{
+		$date = Carbon::parse($date);
+
+		return $query->where('hire_date', '<=', $date);
+	}
+
+	public function scopeActiveSince($query, $date)
+	{
+		$date = Carbon::parse($date);
+
+		return $query->where('hire_date', '<=', $date)
+			->where(function($query){
+				$query->has('termination', false);
+			});
+
+	}
+
+	/**
+	 * Determine if an employee was active on a given date.
+	 * @param  [query] $query DB query builder chaining
+	 * @param  [string as date] $date  A date like string to parsed with Carbon
+	 * @return [query]        returns the query builder chaining.
+	 */		
+	public function scopeWasActiveOrTerminatedBefore($query, $date)
+	{
+		$date = Carbon::parse($date);
+
+		return $query->where('hire_date', '<=', $date)
+			->where(function($query) use ($date){
+				$query->has('termination', false)
+					->orWhereHas('termination', function($query) use ($date){
+						$query->where('termination_date', '>=', $date);
+					});
+			});
+	}
+	
 	public function scopeInactives($query)
 	{
 		return $query->has('termination');	
@@ -323,6 +370,21 @@ class Employee extends Model {
 	/**
 	 * Methods
 	 */
+	
+	public function activesOn($date)
+	{
+		$date = Carbon::parse($date)->format("Y-m-d");
+
+		return $this->where('hire_date', "<=", $date)->with(['termination'=>function($query){
+			return $query->where('termination_date', '>=', '2012-02-09');
+		}])->get();
+
+	}
+
+	public function name()
+	{
+		
+	}
 	public function inactivate(Carbon $carbon)
 	{
 		///// under construction
