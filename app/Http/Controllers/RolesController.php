@@ -24,16 +24,17 @@ class RolesController extends Controller {
 	public function index(Role $roles)
 	{
 		$roles = $roles
-				// ->with(['perms' => function($query){
-				// 	$query->orderBy('permissions.display_name');
-				// }])
-				// ->with(['users'=>function($query){
-				// 	$query->orderBy('users.name');
-				// }])
-				// ->with(['menus'=>function($query){
-				// 	$query->orderBy('menus.display_name');
-				// }])
-				->paginate(10);
+			->orderBy('display_name')
+			// ->with(['perms' => function($query){
+			// 	$query->orderBy('permissions.display_name');
+			// }])
+			// ->with(['users'=>function($query){
+			// 	$query->orderBy('users.name');
+			// }])
+			// ->with(['menus'=>function($query){
+			// 	$query->orderBy('menus.display_name');
+			// }])
+			->paginate(10);
 
 		return view('roles.index', compact('roles'));
 	}

@@ -9,7 +9,17 @@
 				<div class="box box-primary pad">
 					<div class="row">
 						<div class="col-sm-12">
-							<h3 class="page-header">Create Role</h3>
+							<h3 class="page-header">
+								Create Role 
+								<a 
+									href="{{ route('admin.roles.index') }}" 
+									class="pull-right"
+									title="Return to List"
+								>
+									<i class="fa fa-list"></i>
+								</a>
+							</h3>
+
 							{!! Form::open(['route'=>['admin.roles.store'], 'method'=>'POST', 'class'=>'form-horizontal', 'role'=>'form']) !!}	
 							
 								@include('roles._form')
@@ -21,6 +31,7 @@
 								</div>
 							
 							{!! Form::close() !!}
+							
 						</div>
 					</div>
 					

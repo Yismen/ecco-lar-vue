@@ -8,7 +8,17 @@
 				<div class="box box-primary pad">
 					<div class="row">
 						<div class="col-sm-12">
-							<div class="page-header">Edit Role {{ $role->display_name }}</div>
+							<div class="page-header">
+								Edit Role {{ $role->display_name }} 
+								<a 
+									href="{{ route('admin.roles.index') }}" 
+									class="pull-right"
+									title="Return to List"
+								>
+									<i class="fa fa-list"></i>
+								</a>
+
+							</div>
 								{!! Form::model($role, ['route'=>['admin.roles.update', $role->name], 'method'=>'PUT', 'class'=>'form-horizontal', 'role'=>'form']) !!}		
 								
 									@include('roles._form')
