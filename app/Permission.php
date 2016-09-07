@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Role;
 use Zizaco\Entrust\EntrustPermission;
 
 class Permission extends EntrustPermission
@@ -20,9 +21,9 @@ class Permission extends EntrustPermission
 	}
 
 
-	public function getRolesListsAttribute()
+	public function getRolesListAttribute()
 	{
-		return $this->roles->lists('id');
+		return $this->roles->lists('id')->toArray();
 	}
 }
 

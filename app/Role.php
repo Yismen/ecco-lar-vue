@@ -49,20 +49,34 @@ class Role extends EntrustRole
 	 * ======================================
 	 * Accessors
 	 */
+	/**
+	 * Get a list of the users associated with this role.
+	 * 
+	 * @return [type] [description]
+	 */
 	public function getUsersListAttribute()
 	{
-		return User::orderBy('name')->lists('name', 'id');
+		return $this->users->lists('id')->toArray();
 	}
 
+	/**
+	 * Return a list of permissions associated with this role.
+	 * 
+	 * @return [type] [description]
+	 */
 	public function getPermissionsListAttribute()
 	{
-		// return $this->perms->lists('id');
-		return Permission::orderBy('display_name')->lists('display_name', 'id');
+		return $this->perms->lists('id')->toArray();
 	}
 
+	/**
+	 * Return a list of menus associated with current role.
+	 * 
+	 * @return [type] [description]
+	 */
 	public function getMenusListAttribute()
 	{
-		return Menu::orderBy('display_name')->lists('display_name', 'id');
+		return $this->menus->lists('id')->toArray();
 		
 	}
 
@@ -70,7 +84,11 @@ class Role extends EntrustRole
 	 * =======================================
 	 * Mutators
 	 */	
-
+	/**
+	 * Save an alphabetic string of the display name.
+	 * 
+	 * @param [type] $display_name [description]
+	 */
 	public function setDisplayNameAttribute( $display_name )
 	{
 		$this->attributes['display_name'] = ucwords(str_replace(['.','_','-','/'], ' ', $display_name));

@@ -3,17 +3,20 @@
 // use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-// use Illuminate\Http\Request;
-use App\Http\Requests\PermissionsRequests;
+use Illuminate\Http\Request;
+// use App\Http\Requests\Request;
 use App\Permission;
 use App\Role;
 
 class PermissionsController extends Controller {
+	private $rolesArray;
 
-	public function __construct()
+
+	public function __construct(Role $roles)
 	{
 		// $this->middleware('auth');
 		// $this->middleware('authorize');
+		$this->rolesArray = $roles->orderBy('display_name')->lists('display_name', 'id');
 	}
 
 	/**
@@ -23,7 +26,7 @@ class PermissionsController extends Controller {
 	 */
 	public function index(Permission $permissions)
 	{
-		$permissions = $permissions->get();
+		$permissions = $permissions->orderBy('display_name')->get();
 
 		return view('permissions.index', compact('permissions'));
 	}
@@ -33,11 +36,10 @@ class PermissionsController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function create(Role $roles)
+	public function create(Permission $permission)
 	{
-		$rolesList = $roles->lists('display_name', 'id');
-
-		return view('permissions.create', compact('rolesList'));
+		$roles = $this->rolesArray;
+		return view('permissions.create', compact('permission', 'roles'));
 	}
 
 	/**
@@ -45,7 +47,7 @@ class PermissionsController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(Permission $permission, PermissionsRequests $requests)
+	public function store(Permission $permission, Request $requests)
 	{
 		$this->createPermission($permission, $requests);
 
@@ -69,11 +71,10 @@ class PermissionsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit(Permission $permission, Role $roles)
+	public function edit(Permission $permission)
 	{
-		$rolesList = $roles->lists('display_name', 'id');
-
-		return view('permissions.edit', compact('permission', 'rolesList'));
+		$roles = $this->rolesArray;
+		return view('permissions.edit', compact('permission', 'roles'));
 	}
 
 	/**
@@ -82,11 +83,11 @@ class PermissionsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update(Permission $permission, PermissionsRequests $requests)
+	public function update(Permission $permission, Request $requests)
 	{
 		$this->updatePermission($permission, $requests);
 
-		return redirect()->route('permissions.show', $role->permission)
+		return redirect()->route('admin.permissions.show', $permission->permission)
 			->withSuccess("Menu $permission->display_name has been updated.");
 	}
 
@@ -111,11 +112,11 @@ class PermissionsController extends Controller {
 	 * @param  [object] $requests [description]
 	 * @return [process]           [the action of syncing the menu-roles]
 	 */
-	public function createPermission($permission, $requests)
+	private function createPermission($permission, $requests)
 	{
 		$permission = $permission->create($requests->all());
 
-		return $this->syncRoles($permission, $requests->get('roles_lists'));
+		return $this->syncRoles($permission, $requests->get('roles_list'));
 	}
 
 	/**
@@ -125,11 +126,11 @@ class PermissionsController extends Controller {
 	 * @param  [object] $requests [description]
 	 * @return [process]           [the action of syncing the menu-roles]
 	 */
-	public function updatePermission($permission, $requests)
+	private function updatePermission($permission, $requests)
 	{
 		$permission->update($requests->all());
 
-		return $this->syncRoles($permission, $requests->get('roles_lists'));
+		return $this->syncRoles($permission, $requests->get('roles_list'));
 	}
 
 	/**
@@ -139,7 +140,7 @@ class PermissionsController extends Controller {
 	 * @param  Array  $roles [description]
 	 * @return [type]        [description]
 	 */
-	public function syncRoles(Permission $permission, Array $roles = null)
+	private function syncRoles(Permission $permission, Array $roles = null)
 	{
 		return $permission->roles()->sync((array) $roles);	
 	}

@@ -2,17 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Menu;
+use App\Role;
+use App\User;
+use App\Permission;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Role;
 
 
 class RolesController extends Controller {
+	private $usersList;
+	private $menusList;
+	private $permissionsList;
 
-	public function __construct()
+
+	public function __construct(User $user, Menu $menu, Permission $permission)
 	{
 		// $this->middleware('authorize');
 		
+		$this->usersList = $user->orderBy('name')->lists('name', 'id');
+		$this->menusList = $menu->orderBy('display_name')->lists('display_name', 'id');
+		$this->permissionsList = $permission->orderBy('display_name')->lists('display_name', 'id');
 	}
 	
 
@@ -82,7 +92,11 @@ class RolesController extends Controller {
 	 */
 	public function edit(Role $role)
 	{
-		return view('roles.edit', compact('role'));
+		$usersList = $this->usersList;
+		$permissionsList = $this->permissionsList;
+		$menusList = $this->menusList;
+		
+		return view('roles.edit', compact('role', 'usersList', 'permissionsList', 'menusList'));
 	}
 
 	/**
@@ -152,9 +166,9 @@ class RolesController extends Controller {
 	protected function syncRelations(Role $role, $requests)
 	{
 		// dd($requests->all());
-		$role->users()->sync((array) $requests->input('users'));	
-		$role->perms()->sync((array) $requests->input('perms'));	
-		$role->menus()->sync((array) $requests->input('menus'));	
+		$role->users()->sync((array) $requests->input('users_list'));	
+		$role->perms()->sync((array) $requests->input('permissions_list'));	
+		$role->menus()->sync((array) $requests->input('menus_list'));	
 
 		return $role;
 

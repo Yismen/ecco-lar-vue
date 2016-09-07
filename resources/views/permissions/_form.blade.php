@@ -46,21 +46,11 @@
 
 <!-- Roles -->
 <div class="form-group {{ $errors->has('roles') ? 'has-error' : null }}">
-	{!! Form::label('roles', 'Roles:', ['class'=>'col-sm-2 control-label']) !!}
+	{!! Form::label('roles_list', 'Roles:', ['class'=>'col-sm-2 control-label']) !!}
 	<div class="col-sm-10">
-		{!! Form::select('roles_lists[]', $rolesList, null, ['class'=>'form-control', 'multiple'=>"multiple", 'id'=>'roles_lists'])!!}
+		{!! Form::select('roles_list[]', $roles, null, ['class'=>'form-control', 'multiple'=>"multiple", 'id'=>'roles']) !!}
 		<span class="help-block">!! Select the roles that will be served with this Permission item:</span>
 	</div>
 	{{-- {!! $errors->first('roles', '<span class="text-danger">:message</span>') !!} --}}
 </div>
 <!-- /. Roles -->
-
-<link rel="stylesheet" href="{{ asset('plugins/select2/dist/css/select2.min.css') }}">
-<script src="{{ asset('plugins/select2/dist/js/select2.min.js') }}"></script>
-<script>
-	jQuery(document).ready(function($) {
-		$('#roles_lists').select2();
-	});
-</script>
-
-

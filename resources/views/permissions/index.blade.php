@@ -6,13 +6,9 @@
 		<div class="box box-primary pad">
 				<h3 class="page-header">
 					Permissions Items List
-					 (
-						 <small>
-						 	<a href="{{ route('admin.permissions.create') }}">
-						 		<i class="fa fa-plus"></i>
-						 	</a>
-						 </small>
-					 )
+				 	<a href="{{ route('admin.permissions.create') }}" class="pull-right">
+				 		<i class="fa fa-plus"></i>
+				 	</a>
 				</h3>
 			@if ($permissions->isEmpty())
 				<div class="bs-callout bs-callout-warning">
@@ -24,7 +20,11 @@
 						<tr>
 							<th>Permission Item</th>
 							<th>Description</th>
-							<th class="col-xs-3">Actions</th>
+							<th class="col-xs-3">
+								<a href="{{ route('admin.permissions.create') }}">
+							 		<i class="fa fa-plus"></i> Add
+							 	</a>
+							</th>
 						</tr>
 					</thead>
 					<tbody>
