@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use Storage;
+use App\Employee;
 use Carbon\Carbon;
 use App\Production;
 use Illuminate\Http\Request;
@@ -8,19 +9,27 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Input;
+use App\Http\Requests\ProductionsUpdateRequest;
 
 class ProductionsController extends Controller {
 
+	/**
+	 * Tihs fields must be present in the header o the file, otherwise
+	 * the data would not be loaded.
+	 */
 	protected $requiredFields = [
 					'insert_date',	
 					'employee_id',
 					'name',
+					'in_time',
 					'production_hours',
+					'break_time',
 					'downtime',
+					'out_time',
 					'production',
+					'reason_id',
 					'client_id',
 					'source_id',
-					'reason_id',
 				];
 
 	/**
@@ -31,24 +40,25 @@ class ProductionsController extends Controller {
 	public function index(Production $productions)
 	{
 		$productions = $productions
-						->groupBy('insert_date')
-						->groupBy('client_id')
-						->groupBy('source_id')
-						->orderby('insert_date')
-						->with('source')
-						->with('client')
-						->select(DB::raw('
-							insert_date,
-							year,
-							month,
-							week,
-							sum(production) AS production,
-							sum(production_hours) AS production_hours,
-							sum(downtime) AS downtime,
-							source_id,
-							client_id
-							'))
-						->paginate(5);
+			->groupBy('insert_date')
+			->groupBy('source_id')
+			->groupBy('client_id')
+			->orderby('insert_date', 'DESC')
+			->with(['source'=>function($query){
+				return $query->orderBy('name');
+			}])
+			->with(['client'=>function($query){
+				return $query->orderby('name');
+			}])
+			->select(DB::raw('
+				insert_date,
+				sum(production) AS production,
+				sum(production_hours) AS production_hours,
+				sum(downtime) AS downtime,
+				source_id,
+				client_id
+				'))
+			->paginate(50);
 
 		return view('productions.index', compact('productions'));
 	}
@@ -63,17 +73,11 @@ class ProductionsController extends Controller {
 		return view('productions.create', compact('production'));
 	}
 	
-	public function saveData(Production $production, Request $request)
-	{
-		
-	}
-	
 	/**
 	 * Store a newly created resource in storage.
 	 *
 	 * @return Response
 	 */
-
 	public function store(Production $production, Request $request)
 	{
 		$this->validate($request, [
@@ -87,6 +91,7 @@ class ProductionsController extends Controller {
 					'type'=>'error',
 					'message'=>'Seems like the wrong file was selected. Make sure you pick a \'production_data\' file!'
 				]);
+
 				return redirect()->route('admin.productions.create')
 					->withDanger("Seems like the wrong file was selected. Make sure you pick a 'production_data' file!");
 			};
@@ -96,7 +101,6 @@ class ProductionsController extends Controller {
 		
 		return redirect()->route('admin.productions.index')
 			->withSuccess("Production data loaded to the production table.");
-		
 	}
 
 
@@ -106,9 +110,16 @@ class ProductionsController extends Controller {
 	 * @param  int  Production $production
 	 * @return Response
 	 */
-	public function show(Production $production)
+	public function show(Production $production, Request $request, $date)
 	{
-		return view('productions.show', compact('production'));
+		$productions = Production::where('insert_date', $date)
+	        ->orderBy('name')
+			->with('employee')
+			->with('client')
+			->with('source')
+			->get();
+
+		return view('productions.show', compact('productions', 'date'));
 	}
 
 	/**
@@ -119,7 +130,13 @@ class ProductionsController extends Controller {
 	 */
 	public function edit(Production $production)
 	{
-		return view('productions.edit', compact('production'));
+		$clientList = \App\Client::orderBy('name')->lists('name', 'id');
+		$sourceList = \App\Source::orderBy('name')->lists('name', 'id');
+		$reasonsList = \App\Reason::orderBy('reason')->lists('reason', 'id')->toArray();
+		// $reasonsList[0] = '<-- Please Select -->';
+		// dd($production->client()->lists('name', 'id')->toArray());
+
+		return view('productions.edit', compact('production', 'clientList', 'sourceList', 'reasonsList'));
 	}
 
 	/**
@@ -128,11 +145,12 @@ class ProductionsController extends Controller {
 	 * @param  int  Production $production
 	 * @return Response
 	 */
-	public function update(Production $production, Request $request)
+	public function update(Production $production, ProductionsUpdateRequest $request)
 	{
-		$production->update($request->all());
-		
-		return redirect()->route('productions.index')
+		// return $request->only(['in_time','production_hours', 'break_time', 'downtime', 'out_time']);
+		$production->update($request->only(['in_time','production_hours', 'break_time', 'downtime', 'out_time']));
+
+		return redirect()->route('admin.productions.edit', $production->id)
 			->withSuccess("Production $production->id has been updated");
 	}
 
@@ -149,8 +167,11 @@ class ProductionsController extends Controller {
 
 	public function show_date(Request $request, Production $production, Carbon $carbon, $date)
 	{
+		// return $date = $carbon->parse('2016-09-27');
+		// return ($date->subWeeks(3));
 		$productions =  $production
 			->whereInsertDate($date)
+			->orderBy('name')
 			->with('reason')
 			->with('source')
 			->with('client')
@@ -182,10 +203,11 @@ class ProductionsController extends Controller {
 
 			$this->removeIfExistis($row);
 
-			// these values will be mutated by the model
-			$row['year']  = str_random(4);
-			$row['month'] = str_random(2);
-			$row['week']  = str_random(2);
+			// These values will be mutated by the model. Just making sure
+			// they are part of the data sent.
+			// $row['year']  = str_random(4);
+			// $row['month'] = str_random(2);
+			// $row['week']  = str_random(2);
 			$row['unique_id']  = str_random(20);
 			$production = $production->create($row);
 				
@@ -202,10 +224,10 @@ class ProductionsController extends Controller {
 	private function removeIfExistis($row)
 	{
 		$remove = Production::whereInsertDate($row['insert_date'])
-						->whereEmployeeId($row['employee_id'])
-						->whereClientId($row['client_id'])
-						->whereSourceId($row['source_id'])
-						->first();
+			->whereEmployeeId($row['employee_id'])
+			->whereClientId($row['client_id'])
+			->whereSourceId($row['source_id'])
+			->first();
 
 		if ($remove) $remove->delete();
 
@@ -216,6 +238,28 @@ class ProductionsController extends Controller {
 	{
 		return $date;
 		return $request->all();
+	}
+
+	/**
+	 * Find the production hours for a given date.
+	 * @param  Request $request [description]
+	 * @param  [type]  $date    [description]
+	 * @return [type]           [description]
+	 */
+	public function getProductionHours(Request $request, $date)
+	{
+		$date = Carbon::createFromFormat('Y-m-d', $date)->format('Y-m-d');
+
+		$employees = Employee::has('productions')
+			->with(['productions'=>function($query)use($date){
+				return $query->with('source')
+					->with('client')
+					->where('insert_date', $date)
+					->get();
+			}])
+			->paginate(10);
+		
+		return view('productions.hours.index', compact('employees'));
 	}
 
 	/**

@@ -25,7 +25,7 @@ class HourController extends Controller
      */
     public function index()
     {
-        return $this->hours;
+        return $this->hours->get();
     }
 
     /**

@@ -21,7 +21,7 @@
                     <td>{{ $production->month }}</td>
                     <td>{{ $production->week }}</td>
                     <td>
-                        <a href="{{ route('admin.productions.show_date', $production->insert_date) }}">
+                        <a href="{{ route('admin.productions.show', $production->insert_date) }}">
                             {{ $production->insert_date }}
                         </a>                        
                     </td>
@@ -29,7 +29,7 @@
                     <td>{{ $production->client->name }}</td>
                     <td>{{ $production->production_hours }}</td>
                     <td>{{ $production->downtime }}</td>
-                    <td>{{ $production->production }}</td>
+                    <td>{{ number_format($production->production ) }}</td>
                     <td>{{ number_format($production->production / $production->production_hours, 2) }}</td>
                 </tr>
             @endforeach
@@ -38,7 +38,8 @@
             <tr>
                 <th colspan="6" text-align="right">Totals</th>
                 <th>{{ $productions->sum('production_hours') }}</th>
-                <th>{{ $productions->sum('production') }}</th>
+                <th>{{ $productions->sum('downtime') }}</th>
+                <th>{{ number_format($productions->sum('production')) }}</th>
                 <th>{{ number_format($productions->sum('production') / $productions->sum('production_hours'), 2, ".", ",") }}</th>
             </tr>
         </tfoot>

@@ -14,6 +14,16 @@
       var inputType = $(el).prop('type');
 
       /**
+       * Apply datetimepicker plugin to all the input with the type of date in the app
+       */
+      if(inputType == 'datetime-local') {
+        $(el).prop('type', "text");
+        el.datetimepicker({
+          format: 'YYYY-MM-DD HH:mm:ss',
+        });
+      }
+
+      /**
        * Apply datepicker plugin to all the input with the type of date in the app
        */
       if(inputType == 'date') {
@@ -40,7 +50,7 @@
           theme: "bootstrap",
           allowClear: true,
           placeholder: 'Select an option',
-          dropdownAutoWidth: 'true',
+          width: '100%'
         });
       }
 

@@ -80,6 +80,7 @@
 		{!! Form::select('menus_list[]', $menusList, null, ['class'=>'form-control', 'multiple'=>"multiple", 'id'=>'menus'])!!}
 		<span class="help-block">!! Select the roles that will be served with this Role item:</span>
 	</div>
+	{{-- {!! $errors->first('menus_list', '<span class="text-danger">:message</span>') !!} --}}
 </div>
 <!-- /. Menus -->
 

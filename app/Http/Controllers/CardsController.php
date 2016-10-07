@@ -13,6 +13,10 @@ class CardsController extends Controller {
 
 	function __construct() {
 		// $this->niddleware = ['authorize:'];
+		$this->middleware('authorize:view_cards|edit_cards|create_cards', ['only'=>['index','show']]);
+		$this->middleware('authorize:edit_cards', ['only'=>['edit','update']]);
+		$this->middleware('authorize:create_cards', ['only'=>['create','store']]);
+		$this->middleware('authorize:destroy_cards', ['only'=>['destroy']]);
 	}
 
 	/**

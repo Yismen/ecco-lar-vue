@@ -27,14 +27,14 @@ elixir(function(mix) {
         nodeModules + '/admin-lte/dist/css/AdminLTE.min.css',
         nodeModules + '/admin-lte/plugins/daterangepicker/daterangepicker.css',
         nodeModules + '/admin-lte/dist/css/skins/_all-skins.css',
-        nodeModules + '/font-awesome/css/font-awesome.min.css',
-        nodeModules + '/animate.css/animate.min.css',
-        nodeModules + '/select2/dist/css/select2.min.css',
+        nodeModules + '/font-awesome/css/font-awesome.css',
+        nodeModules + '/animate.css/animate.css',
+        nodeModules + '/select2/dist/css/select2.css',
         nodeModules + '/select2-bootstrap-theme/dist/select2-bootstrap.css',
         nodeModules + '/summernote/dist/summernote.css',
         nodeModules + '/dropzone/dist/dropzone.css',
-        nodeModules + '/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css',
-        nodeModules + '/bootstrap-timepicker/css/bootstrap-timepicker.css',
+        nodeModules + '/bootstrap-datepicker/dist/css/bootstrap-datepicker.css',
+        nodeModules + '/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css',
         nodeModules + '/icheck/skins/square/blue.css',
         nodeModules + '/datatables.net-dt/css/jquery.dataTables.css',
         nodeModules + '/datatables.net-bs/css/dataTables.bootstrap.css',
@@ -45,18 +45,18 @@ elixir(function(mix) {
 	mix.scripts([		
         nodeModules + '/jquery/dist/jquery.js',
         nodeModules + '/bootstrap/dist/js/bootstrap.js',
-        nodeModules + '/admin-lte/dist/js/app.min.js',
-        nodeModules + '/bootbox/bootbox.min.js',
-        nodeModules + '/select2/dist/js/select2.min.js',
-        nodeModules + '/admin-lte/plugins/daterangepicker/moment.min.js',
+        nodeModules + '/admin-lte/dist/js/app.js',
+        nodeModules + '/bootbox/bootbox.js',
+        nodeModules + '/select2/dist/js/select2.js',
+        nodeModules + '/admin-lte/plugins/daterangepicker/moment.js',
         nodeModules + '/admin-lte/plugins/daterangepicker/daterangepicker.js',
         nodeModules + '/icheck/icheck.js',
         nodeModules + '/summernote/dist/summernote.js',
         nodeModules + '/dropzone/dist/dropzone.js',
         nodeModules + '/js-cookie/src/js.cookie.js',
-        nodeModules + '/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js',
+        nodeModules + '/bootstrap-datepicker/dist/js/bootstrap-datepicker.js',
         nodeModules + '/bootstrap-timepicker/js/bootstrap-timepicker.js',
-        // nodeModules + '/node_modules/admin-lte/plugins/timepicker/bootstrap-timepicker.js',
+        nodeModules + '/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js',
         nodeModules + '/datatables.net/js/jquery.dataTables.js',
         nodeModules + '/datatables.net-buttons/js/dataTables.buttons.js',
 
@@ -76,9 +76,9 @@ elixir(function(mix) {
 		'css/all.css'
 	]);
 
-	// mix.browserSync({
-	// 	proxy: 'localhost:8000',
-	// 	browser: 'google chrome'
-	// });
+	mix.browserSync({
+		proxy: 'localhost:8000',
+		browser: 'google chrome'
+	});
     
 });

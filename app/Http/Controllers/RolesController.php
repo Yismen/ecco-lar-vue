@@ -18,7 +18,10 @@ class RolesController extends Controller {
 
 	public function __construct(User $user, Menu $menu, Permission $permission)
 	{
-		// $this->middleware('authorize');
+		$this->middleware('authorize:view_roles|edit_roles|create_roles', ['only'=>['index','show']]);
+		$this->middleware('authorize:edit_roles', ['only'=>['edit','update']]);	
+		$this->middleware('authorize:create_roles', ['only'=>['create','store']]);
+		$this->middleware('authorize:destroy_roles', ['only'=>['destroy']]);
 		
 		$this->usersList = $user->orderBy('name')->lists('name', 'id');
 		$this->menusList = $menu->orderBy('display_name')->lists('display_name', 'id');
@@ -67,6 +70,11 @@ class RolesController extends Controller {
 	 */
 	public function store(Role $role, Request $requests)
 	{
+		$this->validate($request, [
+		    'name' => 'required',
+		    'display_name' => 'required',
+		]);
+
 		$this->createRole($role, $requests);
 
 		return redirect()->route('menus.index')
@@ -105,10 +113,14 @@ class RolesController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update(Role $role, Request $requests)
-	{
+	public function update(Role $role, Request $request)
+	{		
+		$this->validate($request, [
+		    'name' => 'required',
+		    'display_name' => 'required',
+		]);
 
-		$this->updateRole($role, $requests);
+		$this->updateRole($role, $request);
 
 		return redirect()->route('admin.roles.show', $role->name)
 			->withSuccess("Role $role->display_name has bee update.");

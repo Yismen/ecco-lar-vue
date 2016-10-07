@@ -10,7 +10,7 @@
 					<legend>Import Production Data</legend>
 				</div>
 			
-				@include('productions._form')
+				@include('productions._import-form')
 
 				<div class="col-sm-10 col-sm-offset-2">
 					<button type="submit" class="btn btn-primary">Import <i class="fa fa-upload"></i></button>

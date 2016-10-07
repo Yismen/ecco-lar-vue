@@ -20,6 +20,7 @@ class Employee extends Model {
 		'marital_id',
 		'has_kids',
 		'position_id',
+		'supervisor_id',
 		'photo',
 	];
 
@@ -106,6 +107,11 @@ class Employee extends Model {
 	{
 		return $this->hasOne('App\Termination');
 	}
+
+	public function supervisor()
+	{
+	    return $this->belongsTo('App\Supervisor');
+	}
 /**
  * ------------------------------------------------------
  * Scopes
@@ -172,6 +178,16 @@ class Employee extends Model {
 	 * return a list array of the systems, including name and id
 	 * @return array a list of systems registered.
 	 */
+	public function getSupervisorsListAttribute()
+	{
+		return \App\Supervisor::lists('name', 'id')->toArray();
+	}
+
+	public function getCurrentSupervisorAttribute()
+	{
+		return $this->supervisor()->lists('id')->toArray();
+	}
+
 	public function getSystemsListAttribute()
 	{
 		return \App\System::lists('display_name', 'id');

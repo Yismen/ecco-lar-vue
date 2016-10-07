@@ -50,6 +50,7 @@ class Kernel extends HttpKernel
         'throttle'       => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         // 'angularAuth' => App\Http\Middleware\AngularAuth::class,
         // 'authorize'      => \App\Http\Middleware\Authorize::class,
+        'authorize'      => \App\Http\Middleware\ACL::class,
         'clear_cache'    => \App\Http\Middleware\ClearCache::class,
         'role'           => \Zizaco\Entrust\Middleware\EntrustRole::class,
         'permission'     => \Zizaco\Entrust\Middleware\EntrustPermission::class,

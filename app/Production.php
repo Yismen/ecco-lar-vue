@@ -2,21 +2,37 @@
 
 namespace App;
 
-use Carbon\Carbon;
+use App\Client;
 use App\Reason;
+use App\Employee;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Production extends Model 
 {
 
-	protected $fillable = ['insert_date', 'year', 'month', 'week', 'employee_id', 'name', 'production_hours', 'downtime', 'production', 'client_id', 'source_id', 'reason_id', 'unique_id'];
+	protected $fillable = [
+					'insert_date',	
+					'employee_id',
+					'name',
+					'in_time',
+					'production_hours',
+					'break_time',
+					'downtime',
+					'out_time',
+					'production',
+					'reason_id',
+					'client_id',
+					'source_id',
+					 'unique_id'
+					];
 
 	 protected $casts = [
 		'employee_id' => 'integer',
 		'year'        => 'integer',
 		'month'       => 'integer',
 		'week'        => 'integer',
-		'production'  => 'integer',
+		'production'  => 'integer', 
     ];
 
 	/**
@@ -52,6 +68,22 @@ class Production extends Model
 	 * ============================================================
 	 * Accessors
 	 */
+	public function getClientListAttribute()
+	{
+		return $this->client()->lists('id')->toArray();
+		// return Client::lists('name', 'id');
+	}
+
+	public function getSourceListAttribute()
+	{
+		return $this->source()->lists('id')->toArray();
+	}
+
+	public function getReasonListAttribute()
+	{
+		return $this->reason()->lists('id');
+	}
+
 	public function getInsertDateAttribute( $date )
 	{
 		return Carbon::parse( $date )->format('Y-m-d');
@@ -77,20 +109,44 @@ class Production extends Model
 	 * Mutators
 	 */
 	
-	public function setYearAttribute($date)
+	public function seNameAttribute($name)
 	{
-		$this->attributes['year'] = Carbon::parse($this->attributes['insert_date'])->year;
+		$employee  = Employee::find($this->employee_id);
+		if ($employee) {
+			return $this->attributes['name'] = $employee->first_name . " " . $employee->last_name;
+		}
+		return $this->attributes['name'] = $name;
 	}
 	
-	public function setMonthAttribute($date)
+	public function setInTimeAttribute($intime)
 	{
-		$this->attributes['month'] = Carbon::parse($this->attributes['insert_date'])->month;
+		return $this->attributes['in_time'] = Carbon::parse($intime);
 	}
 	
-	public function setWeekAttribute($date)
+	public function setOutTimeAttribute($date)
 	{
-		$this->attributes['week'] = Carbon::parse($this->attribute['insert_date'])->weekOfYear;
+		$in = Carbon::parse($this->attributes['in_time']);
+
+		return $this->attributes['out_time'] = $in
+			->addHours($this->attributes['production_hours'])
+			->addHours($this->attributes['downtime'])
+			->addMinutes($this->attributes['break_time']);
 	}
+	
+	// public function setYearAttribute($date)
+	// {
+	// 	$this->attributes['year'] = Carbon::parse($this->attributes['insert_date'])->year;
+	// }
+	
+	// public function setMonthAttribute($date)
+	// {
+	// 	$this->attributes['month'] = Carbon::parse($this->attributes['insert_date'])->month;
+	// }
+	
+	// public function setWeekAttribute($date)
+	// {
+	// 	$this->attributes['week'] = Carbon::parse($this->attribute['insert_date'])->weekOfYear;
+	// }
 	
 	public function setUniqueIdAttribute($unique_id)
 	{

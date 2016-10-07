@@ -1,6 +1,7 @@
 <div class="list-group">
 	<a href="#" class="list-group-item active">Productions Dashboard</a>
-	<a href="#" class="list-group-item">Home</a>
+	<a href="#" class="list-group-item">Downtime Hours</a>
+	<a href="{{ route('admin.production-hours.index') }}" class="list-group-item">Production Hours</a>
 </div>
 <?php 
 	$field_options = [

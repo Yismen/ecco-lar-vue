@@ -17,6 +17,7 @@
     "datatables.net-buttons": "^1.2.1",
     "datatables.net-buttons-dt": "^1.2.1",
     "dropzone": "^4.3.0",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.42",
     "font-awesome": "^4.6.1",
     "icheck": "^1.0.2",
     "jquery": "^2.2.0",

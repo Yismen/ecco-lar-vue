@@ -18,7 +18,11 @@ class ArticlesController extends Controller {
 
 	public function __construct()
 	{	
-		// $this->middleware('authorize', ['except'=>['index', 'show', 'unpublished', 'search']]);
+		// $this->middleware('authorize', ['except'=>['index', 'show', 'unpublished', 'search']]);	
+		// $this->middleware('authorize:view_articles|edit_articles|create_articles', ['only'=>['index','show']]);
+		$this->middleware('authorize:edit_articles', ['only'=>['edit','update']]);
+		$this->middleware('authorize:create_articles', ['only'=>['create','store']]);
+		$this->middleware('authorize:destroy_articles', ['only'=>['destroy']]);
 	}
 
 	/**

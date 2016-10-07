@@ -4,9 +4,42 @@
 @section('content')
 	<div class="container">
     	<div class="row">
-			<div class="col-sm-8 col-sm-offset-2">
+			<div class="col-sm-12">
 				<div class="box box-primary pad">
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi, iusto amet quisquam veniam, temporibus nesciunt ipsa ullam corporis aut, quia quis enim nihil dolores officia modi impedit odio? Non, vel.
+
+                    <h3>
+                        Productions Details, Date: {{ $date }}
+                        <a href="{{ route('admin.productions.index') }}" class="pull-right" title="Return to List"><i class="fa fa-list"></i></a>
+                    </h3>
+
+                    <table class="table table-condensed table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Employee ID:</th>
+                                <th>Name:</th>
+                                <th>Client:</th>
+                                <th>Source:</th>
+                                <th>Production Hours:</th>
+                                <th>Downtime:</th>
+                                <th>Records:</th>
+                                <th>TP:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($productions as $production)
+                                <tr>
+                                    <td>{{ $production->employee->id }}</td>
+                                    <td>{{ $production->employee->first_name }} {{ $production->employee->last_name }}</td>
+                                    <td>{{ $production->client->name }}</td>
+                                    <td>{{ $production->source->name }}</td>
+                                    <td>{{ $production->production_hours }}</td>
+                                    <td>{{ $production->downtime }}</td>
+                                    <td>{{ $production->production }}</td>
+                                    <td>{{ number_format($production->production / $production->production_hours, 2) }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
 				</div>
 			</div>
 		</div>

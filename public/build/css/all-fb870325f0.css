@@ -16574,10 +16574,13 @@ table.text-center th {
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
  */
 
+/* FONT PATH
+ * -------------------------- */
+
 @font-face {
   font-family: 'FontAwesome';
   src: url('../fonts/fontawesome-webfont.eot?v=4.6.3');
-  src: url('../fonts/fontawesome-webfont.eot?#iefix&v=4.6.3') format('embedded-opentype'),url('../fonts/fontawesome-webfont.woff2?v=4.6.3') format('woff2'),url('../fonts/fontawesome-webfont.woff?v=4.6.3') format('woff'),url('../fonts/fontawesome-webfont.ttf?v=4.6.3') format('truetype'),url('../fonts/fontawesome-webfont.svg?v=4.6.3#fontawesomeregular') format('svg');
+  src: url('../fonts/fontawesome-webfont.eot?#iefix&v=4.6.3') format('embedded-opentype'), url('../fonts/fontawesome-webfont.woff2?v=4.6.3') format('woff2'), url('../fonts/fontawesome-webfont.woff?v=4.6.3') format('woff'), url('../fonts/fontawesome-webfont.ttf?v=4.6.3') format('truetype'), url('../fonts/fontawesome-webfont.svg?v=4.6.3#fontawesomeregular') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -16591,9 +16594,11 @@ table.text-center th {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* makes the font 33% larger relative to the icon container */
+
 .fa-lg {
   font-size: 1.33333333em;
-  line-height: .75em;
+  line-height: 0.75em;
   vertical-align: -15%;
 }
 
@@ -16624,7 +16629,7 @@ table.text-center th {
   list-style-type: none;
 }
 
-.fa-ul>li {
+.fa-ul > li {
   position: relative;
 }
 
@@ -16632,7 +16637,7 @@ table.text-center th {
   position: absolute;
   left: -2.14285714em;
   width: 2.14285714em;
-  top: .14285714em;
+  top: 0.14285714em;
   text-align: center;
 }
 
@@ -16642,7 +16647,7 @@ table.text-center th {
 
 .fa-border {
   padding: .2em .25em .15em;
-  border: solid .08em #eee;
+  border: solid 0.08em #eeeeee;
   border-radius: .1em;
 }
 
@@ -16661,6 +16666,8 @@ table.text-center th {
 .fa.fa-pull-right {
   margin-left: .3em;
 }
+
+/* Deprecated as of 4.4.0 */
 
 .pull-right {
   float: right;
@@ -16781,8 +16788,11 @@ table.text-center th {
 }
 
 .fa-inverse {
-  color: #fff;
+  color: #ffffff;
 }
+
+/* Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
+   readers do not read off random characters that represent icons */
 
 .fa-glass:before {
   content: "\f000";
@@ -19447,8 +19457,8 @@ table.text-center th {
  */
 
 .animated {
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
+  -webkit-animation-duration: .5s;
+  animation-duration: .5s;
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
 }
@@ -19463,35 +19473,34 @@ table.text-center th {
   animation-duration: 2s;
 }
 
-.animated.bounceIn,
-.animated.bounceOut,
 .animated.flipOutX,
-.animated.flipOutY {
+.animated.flipOutY,
+.animated.bounceIn,
+.animated.bounceOut {
   -webkit-animation-duration: .75s;
   animation-duration: .75s;
 }
 
 @-webkit-keyframes bounce {
-  0%, 20%, 53%, 80%, to {
-    -webkit-animation-timing-function: cubic-bezier(.215,.61,.355,1);
-    animation-timing-function: cubic-bezier(.215,.61,.355,1);
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
+  from, 20%, 53%, 80%, to {
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
   }
 
   40%, 43% {
-    -webkit-transform: translate3d(0,-30px,0);
-    transform: translate3d(0,-30px,0);
-  }
-
-  40%, 43%, 70% {
-    -webkit-animation-timing-function: cubic-bezier(.755,.05,.855,.06);
-    animation-timing-function: cubic-bezier(.755,.05,.855,.06);
+    -webkit-animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+    animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+    -webkit-transform: translate3d(0, -30px, 0);
+    transform: translate3d(0, -30px, 0);
   }
 
   70% {
-    -webkit-transform: translate3d(0,-15px,0);
-    transform: translate3d(0,-15px,0);
+    -webkit-animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+    animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+    -webkit-transform: translate3d(0, -15px, 0);
+    transform: translate3d(0, -15px, 0);
   }
 
   90% {
@@ -19501,26 +19510,25 @@ table.text-center th {
 }
 
 @keyframes bounce {
-  0%, 20%, 53%, 80%, to {
-    -webkit-animation-timing-function: cubic-bezier(.215,.61,.355,1);
-    animation-timing-function: cubic-bezier(.215,.61,.355,1);
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
+  from, 20%, 53%, 80%, to {
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
   }
 
   40%, 43% {
-    -webkit-transform: translate3d(0,-30px,0);
-    transform: translate3d(0,-30px,0);
-  }
-
-  40%, 43%, 70% {
-    -webkit-animation-timing-function: cubic-bezier(.755,.05,.855,.06);
-    animation-timing-function: cubic-bezier(.755,.05,.855,.06);
+    -webkit-animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+    animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+    -webkit-transform: translate3d(0, -30px, 0);
+    transform: translate3d(0, -30px, 0);
   }
 
   70% {
-    -webkit-transform: translate3d(0,-15px,0);
-    transform: translate3d(0,-15px,0);
+    -webkit-animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+    animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+    -webkit-transform: translate3d(0, -15px, 0);
+    transform: translate3d(0, -15px, 0);
   }
 
   90% {
@@ -19537,7 +19545,7 @@ table.text-center th {
 }
 
 @-webkit-keyframes flash {
-  0%, 50%, to {
+  from, 50%, to {
     opacity: 1;
   }
 
@@ -19547,7 +19555,7 @@ table.text-center th {
 }
 
 @keyframes flash {
-  0%, 50%, to {
+  from, 50%, to {
     opacity: 1;
   }
 
@@ -19561,37 +19569,39 @@ table.text-center th {
   animation-name: flash;
 }
 
+/* originally authored by Nick Pettit - https://github.com/nickpettit/glide */
+
 @-webkit-keyframes pulse {
-  0% {
-    -webkit-transform: scaleX(1);
-    transform: scaleX(1);
+  from {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
   }
 
   50% {
-    -webkit-transform: scale3d(1.05,1.05,1.05);
-    transform: scale3d(1.05,1.05,1.05);
+    -webkit-transform: scale3d(1.05, 1.05, 1.05);
+    transform: scale3d(1.05, 1.05, 1.05);
   }
 
   to {
-    -webkit-transform: scaleX(1);
-    transform: scaleX(1);
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
   }
 }
 
 @keyframes pulse {
-  0% {
-    -webkit-transform: scaleX(1);
-    transform: scaleX(1);
+  from {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
   }
 
   50% {
-    -webkit-transform: scale3d(1.05,1.05,1.05);
-    transform: scale3d(1.05,1.05,1.05);
+    -webkit-transform: scale3d(1.05, 1.05, 1.05);
+    transform: scale3d(1.05, 1.05, 1.05);
   }
 
   to {
-    -webkit-transform: scaleX(1);
-    transform: scaleX(1);
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
   }
 }
 
@@ -19601,76 +19611,76 @@ table.text-center th {
 }
 
 @-webkit-keyframes rubberBand {
-  0% {
-    -webkit-transform: scaleX(1);
-    transform: scaleX(1);
+  from {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
   }
 
   30% {
-    -webkit-transform: scale3d(1.25,.75,1);
-    transform: scale3d(1.25,.75,1);
+    -webkit-transform: scale3d(1.25, 0.75, 1);
+    transform: scale3d(1.25, 0.75, 1);
   }
 
   40% {
-    -webkit-transform: scale3d(.75,1.25,1);
-    transform: scale3d(.75,1.25,1);
+    -webkit-transform: scale3d(0.75, 1.25, 1);
+    transform: scale3d(0.75, 1.25, 1);
   }
 
   50% {
-    -webkit-transform: scale3d(1.15,.85,1);
-    transform: scale3d(1.15,.85,1);
+    -webkit-transform: scale3d(1.15, 0.85, 1);
+    transform: scale3d(1.15, 0.85, 1);
   }
 
   65% {
-    -webkit-transform: scale3d(.95,1.05,1);
-    transform: scale3d(.95,1.05,1);
+    -webkit-transform: scale3d(.95, 1.05, 1);
+    transform: scale3d(.95, 1.05, 1);
   }
 
   75% {
-    -webkit-transform: scale3d(1.05,.95,1);
-    transform: scale3d(1.05,.95,1);
+    -webkit-transform: scale3d(1.05, .95, 1);
+    transform: scale3d(1.05, .95, 1);
   }
 
   to {
-    -webkit-transform: scaleX(1);
-    transform: scaleX(1);
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
   }
 }
 
 @keyframes rubberBand {
-  0% {
-    -webkit-transform: scaleX(1);
-    transform: scaleX(1);
+  from {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
   }
 
   30% {
-    -webkit-transform: scale3d(1.25,.75,1);
-    transform: scale3d(1.25,.75,1);
+    -webkit-transform: scale3d(1.25, 0.75, 1);
+    transform: scale3d(1.25, 0.75, 1);
   }
 
   40% {
-    -webkit-transform: scale3d(.75,1.25,1);
-    transform: scale3d(.75,1.25,1);
+    -webkit-transform: scale3d(0.75, 1.25, 1);
+    transform: scale3d(0.75, 1.25, 1);
   }
 
   50% {
-    -webkit-transform: scale3d(1.15,.85,1);
-    transform: scale3d(1.15,.85,1);
+    -webkit-transform: scale3d(1.15, 0.85, 1);
+    transform: scale3d(1.15, 0.85, 1);
   }
 
   65% {
-    -webkit-transform: scale3d(.95,1.05,1);
-    transform: scale3d(.95,1.05,1);
+    -webkit-transform: scale3d(.95, 1.05, 1);
+    transform: scale3d(.95, 1.05, 1);
   }
 
   75% {
-    -webkit-transform: scale3d(1.05,.95,1);
-    transform: scale3d(1.05,.95,1);
+    -webkit-transform: scale3d(1.05, .95, 1);
+    transform: scale3d(1.05, .95, 1);
   }
 
   to {
-    -webkit-transform: scaleX(1);
-    transform: scaleX(1);
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
   }
 }
 
@@ -19680,36 +19690,36 @@ table.text-center th {
 }
 
 @-webkit-keyframes shake {
-  0%, to {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
+  from, to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
   }
 
   10%, 30%, 50%, 70%, 90% {
-    -webkit-transform: translate3d(-10px,0,0);
-    transform: translate3d(-10px,0,0);
+    -webkit-transform: translate3d(-10px, 0, 0);
+    transform: translate3d(-10px, 0, 0);
   }
 
   20%, 40%, 60%, 80% {
-    -webkit-transform: translate3d(10px,0,0);
-    transform: translate3d(10px,0,0);
+    -webkit-transform: translate3d(10px, 0, 0);
+    transform: translate3d(10px, 0, 0);
   }
 }
 
 @keyframes shake {
-  0%, to {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
+  from, to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
   }
 
   10%, 30%, 50%, 70%, 90% {
-    -webkit-transform: translate3d(-10px,0,0);
-    transform: translate3d(-10px,0,0);
+    -webkit-transform: translate3d(-10px, 0, 0);
+    transform: translate3d(-10px, 0, 0);
   }
 
   20%, 40%, 60%, 80% {
-    -webkit-transform: translate3d(10px,0,0);
-    transform: translate3d(10px,0,0);
+    -webkit-transform: translate3d(10px, 0, 0);
+    transform: translate3d(10px, 0, 0);
   }
 }
 
@@ -19791,55 +19801,55 @@ table.text-center th {
 
 @-webkit-keyframes swing {
   20% {
-    -webkit-transform: rotate(15deg);
-    transform: rotate(15deg);
+    -webkit-transform: rotate3d(0, 0, 1, 15deg);
+    transform: rotate3d(0, 0, 1, 15deg);
   }
 
   40% {
-    -webkit-transform: rotate(-10deg);
-    transform: rotate(-10deg);
+    -webkit-transform: rotate3d(0, 0, 1, -10deg);
+    transform: rotate3d(0, 0, 1, -10deg);
   }
 
   60% {
-    -webkit-transform: rotate(5deg);
-    transform: rotate(5deg);
+    -webkit-transform: rotate3d(0, 0, 1, 5deg);
+    transform: rotate3d(0, 0, 1, 5deg);
   }
 
   80% {
-    -webkit-transform: rotate(-5deg);
-    transform: rotate(-5deg);
+    -webkit-transform: rotate3d(0, 0, 1, -5deg);
+    transform: rotate3d(0, 0, 1, -5deg);
   }
 
   to {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
+    -webkit-transform: rotate3d(0, 0, 1, 0deg);
+    transform: rotate3d(0, 0, 1, 0deg);
   }
 }
 
 @keyframes swing {
   20% {
-    -webkit-transform: rotate(15deg);
-    transform: rotate(15deg);
+    -webkit-transform: rotate3d(0, 0, 1, 15deg);
+    transform: rotate3d(0, 0, 1, 15deg);
   }
 
   40% {
-    -webkit-transform: rotate(-10deg);
-    transform: rotate(-10deg);
+    -webkit-transform: rotate3d(0, 0, 1, -10deg);
+    transform: rotate3d(0, 0, 1, -10deg);
   }
 
   60% {
-    -webkit-transform: rotate(5deg);
-    transform: rotate(5deg);
+    -webkit-transform: rotate3d(0, 0, 1, 5deg);
+    transform: rotate3d(0, 0, 1, 5deg);
   }
 
   80% {
-    -webkit-transform: rotate(-5deg);
-    transform: rotate(-5deg);
+    -webkit-transform: rotate3d(0, 0, 1, -5deg);
+    transform: rotate3d(0, 0, 1, -5deg);
   }
 
   to {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
+    -webkit-transform: rotate3d(0, 0, 1, 0deg);
+    transform: rotate3d(0, 0, 1, 0deg);
   }
 }
 
@@ -19851,56 +19861,56 @@ table.text-center th {
 }
 
 @-webkit-keyframes tada {
-  0% {
-    -webkit-transform: scaleX(1);
-    transform: scaleX(1);
+  from {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
   }
 
   10%, 20% {
-    -webkit-transform: scale3d(.9,.9,.9) rotate(-3deg);
-    transform: scale3d(.9,.9,.9) rotate(-3deg);
+    -webkit-transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);
+    transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);
   }
 
   30%, 50%, 70%, 90% {
-    -webkit-transform: scale3d(1.1,1.1,1.1) rotate(3deg);
-    transform: scale3d(1.1,1.1,1.1) rotate(3deg);
+    -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
   }
 
   40%, 60%, 80% {
-    -webkit-transform: scale3d(1.1,1.1,1.1) rotate(-3deg);
-    transform: scale3d(1.1,1.1,1.1) rotate(-3deg);
+    -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
   }
 
   to {
-    -webkit-transform: scaleX(1);
-    transform: scaleX(1);
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
   }
 }
 
 @keyframes tada {
-  0% {
-    -webkit-transform: scaleX(1);
-    transform: scaleX(1);
+  from {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
   }
 
   10%, 20% {
-    -webkit-transform: scale3d(.9,.9,.9) rotate(-3deg);
-    transform: scale3d(.9,.9,.9) rotate(-3deg);
+    -webkit-transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);
+    transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);
   }
 
   30%, 50%, 70%, 90% {
-    -webkit-transform: scale3d(1.1,1.1,1.1) rotate(3deg);
-    transform: scale3d(1.1,1.1,1.1) rotate(3deg);
+    -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
   }
 
   40%, 60%, 80% {
-    -webkit-transform: scale3d(1.1,1.1,1.1) rotate(-3deg);
-    transform: scale3d(1.1,1.1,1.1) rotate(-3deg);
+    -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
   }
 
   to {
-    -webkit-transform: scaleX(1);
-    transform: scaleX(1);
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
   }
 }
 
@@ -19909,35 +19919,37 @@ table.text-center th {
   animation-name: tada;
 }
 
+/* originally authored by Nick Pettit - https://github.com/nickpettit/glide */
+
 @-webkit-keyframes wobble {
-  0% {
+  from {
     -webkit-transform: none;
     transform: none;
   }
 
   15% {
-    -webkit-transform: translate3d(-25%,0,0) rotate(-5deg);
-    transform: translate3d(-25%,0,0) rotate(-5deg);
+    -webkit-transform: translate3d(-25%, 0, 0) rotate3d(0, 0, 1, -5deg);
+    transform: translate3d(-25%, 0, 0) rotate3d(0, 0, 1, -5deg);
   }
 
   30% {
-    -webkit-transform: translate3d(20%,0,0) rotate(3deg);
-    transform: translate3d(20%,0,0) rotate(3deg);
+    -webkit-transform: translate3d(20%, 0, 0) rotate3d(0, 0, 1, 3deg);
+    transform: translate3d(20%, 0, 0) rotate3d(0, 0, 1, 3deg);
   }
 
   45% {
-    -webkit-transform: translate3d(-15%,0,0) rotate(-3deg);
-    transform: translate3d(-15%,0,0) rotate(-3deg);
+    -webkit-transform: translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -3deg);
+    transform: translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -3deg);
   }
 
   60% {
-    -webkit-transform: translate3d(10%,0,0) rotate(2deg);
-    transform: translate3d(10%,0,0) rotate(2deg);
+    -webkit-transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 2deg);
+    transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 2deg);
   }
 
   75% {
-    -webkit-transform: translate3d(-5%,0,0) rotate(-1deg);
-    transform: translate3d(-5%,0,0) rotate(-1deg);
+    -webkit-transform: translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -1deg);
+    transform: translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -1deg);
   }
 
   to {
@@ -19947,34 +19959,34 @@ table.text-center th {
 }
 
 @keyframes wobble {
-  0% {
+  from {
     -webkit-transform: none;
     transform: none;
   }
 
   15% {
-    -webkit-transform: translate3d(-25%,0,0) rotate(-5deg);
-    transform: translate3d(-25%,0,0) rotate(-5deg);
+    -webkit-transform: translate3d(-25%, 0, 0) rotate3d(0, 0, 1, -5deg);
+    transform: translate3d(-25%, 0, 0) rotate3d(0, 0, 1, -5deg);
   }
 
   30% {
-    -webkit-transform: translate3d(20%,0,0) rotate(3deg);
-    transform: translate3d(20%,0,0) rotate(3deg);
+    -webkit-transform: translate3d(20%, 0, 0) rotate3d(0, 0, 1, 3deg);
+    transform: translate3d(20%, 0, 0) rotate3d(0, 0, 1, 3deg);
   }
 
   45% {
-    -webkit-transform: translate3d(-15%,0,0) rotate(-3deg);
-    transform: translate3d(-15%,0,0) rotate(-3deg);
+    -webkit-transform: translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -3deg);
+    transform: translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -3deg);
   }
 
   60% {
-    -webkit-transform: translate3d(10%,0,0) rotate(2deg);
-    transform: translate3d(10%,0,0) rotate(2deg);
+    -webkit-transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 2deg);
+    transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 2deg);
   }
 
   75% {
-    -webkit-transform: translate3d(-5%,0,0) rotate(-1deg);
-    transform: translate3d(-5%,0,0) rotate(-1deg);
+    -webkit-transform: translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -1deg);
+    transform: translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -1deg);
   }
 
   to {
@@ -19989,7 +20001,7 @@ table.text-center th {
 }
 
 @-webkit-keyframes jello {
-  0%, 11.1%, to {
+  from, 11.1%, to {
     -webkit-transform: none;
     transform: none;
   }
@@ -20015,23 +20027,23 @@ table.text-center th {
   }
 
   66.6% {
-    -webkit-transform: skewX(-.78125deg) skewY(-.78125deg);
-    transform: skewX(-.78125deg) skewY(-.78125deg);
+    -webkit-transform: skewX(-0.78125deg) skewY(-0.78125deg);
+    transform: skewX(-0.78125deg) skewY(-0.78125deg);
   }
 
   77.7% {
-    -webkit-transform: skewX(.390625deg) skewY(.390625deg);
-    transform: skewX(.390625deg) skewY(.390625deg);
+    -webkit-transform: skewX(0.390625deg) skewY(0.390625deg);
+    transform: skewX(0.390625deg) skewY(0.390625deg);
   }
 
   88.8% {
-    -webkit-transform: skewX(-.1953125deg) skewY(-.1953125deg);
-    transform: skewX(-.1953125deg) skewY(-.1953125deg);
+    -webkit-transform: skewX(-0.1953125deg) skewY(-0.1953125deg);
+    transform: skewX(-0.1953125deg) skewY(-0.1953125deg);
   }
 }
 
 @keyframes jello {
-  0%, 11.1%, to {
+  from, 11.1%, to {
     -webkit-transform: none;
     transform: none;
   }
@@ -20057,18 +20069,18 @@ table.text-center th {
   }
 
   66.6% {
-    -webkit-transform: skewX(-.78125deg) skewY(-.78125deg);
-    transform: skewX(-.78125deg) skewY(-.78125deg);
+    -webkit-transform: skewX(-0.78125deg) skewY(-0.78125deg);
+    transform: skewX(-0.78125deg) skewY(-0.78125deg);
   }
 
   77.7% {
-    -webkit-transform: skewX(.390625deg) skewY(.390625deg);
-    transform: skewX(.390625deg) skewY(.390625deg);
+    -webkit-transform: skewX(0.390625deg) skewY(0.390625deg);
+    transform: skewX(0.390625deg) skewY(0.390625deg);
   }
 
   88.8% {
-    -webkit-transform: skewX(-.1953125deg) skewY(-.1953125deg);
-    transform: skewX(-.1953125deg) skewY(-.1953125deg);
+    -webkit-transform: skewX(-0.1953125deg) skewY(-0.1953125deg);
+    transform: skewX(-0.1953125deg) skewY(-0.1953125deg);
   }
 }
 
@@ -20080,82 +20092,82 @@ table.text-center th {
 }
 
 @-webkit-keyframes bounceIn {
-  0%, 20%, 40%, 60%, 80%, to {
-    -webkit-animation-timing-function: cubic-bezier(.215,.61,.355,1);
-    animation-timing-function: cubic-bezier(.215,.61,.355,1);
+  from, 20%, 40%, 60%, 80%, to {
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
   }
 
   0% {
     opacity: 0;
-    -webkit-transform: scale3d(.3,.3,.3);
-    transform: scale3d(.3,.3,.3);
+    -webkit-transform: scale3d(.3, .3, .3);
+    transform: scale3d(.3, .3, .3);
   }
 
   20% {
-    -webkit-transform: scale3d(1.1,1.1,1.1);
-    transform: scale3d(1.1,1.1,1.1);
+    -webkit-transform: scale3d(1.1, 1.1, 1.1);
+    transform: scale3d(1.1, 1.1, 1.1);
   }
 
   40% {
-    -webkit-transform: scale3d(.9,.9,.9);
-    transform: scale3d(.9,.9,.9);
+    -webkit-transform: scale3d(.9, .9, .9);
+    transform: scale3d(.9, .9, .9);
   }
 
   60% {
     opacity: 1;
-    -webkit-transform: scale3d(1.03,1.03,1.03);
-    transform: scale3d(1.03,1.03,1.03);
+    -webkit-transform: scale3d(1.03, 1.03, 1.03);
+    transform: scale3d(1.03, 1.03, 1.03);
   }
 
   80% {
-    -webkit-transform: scale3d(.97,.97,.97);
-    transform: scale3d(.97,.97,.97);
+    -webkit-transform: scale3d(.97, .97, .97);
+    transform: scale3d(.97, .97, .97);
   }
 
   to {
     opacity: 1;
-    -webkit-transform: scaleX(1);
-    transform: scaleX(1);
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
   }
 }
 
 @keyframes bounceIn {
-  0%, 20%, 40%, 60%, 80%, to {
-    -webkit-animation-timing-function: cubic-bezier(.215,.61,.355,1);
-    animation-timing-function: cubic-bezier(.215,.61,.355,1);
+  from, 20%, 40%, 60%, 80%, to {
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
   }
 
   0% {
     opacity: 0;
-    -webkit-transform: scale3d(.3,.3,.3);
-    transform: scale3d(.3,.3,.3);
+    -webkit-transform: scale3d(.3, .3, .3);
+    transform: scale3d(.3, .3, .3);
   }
 
   20% {
-    -webkit-transform: scale3d(1.1,1.1,1.1);
-    transform: scale3d(1.1,1.1,1.1);
+    -webkit-transform: scale3d(1.1, 1.1, 1.1);
+    transform: scale3d(1.1, 1.1, 1.1);
   }
 
   40% {
-    -webkit-transform: scale3d(.9,.9,.9);
-    transform: scale3d(.9,.9,.9);
+    -webkit-transform: scale3d(.9, .9, .9);
+    transform: scale3d(.9, .9, .9);
   }
 
   60% {
     opacity: 1;
-    -webkit-transform: scale3d(1.03,1.03,1.03);
-    transform: scale3d(1.03,1.03,1.03);
+    -webkit-transform: scale3d(1.03, 1.03, 1.03);
+    transform: scale3d(1.03, 1.03, 1.03);
   }
 
   80% {
-    -webkit-transform: scale3d(.97,.97,.97);
-    transform: scale3d(.97,.97,.97);
+    -webkit-transform: scale3d(.97, .97, .97);
+    transform: scale3d(.97, .97, .97);
   }
 
   to {
     opacity: 1;
-    -webkit-transform: scaleX(1);
-    transform: scaleX(1);
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
   }
 }
 
@@ -20165,31 +20177,31 @@ table.text-center th {
 }
 
 @-webkit-keyframes bounceInDown {
-  0%, 60%, 75%, 90%, to {
-    -webkit-animation-timing-function: cubic-bezier(.215,.61,.355,1);
-    animation-timing-function: cubic-bezier(.215,.61,.355,1);
+  from, 60%, 75%, 90%, to {
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
   }
 
   0% {
     opacity: 0;
-    -webkit-transform: translate3d(0,-3000px,0);
-    transform: translate3d(0,-3000px,0);
+    -webkit-transform: translate3d(0, -3000px, 0);
+    transform: translate3d(0, -3000px, 0);
   }
 
   60% {
     opacity: 1;
-    -webkit-transform: translate3d(0,25px,0);
-    transform: translate3d(0,25px,0);
+    -webkit-transform: translate3d(0, 25px, 0);
+    transform: translate3d(0, 25px, 0);
   }
 
   75% {
-    -webkit-transform: translate3d(0,-10px,0);
-    transform: translate3d(0,-10px,0);
+    -webkit-transform: translate3d(0, -10px, 0);
+    transform: translate3d(0, -10px, 0);
   }
 
   90% {
-    -webkit-transform: translate3d(0,5px,0);
-    transform: translate3d(0,5px,0);
+    -webkit-transform: translate3d(0, 5px, 0);
+    transform: translate3d(0, 5px, 0);
   }
 
   to {
@@ -20199,31 +20211,31 @@ table.text-center th {
 }
 
 @keyframes bounceInDown {
-  0%, 60%, 75%, 90%, to {
-    -webkit-animation-timing-function: cubic-bezier(.215,.61,.355,1);
-    animation-timing-function: cubic-bezier(.215,.61,.355,1);
+  from, 60%, 75%, 90%, to {
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
   }
 
   0% {
     opacity: 0;
-    -webkit-transform: translate3d(0,-3000px,0);
-    transform: translate3d(0,-3000px,0);
+    -webkit-transform: translate3d(0, -3000px, 0);
+    transform: translate3d(0, -3000px, 0);
   }
 
   60% {
     opacity: 1;
-    -webkit-transform: translate3d(0,25px,0);
-    transform: translate3d(0,25px,0);
+    -webkit-transform: translate3d(0, 25px, 0);
+    transform: translate3d(0, 25px, 0);
   }
 
   75% {
-    -webkit-transform: translate3d(0,-10px,0);
-    transform: translate3d(0,-10px,0);
+    -webkit-transform: translate3d(0, -10px, 0);
+    transform: translate3d(0, -10px, 0);
   }
 
   90% {
-    -webkit-transform: translate3d(0,5px,0);
-    transform: translate3d(0,5px,0);
+    -webkit-transform: translate3d(0, 5px, 0);
+    transform: translate3d(0, 5px, 0);
   }
 
   to {
@@ -20238,31 +20250,31 @@ table.text-center th {
 }
 
 @-webkit-keyframes bounceInLeft {
-  0%, 60%, 75%, 90%, to {
-    -webkit-animation-timing-function: cubic-bezier(.215,.61,.355,1);
-    animation-timing-function: cubic-bezier(.215,.61,.355,1);
+  from, 60%, 75%, 90%, to {
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
   }
 
   0% {
     opacity: 0;
-    -webkit-transform: translate3d(-3000px,0,0);
-    transform: translate3d(-3000px,0,0);
+    -webkit-transform: translate3d(-3000px, 0, 0);
+    transform: translate3d(-3000px, 0, 0);
   }
 
   60% {
     opacity: 1;
-    -webkit-transform: translate3d(25px,0,0);
-    transform: translate3d(25px,0,0);
+    -webkit-transform: translate3d(25px, 0, 0);
+    transform: translate3d(25px, 0, 0);
   }
 
   75% {
-    -webkit-transform: translate3d(-10px,0,0);
-    transform: translate3d(-10px,0,0);
+    -webkit-transform: translate3d(-10px, 0, 0);
+    transform: translate3d(-10px, 0, 0);
   }
 
   90% {
-    -webkit-transform: translate3d(5px,0,0);
-    transform: translate3d(5px,0,0);
+    -webkit-transform: translate3d(5px, 0, 0);
+    transform: translate3d(5px, 0, 0);
   }
 
   to {
@@ -20272,31 +20284,31 @@ table.text-center th {
 }
 
 @keyframes bounceInLeft {
-  0%, 60%, 75%, 90%, to {
-    -webkit-animation-timing-function: cubic-bezier(.215,.61,.355,1);
-    animation-timing-function: cubic-bezier(.215,.61,.355,1);
+  from, 60%, 75%, 90%, to {
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
   }
 
   0% {
     opacity: 0;
-    -webkit-transform: translate3d(-3000px,0,0);
-    transform: translate3d(-3000px,0,0);
+    -webkit-transform: translate3d(-3000px, 0, 0);
+    transform: translate3d(-3000px, 0, 0);
   }
 
   60% {
     opacity: 1;
-    -webkit-transform: translate3d(25px,0,0);
-    transform: translate3d(25px,0,0);
+    -webkit-transform: translate3d(25px, 0, 0);
+    transform: translate3d(25px, 0, 0);
   }
 
   75% {
-    -webkit-transform: translate3d(-10px,0,0);
-    transform: translate3d(-10px,0,0);
+    -webkit-transform: translate3d(-10px, 0, 0);
+    transform: translate3d(-10px, 0, 0);
   }
 
   90% {
-    -webkit-transform: translate3d(5px,0,0);
-    transform: translate3d(5px,0,0);
+    -webkit-transform: translate3d(5px, 0, 0);
+    transform: translate3d(5px, 0, 0);
   }
 
   to {
@@ -20311,31 +20323,31 @@ table.text-center th {
 }
 
 @-webkit-keyframes bounceInRight {
-  0%, 60%, 75%, 90%, to {
-    -webkit-animation-timing-function: cubic-bezier(.215,.61,.355,1);
-    animation-timing-function: cubic-bezier(.215,.61,.355,1);
+  from, 60%, 75%, 90%, to {
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
   }
 
-  0% {
+  from {
     opacity: 0;
-    -webkit-transform: translate3d(3000px,0,0);
-    transform: translate3d(3000px,0,0);
+    -webkit-transform: translate3d(3000px, 0, 0);
+    transform: translate3d(3000px, 0, 0);
   }
 
   60% {
     opacity: 1;
-    -webkit-transform: translate3d(-25px,0,0);
-    transform: translate3d(-25px,0,0);
+    -webkit-transform: translate3d(-25px, 0, 0);
+    transform: translate3d(-25px, 0, 0);
   }
 
   75% {
-    -webkit-transform: translate3d(10px,0,0);
-    transform: translate3d(10px,0,0);
+    -webkit-transform: translate3d(10px, 0, 0);
+    transform: translate3d(10px, 0, 0);
   }
 
   90% {
-    -webkit-transform: translate3d(-5px,0,0);
-    transform: translate3d(-5px,0,0);
+    -webkit-transform: translate3d(-5px, 0, 0);
+    transform: translate3d(-5px, 0, 0);
   }
 
   to {
@@ -20345,31 +20357,31 @@ table.text-center th {
 }
 
 @keyframes bounceInRight {
-  0%, 60%, 75%, 90%, to {
-    -webkit-animation-timing-function: cubic-bezier(.215,.61,.355,1);
-    animation-timing-function: cubic-bezier(.215,.61,.355,1);
+  from, 60%, 75%, 90%, to {
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
   }
 
-  0% {
+  from {
     opacity: 0;
-    -webkit-transform: translate3d(3000px,0,0);
-    transform: translate3d(3000px,0,0);
+    -webkit-transform: translate3d(3000px, 0, 0);
+    transform: translate3d(3000px, 0, 0);
   }
 
   60% {
     opacity: 1;
-    -webkit-transform: translate3d(-25px,0,0);
-    transform: translate3d(-25px,0,0);
+    -webkit-transform: translate3d(-25px, 0, 0);
+    transform: translate3d(-25px, 0, 0);
   }
 
   75% {
-    -webkit-transform: translate3d(10px,0,0);
-    transform: translate3d(10px,0,0);
+    -webkit-transform: translate3d(10px, 0, 0);
+    transform: translate3d(10px, 0, 0);
   }
 
   90% {
-    -webkit-transform: translate3d(-5px,0,0);
-    transform: translate3d(-5px,0,0);
+    -webkit-transform: translate3d(-5px, 0, 0);
+    transform: translate3d(-5px, 0, 0);
   }
 
   to {
@@ -20384,70 +20396,70 @@ table.text-center th {
 }
 
 @-webkit-keyframes bounceInUp {
-  0%, 60%, 75%, 90%, to {
-    -webkit-animation-timing-function: cubic-bezier(.215,.61,.355,1);
-    animation-timing-function: cubic-bezier(.215,.61,.355,1);
+  from, 60%, 75%, 90%, to {
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
   }
 
-  0% {
+  from {
     opacity: 0;
-    -webkit-transform: translate3d(0,3000px,0);
-    transform: translate3d(0,3000px,0);
+    -webkit-transform: translate3d(0, 3000px, 0);
+    transform: translate3d(0, 3000px, 0);
   }
 
   60% {
     opacity: 1;
-    -webkit-transform: translate3d(0,-20px,0);
-    transform: translate3d(0,-20px,0);
+    -webkit-transform: translate3d(0, -20px, 0);
+    transform: translate3d(0, -20px, 0);
   }
 
   75% {
-    -webkit-transform: translate3d(0,10px,0);
-    transform: translate3d(0,10px,0);
+    -webkit-transform: translate3d(0, 10px, 0);
+    transform: translate3d(0, 10px, 0);
   }
 
   90% {
-    -webkit-transform: translate3d(0,-5px,0);
-    transform: translate3d(0,-5px,0);
+    -webkit-transform: translate3d(0, -5px, 0);
+    transform: translate3d(0, -5px, 0);
   }
 
   to {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
 @keyframes bounceInUp {
-  0%, 60%, 75%, 90%, to {
-    -webkit-animation-timing-function: cubic-bezier(.215,.61,.355,1);
-    animation-timing-function: cubic-bezier(.215,.61,.355,1);
+  from, 60%, 75%, 90%, to {
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
   }
 
-  0% {
+  from {
     opacity: 0;
-    -webkit-transform: translate3d(0,3000px,0);
-    transform: translate3d(0,3000px,0);
+    -webkit-transform: translate3d(0, 3000px, 0);
+    transform: translate3d(0, 3000px, 0);
   }
 
   60% {
     opacity: 1;
-    -webkit-transform: translate3d(0,-20px,0);
-    transform: translate3d(0,-20px,0);
+    -webkit-transform: translate3d(0, -20px, 0);
+    transform: translate3d(0, -20px, 0);
   }
 
   75% {
-    -webkit-transform: translate3d(0,10px,0);
-    transform: translate3d(0,10px,0);
+    -webkit-transform: translate3d(0, 10px, 0);
+    transform: translate3d(0, 10px, 0);
   }
 
   90% {
-    -webkit-transform: translate3d(0,-5px,0);
-    transform: translate3d(0,-5px,0);
+    -webkit-transform: translate3d(0, -5px, 0);
+    transform: translate3d(0, -5px, 0);
   }
 
   to {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
@@ -20458,39 +20470,39 @@ table.text-center th {
 
 @-webkit-keyframes bounceOut {
   20% {
-    -webkit-transform: scale3d(.9,.9,.9);
-    transform: scale3d(.9,.9,.9);
+    -webkit-transform: scale3d(.9, .9, .9);
+    transform: scale3d(.9, .9, .9);
   }
 
   50%, 55% {
     opacity: 1;
-    -webkit-transform: scale3d(1.1,1.1,1.1);
-    transform: scale3d(1.1,1.1,1.1);
+    -webkit-transform: scale3d(1.1, 1.1, 1.1);
+    transform: scale3d(1.1, 1.1, 1.1);
   }
 
   to {
     opacity: 0;
-    -webkit-transform: scale3d(.3,.3,.3);
-    transform: scale3d(.3,.3,.3);
+    -webkit-transform: scale3d(.3, .3, .3);
+    transform: scale3d(.3, .3, .3);
   }
 }
 
 @keyframes bounceOut {
   20% {
-    -webkit-transform: scale3d(.9,.9,.9);
-    transform: scale3d(.9,.9,.9);
+    -webkit-transform: scale3d(.9, .9, .9);
+    transform: scale3d(.9, .9, .9);
   }
 
   50%, 55% {
     opacity: 1;
-    -webkit-transform: scale3d(1.1,1.1,1.1);
-    transform: scale3d(1.1,1.1,1.1);
+    -webkit-transform: scale3d(1.1, 1.1, 1.1);
+    transform: scale3d(1.1, 1.1, 1.1);
   }
 
   to {
     opacity: 0;
-    -webkit-transform: scale3d(.3,.3,.3);
-    transform: scale3d(.3,.3,.3);
+    -webkit-transform: scale3d(.3, .3, .3);
+    transform: scale3d(.3, .3, .3);
   }
 }
 
@@ -20501,39 +20513,39 @@ table.text-center th {
 
 @-webkit-keyframes bounceOutDown {
   20% {
-    -webkit-transform: translate3d(0,10px,0);
-    transform: translate3d(0,10px,0);
+    -webkit-transform: translate3d(0, 10px, 0);
+    transform: translate3d(0, 10px, 0);
   }
 
   40%, 45% {
     opacity: 1;
-    -webkit-transform: translate3d(0,-20px,0);
-    transform: translate3d(0,-20px,0);
+    -webkit-transform: translate3d(0, -20px, 0);
+    transform: translate3d(0, -20px, 0);
   }
 
   to {
     opacity: 0;
-    -webkit-transform: translate3d(0,2000px,0);
-    transform: translate3d(0,2000px,0);
+    -webkit-transform: translate3d(0, 2000px, 0);
+    transform: translate3d(0, 2000px, 0);
   }
 }
 
 @keyframes bounceOutDown {
   20% {
-    -webkit-transform: translate3d(0,10px,0);
-    transform: translate3d(0,10px,0);
+    -webkit-transform: translate3d(0, 10px, 0);
+    transform: translate3d(0, 10px, 0);
   }
 
   40%, 45% {
     opacity: 1;
-    -webkit-transform: translate3d(0,-20px,0);
-    transform: translate3d(0,-20px,0);
+    -webkit-transform: translate3d(0, -20px, 0);
+    transform: translate3d(0, -20px, 0);
   }
 
   to {
     opacity: 0;
-    -webkit-transform: translate3d(0,2000px,0);
-    transform: translate3d(0,2000px,0);
+    -webkit-transform: translate3d(0, 2000px, 0);
+    transform: translate3d(0, 2000px, 0);
   }
 }
 
@@ -20545,28 +20557,28 @@ table.text-center th {
 @-webkit-keyframes bounceOutLeft {
   20% {
     opacity: 1;
-    -webkit-transform: translate3d(20px,0,0);
-    transform: translate3d(20px,0,0);
+    -webkit-transform: translate3d(20px, 0, 0);
+    transform: translate3d(20px, 0, 0);
   }
 
   to {
     opacity: 0;
-    -webkit-transform: translate3d(-2000px,0,0);
-    transform: translate3d(-2000px,0,0);
+    -webkit-transform: translate3d(-2000px, 0, 0);
+    transform: translate3d(-2000px, 0, 0);
   }
 }
 
 @keyframes bounceOutLeft {
   20% {
     opacity: 1;
-    -webkit-transform: translate3d(20px,0,0);
-    transform: translate3d(20px,0,0);
+    -webkit-transform: translate3d(20px, 0, 0);
+    transform: translate3d(20px, 0, 0);
   }
 
   to {
     opacity: 0;
-    -webkit-transform: translate3d(-2000px,0,0);
-    transform: translate3d(-2000px,0,0);
+    -webkit-transform: translate3d(-2000px, 0, 0);
+    transform: translate3d(-2000px, 0, 0);
   }
 }
 
@@ -20578,28 +20590,28 @@ table.text-center th {
 @-webkit-keyframes bounceOutRight {
   20% {
     opacity: 1;
-    -webkit-transform: translate3d(-20px,0,0);
-    transform: translate3d(-20px,0,0);
+    -webkit-transform: translate3d(-20px, 0, 0);
+    transform: translate3d(-20px, 0, 0);
   }
 
   to {
     opacity: 0;
-    -webkit-transform: translate3d(2000px,0,0);
-    transform: translate3d(2000px,0,0);
+    -webkit-transform: translate3d(2000px, 0, 0);
+    transform: translate3d(2000px, 0, 0);
   }
 }
 
 @keyframes bounceOutRight {
   20% {
     opacity: 1;
-    -webkit-transform: translate3d(-20px,0,0);
-    transform: translate3d(-20px,0,0);
+    -webkit-transform: translate3d(-20px, 0, 0);
+    transform: translate3d(-20px, 0, 0);
   }
 
   to {
     opacity: 0;
-    -webkit-transform: translate3d(2000px,0,0);
-    transform: translate3d(2000px,0,0);
+    -webkit-transform: translate3d(2000px, 0, 0);
+    transform: translate3d(2000px, 0, 0);
   }
 }
 
@@ -20610,39 +20622,39 @@ table.text-center th {
 
 @-webkit-keyframes bounceOutUp {
   20% {
-    -webkit-transform: translate3d(0,-10px,0);
-    transform: translate3d(0,-10px,0);
+    -webkit-transform: translate3d(0, -10px, 0);
+    transform: translate3d(0, -10px, 0);
   }
 
   40%, 45% {
     opacity: 1;
-    -webkit-transform: translate3d(0,20px,0);
-    transform: translate3d(0,20px,0);
+    -webkit-transform: translate3d(0, 20px, 0);
+    transform: translate3d(0, 20px, 0);
   }
 
   to {
     opacity: 0;
-    -webkit-transform: translate3d(0,-2000px,0);
-    transform: translate3d(0,-2000px,0);
+    -webkit-transform: translate3d(0, -2000px, 0);
+    transform: translate3d(0, -2000px, 0);
   }
 }
 
 @keyframes bounceOutUp {
   20% {
-    -webkit-transform: translate3d(0,-10px,0);
-    transform: translate3d(0,-10px,0);
+    -webkit-transform: translate3d(0, -10px, 0);
+    transform: translate3d(0, -10px, 0);
   }
 
   40%, 45% {
     opacity: 1;
-    -webkit-transform: translate3d(0,20px,0);
-    transform: translate3d(0,20px,0);
+    -webkit-transform: translate3d(0, 20px, 0);
+    transform: translate3d(0, 20px, 0);
   }
 
   to {
     opacity: 0;
-    -webkit-transform: translate3d(0,-2000px,0);
-    transform: translate3d(0,-2000px,0);
+    -webkit-transform: translate3d(0, -2000px, 0);
+    transform: translate3d(0, -2000px, 0);
   }
 }
 
@@ -20652,7 +20664,7 @@ table.text-center th {
 }
 
 @-webkit-keyframes fadeIn {
-  0% {
+  from {
     opacity: 0;
   }
 
@@ -20662,7 +20674,7 @@ table.text-center th {
 }
 
 @keyframes fadeIn {
-  0% {
+  from {
     opacity: 0;
   }
 
@@ -20677,10 +20689,10 @@ table.text-center th {
 }
 
 @-webkit-keyframes fadeInDown {
-  0% {
+  from {
     opacity: 0;
-    -webkit-transform: translate3d(0,-100%,0);
-    transform: translate3d(0,-100%,0);
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
   }
 
   to {
@@ -20691,10 +20703,10 @@ table.text-center th {
 }
 
 @keyframes fadeInDown {
-  0% {
+  from {
     opacity: 0;
-    -webkit-transform: translate3d(0,-100%,0);
-    transform: translate3d(0,-100%,0);
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
   }
 
   to {
@@ -20710,10 +20722,10 @@ table.text-center th {
 }
 
 @-webkit-keyframes fadeInDownBig {
-  0% {
+  from {
     opacity: 0;
-    -webkit-transform: translate3d(0,-2000px,0);
-    transform: translate3d(0,-2000px,0);
+    -webkit-transform: translate3d(0, -2000px, 0);
+    transform: translate3d(0, -2000px, 0);
   }
 
   to {
@@ -20724,10 +20736,10 @@ table.text-center th {
 }
 
 @keyframes fadeInDownBig {
-  0% {
+  from {
     opacity: 0;
-    -webkit-transform: translate3d(0,-2000px,0);
-    transform: translate3d(0,-2000px,0);
+    -webkit-transform: translate3d(0, -2000px, 0);
+    transform: translate3d(0, -2000px, 0);
   }
 
   to {
@@ -20743,10 +20755,10 @@ table.text-center th {
 }
 
 @-webkit-keyframes fadeInLeft {
-  0% {
+  from {
     opacity: 0;
-    -webkit-transform: translate3d(-100%,0,0);
-    transform: translate3d(-100%,0,0);
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
   }
 
   to {
@@ -20757,10 +20769,10 @@ table.text-center th {
 }
 
 @keyframes fadeInLeft {
-  0% {
+  from {
     opacity: 0;
-    -webkit-transform: translate3d(-100%,0,0);
-    transform: translate3d(-100%,0,0);
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
   }
 
   to {
@@ -20776,10 +20788,10 @@ table.text-center th {
 }
 
 @-webkit-keyframes fadeInLeftBig {
-  0% {
+  from {
     opacity: 0;
-    -webkit-transform: translate3d(-2000px,0,0);
-    transform: translate3d(-2000px,0,0);
+    -webkit-transform: translate3d(-2000px, 0, 0);
+    transform: translate3d(-2000px, 0, 0);
   }
 
   to {
@@ -20790,10 +20802,10 @@ table.text-center th {
 }
 
 @keyframes fadeInLeftBig {
-  0% {
+  from {
     opacity: 0;
-    -webkit-transform: translate3d(-2000px,0,0);
-    transform: translate3d(-2000px,0,0);
+    -webkit-transform: translate3d(-2000px, 0, 0);
+    transform: translate3d(-2000px, 0, 0);
   }
 
   to {
@@ -20809,10 +20821,10 @@ table.text-center th {
 }
 
 @-webkit-keyframes fadeInRight {
-  0% {
+  from {
     opacity: 0;
-    -webkit-transform: translate3d(100%,0,0);
-    transform: translate3d(100%,0,0);
+    -webkit-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0);
   }
 
   to {
@@ -20823,10 +20835,10 @@ table.text-center th {
 }
 
 @keyframes fadeInRight {
-  0% {
+  from {
     opacity: 0;
-    -webkit-transform: translate3d(100%,0,0);
-    transform: translate3d(100%,0,0);
+    -webkit-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0);
   }
 
   to {
@@ -20842,10 +20854,10 @@ table.text-center th {
 }
 
 @-webkit-keyframes fadeInRightBig {
-  0% {
+  from {
     opacity: 0;
-    -webkit-transform: translate3d(2000px,0,0);
-    transform: translate3d(2000px,0,0);
+    -webkit-transform: translate3d(2000px, 0, 0);
+    transform: translate3d(2000px, 0, 0);
   }
 
   to {
@@ -20856,10 +20868,10 @@ table.text-center th {
 }
 
 @keyframes fadeInRightBig {
-  0% {
+  from {
     opacity: 0;
-    -webkit-transform: translate3d(2000px,0,0);
-    transform: translate3d(2000px,0,0);
+    -webkit-transform: translate3d(2000px, 0, 0);
+    transform: translate3d(2000px, 0, 0);
   }
 
   to {
@@ -20875,10 +20887,10 @@ table.text-center th {
 }
 
 @-webkit-keyframes fadeInUp {
-  0% {
+  from {
     opacity: 0;
-    -webkit-transform: translate3d(0,100%,0);
-    transform: translate3d(0,100%,0);
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
   }
 
   to {
@@ -20889,10 +20901,10 @@ table.text-center th {
 }
 
 @keyframes fadeInUp {
-  0% {
+  from {
     opacity: 0;
-    -webkit-transform: translate3d(0,100%,0);
-    transform: translate3d(0,100%,0);
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
   }
 
   to {
@@ -20908,10 +20920,10 @@ table.text-center th {
 }
 
 @-webkit-keyframes fadeInUpBig {
-  0% {
+  from {
     opacity: 0;
-    -webkit-transform: translate3d(0,2000px,0);
-    transform: translate3d(0,2000px,0);
+    -webkit-transform: translate3d(0, 2000px, 0);
+    transform: translate3d(0, 2000px, 0);
   }
 
   to {
@@ -20922,10 +20934,10 @@ table.text-center th {
 }
 
 @keyframes fadeInUpBig {
-  0% {
+  from {
     opacity: 0;
-    -webkit-transform: translate3d(0,2000px,0);
-    transform: translate3d(0,2000px,0);
+    -webkit-transform: translate3d(0, 2000px, 0);
+    transform: translate3d(0, 2000px, 0);
   }
 
   to {
@@ -20941,7 +20953,7 @@ table.text-center th {
 }
 
 @-webkit-keyframes fadeOut {
-  0% {
+  from {
     opacity: 1;
   }
 
@@ -20951,7 +20963,7 @@ table.text-center th {
 }
 
 @keyframes fadeOut {
-  0% {
+  from {
     opacity: 1;
   }
 
@@ -20966,26 +20978,26 @@ table.text-center th {
 }
 
 @-webkit-keyframes fadeOutDown {
-  0% {
+  from {
     opacity: 1;
   }
 
   to {
     opacity: 0;
-    -webkit-transform: translate3d(0,100%,0);
-    transform: translate3d(0,100%,0);
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
   }
 }
 
 @keyframes fadeOutDown {
-  0% {
+  from {
     opacity: 1;
   }
 
   to {
     opacity: 0;
-    -webkit-transform: translate3d(0,100%,0);
-    transform: translate3d(0,100%,0);
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
   }
 }
 
@@ -20995,26 +21007,26 @@ table.text-center th {
 }
 
 @-webkit-keyframes fadeOutDownBig {
-  0% {
+  from {
     opacity: 1;
   }
 
   to {
     opacity: 0;
-    -webkit-transform: translate3d(0,2000px,0);
-    transform: translate3d(0,2000px,0);
+    -webkit-transform: translate3d(0, 2000px, 0);
+    transform: translate3d(0, 2000px, 0);
   }
 }
 
 @keyframes fadeOutDownBig {
-  0% {
+  from {
     opacity: 1;
   }
 
   to {
     opacity: 0;
-    -webkit-transform: translate3d(0,2000px,0);
-    transform: translate3d(0,2000px,0);
+    -webkit-transform: translate3d(0, 2000px, 0);
+    transform: translate3d(0, 2000px, 0);
   }
 }
 
@@ -21024,26 +21036,26 @@ table.text-center th {
 }
 
 @-webkit-keyframes fadeOutLeft {
-  0% {
+  from {
     opacity: 1;
   }
 
   to {
     opacity: 0;
-    -webkit-transform: translate3d(-100%,0,0);
-    transform: translate3d(-100%,0,0);
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
   }
 }
 
 @keyframes fadeOutLeft {
-  0% {
+  from {
     opacity: 1;
   }
 
   to {
     opacity: 0;
-    -webkit-transform: translate3d(-100%,0,0);
-    transform: translate3d(-100%,0,0);
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
   }
 }
 
@@ -21053,26 +21065,26 @@ table.text-center th {
 }
 
 @-webkit-keyframes fadeOutLeftBig {
-  0% {
+  from {
     opacity: 1;
   }
 
   to {
     opacity: 0;
-    -webkit-transform: translate3d(-2000px,0,0);
-    transform: translate3d(-2000px,0,0);
+    -webkit-transform: translate3d(-2000px, 0, 0);
+    transform: translate3d(-2000px, 0, 0);
   }
 }
 
 @keyframes fadeOutLeftBig {
-  0% {
+  from {
     opacity: 1;
   }
 
   to {
     opacity: 0;
-    -webkit-transform: translate3d(-2000px,0,0);
-    transform: translate3d(-2000px,0,0);
+    -webkit-transform: translate3d(-2000px, 0, 0);
+    transform: translate3d(-2000px, 0, 0);
   }
 }
 
@@ -21082,26 +21094,26 @@ table.text-center th {
 }
 
 @-webkit-keyframes fadeOutRight {
-  0% {
+  from {
     opacity: 1;
   }
 
   to {
     opacity: 0;
-    -webkit-transform: translate3d(100%,0,0);
-    transform: translate3d(100%,0,0);
+    -webkit-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0);
   }
 }
 
 @keyframes fadeOutRight {
-  0% {
+  from {
     opacity: 1;
   }
 
   to {
     opacity: 0;
-    -webkit-transform: translate3d(100%,0,0);
-    transform: translate3d(100%,0,0);
+    -webkit-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0);
   }
 }
 
@@ -21111,26 +21123,26 @@ table.text-center th {
 }
 
 @-webkit-keyframes fadeOutRightBig {
-  0% {
+  from {
     opacity: 1;
   }
 
   to {
     opacity: 0;
-    -webkit-transform: translate3d(2000px,0,0);
-    transform: translate3d(2000px,0,0);
+    -webkit-transform: translate3d(2000px, 0, 0);
+    transform: translate3d(2000px, 0, 0);
   }
 }
 
 @keyframes fadeOutRightBig {
-  0% {
+  from {
     opacity: 1;
   }
 
   to {
     opacity: 0;
-    -webkit-transform: translate3d(2000px,0,0);
-    transform: translate3d(2000px,0,0);
+    -webkit-transform: translate3d(2000px, 0, 0);
+    transform: translate3d(2000px, 0, 0);
   }
 }
 
@@ -21140,26 +21152,26 @@ table.text-center th {
 }
 
 @-webkit-keyframes fadeOutUp {
-  0% {
+  from {
     opacity: 1;
   }
 
   to {
     opacity: 0;
-    -webkit-transform: translate3d(0,-100%,0);
-    transform: translate3d(0,-100%,0);
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
   }
 }
 
 @keyframes fadeOutUp {
-  0% {
+  from {
     opacity: 1;
   }
 
   to {
     opacity: 0;
-    -webkit-transform: translate3d(0,-100%,0);
-    transform: translate3d(0,-100%,0);
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
   }
 }
 
@@ -21169,26 +21181,26 @@ table.text-center th {
 }
 
 @-webkit-keyframes fadeOutUpBig {
-  0% {
+  from {
     opacity: 1;
   }
 
   to {
     opacity: 0;
-    -webkit-transform: translate3d(0,-2000px,0);
-    transform: translate3d(0,-2000px,0);
+    -webkit-transform: translate3d(0, -2000px, 0);
+    transform: translate3d(0, -2000px, 0);
   }
 }
 
 @keyframes fadeOutUpBig {
-  0% {
+  from {
     opacity: 1;
   }
 
   to {
     opacity: 0;
-    -webkit-transform: translate3d(0,-2000px,0);
-    transform: translate3d(0,-2000px,0);
+    -webkit-transform: translate3d(0, -2000px, 0);
+    transform: translate3d(0, -2000px, 0);
   }
 }
 
@@ -21198,34 +21210,32 @@ table.text-center th {
 }
 
 @-webkit-keyframes flip {
-  0% {
-    -webkit-transform: perspective(400px) rotateY(-1turn);
-    transform: perspective(400px) rotateY(-1turn);
-  }
-
-  0%, 40% {
+  from {
+    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -360deg);
+    transform: perspective(400px) rotate3d(0, 1, 0, -360deg);
     -webkit-animation-timing-function: ease-out;
     animation-timing-function: ease-out;
   }
 
   40% {
-    -webkit-transform: perspective(400px) translateZ(150px) rotateY(-190deg);
-    transform: perspective(400px) translateZ(150px) rotateY(-190deg);
+    -webkit-transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -190deg);
+    transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -190deg);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
   }
 
   50% {
-    -webkit-transform: perspective(400px) translateZ(150px) rotateY(-170deg);
-    transform: perspective(400px) translateZ(150px) rotateY(-170deg);
-  }
-
-  50%, 80% {
+    -webkit-transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -170deg);
+    transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -170deg);
     -webkit-animation-timing-function: ease-in;
     animation-timing-function: ease-in;
   }
 
   80% {
-    -webkit-transform: perspective(400px) scale3d(.95,.95,.95);
-    transform: perspective(400px) scale3d(.95,.95,.95);
+    -webkit-transform: perspective(400px) scale3d(.95, .95, .95);
+    transform: perspective(400px) scale3d(.95, .95, .95);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
   }
 
   to {
@@ -21237,34 +21247,32 @@ table.text-center th {
 }
 
 @keyframes flip {
-  0% {
-    -webkit-transform: perspective(400px) rotateY(-1turn);
-    transform: perspective(400px) rotateY(-1turn);
-  }
-
-  0%, 40% {
+  from {
+    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -360deg);
+    transform: perspective(400px) rotate3d(0, 1, 0, -360deg);
     -webkit-animation-timing-function: ease-out;
     animation-timing-function: ease-out;
   }
 
   40% {
-    -webkit-transform: perspective(400px) translateZ(150px) rotateY(-190deg);
-    transform: perspective(400px) translateZ(150px) rotateY(-190deg);
+    -webkit-transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -190deg);
+    transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -190deg);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
   }
 
   50% {
-    -webkit-transform: perspective(400px) translateZ(150px) rotateY(-170deg);
-    transform: perspective(400px) translateZ(150px) rotateY(-170deg);
-  }
-
-  50%, 80% {
+    -webkit-transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -170deg);
+    transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -170deg);
     -webkit-animation-timing-function: ease-in;
     animation-timing-function: ease-in;
   }
 
   80% {
-    -webkit-transform: perspective(400px) scale3d(.95,.95,.95);
-    transform: perspective(400px) scale3d(.95,.95,.95);
+    -webkit-transform: perspective(400px) scale3d(.95, .95, .95);
+    transform: perspective(400px) scale3d(.95, .95, .95);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
   }
 
   to {
@@ -21283,31 +21291,30 @@ table.text-center th {
 }
 
 @-webkit-keyframes flipInX {
-  0% {
-    -webkit-transform: perspective(400px) rotateX(90deg);
-    transform: perspective(400px) rotateX(90deg);
+  from {
+    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+    transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
     opacity: 0;
   }
 
-  0%, 40% {
+  40% {
+    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+    transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
     -webkit-animation-timing-function: ease-in;
     animation-timing-function: ease-in;
   }
 
-  40% {
-    -webkit-transform: perspective(400px) rotateX(-20deg);
-    transform: perspective(400px) rotateX(-20deg);
-  }
-
   60% {
-    -webkit-transform: perspective(400px) rotateX(10deg);
-    transform: perspective(400px) rotateX(10deg);
+    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
+    transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
     opacity: 1;
   }
 
   80% {
-    -webkit-transform: perspective(400px) rotateX(-5deg);
-    transform: perspective(400px) rotateX(-5deg);
+    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
+    transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
   }
 
   to {
@@ -21317,31 +21324,30 @@ table.text-center th {
 }
 
 @keyframes flipInX {
-  0% {
-    -webkit-transform: perspective(400px) rotateX(90deg);
-    transform: perspective(400px) rotateX(90deg);
+  from {
+    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+    transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
     opacity: 0;
   }
 
-  0%, 40% {
+  40% {
+    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+    transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
     -webkit-animation-timing-function: ease-in;
     animation-timing-function: ease-in;
   }
 
-  40% {
-    -webkit-transform: perspective(400px) rotateX(-20deg);
-    transform: perspective(400px) rotateX(-20deg);
-  }
-
   60% {
-    -webkit-transform: perspective(400px) rotateX(10deg);
-    transform: perspective(400px) rotateX(10deg);
+    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
+    transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
     opacity: 1;
   }
 
   80% {
-    -webkit-transform: perspective(400px) rotateX(-5deg);
-    transform: perspective(400px) rotateX(-5deg);
+    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
+    transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
   }
 
   to {
@@ -21351,38 +21357,37 @@ table.text-center th {
 }
 
 .flipInX {
-  -webkit-backface-visibility: visible!important;
-  backface-visibility: visible!important;
+  -webkit-backface-visibility: visible !important;
+  backface-visibility: visible !important;
   -webkit-animation-name: flipInX;
   animation-name: flipInX;
 }
 
 @-webkit-keyframes flipInY {
-  0% {
-    -webkit-transform: perspective(400px) rotateY(90deg);
-    transform: perspective(400px) rotateY(90deg);
+  from {
+    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
+    transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
     opacity: 0;
   }
 
-  0%, 40% {
+  40% {
+    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -20deg);
+    transform: perspective(400px) rotate3d(0, 1, 0, -20deg);
     -webkit-animation-timing-function: ease-in;
     animation-timing-function: ease-in;
   }
 
-  40% {
-    -webkit-transform: perspective(400px) rotateY(-20deg);
-    transform: perspective(400px) rotateY(-20deg);
-  }
-
   60% {
-    -webkit-transform: perspective(400px) rotateY(10deg);
-    transform: perspective(400px) rotateY(10deg);
+    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, 10deg);
+    transform: perspective(400px) rotate3d(0, 1, 0, 10deg);
     opacity: 1;
   }
 
   80% {
-    -webkit-transform: perspective(400px) rotateY(-5deg);
-    transform: perspective(400px) rotateY(-5deg);
+    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -5deg);
+    transform: perspective(400px) rotate3d(0, 1, 0, -5deg);
   }
 
   to {
@@ -21392,31 +21397,30 @@ table.text-center th {
 }
 
 @keyframes flipInY {
-  0% {
-    -webkit-transform: perspective(400px) rotateY(90deg);
-    transform: perspective(400px) rotateY(90deg);
+  from {
+    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
+    transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
     opacity: 0;
   }
 
-  0%, 40% {
+  40% {
+    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -20deg);
+    transform: perspective(400px) rotate3d(0, 1, 0, -20deg);
     -webkit-animation-timing-function: ease-in;
     animation-timing-function: ease-in;
   }
 
-  40% {
-    -webkit-transform: perspective(400px) rotateY(-20deg);
-    transform: perspective(400px) rotateY(-20deg);
-  }
-
   60% {
-    -webkit-transform: perspective(400px) rotateY(10deg);
-    transform: perspective(400px) rotateY(10deg);
+    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, 10deg);
+    transform: perspective(400px) rotate3d(0, 1, 0, 10deg);
     opacity: 1;
   }
 
   80% {
-    -webkit-transform: perspective(400px) rotateY(-5deg);
-    transform: perspective(400px) rotateY(-5deg);
+    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -5deg);
+    transform: perspective(400px) rotate3d(0, 1, 0, -5deg);
   }
 
   to {
@@ -21426,46 +21430,46 @@ table.text-center th {
 }
 
 .flipInY {
-  -webkit-backface-visibility: visible!important;
-  backface-visibility: visible!important;
+  -webkit-backface-visibility: visible !important;
+  backface-visibility: visible !important;
   -webkit-animation-name: flipInY;
   animation-name: flipInY;
 }
 
 @-webkit-keyframes flipOutX {
-  0% {
+  from {
     -webkit-transform: perspective(400px);
     transform: perspective(400px);
   }
 
   30% {
-    -webkit-transform: perspective(400px) rotateX(-20deg);
-    transform: perspective(400px) rotateX(-20deg);
+    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+    transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
     opacity: 1;
   }
 
   to {
-    -webkit-transform: perspective(400px) rotateX(90deg);
-    transform: perspective(400px) rotateX(90deg);
+    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+    transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
     opacity: 0;
   }
 }
 
 @keyframes flipOutX {
-  0% {
+  from {
     -webkit-transform: perspective(400px);
     transform: perspective(400px);
   }
 
   30% {
-    -webkit-transform: perspective(400px) rotateX(-20deg);
-    transform: perspective(400px) rotateX(-20deg);
+    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+    transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
     opacity: 1;
   }
 
   to {
-    -webkit-transform: perspective(400px) rotateX(90deg);
-    transform: perspective(400px) rotateX(90deg);
+    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+    transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
     opacity: 0;
   }
 }
@@ -21473,74 +21477,72 @@ table.text-center th {
 .flipOutX {
   -webkit-animation-name: flipOutX;
   animation-name: flipOutX;
-  -webkit-backface-visibility: visible!important;
-  backface-visibility: visible!important;
+  -webkit-backface-visibility: visible !important;
+  backface-visibility: visible !important;
 }
 
 @-webkit-keyframes flipOutY {
-  0% {
+  from {
     -webkit-transform: perspective(400px);
     transform: perspective(400px);
   }
 
   30% {
-    -webkit-transform: perspective(400px) rotateY(-15deg);
-    transform: perspective(400px) rotateY(-15deg);
+    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -15deg);
+    transform: perspective(400px) rotate3d(0, 1, 0, -15deg);
     opacity: 1;
   }
 
   to {
-    -webkit-transform: perspective(400px) rotateY(90deg);
-    transform: perspective(400px) rotateY(90deg);
+    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
+    transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
     opacity: 0;
   }
 }
 
 @keyframes flipOutY {
-  0% {
+  from {
     -webkit-transform: perspective(400px);
     transform: perspective(400px);
   }
 
   30% {
-    -webkit-transform: perspective(400px) rotateY(-15deg);
-    transform: perspective(400px) rotateY(-15deg);
+    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -15deg);
+    transform: perspective(400px) rotate3d(0, 1, 0, -15deg);
     opacity: 1;
   }
 
   to {
-    -webkit-transform: perspective(400px) rotateY(90deg);
-    transform: perspective(400px) rotateY(90deg);
+    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
+    transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
     opacity: 0;
   }
 }
 
 .flipOutY {
-  -webkit-backface-visibility: visible!important;
-  backface-visibility: visible!important;
+  -webkit-backface-visibility: visible !important;
+  backface-visibility: visible !important;
   -webkit-animation-name: flipOutY;
   animation-name: flipOutY;
 }
 
 @-webkit-keyframes lightSpeedIn {
-  0% {
-    -webkit-transform: translate3d(100%,0,0) skewX(-30deg);
-    transform: translate3d(100%,0,0) skewX(-30deg);
+  from {
+    -webkit-transform: translate3d(100%, 0, 0) skewX(-30deg);
+    transform: translate3d(100%, 0, 0) skewX(-30deg);
     opacity: 0;
   }
 
   60% {
     -webkit-transform: skewX(20deg);
     transform: skewX(20deg);
-  }
-
-  60%, 80% {
     opacity: 1;
   }
 
   80% {
     -webkit-transform: skewX(-5deg);
     transform: skewX(-5deg);
+    opacity: 1;
   }
 
   to {
@@ -21551,24 +21553,22 @@ table.text-center th {
 }
 
 @keyframes lightSpeedIn {
-  0% {
-    -webkit-transform: translate3d(100%,0,0) skewX(-30deg);
-    transform: translate3d(100%,0,0) skewX(-30deg);
+  from {
+    -webkit-transform: translate3d(100%, 0, 0) skewX(-30deg);
+    transform: translate3d(100%, 0, 0) skewX(-30deg);
     opacity: 0;
   }
 
   60% {
     -webkit-transform: skewX(20deg);
     transform: skewX(20deg);
-  }
-
-  60%, 80% {
     opacity: 1;
   }
 
   80% {
     -webkit-transform: skewX(-5deg);
     transform: skewX(-5deg);
+    opacity: 1;
   }
 
   to {
@@ -21586,25 +21586,25 @@ table.text-center th {
 }
 
 @-webkit-keyframes lightSpeedOut {
-  0% {
+  from {
     opacity: 1;
   }
 
   to {
-    -webkit-transform: translate3d(100%,0,0) skewX(30deg);
-    transform: translate3d(100%,0,0) skewX(30deg);
+    -webkit-transform: translate3d(100%, 0, 0) skewX(30deg);
+    transform: translate3d(100%, 0, 0) skewX(30deg);
     opacity: 0;
   }
 }
 
 @keyframes lightSpeedOut {
-  0% {
+  from {
     opacity: 1;
   }
 
   to {
-    -webkit-transform: translate3d(100%,0,0) skewX(30deg);
-    transform: translate3d(100%,0,0) skewX(30deg);
+    -webkit-transform: translate3d(100%, 0, 0) skewX(30deg);
+    transform: translate3d(100%, 0, 0) skewX(30deg);
     opacity: 0;
   }
 }
@@ -21617,18 +21617,16 @@ table.text-center th {
 }
 
 @-webkit-keyframes rotateIn {
-  0% {
+  from {
+    -webkit-transform-origin: center;
     transform-origin: center;
-    -webkit-transform: rotate(-200deg);
-    transform: rotate(-200deg);
+    -webkit-transform: rotate3d(0, 0, 1, -200deg);
+    transform: rotate3d(0, 0, 1, -200deg);
     opacity: 0;
   }
 
-  0%, to {
-    -webkit-transform-origin: center;
-  }
-
   to {
+    -webkit-transform-origin: center;
     transform-origin: center;
     -webkit-transform: none;
     transform: none;
@@ -21637,18 +21635,16 @@ table.text-center th {
 }
 
 @keyframes rotateIn {
-  0% {
+  from {
+    -webkit-transform-origin: center;
     transform-origin: center;
-    -webkit-transform: rotate(-200deg);
-    transform: rotate(-200deg);
+    -webkit-transform: rotate3d(0, 0, 1, -200deg);
+    transform: rotate3d(0, 0, 1, -200deg);
     opacity: 0;
   }
 
-  0%, to {
-    -webkit-transform-origin: center;
-  }
-
   to {
+    -webkit-transform-origin: center;
     transform-origin: center;
     -webkit-transform: none;
     transform: none;
@@ -21662,18 +21658,16 @@ table.text-center th {
 }
 
 @-webkit-keyframes rotateInDownLeft {
-  0% {
+  from {
+    -webkit-transform-origin: left bottom;
     transform-origin: left bottom;
-    -webkit-transform: rotate(-45deg);
-    transform: rotate(-45deg);
+    -webkit-transform: rotate3d(0, 0, 1, -45deg);
+    transform: rotate3d(0, 0, 1, -45deg);
     opacity: 0;
   }
 
-  0%, to {
-    -webkit-transform-origin: left bottom;
-  }
-
   to {
+    -webkit-transform-origin: left bottom;
     transform-origin: left bottom;
     -webkit-transform: none;
     transform: none;
@@ -21682,18 +21676,16 @@ table.text-center th {
 }
 
 @keyframes rotateInDownLeft {
-  0% {
+  from {
+    -webkit-transform-origin: left bottom;
     transform-origin: left bottom;
-    -webkit-transform: rotate(-45deg);
-    transform: rotate(-45deg);
+    -webkit-transform: rotate3d(0, 0, 1, -45deg);
+    transform: rotate3d(0, 0, 1, -45deg);
     opacity: 0;
   }
 
-  0%, to {
-    -webkit-transform-origin: left bottom;
-  }
-
   to {
+    -webkit-transform-origin: left bottom;
     transform-origin: left bottom;
     -webkit-transform: none;
     transform: none;
@@ -21707,18 +21699,16 @@ table.text-center th {
 }
 
 @-webkit-keyframes rotateInDownRight {
-  0% {
+  from {
+    -webkit-transform-origin: right bottom;
     transform-origin: right bottom;
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
+    -webkit-transform: rotate3d(0, 0, 1, 45deg);
+    transform: rotate3d(0, 0, 1, 45deg);
     opacity: 0;
   }
 
-  0%, to {
-    -webkit-transform-origin: right bottom;
-  }
-
   to {
+    -webkit-transform-origin: right bottom;
     transform-origin: right bottom;
     -webkit-transform: none;
     transform: none;
@@ -21727,18 +21717,16 @@ table.text-center th {
 }
 
 @keyframes rotateInDownRight {
-  0% {
+  from {
+    -webkit-transform-origin: right bottom;
     transform-origin: right bottom;
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
+    -webkit-transform: rotate3d(0, 0, 1, 45deg);
+    transform: rotate3d(0, 0, 1, 45deg);
     opacity: 0;
   }
 
-  0%, to {
-    -webkit-transform-origin: right bottom;
-  }
-
   to {
+    -webkit-transform-origin: right bottom;
     transform-origin: right bottom;
     -webkit-transform: none;
     transform: none;
@@ -21752,18 +21740,16 @@ table.text-center th {
 }
 
 @-webkit-keyframes rotateInUpLeft {
-  0% {
+  from {
+    -webkit-transform-origin: left bottom;
     transform-origin: left bottom;
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
+    -webkit-transform: rotate3d(0, 0, 1, 45deg);
+    transform: rotate3d(0, 0, 1, 45deg);
     opacity: 0;
   }
 
-  0%, to {
-    -webkit-transform-origin: left bottom;
-  }
-
   to {
+    -webkit-transform-origin: left bottom;
     transform-origin: left bottom;
     -webkit-transform: none;
     transform: none;
@@ -21772,18 +21758,16 @@ table.text-center th {
 }
 
 @keyframes rotateInUpLeft {
-  0% {
+  from {
+    -webkit-transform-origin: left bottom;
     transform-origin: left bottom;
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
+    -webkit-transform: rotate3d(0, 0, 1, 45deg);
+    transform: rotate3d(0, 0, 1, 45deg);
     opacity: 0;
   }
 
-  0%, to {
-    -webkit-transform-origin: left bottom;
-  }
-
   to {
+    -webkit-transform-origin: left bottom;
     transform-origin: left bottom;
     -webkit-transform: none;
     transform: none;
@@ -21797,18 +21781,16 @@ table.text-center th {
 }
 
 @-webkit-keyframes rotateInUpRight {
-  0% {
+  from {
+    -webkit-transform-origin: right bottom;
     transform-origin: right bottom;
-    -webkit-transform: rotate(-90deg);
-    transform: rotate(-90deg);
+    -webkit-transform: rotate3d(0, 0, 1, -90deg);
+    transform: rotate3d(0, 0, 1, -90deg);
     opacity: 0;
   }
 
-  0%, to {
-    -webkit-transform-origin: right bottom;
-  }
-
   to {
+    -webkit-transform-origin: right bottom;
     transform-origin: right bottom;
     -webkit-transform: none;
     transform: none;
@@ -21817,18 +21799,16 @@ table.text-center th {
 }
 
 @keyframes rotateInUpRight {
-  0% {
+  from {
+    -webkit-transform-origin: right bottom;
     transform-origin: right bottom;
-    -webkit-transform: rotate(-90deg);
-    transform: rotate(-90deg);
+    -webkit-transform: rotate3d(0, 0, 1, -90deg);
+    transform: rotate3d(0, 0, 1, -90deg);
     opacity: 0;
   }
 
-  0%, to {
-    -webkit-transform-origin: right bottom;
-  }
-
   to {
+    -webkit-transform-origin: right bottom;
     transform-origin: right bottom;
     -webkit-transform: none;
     transform: none;
@@ -21842,37 +21822,33 @@ table.text-center th {
 }
 
 @-webkit-keyframes rotateOut {
-  0% {
+  from {
+    -webkit-transform-origin: center;
     transform-origin: center;
     opacity: 1;
   }
 
-  0%, to {
-    -webkit-transform-origin: center;
-  }
-
   to {
+    -webkit-transform-origin: center;
     transform-origin: center;
-    -webkit-transform: rotate(200deg);
-    transform: rotate(200deg);
+    -webkit-transform: rotate3d(0, 0, 1, 200deg);
+    transform: rotate3d(0, 0, 1, 200deg);
     opacity: 0;
   }
 }
 
 @keyframes rotateOut {
-  0% {
+  from {
+    -webkit-transform-origin: center;
     transform-origin: center;
     opacity: 1;
   }
 
-  0%, to {
-    -webkit-transform-origin: center;
-  }
-
   to {
+    -webkit-transform-origin: center;
     transform-origin: center;
-    -webkit-transform: rotate(200deg);
-    transform: rotate(200deg);
+    -webkit-transform: rotate3d(0, 0, 1, 200deg);
+    transform: rotate3d(0, 0, 1, 200deg);
     opacity: 0;
   }
 }
@@ -21883,37 +21859,33 @@ table.text-center th {
 }
 
 @-webkit-keyframes rotateOutDownLeft {
-  0% {
+  from {
+    -webkit-transform-origin: left bottom;
     transform-origin: left bottom;
     opacity: 1;
   }
 
-  0%, to {
-    -webkit-transform-origin: left bottom;
-  }
-
   to {
+    -webkit-transform-origin: left bottom;
     transform-origin: left bottom;
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
+    -webkit-transform: rotate3d(0, 0, 1, 45deg);
+    transform: rotate3d(0, 0, 1, 45deg);
     opacity: 0;
   }
 }
 
 @keyframes rotateOutDownLeft {
-  0% {
+  from {
+    -webkit-transform-origin: left bottom;
     transform-origin: left bottom;
     opacity: 1;
   }
 
-  0%, to {
-    -webkit-transform-origin: left bottom;
-  }
-
   to {
+    -webkit-transform-origin: left bottom;
     transform-origin: left bottom;
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
+    -webkit-transform: rotate3d(0, 0, 1, 45deg);
+    transform: rotate3d(0, 0, 1, 45deg);
     opacity: 0;
   }
 }
@@ -21924,37 +21896,33 @@ table.text-center th {
 }
 
 @-webkit-keyframes rotateOutDownRight {
-  0% {
+  from {
+    -webkit-transform-origin: right bottom;
     transform-origin: right bottom;
     opacity: 1;
   }
 
-  0%, to {
-    -webkit-transform-origin: right bottom;
-  }
-
   to {
+    -webkit-transform-origin: right bottom;
     transform-origin: right bottom;
-    -webkit-transform: rotate(-45deg);
-    transform: rotate(-45deg);
+    -webkit-transform: rotate3d(0, 0, 1, -45deg);
+    transform: rotate3d(0, 0, 1, -45deg);
     opacity: 0;
   }
 }
 
 @keyframes rotateOutDownRight {
-  0% {
+  from {
+    -webkit-transform-origin: right bottom;
     transform-origin: right bottom;
     opacity: 1;
   }
 
-  0%, to {
-    -webkit-transform-origin: right bottom;
-  }
-
   to {
+    -webkit-transform-origin: right bottom;
     transform-origin: right bottom;
-    -webkit-transform: rotate(-45deg);
-    transform: rotate(-45deg);
+    -webkit-transform: rotate3d(0, 0, 1, -45deg);
+    transform: rotate3d(0, 0, 1, -45deg);
     opacity: 0;
   }
 }
@@ -21965,37 +21933,33 @@ table.text-center th {
 }
 
 @-webkit-keyframes rotateOutUpLeft {
-  0% {
+  from {
+    -webkit-transform-origin: left bottom;
     transform-origin: left bottom;
     opacity: 1;
   }
 
-  0%, to {
-    -webkit-transform-origin: left bottom;
-  }
-
   to {
+    -webkit-transform-origin: left bottom;
     transform-origin: left bottom;
-    -webkit-transform: rotate(-45deg);
-    transform: rotate(-45deg);
+    -webkit-transform: rotate3d(0, 0, 1, -45deg);
+    transform: rotate3d(0, 0, 1, -45deg);
     opacity: 0;
   }
 }
 
 @keyframes rotateOutUpLeft {
-  0% {
+  from {
+    -webkit-transform-origin: left bottom;
     transform-origin: left bottom;
     opacity: 1;
   }
 
-  0%, to {
-    -webkit-transform-origin: left bottom;
-  }
-
   to {
+    -webkit-transform-origin: left bottom;
     transform-origin: left bottom;
-    -webkit-transform: rotate(-45deg);
-    transform: rotate(-45deg);
+    -webkit-transform: rotate3d(0, 0, 1, -45deg);
+    transform: rotate3d(0, 0, 1, -45deg);
     opacity: 0;
   }
 }
@@ -22006,37 +21970,33 @@ table.text-center th {
 }
 
 @-webkit-keyframes rotateOutUpRight {
-  0% {
+  from {
+    -webkit-transform-origin: right bottom;
     transform-origin: right bottom;
     opacity: 1;
   }
 
-  0%, to {
-    -webkit-transform-origin: right bottom;
-  }
-
   to {
+    -webkit-transform-origin: right bottom;
     transform-origin: right bottom;
-    -webkit-transform: rotate(90deg);
-    transform: rotate(90deg);
+    -webkit-transform: rotate3d(0, 0, 1, 90deg);
+    transform: rotate3d(0, 0, 1, 90deg);
     opacity: 0;
   }
 }
 
 @keyframes rotateOutUpRight {
-  0% {
+  from {
+    -webkit-transform-origin: right bottom;
     transform-origin: right bottom;
     opacity: 1;
   }
 
-  0%, to {
-    -webkit-transform-origin: right bottom;
-  }
-
   to {
+    -webkit-transform-origin: right bottom;
     transform-origin: right bottom;
-    -webkit-transform: rotate(90deg);
-    transform: rotate(90deg);
+    -webkit-transform: rotate3d(0, 0, 1, 90deg);
+    transform: rotate3d(0, 0, 1, 90deg);
     opacity: 0;
   }
 }
@@ -22048,24 +22008,24 @@ table.text-center th {
 
 @-webkit-keyframes hinge {
   0% {
-    transform-origin: top left;
-  }
-
-  0%, 20%, 60% {
     -webkit-transform-origin: top left;
+    transform-origin: top left;
     -webkit-animation-timing-function: ease-in-out;
     animation-timing-function: ease-in-out;
   }
 
   20%, 60% {
-    -webkit-transform: rotate(80deg);
-    transform: rotate(80deg);
+    -webkit-transform: rotate3d(0, 0, 1, 80deg);
+    transform: rotate3d(0, 0, 1, 80deg);
+    -webkit-transform-origin: top left;
     transform-origin: top left;
+    -webkit-animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in-out;
   }
 
   40%, 80% {
-    -webkit-transform: rotate(60deg);
-    transform: rotate(60deg);
+    -webkit-transform: rotate3d(0, 0, 1, 60deg);
+    transform: rotate3d(0, 0, 1, 60deg);
     -webkit-transform-origin: top left;
     transform-origin: top left;
     -webkit-animation-timing-function: ease-in-out;
@@ -22074,32 +22034,32 @@ table.text-center th {
   }
 
   to {
-    -webkit-transform: translate3d(0,700px,0);
-    transform: translate3d(0,700px,0);
+    -webkit-transform: translate3d(0, 700px, 0);
+    transform: translate3d(0, 700px, 0);
     opacity: 0;
   }
 }
 
 @keyframes hinge {
   0% {
-    transform-origin: top left;
-  }
-
-  0%, 20%, 60% {
     -webkit-transform-origin: top left;
+    transform-origin: top left;
     -webkit-animation-timing-function: ease-in-out;
     animation-timing-function: ease-in-out;
   }
 
   20%, 60% {
-    -webkit-transform: rotate(80deg);
-    transform: rotate(80deg);
+    -webkit-transform: rotate3d(0, 0, 1, 80deg);
+    transform: rotate3d(0, 0, 1, 80deg);
+    -webkit-transform-origin: top left;
     transform-origin: top left;
+    -webkit-animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in-out;
   }
 
   40%, 80% {
-    -webkit-transform: rotate(60deg);
-    transform: rotate(60deg);
+    -webkit-transform: rotate3d(0, 0, 1, 60deg);
+    transform: rotate3d(0, 0, 1, 60deg);
     -webkit-transform-origin: top left;
     transform-origin: top left;
     -webkit-animation-timing-function: ease-in-out;
@@ -22108,8 +22068,8 @@ table.text-center th {
   }
 
   to {
-    -webkit-transform: translate3d(0,700px,0);
-    transform: translate3d(0,700px,0);
+    -webkit-transform: translate3d(0, 700px, 0);
+    transform: translate3d(0, 700px, 0);
     opacity: 0;
   }
 }
@@ -22119,11 +22079,13 @@ table.text-center th {
   animation-name: hinge;
 }
 
+/* originally authored by Nick Pettit - https://github.com/nickpettit/glide */
+
 @-webkit-keyframes rollIn {
-  0% {
+  from {
     opacity: 0;
-    -webkit-transform: translate3d(-100%,0,0) rotate(-120deg);
-    transform: translate3d(-100%,0,0) rotate(-120deg);
+    -webkit-transform: translate3d(-100%, 0, 0) rotate3d(0, 0, 1, -120deg);
+    transform: translate3d(-100%, 0, 0) rotate3d(0, 0, 1, -120deg);
   }
 
   to {
@@ -22134,10 +22096,10 @@ table.text-center th {
 }
 
 @keyframes rollIn {
-  0% {
+  from {
     opacity: 0;
-    -webkit-transform: translate3d(-100%,0,0) rotate(-120deg);
-    transform: translate3d(-100%,0,0) rotate(-120deg);
+    -webkit-transform: translate3d(-100%, 0, 0) rotate3d(0, 0, 1, -120deg);
+    transform: translate3d(-100%, 0, 0) rotate3d(0, 0, 1, -120deg);
   }
 
   to {
@@ -22152,27 +22114,29 @@ table.text-center th {
   animation-name: rollIn;
 }
 
+/* originally authored by Nick Pettit - https://github.com/nickpettit/glide */
+
 @-webkit-keyframes rollOut {
-  0% {
+  from {
     opacity: 1;
   }
 
   to {
     opacity: 0;
-    -webkit-transform: translate3d(100%,0,0) rotate(120deg);
-    transform: translate3d(100%,0,0) rotate(120deg);
+    -webkit-transform: translate3d(100%, 0, 0) rotate3d(0, 0, 1, 120deg);
+    transform: translate3d(100%, 0, 0) rotate3d(0, 0, 1, 120deg);
   }
 }
 
 @keyframes rollOut {
-  0% {
+  from {
     opacity: 1;
   }
 
   to {
     opacity: 0;
-    -webkit-transform: translate3d(100%,0,0) rotate(120deg);
-    transform: translate3d(100%,0,0) rotate(120deg);
+    -webkit-transform: translate3d(100%, 0, 0) rotate3d(0, 0, 1, 120deg);
+    transform: translate3d(100%, 0, 0) rotate3d(0, 0, 1, 120deg);
   }
 }
 
@@ -22182,10 +22146,10 @@ table.text-center th {
 }
 
 @-webkit-keyframes zoomIn {
-  0% {
+  from {
     opacity: 0;
-    -webkit-transform: scale3d(.3,.3,.3);
-    transform: scale3d(.3,.3,.3);
+    -webkit-transform: scale3d(.3, .3, .3);
+    transform: scale3d(.3, .3, .3);
   }
 
   50% {
@@ -22194,10 +22158,10 @@ table.text-center th {
 }
 
 @keyframes zoomIn {
-  0% {
+  from {
     opacity: 0;
-    -webkit-transform: scale3d(.3,.3,.3);
-    transform: scale3d(.3,.3,.3);
+    -webkit-transform: scale3d(.3, .3, .3);
+    transform: scale3d(.3, .3, .3);
   }
 
   50% {
@@ -22211,38 +22175,38 @@ table.text-center th {
 }
 
 @-webkit-keyframes zoomInDown {
-  0% {
+  from {
     opacity: 0;
-    -webkit-transform: scale3d(.1,.1,.1) translate3d(0,-1000px,0);
-    transform: scale3d(.1,.1,.1) translate3d(0,-1000px,0);
-    -webkit-animation-timing-function: cubic-bezier(.55,.055,.675,.19);
-    animation-timing-function: cubic-bezier(.55,.055,.675,.19);
+    -webkit-transform: scale3d(.1, .1, .1) translate3d(0, -1000px, 0);
+    transform: scale3d(.1, .1, .1) translate3d(0, -1000px, 0);
+    -webkit-animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
+    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
   }
 
   60% {
     opacity: 1;
-    -webkit-transform: scale3d(.475,.475,.475) translate3d(0,60px,0);
-    transform: scale3d(.475,.475,.475) translate3d(0,60px,0);
-    -webkit-animation-timing-function: cubic-bezier(.175,.885,.32,1);
-    animation-timing-function: cubic-bezier(.175,.885,.32,1);
+    -webkit-transform: scale3d(.475, .475, .475) translate3d(0, 60px, 0);
+    transform: scale3d(.475, .475, .475) translate3d(0, 60px, 0);
+    -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
   }
 }
 
 @keyframes zoomInDown {
-  0% {
+  from {
     opacity: 0;
-    -webkit-transform: scale3d(.1,.1,.1) translate3d(0,-1000px,0);
-    transform: scale3d(.1,.1,.1) translate3d(0,-1000px,0);
-    -webkit-animation-timing-function: cubic-bezier(.55,.055,.675,.19);
-    animation-timing-function: cubic-bezier(.55,.055,.675,.19);
+    -webkit-transform: scale3d(.1, .1, .1) translate3d(0, -1000px, 0);
+    transform: scale3d(.1, .1, .1) translate3d(0, -1000px, 0);
+    -webkit-animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
+    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
   }
 
   60% {
     opacity: 1;
-    -webkit-transform: scale3d(.475,.475,.475) translate3d(0,60px,0);
-    transform: scale3d(.475,.475,.475) translate3d(0,60px,0);
-    -webkit-animation-timing-function: cubic-bezier(.175,.885,.32,1);
-    animation-timing-function: cubic-bezier(.175,.885,.32,1);
+    -webkit-transform: scale3d(.475, .475, .475) translate3d(0, 60px, 0);
+    transform: scale3d(.475, .475, .475) translate3d(0, 60px, 0);
+    -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
   }
 }
 
@@ -22252,38 +22216,38 @@ table.text-center th {
 }
 
 @-webkit-keyframes zoomInLeft {
-  0% {
+  from {
     opacity: 0;
-    -webkit-transform: scale3d(.1,.1,.1) translate3d(-1000px,0,0);
-    transform: scale3d(.1,.1,.1) translate3d(-1000px,0,0);
-    -webkit-animation-timing-function: cubic-bezier(.55,.055,.675,.19);
-    animation-timing-function: cubic-bezier(.55,.055,.675,.19);
+    -webkit-transform: scale3d(.1, .1, .1) translate3d(-1000px, 0, 0);
+    transform: scale3d(.1, .1, .1) translate3d(-1000px, 0, 0);
+    -webkit-animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
+    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
   }
 
   60% {
     opacity: 1;
-    -webkit-transform: scale3d(.475,.475,.475) translate3d(10px,0,0);
-    transform: scale3d(.475,.475,.475) translate3d(10px,0,0);
-    -webkit-animation-timing-function: cubic-bezier(.175,.885,.32,1);
-    animation-timing-function: cubic-bezier(.175,.885,.32,1);
+    -webkit-transform: scale3d(.475, .475, .475) translate3d(10px, 0, 0);
+    transform: scale3d(.475, .475, .475) translate3d(10px, 0, 0);
+    -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
   }
 }
 
 @keyframes zoomInLeft {
-  0% {
+  from {
     opacity: 0;
-    -webkit-transform: scale3d(.1,.1,.1) translate3d(-1000px,0,0);
-    transform: scale3d(.1,.1,.1) translate3d(-1000px,0,0);
-    -webkit-animation-timing-function: cubic-bezier(.55,.055,.675,.19);
-    animation-timing-function: cubic-bezier(.55,.055,.675,.19);
+    -webkit-transform: scale3d(.1, .1, .1) translate3d(-1000px, 0, 0);
+    transform: scale3d(.1, .1, .1) translate3d(-1000px, 0, 0);
+    -webkit-animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
+    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
   }
 
   60% {
     opacity: 1;
-    -webkit-transform: scale3d(.475,.475,.475) translate3d(10px,0,0);
-    transform: scale3d(.475,.475,.475) translate3d(10px,0,0);
-    -webkit-animation-timing-function: cubic-bezier(.175,.885,.32,1);
-    animation-timing-function: cubic-bezier(.175,.885,.32,1);
+    -webkit-transform: scale3d(.475, .475, .475) translate3d(10px, 0, 0);
+    transform: scale3d(.475, .475, .475) translate3d(10px, 0, 0);
+    -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
   }
 }
 
@@ -22293,38 +22257,38 @@ table.text-center th {
 }
 
 @-webkit-keyframes zoomInRight {
-  0% {
+  from {
     opacity: 0;
-    -webkit-transform: scale3d(.1,.1,.1) translate3d(1000px,0,0);
-    transform: scale3d(.1,.1,.1) translate3d(1000px,0,0);
-    -webkit-animation-timing-function: cubic-bezier(.55,.055,.675,.19);
-    animation-timing-function: cubic-bezier(.55,.055,.675,.19);
+    -webkit-transform: scale3d(.1, .1, .1) translate3d(1000px, 0, 0);
+    transform: scale3d(.1, .1, .1) translate3d(1000px, 0, 0);
+    -webkit-animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
+    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
   }
 
   60% {
     opacity: 1;
-    -webkit-transform: scale3d(.475,.475,.475) translate3d(-10px,0,0);
-    transform: scale3d(.475,.475,.475) translate3d(-10px,0,0);
-    -webkit-animation-timing-function: cubic-bezier(.175,.885,.32,1);
-    animation-timing-function: cubic-bezier(.175,.885,.32,1);
+    -webkit-transform: scale3d(.475, .475, .475) translate3d(-10px, 0, 0);
+    transform: scale3d(.475, .475, .475) translate3d(-10px, 0, 0);
+    -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
   }
 }
 
 @keyframes zoomInRight {
-  0% {
+  from {
     opacity: 0;
-    -webkit-transform: scale3d(.1,.1,.1) translate3d(1000px,0,0);
-    transform: scale3d(.1,.1,.1) translate3d(1000px,0,0);
-    -webkit-animation-timing-function: cubic-bezier(.55,.055,.675,.19);
-    animation-timing-function: cubic-bezier(.55,.055,.675,.19);
+    -webkit-transform: scale3d(.1, .1, .1) translate3d(1000px, 0, 0);
+    transform: scale3d(.1, .1, .1) translate3d(1000px, 0, 0);
+    -webkit-animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
+    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
   }
 
   60% {
     opacity: 1;
-    -webkit-transform: scale3d(.475,.475,.475) translate3d(-10px,0,0);
-    transform: scale3d(.475,.475,.475) translate3d(-10px,0,0);
-    -webkit-animation-timing-function: cubic-bezier(.175,.885,.32,1);
-    animation-timing-function: cubic-bezier(.175,.885,.32,1);
+    -webkit-transform: scale3d(.475, .475, .475) translate3d(-10px, 0, 0);
+    transform: scale3d(.475, .475, .475) translate3d(-10px, 0, 0);
+    -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
   }
 }
 
@@ -22334,38 +22298,38 @@ table.text-center th {
 }
 
 @-webkit-keyframes zoomInUp {
-  0% {
+  from {
     opacity: 0;
-    -webkit-transform: scale3d(.1,.1,.1) translate3d(0,1000px,0);
-    transform: scale3d(.1,.1,.1) translate3d(0,1000px,0);
-    -webkit-animation-timing-function: cubic-bezier(.55,.055,.675,.19);
-    animation-timing-function: cubic-bezier(.55,.055,.675,.19);
+    -webkit-transform: scale3d(.1, .1, .1) translate3d(0, 1000px, 0);
+    transform: scale3d(.1, .1, .1) translate3d(0, 1000px, 0);
+    -webkit-animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
+    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
   }
 
   60% {
     opacity: 1;
-    -webkit-transform: scale3d(.475,.475,.475) translate3d(0,-60px,0);
-    transform: scale3d(.475,.475,.475) translate3d(0,-60px,0);
-    -webkit-animation-timing-function: cubic-bezier(.175,.885,.32,1);
-    animation-timing-function: cubic-bezier(.175,.885,.32,1);
+    -webkit-transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);
+    transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);
+    -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
   }
 }
 
 @keyframes zoomInUp {
-  0% {
+  from {
     opacity: 0;
-    -webkit-transform: scale3d(.1,.1,.1) translate3d(0,1000px,0);
-    transform: scale3d(.1,.1,.1) translate3d(0,1000px,0);
-    -webkit-animation-timing-function: cubic-bezier(.55,.055,.675,.19);
-    animation-timing-function: cubic-bezier(.55,.055,.675,.19);
+    -webkit-transform: scale3d(.1, .1, .1) translate3d(0, 1000px, 0);
+    transform: scale3d(.1, .1, .1) translate3d(0, 1000px, 0);
+    -webkit-animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
+    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
   }
 
   60% {
     opacity: 1;
-    -webkit-transform: scale3d(.475,.475,.475) translate3d(0,-60px,0);
-    transform: scale3d(.475,.475,.475) translate3d(0,-60px,0);
-    -webkit-animation-timing-function: cubic-bezier(.175,.885,.32,1);
-    animation-timing-function: cubic-bezier(.175,.885,.32,1);
+    -webkit-transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);
+    transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);
+    -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
   }
 }
 
@@ -22375,31 +22339,33 @@ table.text-center th {
 }
 
 @-webkit-keyframes zoomOut {
-  0% {
+  from {
     opacity: 1;
   }
 
   50% {
-    -webkit-transform: scale3d(.3,.3,.3);
-    transform: scale3d(.3,.3,.3);
+    opacity: 0;
+    -webkit-transform: scale3d(.3, .3, .3);
+    transform: scale3d(.3, .3, .3);
   }
 
-  50%, to {
+  to {
     opacity: 0;
   }
 }
 
 @keyframes zoomOut {
-  0% {
+  from {
     opacity: 1;
   }
 
   50% {
-    -webkit-transform: scale3d(.3,.3,.3);
-    transform: scale3d(.3,.3,.3);
+    opacity: 0;
+    -webkit-transform: scale3d(.3, .3, .3);
+    transform: scale3d(.3, .3, .3);
   }
 
-  50%, to {
+  to {
     opacity: 0;
   }
 }
@@ -22412,40 +22378,40 @@ table.text-center th {
 @-webkit-keyframes zoomOutDown {
   40% {
     opacity: 1;
-    -webkit-transform: scale3d(.475,.475,.475) translate3d(0,-60px,0);
-    transform: scale3d(.475,.475,.475) translate3d(0,-60px,0);
-    -webkit-animation-timing-function: cubic-bezier(.55,.055,.675,.19);
-    animation-timing-function: cubic-bezier(.55,.055,.675,.19);
+    -webkit-transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);
+    transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);
+    -webkit-animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
+    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
   }
 
   to {
     opacity: 0;
-    -webkit-transform: scale3d(.1,.1,.1) translate3d(0,2000px,0);
-    transform: scale3d(.1,.1,.1) translate3d(0,2000px,0);
+    -webkit-transform: scale3d(.1, .1, .1) translate3d(0, 2000px, 0);
+    transform: scale3d(.1, .1, .1) translate3d(0, 2000px, 0);
     -webkit-transform-origin: center bottom;
     transform-origin: center bottom;
-    -webkit-animation-timing-function: cubic-bezier(.175,.885,.32,1);
-    animation-timing-function: cubic-bezier(.175,.885,.32,1);
+    -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
   }
 }
 
 @keyframes zoomOutDown {
   40% {
     opacity: 1;
-    -webkit-transform: scale3d(.475,.475,.475) translate3d(0,-60px,0);
-    transform: scale3d(.475,.475,.475) translate3d(0,-60px,0);
-    -webkit-animation-timing-function: cubic-bezier(.55,.055,.675,.19);
-    animation-timing-function: cubic-bezier(.55,.055,.675,.19);
+    -webkit-transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);
+    transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);
+    -webkit-animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
+    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
   }
 
   to {
     opacity: 0;
-    -webkit-transform: scale3d(.1,.1,.1) translate3d(0,2000px,0);
-    transform: scale3d(.1,.1,.1) translate3d(0,2000px,0);
+    -webkit-transform: scale3d(.1, .1, .1) translate3d(0, 2000px, 0);
+    transform: scale3d(.1, .1, .1) translate3d(0, 2000px, 0);
     -webkit-transform-origin: center bottom;
     transform-origin: center bottom;
-    -webkit-animation-timing-function: cubic-bezier(.175,.885,.32,1);
-    animation-timing-function: cubic-bezier(.175,.885,.32,1);
+    -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
   }
 }
 
@@ -22457,14 +22423,14 @@ table.text-center th {
 @-webkit-keyframes zoomOutLeft {
   40% {
     opacity: 1;
-    -webkit-transform: scale3d(.475,.475,.475) translate3d(42px,0,0);
-    transform: scale3d(.475,.475,.475) translate3d(42px,0,0);
+    -webkit-transform: scale3d(.475, .475, .475) translate3d(42px, 0, 0);
+    transform: scale3d(.475, .475, .475) translate3d(42px, 0, 0);
   }
 
   to {
     opacity: 0;
-    -webkit-transform: scale(.1) translate3d(-2000px,0,0);
-    transform: scale(.1) translate3d(-2000px,0,0);
+    -webkit-transform: scale(.1) translate3d(-2000px, 0, 0);
+    transform: scale(.1) translate3d(-2000px, 0, 0);
     -webkit-transform-origin: left center;
     transform-origin: left center;
   }
@@ -22473,14 +22439,14 @@ table.text-center th {
 @keyframes zoomOutLeft {
   40% {
     opacity: 1;
-    -webkit-transform: scale3d(.475,.475,.475) translate3d(42px,0,0);
-    transform: scale3d(.475,.475,.475) translate3d(42px,0,0);
+    -webkit-transform: scale3d(.475, .475, .475) translate3d(42px, 0, 0);
+    transform: scale3d(.475, .475, .475) translate3d(42px, 0, 0);
   }
 
   to {
     opacity: 0;
-    -webkit-transform: scale(.1) translate3d(-2000px,0,0);
-    transform: scale(.1) translate3d(-2000px,0,0);
+    -webkit-transform: scale(.1) translate3d(-2000px, 0, 0);
+    transform: scale(.1) translate3d(-2000px, 0, 0);
     -webkit-transform-origin: left center;
     transform-origin: left center;
   }
@@ -22494,14 +22460,14 @@ table.text-center th {
 @-webkit-keyframes zoomOutRight {
   40% {
     opacity: 1;
-    -webkit-transform: scale3d(.475,.475,.475) translate3d(-42px,0,0);
-    transform: scale3d(.475,.475,.475) translate3d(-42px,0,0);
+    -webkit-transform: scale3d(.475, .475, .475) translate3d(-42px, 0, 0);
+    transform: scale3d(.475, .475, .475) translate3d(-42px, 0, 0);
   }
 
   to {
     opacity: 0;
-    -webkit-transform: scale(.1) translate3d(2000px,0,0);
-    transform: scale(.1) translate3d(2000px,0,0);
+    -webkit-transform: scale(.1) translate3d(2000px, 0, 0);
+    transform: scale(.1) translate3d(2000px, 0, 0);
     -webkit-transform-origin: right center;
     transform-origin: right center;
   }
@@ -22510,14 +22476,14 @@ table.text-center th {
 @keyframes zoomOutRight {
   40% {
     opacity: 1;
-    -webkit-transform: scale3d(.475,.475,.475) translate3d(-42px,0,0);
-    transform: scale3d(.475,.475,.475) translate3d(-42px,0,0);
+    -webkit-transform: scale3d(.475, .475, .475) translate3d(-42px, 0, 0);
+    transform: scale3d(.475, .475, .475) translate3d(-42px, 0, 0);
   }
 
   to {
     opacity: 0;
-    -webkit-transform: scale(.1) translate3d(2000px,0,0);
-    transform: scale(.1) translate3d(2000px,0,0);
+    -webkit-transform: scale(.1) translate3d(2000px, 0, 0);
+    transform: scale(.1) translate3d(2000px, 0, 0);
     -webkit-transform-origin: right center;
     transform-origin: right center;
   }
@@ -22531,40 +22497,40 @@ table.text-center th {
 @-webkit-keyframes zoomOutUp {
   40% {
     opacity: 1;
-    -webkit-transform: scale3d(.475,.475,.475) translate3d(0,60px,0);
-    transform: scale3d(.475,.475,.475) translate3d(0,60px,0);
-    -webkit-animation-timing-function: cubic-bezier(.55,.055,.675,.19);
-    animation-timing-function: cubic-bezier(.55,.055,.675,.19);
+    -webkit-transform: scale3d(.475, .475, .475) translate3d(0, 60px, 0);
+    transform: scale3d(.475, .475, .475) translate3d(0, 60px, 0);
+    -webkit-animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
+    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
   }
 
   to {
     opacity: 0;
-    -webkit-transform: scale3d(.1,.1,.1) translate3d(0,-2000px,0);
-    transform: scale3d(.1,.1,.1) translate3d(0,-2000px,0);
+    -webkit-transform: scale3d(.1, .1, .1) translate3d(0, -2000px, 0);
+    transform: scale3d(.1, .1, .1) translate3d(0, -2000px, 0);
     -webkit-transform-origin: center bottom;
     transform-origin: center bottom;
-    -webkit-animation-timing-function: cubic-bezier(.175,.885,.32,1);
-    animation-timing-function: cubic-bezier(.175,.885,.32,1);
+    -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
   }
 }
 
 @keyframes zoomOutUp {
   40% {
     opacity: 1;
-    -webkit-transform: scale3d(.475,.475,.475) translate3d(0,60px,0);
-    transform: scale3d(.475,.475,.475) translate3d(0,60px,0);
-    -webkit-animation-timing-function: cubic-bezier(.55,.055,.675,.19);
-    animation-timing-function: cubic-bezier(.55,.055,.675,.19);
+    -webkit-transform: scale3d(.475, .475, .475) translate3d(0, 60px, 0);
+    transform: scale3d(.475, .475, .475) translate3d(0, 60px, 0);
+    -webkit-animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
+    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
   }
 
   to {
     opacity: 0;
-    -webkit-transform: scale3d(.1,.1,.1) translate3d(0,-2000px,0);
-    transform: scale3d(.1,.1,.1) translate3d(0,-2000px,0);
+    -webkit-transform: scale3d(.1, .1, .1) translate3d(0, -2000px, 0);
+    transform: scale3d(.1, .1, .1) translate3d(0, -2000px, 0);
     -webkit-transform-origin: center bottom;
     transform-origin: center bottom;
-    -webkit-animation-timing-function: cubic-bezier(.175,.885,.32,1);
-    animation-timing-function: cubic-bezier(.175,.885,.32,1);
+    -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
   }
 }
 
@@ -22574,28 +22540,28 @@ table.text-center th {
 }
 
 @-webkit-keyframes slideInDown {
-  0% {
-    -webkit-transform: translate3d(0,-100%,0);
-    transform: translate3d(0,-100%,0);
+  from {
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
     visibility: visible;
   }
 
   to {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
 @keyframes slideInDown {
-  0% {
-    -webkit-transform: translate3d(0,-100%,0);
-    transform: translate3d(0,-100%,0);
+  from {
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
     visibility: visible;
   }
 
   to {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
@@ -22605,28 +22571,28 @@ table.text-center th {
 }
 
 @-webkit-keyframes slideInLeft {
-  0% {
-    -webkit-transform: translate3d(-100%,0,0);
-    transform: translate3d(-100%,0,0);
+  from {
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
     visibility: visible;
   }
 
   to {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
 @keyframes slideInLeft {
-  0% {
-    -webkit-transform: translate3d(-100%,0,0);
-    transform: translate3d(-100%,0,0);
+  from {
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
     visibility: visible;
   }
 
   to {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
@@ -22636,28 +22602,28 @@ table.text-center th {
 }
 
 @-webkit-keyframes slideInRight {
-  0% {
-    -webkit-transform: translate3d(100%,0,0);
-    transform: translate3d(100%,0,0);
+  from {
+    -webkit-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0);
     visibility: visible;
   }
 
   to {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
 @keyframes slideInRight {
-  0% {
-    -webkit-transform: translate3d(100%,0,0);
-    transform: translate3d(100%,0,0);
+  from {
+    -webkit-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0);
     visibility: visible;
   }
 
   to {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
@@ -22667,28 +22633,28 @@ table.text-center th {
 }
 
 @-webkit-keyframes slideInUp {
-  0% {
-    -webkit-transform: translate3d(0,100%,0);
-    transform: translate3d(0,100%,0);
+  from {
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
     visibility: visible;
   }
 
   to {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
 @keyframes slideInUp {
-  0% {
-    -webkit-transform: translate3d(0,100%,0);
-    transform: translate3d(0,100%,0);
+  from {
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
     visibility: visible;
   }
 
   to {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
@@ -22698,28 +22664,28 @@ table.text-center th {
 }
 
 @-webkit-keyframes slideOutDown {
-  0% {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
+  from {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
   }
 
   to {
     visibility: hidden;
-    -webkit-transform: translate3d(0,100%,0);
-    transform: translate3d(0,100%,0);
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
   }
 }
 
 @keyframes slideOutDown {
-  0% {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
+  from {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
   }
 
   to {
     visibility: hidden;
-    -webkit-transform: translate3d(0,100%,0);
-    transform: translate3d(0,100%,0);
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
   }
 }
 
@@ -22729,28 +22695,28 @@ table.text-center th {
 }
 
 @-webkit-keyframes slideOutLeft {
-  0% {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
+  from {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
   }
 
   to {
     visibility: hidden;
-    -webkit-transform: translate3d(-100%,0,0);
-    transform: translate3d(-100%,0,0);
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
   }
 }
 
 @keyframes slideOutLeft {
-  0% {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
+  from {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
   }
 
   to {
     visibility: hidden;
-    -webkit-transform: translate3d(-100%,0,0);
-    transform: translate3d(-100%,0,0);
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
   }
 }
 
@@ -22760,28 +22726,28 @@ table.text-center th {
 }
 
 @-webkit-keyframes slideOutRight {
-  0% {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
+  from {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
   }
 
   to {
     visibility: hidden;
-    -webkit-transform: translate3d(100%,0,0);
-    transform: translate3d(100%,0,0);
+    -webkit-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0);
   }
 }
 
 @keyframes slideOutRight {
-  0% {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
+  from {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
   }
 
   to {
     visibility: hidden;
-    -webkit-transform: translate3d(100%,0,0);
-    transform: translate3d(100%,0,0);
+    -webkit-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0);
   }
 }
 
@@ -22791,28 +22757,28 @@ table.text-center th {
 }
 
 @-webkit-keyframes slideOutUp {
-  0% {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
+  from {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
   }
 
   to {
     visibility: hidden;
-    -webkit-transform: translate3d(0,-100%,0);
-    transform: translate3d(0,-100%,0);
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
   }
 }
 
 @keyframes slideOutUp {
-  0% {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
+  from {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
   }
 
   to {
     visibility: hidden;
-    -webkit-transform: translate3d(0,-100%,0);
-    transform: translate3d(0,-100%,0);
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
   }
 }
 
@@ -23159,7 +23125,7 @@ table.text-center th {
   -webkit-appearance: textfield;
 }
 
-.select2-container--default .select2-results>.select2-results__options {
+.select2-container--default .select2-results > .select2-results__options {
   max-height: 200px;
   overflow-y: auto;
 }
@@ -23225,9 +23191,9 @@ table.text-center th {
   border: 1px solid #aaa;
   border-radius: 4px;
   outline: 0;
-  background-image: -webkit-linear-gradient(top, #fff 50%, #eee 100%);
-  background-image: -o-linear-gradient(top, #fff 50%, #eee 100%);
-  background-image: linear-gradient(to bottom, #fff 50%, #eee 100%);
+  background-image: -webkit-linear-gradient(top, white 50%, #eeeeee 100%);
+  background-image: -o-linear-gradient(top, white 50%, #eeeeee 100%);
+  background-image: linear-gradient(to bottom, white 50%, #eeeeee 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFFFF', endColorstr='#FFEEEEEE', GradientType=0);
 }
@@ -23263,9 +23229,9 @@ table.text-center th {
   top: 1px;
   right: 1px;
   width: 20px;
-  background-image: -webkit-linear-gradient(top, #eee 50%, #ccc 100%);
-  background-image: -o-linear-gradient(top, #eee 50%, #ccc 100%);
-  background-image: linear-gradient(to bottom, #eee 50%, #ccc 100%);
+  background-image: -webkit-linear-gradient(top, #eeeeee 50%, #cccccc 100%);
+  background-image: -o-linear-gradient(top, #eeeeee 50%, #cccccc 100%);
+  background-image: linear-gradient(to bottom, #eeeeee 50%, #cccccc 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFEEEEEE', endColorstr='#FFCCCCCC', GradientType=0);
 }
@@ -23315,9 +23281,9 @@ table.text-center th {
   border-top: none;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-  background-image: -webkit-linear-gradient(top, #fff 0%, #eee 50%);
-  background-image: -o-linear-gradient(top, #fff 0%, #eee 50%);
-  background-image: linear-gradient(to bottom, #fff 0%, #eee 50%);
+  background-image: -webkit-linear-gradient(top, white 0%, #eeeeee 50%);
+  background-image: -o-linear-gradient(top, white 0%, #eeeeee 50%);
+  background-image: linear-gradient(to bottom, white 0%, #eeeeee 50%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFFFF', endColorstr='#FFEEEEEE', GradientType=0);
 }
@@ -23326,9 +23292,9 @@ table.text-center th {
   border-bottom: none;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
-  background-image: -webkit-linear-gradient(top, #eee 50%, #fff 100%);
-  background-image: -o-linear-gradient(top, #eee 50%, #fff 100%);
-  background-image: linear-gradient(to bottom, #eee 50%, #fff 100%);
+  background-image: -webkit-linear-gradient(top, #eeeeee 50%, white 100%);
+  background-image: -o-linear-gradient(top, #eeeeee 50%, white 100%);
+  background-image: linear-gradient(to bottom, #eeeeee 50%, white 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFEEEEEE', endColorstr='#FFFFFFFF', GradientType=0);
 }
@@ -23419,7 +23385,7 @@ table.text-center th {
 }
 
 .select2-container--classic .select2-dropdown {
-  background-color: #fff;
+  background-color: white;
   border: 1px solid transparent;
 }
 
@@ -23431,7 +23397,7 @@ table.text-center th {
   border-top: none;
 }
 
-.select2-container--classic .select2-results>.select2-results__options {
+.select2-container--classic .select2-results > .select2-results__options {
   max-height: 200px;
   overflow-y: auto;
 }
@@ -23446,7 +23412,7 @@ table.text-center th {
 
 .select2-container--classic .select2-results__option--highlighted[aria-selected] {
   background-color: #3875d7;
-  color: #fff;
+  color: white;
 }
 
 .select2-container--classic .select2-results__group {
@@ -25436,9 +25402,9 @@ table.text-center th {
   display: inline-block;
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
-  border-bottom: 7px solid #999;
+  border-bottom: 7px solid #999999;
   border-top: 0;
-  border-bottom-color: rgba(0,0,0,.2);
+  border-bottom-color: rgba(0, 0, 0, 0.2);
   position: absolute;
 }
 
@@ -25447,7 +25413,7 @@ table.text-center th {
   display: inline-block;
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
-  border-bottom: 6px solid #fff;
+  border-bottom: 6px solid #ffffff;
   border-top: 0;
   position: absolute;
 }
@@ -25479,16 +25445,16 @@ table.text-center th {
 .datepicker-dropdown.datepicker-orient-top:before {
   bottom: -7px;
   border-bottom: 0;
-  border-top: 7px solid #999;
+  border-top: 7px solid #999999;
 }
 
 .datepicker-dropdown.datepicker-orient-top:after {
   bottom: -6px;
   border-bottom: 0;
-  border-top: 6px solid #fff;
+  border-top: 6px solid #ffffff;
 }
 
-.datepicker>div {
+.datepicker > div {
   display: none;
 }
 
@@ -25518,21 +25484,21 @@ table.text-center th {
   background-color: transparent;
 }
 
-.datepicker table tr td.day.focused,
-.datepicker table tr td.day:hover {
-  background: #eee;
+.datepicker table tr td.day:hover,
+.datepicker table tr td.day.focused {
+  background: #eeeeee;
   cursor: pointer;
 }
 
-.datepicker table tr td.new,
-.datepicker table tr td.old {
-  color: #999;
+.datepicker table tr td.old,
+.datepicker table tr td.new {
+  color: #999999;
 }
 
 .datepicker table tr td.disabled,
 .datepicker table tr td.disabled:hover {
-  background: 0 0;
-  color: #999;
+  background: none;
+  color: #999999;
   cursor: default;
 }
 
@@ -25542,56 +25508,56 @@ table.text-center th {
 }
 
 .datepicker table tr td.today,
+.datepicker table tr td.today:hover,
 .datepicker table tr td.today.disabled,
-.datepicker table tr td.today.disabled:hover,
-.datepicker table tr td.today:hover {
+.datepicker table tr td.today.disabled:hover {
   background-color: #fde19a;
-  background-image: -moz-linear-gradient(to bottom,#fdd49a,#fdf59a);
-  background-image: -ms-linear-gradient(to bottom,#fdd49a,#fdf59a);
-  background-image: -webkit-gradient(linear,0 0,0 100%,from(#fdd49a),to(#fdf59a));
-  background-image: -webkit-linear-gradient(to bottom,#fdd49a,#fdf59a);
-  background-image: -o-linear-gradient(to bottom,#fdd49a,#fdf59a);
-  background-image: linear-gradient(to bottom,#fdd49a,#fdf59a);
+  background-image: -moz-linear-gradient(to bottom, #fdd49a, #fdf59a);
+  background-image: -ms-linear-gradient(to bottom, #fdd49a, #fdf59a);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fdd49a), to(#fdf59a));
+  background-image: -webkit-linear-gradient(to bottom, #fdd49a, #fdf59a);
+  background-image: -o-linear-gradient(to bottom, #fdd49a, #fdf59a);
+  background-image: linear-gradient(to bottom, #fdd49a, #fdf59a);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fdd49a', endColorstr='#fdf59a', GradientType=0);
   border-color: #fdf59a #fdf59a #fbed50;
-  border-color: rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.25);
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
   filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
   color: #000;
 }
 
-.datepicker table tr td.today.active,
-.datepicker table tr td.today.disabled,
-.datepicker table tr td.today.disabled.active,
-.datepicker table tr td.today.disabled.disabled,
-.datepicker table tr td.today.disabled:active,
-.datepicker table tr td.today.disabled:hover,
-.datepicker table tr td.today.disabled:hover.active,
-.datepicker table tr td.today.disabled:hover.disabled,
-.datepicker table tr td.today.disabled:hover:active,
-.datepicker table tr td.today.disabled:hover:hover,
-.datepicker table tr td.today.disabled:hover[disabled],
-.datepicker table tr td.today.disabled[disabled],
-.datepicker table tr td.today:active,
 .datepicker table tr td.today:hover,
-.datepicker table tr td.today:hover.active,
-.datepicker table tr td.today:hover.disabled,
-.datepicker table tr td.today:hover:active,
 .datepicker table tr td.today:hover:hover,
+.datepicker table tr td.today.disabled:hover,
+.datepicker table tr td.today.disabled:hover:hover,
+.datepicker table tr td.today:active,
+.datepicker table tr td.today:hover:active,
+.datepicker table tr td.today.disabled:active,
+.datepicker table tr td.today.disabled:hover:active,
+.datepicker table tr td.today.active,
+.datepicker table tr td.today:hover.active,
+.datepicker table tr td.today.disabled.active,
+.datepicker table tr td.today.disabled:hover.active,
+.datepicker table tr td.today.disabled,
+.datepicker table tr td.today:hover.disabled,
+.datepicker table tr td.today.disabled.disabled,
+.datepicker table tr td.today.disabled:hover.disabled,
+.datepicker table tr td.today[disabled],
 .datepicker table tr td.today:hover[disabled],
-.datepicker table tr td.today[disabled] {
+.datepicker table tr td.today.disabled[disabled],
+.datepicker table tr td.today.disabled:hover[disabled] {
   background-color: #fdf59a;
 }
 
-.datepicker table tr td.today.active,
-.datepicker table tr td.today.disabled.active,
-.datepicker table tr td.today.disabled:active,
-.datepicker table tr td.today.disabled:hover.active,
-.datepicker table tr td.today.disabled:hover:active,
 .datepicker table tr td.today:active,
+.datepicker table tr td.today:hover:active,
+.datepicker table tr td.today.disabled:active,
+.datepicker table tr td.today.disabled:hover:active,
+.datepicker table tr td.today.active,
 .datepicker table tr td.today:hover.active,
-.datepicker table tr td.today:hover:active {
-  background-color: #fbf069\9;
+.datepicker table tr td.today.disabled.active,
+.datepicker table tr td.today.disabled:hover.active {
+  background-color: #fbf069 \9;
 }
 
 .datepicker table tr td.today:hover:hover {
@@ -25603,176 +25569,176 @@ table.text-center th {
 }
 
 .datepicker table tr td.range,
+.datepicker table tr td.range:hover,
 .datepicker table tr td.range.disabled,
-.datepicker table tr td.range.disabled:hover,
-.datepicker table tr td.range:hover {
-  background: #eee;
+.datepicker table tr td.range.disabled:hover {
+  background: #eeeeee;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
 }
 
 .datepicker table tr td.range.today,
+.datepicker table tr td.range.today:hover,
 .datepicker table tr td.range.today.disabled,
-.datepicker table tr td.range.today.disabled:hover,
-.datepicker table tr td.range.today:hover {
+.datepicker table tr td.range.today.disabled:hover {
   background-color: #f3d17a;
-  background-image: -moz-linear-gradient(to bottom,#f3c17a,#f3e97a);
-  background-image: -ms-linear-gradient(to bottom,#f3c17a,#f3e97a);
-  background-image: -webkit-gradient(linear,0 0,0 100%,from(#f3c17a),to(#f3e97a));
-  background-image: -webkit-linear-gradient(to bottom,#f3c17a,#f3e97a);
-  background-image: -o-linear-gradient(to bottom,#f3c17a,#f3e97a);
-  background-image: linear-gradient(to bottom,#f3c17a,#f3e97a);
+  background-image: -moz-linear-gradient(to bottom, #f3c17a, #f3e97a);
+  background-image: -ms-linear-gradient(to bottom, #f3c17a, #f3e97a);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f3c17a), to(#f3e97a));
+  background-image: -webkit-linear-gradient(to bottom, #f3c17a, #f3e97a);
+  background-image: -o-linear-gradient(to bottom, #f3c17a, #f3e97a);
+  background-image: linear-gradient(to bottom, #f3c17a, #f3e97a);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f3c17a', endColorstr='#f3e97a', GradientType=0);
   border-color: #f3e97a #f3e97a #edde34;
-  border-color: rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.25);
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
   filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
 }
 
-.datepicker table tr td.range.today.active,
-.datepicker table tr td.range.today.disabled,
-.datepicker table tr td.range.today.disabled.active,
-.datepicker table tr td.range.today.disabled.disabled,
-.datepicker table tr td.range.today.disabled:active,
-.datepicker table tr td.range.today.disabled:hover,
-.datepicker table tr td.range.today.disabled:hover.active,
-.datepicker table tr td.range.today.disabled:hover.disabled,
-.datepicker table tr td.range.today.disabled:hover:active,
-.datepicker table tr td.range.today.disabled:hover:hover,
-.datepicker table tr td.range.today.disabled:hover[disabled],
-.datepicker table tr td.range.today.disabled[disabled],
-.datepicker table tr td.range.today:active,
 .datepicker table tr td.range.today:hover,
-.datepicker table tr td.range.today:hover.active,
-.datepicker table tr td.range.today:hover.disabled,
-.datepicker table tr td.range.today:hover:active,
 .datepicker table tr td.range.today:hover:hover,
+.datepicker table tr td.range.today.disabled:hover,
+.datepicker table tr td.range.today.disabled:hover:hover,
+.datepicker table tr td.range.today:active,
+.datepicker table tr td.range.today:hover:active,
+.datepicker table tr td.range.today.disabled:active,
+.datepicker table tr td.range.today.disabled:hover:active,
+.datepicker table tr td.range.today.active,
+.datepicker table tr td.range.today:hover.active,
+.datepicker table tr td.range.today.disabled.active,
+.datepicker table tr td.range.today.disabled:hover.active,
+.datepicker table tr td.range.today.disabled,
+.datepicker table tr td.range.today:hover.disabled,
+.datepicker table tr td.range.today.disabled.disabled,
+.datepicker table tr td.range.today.disabled:hover.disabled,
+.datepicker table tr td.range.today[disabled],
 .datepicker table tr td.range.today:hover[disabled],
-.datepicker table tr td.range.today[disabled] {
+.datepicker table tr td.range.today.disabled[disabled],
+.datepicker table tr td.range.today.disabled:hover[disabled] {
   background-color: #f3e97a;
 }
 
-.datepicker table tr td.range.today.active,
-.datepicker table tr td.range.today.disabled.active,
-.datepicker table tr td.range.today.disabled:active,
-.datepicker table tr td.range.today.disabled:hover.active,
-.datepicker table tr td.range.today.disabled:hover:active,
 .datepicker table tr td.range.today:active,
+.datepicker table tr td.range.today:hover:active,
+.datepicker table tr td.range.today.disabled:active,
+.datepicker table tr td.range.today.disabled:hover:active,
+.datepicker table tr td.range.today.active,
 .datepicker table tr td.range.today:hover.active,
-.datepicker table tr td.range.today:hover:active {
-  background-color: #efe24b\9;
+.datepicker table tr td.range.today.disabled.active,
+.datepicker table tr td.range.today.disabled:hover.active {
+  background-color: #efe24b \9;
 }
 
 .datepicker table tr td.selected,
+.datepicker table tr td.selected:hover,
 .datepicker table tr td.selected.disabled,
-.datepicker table tr td.selected.disabled:hover,
-.datepicker table tr td.selected:hover {
+.datepicker table tr td.selected.disabled:hover {
   background-color: #9e9e9e;
-  background-image: -moz-linear-gradient(to bottom,#b3b3b3,grey);
-  background-image: -ms-linear-gradient(to bottom,#b3b3b3,grey);
-  background-image: -webkit-gradient(linear,0 0,0 100%,from(#b3b3b3),to(grey));
-  background-image: -webkit-linear-gradient(to bottom,#b3b3b3,grey);
-  background-image: -o-linear-gradient(to bottom,#b3b3b3,grey);
-  background-image: linear-gradient(to bottom,#b3b3b3,grey);
+  background-image: -moz-linear-gradient(to bottom, #b3b3b3, #808080);
+  background-image: -ms-linear-gradient(to bottom, #b3b3b3, #808080);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#b3b3b3), to(#808080));
+  background-image: -webkit-linear-gradient(to bottom, #b3b3b3, #808080);
+  background-image: -o-linear-gradient(to bottom, #b3b3b3, #808080);
+  background-image: linear-gradient(to bottom, #b3b3b3, #808080);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#b3b3b3', endColorstr='#808080', GradientType=0);
-  border-color: grey grey #595959;
-  border-color: rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.25);
+  border-color: #808080 #808080 #595959;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
   filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
   color: #fff;
-  text-shadow: 0 -1px 0 rgba(0,0,0,.25);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
 
-.datepicker table tr td.selected.active,
-.datepicker table tr td.selected.disabled,
-.datepicker table tr td.selected.disabled.active,
-.datepicker table tr td.selected.disabled.disabled,
-.datepicker table tr td.selected.disabled:active,
-.datepicker table tr td.selected.disabled:hover,
-.datepicker table tr td.selected.disabled:hover.active,
-.datepicker table tr td.selected.disabled:hover.disabled,
-.datepicker table tr td.selected.disabled:hover:active,
-.datepicker table tr td.selected.disabled:hover:hover,
-.datepicker table tr td.selected.disabled:hover[disabled],
-.datepicker table tr td.selected.disabled[disabled],
-.datepicker table tr td.selected:active,
 .datepicker table tr td.selected:hover,
-.datepicker table tr td.selected:hover.active,
-.datepicker table tr td.selected:hover.disabled,
-.datepicker table tr td.selected:hover:active,
 .datepicker table tr td.selected:hover:hover,
+.datepicker table tr td.selected.disabled:hover,
+.datepicker table tr td.selected.disabled:hover:hover,
+.datepicker table tr td.selected:active,
+.datepicker table tr td.selected:hover:active,
+.datepicker table tr td.selected.disabled:active,
+.datepicker table tr td.selected.disabled:hover:active,
+.datepicker table tr td.selected.active,
+.datepicker table tr td.selected:hover.active,
+.datepicker table tr td.selected.disabled.active,
+.datepicker table tr td.selected.disabled:hover.active,
+.datepicker table tr td.selected.disabled,
+.datepicker table tr td.selected:hover.disabled,
+.datepicker table tr td.selected.disabled.disabled,
+.datepicker table tr td.selected.disabled:hover.disabled,
+.datepicker table tr td.selected[disabled],
 .datepicker table tr td.selected:hover[disabled],
-.datepicker table tr td.selected[disabled] {
-  background-color: grey;
+.datepicker table tr td.selected.disabled[disabled],
+.datepicker table tr td.selected.disabled:hover[disabled] {
+  background-color: #808080;
 }
 
-.datepicker table tr td.selected.active,
-.datepicker table tr td.selected.disabled.active,
-.datepicker table tr td.selected.disabled:active,
-.datepicker table tr td.selected.disabled:hover.active,
-.datepicker table tr td.selected.disabled:hover:active,
 .datepicker table tr td.selected:active,
+.datepicker table tr td.selected:hover:active,
+.datepicker table tr td.selected.disabled:active,
+.datepicker table tr td.selected.disabled:hover:active,
+.datepicker table tr td.selected.active,
 .datepicker table tr td.selected:hover.active,
-.datepicker table tr td.selected:hover:active {
-  background-color: #666\9;
+.datepicker table tr td.selected.disabled.active,
+.datepicker table tr td.selected.disabled:hover.active {
+  background-color: #666666 \9;
 }
 
 .datepicker table tr td.active,
+.datepicker table tr td.active:hover,
 .datepicker table tr td.active.disabled,
-.datepicker table tr td.active.disabled:hover,
-.datepicker table tr td.active:hover {
+.datepicker table tr td.active.disabled:hover {
   background-color: #006dcc;
-  background-image: -moz-linear-gradient(to bottom,#08c,#04c);
-  background-image: -ms-linear-gradient(to bottom,#08c,#04c);
-  background-image: -webkit-gradient(linear,0 0,0 100%,from(#08c),to(#04c));
-  background-image: -webkit-linear-gradient(to bottom,#08c,#04c);
-  background-image: -o-linear-gradient(to bottom,#08c,#04c);
-  background-image: linear-gradient(to bottom,#08c,#04c);
+  background-image: -moz-linear-gradient(to bottom, #0088cc, #0044cc);
+  background-image: -ms-linear-gradient(to bottom, #0088cc, #0044cc);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0044cc));
+  background-image: -webkit-linear-gradient(to bottom, #0088cc, #0044cc);
+  background-image: -o-linear-gradient(to bottom, #0088cc, #0044cc);
+  background-image: linear-gradient(to bottom, #0088cc, #0044cc);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0088cc', endColorstr='#0044cc', GradientType=0);
-  border-color: #04c #04c #002a80;
-  border-color: rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.25);
+  border-color: #0044cc #0044cc #002a80;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
   filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
   color: #fff;
-  text-shadow: 0 -1px 0 rgba(0,0,0,.25);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
 
-.datepicker table tr td.active.active,
-.datepicker table tr td.active.disabled,
-.datepicker table tr td.active.disabled.active,
-.datepicker table tr td.active.disabled.disabled,
-.datepicker table tr td.active.disabled:active,
-.datepicker table tr td.active.disabled:hover,
-.datepicker table tr td.active.disabled:hover.active,
-.datepicker table tr td.active.disabled:hover.disabled,
-.datepicker table tr td.active.disabled:hover:active,
-.datepicker table tr td.active.disabled:hover:hover,
-.datepicker table tr td.active.disabled:hover[disabled],
-.datepicker table tr td.active.disabled[disabled],
-.datepicker table tr td.active:active,
 .datepicker table tr td.active:hover,
-.datepicker table tr td.active:hover.active,
-.datepicker table tr td.active:hover.disabled,
-.datepicker table tr td.active:hover:active,
 .datepicker table tr td.active:hover:hover,
+.datepicker table tr td.active.disabled:hover,
+.datepicker table tr td.active.disabled:hover:hover,
+.datepicker table tr td.active:active,
+.datepicker table tr td.active:hover:active,
+.datepicker table tr td.active.disabled:active,
+.datepicker table tr td.active.disabled:hover:active,
+.datepicker table tr td.active.active,
+.datepicker table tr td.active:hover.active,
+.datepicker table tr td.active.disabled.active,
+.datepicker table tr td.active.disabled:hover.active,
+.datepicker table tr td.active.disabled,
+.datepicker table tr td.active:hover.disabled,
+.datepicker table tr td.active.disabled.disabled,
+.datepicker table tr td.active.disabled:hover.disabled,
+.datepicker table tr td.active[disabled],
 .datepicker table tr td.active:hover[disabled],
-.datepicker table tr td.active[disabled] {
-  background-color: #04c;
+.datepicker table tr td.active.disabled[disabled],
+.datepicker table tr td.active.disabled:hover[disabled] {
+  background-color: #0044cc;
 }
 
-.datepicker table tr td.active.active,
-.datepicker table tr td.active.disabled.active,
-.datepicker table tr td.active.disabled:active,
-.datepicker table tr td.active.disabled:hover.active,
-.datepicker table tr td.active.disabled:hover:active,
 .datepicker table tr td.active:active,
+.datepicker table tr td.active:hover:active,
+.datepicker table tr td.active.disabled:active,
+.datepicker table tr td.active.disabled:hover:active,
+.datepicker table tr td.active.active,
 .datepicker table tr td.active:hover.active,
-.datepicker table tr td.active:hover:active {
-  background-color: #039\9;
+.datepicker table tr td.active.disabled.active,
+.datepicker table tr td.active.disabled:hover.active {
+  background-color: #003399 \9;
 }
 
 .datepicker table tr td span {
@@ -25788,75 +25754,75 @@ table.text-center th {
   border-radius: 4px;
 }
 
-.datepicker table tr td span.focused,
-.datepicker table tr td span:hover {
-  background: #eee;
+.datepicker table tr td span:hover,
+.datepicker table tr td span.focused {
+  background: #eeeeee;
 }
 
 .datepicker table tr td span.disabled,
 .datepicker table tr td span.disabled:hover {
-  background: 0 0;
-  color: #999;
+  background: none;
+  color: #999999;
   cursor: default;
 }
 
 .datepicker table tr td span.active,
+.datepicker table tr td span.active:hover,
 .datepicker table tr td span.active.disabled,
-.datepicker table tr td span.active.disabled:hover,
-.datepicker table tr td span.active:hover {
+.datepicker table tr td span.active.disabled:hover {
   background-color: #006dcc;
-  background-image: -moz-linear-gradient(to bottom,#08c,#04c);
-  background-image: -ms-linear-gradient(to bottom,#08c,#04c);
-  background-image: -webkit-gradient(linear,0 0,0 100%,from(#08c),to(#04c));
-  background-image: -webkit-linear-gradient(to bottom,#08c,#04c);
-  background-image: -o-linear-gradient(to bottom,#08c,#04c);
-  background-image: linear-gradient(to bottom,#08c,#04c);
+  background-image: -moz-linear-gradient(to bottom, #0088cc, #0044cc);
+  background-image: -ms-linear-gradient(to bottom, #0088cc, #0044cc);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0044cc));
+  background-image: -webkit-linear-gradient(to bottom, #0088cc, #0044cc);
+  background-image: -o-linear-gradient(to bottom, #0088cc, #0044cc);
+  background-image: linear-gradient(to bottom, #0088cc, #0044cc);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0088cc', endColorstr='#0044cc', GradientType=0);
-  border-color: #04c #04c #002a80;
-  border-color: rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.25);
+  border-color: #0044cc #0044cc #002a80;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
   filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
   color: #fff;
-  text-shadow: 0 -1px 0 rgba(0,0,0,.25);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
 
-.datepicker table tr td span.active.active,
-.datepicker table tr td span.active.disabled,
-.datepicker table tr td span.active.disabled.active,
-.datepicker table tr td span.active.disabled.disabled,
-.datepicker table tr td span.active.disabled:active,
-.datepicker table tr td span.active.disabled:hover,
-.datepicker table tr td span.active.disabled:hover.active,
-.datepicker table tr td span.active.disabled:hover.disabled,
-.datepicker table tr td span.active.disabled:hover:active,
-.datepicker table tr td span.active.disabled:hover:hover,
-.datepicker table tr td span.active.disabled:hover[disabled],
-.datepicker table tr td span.active.disabled[disabled],
-.datepicker table tr td span.active:active,
 .datepicker table tr td span.active:hover,
-.datepicker table tr td span.active:hover.active,
-.datepicker table tr td span.active:hover.disabled,
-.datepicker table tr td span.active:hover:active,
 .datepicker table tr td span.active:hover:hover,
-.datepicker table tr td span.active:hover[disabled],
-.datepicker table tr td span.active[disabled] {
-  background-color: #04c;
-}
-
-.datepicker table tr td span.active.active,
-.datepicker table tr td span.active.disabled.active,
-.datepicker table tr td span.active.disabled:active,
-.datepicker table tr td span.active.disabled:hover.active,
-.datepicker table tr td span.active.disabled:hover:active,
+.datepicker table tr td span.active.disabled:hover,
+.datepicker table tr td span.active.disabled:hover:hover,
 .datepicker table tr td span.active:active,
+.datepicker table tr td span.active:hover:active,
+.datepicker table tr td span.active.disabled:active,
+.datepicker table tr td span.active.disabled:hover:active,
+.datepicker table tr td span.active.active,
 .datepicker table tr td span.active:hover.active,
-.datepicker table tr td span.active:hover:active {
-  background-color: #039\9;
+.datepicker table tr td span.active.disabled.active,
+.datepicker table tr td span.active.disabled:hover.active,
+.datepicker table tr td span.active.disabled,
+.datepicker table tr td span.active:hover.disabled,
+.datepicker table tr td span.active.disabled.disabled,
+.datepicker table tr td span.active.disabled:hover.disabled,
+.datepicker table tr td span.active[disabled],
+.datepicker table tr td span.active:hover[disabled],
+.datepicker table tr td span.active.disabled[disabled],
+.datepicker table tr td span.active.disabled:hover[disabled] {
+  background-color: #0044cc;
 }
 
-.datepicker table tr td span.new,
-.datepicker table tr td span.old {
-  color: #999;
+.datepicker table tr td span.active:active,
+.datepicker table tr td span.active:hover:active,
+.datepicker table tr td span.active.disabled:active,
+.datepicker table tr td span.active.disabled:hover:active,
+.datepicker table tr td span.active.active,
+.datepicker table tr td span.active:hover.active,
+.datepicker table tr td span.active.disabled.active,
+.datepicker table tr td span.active.disabled:hover.active {
+  background-color: #003399 \9;
+}
+
+.datepicker table tr td span.old,
+.datepicker table tr td span.new {
+  color: #999999;
 }
 
 .datepicker .datepicker-switch {
@@ -25864,17 +25830,17 @@ table.text-center th {
 }
 
 .datepicker .datepicker-switch,
-.datepicker .next,
 .datepicker .prev,
+.datepicker .next,
 .datepicker tfoot tr th {
   cursor: pointer;
 }
 
 .datepicker .datepicker-switch:hover,
-.datepicker .next:hover,
 .datepicker .prev:hover,
+.datepicker .next:hover,
 .datepicker tfoot tr th:hover {
-  background: #eee;
+  background: #eeeeee;
 }
 
 .datepicker .cw {
@@ -25916,194 +25882,449 @@ table.text-center th {
   min-width: 16px;
   height: 18px;
   padding: 4px 5px;
-  font-weight: 400;
+  font-weight: normal;
   line-height: 18px;
   text-align: center;
-  text-shadow: 0 1px 0 #fff;
+  text-shadow: 0 1px 0 #ffffff;
   vertical-align: middle;
-  background-color: #eee;
+  background-color: #eeeeee;
   border: 1px solid #ccc;
   margin-left: -5px;
   margin-right: -5px;
 }
 
-/*# sourceMappingURL=bootstrap-datepicker.min.css.map */
+/*# sourceMappingURL=bootstrap-datepicker.css.map */
 /*!
- * Timepicker Component for Twitter Bootstrap
- *
- * Copyright 2013 Joris de Wit
- *
- * Contributors https://github.com/jdewit/bootstrap-timepicker/graphs/contributors
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * Datetimepicker for Bootstrap 3
+ * version : 4.17.42
+ * https://github.com/Eonasdan/bootstrap-datetimepicker/
  */
 
-.bootstrap-timepicker {
-  position: relative;
+.bootstrap-datetimepicker-widget {
+  list-style: none;
 }
 
-.bootstrap-timepicker.pull-right .bootstrap-timepicker-widget.dropdown-menu {
-  left: auto;
-  right: 0;
-}
-
-.bootstrap-timepicker.pull-right .bootstrap-timepicker-widget.dropdown-menu:before {
-  left: auto;
-  right: 12px;
-}
-
-.bootstrap-timepicker.pull-right .bootstrap-timepicker-widget.dropdown-menu:after {
-  left: auto;
-  right: 13px;
-}
-
-.bootstrap-timepicker .input-group-addon {
-  cursor: pointer;
-}
-
-.bootstrap-timepicker .input-group-addon i {
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-}
-
-.bootstrap-timepicker-widget.dropdown-menu {
+.bootstrap-datetimepicker-widget.dropdown-menu {
+  margin: 2px 0;
   padding: 4px;
+  width: 19em;
 }
 
-.bootstrap-timepicker-widget.dropdown-menu.open {
+@media (min-width: 768px) {
+  .bootstrap-datetimepicker-widget.dropdown-menu.timepicker-sbs {
+    width: 38em;
+  }
+}
+
+@media (min-width: 992px) {
+  .bootstrap-datetimepicker-widget.dropdown-menu.timepicker-sbs {
+    width: 38em;
+  }
+}
+
+@media (min-width: 1200px) {
+  .bootstrap-datetimepicker-widget.dropdown-menu.timepicker-sbs {
+    width: 38em;
+  }
+}
+
+.bootstrap-datetimepicker-widget.dropdown-menu:before,
+.bootstrap-datetimepicker-widget.dropdown-menu:after {
+  content: '';
   display: inline-block;
+  position: absolute;
 }
 
-.bootstrap-timepicker-widget.dropdown-menu:before {
-  border-bottom: 7px solid rgba(0, 0, 0, 0.2);
+.bootstrap-datetimepicker-widget.dropdown-menu.bottom:before {
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
-  content: "";
-  display: inline-block;
-  position: absolute;
-}
-
-.bootstrap-timepicker-widget.dropdown-menu:after {
-  border-bottom: 6px solid #FFFFFF;
-  border-left: 6px solid transparent;
-  border-right: 6px solid transparent;
-  content: "";
-  display: inline-block;
-  position: absolute;
-}
-
-.bootstrap-timepicker-widget.timepicker-orient-left:before {
-  left: 6px;
-}
-
-.bootstrap-timepicker-widget.timepicker-orient-left:after {
+  border-bottom: 7px solid #ccc;
+  border-bottom-color: rgba(0, 0, 0, 0.2);
+  top: -7px;
   left: 7px;
 }
 
-.bootstrap-timepicker-widget.timepicker-orient-right:before {
+.bootstrap-datetimepicker-widget.dropdown-menu.bottom:after {
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid white;
+  top: -6px;
+  left: 8px;
+}
+
+.bootstrap-datetimepicker-widget.dropdown-menu.top:before {
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-top: 7px solid #ccc;
+  border-top-color: rgba(0, 0, 0, 0.2);
+  bottom: -7px;
+  left: 6px;
+}
+
+.bootstrap-datetimepicker-widget.dropdown-menu.top:after {
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid white;
+  bottom: -6px;
+  left: 7px;
+}
+
+.bootstrap-datetimepicker-widget.dropdown-menu.pull-right:before {
+  left: auto;
   right: 6px;
 }
 
-.bootstrap-timepicker-widget.timepicker-orient-right:after {
+.bootstrap-datetimepicker-widget.dropdown-menu.pull-right:after {
+  left: auto;
   right: 7px;
 }
 
-.bootstrap-timepicker-widget.timepicker-orient-top:before {
-  top: -7px;
+.bootstrap-datetimepicker-widget .list-unstyled {
+  margin: 0;
 }
 
-.bootstrap-timepicker-widget.timepicker-orient-top:after {
-  top: -6px;
+.bootstrap-datetimepicker-widget a[data-action] {
+  padding: 6px 0;
 }
 
-.bootstrap-timepicker-widget.timepicker-orient-bottom:before {
-  bottom: -7px;
-  border-bottom: 0;
-  border-top: 7px solid #999;
+.bootstrap-datetimepicker-widget a[data-action]:active {
+  box-shadow: none;
 }
 
-.bootstrap-timepicker-widget.timepicker-orient-bottom:after {
-  bottom: -6px;
-  border-bottom: 0;
-  border-top: 6px solid #ffffff;
+.bootstrap-datetimepicker-widget .timepicker-hour,
+.bootstrap-datetimepicker-widget .timepicker-minute,
+.bootstrap-datetimepicker-widget .timepicker-second {
+  width: 54px;
+  font-weight: bold;
+  font-size: 1.2em;
+  margin: 0;
 }
 
-.bootstrap-timepicker-widget a.btn,
-.bootstrap-timepicker-widget input {
+.bootstrap-datetimepicker-widget button[data-action] {
+  padding: 6px;
+}
+
+.bootstrap-datetimepicker-widget .btn[data-action="incrementHours"]::after {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  content: "Increment Hours";
+}
+
+.bootstrap-datetimepicker-widget .btn[data-action="incrementMinutes"]::after {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  content: "Increment Minutes";
+}
+
+.bootstrap-datetimepicker-widget .btn[data-action="decrementHours"]::after {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  content: "Decrement Hours";
+}
+
+.bootstrap-datetimepicker-widget .btn[data-action="decrementMinutes"]::after {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  content: "Decrement Minutes";
+}
+
+.bootstrap-datetimepicker-widget .btn[data-action="showHours"]::after {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  content: "Show Hours";
+}
+
+.bootstrap-datetimepicker-widget .btn[data-action="showMinutes"]::after {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  content: "Show Minutes";
+}
+
+.bootstrap-datetimepicker-widget .btn[data-action="togglePeriod"]::after {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  content: "Toggle AM/PM";
+}
+
+.bootstrap-datetimepicker-widget .btn[data-action="clear"]::after {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  content: "Clear the picker";
+}
+
+.bootstrap-datetimepicker-widget .btn[data-action="today"]::after {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  content: "Set the date to today";
+}
+
+.bootstrap-datetimepicker-widget .picker-switch {
+  text-align: center;
+}
+
+.bootstrap-datetimepicker-widget .picker-switch::after {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  content: "Toggle Date and Time Screens";
+}
+
+.bootstrap-datetimepicker-widget .picker-switch td {
+  padding: 0;
+  margin: 0;
+  height: auto;
+  width: auto;
+  line-height: inherit;
+}
+
+.bootstrap-datetimepicker-widget .picker-switch td span {
+  line-height: 2.5;
+  height: 2.5em;
+  width: 100%;
+}
+
+.bootstrap-datetimepicker-widget table {
+  width: 100%;
+  margin: 0;
+}
+
+.bootstrap-datetimepicker-widget table td,
+.bootstrap-datetimepicker-widget table th {
+  text-align: center;
   border-radius: 4px;
 }
 
-.bootstrap-timepicker-widget table {
-  width: 100%;
-  margin: 0;
+.bootstrap-datetimepicker-widget table th {
+  height: 20px;
+  line-height: 20px;
+  width: 20px;
 }
 
-.bootstrap-timepicker-widget table td {
-  text-align: center;
-  height: 30px;
-  margin: 0;
-  padding: 2px;
+.bootstrap-datetimepicker-widget table th.picker-switch {
+  width: 145px;
 }
 
-.bootstrap-timepicker-widget table td:not(.separator) {
-  min-width: 30px;
+.bootstrap-datetimepicker-widget table th.disabled,
+.bootstrap-datetimepicker-widget table th.disabled:hover {
+  background: none;
+  color: #777777;
+  cursor: not-allowed;
 }
 
-.bootstrap-timepicker-widget table td span {
-  width: 100%;
+.bootstrap-datetimepicker-widget table th.prev::after {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  content: "Previous Month";
 }
 
-.bootstrap-timepicker-widget table td a {
-  border: 1px transparent solid;
-  width: 100%;
+.bootstrap-datetimepicker-widget table th.next::after {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  content: "Next Month";
+}
+
+.bootstrap-datetimepicker-widget table thead tr:first-child th {
+  cursor: pointer;
+}
+
+.bootstrap-datetimepicker-widget table thead tr:first-child th:hover {
+  background: #eeeeee;
+}
+
+.bootstrap-datetimepicker-widget table td {
+  height: 54px;
+  line-height: 54px;
+  width: 54px;
+}
+
+.bootstrap-datetimepicker-widget table td.cw {
+  font-size: .8em;
+  height: 20px;
+  line-height: 20px;
+  color: #777777;
+}
+
+.bootstrap-datetimepicker-widget table td.day {
+  height: 20px;
+  line-height: 20px;
+  width: 20px;
+}
+
+.bootstrap-datetimepicker-widget table td.day:hover,
+.bootstrap-datetimepicker-widget table td.hour:hover,
+.bootstrap-datetimepicker-widget table td.minute:hover,
+.bootstrap-datetimepicker-widget table td.second:hover {
+  background: #eeeeee;
+  cursor: pointer;
+}
+
+.bootstrap-datetimepicker-widget table td.old,
+.bootstrap-datetimepicker-widget table td.new {
+  color: #777777;
+}
+
+.bootstrap-datetimepicker-widget table td.today {
+  position: relative;
+}
+
+.bootstrap-datetimepicker-widget table td.today:before {
+  content: '';
   display: inline-block;
-  margin: 0;
-  padding: 8px 0;
-  outline: 0;
-  color: #333;
+  border: solid transparent;
+  border-width: 0 0 7px 7px;
+  border-bottom-color: #337ab7;
+  border-top-color: rgba(0, 0, 0, 0.2);
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
 }
 
-.bootstrap-timepicker-widget table td a:hover {
-  text-decoration: none;
-  background-color: #eee;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
+.bootstrap-datetimepicker-widget table td.active,
+.bootstrap-datetimepicker-widget table td.active:hover {
+  background-color: #337ab7;
+  color: #fff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+
+.bootstrap-datetimepicker-widget table td.active.today:before {
+  border-bottom-color: #fff;
+}
+
+.bootstrap-datetimepicker-widget table td.disabled,
+.bootstrap-datetimepicker-widget table td.disabled:hover {
+  background: none;
+  color: #777777;
+  cursor: not-allowed;
+}
+
+.bootstrap-datetimepicker-widget table td span {
+  display: inline-block;
+  width: 54px;
+  height: 54px;
+  line-height: 54px;
+  margin: 2px 1.5px;
+  cursor: pointer;
   border-radius: 4px;
-  border-color: #ddd;
 }
 
-.bootstrap-timepicker-widget table td a i {
-  margin-top: 2px;
-  font-size: 18px;
+.bootstrap-datetimepicker-widget table td span:hover {
+  background: #eeeeee;
 }
 
-.bootstrap-timepicker-widget table td input {
-  width: 25px;
-  margin: 0;
-  text-align: center;
+.bootstrap-datetimepicker-widget table td span.active {
+  background-color: #337ab7;
+  color: #fff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
 
-.bootstrap-timepicker-widget .modal-content {
-  padding: 4px;
+.bootstrap-datetimepicker-widget table td span.old {
+  color: #777777;
 }
 
-@media (min-width: 767px) {
-  .bootstrap-timepicker-widget.modal {
-    width: 200px;
-    margin-left: -100px;
-  }
+.bootstrap-datetimepicker-widget table td span.disabled,
+.bootstrap-datetimepicker-widget table td span.disabled:hover {
+  background: none;
+  color: #777777;
+  cursor: not-allowed;
 }
 
-@media (max-width: 767px) {
-  .bootstrap-timepicker {
-    width: 100%;
-  }
+.bootstrap-datetimepicker-widget.usetwentyfour td.hour {
+  height: 27px;
+  line-height: 27px;
+}
 
-  .bootstrap-timepicker .dropdown-menu {
-    width: 100%;
-  }
+.bootstrap-datetimepicker-widget.wider {
+  width: 21em;
+}
+
+.bootstrap-datetimepicker-widget .datepicker-decades .decade {
+  line-height: 1.8em !important;
+}
+
+.input-group.date .input-group-addon {
+  cursor: pointer;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }
 /* iCheck plugin Square skin, blue
 ----------------------------------- */
