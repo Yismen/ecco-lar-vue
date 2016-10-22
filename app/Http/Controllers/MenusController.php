@@ -73,7 +73,7 @@ class MenusController extends Controller {
 	 */
 	public function edit(Menu $menu, Role $roles)
 	{
-		$rolesList = $roles->lists('display_name', 'id');
+		$rolesList = $roles->orderBy('display_name')->lists('display_name', 'id');
 
 		return view('menus.edit', compact('menu', 'rolesList'));
 	}
@@ -100,6 +100,7 @@ class MenusController extends Controller {
 	 */
 	public function destroy(Menu $menu, Permission $permission)
 	{
+		// return $menu;
 		$menu->delete();
 
 		$this->destroyPermissions($menu, $permission);

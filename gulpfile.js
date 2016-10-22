@@ -16,11 +16,12 @@ var nodeModules = '../../../node_modules';
 elixir(function(mix) {
     // mix.sass('app.scss');
     
-    // mix.copy('node_modules/bootstrap/fonts', 'public/build/fonts');
-    // mix.copy('node_modules/font-awesome/fonts', 'public/build/fonts');
-    // mix.copy('node_modules/datatables.net-dt/images', 'public/build/images');
-    // mix.copy('node_modules/summernote/dist/font', 'public/build/css/font');
-    // mix.copy('node_modules/icheck/skins/square/blue.png', 'public/build/css');
+    mix.copy('node_modules/bootstrap/fonts', 'public/build/fonts');
+    mix.copy('node_modules/ionicons/dist/fonts', 'public/build/fonts');
+    mix.copy('node_modules/font-awesome/fonts', 'public/build/fonts');
+    mix.copy('node_modules/datatables.net-dt/images', 'public/build/images');
+    mix.copy('node_modules/summernote/dist/font', 'public/build/css/font');
+    mix.copy('node_modules/icheck/skins/square/blue.png', 'public/build/css');
 
 	mix.styles([		
         nodeModules + '/bootstrap/dist/css/bootstrap.min.css',
@@ -28,6 +29,7 @@ elixir(function(mix) {
         nodeModules + '/admin-lte/plugins/daterangepicker/daterangepicker.css',
         nodeModules + '/admin-lte/dist/css/skins/_all-skins.css',
         nodeModules + '/font-awesome/css/font-awesome.css',
+        nodeModules + '/ionicons/dist/css/ionicons.css',
         nodeModules + '/animate.css/animate.css',
         nodeModules + '/select2/dist/css/select2.css',
         nodeModules + '/select2-bootstrap-theme/dist/select2-bootstrap.css',
@@ -76,9 +78,9 @@ elixir(function(mix) {
 		'css/all.css'
 	]);
 
-	mix.browserSync({
-		proxy: 'localhost:8000',
-		browser: 'google chrome'
-	});
+	// mix.browserSync({
+	// 	proxy: 'localhost:8000',
+	// 	browser: 'google chrome'
+	// });
     
 });

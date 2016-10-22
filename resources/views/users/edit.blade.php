@@ -8,23 +8,22 @@
 				<div class="row">
 					<div class="col-sm-12">
 						{!! Form::model($user, ['route'=>['admin.users.update', $user->username], 'method'=>'PUT', 'class'=>'form-horizontal', 'role'=>'form']) !!}		
-							<div class="form-group">
-								<legend>Edit user {{ $user->name }}</legend>
+							<div class="form-groups">
+								<legend>
+									Edit user - {{ $user->name }}
+									<a href="{{ route('admin.users.index') }}" class="pull-right"><i class="fa fa-list"></i></a>
+								</legend>
 							</div>
 						
 							@include('users._form')
-
+							<hr>
 							<div class="col-sm-10 col-sm-offset-2">
 								<button type="submit" class="btn btn-primary form-control">Save</button>
-								<br><br>
-								<a href="{{ route('admin.users.index') }}"><< Return to Users List</a>
 							</div>
 						
 						{!! Form::close() !!}
 
 						<hr>
-
-						Seriously considering handle the permision-role relationship here.
 					</div>
 				</div>
 			</div>

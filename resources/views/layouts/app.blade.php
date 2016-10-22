@@ -13,9 +13,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <title>Ecco | {{ $page_header or 'Admin Header' }}</title>
 
         <link rel="stylesheet" type="text/css" href="{{ elixir('css/all.css') }}">
-    
-        <!-- Ionicons -->
-        <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

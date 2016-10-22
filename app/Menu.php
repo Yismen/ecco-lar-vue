@@ -20,9 +20,14 @@ class Menu extends Model {
 	}
 
 
-	public function getRolesListsAttribute()
+	public function getRolesListAttribute()
 	{
-		return Role::orderBy('display_name')->lists('id');
+		return $this->roles()->lists('id')->toArray();
+	}
+
+	public function setNameAttribute($name)
+	{
+		return $this->attributes['name'] = str_slug($name, "-");
 	}
 
 }

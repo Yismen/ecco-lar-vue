@@ -29,6 +29,20 @@
 										</div>
 
 									{!! Form::close() !!}
+
+									<div class="col-sm-10 col-sm-offset-1">
+										<div class="form-group">
+											<hr>
+											<form action="{{ url('/admin/menus', $menu->name) }}" method="POST" class="" style="display: inline-block;">
+											    {!! csrf_field() !!}
+											    {!! method_field('DELETE') !!}
+											
+											    <button type="submit" id="delete-menu" class="btn btn-danger"  name="deleteBtn">
+											        <i class="fa fa-btn fa-trash"></i> Delete
+											    </button>
+											</form>
+										</div>
+									</div>
 								</div>
 							</div>
 								

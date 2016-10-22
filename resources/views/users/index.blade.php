@@ -2,52 +2,62 @@
 @extends('layouts.'.$layout->app(), ['page_header'=>'Users', 'page_description'=>'Handle the users configurations and setting.'])
 
 @section('content')
-	<div class="container">
-    	<div class="row">
-			<div class="col-sm-8 col-sm-offset-2">
-				<div class="box box-primary pad">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+                <div class="box box-primary pad col-sm-12">
 
-					<h3 class="page-header">
-						Users List
-						 {{-- (  <a href="{{ route('admin.users.create') }}">
-						 							 		<i class="fa fa-plus"></i>
-						 							 	</a> ) --}} 
-					</h3>
-					@if ($users->isEmpty())
-						<div class="bs-callout bs-callout-warning">
-							<h1>No Menus has been added yet, please add one</h1>
-						</div>
-					@else
-						<table class="table table-condensed table-hover">
-							<thead>
-								<tr>
-									<th>User Item</th>
-									<th class="col-xs-3">Actions</th>
-								</tr>
-							</thead>
-							<tbody>
-								@foreach ($users as $user)
-									<tr>
-										<td>
-											<a href="{{ route('admin.users.show', $user->username) }}">{{ $user->name }}</a>
-										</td>
-										<td>
-											<a href="{{ route('admin.users.edit', $user->username) }}" class="btn btn-warning">
-												<i class="fa fa-edit"></i>
-											</a>
-											{{-- {!! delete_button('admin.users.destroy', $user->username, ['class'=>'btn btn-danger','label'=>'<i class="fa fa-trash"></i>']) !!} --}}
-										</td>
-									</tr>
-								@endforeach
-							</tbody>
-						</table>
-					@endif
-				</div>
-			</div>
-		</div>
-	</div>
+                    <h3 class="page-header">
+                        Users List    
+                        <a href="{{ route('admin.users.create') }}" class="pull-right">
+                            <i class="fa fa-plus"></i>
+                             Add New
+                        </a>                     
+                    </h3>
+                    @if ($users->isEmpty())
+                        <div class="bs-callout bs-callout-warning">
+                            <h1>
+                                No Menus has been added yet, please add one
+                            </h1>
+                        </div>
+                    @else
+                        @foreach ($users as $user)
+                            <div class="div col-sm-6">
+                                <div class="box info-box bg-grey">
+                                    <span class ="info-box-icon">
+                                        <a href="{{ route('admin.users.edit', $user->id) }}">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                    </span>
+                                    <div class ="info-box-content">
+                                        <span class ="info-box-text">
+                                            <a href="{{ route('admin.users.show', $user->id) }}">
+                                                <i class="fa fa-user"></i>
+                                                 {{ $user->name }}
+                                            </a>
+                                        </span>
+                                        {{-- <span class ="info-box-number">41,410</span> --}}
+                                        
+                                        @if (count($user->roles) > 0)
+                                            <strong>Roles:</strong>
+                                            @foreach ($user->roles as $role)
+                                                <span class="label label-primary">{{ $role->display_name }}</span>
+                                            @endforeach
+                                        @endif
+                                    </div><!-- /.info-box-content -->
+                                </div><!-- /.info-box -->
+                            </div>
+                        @endforeach
+                        
+                        {{ $users->render() }}
+
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
 @stop
 
 @section('scripts')
-	
+    
 @stop

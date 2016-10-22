@@ -26,7 +26,7 @@ class HumanResourcesController extends Controller {
 		// 	echo $dashboard->by_department->$key->department = $key->employees()->count();
 		// }
 
-		$dashboard = response()->json($dashboard);
+		// $dashboard = response()->json($dashboard);
 
 		return view('human_resources.index', compact('dashboard'));
 	}

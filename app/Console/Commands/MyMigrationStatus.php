@@ -14,7 +14,7 @@ class MyMigrationStatus extends Command
      *
      * @var string
      */
-    protected $signature = 'mymigration:status';
+    protected $signature = 'mymigration:status {--dirname=migrations}';
 
     /**
      * The console command description.
@@ -53,14 +53,15 @@ class MyMigrationStatus extends Command
      */
     private function setMigrationsArray()
     {
-        foreach ($this->getMigrationFiles() as $partial) 
+        foreach ($this->getMigrationFiles($this->option('dirname')) as $partial) 
         {
-            $name = substr($partial->getFilename(), 0, -4);
-            $migrated = $this->getMigration($name);            
+            $partial = pathinfo($partial);
+            $name = $partial["filename"];
+            $migrated = $this->getMigration($name); 
+
             $array = [
                 'name'=>$name,
-                'batch'=>"NA",
-                'location'=>$partial->getRelativePath(),
+                'batch'=>"Pending",
             ];
 
             if($migrated) 
@@ -77,7 +78,7 @@ class MyMigrationStatus extends Command
 
     public function setHeaders()
     {
-        $this->headers = ['Name', 'Batch', 'Location'];
+        $this->headers = ['Name', 'Batch'];
 
         return $this;
     }
@@ -98,8 +99,8 @@ class MyMigrationStatus extends Command
      * @param  string $dir The name of the folder withing the migration folder.
      * @return [type]      [description]
      */
-    private function getMigrationFiles($dir = "migrations")
+    private function getMigrationFiles($dir)
     {
-        return File::allFiles(database_path()."/{$dir}");
+        return File::files(database_path()."/{$dir}");
     }
 }

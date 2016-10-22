@@ -14,7 +14,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'username', 'is_active', 'is_admin'
     ];
 
     /**
@@ -86,7 +86,12 @@ class User extends Authenticatable
 
     public function getActiveListAttribute()
     {   
-        return ['0' => 'Inactive', '1'=>'Active User'];
+        return ['1'=>'Active User','0' => 'Inactive'];
+    }
+
+    public function getIsActiveAttribute()
+    {
+        return $this->attributes['is_active'];
     }
 
     public function getAdminListAttribute()
@@ -98,4 +103,13 @@ class User extends Authenticatable
      * =======================================
      * Mutators
      */
+    public function setNameAttribute($name)
+    {
+        return $this->attributes['name'] = ucwords($name);
+    }
+
+    public function setUsernameAttribute($username)
+    {
+        return $this->attributes['username'] = str_slug($username);
+    }
 }

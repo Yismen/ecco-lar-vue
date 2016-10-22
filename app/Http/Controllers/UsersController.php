@@ -8,10 +8,18 @@ use App\Http\Controllers\Controller;
 use App\User;
 
 class UsersController extends Controller {
+	private $request;
 
-	public function __construct()
+
+	public function __construct(Request $request)
 	{
 		// $this->middleware('authorize', ['only'=>['index:role.some']]);
+		// $this->middleware('authorize:view_users|edit_users|create_users', ['only'=>['index','show']]);
+		// $this->middleware('authorize:edit_users', ['only'=>['edit','update']]);
+		// $this->middleware('authorize:create_users', ['only'=>['create','store']]);
+		// $this->middleware('authorize:destroy_users', ['only'=>['destroy']]);
+
+		$this->request = $request;
 	}
 	/**
 	 * Display a listing of the resource.
@@ -20,10 +28,12 @@ class UsersController extends Controller {
 	 */
 	public function index(User $users)
 	{
-
 		$users = $users
-						->with('roles.perms')
-						->paginate(10);
+			->with(['roles'=> function($query){
+				$query->orderBy('display_name');
+			}])
+			->orderBy('name')
+			->paginate(25);
 
 		return view('users.index', compact('users'));
 	}
@@ -33,9 +43,13 @@ class UsersController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function create()
+	public function create(User $user)
 	{
-		//
+		if ($this->request->ajax()) {
+			return $user;
+		}
+		
+		return view('users.create', compact('user'));
 	}
 
 	/**
@@ -43,9 +57,14 @@ class UsersController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(User $user)
 	{
-		//
+		$this->request->all();
+
+		$this->createUser($user);
+
+		return redirect()->route('admin.users.index')
+			->withSuccess("The user $user-> has ben created!");
 	}
 
 	/**
@@ -100,11 +119,18 @@ class UsersController extends Controller {
 
 	}
 
-	public function updateUser($user, $requests)
+	private function createUser($user)
 	{
-		$user->update($requests->all());
+		$user = $user->create($this->request->all());
 
-		return $this->syncRoles($user, $requests->input('roles'));
+		return $this->syncRoles($user, $this->request->input('roles'));
+	}
+
+	private function updateUser($user)
+	{
+		$user->update($this->request->all());
+
+		return $this->syncRoles($user, $this->request->input('roles'));
 	}
 
 	/**

@@ -23,6 +23,10 @@ class ACL
      * The message to be displayed when a request is rejected.
      */
     private $message;
+    /**
+     * Permissions object parsed from the string given by the request.
+     */
+    private $perms;
 
     /**
      * Handle an incoming request.
@@ -38,13 +42,12 @@ class ACL
         
         $this->handleAuthenthication();
 
-        // if ($this->isOwnerOrAdmin()) {
-        //     return $next($request);
-        // }
+        if ($this->isOwnerOrAdmin()) {
+            return $next($request);
+        }
 
-        $perms = $this->parsePerms($perms);
-
-        $this->handlePermsissions($perms);
+        $perms = $this->parsePerms($perms)
+            ->handlePermsissions($perms);
 
         if ($this->reject) {
             return redirect("admin")
@@ -111,7 +114,10 @@ class ACL
                 return trim($value);
             }, $perms);
         }
-        return $perms;
+
+        $this->perms = $perms;
+
+        return $this;
     }
 
     /**

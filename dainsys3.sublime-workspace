@@ -4,8 +4,20 @@
 		"selected_items":
 		[
 			[
+				"is",
+				"is_active\t(_form.blade.php)"
+			],
+			[
+				"strsl",
+				"str_slug\tL5 Str Slug "
+			],
+			[
+				"strto",
+				"strtolower"
+			],
+			[
 				"vi",
-				"v-if	<div v-if=\"\">"
+				"v-if\t<div v-if=\"\">"
 			],
 			[
 				"Tas",
@@ -13,11 +25,11 @@
 			],
 			[
 				"tex",
-				"textarea	Tag"
+				"textarea\tTag"
 			],
 			[
 				"v",
-				"v-for	<div v-for=\"item in items\">"
+				"v-for\t<div v-for=\"item in items\">"
 			],
 			[
 				"NotesC",
@@ -29,7 +41,7 @@
 			],
 			[
 				"if",
-				"if	if"
+				"if\tif"
 			],
 			[
 				"Men",
@@ -49,7 +61,7 @@
 			],
 			[
 				"ve",
-				"v-else	<div v-else>"
+				"v-else\t<div v-else>"
 			],
 			[
 				"remove",
@@ -61,15 +73,15 @@
 			],
 			[
 				"loa",
-				"loadingResource	Task.vue"
+				"loadingResource\tTask.vue"
 			],
 			[
 				"Rr",
-				"Route-resource	Route-resource"
+				"Route-resource\tRoute-resource"
 			],
 			[
 				"Rg",
-				"Route-group	Route-group"
+				"Route-group\tRoute-group"
 			],
 			[
 				"text",
@@ -81,7 +93,7 @@
 			],
 			[
 				"myv",
-				"my_view_extending_layout	My Blade View"
+				"my_view_extending_layout\tMy Blade View"
 			],
 			[
 				"emplo",
@@ -89,7 +101,7 @@
 			],
 			[
 				"emp",
-				"employee	(nba.template.html)"
+				"employee\t(nba.template.html)"
 			],
 			[
 				"node",
@@ -101,31 +113,31 @@
 			],
 			[
 				"scri",
-				"script	HTML - Script"
+				"script\tHTML - Script"
 			],
 			[
 				"form",
-				"form	Tag"
+				"form\tTag"
 			],
 			[
 				"sty",
-				"style	Tag"
+				"style\tTag"
 			],
 			[
 				"scrip",
-				"script	Tag"
+				"script\tTag"
 			],
 			[
 				"view",
-				"view()	mixed"
+				"view()\tmixed"
 			],
 			[
 				"Cac",
-				"Cache-get	Cache-get"
+				"Cache-get\tCache-get"
 			],
 			[
 				"clear",
-				"clear_cache	(Kernel.php)"
+				"clear_cache\t(Kernel.php)"
 			],
 			[
 				"constu",
@@ -137,27 +149,27 @@
 			],
 			[
 				"save",
-				"saveImage	(ImageUploader.php)"
+				"saveImage\t(ImageUploader.php)"
 			],
 			[
 				"myblades",
-				"my_blade_script_section	My Blade Script Section"
+				"my_blade_script_section\tMy Blade Script Section"
 			],
 			[
 				"mybs",
-				"my_blade_script_section	My Blade Script Section"
+				"my_blade_script_section\tMy Blade Script Section"
 			],
 			[
 				"Formse",
-				"Form-select	Form-select"
+				"Form-select\tForm-select"
 			],
 			[
 				"performAjax",
-				"performAjax(url, destiny)	index.blade.php"
+				"performAjax(url, destiny)\tindex.blade.php"
 			],
 			[
 				"preventDefa",
-				"preventDefault()	app.js"
+				"preventDefault()\tapp.js"
 			],
 			[
 				"last",
@@ -173,35 +185,35 @@
 			],
 			[
 				"mbh",
-				"myBladeFormInputHorizontal	My blade form input horizontal"
+				"myBladeFormInputHorizontal\tMy blade form input horizontal"
 			],
 			[
 				"mb",
-				"my_blade_select_horizontal	My blade form select horizontal"
+				"my_blade_select_horizontal\tMy blade form select horizontal"
 			],
 			[
 				"myform",
-				"myBladeFormInputHorizontal	My blade form input horizontal"
+				"myBladeFormInputHorizontal\tMy blade form input horizontal"
 			],
 			[
 				"mv",
-				"my-laravel-validator	Laravel Validator for Controller"
+				"my-laravel-validator\tLaravel Validator for Controller"
 			],
 			[
 				"fore",
-				"foreach	blade-foreach"
+				"foreach\tblade-foreach"
 			],
 			[
 				"roles",
-				"rolesList	(routes.php)"
+				"rolesList\t(routes.php)"
 			],
 			[
 				"mfo",
-				"myBladeFormOpen	My blade form open"
+				"myBladeFormOpen\tMy blade form open"
 			],
 			[
 				"Layout",
-				"LayoutServiceProvider	(app.php)"
+				"LayoutServiceProvider\t(app.php)"
 			],
 			[
 				"Unique",
@@ -225,11 +237,11 @@
 			],
 			[
 				"beforef",
-				"beforeFilter()	TodosController.js"
+				"beforeFilter()\tTodosController.js"
 			],
 			[
 				"Input",
-				"Input-is	Input-is"
+				"Input-is\tInput-is"
 			],
 			[
 				"user",
@@ -237,31 +249,31 @@
 			],
 			[
 				"find",
-				"findOrFail	(routes.php)"
+				"findOrFail\t(routes.php)"
 			],
 			[
 				"where",
-				"whereUsername	(routes.php)"
+				"whereUsername\t(routes.php)"
 			],
 			[
 				"put",
-				"put(key, value)	angular-cookies.js"
+				"put(key, value)\tangular-cookies.js"
 			],
 			[
 				"then",
-				"then(pass, fail)	angular-scenario.js"
+				"then(pass, fail)\tangular-scenario.js"
 			],
 			[
 				"Routeg",
-				"Route-group	Route-group"
+				"Route-group\tRoute-group"
 			],
 			[
 				"Au",
-				"Auth-logout	Auth-logout"
+				"Auth-logout\tAuth-logout"
 			],
 			[
 				"iss",
-				"isString(value)	angular.js"
+				"isString(value)\tangular.js"
 			],
 			[
 				"typeof",
@@ -269,15 +281,15 @@
 			],
 			[
 				"Log",
-				"LogoutCtrl	(LogoutController.js)"
+				"LogoutCtrl\t(LogoutController.js)"
 			],
 			[
 				"log",
-				"logout	(app.js)"
+				"logout\t(app.js)"
 			],
 			[
 				"Authget",
-				"Auth-getUser	Auth-getUser"
+				"Auth-getUser\tAuth-getUser"
 			],
 			[
 				"$a",
@@ -285,23 +297,23 @@
 			],
 			[
 				"fa",
-				"factory	Angular.js"
+				"factory\tAngular.js"
 			],
 			[
 				"module",
-				"module()	angular-mocks.js"
+				"module()\tangular-mocks.js"
 			],
 			[
 				"compac",
-				"compact()	standard Function"
+				"compact()\tstandard Function"
 			],
 			[
 				"get",
-				"get('user	(app.js)"
+				"get('user\t(app.js)"
 			],
 			[
 				"respo",
-				"respond	(routes.php)"
+				"respond\t(routes.php)"
 			],
 			[
 				"err",
@@ -309,11 +321,7 @@
 			],
 			[
 				"router",
-				"$routeProvider	AngularJS"
-			],
-			[
-				"is",
-				"isAuthenticated"
+				"$routeProvider\tAngularJS"
 			],
 			[
 				"$auth",
@@ -325,11 +333,11 @@
 			],
 			[
 				"path",
-				"path()	d3.v3.js"
+				"path()\td3.v3.js"
 			],
 			[
 				"logo",
-				"logout()	authcontroller.js"
+				"logout()\tauthcontroller.js"
 			],
 			[
 				"fla",
@@ -337,7 +345,7 @@
 			],
 			[
 				"City",
-				"CityRequests	(CityRequests.php)"
+				"CityRequests\t(CityRequests.php)"
 			],
 			[
 				"da",
@@ -345,23 +353,23 @@
 			],
 			[
 				"removeDones",
-				"removeDones()	TodosController.js"
+				"removeDones()\tTodosController.js"
 			],
 			[
 				"api",
-				"apiRoute	(AuthServices.js)"
+				"apiRoute\t(AuthServices.js)"
 			],
 			[
 				"Session",
-				"SessionService	(AuthController.js)"
+				"SessionService\t(AuthController.js)"
 			],
 			[
 				"update",
-				"update()	jquery-1.7.2.js"
+				"update()\tjquery-1.7.2.js"
 			],
 			[
 				"Auth",
-				"AuthController	(app.js)"
+				"AuthController\t(app.js)"
 			],
 			[
 				"cre",
@@ -377,11 +385,11 @@
 			],
 			[
 				"Hash",
-				"Hash::make	Hash the given value."
+				"Hash::make\tHash the given value."
 			],
 			[
 				"conso",
-				"consoleLog(type)	angular-scenario.js"
+				"consoleLog(type)\tangular-scenario.js"
 			],
 			[
 				"fun",
@@ -389,7 +397,7 @@
 			],
 			[
 				"reso",
-				"resolve()	angular-scenario.js"
+				"resolve()\tangular-scenario.js"
 			],
 			[
 				"CS",
@@ -397,11 +405,11 @@
 			],
 			[
 				"defe",
-				"defer()	angular-scenario.js"
+				"defer()\tangular-scenario.js"
 			],
 			[
 				"Schedrop",
-				"Schema-dropIfExists	Schema-dropIfExists"
+				"Schema-dropIfExists\tSchema-dropIfExists"
 			],
 			[
 				"ser",
@@ -409,7 +417,7 @@
 			],
 			[
 				"ngs",
-				"ng-show	AngularJS"
+				"ng-show\tAngularJS"
 			],
 			[
 				"edit",
@@ -417,7 +425,7 @@
 			],
 			[
 				"mer",
-				"merge(dst)	angular-scenario.js"
+				"merge(dst)\tangular-scenario.js"
 			],
 			[
 				"new",
@@ -425,51 +433,51 @@
 			],
 			[
 				"des",
-				"description	(Controllers.js)"
+				"description\t(Controllers.js)"
 			],
 			[
 				"succ",
-				"success(fn)	angular-scenario.js"
+				"success(fn)\tangular-scenario.js"
 			],
 			[
 				"Rore",
-				"Route::resource	Route to a RESTful Controller"
+				"Route::resource\tRoute to a RESTful Controller"
 			],
 			[
 				"Fieldstring",
-				"Field::string	VARCHAR equivalent with a length (optional)"
+				"Field::string\tVARCHAR equivalent with a length (optional)"
 			],
 			[
 				"Fieldstr",
-				"Field::string	VARCHAR equivalent with a length (optional)"
+				"Field::string\tVARCHAR equivalent with a length (optional)"
 			],
 			[
 				"Fieldin",
-				"Field::increments	Incrementing ID"
+				"Field::increments\tIncrementing ID"
 			],
 			[
 				"Fields",
-				"Field::string	VARCHAR equivalent with a length (optional)"
+				"Field::string\tVARCHAR equivalent with a length (optional)"
 			],
 			[
 				"Sche",
-				"Schema-drop	Schema-drop"
+				"Schema-drop\tSchema-drop"
 			],
 			[
 				"Scheta",
-				"Schema::table	Update an existing table"
+				"Schema::table\tUpdate an existing table"
 			],
 			[
 				"Schematable",
-				"Schema::hasTable	Check for existence of table"
+				"Schema::hasTable\tCheck for existence of table"
 			],
 			[
 				"extend",
-				"extend()	angular-scenario.js"
+				"extend()\tangular-scenario.js"
 			],
 			[
 				"setCs",
-				"setCsrfToken()	app.js"
+				"setCsrfToken()\tapp.js"
 			],
 			[
 				"CsrfToken",
@@ -477,7 +485,7 @@
 			],
 			[
 				"$filter",
-				"$filter	AngularJS"
+				"$filter\tAngularJS"
 			],
 			[
 				"search",
@@ -485,19 +493,19 @@
 			],
 			[
 				"Fieldstrig",
-				"Field::string	VARCHAR equivalent with a length (optional)"
+				"Field::string\tVARCHAR equivalent with a length (optional)"
 			],
 			[
 				"add",
-				"addContact	(Controllers.js)"
+				"addContact\t(Controllers.js)"
 			],
 			[
 				"tran",
-				"transition	CSS - transition: ;"
+				"transition\tCSS - transition: ;"
 			],
 			[
 				"services",
-				"service(string, Function)	angular-loader.js"
+				"service(string, Function)\tangular-loader.js"
 			],
 			[
 				"baco",
@@ -505,50 +513,72 @@
 			],
 			[
 				"getcoun",
-				"getTodosCount()	controllers.js"
-			],
-			[
-				"hidesi",
-				"hideSideBar(element, tClass)	sidebar-toggler.js"
-			],
-			[
-				"fon",
-				"font-family"
+				"getTodosCount()\tcontrollers.js"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "resources/assets/js/app/components/notes/_list.vue",
+			"file": "app/Http/Controllers/UsersController.php",
 			"settings":
 			{
-				"buffer_size": 2160,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "app/Note.php",
-			"settings":
-			{
-				"buffer_size": 1666,
+				"buffer_size": 3084,
+				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "resources/assets/js/app/components/notes/Note_admin.vue",
+			"file": "resources/views/users/index.blade.php",
 			"settings":
 			{
-				"buffer_size": 2798,
+				"buffer_size": 2946,
+				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "app/Http/Controllers/NotesController.php",
+			"file": "app/User.php",
 			"settings":
 			{
-				"buffer_size": 5018,
+				"buffer_size": 2425,
+				"encoding": "UTF-8",
 				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/Http/Routes/users.php",
+			"settings":
+			{
+				"buffer_size": 360,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "resources/views/production-hours/_search-form.blade.php",
+			"settings":
+			{
+				"buffer_size": 1976,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/Http/Controllers/RolesController.php",
+			"settings":
+			{
+				"buffer_size": 4508,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/Users/Yismen/AppData/Roaming/Sublime Text 3/Packages/User/snippets/blade/My blade input single error message.sublime-snippet",
+			"settings":
+			{
+				"buffer_size": 395,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
 			}
 		}
 	],
@@ -559,10 +589,46 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 358.0,
-		"last_filter": "Snippet: lower",
+		"height": 102.0,
+		"last_filter": "Snippet: mysingle",
 		"selected_items":
 		[
+			[
+				"Snippet: mysingle",
+				"Snippet: My blade input single error message"
+			],
+			[
+				"Snippet: mybladeerror",
+				"Snippet: My blade input single error message"
+			],
+			[
+				"Snippet: myblaerr",
+				"Snippet: My blade errors message div"
+			],
+			[
+				"Snippet: frminp",
+				"Snippet: My blade form input errors"
+			],
+			[
+				"Snippet: input",
+				"Snippet: My blade form input errors"
+			],
+			[
+				"Snippet: myinput",
+				"Snippet: My blade form input horizontal"
+			],
+			[
+				"Snippet: myin",
+				"Snippet: My blade form input"
+			],
+			[
+				"Snippet: myrev",
+				"Snippet: My Return View"
+			],
+			[
+				"Snippet: mymi",
+				"Snippet: My Laravel Middleware Multiple"
+			],
 			[
 				"Snippet: lower",
 				"Snippet: Str-lower"
@@ -640,7 +706,7 @@
 				"Snippet: bs3-navbar-basic"
 			],
 			[
-				"Snippet: alert	",
+				"Snippet: alert\t",
 				"Snippet: bs3-alert-info"
 			],
 			[
@@ -836,10 +902,6 @@
 				"Snippet: bs3-input-email"
 			],
 			[
-				"Snippet: input",
-				"Snippet: bs3-input-email"
-			],
-			[
 				"Snippet: formhor",
 				"Snippet: bs3-form-horizontal"
 			],
@@ -940,10 +1002,6 @@
 				"Snippet: my_blade_form_open"
 			],
 			[
-				"Snippet: myin",
-				"Snippet: my_blade_form_input_horizontal"
-			],
-			[
 				"Snippet: inc",
 				"Snippet: blade-include"
 			],
@@ -1008,7 +1066,7 @@
 				"Snippet: bs3-input-email-h"
 			],
 			[
-				"Snippet: bsinputema		",
+				"Snippet: bsinputema\t\t",
 				"Snippet: bs3-input-email-h"
 			],
 			[
@@ -1020,7 +1078,7 @@
 				"Snippet: bs3-input-group"
 			],
 			[
-				"Snippet: bsint	",
+				"Snippet: bsint\t",
 				"Snippet: bs3-input-text"
 			],
 			[
@@ -1046,37 +1104,9 @@
 			[
 				"Snippet: myerror",
 				"Snippet: my_blade_error_message_div"
-			],
-			[
-				"Snippet: bs3-input",
-				"Snippet: bs3-input-group-addon"
-			],
-			[
-				"Snippet: img",
-				"Snippet: bs3-image"
-			],
-			[
-				"Snippet: image",
-				"Snippet: Image - Placeholder"
-			],
-			[
-				"Snippet: tabcon",
-				"Snippet: bs3-table-condensed"
-			],
-			[
-				"Snippet: myse",
-				"Snippet: my_blade_form_select_horizontal"
-			],
-			[
-				"Snippet: mybla",
-				"Snippet: my_blade_form_input_horizontal"
-			],
-			[
-				"Snippet: mysele",
-				"Snippet: mySelect"
 			]
 		],
-		"width": 786.0
+		"width": 510.0
 	},
 	"console":
 	{
@@ -1103,19 +1133,41 @@
 	"expanded_folders":
 	[
 		"/F/wamp/www/dainsys3",
-		"/F/wamp/www/dainsys3/public"
+		"/F/wamp/www/dainsys3/app",
+		"/F/wamp/www/dainsys3/app/Http/Middleware"
 	],
 	"file_history":
 	[
+		"/F/wamp/www/dainsys3/app/Http/Middleware/ACL.php",
+		"/C/Users/Yismen/AppData/Roaming/Sublime Text 3/Packages/User/snippets/blade/My blade form select horizontal.sublime-snippet",
+		"/C/Users/Yismen/AppData/Roaming/Sublime Text 3/Packages/User/snippets/blade/My blade form select.sublime-snippet",
+		"/C/Users/Yismen/AppData/Roaming/Sublime Text 3/Packages/User/snippets/blade/My blade form input.sublime-snippet",
+		"/C/Users/Yismen/AppData/Roaming/Sublime Text 3/Packages/User/snippets/blade/My blade form input with addon.sublime-snippet",
+		"/C/Users/Yismen/AppData/Roaming/Sublime Text 3/Packages/User/snippets/blade/My blade form input horizontal.sublime-snippet",
+		"/C/Users/Yismen/AppData/Roaming/Sublime Text 3/Packages/User/snippets/blade/My blade form input errors.sublime-snippet",
+		"/F/wamp/www/dainsys3/resources/views/layouts/app.blade.php",
+		"/F/wamp/www/dainsys3/gulpfile.js",
+		"/F/wamp/www/dainsys3/vendor/laravel/framework/src/Illuminate/Foundation/Auth/AuthenticatesAndRegistersUsers.php",
+		"/F/wamp/www/dainsys3/vendor/laravel/framework/src/Illuminate/Foundation/Auth/AuthenticatesUsers.php",
+		"/F/wamp/www/dainsys3/app/Http/Controllers/Auth/AuthController.php",
+		"/F/wamp/www/dainsys3/resources/views/users/edit.blade.php",
+		"/F/wamp/www/dainsys3/resources/views/users/create.blade.php",
+		"/F/wamp/www/dainsys3/resources/views/users/index.blade.php",
+		"/F/wamp/www/dainsys3/app/Http/Controllers/CardsController.php",
+		"/F/wamp/www/dainsys3/resources/assets/js/app/components/notes/_list.vue",
+		"/F/wamp/www/dainsys3/app/Note.php",
+		"/F/wamp/www/dainsys3/resources/assets/js/app/components/notes/Note_admin.vue",
+		"/F/wamp/www/dainsys3/app/Http/Controllers/NotesController.php",
+		"/F/wamp/bin/mysql/mysql5.7.14/wampserver.conf",
+		"/F/wamp/www/dainsys3/.env",
+		"/F/wamp/bin/mysql/mysql5.6.17/wampserver.conf",
 		"/F/wamp/www/dainsys3/public/build/js/main-48745af963.js",
 		"/F/wamp/www/dainsys3/resources/views/notes/admin/partials/list.blade.php",
 		"/F/wamp/www/dainsys3/resources/views/notes/admin/partials/link-to-list.blade.php",
 		"/F/wamp/www/dainsys3/resources/views/notes/admin/index.blade.php",
-		"/F/wamp/www/dainsys3/app/Http/Controllers/NotesController.php",
 		"/F/wamp/www/dainsys3/resources/views/departments/index.blade.php",
 		"/F/wamp/www/dainsys3/resources/assets/js/app/components/modal.vue",
 		"/F/wamp/www/dainsys3/resources/assets/js/app/components/Task.vue",
-		"/F/wamp/www/dainsys3/resources/assets/js/app/components/notes/Note_admin.vue",
 		"/F/wamp/www/dainsys3/resources/views/departments/show.blade.php",
 		"/F/wamp/www/dainsys3/app/Http/Controllers/DepartmentsController.php",
 		"/F/wamp/www/dainsys3/resources/assets/js/app/modal.vue",
@@ -1130,8 +1182,6 @@
 		"/F/wamp/www/dainsys3/resources/views/punches/index.blade.php",
 		"/F/wamp/www/dainsys3/resources/views/punches/create.blade.php",
 		"/F/wamp/www/dainsys3/resources/views/punches/show.blade.php",
-		"/F/wamp/www/dainsys3/gulpfile.js",
-		"/F/wamp/www/dainsys3/resources/assets/js/app/components/notes/_list.vue",
 		"/F/wamp/www/dainsys3/app/Http/routes.php",
 		"/F/wamp/www/dainsys3/resources/assets/js/app/components/notes/Note.vue",
 		"/F/wamp/www/dainsys3/resources/assets/js/app/main.js",
@@ -1151,7 +1201,6 @@
 		"/F/wamp/www/dainsys3/node_modules/animate.css/animate.css",
 		"/F/wamp/www/dainsys3/resources/assets/js/app/components/Employee.vue",
 		"/F/wamp/www/dainsys3/resources/views/auth/login.blade.php",
-		"/F/wamp/www/dainsys3/resources/views/layouts/app.blade.php",
 		"/F/wamp/www/dainsys3/resources/views/tasks/index.blade.php",
 		"/F/wamp/www/dainsys3/app/Http/Routes/tasks.php",
 		"/F/wamp/www/dainsys3/app/Task.php",
@@ -1216,29 +1265,11 @@
 		"/F/wamp/www/dainsys3/resources/views/employees/partials/termination.blade.php",
 		"/F/wamp/www/dainsys3/resources/views/profiles/_form.blade.php",
 		"/F/wamp/www/dainsys3/app/Http/Controllers/DowntimesController.php",
-		"/F/wamp/www/dainsys3/resources/views/employees/partials/edit-info.blade.php",
-		"/F/wamp/www/dainsys3/resources/views/employees/partials/logins.blade.php",
-		"/F/wamp/www/dainsys3/resources/views/employees/show-old.blade.php",
-		"/F/wamp/www/dainsys3/app/Http/Controllers/CardsController.php",
-		"/F/wamp/www/dainsys3/app/Http/Routes2/api_routes.php",
-		"/F/wamp/www/dainsys3/resources/views/cards/create.blade.php",
-		"/F/wamp/www/dainsys3/resources/views/cards/edit.blade.php",
-		"/F/wamp/www/dainsys3/app/Http/Routes/cards.php",
-		"/F/wamp/www/dainsys3/resources/views/articles/_partial.blade.php",
-		"/F/wamp/www/dainsys3/resources/views/articles/_results.blade.php",
-		"/F/wamp/www/dainsys3/resources/views/articles/_results2.blade.php",
-		"/F/wamp/www/dainsys3/resources/views/articles/show.blade.php",
-		"/F/wamp/www/dainsys3/resources/views/layouts/partials/navbar-user.blade.php",
-		"/F/wamp/www/dainsys3/resources/views/profiles/create.blade.php",
-		"/F/wamp/www/dainsys3/resources/views/profiles/edit.blade.php",
-		"/F/wamp/www/dainsys3/resources/views/profiles/show.blade.php",
-		"/F/wamp/www/dainsys3/resources/views/cards/index.blade.php",
-		"/F/wamp/www/dainsys3/resources/views/cards/show.blade.php",
-		"/F/wamp/www/dainsys3/resources/views/downtimes/index.blade.php"
+		"/F/wamp/www/dainsys3/resources/views/employees/partials/edit-info.blade.php"
 	],
 	"find":
 	{
-		"height": 70.0
+		"height": 73.0
 	},
 	"find_in_files":
 	{
@@ -1262,6 +1293,16 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"reject",
+			"parsePerms",
+			"handleAuthenthication",
+			"name",
+			"css",
+			"credentials",
+			"name",
+			"createUser",
+			"request",
+			"requests",
 			"updateNote",
 			"parse",
 			"this.newNote = {title: null, body: null, updating: null};",
@@ -1379,17 +1420,7 @@
 			"todo",
 			"vue-j",
 			"vue-js",
-			"$request->",
-			"$",
-			"public",
-			"FIELDNAME",
-			"RANDOM_NAME",
-			"SIZE",
-			"$min",
-			"600",
-			"RANDOM_NAME",
-			"request",
-			"FIELDNAME"
+			"$request->"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1465,94 +1496,207 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "resources/assets/js/app/components/notes/_list.vue",
+					"file": "app/Http/Controllers/UsersController.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2160,
+						"buffer_size": 3084,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1385,
-								1385
+								817,
+								817
 							]
 						],
 						"settings":
 						{
-							"auto_complete": false,
-							"syntax": "Packages/Vue Syntax Highlight/vue.tmLanguage",
+							"color_helper.box_height": 16,
+							"color_helper.color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"color_helper.file_palette":
+							[
+							],
+							"color_helper.preview_meta":
+							{
+							},
+							"color_helper.scan":
+							{
+								"allowed_colors":
+								[
+									"rgba",
+									"rgb",
+									"hex",
+									"webcolors",
+									"hsla",
+									"hex_compressed",
+									"hsl"
+								],
+								"compress_hex_output": true,
+								"current_ext": ".php",
+								"current_syntax": "PHP/PHP",
+								"enabled": true,
+								"last_updated": 1476896893.19,
+								"scan_completion_scopes":
+								[
+								],
+								"scan_scopes":
+								[
+									"meta.property-list.css -support.type.property-name.css -comment -string",
+									"meta.property-value.css -comment -string",
+									"meta.value.css -comment -string",
+									"meta.tag.inline.any.html string.quoted",
+									"meta.tag.any.html meta.attribute-with-value.style.html"
+								],
+								"use_hex_argb": false
+							},
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 784.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "app/Note.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1666,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1239,
-								1239
-							]
-						],
-						"settings":
-						{
-							"auto_complete": false,
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 640.0,
+						"translation.y": 494.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "resources/assets/js/app/components/notes/Note_admin.vue",
+					"buffer": 1,
+					"file": "resources/views/users/index.blade.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2798,
+						"buffer_size": 2946,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1255,
-								1255
+								346,
+								346
 							]
 						],
 						"settings":
 						{
-							"auto_complete": false,
-							"syntax": "Packages/Vue Syntax Highlight/vue.tmLanguage"
+							"color_helper.box_height": 16,
+							"color_helper.color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"color_helper.file_palette":
+							[
+							],
+							"color_helper.preview_meta":
+							{
+							},
+							"color_helper.scan":
+							{
+								"allowed_colors":
+								[
+									"rgba",
+									"rgb",
+									"hex",
+									"webcolors",
+									"hsla",
+									"hex_compressed",
+									"hsl"
+								],
+								"compress_hex_output": true,
+								"current_ext": ".php",
+								"current_syntax": "Laravel Blade Highlighter/blade",
+								"enabled": true,
+								"last_updated": 1476896893.19,
+								"scan_completion_scopes":
+								[
+								],
+								"scan_scopes":
+								[
+									"meta.property-list.css -support.type.property-name.css -comment -string",
+									"meta.property-value.css -comment -string",
+									"meta.value.css -comment -string",
+									"meta.tag.inline.any.html string.quoted",
+									"meta.tag.any.html meta.attribute-with-value.style.html"
+								],
+								"use_hex_argb": false
+							},
+							"syntax": "Packages/Laravel Blade Highlighter/blade.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 336.0,
+						"translation.y": 91.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "app/User.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2425,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								375,
+								375
+							]
+						],
+						"settings":
+						{
+							"color_helper.box_height": 16,
+							"color_helper.color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"color_helper.file_palette":
+							[
+							],
+							"color_helper.preview_meta":
+							{
+							},
+							"color_helper.scan":
+							{
+								"allowed_colors":
+								[
+									"rgba",
+									"rgb",
+									"hex",
+									"webcolors",
+									"hsla",
+									"hex_compressed",
+									"hsl"
+								],
+								"compress_hex_output": true,
+								"current_ext": ".php",
+								"current_syntax": "PHP/PHP",
+								"enabled": true,
+								"last_updated": 1476896893.19,
+								"scan_completion_scopes":
+								[
+								],
+								"scan_scopes":
+								[
+									"meta.property-list.css -support.type.property-name.css -comment -string",
+									"meta.property-value.css -comment -string",
+									"meta.value.css -comment -string",
+									"meta.tag.inline.any.html string.quoted",
+									"meta.tag.any.html meta.attribute-with-value.style.html"
+								],
+								"use_hex_argb": false
+							},
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1027.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
@@ -1560,33 +1704,247 @@
 				},
 				{
 					"buffer": 3,
-					"file": "app/Http/Controllers/NotesController.php",
+					"file": "app/Http/Routes/users.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5018,
+						"buffer_size": 360,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								537,
-								537
+								360,
+								360
 							]
 						],
 						"settings":
 						{
-							"auto_complete": false,
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 4,
+							"color_helper.box_height": 16,
+							"color_helper.color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"color_helper.file_palette":
+							[
+							],
+							"color_helper.preview_meta":
+							{
+							},
+							"color_helper.scan":
+							{
+								"allowed_colors":
+								[
+									"hsla",
+									"hex_compressed",
+									"webcolors",
+									"hsl",
+									"rgb",
+									"rgba",
+									"hex"
+								],
+								"compress_hex_output": true,
+								"current_ext": ".php",
+								"current_syntax": "PHP/PHP",
+								"enabled": true,
+								"last_updated": 1476547424.18,
+								"scan_completion_scopes":
+								[
+								],
+								"scan_scopes":
+								[
+									"meta.property-list.css -support.type.property-name.css -comment -string",
+									"meta.property-value.css -comment -string",
+									"meta.value.css -comment -string",
+									"meta.tag.inline.any.html string.quoted",
+									"meta.tag.any.html meta.attribute-with-value.style.html"
+								],
+								"use_hex_argb": false
+							},
+							"syntax": "Packages/PHP/PHP.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "resources/views/production-hours/_search-form.blade.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1976,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								722,
+								226
+							]
+						],
+						"settings":
+						{
+							"color_helper.box_height": 16,
+							"color_helper.color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"color_helper.file_palette":
+							[
+							],
+							"color_helper.preview_meta":
+							{
+							},
+							"color_helper.scan":
+							{
+								"allowed_colors":
+								[
+									"hsla",
+									"hex_compressed",
+									"webcolors",
+									"hsl",
+									"rgb",
+									"rgba",
+									"hex"
+								],
+								"compress_hex_output": true,
+								"current_ext": ".php",
+								"current_syntax": "Laravel Blade Highlighter/blade",
+								"enabled": true,
+								"last_updated": 1476547424.18,
+								"scan_completion_scopes":
+								[
+								],
+								"scan_scopes":
+								[
+									"meta.property-list.css -support.type.property-name.css -comment -string",
+									"meta.property-value.css -comment -string",
+									"meta.value.css -comment -string",
+									"meta.tag.inline.any.html string.quoted",
+									"meta.tag.any.html meta.attribute-with-value.style.html"
+								],
+								"use_hex_argb": false
+							},
+							"syntax": "Packages/Laravel Blade Highlighter/blade.sublime-syntax",
+							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "app/Http/Controllers/RolesController.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4508,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								169,
+								169
+							]
+						],
+						"settings":
+						{
+							"color_helper.box_height": 16,
+							"color_helper.color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"color_helper.file_palette":
+							[
+							],
+							"color_helper.preview_meta":
+							{
+							},
+							"color_helper.scan":
+							{
+								"allowed_colors":
+								[
+									"rgba",
+									"rgb",
+									"hex",
+									"webcolors",
+									"hsla",
+									"hex_compressed",
+									"hsl"
+								],
+								"compress_hex_output": true,
+								"current_ext": ".php",
+								"current_syntax": "PHP/PHP",
+								"enabled": true,
+								"last_updated": 1476896893.19,
+								"scan_completion_scopes":
+								[
+								],
+								"scan_scopes":
+								[
+									"meta.property-list.css -support.type.property-name.css -comment -string",
+									"meta.property-value.css -comment -string",
+									"meta.value.css -comment -string",
+									"meta.tag.inline.any.html string.quoted",
+									"meta.tag.any.html meta.attribute-with-value.style.html"
+								],
+								"use_hex_argb": false
+							},
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "/C/Users/Yismen/AppData/Roaming/Sublime Text 3/Packages/User/snippets/blade/My blade input single error message.sublime-snippet",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 395,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								383,
+								383
+							]
+						],
+						"settings":
+						{
+							"color_helper.box_height": 16,
+							"color_helper.color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"color_helper.file_palette":
+							[
+							],
+							"color_helper.preview_meta":
+							{
+							},
+							"color_helper.scan":
+							{
+								"current_ext": ".sublime-snippet",
+								"current_syntax": "XML/XML",
+								"enabled": false,
+								"last_updated": 1476547424.18
+							},
+							"default_extension": "sublime-snippet",
+							"syntax": "Packages/XML/XML.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
 					"type": "text"
 				}
 			]
@@ -1649,6 +2007,38 @@
 		"selected_items":
 		[
 			[
+				"rolecon",
+				"app\\Http\\Controllers\\RolesController.php"
+			],
+			[
+				"productionhour-for",
+				"resources\\views\\production-hours\\_search-form.blade.php"
+			],
+			[
+				"gul",
+				"gulpfile.js"
+			],
+			[
+				"authenticatesusers",
+				"vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Auth\\AuthenticatesUsers.php"
+			],
+			[
+				"authenticatesandregistersusers",
+				"vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Auth\\AuthenticatesAndRegistersUsers.php"
+			],
+			[
+				"user",
+				"app\\User.php"
+			],
+			[
+				"cardcon",
+				"app\\Http\\Controllers\\CardsController.php"
+			],
+			[
+				"userscon",
+				"app\\Http\\Controllers\\UsersController.php"
+			],
+			[
 				"noteadminpar",
 				"resources\\views\\notes\\admin\\partials\\list.blade.php"
 			],
@@ -1709,10 +2099,6 @@
 				"app\\Http\\Controllers\\TasksController.php"
 			],
 			[
-				"user",
-				"app\\User.php"
-			],
-			[
 				"gulp",
 				"gulpfile.js"
 			],
@@ -1723,10 +2109,6 @@
 			[
 				"resourmain.",
 				"resources\\assets\\js\\app\\main.js"
-			],
-			[
-				"gul",
-				"gulpfile.js"
 			],
 			[
 				"p",
@@ -1937,10 +2319,6 @@
 				"app\\Http\\Controllers\\EmployeesController.php"
 			],
 			[
-				"cardcon",
-				"app\\Http\\Controllers\\CardsController.php"
-			],
-			[
 				"cardsed",
 				"resources\\views\\cards\\edit.blade.php"
 			],
@@ -2125,14 +2503,6 @@
 				"agency\\api\\app\\City.php"
 			],
 			[
-				"authenticatesusers",
-				"agency\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Auth\\AuthenticatesUsers.php"
-			],
-			[
-				"authenticatesandregistersusers",
-				"agency\\api\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Auth\\AuthenticatesAndRegistersUsers.php"
-			],
-			[
 				"authcheck",
 				"dainsys\\vendor\\symfony\\security-core\\Symfony\\Component\\Security\\Core\\Authorization\\AuthorizationChecker.php"
 			],
@@ -2147,18 +2517,6 @@
 			[
 				"angularauth",
 				"dainsys\\app\\Http\\Middleware\\AngularAuth.php"
-			],
-			[
-				"partiacontacts",
-				"agency\\app\\partials\\contacts.php"
-			],
-			[
-				"app/todos.php",
-				"agency\\app\\partials\\todos.php"
-			],
-			[
-				"todosindex",
-				"agency\\views\\todos\\index.php"
 			]
 		],
 		"width": 0.0
@@ -2166,9 +2524,13 @@
 	"select_project":
 	{
 		"height": 500.0,
-		"last_filter": "",
+		"last_filter": "dicenew",
 		"selected_items":
 		[
+			[
+				"dicenew",
+				"F:\\wamp\\www\\sm-projects\\Dicenew.sublime-project"
+			],
 			[
 				"",
 				"F:\\wamp\\www\\dainsys\\dainsys.sublime-project"
@@ -2200,7 +2562,7 @@
 	"show_minimap": true,
 	"show_open_files": false,
 	"show_tabs": true,
-	"side_bar_visible": true,
+	"side_bar_visible": false,
 	"side_bar_width": 373.0,
 	"status_bar_visible": true,
 	"template_settings":

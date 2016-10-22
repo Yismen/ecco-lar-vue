@@ -1,7 +1,7 @@
 {!! Form::open(['route'=>['admin.production-hours.query'], 'method'=>'get', 'class'=>'form-horizontal', 'role'=>'form', 'autocomplete'=>"off", 'id'=>'search-production-hours']) !!} 
 
     {{-- Display Errors --}}
-          @if( $errors->any() )
+         {{--  @if( $errors->any() )
               <div class="col-sm-12">
                   <div class="alert alert-danger">
                       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -12,7 +12,7 @@
                       </ul>
                   </div>
               </div>
-          @endif
+          @endif --}}
           {{-- /. Errors --}}      
 
     <!-- Search Date -->
@@ -20,6 +20,7 @@
       {!! Form::label('date', 'Search Date:', ['class'=>'col-sm-5 control-label']) !!}
       <div class="col-sm-7">
         {!! Form::input('date', 'date', null, ['class'=>'form-control', 'placeholder'=>'Search Date']) !!}
+        {!! $errors->first('date', '<span class="text-danger">:message</span>') !!}
       </div>
     </div>
     <!-- /. Search Date -->
@@ -30,6 +31,7 @@
       <div class="col-sm-7">
         <?php $supervisorsList = array_merge(['w'=>'-- Please Select One--'], $supervisorsList) ?>
         {!! Form::select('supervisor', $supervisorsList, null, ['class'=>'form-control input-sm']) !!}
+        {!! $errors->first('supervisor', '<span class="text-danger">:message</span>') !!}
       </div>
     </div>
     <!-- /. Supervisor -->
