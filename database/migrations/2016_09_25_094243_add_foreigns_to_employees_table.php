@@ -22,6 +22,8 @@ class AddForeignsToEmployeesTable extends Migration
                 ->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('position_id')->references('id')->on('positions')
                 ->onDelete('cascade')->onUpdate('cascade');
+
+            $table->foreign('supervisor_id')->references('id')->on('supervisors');
         });
     }
 
@@ -36,6 +38,7 @@ class AddForeignsToEmployeesTable extends Migration
            $table->dropForeign('gender_id');
            $table->dropForeign('marital_id');
            $table->dropForeign('position_id');
+           $table->dropForeign('supervisor_id');
         });
     }
 }
