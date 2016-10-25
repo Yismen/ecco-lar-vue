@@ -122,7 +122,7 @@ class MenusController extends Controller {
 
 		$this->createPermissions($menu, $permission);
 
-		return $this->syncRoles($menu, $requests->get('roles_lists'));
+		return $this->syncRoles($menu, $requests->get('roles_list'));
 	}
 
 	/**
@@ -136,7 +136,7 @@ class MenusController extends Controller {
 	{
 		$menu->update($requests->all());
 
-		return $this->syncRoles($menu, $requests->get('roles_lists'));
+		return $this->syncRoles($menu, $requests->get('roles_list'));
 	}
 
 	/**
