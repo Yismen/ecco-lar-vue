@@ -1,6 +1,7 @@
 <?php
 
 use App\Role;
+use App\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -30,6 +31,14 @@ class RoleTableSeeder extends Seeder
             'display_name' => 'Application Owner', 
             'description' => 'Application owner. Little restriction. Just to differentiate from the system admin.'
         ]);
+
+        /**
+         * Assing some roles to the default user
+         * @var [type]
+         */
+        $user = User::find(1);
+
+        $user->roles()->sync([1,2]);
 
         Model::reguard();
     }
