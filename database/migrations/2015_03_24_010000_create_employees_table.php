@@ -35,13 +35,6 @@ class CreateEmployeesTable extends Migration {
 
 			$table->timestamps();
 
-			$table->foreign('gender_id')->references('id')->on('genders')
-				->onDelete('cascade')->onUpdate('cascade');
-			$table->foreign('marital_id')->references('id')->on('civil_status')
-				->onDelete('cascade')->onUpdate('cascade');
-			$table->foreign('position_id')->references('id')->on('positions')
-				->onDelete('cascade')->onUpdate('cascade');
-
 		});
 
 		/**
