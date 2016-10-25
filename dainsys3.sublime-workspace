@@ -4,6 +4,22 @@
 		"selected_items":
 		[
 			[
+				"superviso",
+				"supervisor_id"
+			],
+			[
+				"position",
+				"position_id\t(2016_09_25_094243_add_foreigns_to_employees_table.php)"
+			],
+			[
+				"gender",
+				"gender_id"
+			],
+			[
+				"Columdro",
+				"Column::dropForeign\tDrop a Foreign Key"
+			],
+			[
 				"str_",
 				"str_slug\tL5 Str Slug "
 			],
@@ -498,27 +514,29 @@
 			[
 				"search",
 				"searchContact"
-			],
-			[
-				"Fieldstrig",
-				"Field::string\tVARCHAR equivalent with a length (optional)"
-			],
-			[
-				"add",
-				"addContact\t(Controllers.js)"
-			],
-			[
-				"tran",
-				"transition\tCSS - transition: ;"
-			],
-			[
-				"services",
-				"service(string, Function)\tangular-loader.js"
 			]
 		]
 	},
 	"buffers":
 	[
+		{
+			"file": "database/factories/ModelFactory.php",
+			"settings":
+			{
+				"buffer_size": 4046,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "database/seeds/DatabaseSeeder.php",
+			"settings":
+			{
+				"buffer_size": 238,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -1071,11 +1089,21 @@
 	"expanded_folders":
 	[
 		"/F/wamp/www/dainsys3",
-		"/F/wamp/www/dainsys3/bootstrap",
-		"/F/wamp/www/dainsys3/tests"
+		"/F/wamp/www/dainsys3/database",
+		"/F/wamp/www/dainsys3/database/factories",
+		"/F/wamp/www/dainsys3/database/migrations",
+		"/F/wamp/www/dainsys3/database/seeds"
 	],
 	"file_history":
 	[
+		"/F/wamp/www/dainsys3/database/seeds/UsersTableSeeder.php",
+		"/F/wamp/www/dainsys3/database/migrations/2015_03_24_010000_create_employees_table.php",
+		"/F/wamp/www/dainsys3/database/migrations/2015_07_26_265252_create_sources_table.php",
+		"/F/wamp/www/dainsys3/package.json",
+		"/F/wamp/www/dainsys3/database/migrations/2016_09_25_094243_add_foreigns_to_employees_table.php",
+		"/F/wamp/www/dainsys3/database/migrations/2016_10_01_100408_add_supervisor_id_to_employees_table.php",
+		"/F/wamp/www/dainsys3/database/migrations/2015_08_23_211708_create_configs_table.php",
+		"/F/wamp/www/dainsys3/app/Employee.php",
 		"/F/wamp/www/dainsys3/resources/views/menus/edit.blade.php",
 		"/F/wamp/www/dainsys3/vendor/laravel/framework/src/Illuminate/Contracts/Http/Kernel.php",
 		"/C/Users/Yismen/AppData/Roaming/Sublime Text 3/Packages/HTMLBeautify/HTMLBeautify.sublime-settings",
@@ -1096,7 +1124,6 @@
 		"/F/wamp/www/dainsys3/resources/views/production-hours/_search-form.blade.php",
 		"/F/wamp/www/dainsys3/app/Http/Controllers/RolesController.php",
 		"/C/Users/Yismen/AppData/Roaming/Sublime Text 3/Packages/User/snippets/blade/My blade input single error message.sublime-snippet",
-		"/F/wamp/www/dainsys3/app/Employee.php",
 		"/F/wamp/www/dainsys3/app/Department.php",
 		"/F/wamp/www/dainsys3/app/Http/Middleware/ACL.php",
 		"/C/Users/Yismen/AppData/Roaming/Sublime Text 3/Packages/User/snippets/blade/My blade form select horizontal.sublime-snippet",
@@ -1163,7 +1190,6 @@
 		"/F/wamp/www/dainsys3/app/Task.php",
 		"/F/wamp/www/dainsys3/database/factories/ModelFactory.php",
 		"/C/Users/Yismen/AppData/Roaming/Sublime Text 3/Packages/SideBarEnhancements/Default (Windows).sublime-keymap",
-		"/F/wamp/www/dainsys3/package.json",
 		"/F/wamp/www/dainsys3/resources/assets/js/app/views/loading.template.html",
 		"/C/Users/Yismen/AppData/Roaming/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
 		"/F/wamp/www/dainsys3/resources/views/tasks/index2.blade.php",
@@ -1197,13 +1223,7 @@
 		"/C/Users/Yismen/AppData/Roaming/Sublime Text 3/Packages/User/snippets/blade/My Laravel Image Umploader.sublime-snippet",
 		"/F/wamp/www/dainsys3/resources/views/employees/edit.blade.php",
 		"/F/wamp/www/dainsys3/resources/views/employees/index.blade.php",
-		"/F/wamp/www/dainsys3/storage/framework/sessions/93e91fe817c95ce81a04cfada9dd67e86c5cfaf3",
-		"/F/wamp/www/dainsys3/app/Http/Kernel.php",
-		"/F/wamp/www/dainsys3/app/Console/Kernel.php",
-		"/F/wamp/www/dainsys3/app/ImageUploader.php",
-		"/F/wamp/www/dainsys3/app/Http/helpers.php",
-		"/F/wamp/www/dainsys3/resources/assets/js/scripts/employee-address-edit.js",
-		"/F/wamp/www/dainsys3/resources/assets/js/scripts/employee-punch-edit.js"
+		"/F/wamp/www/dainsys3/storage/framework/sessions/93e91fe817c95ce81a04cfada9dd67e86c5cfaf3"
 	],
 	"find":
 	{
@@ -1434,8 +1454,138 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "database/factories/ModelFactory.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4046,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								720,
+								720
+							]
+						],
+						"settings":
+						{
+							"color_helper.box_height": 13,
+							"color_helper.color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"color_helper.file_palette":
+							[
+							],
+							"color_helper.preview_meta":
+							{
+							},
+							"color_helper.scan":
+							{
+								"allowed_colors":
+								[
+									"rgba",
+									"webcolors",
+									"rgb",
+									"hex",
+									"hex_compressed",
+									"hsl",
+									"hsla"
+								],
+								"compress_hex_output": true,
+								"current_ext": ".php",
+								"current_syntax": "PHP/PHP",
+								"enabled": true,
+								"last_updated": 1477418648.12,
+								"scan_completion_scopes":
+								[
+								],
+								"scan_scopes":
+								[
+									"meta.property-list.css -support.type.property-name.css -comment -string",
+									"meta.property-value.css -comment -string",
+									"meta.value.css -comment -string",
+									"meta.tag.inline.any.html string.quoted",
+									"meta.tag.any.html meta.attribute-with-value.style.html"
+								],
+								"use_hex_argb": false
+							},
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 251.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "database/seeds/DatabaseSeeder.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 238,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								209,
+								209
+							]
+						],
+						"settings":
+						{
+							"color_helper.file_palette":
+							[
+							],
+							"color_helper.scan":
+							{
+								"allowed_colors":
+								[
+									"hsla",
+									"hsl",
+									"hex_compressed",
+									"rgb",
+									"webcolors",
+									"rgba",
+									"hex"
+								],
+								"compress_hex_output": true,
+								"current_ext": ".php",
+								"current_syntax": "PHP/PHP",
+								"enabled": true,
+								"last_updated": 1477406834.38,
+								"scan_completion_scopes":
+								[
+								],
+								"scan_scopes":
+								[
+									"meta.property-list.css -support.type.property-name.css -comment -string",
+									"meta.property-value.css -comment -string",
+									"meta.value.css -comment -string",
+									"meta.tag.inline.any.html string.quoted",
+									"meta.tag.any.html meta.attribute-with-value.style.html"
+								],
+								"use_hex_argb": false
+							},
+							"syntax": "Packages/PHP/PHP.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -1496,6 +1646,14 @@
 		"selected_items":
 		[
 			[
+				"employee",
+				"app\\Employee.php"
+			],
+			[
+				"emplo",
+				"app\\Employee.php"
+			],
+			[
 				"iluminacontrahttp",
 				"vendor\\laravel\\framework\\src\\Illuminate\\Contracts\\Http\\Kernel.php"
 			],
@@ -1522,10 +1680,6 @@
 			[
 				"menuon",
 				"app\\Http\\Controllers\\MenusController.php"
-			],
-			[
-				"employee",
-				"app\\Employee.php"
 			],
 			[
 				"depar",
@@ -1654,10 +1808,6 @@
 			[
 				"task",
 				"app\\Task.php"
-			],
-			[
-				"emplo",
-				"app\\Http\\Controllers\\EmployeesController.php"
 			],
 			[
 				"routeempl",
