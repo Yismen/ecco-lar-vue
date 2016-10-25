@@ -20,20 +20,20 @@ class CreateSourcesTable extends Migration {
 			$table->timestamps();
 		});
 
-		Source::create([
-			'id'=>1,
-			'name'=>'Data Entry',
-			]);
+		// Source::create([
+		// 	'id'=>1,
+		// 	'name'=>'Data Entry',
+		// 	]);
 
-		Source::create([
-			'id'=>2,
-			'name'=>'Resubs-VzW',
-			]);
+		// Source::create([
+		// 	'id'=>2,
+		// 	'name'=>'Resubs-VzW',
+		// 	]);
 
-		Source::create([
-			'id'=>3,
-			'name'=>'Resubs-General',
-			]);
+		// Source::create([
+		// 	'id'=>3,
+		// 	'name'=>'Resubs-General',
+		// 	]);
 
 	}
 
