@@ -13,13 +13,12 @@ class CreateSourcesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::dropIfExists('sources')
-			->create('sources', function(Blueprint $table)
-			{
-				$table->increments('id');
-				$table->string('name', 100)->unique();
-				$table->timestamps();
-			});
+		Schema::create('sources', function(Blueprint $table)
+		{	
+			$table->increments('id');
+			$table->string('name', 100)->unique();
+			$table->timestamps();
+		});
 
 		Source::create([
 			'id'=>1,
