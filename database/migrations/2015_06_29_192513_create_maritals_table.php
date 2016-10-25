@@ -12,7 +12,7 @@ class CreateMaritalsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('martitals', function(Blueprint $table)
+		Schema::create('maritals', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->string('name');
