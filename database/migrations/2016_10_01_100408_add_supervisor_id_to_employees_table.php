@@ -14,15 +14,9 @@ class AddSupervisorIdToEmployeesTable extends Migration
     {
         Schema::table('employees', function (Blueprint $table) {
             
-            $table->integer('supervisor_id')
-                ->unsigned()
-                ->nullable()
-                ->after('position_id')
-                ->index();
+            $table->integer('supervisor_id')->unsigned()->nullable()->index();
 
-            $table->foreign('supervisor_id')
-                ->references('id')
-                ->on('supervisors');
+            $table->foreign('supervisor_id')->references('id')->on('supervisors');
             // $table->index('supervisor_id');
         });
     }

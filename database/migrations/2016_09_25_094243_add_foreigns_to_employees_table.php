@@ -14,6 +14,8 @@ class AddForeignsToEmployeesTable extends Migration
     {
         Schema::table('employees', function (Blueprint $table) {
 
+            $table->integer('position_id')->unsigned()->nullable()->index();
+
             $table->foreign('gender_id')->references('id')->on('genders')
                 ->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('marital_id')->references('id')->on('civil_status')
