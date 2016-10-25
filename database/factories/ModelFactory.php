@@ -29,6 +29,8 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'email' => 'yismen.jorge@gmail.com', // $faker->email,
         'password' => bcrypt('password'), // bcrypt(str_random(10)),
         'remember_token' => str_random(10),
+        'is_active ' => 1,
+        'is_admin ' => 1,
     ];
 });
 
@@ -49,12 +51,6 @@ $factory->define(App\Production::class, function (Faker\Generator $faker) {
         'reason_id' => $faker->randomElement(array_flatten((array)\App\Reason::lists('id'))),
         'client_id' => $faker->randomElement(array_flatten((array)\App\Client::lists('id'))),
         'source_id' => $faker->randomElement(array_flatten((array)\App\Source::lists('id'))),
-    ];
-});
-
-$factory->define(App\Marital::class, function (Faker\Generator $faker) {
-    return [
-        'name' => 'Married',        
     ];
 });
 

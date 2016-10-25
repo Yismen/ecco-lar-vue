@@ -13,12 +13,9 @@ class MaritalTableSeeder extends Seeder
      */
     public function run()
     {
-        Model::unguard();
-
-        // Marital::truncate();
-
-        factory(Marital::class)->make();
-
-        Model::reguard();
+        Marital::truncate();
+        Marital::create(['id'=>1,'name'=>'Married']);
+        Marital::create(['id'=>2,'name'=>'Single']);
+        Marital::create(['id'=>3,'name'=>'Common Law']);
     }
 }

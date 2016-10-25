@@ -15,7 +15,7 @@ class UserTableSeeder extends Seeder
     {
         Model::unguard();
 
-        // User::truncate();
+        User::truncate();
 
         factory(User::class)->make();
 
