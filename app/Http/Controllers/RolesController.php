@@ -59,8 +59,11 @@ class RolesController extends Controller {
 	 */
 	public function create(Role $role)
 	{
-
-		return view('roles.create', compact('role'));
+		$usersList = $this->usersList;
+		$permissionsList = $this->permissionsList;
+		$menusList = $this->menusList;
+		
+		return view('roles.edit', compact('role', 'usersList', 'permissionsList', 'menusList'));
 	}
 
 	/**
