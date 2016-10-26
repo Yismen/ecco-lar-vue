@@ -25,14 +25,14 @@
 								<li class="list-group-item">
 									<strong>Email: </strong>{{ $user->email }}
 								</li>
-								<li class="list-group-item {{ $user->is_admin ? 'text-success' : '' }}">
+								<li class="list-group-item {{ $user->is_active ? 'text-success' : '' }}">
 									<strong>Status: </strong>{{ $user->is_active ? 'Active User' : 'This user is not active' }}
 								</li>
 								<li class="list-group-item {{ $user->is_admin ? 'text-warning' : '' }}">
 									<strong>Is Admin?: </strong>{{ $user->is_admin ? 'Yes, this user is admin' : 'No admin' }}
 								</li>
 							</ul>
-							<a href="{{ route('admin.users.edit', $user->username) }}" class="btn btn-warning"> Edit </a>
+							<a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-warning"> Edit </a>
 							{{-- {!! delete_button('users.destroy', $user->username, ['class'=>"btn btn-danger", 'label' => 'Delete']) !!} --}}
 							<hr>
 							<a href="{{ route('admin.users.index') }}" class=""> << Return to Users List </a>

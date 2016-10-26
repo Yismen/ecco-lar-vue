@@ -4,12 +4,9 @@
  * ===========================================================
  * Users
  */
-Route::bind('users', function($username){	
-	return App\User::whereUsername($username)
+Route::bind('users', function($id){	
+	return App\User::whereId($id)
 		->with('roles.perms')
 		->firstOrFail();
 });
 Route::resource('users', 'UsersController');
-// Route::resource('users', 'UsersController', ['except' => [
-//     'create', 'store'
-// ]]);
