@@ -45,7 +45,7 @@ class RolesController extends Controller {
 			// 	$query->orderBy('users.name');
 			// }])
 			// ->with(['menus'=>function($query){
-			// 	$query->orderBy('menus.display_name');
+			// 	$query->orderBy('roles.display_name');
 			// }])
 			->paginate(10);
 
@@ -63,7 +63,7 @@ class RolesController extends Controller {
 		$permissionsList = $this->permissionsList;
 		$menusList = $this->menusList;
 		
-		return view('roles.edit', compact('role', 'usersList', 'permissionsList', 'menusList'));
+		return view('roles.create', compact('role', 'usersList', 'permissionsList', 'menusList'));
 	}
 
 	/**
@@ -71,16 +71,16 @@ class RolesController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(Role $role, Request $requests)
+	public function store(Role $role, Request $request)
 	{
 		$this->validate($request, [
 		    'name' => 'required',
 		    'display_name' => 'required',
 		]);
 
-		$this->createRole($role, $requests);
+		$this->createRole($role, $request);
 
-		return redirect()->route('menus.index')
+		return redirect()->route('admin.roles.index')
 			->withSuccess("Role $role->display_name has bee created.");
 	}
 
@@ -147,14 +147,14 @@ class RolesController extends Controller {
 	 * handle the process of creating the menu item
 	 * 
 	 * @param  [object] $menu     [description]
-	 * @param  [object] $requests [description]
+	 * @param  [object] $request [description]
 	 * @return [process]           [the action of syncing the menu-roles]
 	 */
-	protected function createRole($role, $requests)
+	protected function createRole($role, $request)
 	{
-		$role = $role->create($requests->all());
+		$role = $role->create($request->all());
 
-		return $this->syncRelations($role,  $requests);
+		return $this->syncRelations($role,  $request);
 	}
 
 
@@ -162,14 +162,14 @@ class RolesController extends Controller {
 	 * handle the process of creating the menu item
 	 * 
 	 * @param  [object] $menu     [description]
-	 * @param  [object] $requests [description]
+	 * @param  [object] $request [description]
 	 * @return [process]           [the action of syncing the menu-roles]
 	 */
-	protected function updateRole($role, $requests)
+	protected function updateRole($role, $request)
 	{
-		$role->update($requests->all());
+		$role->update($request->all());
 
-		return $this->syncRelations($role,  $requests);
+		return $this->syncRelations($role,  $request);
 	}
 	/**
 	 * sync the roles model with the array selected by the user
@@ -178,12 +178,12 @@ class RolesController extends Controller {
 	 * @param  Array  $roles [description]
 	 * @return [type]        [description]
 	 */
-	protected function syncRelations(Role $role, $requests)
+	protected function syncRelations(Role $role, $request)
 	{
-		// dd($requests->all());
-		$role->users()->sync((array) $requests->input('users_list'));	
-		$role->perms()->sync((array) $requests->input('permissions_list'));	
-		$role->menus()->sync((array) $requests->input('menus_list'));	
+		// dd($request->all());
+		$role->users()->sync((array) $request->input('users_list'));	
+		$role->perms()->sync((array) $request->input('permissions_list'));	
+		$role->menus()->sync((array) $request->input('menus_list'));	
 
 		return $role;
 

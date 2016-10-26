@@ -20,7 +20,7 @@
 								</a>
 							</h3>
 
-							{!! Form::open(['route'=>['admin.roles.store'], 'method'=>'POST', 'class'=>'form-horizontal', 'role'=>'form']) !!}	
+							{!! Form::open(['route'=>['admin.roles.store'], 'method'=>'post', 'class'=>'form-horizontal', 'role'=>'form']) !!}	
 							
 								@include('roles._form')
 

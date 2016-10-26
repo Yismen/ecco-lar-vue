@@ -89,6 +89,10 @@ class Role extends EntrustRole
 	 * 
 	 * @param [type] $display_name [description]
 	 */
+	public function setNameAttribute( $name )
+	{
+		$this->attributes['name'] = str_slug($name, $separator = "-");
+	}
 	public function setDisplayNameAttribute( $display_name )
 	{
 		$this->attributes['display_name'] = ucwords(str_replace(['.','_','-','/'], ' ', $display_name));

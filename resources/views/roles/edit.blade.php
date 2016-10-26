@@ -30,6 +30,17 @@
 									</div>
 								
 								{!! Form::close() !!}
+
+								<div class="form-group">
+									<form action="{{ url('/admin/roles', $role->name) }}" method="POST" class="" style="display: inline-block;">
+									    {!! csrf_field() !!}
+									    {!! method_field('DELETE') !!}
+									
+									    <button type="submit" id="delete-role" class="btn btn-danger"  name="deleteBtn">
+									        <i class="fa fa-btn fa-trash"></i> Delete Role
+									    </button>
+									</form>	
+								</div>
 						</div>
 					</div>
 					
