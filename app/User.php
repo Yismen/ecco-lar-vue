@@ -80,9 +80,19 @@ class User extends Authenticatable implements CanResetPassword
 
     public function getRolesListAttribute()
     {   
+        // $roles = \Auth::user()->is_admin ? $roles : $this->roles();
         return \Auth::user()->is_admin
-            ? \App\Role::with('menus')->get()
-            : $this->roles()->get();
+            ? \App\Role::orderBy('display_name')
+                ->with(['menus'=>function($query){
+                    return $query->orderBy('display_name');
+                }])
+                ->get()
+            : $this->roles()
+                ->orderBy('display_name')
+                ->with(['menus'=>function($query){
+                    return $query->orderBy('display_name');
+                }])
+                ->get();
     }
 
     public function getActiveListAttribute()
