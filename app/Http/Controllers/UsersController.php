@@ -14,11 +14,10 @@ class UsersController extends Controller {
 
 	public function __construct(Request $request, Role $role)
 	{
-		// $this->middleware('authorize', ['only'=>['index:role.some']]);
-		// $this->middleware('authorize:view_users|edit_users|create_users', ['only'=>['index','show']]);
-		// $this->middleware('authorize:edit_users', ['only'=>['edit','update']]);
-		// $this->middleware('authorize:create_users', ['only'=>['create','store']]);
-		// $this->middleware('authorize:destroy_users', ['only'=>['destroy']]);
+		$this->middleware('authorize:view_users|edit_users|create_users', ['only'=>['index','show']]);
+		$this->middleware('authorize:edit_users', ['only'=>['edit','update']]);
+		$this->middleware('authorize:create_users', ['only'=>['create','store']]);
+		$this->middleware('authorize:destroy_users', ['only'=>['destroy']]);
 
 		$this->request = $request;
 		$this->rolesList = $role->all();
@@ -61,9 +60,13 @@ class UsersController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(User $user)
+	public function store(User $user, Request $request)
 	{
-		$this->request->all();
+		$this->validate($request, [
+			'name' => 'required',
+			'email' => 'required|email|unique:users,email',
+			'username' => 'required|unique:users,username',
+		]);
 
 		$this->createUser($user);
 
@@ -101,11 +104,17 @@ class UsersController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update(User $user, Request $requests)
+	public function update(User $user, Request $request)
 	{
-		$this->updateUser($user, $requests);
+		$this->validate($request, [
+			'name' => 'required',
+			'email' => 'required|email|unique:users,email,' . $user->id,
+			'username' => 'required|unique:users,username,' . $user->id,
+		]);
 
-		return redirect()->route('admin.users.show', $user->username)
+		$this->updateUser($user, $request);
+
+		return redirect()->route('admin.users.show', $user->id)
 			->withSuccess("User $user->name has been updated.");
 	}
 
@@ -117,10 +126,19 @@ class UsersController extends Controller {
 	 */
 	public function destroy(User $user)
 	{
-		// return $user;
+		if ($user->id == auth()->user()->id) {
+			return redirect()->route('admin.users.edit', $user->id)
+				->withDanger("It is not allowed to remove your own user.");
+		}
+
+		if ($user->is_admin) {
+			return redirect()->route('admin.users.edit', $user->id)
+				->withDanger("Super users can not be removed.");
+		}
+
 		$user->delete();
 
-		return redirect()->back()
+		return redirect()->route('admin.users.index')
 			->withWarning("User $user->name has been removed!!!");
 
 	}

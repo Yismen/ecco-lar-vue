@@ -46,8 +46,9 @@ class ACL
             return $next($request);
         }
 
-        $perms = $this->parsePerms($perms)
-            ->handlePermsissions($perms);
+        $perms = $this->parsePerms($perms);
+        
+        $this->handlePermsissions($perms);
 
         if ($this->reject) {
             return redirect("admin")
@@ -115,9 +116,7 @@ class ACL
             }, $perms);
         }
 
-        $this->perms = $perms;
-
-        return $this;
+        return $this->perms = $perms;
     }
 
     /**
