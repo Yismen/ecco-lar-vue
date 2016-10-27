@@ -7,8 +7,8 @@ use App\Http\Controllers\Controller;
 
 use App\Contact;
 
-class ContactsController extends Controller {
-
+class ContactsController extends Controller
+{
 	public function __construct()
 	{
 		$this->middleware('auth');
