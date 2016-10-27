@@ -24,6 +24,11 @@ class EmployeesController extends Controller {
 	function __construct(Request $request, Carbon $carbon) {
 		$this->request = $request;
 		$this->carbon = $carbon;
+
+		$this->middleware('authorize:view_employees|edit_employees|create_employees', ['only'=>['index','show']]);
+		$this->middleware('authorize:edit_employees', ['only'=>['edit','update']]);
+		$this->middleware('authorize:create_employees', ['only'=>['create','store']]);
+		$this->middleware('authorize:destroy_employees', ['only'=>['destroy']]);
 	}
 	/**
 	 * Display a listing of the resource.

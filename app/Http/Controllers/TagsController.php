@@ -11,7 +11,10 @@ class TagsController extends Controller {
 
 	public function __construct()
 	{
-		// $this->middleware('authorize', ['except'=>'show']);
+		$this->middleware('authorize:view_tags|edit_tags|create_tags', ['only'=>['index','show']]);
+		$this->middleware('authorize:edit_tags', ['only'=>['edit','update']]);
+		$this->middleware('authorize:create_tags', ['only'=>['create','store']]);
+		$this->middleware('authorize:destroy_tags', ['only'=>['destroy']]);
 		
 	}
 	

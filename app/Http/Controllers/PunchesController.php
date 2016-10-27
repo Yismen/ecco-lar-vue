@@ -8,6 +8,13 @@ use App\Punch;
 // use Illuminate\Http\Request;
 
 class PunchesController  extends Controller {
+	public function __construct()
+	{
+		$this->middleware('authorize:view_punches|edit_punches|create_punches', ['only'=>['index','show']]);
+		$this->middleware('authorize:edit_punches', ['only'=>['edit','update']]);
+		$this->middleware('authorize:create_punches', ['only'=>['create','store']]);
+		$this->middleware('authorize:destroy_punches', ['only'=>['destroy']]);
+	}
 
 	/**
 	 * Display a listing of the resource.

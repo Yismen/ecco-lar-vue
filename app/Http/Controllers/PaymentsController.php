@@ -7,7 +7,15 @@ use App\Http\Requests\PaymentsRequests;
 
 use App\Payment;
 
-class paymentsController extends Controller {
+class PaymentsController extends Controller {
+
+	public function __construct()
+	{
+		$this->middleware('authorize:view_payments|edit_payments|create_payments', ['only'=>['index','show']]);
+		$this->middleware('authorize:edit_payments', ['only'=>['edit','update']]);
+		$this->middleware('authorize:create_payments', ['only'=>['create','store']]);
+		$this->middleware('authorize:destroy_payments', ['only'=>['destroy']]);
+	}
 
 	/**
 	 * Display a listing of the resource.

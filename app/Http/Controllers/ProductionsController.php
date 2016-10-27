@@ -13,6 +13,14 @@ use App\Http\Requests\ProductionsUpdateRequest;
 
 class ProductionsController extends Controller {
 
+	public function __construct()
+	{
+		$this->middleware('authorize:view_productions|edit_productions|create_productions', ['only'=>['index','show']]);
+		$this->middleware('authorize:edit_productions', ['only'=>['edit','update']]);
+		$this->middleware('authorize:create_productions', ['only'=>['create','store']]);
+		$this->middleware('authorize:destroy_productions', ['only'=>['destroy']]);
+	}
+
 	/**
 	 * Tihs fields must be present in the header o the file, otherwise
 	 * the data would not be loaded.

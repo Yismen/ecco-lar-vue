@@ -13,7 +13,11 @@ use Illuminate\Http\Request;
 class NotesController extends Controller
 {
     function __construct() {
-        $this->middleware('auth', ['except'=>['index', 'show', 'getNotes', 'searchNotes']]);
+        // $this->middleware('auth', ['except'=>['index', 'show', 'getNotes', 'searchNotes']]);
+        // $this->middleware('authorize:view_notes|edit_notes|create_notes', ['only'=>['index','show']]);
+        $this->middleware('authorize:edit_notes', ['only'=>['edit','update']]);
+        $this->middleware('authorize:create_notes', ['only'=>['create','store']]);
+        $this->middleware('authorize:destroy_notes', ['only'=>['destroy']]);
     }
     /**
      * Display a listing of the resource.

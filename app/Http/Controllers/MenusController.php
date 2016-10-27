@@ -13,8 +13,10 @@ class MenusController extends Controller {
 
 	public function __construct()
 	{
-		// $this->middleware('auth');
-		// $this->middleware('authorize');
+		$this->middleware('authorize:view_menus|edit_menus|create_menus', ['only'=>['index','show']]);
+		$this->middleware('authorize:edit_menus', ['only'=>['edit','update']]);
+		$this->middleware('authorize:create_menus', ['only'=>['create','store']]);
+		$this->middleware('authorize:destroy_menus', ['only'=>['destroy']]);
 	}
 
 	/**

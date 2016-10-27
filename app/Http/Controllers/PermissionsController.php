@@ -14,8 +14,11 @@ class PermissionsController extends Controller {
 
 	public function __construct(Role $roles)
 	{
-		// $this->middleware('auth');
-		// $this->middleware('authorize');
+		$this->middleware('authorize:view_permissions|edit_permissions|create_permissions', ['only'=>['index','show']]);
+		$this->middleware('authorize:edit_permissions', ['only'=>['edit','update']]);
+		$this->middleware('authorize:create_permissions', ['only'=>['create','store']]);
+		$this->middleware('authorize:destroy_permissions', ['only'=>['destroy']]);
+		
 		$this->rolesArray = $roles->orderBy('display_name')->lists('display_name', 'id');
 	}
 

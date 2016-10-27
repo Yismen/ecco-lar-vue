@@ -11,6 +11,14 @@ use Yajra\Datatables\Facades\Datatables;
 
 class DepartmentsController extends Controller {
 
+	public function __construct()
+	{
+		$this->middleware('authorize:view_departments|edit_departments|create_departments', ['only'=>['index','show']]);
+		$this->middleware('authorize:edit_departments', ['only'=>['edit','update']]);
+		$this->middleware('authorize:create_departments', ['only'=>['create','store']]);
+		$this->middleware('authorize:destroy_departments', ['only'=>['destroy']]);
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 *

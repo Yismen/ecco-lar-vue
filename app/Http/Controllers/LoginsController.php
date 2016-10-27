@@ -9,6 +9,14 @@ use App\Http\Controllers\Controller;
 
 class LoginsController extends Controller {
 
+	public function __construct()
+	{
+		$this->middleware('authorize:view_logins|edit_logins|create_logins', ['only'=>['index','show']]);
+		$this->middleware('authorize:edit_logins', ['only'=>['edit','update']]);
+		$this->middleware('authorize:create_logins', ['only'=>['create','store']]);
+		$this->middleware('authorize:destroy_logins', ['only'=>['destroy']]);
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 *

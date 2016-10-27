@@ -9,6 +9,13 @@ use App\Password;
 
 class PasswordController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('authorize:view_passwords|edit_passwords|create_passwords', ['only'=>['index','show']]);
+        $this->middleware('authorize:edit_passwords', ['only'=>['edit','update']]);
+        $this->middleware('authorize:create_passwords', ['only'=>['create','store']]);
+        $this->middleware('authorize:destroy_passwords', ['only'=>['destroy']]);
+    }
 
     /**
      * Main Entry poit for the API

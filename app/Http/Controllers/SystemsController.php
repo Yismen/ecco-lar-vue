@@ -9,6 +9,14 @@ use App\System;
 
 class SystemsController extends Controller {
 
+	public function __construct()
+	{
+		$this->middleware('authorize:view_systems|edit_systems|create_systems', ['only'=>['index','show']]);
+		$this->middleware('authorize:edit_systems', ['only'=>['edit','update']]);
+		$this->middleware('authorize:create_systems', ['only'=>['create','store']]);
+		$this->middleware('authorize:destroy_systems', ['only'=>['destroy']]);
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 *
