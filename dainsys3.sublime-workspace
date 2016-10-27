@@ -545,6 +545,14 @@
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
+		},
+		{
+			"file": "resources/views/layouts/app.blade.php",
+			"settings":
+			{
+				"buffer_size": 5327,
+				"line_ending": "Unix"
+			}
 		}
 	],
 	"build_system": "",
@@ -1098,16 +1106,9 @@
 	"expanded_folders":
 	[
 		"/F/wamp/www/dainsys3",
-		"/F/wamp/www/dainsys3/app/Providers",
 		"/F/wamp/www/dainsys3/public",
-		"/F/wamp/www/dainsys3/public/build",
-		"/F/wamp/www/dainsys3/public/build/css",
-		"/F/wamp/www/dainsys3/public/build/js",
-		"/F/wamp/www/dainsys3/public/css",
-		"/F/wamp/www/dainsys3/public/js",
+		"/F/wamp/www/dainsys3/public/images",
 		"/F/wamp/www/dainsys3/resources",
-		"/F/wamp/www/dainsys3/resources/assets",
-		"/F/wamp/www/dainsys3/resources/assets/js",
 		"/F/wamp/www/dainsys3/resources/views",
 		"/F/wamp/www/dainsys3/resources/views/layouts",
 		"/F/wamp/www/dainsys3/resources/views/layouts/partials",
@@ -1474,7 +1475,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -1539,7 +1540,7 @@
 						"translation.y": 1173.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -1566,9 +1567,6 @@
 							"color_helper.file_palette":
 							[
 							],
-							"color_helper.preview_meta":
-							{
-							},
 							"color_helper.scan":
 							{
 								"allowed_colors":
@@ -1607,7 +1605,7 @@
 						"translation.y": 1815.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -1642,7 +1640,7 @@
 								"current_ext": ".js",
 								"current_syntax": "JavaScript/JavaScript",
 								"enabled": false,
-								"last_updated": 1477603023.14
+								"last_updated": 1477605379.16
 							},
 							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
 							"tab_size": 4,
@@ -1650,6 +1648,74 @@
 						},
 						"translation.x": 0.0,
 						"translation.y": 1311.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "resources/views/layouts/app.blade.php",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 5327,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"color_helper.box_height": 13,
+							"color_helper.color_scheme": "Packages/Material Theme/schemes/OLD/Material-Theme-Darker.tmTheme",
+							"color_helper.file_palette":
+							[
+							],
+							"color_helper.preview_meta":
+							{
+							},
+							"color_helper.scan":
+							{
+								"allowed_colors":
+								[
+									"rgb",
+									"hsla",
+									"hex",
+									"webcolors",
+									"hex_compressed",
+									"rgba",
+									"hsl"
+								],
+								"compress_hex_output": true,
+								"current_ext": ".php",
+								"current_syntax": "Laravel Blade Highlighter/blade",
+								"enabled": true,
+								"last_updated": 1477605379.16,
+								"scan_completion_scopes":
+								[
+								],
+								"scan_scopes":
+								[
+									"meta.property-list.css -support.type.property-name.css -comment -string",
+									"meta.property-value.css -comment -string",
+									"meta.value.css -comment -string",
+									"meta.tag.inline.any.html string.quoted",
+									"meta.tag.any.html meta.attribute-with-value.style.html"
+								],
+								"use_hex_argb": false
+							},
+							"syntax": "Packages/Laravel Blade Highlighter/blade.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -2237,7 +2303,7 @@
 		[
 			[
 				"",
-				"F:\\wamp\\www\\sm-projects\\Dicenew.sublime-project"
+				"F:\\wamp\\www\\school\\school-jonathan.sublime-project"
 			],
 			[
 				"dicenew",
