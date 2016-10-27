@@ -7,6 +7,7 @@
 			<div class="box box-primary pad">
 				<div class="row">
 					<div class="col-sm-12">
+					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum ex repellendus cum, soluta ea tempore voluptas voluptatum, hic asperiores quo reprehenderit ducimus dolorum voluptatem commodi ut aliquid, nostrum rerum consequatur?
 						{!! Form::model($user, ['route'=>['admin.users.update', $user->id], 'method'=>'PUT', 'class'=>'form-horizontal', 'role'=>'form']) !!}		
 							<div class="form-groups">
 								<legend>

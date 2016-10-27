@@ -18,7 +18,7 @@ class UsersController extends Controller {
 		$this->middleware('authorize:edit_users', ['only'=>['edit','update']]);
 		$this->middleware('authorize:create_users', ['only'=>['create','store']]);
 		$this->middleware('authorize:destroy_users', ['only'=>['destroy']]);
-
+		
 		$this->request = $request;
 		$this->rolesList = $role->all();
 	}
