@@ -70,7 +70,7 @@ elixir(function(mix) {
         'destroyFlashMessage.js',
 	]);
 
-    mix.browserify('passwords/app.js', 'public/js/passwords.js');
+    // mix.browserify('passwords/app.js', 'public/js/passwords.js');
 
 	mix.version([
 		'js/passwords.js', 
