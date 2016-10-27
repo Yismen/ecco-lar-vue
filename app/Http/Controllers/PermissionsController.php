@@ -101,7 +101,7 @@ class PermissionsController extends Controller {
 	{
 		$permission->delete();
 
-		return redirect()->route('permissions.index')
+		return redirect()->route('admin.permissions.index')
 			->withWarning("Permission [$permission->display_name] has been removed!");
 	}
 

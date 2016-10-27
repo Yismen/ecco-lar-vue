@@ -27,7 +27,12 @@ class Menu extends Model {
 
 	public function setNameAttribute($name)
 	{
-		return $this->attributes['name'] = str_slug($name, "-");
+		return $this->attributes['name'] = str_slug($name, "_");
+	}
+
+	public function setDisplayNameAttribute($display_name)
+	{
+		return $this->attributes['display_name'] = ucwords($display_name);
 	}
 
 }

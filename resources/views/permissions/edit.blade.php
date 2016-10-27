@@ -19,11 +19,27 @@
 							<div class="col-sm-6 col-sm-offset-2 clear-fix">
 								<button type="submit" class="btn btn-primary form-control">Update</button>
 							</div>	
-							<div class="col-sm-10 col-sm-offset-2">								
-								<a href="{{ route('admin.permissions.index') }}"><< Return to Permissions List</a>
+							
+							<div class="form-group">
+								<div class="col-sm-10 col-sm-offset-2">								
+									<a href="{{ route('admin.permissions.index') }}"><< Return to Permissions List</a>
+								</div>
 							</div>
 						
 						{!! Form::close() !!}
+
+						<div class="col-sm-10 col-sm-offset-1">
+							<div class="form-group">
+								<form action="{{ url('/admin/permissions', $permission->name) }}" method="POST" class="" style="display: inline-block;">
+								    {!! csrf_field() !!}
+								    {!! method_field('DELETE') !!}
+								
+								    <button type="submit" id="delete-permission" class="btn btn-danger"  name="deleteBtn">
+								        <i class="fa fa-btn fa-trash"></i> Remove Permission
+								    </button>
+								</form>
+							</div>
+						</div>
 
 				</div>
 			</div>

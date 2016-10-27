@@ -100,7 +100,6 @@ class MenusController extends Controller {
 	 */
 	public function destroy(Menu $menu, Permission $permission)
 	{
-		// return $menu;
 		$menu->delete();
 
 		$this->destroyPermissions($menu, $permission);
@@ -116,7 +115,7 @@ class MenusController extends Controller {
 	 * @param  [object] $requests [description]
 	 * @return [process]           [the action of syncing the menu-roles]
 	 */
-	public function createMenu($menu, $requests, $permission)
+	private function createMenu($menu, $requests, $permission)
 	{
 		$menu = $menu->create($requests->all());		
 
@@ -132,7 +131,7 @@ class MenusController extends Controller {
 	 * @param  [object] $requests [description]
 	 * @return [process]           [the action of syncing the menu-roles]
 	 */
-	public function updateMenu($menu, $requests)
+	private function updateMenu($menu, $requests)
 	{
 		$menu->update($requests->all());
 
@@ -146,42 +145,45 @@ class MenusController extends Controller {
 	 * @param  Array  $roles [description]
 	 * @return [type]        [description]
 	 */
-	public function syncRoles(Menu $menu, Array $roles = null)
+	private function syncRoles(Menu $menu, Array $roles = null)
 	{
 		return $menu->roles()->sync((array) $roles);	
 	}
 
-	public function createPermissions($menu, Permission $permission)
+	private function createPermissions($menu, Permission $permission)
 	{
 		/**
-		 * Editor Role
+		 * Add a permission to create records.
 		 */
-		$editor = new $permission;
-
-		$editor->name = $menu->name . '_editor';
-		$editor->display_name = ucwords($menu->name) . ' Editor';
-		$editor->description = 'Can edit, create and destroy ' . ucwords($menu->name). '\'s items';
-
-		$editor->save();
+		$permission->create([
+			'name' => 'edit_' . str_slug($menu->name, $separator = "_"),
+			'display_name' => ucwords($menu->name) . ' Editor',
+			'description' => 'Can edit, create ' . ucwords($menu->name). '\'s items',
+		]);
 		/**
-		 * Editor Role
+		 * Add a permission to view records.
 		 */
-		
-		$viewer = new $permission;
-
-		$viewer->name = $menu->name . '_viewer';
-		$viewer->display_name = ucwords($menu->name) . ' Viewer';
-		$viewer->description = 'Can view ' . ucwords($menu->name) . '\'s items';
-
-		$viewer->save();
+		$permission->create([
+			'name' => 'view_' . str_slug($menu->name, $separator = "_"),
+			'display_name' => ucwords($menu->name) . ' Viewer',
+			'description' => 'Can view ' . ucwords($menu->name) . '\'s items',
+		]);
+		/**
+		 * Add a permission to destroy records.
+		 */
+		$permission->create([
+			'name' => 'destroy_' . str_slug($menu->name, $separator = "_"),
+			'display_name' => ucwords($menu->name) . ' Destroyer',
+			'description' => 'Can destroy ' . ucwords($menu->name) . '\'s items',
+		]);
 	}
 
-	public function destroyPermissions($menu, Permission $permission)
+	private function destroyPermissions($menu, Permission $permission)
 	{
 		/**
 		 * Editor Role
 		 */
-		$editor = $permission->whereName($menu->name . '_editor')->first();
+		$editor = $permission->whereName('edit_' . $menu->name)->first();
 
 		if ($editor) {
 			$editor->delete();
@@ -191,10 +193,18 @@ class MenusController extends Controller {
 		 * Editor Role
 		 */
 		
-		$viewer = $permission->whereName($menu->name . '_viewer')->first();
+		$viewer = $permission->whereName('view_' . $menu->name)->first();
 
 		if ($viewer) {
 			$viewer->delete();
+		}
+		/**
+		 * Destroy Role
+		 */
+		$destroyer = $permission->whereName('destroy_' . $menu->name)->first();
+
+		if ($destroyer) {
+			$destroyer->delete();
 		}
 
 	}

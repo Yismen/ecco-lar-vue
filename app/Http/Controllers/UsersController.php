@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Role;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-use App\User;
-
 class UsersController extends Controller {
 	private $request;
+	private $rolesList;
 
 
-	public function __construct(Request $request)
+	public function __construct(Request $request, Role $role)
 	{
 		// $this->middleware('authorize', ['only'=>['index:role.some']]);
 		// $this->middleware('authorize:view_users|edit_users|create_users', ['only'=>['index','show']]);
@@ -20,6 +21,7 @@ class UsersController extends Controller {
 		// $this->middleware('authorize:destroy_users', ['only'=>['destroy']]);
 
 		$this->request = $request;
+		$this->rolesList = $role->all();
 	}
 	/**
 	 * Display a listing of the resource.
@@ -45,11 +47,13 @@ class UsersController extends Controller {
 	 */
 	public function create(User $user)
 	{
+		$rolesList = $this->rolesList;
+
 		if ($this->request->ajax()) {
 			return $user;
 		}
 		
-		return view('users.create', compact('user'));
+		return view('users.create', compact('user', 'rolesList'));
 	}
 
 	/**
@@ -85,8 +89,10 @@ class UsersController extends Controller {
 	 * @return Response
 	 */
 	public function edit(User $user)
-	{
-		return view('users.edit', compact('user'));
+	{		
+		$rolesList = $this->rolesList;
+
+		return view('users.edit', compact('user', 'rolesList'));
 	}
 
 	/**
