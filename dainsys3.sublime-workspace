@@ -550,7 +550,8 @@
 			"file": "resources/views/layouts/app.blade.php",
 			"settings":
 			{
-				"buffer_size": 5327,
+				"buffer_size": 5533,
+				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		}
@@ -1656,18 +1657,18 @@
 				{
 					"buffer": 3,
 					"file": "resources/views/layouts/app.blade.php",
-					"semi_transient": true,
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5327,
+						"buffer_size": 5533,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								819,
+								819
 							]
 						],
 						"settings":
@@ -1682,33 +1683,10 @@
 							},
 							"color_helper.scan":
 							{
-								"allowed_colors":
-								[
-									"rgb",
-									"hsla",
-									"hex",
-									"webcolors",
-									"hex_compressed",
-									"rgba",
-									"hsl"
-								],
-								"compress_hex_output": true,
 								"current_ext": ".php",
 								"current_syntax": "Laravel Blade Highlighter/blade",
-								"enabled": true,
-								"last_updated": 1477605379.16,
-								"scan_completion_scopes":
-								[
-								],
-								"scan_scopes":
-								[
-									"meta.property-list.css -support.type.property-name.css -comment -string",
-									"meta.property-value.css -comment -string",
-									"meta.value.css -comment -string",
-									"meta.tag.inline.any.html string.quoted",
-									"meta.tag.any.html meta.attribute-with-value.style.html"
-								],
-								"use_hex_argb": false
+								"enabled": false,
+								"last_updated": 1477605863.86
 							},
 							"syntax": "Packages/Laravel Blade Highlighter/blade.sublime-syntax",
 							"tab_size": 4,
