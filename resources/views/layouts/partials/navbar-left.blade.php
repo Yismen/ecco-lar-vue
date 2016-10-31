@@ -35,7 +35,7 @@
     <!-- /.search form -->
 
     <!-- Sidebar Menu -->
-    <ul class="sidebar-menu">
+    <ul class="nav sidebar-menu">
       <li class="header">QUICK LINKS</li>
       <!-- Optionally, you can add icons to the links -->
       <li class="treeview">

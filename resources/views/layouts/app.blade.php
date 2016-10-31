@@ -71,7 +71,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </section>
 
                 <!-- Main content -->
-                <section class="content">
+                <section class="content body">
                     <!-- Your Page Content Here -->
                     <!-- 
                     |************************************|

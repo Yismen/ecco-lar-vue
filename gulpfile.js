@@ -73,7 +73,6 @@ elixir(function(mix) {
     // mix.browserify('passwords/app.js', 'public/js/passwords.js');
 
 	mix.version([
-		'js/passwords.js', 
 		'js/all.js', 
 		'css/all.css'
 	]);
