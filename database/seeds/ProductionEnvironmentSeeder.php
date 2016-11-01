@@ -28,6 +28,8 @@ class ProductionEnvironmentSeeder extends Seeder
 
     protected function seedUsersTable()
     {
+        User::truncate();
+
         User::create([
             'name' => 'Yismen Jorge', // $faker->name,
             'email' => 'yismen.jorge@gmail.com', // $faker->email,
@@ -42,6 +44,8 @@ class ProductionEnvironmentSeeder extends Seeder
 
     protected function seedRolesTable()
     {
+        Role::truncate();
+
         Role::create([
             'id' => 1,
             'name' => 'admin', 
