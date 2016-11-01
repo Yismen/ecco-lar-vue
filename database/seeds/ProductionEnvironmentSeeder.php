@@ -26,9 +26,9 @@ class ProductionEnvironmentSeeder extends Seeder
         Model::reguard();   
     }
 
-    protected function seedUsersTable(User $user)
+    protected function seedUsersTable()
     {
-        $user->create([
+        User::create([
             'name' => 'Yismen Jorge', // $faker->name,
             'email' => 'yismen.jorge@gmail.com', // $faker->email,
             'password' => bcrypt('password'), // bcrypt(str_random(10)),
@@ -40,15 +40,15 @@ class ProductionEnvironmentSeeder extends Seeder
         return $this;
     }
 
-    protected function seedRolesTable(Role $role)
+    protected function seedRolesTable()
     {
-        $role->create([
+        Role::create([
             'id' => 1,
             'name' => 'admin', 
             'display_name' => 'System Administrator', 
             'description' => 'Application super user. Users with this role has no restriction.'
         ]);
-        $role->create([
+        Role::create([
             'id' => 2,
             'name' => 'owner', 
             'display_name' => 'Application Owner', 
@@ -62,24 +62,24 @@ class ProductionEnvironmentSeeder extends Seeder
         return $this;
     }
 
-    protected function seedMaritalsTable(Marital $model)
+    protected function seedMaritalsTable()
     {
-        $model->truncate();        
+        Marital::truncate();        
 
-        $model->create(['id'=>1,'name'=>'Married']);
-        $model->create(['id'=>2,'name'=>'Single']);
-        $model->create(['id'=>3,'name'=>'Common Law']);
+        Marital::create(['id'=>1,'name'=>'Married']);
+        Marital::create(['id'=>2,'name'=>'Single']);
+        Marital::create(['id'=>3,'name'=>'Common Law']);
 
         return $this;   
     }
 
-    protected function seedGendersTable(Gender $model)
+    protected function seedGendersTable()
     {
         $limit = 3;
-        $model->truncate(); 
+        Gender::truncate(); 
         
-        $model->create(['id'=>1,'gender'=>'Male']);
-        $model->create(['id'=>2,'gender'=>'Female']);
+        Gender::create(['id'=>1,'gender'=>'Male']);
+        Gender::create(['id'=>2,'gender'=>'Female']);
 
         return $this;   
     }
