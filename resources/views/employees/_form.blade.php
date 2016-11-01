@@ -41,6 +41,13 @@
 	</div>
 
 	<div class="col-sm-6">
+		<div class="form-group {{ $errors->has('passport') ? 'has-error' : null }}">
+			{!! Form::label('passport', 'Passport:', ['class'=>'']) !!}
+			{!! Form::input('text', 'passport', null, ['class'=>'form-control input-sm', 'placeholder'=>'Passport']) !!}
+		</div>
+	</div>
+
+	<div class="col-sm-6">
 		<div class="form-group date {{ $errors->has('date_of_birth') ? 'has-error' : null }}">
 			{!! Form::label('date_of_birth', 'Date of Birth:', ['class'=>'']) !!}
 			{!! Form::input('date', 'date_of_birth', $employee->date_of_birth, ['class'=>'form-control input-sm', 'placeholder'=>'Date of Birth']) !!}

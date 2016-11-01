@@ -35,7 +35,7 @@
 										{{ Carbon\Carbon::parse($employee->hire_date)->diffForHumans() }}
 								</li>
 								<li class="list-group-item">
-									<strong>Personal Id: </strong>{{ $employee->personal_id }}
+									<strong>Personal Id: </strong>{{ $employee->personal_id }}{{ $employee->passport }}
 								</li>
 								<li class="list-group-item">
 									<strong>CellPhone Number: </strong>{{ $employee->cellphone_number }}

@@ -13,6 +13,7 @@ class Employee extends Model {
 		'last_name',
 		'hire_date',
 		'personal_id',
+		'passport',
 		'date_of_birth',
 		'cellphone_number',
 		'secondary_phone',
