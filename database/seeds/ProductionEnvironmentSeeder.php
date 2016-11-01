@@ -5,6 +5,7 @@ use App\User;
 use App\Gender;
 use App\Marital;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Eloquent\Model;
 
 class ProductionEnvironmentSeeder extends Seeder
 {
