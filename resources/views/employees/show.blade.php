@@ -85,7 +85,6 @@
 									@endif
 									
 								</li>		
-
 								<li class="list-group-item">
 									<strong>Address: </strong>
 									@if (count($employee->addresses) > 0)
