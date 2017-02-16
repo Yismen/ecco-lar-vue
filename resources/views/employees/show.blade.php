@@ -10,11 +10,10 @@
 						<div class="col-sm-6 text-centered">
 
 							<img src="{{ file_exists($employee->photo) ? asset($employee->photo) : 'http://placehold.it/200x200' }}" class="img-circle img-responsive img-center profile-image animated" alt="Image" width="200px">
-							{{ dd($employee) }}
 
 							<div class="text-center animated zoomIn">
 								<h3>{{ $employee->full_name }}</h3>
-								@if ($employee->positions)
+								@if ($employee->has('positions'))
 									<h5>{{ $employee->positions->name }}, {{ $employee->positions->departments->department }}</h5>
 								@endif
 								
@@ -49,7 +48,7 @@
 								<li class="list-group-item">
 									<strong>Has Kids?: </strong>{{ $employee->has_kids ? 'Yes' : 'No' }}
 								</li>
-								@if ($employee->maritals)
+								@if ($employee->has('maritals'))
 									<li class="list-group-item">
 										<strong>Marital Status: </strong>{{ $employee->maritals->name }}
 									</li>
@@ -61,7 +60,7 @@
 
 								<li class="list-group-item">
 									<strong>Salary: </strong>
-									@if ($employee->positions)
+									@if ($employee->has('positions'))
 										{{ $employee->positions->salary }}
 									@else
 										<h4>No salary set for this employee</h4>
@@ -70,7 +69,7 @@
 
 								<li class="list-group-item">
 									<strong>Payment Type: </strong>
-									@if ($employee->positions)
+									@if ($employee->has('positions'))
 										{{ $employee->positions->payments->payment_type }}
 									@else
 										<h4>No Payment type set for this employee</h4>
@@ -80,7 +79,7 @@
 
 								<li class="list-group-item">
 									<strong>Address: </strong>
-									@if ($employee->addresses)
+									@if ($employee->has('addresses'))
 										<ul>
 											<li>
 												<u>Street Address</u>: {{ $employee->addresses->street_address }}
@@ -99,7 +98,7 @@
 
 								<li class="list-group-item">
 									<strong>Logins: </strong>
-									@unless ($employee->logins->isEmpty())
+									@unless ($employee->has('logins'))
 										<ul>
 											@foreach ($employee->logins as $login)
 												<li>{{ $login->login }}</li>
