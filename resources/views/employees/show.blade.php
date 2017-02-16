@@ -8,11 +8,11 @@
 
 					<div class="row">
 						<div class="col-sm-6 text-centered">
-							{{ $employee->positions }} <br>
+							{{-- {{ $employee->positions }} <br>
 							@if (count($employee->positions->departments) > 0)
 								, {{ $employee->positions->departments->department }}	
 							@endif
-							{{ die() }}
+							{{ die() }} --}}
 							<img src="{{ file_exists($employee->photo) ? asset($employee->photo) : 'http://placehold.it/200x200' }}" class="img-circle img-responsive img-center profile-image animated" alt="Image" width="200px">
 
 							<div class="text-center animated zoomIn">
@@ -20,10 +20,9 @@
 								@unless ($employee->positions->isEmpty)
 									<h5>
 										{{ $employee->positions->name }}
-										@unless ($employee->positions->departments->isEmpty)
+										@if (count($employee->positions->departments) > 0)
 											, {{ $employee->positions->departments->department }}	
-										@endunless
-
+										@endif
 									</h5>
 								@endunless
 								
@@ -58,11 +57,11 @@
 								<li class="list-group-item">
 									<strong>Has Kids?: </strong>{{ $employee->has_kids ? 'Yes' : 'No' }}
 								</li>
-								@unless ($employee->maritals->isEmpty)
+								@if (count($employee->maritals) > 0)
 									<li class="list-group-item">
 										<strong>Marital Status: </strong>{{ $employee->maritals->name }}
 									</li>
-								@endunless
+								@endif
 									
 								<li class="list-group-item">
 									<strong>Date of Birth: </strong>{{ Carbon\Carbon::parse($employee->date_of_birth)->format('M-d-Y') }}
@@ -70,26 +69,26 @@
 
 								<li class="list-group-item">
 									<strong>Salary: </strong>
-									@unless ($employee->positions->isEmpty)
+									@if (count($employee->positions) > 0)
 										{{ $employee->positions->salary }}
 									@else
 										<h4>No salary set for this employee</h4>
-									@endunless
+									@endif
 								</li>
 
 								<li class="list-group-item">
 									<strong>Payment Type: </strong>
-									@unless ($employee->positions->isEmpty)
+									@if (count($employee->positions) > 0)
 										{{ $employee->positions->payments->payment_type }}
 									@else
 										<h4>No Payment type set for this employee</h4>
-									@endunless
+									@endif
 									
 								</li>		
 
 								<li class="list-group-item">
 									<strong>Address: </strong>
-									@unless ($employee->addresses->isEmpty)
+									@if (count($employee->addresses) > 0)
 										<ul>
 											<li>
 												<u>Street Address</u>: {{ $employee->addresses->street_address }}
@@ -103,12 +102,12 @@
 										</ul>
 									@else
 										<h4>No Address Saved yet</h4>
-									@endunless
+									@endif
 								</li>
 
 								<li class="list-group-item">
 									<strong>Logins: </strong>
-									@unless ($employee->logins->isEmpty())
+									@if (count($employee->logins) > 0)
 										<ul>
 											@foreach ($employee->logins as $login)
 												<li>{{ $login->login }}</li>
@@ -116,7 +115,7 @@
 										</ul>
 									@else
 										<h4>No Logins saved for this user so far..</h4>
-									@endunless
+									@endif
 										
 								</li>
 										{{-- expr --}}
