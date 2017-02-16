@@ -10,6 +10,7 @@
     "bootbox": "^4.4.0",
     "bootstrap": "^3.3.6",
     "bootstrap-datepicker": "^1.6.1",
+    "bootstrap-material-design": "^0.5.10",
     "bootstrap-sass": "^3.0.0",
     "bootstrap-timepicker": "^0.5.2",
     "datatables.net": "^1.10.12",

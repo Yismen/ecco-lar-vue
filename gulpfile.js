@@ -19,7 +19,7 @@ elixir(function(mix) {
     mix.copy('node_modules/bootstrap/fonts', 'public/build/fonts');
     mix.copy('node_modules/ionicons/dist/fonts', 'public/build/fonts');
     mix.copy('node_modules/font-awesome/fonts', 'public/build/fonts');
-    mix.copy('node_modules/datatables.net-dt/images', 'public/build/images');
+    // mix.copy('node_modules/datatables.net-dt/images', 'public/build/images');
     mix.copy('node_modules/summernote/dist/font', 'public/build/css/font');
     mix.copy('node_modules/icheck/skins/square/blue.png', 'public/build/css');
 
@@ -31,9 +31,11 @@ elixir(function(mix) {
         nodeModules + '/admin-lte/plugins/daterangepicker/daterangepicker.css',
         nodeModules + '/animate.css/animate.css',
         nodeModules + '/bootstrap-datepicker/dist/css/bootstrap-datepicker.css',
-        nodeModules + '/datatables.net-bs/css/dataTables.bootstrap.css',
-        nodeModules + '/datatables.net-buttons-dt/css/buttons.dataTables.css',
-        nodeModules + '/datatables.net-dt/css/jquery.dataTables.css',
+        // nodeModules + '/bootstrap-material-design/dist/css/bootstrap-material-design.css',
+        // nodeModules + '/bootstrap-material-design/dist/css/ripples.css',
+        // nodeModules + '/datatables.net-bs/css/dataTables.bootstrap.css',
+        // nodeModules + '/datatables.net-buttons-dt/css/buttons.dataTables.css',
+        // nodeModules + '/datatables.net-dt/css/jquery.dataTables.css',
         nodeModules + '/dropzone/dist/dropzone.css',
         nodeModules + '/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css',
         nodeModules + '/font-awesome/css/font-awesome.css',
@@ -43,20 +45,23 @@ elixir(function(mix) {
         nodeModules + '/select2/dist/css/select2.css',
         nodeModules + '/summernote/dist/summernote.css',
         'my-css-updates.css',
+        // 'btn-raised.css',
 	]);
 
 	mix.scripts([		
         nodeModules + '/jquery/dist/jquery.js',
         nodeModules + '/bootstrap/dist/js/bootstrap.js',
+        nodeModules + '/admin-lte/plugins/daterangepicker/moment.js',
         
         nodeModules + '/admin-lte/dist/js/app.js',
         nodeModules + '/admin-lte/plugins/daterangepicker/daterangepicker.js',
-        nodeModules + '/admin-lte/plugins/daterangepicker/moment.js',
         nodeModules + '/bootbox/bootbox.js',
         nodeModules + '/bootstrap-datepicker/dist/js/bootstrap-datepicker.js',
         nodeModules + '/bootstrap-timepicker/js/bootstrap-timepicker.js',
-        nodeModules + '/datatables.net-buttons/js/dataTables.buttons.js',
-        nodeModules + '/datatables.net/js/jquery.dataTables.js',
+        // nodeModules + '/bootstrap-material-design/dist/js/material.js',
+        // nodeModules + '/bootstrap-material-design/dist/js/ripples.js',
+        // nodeModules + '/datatables.net-buttons/js/dataTables.buttons.js',
+        // nodeModules + '/datatables.net/js/jquery.dataTables.js',
         nodeModules + '/dropzone/dist/dropzone.js',
         nodeModules + '/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js',
         nodeModules + '/icheck/icheck.js',

@@ -28,7 +28,7 @@ class ProductionEnvironmentSeeder extends Seeder
 
     protected function seedUsersTable()
     {
-        User::truncate();
+        // User::truncate();
 
         User::create([
             'name' => 'Yismen Jorge', // $faker->name,
@@ -44,7 +44,7 @@ class ProductionEnvironmentSeeder extends Seeder
 
     protected function seedRolesTable()
     {
-        Role::truncate();
+        // Role::truncate();
 
         Role::create([
             'id' => 1,
@@ -68,7 +68,7 @@ class ProductionEnvironmentSeeder extends Seeder
 
     protected function seedMaritalsTable()
     {
-        Marital::truncate();        
+        // Marital::truncate();        
 
         Marital::create(['id'=>1,'name'=>'Married']);
         Marital::create(['id'=>2,'name'=>'Single']);
@@ -80,7 +80,7 @@ class ProductionEnvironmentSeeder extends Seeder
     protected function seedGendersTable()
     {
         $limit = 3;
-        Gender::truncate(); 
+        // Gender::truncate(); 
         
         Gender::create(['id'=>1,'gender'=>'Male']);
         Gender::create(['id'=>2,'gender'=>'Female']);

@@ -4,9 +4,13 @@
  */
 (function($) {
 
-    $.fn.dataTable.ext.errMode = 'none';
+    // $.fn.dataTable.ext.errMode = 'none';
     
     $('.main-spinner').hide();
+
+  // $.each($('.btn'), function(index, val) {
+  //   $(val).addClass('btn-raised');
+  // });
 
 	$.each($('select,input,textarea'), function(index, val) {
       var el = $(val);
