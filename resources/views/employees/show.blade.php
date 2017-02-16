@@ -87,7 +87,7 @@
 								</li>		
 								<li class="list-group-item">
 									<strong>Address: </strong>
-									@if (count($employee->addresses) > 0)
+								{{-- 	@if (count($employee->addresses) > 0)
 										<ul>
 											<li>
 												<u>Street Address</u>: {{ $employee->addresses->street_address }}
@@ -101,7 +101,7 @@
 										</ul>
 									@else
 										<h4>No Address Saved yet</h4>
-									@endif
+									@endif --}}
 								</li>
 
 								<li class="list-group-item">
