@@ -9,9 +9,9 @@
 					<div class="row">
 						<div class="col-sm-6 text-centered">
 							{{ $employee->positions }} <br>
-							@unless ($employee->positions->departments->isEmpty)
+							@if (count($employee->positions->departments) > 0)
 								, {{ $employee->positions->departments->department }}	
-							@endunless
+							@endif
 							{{ die() }}
 							<img src="{{ file_exists($employee->photo) ? asset($employee->photo) : 'http://placehold.it/200x200' }}" class="img-circle img-responsive img-center profile-image animated" alt="Image" width="200px">
 
