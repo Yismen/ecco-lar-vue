@@ -8,15 +8,21 @@
 
 					<div class="row">
 						<div class="col-sm-6 text-centered">
-							{{ $employee->positions }} <br>
+							{{-- {{ $employee->positions }} <br>
 							{{ $employee->positions->departments }} <br>
-							{{ die() }}
+							{{ die() }} --}}
 							<img src="{{ file_exists($employee->photo) ? asset($employee->photo) : 'http://placehold.it/200x200' }}" class="img-circle img-responsive img-center profile-image animated" alt="Image" width="200px">
 
 							<div class="text-center animated zoomIn">
 								<h3>{{ $employee->full_name }}</h3>
 								@unless ($employee->positions->isEmpty)
-									<h5>{{ $employee->positions->name }}, {{ $employee->positions->departments->department }}</h5>
+									<h5>
+										{{ $employee->positions->name }}
+										@unless ($employee->positions->departments->isEmpty)
+											, {{ $employee->positions->departments->department }}	
+										@endunless
+
+									</h5>
 								@endunless
 								
 								<a href="{{ route('admin.employees.edit', $employee->id) }}" class="btn btn-warning">Edit <i class="fa fa-pencil"></i></a>
