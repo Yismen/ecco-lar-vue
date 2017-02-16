@@ -9,6 +9,7 @@
 					<div class="row">
 						<div class="col-sm-6 text-centered">
 							{{ $employee->positions }} <br>
+							{{ $employee->positions->departments }} <br>
 							{{ die() }}
 							<img src="{{ file_exists($employee->photo) ? asset($employee->photo) : 'http://placehold.it/200x200' }}" class="img-circle img-responsive img-center profile-image animated" alt="Image" width="200px">
 
