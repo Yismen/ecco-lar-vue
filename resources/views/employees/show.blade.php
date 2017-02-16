@@ -13,9 +13,9 @@
 
 							<div class="text-center animated zoomIn">
 								<h3>{{ $employee->full_name }}</h3>
-								@if ($employee->has('positions'))
+								@unless ($employee->positions->isEmpty)
 									<h5>{{ $employee->positions->name }}, {{ $employee->positions->departments->department }}</h5>
-								@endif
+								@endunless
 								
 								<a href="{{ route('admin.employees.edit', $employee->id) }}" class="btn btn-warning">Edit <i class="fa fa-pencil"></i></a>
 
@@ -48,11 +48,11 @@
 								<li class="list-group-item">
 									<strong>Has Kids?: </strong>{{ $employee->has_kids ? 'Yes' : 'No' }}
 								</li>
-								@if ($employee->has('maritals'))
+								@unless ($employee->maritals->isEmpty)
 									<li class="list-group-item">
 										<strong>Marital Status: </strong>{{ $employee->maritals->name }}
 									</li>
-								@endif
+								@endunless
 									
 								<li class="list-group-item">
 									<strong>Date of Birth: </strong>{{ Carbon\Carbon::parse($employee->date_of_birth)->format('M-d-Y') }}
@@ -60,26 +60,26 @@
 
 								<li class="list-group-item">
 									<strong>Salary: </strong>
-									@if ($employee->has('positions'))
+									@unless ($employee->positions->isEmpty)
 										{{ $employee->positions->salary }}
 									@else
 										<h4>No salary set for this employee</h4>
-									@endif
+									@endunless
 								</li>
 
 								<li class="list-group-item">
 									<strong>Payment Type: </strong>
-									@if ($employee->has('positions'))
+									@unless ($employee->positions->isEmpty)
 										{{ $employee->positions->payments->payment_type }}
 									@else
 										<h4>No Payment type set for this employee</h4>
-									@endif
+									@endunless
 									
 								</li>		
 
 								<li class="list-group-item">
 									<strong>Address: </strong>
-									@if ($employee->has('addresses'))
+									@unless ($employee->addresses->isEmpty)
 										<ul>
 											<li>
 												<u>Street Address</u>: {{ $employee->addresses->street_address }}
@@ -93,12 +93,12 @@
 										</ul>
 									@else
 										<h4>No Address Saved yet</h4>
-									@endif
+									@endunless
 								</li>
 
 								<li class="list-group-item">
 									<strong>Logins: </strong>
-									@unless ($employee->has('logins'))
+									@unless ($employee->logins->isEmpty())
 										<ul>
 											@foreach ($employee->logins as $login)
 												<li>{{ $login->login }}</li>
