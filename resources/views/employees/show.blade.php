@@ -15,7 +15,7 @@
 								@unless ($employee->positions->isEmpty)
 									<h5>
 										{{ $employee->positions->name }}
-										@if ($employee->positions->departments->count > 0)
+										@if (count($employee->positions->departments) > 0)
 											, {{ $employee->positions->departments->department }}	
 										@endif
 									</h5>
