@@ -35,14 +35,14 @@
 							{{-- /. Text center div --}}
 						</div>
 						{{-- /. Photo	 --}}
-						<{{-- div class="col-sm-6">
+						<div class="col-sm-6">
 							<ul class="list-group">
 								<li class="list-group-item">
 									<strong>Hired On: </strong>
 										{{ Carbon\Carbon::parse($employee->hire_date)->format('M-d-Y') }}, 
 										{{ Carbon\Carbon::parse($employee->hire_date)->diffForHumans() }}
 								</li>
-								<li class="list-group-item">
+								{{-- <li class="list-group-item">
 									<strong>Personal Id: </strong>{{ $employee->personal_id }}{{ $employee->passport }}
 								</li>
 								<li class="list-group-item">
@@ -116,10 +116,9 @@
 										<h4>No Logins saved for this user so far..</h4>
 									@endif
 										
-								</li>
-										{{-- expr --}}
+								</li> --}}
 							</ul>
-						</div> --}}
+						</div>
 						{{-- /. Details --}}
 					</div>
 
