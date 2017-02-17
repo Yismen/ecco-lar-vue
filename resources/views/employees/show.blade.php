@@ -78,13 +78,13 @@
 							 
 								<li class="list-group-item">
 									<strong>Payment Type: </strong>
-									@if ($employee->positions && $employee->positions->has('payments'))
+									@if ($employee->positions->count > 0 && $employee->positions->payments->count >0)
 										{{ $employee->positions->payments->payment_type }}
 									@else
 										<h4>No Payment type set for this employee</h4>
 									@endif									
 								</li>	
-							{{--
+							
 								<li class="list-group-item">
 									<strong>Address: </strong>
 									@if (count($employee->addresses) > 0)
@@ -116,7 +116,7 @@
 										<h4>No Logins saved for this user so far..</h4>
 									@endif
 										
-								</li> --}}
+								</li>
 							</ul>
 						</div>
 						{{-- /. Details --}}
