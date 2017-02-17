@@ -42,7 +42,7 @@
 										{{ Carbon\Carbon::parse($employee->hire_date)->format('M-d-Y') }}, 
 										{{ Carbon\Carbon::parse($employee->hire_date)->diffForHumans() }}
 								</li>
-								{{-- <li class="list-group-item">
+								<li class="list-group-item">
 									<strong>Personal Id: </strong>{{ $employee->personal_id }}{{ $employee->passport }}
 								</li>
 								<li class="list-group-item">
@@ -75,7 +75,7 @@
 										<h4>No salary set for this employee</h4>
 									@endif
 								</li>
-
+							{{-- 
 								<li class="list-group-item">
 									<strong>Payment Type: </strong>
 									@if (count($employee->positions) > 0)
