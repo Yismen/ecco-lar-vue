@@ -35,7 +35,7 @@
 							{{-- /. Text center div --}}
 						</div>
 						{{-- /. Photo	 --}}
-						<div class="col-sm-6">
+						<{{-- div class="col-sm-6">
 							<ul class="list-group">
 								<li class="list-group-item">
 									<strong>Hired On: </strong>
@@ -85,7 +85,7 @@
 									@endif
 									
 								</li>		
-								{{-- <li class="list-group-item">
+								<li class="list-group-item">
 									<strong>Address: </strong>
 									@if (count($employee->addresses) > 0)
 										<ul>
@@ -102,7 +102,7 @@
 									@else
 										<h4>No Address Saved yet</h4>
 									@endif
-								</li> --}}
+								</li>
 
 								<li class="list-group-item">
 									<strong>Logins: </strong>
@@ -119,7 +119,7 @@
 								</li>
 										{{-- expr --}}
 							</ul>
-						</div>
+						</div> --}}
 						{{-- /. Details --}}
 					</div>
 
