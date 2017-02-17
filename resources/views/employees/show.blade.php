@@ -8,11 +8,6 @@
 
 					<div class="row">
 						<div class="col-sm-6 text-centered">
-							{{-- {{ $employee->positions }} <br>
-							@if (count($employee->positions->departments) > 0)
-								, {{ $employee->positions->departments->department }}	
-							@endif
-							{{ die() }} --}}
 							<img src="{{ file_exists($employee->photo) ? asset($employee->photo) : 'http://placehold.it/200x200' }}" class="img-circle img-responsive img-center profile-image animated" alt="Image" width="200px">
 
 							<div class="text-center animated zoomIn">
@@ -20,7 +15,7 @@
 								@unless ($employee->positions->isEmpty)
 									<h5>
 										{{ $employee->positions->name }}
-										@if (count($employee->positions->departments) > 0)
+										@if ($employee->positions->departments->count > 0)
 											, {{ $employee->positions->departments->department }}	
 										@endif
 									</h5>
@@ -57,7 +52,7 @@
 								<li class="list-group-item">
 									<strong>Has Kids?: </strong>{{ $employee->has_kids ? 'Yes' : 'No' }}
 								</li>
-								@if (count($employee->maritals) > 0)
+								@if ($employee->maritals->count > 0)
 									<li class="list-group-item">
 										<strong>Marital Status: </strong>{{ $employee->maritals->name }}
 									</li>
@@ -69,7 +64,7 @@
 
 								<li class="list-group-item">
 									<strong>Salary: </strong>
-									@if (count($employee->positions) > 0)
+									@if ($employee->positions->count > 0)
 										{{ $employee->positions->salary }}
 									@else
 										<h4>No salary set for this employee</h4>
@@ -87,7 +82,7 @@
 							
 								<li class="list-group-item">
 									<strong>Address: </strong>
-									@if (count($employee->addresses) > 0)
+									@if ($employee->addresses->count > 0)
 										<ul>
 											<li>
 												<u>Street Address</u>: {{ $employee->addresses->street_address }}
@@ -106,7 +101,7 @@
 
 								<li class="list-group-item">
 									<strong>Logins: </strong>
-									@if (count($employee->logins) > 0)
+									@if ($employee->logins->count > 0)
 										<ul>
 											@foreach ($employee->logins as $login)
 												<li>{{ $login->login }}</li>
