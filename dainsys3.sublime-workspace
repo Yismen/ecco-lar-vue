@@ -529,11 +529,12 @@
 			}
 		},
 		{
-			"file": "resources/assets/js/myFormSubmit.js",
+			"file": "resources/views/layouts/app.blade.php",
 			"settings":
 			{
-				"buffer_size": 8641,
-				"line_ending": "Windows"
+				"buffer_size": 5520,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
 			}
 		}
 	],
@@ -544,10 +545,22 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 354.0,
-		"last_filter": "Snippet: $.ea",
+		"height": 392.0,
+		"last_filter": "insta",
 		"selected_items":
 		[
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"pack",
+				"Package Control: Enable Package"
+			],
 			[
 				"Snippet: $.ea",
 				"Snippet: $.each()"
@@ -583,10 +596,6 @@
 			[
 				"Snippet: vali",
 				"Snippet: Validator-extend"
-			],
-			[
-				"insta",
-				"Package Control: Install Package"
 			],
 			[
 				"Snippet: mydele",
@@ -675,10 +684,6 @@
 			[
 				"i",
 				"Package Control: Install Package"
-			],
-			[
-				"remove",
-				"Package Control: Remove Package"
 			],
 			[
 				"Snippet: compo",
@@ -1055,13 +1060,9 @@
 			[
 				"Snippet: bsalertda",
 				"Snippet: bs3-alert-danger"
-			],
-			[
-				"Snippet: bsintexh",
-				"Snippet: bs3-input-text-h"
 			]
 		],
-		"width": 510.0
+		"width": 528.0
 	},
 	"console":
 	{
@@ -1088,15 +1089,14 @@
 	"expanded_folders":
 	[
 		"/F/wamp/www/dainsys3",
-		"/F/wamp/www/dainsys3/node_modules",
-		"/F/wamp/www/dainsys3/node_modules/bootstrap-material-design",
-		"/F/wamp/www/dainsys3/node_modules/bootstrap-material-design/dist",
+		"/F/wamp/www/dainsys3/app",
 		"/F/wamp/www/dainsys3/resources",
-		"/F/wamp/www/dainsys3/resources/assets",
-		"/F/wamp/www/dainsys3/resources/assets/js"
+		"/F/wamp/www/dainsys3/resources/views"
 	],
 	"file_history":
 	[
+		"/F/wamp/www/dainsys3/resources/views/employees/show.blade.php",
+		"/F/wamp/www/dainsys3/.env",
 		"/F/wamp/www/dainsys3/resources/assets/js/app.js",
 		"/F/wamp/www/dainsys3/resources/assets/css/btn-raised.css",
 		"/F/wamp/www/dainsys3/database/seeds/ProductionEnvironmentSeeder.php",
@@ -1107,7 +1107,6 @@
 		"/F/wamp/www/dainsys3/app/Console/Kernel.php",
 		"/F/wamp/www/dainsys3/vendor/laravel/framework/src/Illuminate/Console/Command.php",
 		"/F/wamp/www/dainsys3/vendor/laravel/framework/src/Illuminate/Console/GeneratorCommand.php",
-		"/F/wamp/www/dainsys3/resources/views/employees/show.blade.php",
 		"/F/wamp/www/dainsys3/app/Http/Controllers/EmployeesController.php",
 		"/F/wamp/www/dainsys3/database/migrations/2016_11_01_130119_add_passport_to_employees_table.php",
 		"/F/wamp/www/dainsys3/app/Employee.php",
@@ -1165,7 +1164,6 @@
 		"/F/wamp/www/dainsys3/resources/views/users/show.blade.php",
 		"/F/wamp/www/dainsys3/app/Http/routes.php",
 		"/F/wamp/www/dainsys3/resources/views/auth/login.blade.php",
-		"/F/wamp/www/dainsys3/.env",
 		"/F/wamp/www/dainsys3/app/Http/Routes/users.php",
 		"/F/wamp/www/dainsys3/config/mail.php",
 		"/F/wamp/www/dainsys3/resources/views/welcome.blade.php",
@@ -1228,7 +1226,7 @@
 	],
 	"find":
 	{
-		"height": 71.0
+		"height": 39.0
 	},
 	"find_in_files":
 	{
@@ -1254,6 +1252,9 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"2017-02-16 ",
+			"unless",
+			"if",
 			"btn-group-vertical[disabled][disabled].btn-group-raised:active",
 			"btn-raised",
 			".btn-group-raised",
@@ -1378,10 +1379,7 @@
 			"employ",
 			"mymenu",
 			".js",
-			"mymenu",
-			"console",
-			"summernote",
-			"3"
+			"mymenu"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1457,7 +1455,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -1480,19 +1478,16 @@
 						"settings":
 						{
 							"color_helper.box_height": 13,
-							"color_helper.color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"color_helper.color_scheme": "Packages/User/SublimeLinter/Monokai (SL).tmTheme",
 							"color_helper.file_palette":
 							[
 							],
-							"color_helper.preview_meta":
-							{
-							},
 							"color_helper.scan":
 							{
 								"current_ext": ".js",
 								"current_syntax": "JavaScript/JavaScript",
 								"enabled": false,
-								"last_updated": 1478551355.33
+								"last_updated": 1487207444.82
 							},
 							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
 							"tab_size": 4,
@@ -1502,49 +1497,75 @@
 						"translation.y": 1552.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "resources/assets/js/myFormSubmit.js",
-					"semi_transient": true,
+					"file": "resources/views/layouts/app.blade.php",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 8641,
+						"buffer_size": 5520,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								2788,
+								2801
 							]
 						],
 						"settings":
 						{
 							"color_helper.box_height": 13,
-							"color_helper.color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"color_helper.color_scheme": "Packages/User/SublimeLinter/Material Monokai (SL).tmTheme",
 							"color_helper.file_palette":
 							[
 							],
+							"color_helper.preview_meta":
+							{
+							},
 							"color_helper.scan":
 							{
-								"current_ext": ".js",
-								"current_syntax": "JavaScript/JavaScript",
-								"enabled": false,
-								"last_updated": 1478012129.37
+								"allowed_colors":
+								[
+									"rgb",
+									"webcolors",
+									"rgba",
+									"hsla",
+									"hex_compressed",
+									"hsl",
+									"hex"
+								],
+								"compress_hex_output": true,
+								"current_ext": ".php",
+								"current_syntax": "Laravel Blade Highlighter/blade",
+								"enabled": true,
+								"last_updated": 1487358049.7,
+								"scan_completion_scopes":
+								[
+								],
+								"scan_scopes":
+								[
+									"meta.declaration-list.css -support.type.property-name.css -comment -string",
+									"meta.property-value.css -comment -string",
+									"meta.value.css -comment -string",
+									"meta.tag.inline.any.html string.quoted",
+									"meta.tag.any.html meta.attribute-with-value.style.html"
+								],
+								"use_hex_argb": false
 							},
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"syntax": "Packages/Laravel Blade Highlighter/blade.sublime-syntax",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 138.0,
+						"translation.y": 1104.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]

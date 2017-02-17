@@ -415,7 +415,7 @@ class Employee extends Model {
 
 
 
-	protected function createOrUpdateAddress($request)
+	public function createOrUpdateAddress($request)
 	{
 		$address = [
 				'sector'         => $request->input('sector'),
