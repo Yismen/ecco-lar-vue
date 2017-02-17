@@ -30,9 +30,12 @@ class Card extends Model {
  * get employees with no cards added
  * @return [type] [description]
  */
-	public function getEmployeesNullsListAttribute()
+	public function getEmployeesWhitoutCardsListAttribute()
 	{
-		$employees = \App\Employee::get();
+		$employees = \App\Employee::doesntHave('card')
+			->orderBy('first_name')
+			->actives()
+			->get();
 
 		return $employees->lists('fullName', 'id');
 	}

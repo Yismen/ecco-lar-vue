@@ -14,7 +14,7 @@
 				<div class="col-sm-10 col-sm-offset-2">
 					<button type="submit" class="btn btn-primary form-control">Create</button>
 					<hr>	
-					<a href="{{ route('admin.punches.index') }}"><< Cancel and return to Punches List</a>
+					<a href="{{ route('admin.punches.index') }}">Punches</a>
 				</div>
 			
 			{!! Form::close() !!}

@@ -27,4 +27,14 @@ class Punch extends Model {
 		return $employees->lists('fullName', 'id');
 	}
 
+	public function getEmployeesWithoutPunchListAttribute()
+	{
+		$employees = \App\Employee::doesntHave('punch')
+			->orderBy('first_name')
+			->actives()
+			->get();
+
+		return $employees->lists('fullName', 'id');
+	}
+
 }

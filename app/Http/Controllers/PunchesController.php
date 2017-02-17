@@ -1,11 +1,10 @@
 <?php namespace App\Http\Controllers;
 
-use App\Http\Requests\PunchesRequests;
+// use App\Http\Requests\Request;
 use App\Http\Controllers\Controller;
-
+use Illuminate\Http\Request;
 use App\Punch;
 
-// use Illuminate\Http\Request;
 
 class PunchesController  extends Controller {
 	public function __construct()
@@ -43,11 +42,16 @@ class PunchesController  extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(Punch $punch, PunchesRequests $request)
+	public function store(Punch $punch, Request $request)
 	{
+		$this->validate($request, [
+		    'punch' => 'required|size:5',
+		    'employee_id' => 'required|exists:employees,id',
+		]);
+
 		$punch->create($request->all());
 
-		return redirect()->route('punches.index')
+		return redirect()->route('admin.punches.index')
 			->withSuccess("Punch number $punch->card has been created!");
 	}
 
@@ -79,11 +83,11 @@ class PunchesController  extends Controller {
 	 * @param  int  Punch $punch
 	 * @return Response
 	 */
-	public function update(Punch $punch, PunchesRequests $request)
+	public function update(Punch $punch, Request $request)
 	{
 		$punch->update($request->all());
 
-		return redirect()->route('punches.index')
+		return redirect()->route('admin.punches.index')
 			->withSuccess("Punch $punch->card has been updated");
 	}
 

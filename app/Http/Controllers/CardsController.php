@@ -50,9 +50,14 @@ class CardsController extends Controller {
 	 */
 	public function store(Card $card, Request $request)
 	{
+		$this->validate($request, [
+		    'card' => 'required|integer|digits_between:5,8',
+		    'employee_id' => 'required|exists:employees,id',
+		]);
+
 		$card->create($request->all());
 
-		return redirect()->route('cards.index')
+		return redirect()->route('admin.cards.index')
 			->withSuccess("Card number $card->card has been created!");
 	}
 
@@ -88,7 +93,7 @@ class CardsController extends Controller {
 	{
 		$card->update($request->all());
 		
-		return redirect()->route('cards.index')
+		return redirect()->route('admin.cards.index')
 			->withSuccess("Card $card->card has been updated");
 	}
 
