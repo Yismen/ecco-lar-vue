@@ -75,16 +75,16 @@
 										<h4>No salary set for this employee</h4>
 									@endif
 								</li>
-							{{-- 
+							 
 								<li class="list-group-item">
 									<strong>Payment Type: </strong>
 									@if (count($employee->positions) > 0)
 										{{ $employee->positions->payments->payment_type }}
 									@else
 										<h4>No Payment type set for this employee</h4>
-									@endif
-									
-								</li>		
+									@endif									
+								</li>	
+							{{--
 								<li class="list-group-item">
 									<strong>Address: </strong>
 									@if (count($employee->addresses) > 0)
