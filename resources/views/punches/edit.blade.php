@@ -1,5 +1,5 @@
 @inject('layout', 'App\Layout')
-@extends('layouts.'.$layout->app(), ['page_header'=>'title', 'page_description'=>'description'])
+@extends('layouts.'.$layout->app(), ['page_header'=>'Punches', 'page_description'=>'Edit existing punches.'])
 
 @section('content')
 	<div class="col-sm-8 col-sm-offset-2">

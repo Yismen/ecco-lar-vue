@@ -1,5 +1,5 @@
 @inject('layout', 'App\Layout')
-@extends('layouts.'.$layout->app(), ['page_header'=>'title', 'page_description'=>'description'])
+@extends('layouts.'.$layout->app(), ['page_header'=>'Punches', 'page_description'=>'Details for punches.'])
 
 @section('content')
 	@if ($punch)
@@ -23,7 +23,7 @@
 			</table>
 			<a href="{{ route('admin.punches.edit', $punch->punch) }}" class="btn btn-warning"> Edit </a>
 			<hr>
-			<a href="{{ route('admin.punches.index') }}" class=""> << Return to Cards List </a>
+			<a href="{{ route('admin.punches.index') }}" class=""> Punches List </a>
 			
 		</div>
 		{{-- /. Row --}}
