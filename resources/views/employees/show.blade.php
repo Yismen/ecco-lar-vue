@@ -52,7 +52,7 @@
 								<li class="list-group-item">
 									<strong>Has Kids?: </strong>{{ $employee->has_kids ? 'Yes' : 'No' }}
 								</li>
-								@if ($employee->maritals->count > 0)
+								@if (count($employee->maritals) > 0)
 									<li class="list-group-item">
 										<strong>Marital Status: </strong>{{ $employee->maritals->name }}
 									</li>
@@ -64,7 +64,7 @@
 
 								<li class="list-group-item">
 									<strong>Salary: </strong>
-									@if ($employee->positions->count > 0)
+									@if (count($employee->positions) > 0)
 										{{ $employee->positions->salary }}
 									@else
 										<h4>No salary set for this employee</h4>
@@ -73,7 +73,7 @@
 							 
 								<li class="list-group-item">
 									<strong>Payment Type: </strong>
-									@if ($employee->positions->count > 0 && $employee->positions->payments->count >0)
+									@if (count($employee->positions) > 0 && count($employee->positions->payments) > 0)
 										{{ $employee->positions->payments->payment_type }}
 									@else
 										<h4>No Payment type set for this employee</h4>
@@ -82,7 +82,7 @@
 							
 								<li class="list-group-item">
 									<strong>Address: </strong>
-									@if ($employee->addresses->count > 0)
+									@if (count($employee->addresses) > 0)
 										<ul>
 											<li>
 												<u>Street Address</u>: {{ $employee->addresses->street_address }}
@@ -101,7 +101,7 @@
 
 								<li class="list-group-item">
 									<strong>Logins: </strong>
-									@if ($employee->logins->count > 0)
+									@if (count($employee->logins) > 0)
 										<ul>
 											@foreach ($employee->logins as $login)
 												<li>{{ $login->login }}</li>
