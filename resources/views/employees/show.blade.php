@@ -78,7 +78,7 @@
 							 
 								<li class="list-group-item">
 									<strong>Payment Type: </strong>
-									@if (count($employee->positions) > 0)
+									@if ($employee->positions && $employee->positions->has('payments'))
 										{{ $employee->positions->payments->payment_type }}
 									@else
 										<h4>No Payment type set for this employee</h4>
