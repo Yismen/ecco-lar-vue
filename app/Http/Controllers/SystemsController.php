@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SystemsRequests;
+use Illuminate\Http\Request;
 
 use App\System;
 
@@ -44,11 +44,15 @@ class SystemsController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(System $system, SystemsRequests $requests)
+	public function store(System $system, Request $request)
 	{
-		$system = $system->create($requests->all());
+		$this->validateRequest($request, $system);
 
-		return redirect()->route('systems.show', $system->id)
+		$system = $system->create($request->only([
+			'name', 'display_name', 'description', 'url'
+		]));
+
+		return redirect()->route('admin.systems.show', $system->id)
 			->withSuccess("System [$system->name] has been Created");
 	}
 
@@ -80,11 +84,15 @@ class SystemsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update(System $system, SystemsRequests $requests)
+	public function update(System $system, Request $request)
 	{
-		$system->update($requests->all());
+		$this->validateRequest($request, $system);
 
-		return redirect()->route('systems.show', $system->id)
+		$system->update($request->only([
+			'name', 'display_name', 'description', 'url'
+		]));
+
+		return redirect()->route('admin.systems.show', $system->id)
 			->withSuccess("Information for system [$system->name] has been updated");
 	}
 
@@ -98,8 +106,17 @@ class SystemsController extends Controller {
 	{
 		$system->delete();
 
-		return redirect()->route('systems.index')
-			->withWarning("Information for system [$system->name] has been deleted");
+		return redirect()->route('admin.systems.index')
+			->withDanger("Information for system [$system->name] has been deleted");
+	}
+
+	private function validateRequest($request, $system)
+	{
+		return $this->validate($request, [
+			'name' => "required|alpha_dash|unique:systems,name,$system->id,id",
+			'display_name' => "required|unique:systems,display_name,$system->id,id",
+			'url' => "url|unique:systems,url,$system->id,id",
+		]);
 	}
 
 }
