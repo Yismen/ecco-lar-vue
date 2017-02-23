@@ -51,10 +51,10 @@ class DepartmentsController extends Controller {
 	 */
 	public function store(Request $request, Department $department)
 	{
-		return $request->all();
+		$this->validateRequest($department, $request);
 		$department->create($request->all());
 
-		return redirect()->route('admin.departments.create')
+		return redirect()->route('admin.departments.index')
 			->withSuccess("Department $department->department has been added!");
 
 	}
@@ -91,7 +91,7 @@ class DepartmentsController extends Controller {
 	{
 		$department->update($request->all());
 
-		return redirect()->route('admin.departments.create')->withSuccess("HH RR Department $department->department has been updated");
+		return redirect()->route('admin.departments.edit', $department->id)->withSuccess("HH RR Department $department->department has been updated");
 	}
 
 	/**
@@ -100,14 +100,20 @@ class DepartmentsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy(Department $departments)
+	public function destroy(Department $department)
 	{
-		$departments->destroy($departments->id);
+		$department->destroy($department->id);
 
 		return redirect()
 			->route('admin.departments.index')
-			->withWarning("HH RR Department $departments->department has been removed");
+			->withWarning("HH RR Department $department->department has been removed");
+	}
 
+	public function validateRequest($department, $request)
+	{
+		return $this->validate($request, [
+			'department' => "required|unique:departments,department,$department->id,department"
+		]);
 	}
 
 }

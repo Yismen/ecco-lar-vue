@@ -4,6 +4,22 @@
 		"selected_items":
 		[
 			[
+				"validate",
+				"validateRequest"
+			],
+			[
+				"emplo",
+				"employees"
+			],
+			[
+				"fir",
+				"first_name"
+			],
+			[
+				"col",
+				"col-sm-12\t(_form.blade.php)"
+			],
+			[
 				"add",
 				"addClass\t.addClass()"
 			],
@@ -134,10 +150,6 @@
 			[
 				"myv",
 				"my_view_extending_layout\tMy Blade View"
-			],
-			[
-				"emplo",
-				"employee"
 			],
 			[
 				"emp",
@@ -502,46 +514,43 @@
 			[
 				"Scheta",
 				"Schema::table\tUpdate an existing table"
-			],
-			[
-				"Schematable",
-				"Schema::hasTable\tCheck for existence of table"
-			],
-			[
-				"extend",
-				"extend()\tangular-scenario.js"
-			],
-			[
-				"setCs",
-				"setCsrfToken()\tapp.js"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "app/Http/Controllers/CardsController.php",
+			"file": "resources/views/cards/edit.blade.php",
 			"settings":
 			{
-				"buffer_size": 2450,
+				"buffer_size": 1473,
 				"encoding": "UTF-8",
-				"line_ending": "Unix"
+				"line_ending": "Windows"
 			}
 		},
 		{
 			"file": "resources/views/cards/create.blade.php",
 			"settings":
 			{
-				"buffer_size": 805,
+				"buffer_size": 885,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "resources/views/employees/_form.blade.php",
+			"file": ".gitattributes",
 			"settings":
 			{
-				"buffer_size": 4185,
+				"buffer_size": 61,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "resources/views/punches/create.blade.php",
+			"settings":
+			{
+				"buffer_size": 1005,
+				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		}
@@ -553,10 +562,46 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 102.0,
-		"last_filter": "Snippet: validacon",
+		"height": 354.0,
+		"last_filter": "Snippet: myredi",
 		"selected_items":
 		[
+			[
+				"Snippet: myredi",
+				"Snippet: my_redirect_to_route"
+			],
+			[
+				"Snippet: myde",
+				"Snippet: My Laravel Delete Form"
+			],
+			[
+				"Snippet: myview",
+				"Snippet: My Return View"
+			],
+			[
+				"Snippet: delete",
+				"Snippet: My Laravel Delete Form"
+			],
+			[
+				"Snippet: myvwe",
+				"Snippet: My Blade View"
+			],
+			[
+				"Snippet: my view",
+				"Snippet: My Blade View"
+			],
+			[
+				"Snippet: mybla",
+				"Snippet: My Blade View"
+			],
+			[
+				"Snippet: my",
+				"Snippet: My Blade View"
+			],
+			[
+				"wrap",
+				"HTML: Wrap Selection With Tag"
+			],
 			[
 				"Snippet: validacon",
 				"Snippet: Laravel Validator for Controller"
@@ -600,10 +645,6 @@
 			[
 				"Snippet: myacl",
 				"Snippet: My Middleware Controller"
-			],
-			[
-				"Snippet: myde",
-				"Snippet: My Laravel Delete Form"
 			],
 			[
 				"Snippet: validat",
@@ -890,10 +931,6 @@
 				"Snippet: bs3-select"
 			],
 			[
-				"wrap",
-				"HTML: Wrap Selection With Tag"
-			],
-			[
 				"Snippet: table",
 				"Snippet: bs3-table-condensed"
 			],
@@ -1040,34 +1077,6 @@
 			[
 				"Snippet:inpugrou",
 				"Snippet: bs3-input-group"
-			],
-			[
-				"Snippet: pass",
-				"Snippet: bs3-input-password-h"
-			],
-			[
-				"Snippet: inem",
-				"Snippet: bs3-input-email-h"
-			],
-			[
-				"Snippet: inpue",
-				"Snippet: bs3-input-email-h"
-			],
-			[
-				"Snippet: inputgrou",
-				"Snippet: bs3-input-group"
-			],
-			[
-				"Snippet: bsdrop",
-				"Snippet: Bootstrap tabs with dropdowns"
-			],
-			[
-				"Snippet: drop",
-				"Snippet: Bootstrap button dropdowns"
-			],
-			[
-				"Snippet: bs3alert",
-				"Snippet: bs3-alert-warning"
 			]
 		],
 		"width": 787.0
@@ -1097,33 +1106,34 @@
 	"expanded_folders":
 	[
 		"/F/wamp/www/dainsys3",
-		"/F/wamp/www/dainsys3/app",
-		"/F/wamp/www/dainsys3/app/Http",
 		"/F/wamp/www/dainsys3/app/Http/Controllers",
 		"/F/wamp/www/dainsys3/resources",
 		"/F/wamp/www/dainsys3/resources/views",
-		"/F/wamp/www/dainsys3/resources/views/cards",
-		"/F/wamp/www/dainsys3/resources/views/employees"
+		"/F/wamp/www/dainsys3/resources/views/employees/partials",
+		"/F/wamp/www/dainsys3/resources/views/punches"
 	],
 	"file_history":
 	[
-		"/F/wamp/www/dainsys3/resources/views/cards/show.blade.php",
-		"/F/wamp/www/dainsys3/resources/views/punches/show.blade.php",
-		"/F/wamp/www/dainsys3/resources/views/cards/index.blade.php",
-		"/F/wamp/www/dainsys3/resources/views/cards/create.blade.php",
-		"/F/wamp/www/dainsys3/resources/views/cards/edit.blade.php",
 		"/F/wamp/www/dainsys3/resources/views/punches/edit.blade.php",
-		"/F/wamp/www/dainsys3/app/Http/Controllers/CardsController.php",
-		"/F/wamp/www/dainsys3/resources/views/punches/index.blade.php",
-		"/F/wamp/www/dainsys3/resources/views/punches/create.blade.php",
-		"/F/wamp/www/dainsys3/resources/views/punches/_form.blade.php",
-		"/F/wamp/www/dainsys3/app/Punch.php",
 		"/F/wamp/www/dainsys3/app/Card.php",
 		"/F/wamp/www/dainsys3/app/Employee.php",
+		"/F/wamp/www/dainsys3/resources/views/punches/_form.blade.php",
+		"/F/wamp/www/dainsys3/app/Http/Controllers/PunchesController.php",
+		"/F/wamp/www/dainsys3/app/Http/Controllers/CardsController.php",
+		"/F/wamp/www/dainsys3/app/Punch.php",
+		"/F/wamp/www/dainsys3/resources/views/cards/edit.blade.php",
 		"/F/wamp/www/dainsys3/resources/views/cards/_form.blade.php",
+		"/F/wamp/www/dainsys3/resources/views/cards/index.blade.php",
+		"/F/wamp/www/dainsys3/resources/views/punches/create.blade.php",
+		"/F/wamp/www/dainsys3/resources/views/punches/show.blade.php",
+		"/F/wamp/www/dainsys3/resources/views/punches/index.blade.php",
+		"/F/wamp/www/dainsys3/resources/views/cards/create.blade.php",
+		"/F/wamp/www/dainsys3/resources/views/employees/edit.blade.php",
+		"/F/wamp/www/dainsys3/resources/views/payments/create.blade.php",
+		"/F/wamp/www/dainsys3/resources/views/layouts/app.blade.php",
+		"/F/wamp/www/dainsys3/resources/views/cards/show.blade.php",
 		"/F/wamp/www/dainsys3/gulpfile.js",
 		"/F/wamp/www/dainsys3/app/Http/Controllers/EmployeesController.php",
-		"/F/wamp/www/dainsys3/resources/views/layouts/app.blade.php",
 		"/F/wamp/www/dainsys3/resources/views/employees/show.blade.php",
 		"/F/wamp/www/dainsys3/.env",
 		"/F/wamp/www/dainsys3/resources/assets/js/app.js",
@@ -1157,7 +1167,6 @@
 		"/F/wamp/www/dainsys3/app/Http/Controllers/ContactsController.php",
 		"/F/wamp/www/dainsys3/app/Providers/EventServiceProvider.php",
 		"/F/wamp/www/dainsys3/app/Http/Controllers/TagsController.php",
-		"/F/wamp/www/dainsys3/app/Http/Controllers/PunchesController.php",
 		"/F/wamp/www/dainsys3/app/Http/Controllers/ProductionsController.php",
 		"/F/wamp/www/dainsys3/app/Http/Controllers/PasswordController.php",
 		"/F/wamp/www/dainsys3/app/Http/Controllers/PaymentsController.php",
@@ -1232,13 +1241,11 @@
 		"/C/Users/Yismen/AppData/Roaming/Sublime Text 3/Packages/User/snippets/blade/My blade form input horizontal.sublime-snippet",
 		"/C/Users/Yismen/AppData/Roaming/Sublime Text 3/Packages/User/snippets/blade/My blade form input errors.sublime-snippet",
 		"/F/wamp/www/dainsys3/vendor/laravel/framework/src/Illuminate/Foundation/Auth/AuthenticatesAndRegistersUsers.php",
-		"/F/wamp/www/dainsys3/vendor/laravel/framework/src/Illuminate/Foundation/Auth/AuthenticatesUsers.php",
-		"/F/wamp/www/dainsys3/app/Http/Controllers/Auth/AuthController.php",
-		"/F/wamp/www/dainsys3/resources/views/users/create.blade.php"
+		"/F/wamp/www/dainsys3/vendor/laravel/framework/src/Illuminate/Foundation/Auth/AuthenticatesUsers.php"
 	],
 	"find":
 	{
-		"height": 71.0
+		"height": 72.0
 	},
 	"find_in_files":
 	{
@@ -1264,6 +1271,24 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"offset-2",
+			"cardes",
+			"punch",
+			"validateRequest",
+			"card",
+			"cards",
+			"employee_id",
+			"unique:cards,id",
+			"exists",
+			"employee_list",
+			"employee_id",
+			"employees_list",
+			";\n",
+			"employee",
+			"employee_id",
+			"punche",
+			"form",
+			"close",
 			"size",
 			"digits_between",
 			"route('cards",
@@ -1373,25 +1398,7 @@
 			"note_body",
 			"note_title",
 			"note_body",
-			"note_title",
-			"admin",
-			"notes/",
-			"api",
-			"note",
-			"task",
-			"vue-s",
-			"alert",
-			"confirmation",
-			"null",
-			"todo",
-			"Right",
-			"right",
-			"Left",
-			"text-danger",
-			"fade",
-			"MenuCom",
-			"Menu.v",
-			"Left"
+			"note_title"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1399,6 +1406,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			";\n",
 			"ute('admin.punches",
 			"\\$",
 			"'route'=>['admin.cards.",
@@ -1472,19 +1480,19 @@
 			[
 				{
 					"buffer": 0,
-					"file": "app/Http/Controllers/CardsController.php",
+					"file": "resources/views/cards/edit.blade.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2450,
+						"buffer_size": 1473,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1921,
-								1921
+								964,
+								964
 							]
 						],
 						"settings":
@@ -1501,19 +1509,19 @@
 							{
 								"allowed_colors":
 								[
-									"hsla",
-									"hex_compressed",
-									"hsl",
-									"rgb",
 									"rgba",
+									"hex_compressed",
 									"hex",
-									"webcolors"
+									"webcolors",
+									"hsla",
+									"rgb",
+									"hsl"
 								],
 								"compress_hex_output": true,
 								"current_ext": ".php",
-								"current_syntax": "PHP/PHP",
+								"current_syntax": "Laravel Blade Highlighter/blade",
 								"enabled": true,
-								"last_updated": 1487358365.47,
+								"last_updated": 1487458098.33,
 								"scan_completion_scopes":
 								[
 								],
@@ -1527,14 +1535,14 @@
 								],
 								"use_hex_argb": false
 							},
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"syntax": "Packages/Laravel Blade Highlighter/blade.sublime-syntax",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2061.0,
+						"translation.y": 675.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -1543,15 +1551,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 805,
+						"buffer_size": 885,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								420,
-								349
+								523,
+								523
 							]
 						],
 						"settings":
@@ -1568,19 +1576,19 @@
 							{
 								"allowed_colors":
 								[
-									"hsla",
-									"hex_compressed",
-									"hsl",
-									"rgb",
 									"rgba",
+									"hex_compressed",
 									"hex",
-									"webcolors"
+									"webcolors",
+									"hsla",
+									"rgb",
+									"hsl"
 								],
 								"compress_hex_output": true,
 								"current_ext": ".php",
 								"current_syntax": "Laravel Blade Highlighter/blade",
 								"enabled": true,
-								"last_updated": 1487358365.47,
+								"last_updated": 1487458098.33,
 								"scan_completion_scopes":
 								[
 								],
@@ -1596,29 +1604,78 @@
 							},
 							"syntax": "Packages/Laravel Blade Highlighter/blade.sublime-syntax",
 							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 150.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 2,
+					"file": ".gitattributes",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 61,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								56,
+								56
+							]
+						],
+						"settings":
+						{
+							"color_helper.box_height": 15,
+							"color_helper.color_scheme": "Packages/Material Theme/schemes/Material-Theme.tmTheme",
+							"color_helper.file_palette":
+							[
+							],
+							"color_helper.preview_meta":
+							{
+							},
+							"color_helper.scan":
+							{
+								"current_ext": "",
+								"current_syntax": "Text/Plain text",
+								"enabled": false,
+								"last_updated": 1487458098.33
+							},
+							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "resources/views/employees/_form.blade.php",
-					"semi_transient": true,
+					"buffer": 3,
+					"file": "resources/views/punches/create.blade.php",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4185,
+						"buffer_size": 1005,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								571,
+								546
 							]
 						],
 						"settings":
@@ -1635,19 +1692,19 @@
 							{
 								"allowed_colors":
 								[
-									"hsla",
-									"hex_compressed",
-									"hsl",
-									"rgb",
 									"rgba",
+									"hex_compressed",
 									"hex",
-									"webcolors"
+									"webcolors",
+									"hsla",
+									"rgb",
+									"hsl"
 								],
 								"compress_hex_output": true,
 								"current_ext": ".php",
 								"current_syntax": "Laravel Blade Highlighter/blade",
 								"enabled": true,
-								"last_updated": 1487358365.47,
+								"last_updated": 1487458098.33,
 								"scan_completion_scopes":
 								[
 								],
@@ -1665,7 +1722,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 225.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -1691,11 +1748,18 @@
 				0,
 				1,
 				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.5,
 			1.0
 		],
 		"rows":
@@ -1731,8 +1795,48 @@
 		"selected_items":
 		[
 			[
+				"punchescreate",
+				"resources\\views\\punches\\create.blade.php"
+			],
+			[
+				"",
+				".gitattributes"
+			],
+			[
+				"cardcreate",
+				"resources\\views\\cards\\create.blade.php"
+			],
+			[
+				"punchesedit",
+				"resources\\views\\punches\\edit.blade.php"
+			],
+			[
+				"cardsedit",
+				"resources\\views\\cards\\edit.blade.php"
+			],
+			[
 				"cardcon",
 				"app\\Http\\Controllers\\CardsController.php"
+			],
+			[
+				"punchcont",
+				"app\\Http\\Controllers\\PunchesController.php"
+			],
+			[
+				"pun",
+				"app\\Punch.php"
+			],
+			[
+				"car",
+				"app\\Card.php"
+			],
+			[
+				"employee.",
+				"app\\Employee.php"
+			],
+			[
+				"punchescontroller",
+				"app\\Http\\Controllers\\PunchesController.php"
 			],
 			[
 				"punchesindex",
@@ -1753,10 +1857,6 @@
 			[
 				"employee",
 				"app\\Employee.php"
-			],
-			[
-				"pun",
-				"app\\Punch.php"
 			],
 			[
 				"punchesform",
@@ -2205,42 +2305,6 @@
 			[
 				"emplocreate",
 				"resources\\views\\employees\\create.blade.php"
-			],
-			[
-				"_emplo",
-				"resources\\views\\employees\\_employees.blade.php"
-			],
-			[
-				"employe",
-				"app\\Employee.php"
-			],
-			[
-				"emplocon",
-				"app\\Http\\Controllers\\EmployeesController.php"
-			],
-			[
-				"cardsed",
-				"resources\\views\\cards\\edit.blade.php"
-			],
-			[
-				"confiapp",
-				"config\\app.php"
-			],
-			[
-				"createprofi",
-				"database\\migrations\\2015_02_14_021033_create_profiles_table.php"
-			],
-			[
-				"profile",
-				"app\\Http\\Controllers\\ProfilesController.php"
-			],
-			[
-				"profi",
-				"app\\Profile.php"
-			],
-			[
-				"profilecon",
-				"app\\Http\\Controllers\\ProfilesController.php"
 			]
 		],
 		"width": 0.0
@@ -2290,7 +2354,7 @@
 	"show_minimap": true,
 	"show_open_files": false,
 	"show_tabs": true,
-	"side_bar_visible": true,
+	"side_bar_visible": false,
 	"side_bar_width": 349.0,
 	"status_bar_visible": true,
 	"template_settings":
