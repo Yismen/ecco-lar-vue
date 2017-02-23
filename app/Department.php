@@ -16,9 +16,9 @@ class Department extends Model {
 	 * @param  [string] $department the department name's field
 	 * @return string             converted string
 	 */
-	public function getDepartmentAttribute($department)
+	public function setDepartmentAttribute($department)
 	{
-		return ucwords($department);
+		return $this->attributes['department'] = ucwords($department);
 	}
 
 	public function positions()
