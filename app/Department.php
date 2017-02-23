@@ -34,6 +34,11 @@ class Department extends Model {
 	{
 		return $this->belongsToMany(Employee::class);
 	}
+
+	/**
+	 * Return the count of employees assigned to the current department
+	 * @return integer Count of employees assigned to the current department
+	 */
 	public function employees_count()
 	{
 		return $this->employees()->count();
