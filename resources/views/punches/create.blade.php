@@ -1,30 +1,40 @@
 @inject('layout', 'App\Layout')
-@extends('layouts.'.$layout->app(), ['page_header'=>'Punches', 'page_description'=>'Create new punches.'])
+@extends('layouts.'.$layout->app(), ['page_header'=>'Punches', 'page_description'=>'Create a new punch id.'])
 
 @section('content')
-	<div class="col-sm-8 col-sm-offset-2">
-		<div class="well row ">
-			{!! Form::open(['route'=>['admin.punches.store'], 'method'=>'POST', 'class'=>'form-horizontal', 'role'=>'form']) !!}		
-				<div class="form-group">
-					<legend>New Punch ID</legend>
-				</div>
-			
-				@include('punches._form')
+	<div class="container">
+    	<div class="row">
+			<div class="col-sm-8 col-sm-offset-2">
+				<div class="box box-primary pad">
+					
+					{!! Form::open(['route'=>['admin.punches.store'], 'method'=>'POST', 'class'=>'form-horizontal', 'role'=>'form']) !!}		
+						<legend>New Punch ID</legend>
+					
+						@include('punches._form')
 
-				<div class="col-sm-10 col-sm-offset-2">
-					<button type="submit" class="btn btn-primary form-control">Create</button>
-					<hr>	
-					<a href="{{ route('admin.punches.index') }}">Punches</a>
-				</div>
-			
-			{!! Form::close() !!}
+						<div class="form-group">
+							<div class="col-sm-10 col-sm-offset-2">
+								<button type="submit" class="btn btn-primary">Create</button>	
+							</div>
+						</div>
 
-			{{-- // errors --}}
+
+						<div class="form-group">	
+							<div class="col-sm-12">
+								<a href="{{ route('admin.punches.index') }}">
+									Punches List
+									<i class="fa fa-list">	</i>
+								</a>
+							</div>
+						</div>
+					
+					{!! Form::close() !!}
+					
+				</div>
+			</div>
 		</div>
-		
 	</div>
-@stop
-
+@endsection
 @section('scripts')
-	
+
 @stop

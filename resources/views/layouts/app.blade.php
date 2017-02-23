@@ -3,7 +3,7 @@
 This is a starter template page. Use this page to start your new project from
 scratch. This page gets rid of all links and provides the needed markup only.
 -->
-<html>
+<html style="height: auto;">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -45,7 +45,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     |               | sidebar-mini                            |
     |*********************************************************|
     -->
-    <body class="hold-transition skin-green sidebar-mini">  
+    <body class="skin-red sidebar-mini sidebar-collapse" style="height: auto;">  
         <div class="wrapper">
             <!-- Main Header -->
             {{-- @inject('user', 'App\Layout') --}}

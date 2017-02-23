@@ -1,4 +1,5 @@
-@extends('layouts.app')
+@inject('layout', 'App\Layout')
+@extends('layouts.'.$layout->app(), ['page_header'=>'Cards', 'page_description'=>'Cards list.'])
 
 @section('content')
 	<div class="container">
@@ -38,7 +39,7 @@
 								</td>
 								<td>
 									<a href="{{ route('admin.cards.edit', $card->card) }}" class="">
-										<i class="fa fa-pencil"></i>
+										Edit <i class="fa fa-pencil"></i>
 									</a>
 								</td>
 							</tr>

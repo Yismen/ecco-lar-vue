@@ -1,5 +1,5 @@
 @inject('layout', 'App\Layout')
-@extends('layouts.'.$layout->app(), ['page_header'=>'title', 'page_description'=>'description'])
+@extends('layouts.'.$layout->app(), ['page_header'=>'Cards', 'page_description'=>'Details.'])
 
 @section('content')
 	@if ($card)
@@ -24,7 +24,10 @@
 				</table>
 				<a href="{{ route('admin.cards.edit', $card->card) }}" class="btn btn-warning"> Edit </a>
 				<hr>
-				<a href="{{ route('admin.cards.index') }}" class=""> << Return to Cards List </a>
+				<a href="{{ route('admin.cards.index') }}" class=""> 
+					<< Cards List 
+					<i class="fa fa-list"></i> 
+				</a>
 			</div>
 		</div>
 		{{-- /. Row --}}

@@ -22,7 +22,10 @@ class PunchesController  extends Controller {
 	 */
 	public function index(Punch $punches)
 	{
-		$punches = $punches->with('employee')->paginate(10);
+		$punches = $punches->with(['employee' => function($query){
+				return $query->orderBy('first_name', 'ASC');
+			}])
+			->paginate(10);
 
 		return view('punches.index', compact('punches'));
 	}
@@ -44,15 +47,14 @@ class PunchesController  extends Controller {
 	 */
 	public function store(Punch $punch, Request $request)
 	{
-		$this->validate($request, [
-		    'punch' => 'required|size:5',
-		    'employee_id' => 'required|exists:employees,id',
-		]);
+		$this->validateRequest($request, $punch);
 
-		$punch->create($request->all());
+		$punch->punch = $request->punch;
+		$punch->employee_id = $request->employee_list;
+		$punch->save();
 
 		return redirect()->route('admin.punches.index')
-			->withSuccess("Punch number $punch->card has been created!");
+			->withSuccess("Punch number $punch->punch has been created!");
 	}
 
 	/**
@@ -85,7 +87,11 @@ class PunchesController  extends Controller {
 	 */
 	public function update(Punch $punch, Request $request)
 	{
-		$punch->update($request->all());
+		$this->validateRequest($request, $punch);
+
+		$punch->punch = $request->punch;
+		$punch->employee_id = $request->employee_list;
+		$punch->save();
 
 		return redirect()->route('admin.punches.index')
 			->withSuccess("Punch $punch->card has been updated");
@@ -99,7 +105,20 @@ class PunchesController  extends Controller {
 	 */
 	public function destroy(Punch $punch)
 	{
-		//
+		$punch->delete();
+
+		return redirect()->route('admin.punches.index')
+			->withWarning("Punch $punch->punch has been deleted!");
+	}
+
+	public function validateRequest($request, $punch)
+	{
+		return $this->validate($request, [
+		    'punch' => "required|digits:5|unique:punches,punch,$punch->id,id",
+		    'employee_list' => "required|exists:employees,id|unique:punches,employee_id,$punch->id,id",
+		], [
+		    'employee_list.unique' => "Employee ID $request->employee_list has been taken!",
+		]);
 	}
 
 }

@@ -520,21 +520,29 @@
 	"buffers":
 	[
 		{
-			"file": "gulpfile.js",
+			"file": "app/Http/Controllers/CardsController.php",
 			"settings":
 			{
-				"buffer_size": 4012,
+				"buffer_size": 2450,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "resources/views/cards/create.blade.php",
+			"settings":
+			{
+				"buffer_size": 805,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "resources/views/layouts/app.blade.php",
+			"file": "resources/views/employees/_form.blade.php",
 			"settings":
 			{
-				"buffer_size": 5520,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
+				"buffer_size": 4185,
+				"line_ending": "Windows"
 			}
 		}
 	],
@@ -545,10 +553,18 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 392.0,
-		"last_filter": "insta",
+		"height": 102.0,
+		"last_filter": "Snippet: validacon",
 		"selected_items":
 		[
+			[
+				"Snippet: validacon",
+				"Snippet: Laravel Validator for Controller"
+			],
+			[
+				"Snippet: validate",
+				"Snippet: Laravel Validator for Controller"
+			],
 			[
 				"insta",
 				"Package Control: Install Package"
@@ -1052,17 +1068,9 @@
 			[
 				"Snippet: bs3alert",
 				"Snippet: bs3-alert-warning"
-			],
-			[
-				"Snippet: but",
-				"Snippet: bs3-button-default"
-			],
-			[
-				"Snippet: bsalertda",
-				"Snippet: bs3-alert-danger"
 			]
 		],
-		"width": 528.0
+		"width": 787.0
 	},
 	"console":
 	{
@@ -1090,11 +1098,32 @@
 	[
 		"/F/wamp/www/dainsys3",
 		"/F/wamp/www/dainsys3/app",
+		"/F/wamp/www/dainsys3/app/Http",
+		"/F/wamp/www/dainsys3/app/Http/Controllers",
 		"/F/wamp/www/dainsys3/resources",
-		"/F/wamp/www/dainsys3/resources/views"
+		"/F/wamp/www/dainsys3/resources/views",
+		"/F/wamp/www/dainsys3/resources/views/cards",
+		"/F/wamp/www/dainsys3/resources/views/employees"
 	],
 	"file_history":
 	[
+		"/F/wamp/www/dainsys3/resources/views/cards/show.blade.php",
+		"/F/wamp/www/dainsys3/resources/views/punches/show.blade.php",
+		"/F/wamp/www/dainsys3/resources/views/cards/index.blade.php",
+		"/F/wamp/www/dainsys3/resources/views/cards/create.blade.php",
+		"/F/wamp/www/dainsys3/resources/views/cards/edit.blade.php",
+		"/F/wamp/www/dainsys3/resources/views/punches/edit.blade.php",
+		"/F/wamp/www/dainsys3/app/Http/Controllers/CardsController.php",
+		"/F/wamp/www/dainsys3/resources/views/punches/index.blade.php",
+		"/F/wamp/www/dainsys3/resources/views/punches/create.blade.php",
+		"/F/wamp/www/dainsys3/resources/views/punches/_form.blade.php",
+		"/F/wamp/www/dainsys3/app/Punch.php",
+		"/F/wamp/www/dainsys3/app/Card.php",
+		"/F/wamp/www/dainsys3/app/Employee.php",
+		"/F/wamp/www/dainsys3/resources/views/cards/_form.blade.php",
+		"/F/wamp/www/dainsys3/gulpfile.js",
+		"/F/wamp/www/dainsys3/app/Http/Controllers/EmployeesController.php",
+		"/F/wamp/www/dainsys3/resources/views/layouts/app.blade.php",
 		"/F/wamp/www/dainsys3/resources/views/employees/show.blade.php",
 		"/F/wamp/www/dainsys3/.env",
 		"/F/wamp/www/dainsys3/resources/assets/js/app.js",
@@ -1107,17 +1136,13 @@
 		"/F/wamp/www/dainsys3/app/Console/Kernel.php",
 		"/F/wamp/www/dainsys3/vendor/laravel/framework/src/Illuminate/Console/Command.php",
 		"/F/wamp/www/dainsys3/vendor/laravel/framework/src/Illuminate/Console/GeneratorCommand.php",
-		"/F/wamp/www/dainsys3/app/Http/Controllers/EmployeesController.php",
 		"/F/wamp/www/dainsys3/database/migrations/2016_11_01_130119_add_passport_to_employees_table.php",
-		"/F/wamp/www/dainsys3/app/Employee.php",
 		"/F/wamp/www/dainsys3/resources/views/employees/_form.blade.php",
 		"/F/wamp/www/dainsys3/resources/views/layouts/partials/navbar-left.blade.php",
 		"/F/wamp/www/dainsys3/app/User.php",
-		"/F/wamp/www/dainsys3/resources/views/layouts/app.blade.php",
 		"/C/Users/Yismen/Downloads/startbootstrap-new-age-gh-pages/startbootstrap-new-age-gh-pages/package.json",
 		"/C/Users/Yismen/Downloads/startbootstrap-new-age-gh-pages/startbootstrap-new-age-gh-pages/js/new-age.js",
 		"/C/Users/Yismen/Downloads/startbootstrap-new-age-gh-pages/startbootstrap-new-age-gh-pages/css/new-age.css",
-		"/F/wamp/www/dainsys3/gulpfile.js",
 		"/F/wamp/www/dainsys3/resources/views/payments/index.blade.php",
 		"/C/Users/Yismen/Downloads/startbootstrap-new-age-gh-pages/startbootstrap-new-age-gh-pages/README.md",
 		"/C/Users/Yismen/Downloads/startbootstrap-new-age-gh-pages/startbootstrap-new-age-gh-pages/gulpfile.js",
@@ -1209,24 +1234,11 @@
 		"/F/wamp/www/dainsys3/vendor/laravel/framework/src/Illuminate/Foundation/Auth/AuthenticatesAndRegistersUsers.php",
 		"/F/wamp/www/dainsys3/vendor/laravel/framework/src/Illuminate/Foundation/Auth/AuthenticatesUsers.php",
 		"/F/wamp/www/dainsys3/app/Http/Controllers/Auth/AuthController.php",
-		"/F/wamp/www/dainsys3/resources/views/users/create.blade.php",
-		"/F/wamp/www/dainsys3/app/Http/Controllers/CardsController.php",
-		"/F/wamp/www/dainsys3/resources/assets/js/app/components/notes/_list.vue",
-		"/F/wamp/www/dainsys3/app/Note.php",
-		"/F/wamp/www/dainsys3/resources/assets/js/app/components/notes/Note_admin.vue",
-		"/F/wamp/bin/mysql/mysql5.7.14/wampserver.conf",
-		"/F/wamp/bin/mysql/mysql5.6.17/wampserver.conf",
-		"/F/wamp/www/dainsys3/public/build/js/main-48745af963.js",
-		"/F/wamp/www/dainsys3/resources/views/notes/admin/partials/list.blade.php",
-		"/F/wamp/www/dainsys3/resources/views/notes/admin/partials/link-to-list.blade.php",
-		"/F/wamp/www/dainsys3/resources/views/notes/admin/index.blade.php",
-		"/F/wamp/www/dainsys3/resources/views/departments/index.blade.php",
-		"/F/wamp/www/dainsys3/resources/assets/js/app/components/modal.vue",
-		"/F/wamp/www/dainsys3/resources/assets/js/app/components/Task.vue"
+		"/F/wamp/www/dainsys3/resources/views/users/create.blade.php"
 	],
 	"find":
 	{
-		"height": 39.0
+		"height": 71.0
 	},
 	"find_in_files":
 	{
@@ -1252,6 +1264,12 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"size",
+			"digits_between",
+			"route('cards",
+			"route('punches",
+			"PunchesRequests",
+			"createOrUpdateAddress",
 			"2017-02-16 ",
 			"unless",
 			"if",
@@ -1373,13 +1391,7 @@
 			"fade",
 			"MenuCom",
 			"Menu.v",
-			"Left",
-			"length",
-			"lenth",
-			"employ",
-			"mymenu",
-			".js",
-			"mymenu"
+			"Left"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1460,67 +1472,25 @@
 			[
 				{
 					"buffer": 0,
-					"file": "gulpfile.js",
+					"file": "app/Http/Controllers/CardsController.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4012,
+						"buffer_size": 2450,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3750,
-								3750
+								1921,
+								1921
 							]
 						],
 						"settings":
 						{
-							"color_helper.box_height": 13,
-							"color_helper.color_scheme": "Packages/User/SublimeLinter/Monokai (SL).tmTheme",
-							"color_helper.file_palette":
-							[
-							],
-							"color_helper.scan":
-							{
-								"current_ext": ".js",
-								"current_syntax": "JavaScript/JavaScript",
-								"enabled": false,
-								"last_updated": 1487207444.82
-							},
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1552.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "resources/views/layouts/app.blade.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5520,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2788,
-								2801
-							]
-						],
-						"settings":
-						{
-							"color_helper.box_height": 13,
-							"color_helper.color_scheme": "Packages/User/SublimeLinter/Material Monokai (SL).tmTheme",
+							"color_helper.box_height": 15,
+							"color_helper.color_scheme": "Packages/Material Theme/schemes/Material-Theme.tmTheme",
 							"color_helper.file_palette":
 							[
 							],
@@ -1531,19 +1501,86 @@
 							{
 								"allowed_colors":
 								[
-									"rgb",
-									"webcolors",
-									"rgba",
 									"hsla",
 									"hex_compressed",
 									"hsl",
-									"hex"
+									"rgb",
+									"rgba",
+									"hex",
+									"webcolors"
+								],
+								"compress_hex_output": true,
+								"current_ext": ".php",
+								"current_syntax": "PHP/PHP",
+								"enabled": true,
+								"last_updated": 1487358365.47,
+								"scan_completion_scopes":
+								[
+								],
+								"scan_scopes":
+								[
+									"meta.declaration-list.css -support.type.property-name.css -comment -string",
+									"meta.property-value.css -comment -string",
+									"meta.value.css -comment -string",
+									"meta.tag.inline.any.html string.quoted",
+									"meta.tag.any.html meta.attribute-with-value.style.html"
+								],
+								"use_hex_argb": false
+							},
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2061.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "resources/views/cards/create.blade.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 805,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								420,
+								349
+							]
+						],
+						"settings":
+						{
+							"color_helper.box_height": 15,
+							"color_helper.color_scheme": "Packages/Material Theme/schemes/Material-Theme.tmTheme",
+							"color_helper.file_palette":
+							[
+							],
+							"color_helper.preview_meta":
+							{
+							},
+							"color_helper.scan":
+							{
+								"allowed_colors":
+								[
+									"hsla",
+									"hex_compressed",
+									"hsl",
+									"rgb",
+									"rgba",
+									"hex",
+									"webcolors"
 								],
 								"compress_hex_output": true,
 								"current_ext": ".php",
 								"current_syntax": "Laravel Blade Highlighter/blade",
 								"enabled": true,
-								"last_updated": 1487358049.7,
+								"last_updated": 1487358365.47,
 								"scan_completion_scopes":
 								[
 								],
@@ -1558,14 +1595,80 @@
 								"use_hex_argb": false
 							},
 							"syntax": "Packages/Laravel Blade Highlighter/blade.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1104.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "resources/views/employees/_form.blade.php",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 4185,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"color_helper.box_height": 15,
+							"color_helper.color_scheme": "Packages/Material Theme/schemes/Material-Theme.tmTheme",
+							"color_helper.file_palette":
+							[
+							],
+							"color_helper.preview_meta":
+							{
+							},
+							"color_helper.scan":
+							{
+								"allowed_colors":
+								[
+									"hsla",
+									"hex_compressed",
+									"hsl",
+									"rgb",
+									"rgba",
+									"hex",
+									"webcolors"
+								],
+								"compress_hex_output": true,
+								"current_ext": ".php",
+								"current_syntax": "Laravel Blade Highlighter/blade",
+								"enabled": true,
+								"last_updated": 1487358365.47,
+								"scan_completion_scopes":
+								[
+								],
+								"scan_scopes":
+								[
+									"meta.declaration-list.css -support.type.property-name.css -comment -string",
+									"meta.property-value.css -comment -string",
+									"meta.value.css -comment -string",
+									"meta.tag.inline.any.html string.quoted",
+									"meta.tag.any.html meta.attribute-with-value.style.html"
+								],
+								"use_hex_argb": false
+							},
+							"syntax": "Packages/Laravel Blade Highlighter/blade.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -1627,6 +1730,42 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"cardcon",
+				"app\\Http\\Controllers\\CardsController.php"
+			],
+			[
+				"punchesindex",
+				"resources\\views\\punches\\index.blade.php"
+			],
+			[
+				"cardform",
+				"resources\\views\\cards\\_form.blade.php"
+			],
+			[
+				"card",
+				"app\\Card.php"
+			],
+			[
+				"emplo",
+				"app\\Employee.php"
+			],
+			[
+				"employee",
+				"app\\Employee.php"
+			],
+			[
+				"pun",
+				"app\\Punch.php"
+			],
+			[
+				"punchesform",
+				"resources\\views\\punches\\_form.blade.php"
+			],
+			[
+				"punchecreate",
+				"resources\\views\\punches\\create.blade.php"
+			],
 			[
 				"gulp",
 				"gulpfile.js"
@@ -1748,14 +1887,6 @@
 				"app\\Marital.php"
 			],
 			[
-				"employee",
-				"app\\Employee.php"
-			],
-			[
-				"emplo",
-				"app\\Employee.php"
-			],
-			[
 				"iluminacontrahttp",
 				"vendor\\laravel\\framework\\src\\Illuminate\\Contracts\\Http\\Kernel.php"
 			],
@@ -1814,10 +1945,6 @@
 			[
 				"authenticatesandregistersusers",
 				"vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Auth\\AuthenticatesAndRegistersUsers.php"
-			],
-			[
-				"cardcon",
-				"app\\Http\\Controllers\\CardsController.php"
 			],
 			[
 				"noteadminpar",
@@ -2114,30 +2241,6 @@
 			[
 				"profilecon",
 				"app\\Http\\Controllers\\ProfilesController.php"
-			],
-			[
-				"navbaruser",
-				"resources\\views\\layouts\\partials\\navbar-user.blade.php"
-			],
-			[
-				"navbar",
-				"resources\\views\\layouts\\partials\\navbar-left.blade.php"
-			],
-			[
-				"config/a",
-				"dainsys3\\config\\app.php"
-			],
-			[
-				"configapp",
-				"config\\app.php"
-			],
-			[
-				"layoutpr",
-				"app\\Providers\\LayoutsProvider.php"
-			],
-			[
-				"insertarempleados",
-				"dicenew\\forms\\Insertar_Empleados.php"
 			]
 		],
 		"width": 0.0

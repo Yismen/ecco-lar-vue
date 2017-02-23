@@ -23,7 +23,10 @@
 			</table>
 			<a href="{{ route('admin.punches.edit', $punch->punch) }}" class="btn btn-warning"> Edit </a>
 			<hr>
-			<a href="{{ route('admin.punches.index') }}" class=""> Punches List </a>
+			<a href="{{ route('admin.punches.index') }}" class="">
+				Punches List 
+				<i class="fa fa-list"></i>
+			</a>
 			
 		</div>
 		{{-- /. Row --}}

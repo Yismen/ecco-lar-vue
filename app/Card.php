@@ -12,7 +12,7 @@ class Card extends Model {
  */
 	public function employee()
 	{
-		return $this->belongsTo('App\Employee')->orderBy('first_name', 'ASC');
+		return $this->belongsTo('App\Employee');
 	}
 	
 /**
@@ -20,21 +20,21 @@ class Card extends Model {
  * Accessors
  */
 
-	public function getEmployeesListAttribute()
+	public function getEmployeeListAttribute()
 	{
-		$employees = \App\Employee::all();
+		$employees = $this->employee()->lists('id');
 
-		return $employees->lists('fullName', 'id');
+		if ($employees->count() > 0) {
+			return $employees[0];
+		}
 	}
 /**
  * get employees with no cards added
  * @return [type] [description]
  */
-	public function getEmployeesWhitoutCardsListAttribute()
+	public function getEmployeesListAttribute()
 	{
-		$employees = \App\Employee::doesntHave('card')
-			->orderBy('first_name')
-			->actives()
+		$employees = \App\Employee::orderBy('first_name')
 			->get();
 
 		return $employees->lists('fullName', 'id');

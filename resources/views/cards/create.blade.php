@@ -1,25 +1,30 @@
 @inject('layout', 'App\Layout')
-@extends('layouts.'.$layout->app(), ['page_header'=>'title', 'page_description'=>'description'])
+@extends('layouts.'.$layout->app(), ['page_header'=>'Cards', 'page_description'=>'Create a new card.'])
 
 @section('content')
 	<div class="container">
-		<div class="box box-primary pad">
-			{!! Form::open(['route'=>['admin.cards.store'], 'method'=>'POST', 'class'=>'form-horizontal', 'role'=>'form']) !!}		
-				<div class="form-group">
+		<div class="col-sm-8 col-sm-offset-2">
+			<div class="box box-primary pad">
+				{!! Form::open(['route'=>['admin.cards.store'], 'method'=>'POST', 'class'=>'form-horizontal', 'role'=>'form']) !!}		
 					<legend>New Card ID</legend>
-				</div>
-			
-				@include('cards._form')
+				
+					@include('cards._form')
 
-				<div class="col-sm-10 col-sm-offset-2">
-					<button type="submit" class="btn btn-primary form-control">Create</button>
-					<hr>	
-					<a href="{{ route('admin.cards.index') }}"><< Cancel and return to Cards List</a>
-				</div>
-			
-			{!! Form::close() !!}
+					<div class="form-group">
+						<div class="col-sm-10 col-sm-offset-2">
+							<button type="submit" class="btn btn-primary">Create</button>
+							
+						</div>
+					</div>
 
-			{{-- // errors --}}
+					<div class="form-group">
+						<div class="col-sm-12">
+							<a href="{{ route('admin.cards.index') }}"><< Back to Cards List</a>
+						</div>
+					</div>
+				
+				{!! Form::close() !!}
+			</div>
 		</div>
 		
 	</div>
