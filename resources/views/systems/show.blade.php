@@ -19,7 +19,7 @@
 						</li>
 						
 						<li class="list-group-item">
-							<strong>URL: </strong>{{ $system->url }}
+							<strong>URL: </strong> <a href="{{ $system->url }}" target="_new">{{ $system->url }}</a>
 						</li>
 					</ul>
 					<a href="{{ route('admin.systems.edit', $system->id) }}" class="btn btn-warning"> Edit
