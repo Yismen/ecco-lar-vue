@@ -92,8 +92,8 @@ class PaymentsController extends Controller {
 	{
 		$this->validateRequest($payment, $request);
 
-		return $payment = $payment->update($request->only(['payment_type']));
-
+		$payment->update($request->only(['payment_type']));
+		
 		return redirect()->route('admin.payments.show', $payment->id)
 			->withSuccess("payment $payment->name has been ubdated!!");
 	}

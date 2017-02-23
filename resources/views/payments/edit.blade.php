@@ -17,7 +17,7 @@
 				</div>
 				<div class="panel-body">
 					<div class="col-sm-6 col-sm-offset-3">
-						{!! Form::model($payment, ['route'=>['admin.payments.store'], 'method'=>'PUT', 'class'=>'form-horizontal', 'role'=>'form']) !!}
+						{!! Form::model($payment, ['route'=>['admin.payments.update', $payment->id], 'method'=>'PUT', 'class'=>'form-horizontal', 'role'=>'form']) !!}
 							@include('payments._form')
 
 							<div class="form-group">
