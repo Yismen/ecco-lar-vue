@@ -1,10 +1,10 @@
-<?php namespace App\Http\Controllers;
+<?php 
 
-// use App\Http\PaymentsRequests;
+namespace App\Http\Controllers;
+
+// use App\Http\Request;
 use App\Http\Controllers\Controller;
-
-use App\Http\Requests\PaymentsRequests;
-
+use Illuminate\Http\Request;
 use App\Payment;
 
 class PaymentsController extends Controller {
@@ -40,15 +40,27 @@ class PaymentsController extends Controller {
 		return view('payments.create', compact('payment'));
 	}
 
+	public function show($payment, Request $request)
+	{
+		if ($request->ajax()) {
+			return $payment;
+		}
+		
+		return view('payments.show', compact('payment'));
+	}
+
 	/**
 	 * Store a newly created resource in storage.
 	 *
 	 * @return Response
 	 */
-	public function store(Payment $payment, PaymentsRequests $requests)
+	public function store(Payment $payment, Request $request)
 	{
-		$payment = $payment->create($requests->all());
-		return redirect()->route('payments.index')
+		$this->validateRequest($payment, $request);
+
+		$payment = $payment->create($request->only(['payment_type']));
+
+		return redirect()->route('admin.payments.index')
 			->withSuccess("Payment $payment->name has been created!");
 	}
 
@@ -76,11 +88,13 @@ class PaymentsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update(Payment $payment, PaymentsRequests $requests)
+	public function update(Payment $payment, Request $request)
 	{
-		$payment->update($requests->all());
+		$this->validateRequest($payment, $request);
 
-		return redirect()->route('payments.show', $payment->id)
+		return $payment = $payment->update($request->only(['payment_type']));
+
+		return redirect()->route('admin.payments.show', $payment->id)
 			->withSuccess("payment $payment->name has been ubdated!!");
 	}
 
@@ -90,12 +104,25 @@ class PaymentsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy(Payment $payment, PaymentsRequests $requests)
+	public function destroy(Payment $payment, Request $request)
 	{
 		$payment->delete();
 
-		return redirect()->route('payments.index')
+		return redirect()->route('admin.payments.index')
 			->withWarning("payment $payment->name has been removed!");
+	}
+
+	/**
+	 * Validate the form submitted by the user.
+	 * @param  object $payment the current payment model being passed.
+	 * @param  object $request the form array.
+	 * @return [type]          [description]
+	 */
+	private function validateRequest($payment, $request)
+	{
+		return $this->validate($request, [
+			'payment_type' => "required|unique:payments,payment_type,$payment->id,id"
+		]);
 	}
 
 }

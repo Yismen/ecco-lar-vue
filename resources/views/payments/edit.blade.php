@@ -20,12 +20,23 @@
 						{!! Form::model($payment, ['route'=>['admin.payments.store'], 'method'=>'PUT', 'class'=>'form-horizontal', 'role'=>'form']) !!}
 							@include('payments._form')
 
-							<div class="col-sm-10 col-sm-offset-2">
-								<button type="reset" class="btn btn-default">Cancel</button>
-								<button type="submit" class="btn btn-success">UPDATE</button>
+							<div class="form-group">
+								<div class="col-sm-10 col-sm-offset-2">
+									<button type="submit" class="btn btn-success">UPDATE</button>
+									<button type="reset" class="btn btn-default">Cancel</button>
+								</div>
 							</div>
 
 						{!! Form::close() !!}
+
+						<form action="{{ url('/admin/payments', $payment->id) }}" method="POST" class="" style="display: inline-block;">
+						    {!! csrf_field() !!}
+						    {!! method_field('DELETE') !!}
+						
+						    <button type="submit" id="delete-payment" class="btn btn-danger"  name="deleteBtn">
+						        <i class="fa fa-btn fa-trash"></i> DELETE
+						    </button>
+						</form>
 					</div>
 					
 				</div>
