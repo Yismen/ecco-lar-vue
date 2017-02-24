@@ -1,6 +1,7 @@
 	<!-- Global Messages to be Printed -->
 	@if(Session::has('global'))
-		<div class="container-fluid dismiss">
+		<div class="container-fluid {{ session('important') or 'dismiss' }}"
+			style="">
 			<div class="alert alert-info">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 				<strong>Global <i class="fa fa-info"> </i>!</strong> {{{ Session::get('global') }}}
@@ -10,7 +11,8 @@
 	<!-- /. Global Messages -->
 	<!-- Info Messages to be Printed -->
 	@if(Session::has('info'))
-		<div class="container-fluid dismiss">
+		<div class="container-fluid {{ session('important') or 'dismiss' }}"
+			style="">
 			<div class="alert alert-info">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 				<strong>Information <i class="fa fa-info"> </i>!</strong> {{{ Session::get('info') }}}
@@ -20,7 +22,8 @@
 	<!-- /. Info Messages -->	
 	<!-- Success Messages to be Printed -->
 	@if(Session::has('success'))
-		<div class="container-fluid dismiss">
+		<div class="container-fluid {{ session('important') or 'dismiss' }}"
+			style="">
 			<div class="alert alert-success">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 				<strong>Success <i class="fa fa-check-circle"></i> !</strong> {{{ Session::get('success') }}}
@@ -30,7 +33,8 @@
 	<!-- /. Success Messages -->
 	<!-- Danger Messages to be Printed -->
 	@if(Session::has('danger'))
-		<div class="container-fluid dismiss">
+		<div class="container-fluid {{ session('important') or 'dismiss' }}"
+			style="">
 			<div class="alert alert-danger">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 				<strong>Danger <i class="fa fa-exclamation-circle"> </i>!</strong> {{{ Session::get('danger') }}}
@@ -40,7 +44,8 @@
 	<!-- /. Danger Messages -->
 	<!-- Warning Messages to be Printed -->
 	@if(Session::has('warning'))
-		<div class="container-fluid dismiss">
+		<div class="container-fluid {{ session('important') or 'dismiss' }}"
+			style="">
 			<div class="alert alert-warning">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 				<strong>Warning <i class="fa fa-exclamation-triangle"></i> !</strong> {{{ Session::get('warning') }}}

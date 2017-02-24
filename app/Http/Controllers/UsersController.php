@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Role;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 
 class UsersController extends Controller {
@@ -62,16 +63,19 @@ class UsersController extends Controller {
 	 */
 	public function store(User $user, Request $request)
 	{
+		$rand = str_random(15);
 		$this->validate($request, [
 			'name' => 'required',
 			'email' => 'required|email|unique:users,email',
 			'username' => 'required|unique:users,username',
+			'password' => $rand
 		]);
 
 		$this->createUser($user);
 
 		return redirect()->route('admin.users.index')
-			->withSuccess("The user $user-> has ben created!");
+			->withImportant(true)
+			->withSuccess("The user $user-> has ben created! The password is $rand. Please provide it to the user!");
 	}
 
 	/**
@@ -141,6 +145,35 @@ class UsersController extends Controller {
 		return redirect()->route('admin.users.index')
 			->withWarning("User $user->name has been removed!!!");
 
+	}
+
+	public function reset()
+	{
+		return view('users.reset');
+	}
+
+	public function change(User $user, Request $request)
+	{
+		$this->validate($request, [
+			'old_password' => 'required',
+			'new_password' => 'required|confirmed',
+			'new_password_confirmation' => 'same:new_password',
+		]);
+		
+		$user = User::whereEmail(
+			auth()->user()->email
+			)
+			->first();
+
+		if (Hash::check($request->old_password, $user->password)) {
+			$user->password = Hash::make($request->new_password);
+			$user->save();
+			
+			return redirect('admin')
+				->withSuccess('Your password has been changed');
+		}
+
+		return redirect('/admin/users/reset')->withErrors(['old_password' => 'Wrong old password.']);
 	}
 
 	private function createUser($user)

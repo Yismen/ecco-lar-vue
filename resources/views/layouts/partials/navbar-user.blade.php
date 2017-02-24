@@ -43,16 +43,16 @@
         <div class="row">
           <div class="col-xs-4 text-center">
             <a href="{{ route('admin.passwords.index') }}">
-              <i class="fa fa-user-group"></i> Contacts
+              <i class="fa fa-users"></i> Contacts
             </a>
           </div>
           <div class="col-xs-4 text-center">
             <a href="{{ route('admin.passwords.index') }}">
-              <i class="fa fa-key"></i> Vault
+              <i class="fa fa-archive"></i> Vault
             </a>
           </div>
           <div class="col-xs-4 text-center">
-            <a href="#">Friends</a>
+            <a href="/admin/users/reset"><i class="fa fa-key"></i> Reset Password</a>
           </div>
         </div>
         <!-- /.row -->
@@ -60,10 +60,14 @@
       <!-- Menu Footer-->
       <li class="user-footer">
         <div class="pull-left">
-          <a href="{{ route('admin.profiles.index') }}" class="btn btn-default btn-flat">Profile</a>
+          <a href="{{ route('admin.profiles.index') }}" class="">
+            <i class="fa fa-user"></i> Profile
+          </a>
         </div>
         <div class="pull-right">
-          <a href="{{ url('admin/logout') }}" class="btn btn-default btn-flat">Sign out</a>
+          <a href="{{ url('admin/logout') }}" class="">
+            <i class="fa fa-sign-out"></i> Sign out
+          </a>
         </div>
       </li>
     </ul>
