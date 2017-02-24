@@ -40,6 +40,15 @@
                                 </button>
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <a href="/admin/users">
+                                    <i class="fa fa-users"></i>
+                                     Users List
+                                </a>
+                            </div>
+                        </div>
                           
 
                        

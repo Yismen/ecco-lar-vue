@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\User;
 use Illuminate\Support\ServiceProvider;
 
 class ViewsComposerServiceProvider extends ServiceProvider
@@ -55,7 +56,22 @@ class ViewsComposerServiceProvider extends ServiceProvider
     public function composeWelcome()
     {
         return view()->composer(['welcome'], function($view) {
-            return $view->with(['user'=>auth()->user()]);
+            if (auth()->check()) {
+                
+                $user = auth()->user();
+                return $view->with([
+                'user' => User::whereId($user->id)
+                    ->with(['roles'=>function($query){
+                        return $query->orderBy('display_name');
+                    }])
+                    ->with('profile')
+                    ->first()
+                ]);
+            }
+
+            return $view->with([
+                'user' => auth()->user()]);
+            
         });
     }
 }

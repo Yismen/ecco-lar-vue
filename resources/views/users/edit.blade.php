@@ -20,7 +20,11 @@
 							<div class="form-group">
 								<div class="col-sm-10 col-sm-offset-2">
 									<button type="submit" class="btn btn-primary">SAVE UPDATES</button>
+									<a href="/admin/users" class="btn btn-default">
+										<i class="fa fa-home"></i> Cancel
+									</a>
 								</div>
+
 							</div>
 						
 						{!! Form::close() !!}
