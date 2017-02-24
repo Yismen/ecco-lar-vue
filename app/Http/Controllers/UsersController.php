@@ -16,7 +16,7 @@ class UsersController extends Controller {
 	public function __construct(Request $request, Role $role)
 	{
 		$this->middleware('authorize:view_users|edit_users|create_users', ['only'=>['index','show']]);
-		$this->middleware('authorize:edit_users', ['only'=>['edit','update']]);
+		$this->middleware('authorize:edit_users', ['only'=>['edit','update', 'reset', 'change', 'force_reset', 'force_change']]);
 		$this->middleware('authorize:create_users', ['only'=>['create','store']]);
 		$this->middleware('authorize:destroy_users', ['only'=>['destroy']]);
 		
