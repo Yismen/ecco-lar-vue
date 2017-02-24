@@ -19,15 +19,17 @@
 							<hr>
 							<div class="form-group">
 								<div class="col-sm-10 col-sm-offset-2">
-									<button type="submit" class="btn btn-primary form-control">Save</button>
+									<button type="submit" class="btn btn-primary">SAVE UPDATES</button>
 								</div>
 							</div>
 						
 						{!! Form::close() !!}
+
 						<hr>
 
-							<div class="col-sm-10 col-sm-offset-1">
 						<div class="form-group">
+							<div class="col-sm-10 col-sm-offset-2">
+
 								<form action="{{ url('/admin/users', $user->id) }}" method="POST" class="" style="display: inline-block;">
 								    {!! csrf_field() !!}
 								    {!! method_field('DELETE') !!}
@@ -36,6 +38,11 @@
 								        <i class="fa fa-btn fa-trash"></i> Delete User
 								    </button>
 								</form>
+
+								<a href="/admin/users/force_reset/{{ $user->id }}" class="btn btn-warning pull-right">
+									<i class="fa fa-pencil"></i> Forcely reset password
+								</a>
+
 							</div>
 						</div>
 					</div>

@@ -1,6 +1,6 @@
 	<!-- Global Messages to be Printed -->
 	@if(Session::has('global'))
-		<div class="container-fluid {{ session('important') or 'dismiss' }}"
+		<div class="container-fluid {{ session('important', 'dismiss') }}"
 			style="">
 			<div class="alert alert-info">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -11,7 +11,7 @@
 	<!-- /. Global Messages -->
 	<!-- Info Messages to be Printed -->
 	@if(Session::has('info'))
-		<div class="container-fluid {{ session('important') or 'dismiss' }}"
+		<div class="container-fluid {{ session('important', 'dismiss') }}"
 			style="">
 			<div class="alert alert-info">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -22,7 +22,7 @@
 	<!-- /. Info Messages -->	
 	<!-- Success Messages to be Printed -->
 	@if(Session::has('success'))
-		<div class="container-fluid {{ session('important') or 'dismiss' }}"
+		<div class="container-fluid {{ session('important', 'dismiss') }}"
 			style="">
 			<div class="alert alert-success">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -33,7 +33,7 @@
 	<!-- /. Success Messages -->
 	<!-- Danger Messages to be Printed -->
 	@if(Session::has('danger'))
-		<div class="container-fluid {{ session('important') or 'dismiss' }}"
+		<div class="container-fluid {{ session('important', 'dismiss') }}"
 			style="">
 			<div class="alert alert-danger">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -44,7 +44,7 @@
 	<!-- /. Danger Messages -->
 	<!-- Warning Messages to be Printed -->
 	@if(Session::has('warning'))
-		<div class="container-fluid {{ session('important') or 'dismiss' }}"
+		<div class="container-fluid {{ session('important', 'dismiss') }}"
 			style="">
 			<div class="alert alert-warning">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>

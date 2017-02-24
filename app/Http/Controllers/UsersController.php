@@ -176,6 +176,28 @@ class UsersController extends Controller {
 		return redirect('/admin/users/reset')->withErrors(['old_password' => 'Wrong old password.']);
 	}
 
+	public function force_reset(User $user)
+	{
+		// $user = User::findOrFail($user);
+		return view('users.force_reset', compact('user'));
+	}
+
+	public function force_change(User $user, Request $request)
+	{
+		$new_password = str_random(15);
+
+		if ($user->id === auth()->user()->id) {
+			return redirect()->back()->withErrors(['error'=>'You are not allowed to change your own password here!']);
+		}
+
+		$user->password = Hash::make($new_password);
+		$user->save();
+
+		return redirect("/admin/users/force_reset/$user->id")
+			->with('important')
+			->withNewPassword($new_password)
+			->withWarning("Password $new_password is the new password for this user. Please advise to update inmediately!");
+	}
 	private function createUser($user)
 	{
 		$user = $user->create($this->request->all());
