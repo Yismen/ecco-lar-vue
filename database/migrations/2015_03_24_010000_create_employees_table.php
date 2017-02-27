@@ -14,10 +14,6 @@ class CreateEmployeesTable extends Migration {
 	{
 		Schema::create('employees', function(Blueprint $table ){
 			$table->increments('id');
-			// $table->string('punch_id', 15);
-			// $table->string('card_id', 15);
-			// $table->string('employee_id', 5);
-			// $table->string('username', 30);
 			$table->string('first_name', 50);
 			$table->string('last_name', 50);
 			$table->dateTime('hire_date');
@@ -30,7 +26,6 @@ class CreateEmployeesTable extends Migration {
 			$table->tinyInteger('marital_id')->unsigned()->index();
 			$table->string('has_kids', 10)->default(0);
 			$table->tinyInteger('department_id')->unsigned()->index();
-			// $table->integer('salary_id')->unsigned()->index();
 			$table->string('photo', 80);
 
 			$table->timestamps();

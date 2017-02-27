@@ -18,6 +18,10 @@ class CreateMaritalsTable extends Migration {
 			$table->string('name');
 			$table->timestamps();
 		});
+
+		factory(App\Marital::class)->create(['id'=>1,'name'=>'Married']);
+		factory(App\Marital::class)->create(['id'=>2,'name'=>'Single']);
+		factory(App\Marital::class)->create(['id'=>3,'name'=>'Common Law']);
 	}
 
 	/**

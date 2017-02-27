@@ -23,14 +23,20 @@ $factory->define(App\Password::class, function(Faker\Generator $faker){
     ];
 });
 
+$factory->define(App\Gender::class, function(){
+    return ['gender' => 'Male',];
+});
+
+$factory->define(App\Marital::class, function(Faker\Generator $faker){
+    return ['name' => $faker->name];
+});
+
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
-        'name' => 'Yismen Jorge', // $faker->name,
-        'email' => 'yismen.jorge@gmail.com', // $faker->email,
-        'password' => bcrypt('password'), // bcrypt(str_random(10)),
+        'name' => $faker->name,
+        'email' => $faker->email,
+        'password' => bcrypt(str_random(10)),
         'remember_token' => str_random(10),
-        // 'is_active ' => 1,
-        // 'is_admin ' => 1,
     ];
 });
 
@@ -40,6 +46,48 @@ $factory->define(App\Task::class, function (Faker\Generator $faker) {
         'task_name' => $faker->sentence,
     ];
 });
+
+$factory->define(App\Payment::class, function (Faker\Generator $faker) {
+    return [
+        'payment_type' => $faker->word,
+    ];
+});
+
+$factory->define(App\Reason::class, function (Faker\Generator $faker) {
+    return [
+        'reason' => $faker->word,
+    ];
+});
+
+$factory->define(App\Role::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->word,
+        'display_name' => $faker->word,
+        'description' => $faker->sentence,
+    ];
+});
+
+$factory->define(App\Source::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->word,
+    ];
+});
+
+$factory->define(App\TerminationReason::class, function (Faker\Generator $faker) {
+    return [
+        'reason' => $faker->sentence,
+        'description' => $faker->sentence,
+    ];
+});
+
+$factory->define(App\TerminationType::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->sentence,
+        'description' => $faker->sentence,
+    ];
+});
+
+
 
 $factory->define(App\Production::class, function (Faker\Generator $faker) {
     return [

@@ -18,6 +18,11 @@ class CreatePaymentsTable extends Migration {
 			$table->string('payment_type', 100);
 			$table->timestamps();
 		});
+
+		factory(App\Payment::class)->create(['id'=>1, 'payment_type'=>'Hourly']);
+		factory(App\Payment::class)->create(['id'=>2, 'payment_type'=>'Weekly']);
+		factory(App\Payment::class)->create(['id'=>3, 'payment_type'=>'By-Weekly']);
+		factory(App\Payment::class)->create(['id'=>4, 'payment_type'=>'Monthly']);
 	}
 
 	/**

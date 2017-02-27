@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use App\TypeOfHour;
 
 class CreateTypeOfHoursTable extends Migration {
 
@@ -19,6 +20,13 @@ class CreateTypeOfHoursTable extends Migration {
 			$table->string('Display Name', 100);
 			$table->timestamps();
 		});
+
+		TypeOfHour::create(['type' => 'regular', 'display_name' => 'Regular']); 
+		TypeOfHour::create(['type' => 'overtime', 'display_name' => 'Overtime']); 
+		TypeOfHour::create(['type' => 'nightly', 'display_name' => 'Nightly']); 
+		TypeOfHour::create(['type' => 'holidays_off', 'display_name' => 'Holidays and Days Off']); 
+		TypeOfHour::create(['type' => 'regular', 'display_name' => 'Training']); 
+
 	}
 
 	/**

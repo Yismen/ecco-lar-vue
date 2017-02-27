@@ -19,21 +19,11 @@ class CreateSourcesTable extends Migration {
 			$table->string('name', 100)->unique();
 			$table->timestamps();
 		});
-
-		// Source::create([
-		// 	'id'=>1,
-		// 	'name'=>'Data Entry',
-		// 	]);
-
-		// Source::create([
-		// 	'id'=>2,
-		// 	'name'=>'Resubs-VzW',
-		// 	]);
-
-		// Source::create([
-		// 	'id'=>3,
-		// 	'name'=>'Resubs-General',
-		// 	]);
+		factory(App\Source::class)->create(['id'=>1, 'name'=>'Data Entry']);
+		factory(App\Source::class)->create(['id'=>2, 'name'=>'Resubs-VzW']);
+		factory(App\Source::class)->create(['id'=>3, 'name'=>'Resubs-General']);
+		factory(App\Source::class)->create(['id'=>4, 'name'=>'Escalations']);
+		factory(App\Source::class)->create(['id'=>5, 'name'=>'QA Review']);
 
 	}
 

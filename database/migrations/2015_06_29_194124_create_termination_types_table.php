@@ -19,6 +19,32 @@ class CreateTerminationTypesTable extends Migration {
 			$table->string('description');
 			$table->timestamps();
 		});
+
+		factory(App\TerminationType::class)->create([
+			'id' => 1,
+			'name' => 'Resigned',
+			'description' => 'The person communicated his desire to terminate the contract',
+		]);
+		factory(App\TerminationType::class)->create([
+			'id' => 2,
+			'name' => 'Terminated',
+			'description' => 'The company has excercised the termination of the contract',
+		]);
+		factory(App\TerminationType::class)->create([
+			'id' => 3,
+			'name' => 'Fired',
+			'description' => 'The employee commited a heavy fault, causing his termination',
+		]);
+		factory(App\TerminationType::class)->create([
+			'id' => 4,
+			'name' => 'Abandon',
+			'description' => 'Multiple No Show No Call',
+		]);
+		factory(App\TerminationType::class)->create([
+			'id' => 5,
+			'name' => 'Dismiss',
+			'description' => 'The person sued the company',
+		]);
 	}
 
 	/**

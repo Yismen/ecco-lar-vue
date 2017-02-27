@@ -19,6 +19,23 @@ class CreateTerminationReasonsTable extends Migration {
 			$table->string('description');
 			$table->timestamps();
 		});
+
+		factory(App\TerminationReason::class)->create([
+			'id'=>1,
+			'reason'=>'Found Better Job',
+		]);
+		factory(App\TerminationReason::class)->create([
+			'id'=>2,
+			'reason'=>'Not enough salary',
+		]);
+		factory(App\TerminationReason::class)->create([
+			'id'=>3,
+			'reason'=>'High Absentism',
+		]);
+		factory(App\TerminationReason::class)->create([
+			'id'=>4,
+			'reason'=>'Low Performanc',
+		]);
 	}
 
 	/**

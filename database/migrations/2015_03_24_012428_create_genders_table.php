@@ -17,8 +17,16 @@ class CreateGendersTable extends Migration {
 		    $table->increments('id');
 		    $table->string('gender', 30)->unique();
 		    $table->timestamps();
-		
 		});
+
+		factory(App\Gender::class)->create([
+			'id'=>1,
+			'gender'=>'Male'
+		]);
+		factory(App\Gender::class)->create([
+			'id'=>2,
+			'gender'=>'Female'
+		]);
 	}
 
 	/**
