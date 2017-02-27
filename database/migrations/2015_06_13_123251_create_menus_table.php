@@ -21,6 +21,7 @@ class CreateMenusTable extends Migration {
 			$table->string('icon')->nullable();
 			$table->timestamps();
 		});
+
 	}
 
 	/**
