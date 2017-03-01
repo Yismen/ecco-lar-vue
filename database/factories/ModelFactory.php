@@ -27,6 +27,13 @@ $factory->define(App\Gender::class, function(){
     return ['gender' => 'Male',];
 });
 
+$factory->define(App\EscalClient::class, function(Faker\Generator $faker){
+    return [
+        'slug' => str_slug($faker->word),
+        'name' => $faker->word,
+    ];
+});
+
 $factory->define(App\Marital::class, function(Faker\Generator $faker){
     return ['name' => $faker->name];
 });

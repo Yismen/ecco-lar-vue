@@ -8,9 +8,12 @@
     
     $('.main-spinner').hide();
 
-  // $.each($('.btn'), function(index, val) {
-  //   $(val).addClass('btn-raised');
-  // });
+  
+  /**
+   * Focus the cursor on the first input
+   * @type {[type]}
+   */
+  $('form').first().find(':input').filter(':visible:first').focus();
 
 	$.each($('select,input,textarea'), function(index, val) {
       var el = $(val);
