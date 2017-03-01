@@ -178,6 +178,14 @@ class MenusController extends Controller {
 			'display_name' => ucwords($menu->name) . ' Destroyer',
 			'description' => 'Can destroy ' . ucwords($menu->name) . '\'s items',
 		]);
+		/**
+		 * Add a permission to destroy records.
+		 */
+		$permission->create([
+			'name' => 'create_' . str_slug($menu->name, $separator = "_"),
+			'display_name' => ucwords($menu->name) . ' Creator',
+			'description' => 'Can destroy ' . ucwords($menu->name) . '\'s items',
+		]);
 	}
 
 	private function destroyPermissions($menu, Permission $permission)
@@ -204,6 +212,10 @@ class MenusController extends Controller {
 		 * Destroy Role
 		 */
 		$destroyer = $permission->whereName('destroy_' . $menu->name)->first();
+		/**
+		 * Create Role
+		 */
+		$destroyer = $permission->whereName('create_' . $menu->name)->first();
 
 		if ($destroyer) {
 			$destroyer->delete();
