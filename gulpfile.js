@@ -42,7 +42,7 @@ elixir(function(mix) {
         nodeModules + '/icheck/skins/square/blue.css',
         nodeModules + '/ionicons/dist/css/ionicons.css',
         nodeModules + '/select2-bootstrap-theme/dist/select2-bootstrap.css',
-        nodeModules + '/select2/select2.css',
+        nodeModules + '/select2/dist/css/select2.css',
         nodeModules + '/summernote/dist/summernote.css',
         'my-css-updates.css',
         // 'btn-raised.css',
@@ -66,7 +66,7 @@ elixir(function(mix) {
         nodeModules + '/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js',
         nodeModules + '/icheck/icheck.js',
         nodeModules + '/js-cookie/src/js.cookie.js',
-        nodeModules + '/select2/select2.js',
+        nodeModules + '/select2/dist/js/select2.js',
         nodeModules + '/summernote/dist/summernote.js',
 
         // nodeModules + '/datatables.net-bs/js/dataTables.bootstrap.js',

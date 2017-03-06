@@ -4,6 +4,62 @@
 		"selected_items":
 		[
 			[
+				"col-",
+				"col-sm-12"
+			],
+			[
+				"esca",
+				"escalations_admin\t(escalations_admin.php)"
+			],
+			[
+				"hidd",
+				"hidden-sm"
+			],
+			[
+				"created",
+				"created_at\t(EscalationsAdminController.php)"
+			],
+			[
+				"create",
+				"created_at"
+			],
+			[
+				"getEle",
+				"getElementById('aSome')"
+			],
+			[
+				"escalations_records",
+				"escalations_records_admin.by_date"
+			],
+			[
+				"Escal",
+				"EscalRecord\t(EscalationsRecordsAdminController.php)"
+			],
+			[
+				"met",
+				"method\tAttr"
+			],
+			[
+				"suce",
+				"success\t(Form.js)"
+			],
+			[
+				"escalation",
+				"escalations_records_admin.index\t(EscalationsRecordsAdminController.php)"
+			],
+			[
+				"Esca",
+				"EscalRecord"
+			],
+			[
+				"fetch",
+				"fetchRecord"
+			],
+			[
+				"total",
+				"totalRecords"
+			],
+			[
 				"Escala",
 				"Escalations\t(EditRecords.vue)"
 			],
@@ -36,14 +92,6 @@
 				"Route::get\tBasic Get Route."
 			],
 			[
-				"Esca",
-				"EscalationsRecords"
-			],
-			[
-				"esca",
-				"escalations_records\t(CreateRecords.vue)"
-			],
-			[
 				"form-",
 				"form-horizontal\t(create.blade.php)"
 			],
@@ -66,10 +114,6 @@
 			[
 				"esc",
 				"escalations_record"
-			],
-			[
-				"Escal",
-				"EscalClient\t(escal_records.php)"
 			],
 			[
 				"es",
@@ -470,124 +514,71 @@
 			[
 				"module",
 				"module()\tangular-mocks.js"
-			],
-			[
-				"compac",
-				"compact()\tstandard Function"
-			],
-			[
-				"get",
-				"get('user\t(app.js)"
-			],
-			[
-				"respo",
-				"respond\t(routes.php)"
-			],
-			[
-				"err",
-				"errors"
-			],
-			[
-				"router",
-				"$routeProvider\tAngularJS"
-			],
-			[
-				"$auth",
-				"$authProvider"
-			],
-			[
-				"Re",
-				"Requests"
-			],
-			[
-				"path",
-				"path()\td3.v3.js"
-			],
-			[
-				"logo",
-				"logout()\tauthcontroller.js"
-			],
-			[
-				"fla",
-				"flashMessage"
-			],
-			[
-				"City",
-				"CityRequests\t(CityRequests.php)"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "resources/assets/js/escalations/components/EscalationsRecords.vue",
+			"file": "app/Http/Routes/escalations_admin.php",
 			"settings":
 			{
-				"buffer_size": 3154,
+				"buffer_size": 495,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "resources/views/escalations_records/index.blade.php",
+			"file": "resources/views/escalations_admin/random.blade.php",
 			"settings":
 			{
-				"buffer_size": 1204,
+				"buffer_size": 5073,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "resources/assets/js/escalations/app.js",
-			"settings":
-			{
-				"buffer_size": 1372,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "resources/assets/js/escalations/stores",
-			"settings":
-			{
-				"buffer_size": 0,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "resources/assets/js/escalations/core/routes.js",
-			"settings":
-			{
-				"buffer_size": 240,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "resources/assets/js/escalations/components/EditRecords.vue",
-			"settings":
-			{
-				"buffer_size": 3759,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "app/EscalRecord.php",
-			"settings":
-			{
-				"buffer_size": 1442,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
 			}
 		},
 		{
 			"file": "app/Http/Controllers/EscalRecordsController.php",
 			"settings":
 			{
-				"buffer_size": 4998,
+				"buffer_size": 5885,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "resources/views/escalations_records/createOld.blade.php",
+			"settings":
+			{
+				"buffer_size": 2763,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "resources/assets/js/app.js",
+			"settings":
+			{
+				"buffer_size": 2047,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "resources/views/escalations_admin/partials/links.blade.php",
+			"settings":
+			{
+				"buffer_size": 756,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "gulpfile.js",
+			"settings":
+			{
+				"buffer_size": 4094,
+				"line_ending": "Windows"
 			}
 		}
 	],
@@ -598,10 +589,178 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 57.0,
-		"last_filter": "",
+		"height": 354.0,
+		"last_filter": "Snippet: myvie",
 		"selected_items":
 		[
+			[
+				"Snippet: myvie",
+				"Snippet: My Return View"
+			],
+			[
+				"Snippet: myview",
+				"Snippet: My Blade View"
+			],
+			[
+				"Snippet: myho",
+				"Snippet: My blade form input horizontal"
+			],
+			[
+				"Snippet: myseleho",
+				"Snippet: My blade form select horizontal"
+			],
+			[
+				"Snippet: sele",
+				"Snippet: selecthorizontal"
+			],
+			[
+				"Snippet: myinputho",
+				"Snippet: My blade form input with addon"
+			],
+			[
+				"Snippet: myforho",
+				"Snippet: My blade form input horizontal"
+			],
+			[
+				"Snippet: myfor",
+				"Snippet: My blade form open"
+			],
+			[
+				"Snippet: myin",
+				"Snippet: My blade form input"
+			],
+			[
+				"Snippet: myse",
+				"Snippet: My blade form select"
+			],
+			[
+				"Snippet: myform",
+				"Snippet: My blade form input"
+			],
+			[
+				"Snippet: myformi",
+				"Snippet: My blade form input"
+			],
+			[
+				"Snippet: myinp",
+				"Snippet: My blade form input"
+			],
+			[
+				"Snippet: yfor",
+				"Snippet: My blade form input"
+			],
+			[
+				"Snippet: inli",
+				"Snippet: bs3-form-inline"
+			],
+			[
+				"Snippet: section",
+				"Snippet: blade-section"
+			],
+			[
+				"Snippet: extend",
+				"Snippet: blade-extends"
+			],
+			[
+				"Snippet: bladese",
+				"Snippet: blade-section"
+			],
+			[
+				"Snippet: sectio",
+				"Snippet: blade-section_yield"
+			],
+			[
+				"Snippet: mybv",
+				"Snippet: My Blade View"
+			],
+			[
+				"Snippet: exten",
+				"Snippet: blade-extends"
+			],
+			[
+				"Snippet: bladeforea",
+				"Snippet: blade-foreach"
+			],
+			[
+				"Snippet: respon",
+				"Snippet: bs3-table-responsive"
+			],
+			[
+				"Snippet: myinpho",
+				"Snippet: My blade form input with addon"
+			],
+			[
+				"Snippet: myinho",
+				"Snippet: My blade form input horizontal"
+			],
+			[
+				"Snippet: myforminho",
+				"Snippet: My blade form input horizontal"
+			],
+			[
+				"Snippet: myformop",
+				"Snippet: My blade form open"
+			],
+			[
+				"Snippet: formin",
+				"Snippet: bs3-form-inline"
+			],
+			[
+				"Snippet: myforo",
+				"Snippet: My blade form open"
+			],
+			[
+				"Snippet: bladeif",
+				"Snippet: blade-if"
+			],
+			[
+				"Snippet: my",
+				"Snippet: My Blade View"
+			],
+			[
+				"Snippet: listgrou",
+				"Snippet: bs3-list-group-linked"
+			],
+			[
+				"Snippet: bsi",
+				"Snippet: bs3-image"
+			],
+			[
+				"Snippet: vli",
+				"Snippet: <a v-link=\"\">"
+			],
+			[
+				"Snippet: vue",
+				"Snippet: Vue component"
+			],
+			[
+				"Snippet: inputgroupb",
+				"Snippet: bs3-input-group-btn"
+			],
+			[
+				"Snippet: bsaddon",
+				"Snippet: bs3-input-group-addon"
+			],
+			[
+				"Snippet: bs3buttongroup",
+				"Snippet: bs3-button-group"
+			],
+			[
+				"Snippet: groupadd",
+				"Snippet: bs3-input-group-addon"
+			],
+			[
+				"Snippet: inputgrou",
+				"Snippet: bs3-input-group-btn"
+			],
+			[
+				"Snippet: bsadd",
+				"Snippet: bs3-input-group-addon"
+			],
+			[
+				"Snippet: add",
+				"Snippet: bs3-input-group-addon-text"
+			],
 			[
 				"remove",
 				"Package Control: Remove Package"
@@ -617,10 +776,6 @@
 			[
 				"Snippet: module",
 				"Snippet: QUnit module"
-			],
-			[
-				"Snippet: vue",
-				"Snippet: Vue component"
 			],
 			[
 				"Snippet: badge",
@@ -691,14 +846,6 @@
 				"Snippet: bs3-input-group-text-btn"
 			],
 			[
-				"Snippet: inputgrou",
-				"Snippet: bs3-input-group-text-btn"
-			],
-			[
-				"Snippet: myform",
-				"Snippet: My blade form input"
-			],
-			[
 				"Snippet: myde",
 				"Snippet: My Laravel Delete Form"
 			],
@@ -739,10 +886,6 @@
 				"Snippet: blade-if"
 			],
 			[
-				"Snippet: myse",
-				"Snippet: My blade form select"
-			],
-			[
 				"Snippet: oneto",
 				"Snippet: A one-to-one inverse relationship."
 			],
@@ -779,20 +922,12 @@
 				"Snippet: My Return View"
 			],
 			[
-				"Snippet: myforho",
-				"Snippet: My blade form input horizontal"
-			],
-			[
 				"Snippet: myreturn",
 				"Snippet: My Return View"
 			],
 			[
 				"Snippet: myformo",
 				"Snippet: My blade form open"
-			],
-			[
-				"Snippet: myview",
-				"Snippet: My Return View"
 			],
 			[
 				"Snippet: return v",
@@ -823,24 +958,12 @@
 				"Git: Custom Command"
 			],
 			[
-				"Snippet: myin",
-				"Snippet: My blade form input horizontal"
-			],
-			[
 				"Snippet: myf",
 				"Snippet: My blade form input"
 			],
 			[
 				"Snippet: myrdi",
 				"Snippet: my_redirect_to_route"
-			],
-			[
-				"Snippet: myforo",
-				"Snippet: My blade form open"
-			],
-			[
-				"Snippet: mybv",
-				"Snippet: My Blade View"
 			],
 			[
 				"Snippet: myhor",
@@ -859,10 +982,6 @@
 				"Snippet: My Blade View"
 			],
 			[
-				"Snippet: myvie",
-				"Snippet: My Return View"
-			],
-			[
 				"Snippet: delete",
 				"Snippet: My Laravel Delete Form"
 			],
@@ -876,10 +995,6 @@
 			],
 			[
 				"Snippet: mybla",
-				"Snippet: My Blade View"
-			],
-			[
-				"Snippet: my",
 				"Snippet: My Blade View"
 			],
 			[
@@ -989,133 +1104,9 @@
 			[
 				"ins",
 				"Package Control: Install Package"
-			],
-			[
-				"re",
-				"Package Control: Remove Package"
-			],
-			[
-				"inst",
-				"Package Control: Install Package"
-			],
-			[
-				"i",
-				"Package Control: Install Package"
-			],
-			[
-				"Snippet: compo",
-				"Snippet: Vue component"
-			],
-			[
-				"Snippet: add",
-				"Snippet: bs3-input-group-addon-text"
-			],
-			[
-				"Snippet: form",
-				"Snippet: bs3-form"
-			],
-			[
-				"Snippet: bsf",
-				"Snippet: bs3-form"
-			],
-			[
-				"Snippet: vuecomp",
-				"Snippet: Vue component"
-			],
-			[
-				"Snippet: compone",
-				"Snippet: Vue component"
-			],
-			[
-				"Snippet: nav ",
-				"Snippet: bs3-navbar-basic"
-			],
-			[
-				"Snippet: alert\t",
-				"Snippet: bs3-alert-info"
-			],
-			[
-				"Snippet: conde",
-				"Snippet: bs3-table-condensed"
-			],
-			[
-				"pa",
-				"Package Control: List Packages"
-			],
-			[
-				"Snippet: bsch",
-				"Snippet: bs3-input-checkbox"
-			],
-			[
-				"Snippet: blaco",
-				"Snippet: blade-comment"
-			],
-			[
-				"Snippet: vue ",
-				"Snippet: Vue component"
-			],
-			[
-				"Snippet: comp",
-				"Snippet: Vue component"
-			],
-			[
-				"Snippet: bsaddon",
-				"Snippet: bs3-input-group-addon-text"
-			],
-			[
-				"Snippet: bsaler",
-				"Snippet: bs3-alert-info"
-			],
-			[
-				"Snippet: che",
-				"Snippet: bs3-input-checkbox"
-			],
-			[
-				"Snippet: bsche",
-				"Snippet: bs3-input-checkbox"
-			],
-			[
-				"Snippet: checi",
-				"Snippet: checkboxhorizontal"
-			],
-			[
-				"Snippet: get",
-				"Snippet: $.get()"
-			],
-			[
-				"Snippet: getjson",
-				"Snippet: jQuery.getJSON"
-			],
-			[
-				"Snippet: navblin",
-				"Snippet: bs3-navbar-links"
-			],
-			[
-				"Snippet: bladco",
-				"Snippet: blade-comment"
-			],
-			[
-				"Snippet: bsra",
-				"Snippet: bs3-input-radio"
-			],
-			[
-				"Snippet: bsrado",
-				"Snippet: bs3-input-radio"
-			],
-			[
-				"Snippet: mfs",
-				"Snippet: my_function_set"
-			],
-			[
-				"Snippet: bladeco",
-				"Snippet: blade-comment"
-			],
-			[
-				"Snippet: accor",
-				"Snippet: Bootstrap accordion"
 			]
 		],
-		"width": 510.0
+		"width": 805.0
 	},
 	"console":
 	{
@@ -1142,48 +1133,74 @@
 	"expanded_folders":
 	[
 		"/F/wamp/www/dainsys3",
-		"/F/wamp/www/dainsys3/public/js",
-		"/F/wamp/www/dainsys3/resources",
-		"/F/wamp/www/dainsys3/resources/assets",
-		"/F/wamp/www/dainsys3/resources/assets/css",
+		"/F/wamp/www/dainsys3/app/Http/Controllers",
+		"/F/wamp/www/dainsys3/app/Http/Routes",
+		"/F/wamp/www/dainsys3/node_modules",
 		"/F/wamp/www/dainsys3/resources/assets/js",
-		"/F/wamp/www/dainsys3/resources/assets/js/escalations",
-		"/F/wamp/www/dainsys3/resources/views"
+		"/F/wamp/www/dainsys3/resources/views",
+		"/F/wamp/www/dainsys3/resources/views/escalations_admin/partials"
 	],
 	"file_history":
 	[
+		"/F/wamp/www/dainsys3/app/Http/Controllers/EscalationsAdminController.php",
+		"/F/wamp/www/dainsys3/gulpfile.js",
+		"/F/wamp/www/dainsys3/node_modules/admin-lte/plugins/select2/select2.js",
+		"/F/wamp/www/dainsys3/node_modules/select2-bootstrap-theme/src/select2-bootstrap.less",
+		"/F/wamp/www/dainsys3/resources/views/escalations_admin/search.blade.php",
+		"/F/wamp/www/dainsys3/app/Http/Controllers/EscalRecordsController.php",
+		"/C/Users/Yismen/AppData/Roaming/Sublime Text 3/Packages/User/snippets/blade/My blade form input horizontal.sublime-snippet",
+		"/F/wamp/www/dainsys3/resources/assets/js/escalations/components/EscalationsRecords.vue",
+		"/C/Users/Yismen/AppData/Roaming/Sublime Text 3/Packages/User/snippets/blade/My blade form select.sublime-snippet",
+		"/C/Users/Yismen/AppData/Roaming/Sublime Text 3/Packages/User/snippets/blade/My blade form input.sublime-snippet",
+		"/F/wamp/www/dainsys3/resources/views/escalations_admin/index.blade.php",
+		"/F/wamp/www/dainsys3/resources/views/escalations_admin/home.blade.php",
+		"/F/wamp/www/dainsys3/resources/views/escalations_admin/partials/links.blade.php",
+		"/F/wamp/www/dainsys3/resources/views/escalations_admin/by_date.blade.php",
+		"/F/wamp/www/dainsys3/resources/views/escalations_records_admin/by_date.blade.php",
+		"/F/wamp/www/dainsys3/app/EscalClient.php",
+		"/F/wamp/www/dainsys3/app/EscalRecord.php",
+		"/F/wamp/www/dainsys3/app/User.php",
+		"/F/wamp/www/dainsys3/resources/views/escalations_records_admin/index.blade.php",
+		"/C/Users/Yismen/AppData/Roaming/Sublime Text 3/Packages/User/snippets/blade/My blade form select horizontal.sublime-snippet",
+		"/C/Users/Yismen/AppData/Roaming/Sublime Text 3/Packages/User/snippets/blade/My blade form input with addon.sublime-snippet",
+		"/F/wamp/www/dainsys3/resources/assets/js/escalations/core/Form.js",
+		"/F/wamp/www/dainsys3/resources/assets/js/escalations/components/CreateRecords.vue",
+		"/F/wamp/www/dainsys3/node_modules/v-toast/README.md",
+		"/F/wamp/www/dainsys3/resources/assets/js/escalations/app.js",
+		"/F/wamp/www/dainsys3/resources/views/escalations_records_admin/partials/links.blade.php",
+		"/F/wamp/www/dainsys3/app/Http/Routes/escal_records.php",
+		"/F/wamp/www/dainsys3/resources/views/welcome.blade.php",
+		"/F/wamp/www/dainsys3/resources/views/escalations_records/index.blade.php",
+		"/F/wamp/www/dainsys3/resources/assets/js/escalations/core/routes.js",
+		"/F/wamp/www/dainsys3/resources/views/escalations_records/create.blade.php",
+		"/F/wamp/www/dainsys3/resources/views/layouts/partials/logo.blade.php",
+		"/F/wamp/www/dainsys3/resources/assets/js/escalations/components/EditRecords.vue",
+		"/F/wamp/www/dainsys3/resources/assets/js/escalations/components/Admin.vue",
+		"/F/wamp/www/dainsys3/resources/assets/js/escalations/config/interceptors.js",
+		"/F/wamp/www/dainsys3/resources/assets/js/escalations/core/stores/EscalationsRecords.js",
+		"/F/wamp/www/dainsys3/package.json",
+		"/F/wamp/www/dainsys3/resources/assets/js/escalations/store.js",
+		"/F/wamp/www/dainsys3/resources/assets/js/escalations/stores/sdfasdf.js",
 		"/F/wamp/www/dainsys3/resources/assets/js/escalations/stores",
 		"/F/wamp/www/dainsys3/resources/assets/css/my-css-updates.css",
-		"/F/wamp/www/dainsys3/resources/assets/js/escalations/components/CreateRecords.vue",
-		"/F/wamp/www/dainsys3/resources/assets/js/escalations/config/interceptors.js",
 		"/F/wamp/www/dainsys3/resources/assets/js/escalations/components/EditRecord.vue",
 		"/F/wamp/www/dainsys3/resources/assets/js/escalations/classes/Error.js",
 		"/F/wamp/www/dainsys3/resources/assets/js/escalations/classes/Form.js",
 		"/F/wamp/www/dainsys3/resources/assets/js/escalations/classes/Message.js",
-		"/F/wamp/www/dainsys3/resources/assets/js/escalations/app.js",
-		"/F/wamp/www/dainsys3/resources/views/escalations_records/index.blade.php",
 		"/F/wamp/www/dainsys3/resources/assets/js/escalations/components/Pagination.vue",
 		"/F/wamp/www/dainsys3/resources/assets/js/escalations/config/dom-modifiers.js",
-		"/F/wamp/www/dainsys3/gulpfile.js",
 		"/F/wamp/www/dainsys3/resources/assets/js/app.js",
 		"/F/wamp/www/dainsys3/resources/views/escalations_records/indexOld.blade.php",
 		"/F/wamp/www/dainsys3/resources/views/layouts/app.blade.php",
-		"/F/wamp/www/dainsys3/app/Http/Routes/escal_records.php",
-		"/F/wamp/www/dainsys3/app/EscalRecord.php",
 		"/F/wamp/www/dainsys3/resources/views/escalations_records/_form.blade.php",
-		"/F/wamp/www/dainsys3/resources/views/escalations_records/create.blade.php",
 		"/F/wamp/www/dainsys3/resources/assets/js/passwords/app.js",
-		"/F/wamp/www/dainsys3/resources/views/welcome.blade.php",
 		"/F/wamp/www/dainsys3/resources/views/escalations_records/createOld.blade.php",
-		"/F/wamp/www/dainsys3/app/Http/Controllers/EscalRecordsController.php",
 		"/F/wamp/www/dainsys3/resources/views/escalations_records/edit.blade.php",
 		"/F/wamp/www/dainsys3/app/Http/Controllers/EscalClientsController.php",
 		"/F/wamp/www/dainsys3/vendor/symfony/routing/Route.php",
 		"/F/wamp/www/dainsys3/app/Http/Controllers/MenusController.php",
-		"/F/wamp/www/dainsys3/app/EscalClient.php",
 		"/F/wamp/www/dainsys3/resources/views/escalclients/create.blade.php",
 		"/F/wamp/www/dainsys3/vendor/nesbot/carbon/src/Carbon/Carbon.php",
-		"/F/wamp/www/dainsys3/app/User.php",
 		"/F/wamp/www/dainsys3/database/migrations/2017_02_28_150005_create_escal_records_table.php",
 		"/F/wamp/www/dainsys3/app/Http/Routes/escal_clients.php",
 		"/F/wamp/www/dainsys3/resources/views/escalclients/_form.blade.php",
@@ -1252,38 +1269,11 @@
 		"/F/wamp/www/dainsys3/resources/views/punches/edit.blade.php",
 		"/F/wamp/www/dainsys3/app/Card.php",
 		"/F/wamp/www/dainsys3/resources/views/punches/_form.blade.php",
-		"/F/wamp/www/dainsys3/app/Http/Controllers/PunchesController.php",
-		"/F/wamp/www/dainsys3/app/Punch.php",
-		"/F/wamp/www/dainsys3/resources/views/cards/_form.blade.php",
-		"/F/wamp/www/dainsys3/resources/views/cards/index.blade.php",
-		"/F/wamp/www/dainsys3/resources/views/punches/show.blade.php",
-		"/F/wamp/www/dainsys3/resources/views/punches/index.blade.php",
-		"/F/wamp/www/dainsys3/resources/views/employees/edit.blade.php",
-		"/F/wamp/www/dainsys3/resources/views/cards/show.blade.php",
-		"/F/wamp/www/dainsys3/resources/views/employees/show.blade.php",
-		"/F/wamp/www/dainsys3/resources/assets/css/btn-raised.css",
-		"/F/wamp/www/dainsys3/database/seeds/ProductionEnvironmentSeeder.php",
-		"/F/wamp/www/dainsys3/database/seeds/DatabaseSeeder.php",
-		"/F/wamp/www/dainsys3/database/seeds/MaritalTableSeeder.php",
-		"/F/wamp/www/dainsys3/app/Gender.php",
-		"/F/wamp/www/dainsys3/app/Console/Commands/MyMigrationStatus.php",
-		"/F/wamp/www/dainsys3/app/Console/Kernel.php",
-		"/F/wamp/www/dainsys3/vendor/laravel/framework/src/Illuminate/Console/Command.php",
-		"/F/wamp/www/dainsys3/vendor/laravel/framework/src/Illuminate/Console/GeneratorCommand.php",
-		"/F/wamp/www/dainsys3/database/migrations/2016_11_01_130119_add_passport_to_employees_table.php",
-		"/F/wamp/www/dainsys3/resources/views/employees/_form.blade.php",
-		"/F/wamp/www/dainsys3/resources/views/layouts/partials/navbar-left.blade.php",
-		"/C/Users/Yismen/Downloads/startbootstrap-new-age-gh-pages/startbootstrap-new-age-gh-pages/package.json",
-		"/C/Users/Yismen/Downloads/startbootstrap-new-age-gh-pages/startbootstrap-new-age-gh-pages/js/new-age.js",
-		"/C/Users/Yismen/Downloads/startbootstrap-new-age-gh-pages/startbootstrap-new-age-gh-pages/css/new-age.css",
-		"/C/Users/Yismen/Downloads/startbootstrap-new-age-gh-pages/startbootstrap-new-age-gh-pages/README.md",
-		"/C/Users/Yismen/Downloads/startbootstrap-new-age-gh-pages/startbootstrap-new-age-gh-pages/gulpfile.js",
-		"/F/wamp/www/dainsys3/vendor/symfony/console/Input/ArgvInput.php",
-		"/F/wamp/www/dainsys3/vendor/symfony/console/Input/InputDefinition.php"
+		"/F/wamp/www/dainsys3/app/Http/Controllers/PunchesController.php"
 	],
 	"find":
 	{
-		"height": 73.0
+		"height": 72.0
 	},
 	"find_in_files":
 	{
@@ -1309,6 +1299,54 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"col-sm-6",
+			"4",
+			"12",
+			"tracking",
+			"$client",
+			"search",
+			"tracking",
+			"sr-onlys",
+			"canvas",
+			"c",
+			"canvas",
+			"endif",
+			"escalations_records_admin",
+			"EscalationsRecordsAdminController",
+			"records/",
+			"col-sm-4",
+			"table-hover ",
+			"$client",
+			"td",
+			"this",
+			"reset",
+			"successCallback",
+			"submit",
+			"successCallback",
+			"Edit",
+			"edit-record",
+			"EditRecords",
+			"admin",
+			"created_at",
+			"Home",
+			"home",
+			"$request->search",
+			"filterrecords",
+			"form",
+			"button",
+			"record",
+			"for",
+			"vor",
+			"Link",
+			"fetchRecord",
+			"Toast",
+			"class",
+			"<",
+			"pagin",
+			"filter-records",
+			"vue",
+			"testing",
+			"records",
 			"getData",
 			"getClients",
 			"create",
@@ -1388,55 +1426,7 @@
 			"id",
 			"getGuard",
 			"handleUserWasAuthenticated",
-			"confirm_password",
-			"10",
-			"col-sm-2",
-			" {{ session('important') or 'dismiss' }}",
-			"}}\">",
-			" {{ session('important') or 'dismiss' }}\"",
-			" dismiss",
-			"createUser",
-			"validateRequest",
-			"request",
-			"validateRequest",
-			"requests",
-			"SystemsRequests",
-			"Punch",
-			"paymentes",
-			"punch",
-			"Punches",
-			"('payments.show",
-			"validateRequest",
-			"$requests",
-			"PaymentsRequests",
-			"request",
-			"validateRequest",
-			"validateRequeste",
-			"validateRequested",
-			"{\n",
-			"validateRequest",
-			"requests",
-			"departments",
-			"offset-2",
-			"cardes",
-			"punch",
-			"validateRequest",
-			"card",
-			"cards",
-			"employee_id",
-			"unique:cards,id",
-			"exists",
-			"employee_list",
-			"employee_id",
-			"employees_list",
-			";\n",
-			"employee",
-			"employee_id",
-			"punche",
-			"form",
-			"close",
-			"size",
-			"digits_between"
+			"confirm_password"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1513,24 +1503,24 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 6,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "resources/assets/js/escalations/components/EscalationsRecords.vue",
+					"file": "app/Http/Routes/escalations_admin.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3154,
+						"buffer_size": 495,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1308,
-								1308
+								400,
+								400
 							]
 						],
 						"settings":
@@ -1547,19 +1537,19 @@
 							{
 								"allowed_colors":
 								[
-									"hex",
-									"rgba",
-									"webcolors",
-									"hsla",
-									"hsl",
 									"hex_compressed",
-									"rgb"
+									"rgb",
+									"hex",
+									"webcolors",
+									"rgba",
+									"hsla",
+									"hsl"
 								],
 								"compress_hex_output": true,
-								"current_ext": ".vue",
-								"current_syntax": "Vue Syntax Highlight/vue",
+								"current_ext": ".php",
+								"current_syntax": "PHP/PHP",
 								"enabled": true,
-								"last_updated": 1488584660.79,
+								"last_updated": 1488763815.49,
 								"scan_completion_scopes":
 								[
 								],
@@ -1573,51 +1563,92 @@
 								],
 								"use_hex_argb": false
 							},
-							"syntax": "Packages/Vue Syntax Highlight/vue.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"open_with_edit": true,
+							"syntax": "Packages/PHP/PHP.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 300.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "resources/views/escalations_records/index.blade.php",
+					"file": "resources/views/escalations_admin/random.blade.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1204,
+						"buffer_size": 5073,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								444,
-								444
+								464,
+								464
+							],
+							[
+								1156,
+								1156
+							],
+							[
+								1843,
+								1843
+							],
+							[
+								2557,
+								2557
 							]
 						],
 						"settings":
 						{
+							"color_helper.box_height": 15,
+							"color_helper.color_scheme": "Packages/Material Theme/schemes/Material-Theme.tmTheme",
 							"color_helper.file_palette":
 							[
 							],
+							"color_helper.preview_meta":
+							{
+							},
 							"color_helper.scan":
 							{
+								"allowed_colors":
+								[
+									"hex_compressed",
+									"rgb",
+									"hex",
+									"webcolors",
+									"rgba",
+									"hsla",
+									"hsl"
+								],
+								"compress_hex_output": true,
 								"current_ext": ".php",
 								"current_syntax": "Laravel Blade Highlighter/blade",
-								"enabled": false,
-								"last_updated": 1488584660.79
+								"enabled": true,
+								"last_updated": 1488763815.49,
+								"scan_completion_scopes":
+								[
+								],
+								"scan_scopes":
+								[
+									"meta.declaration-list.css -support.type.property-name.css -comment -string",
+									"meta.property-value.css -comment -string",
+									"meta.value.css -comment -string",
+									"meta.tag.inline.any.html string.quoted",
+									"meta.tag.any.html meta.attribute-with-value.style.html"
+								],
+								"use_hex_argb": false
 							},
+							"open_with_edit": true,
 							"syntax": "Packages/Laravel Blade Highlighter/blade.sublime-syntax",
-							"translate_tabs_to_spaces": false
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 300.0,
+						"translation.y": 925.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 5,
@@ -1625,19 +1656,131 @@
 				},
 				{
 					"buffer": 2,
-					"file": "resources/assets/js/escalations/app.js",
+					"file": "app/Http/Controllers/EscalRecordsController.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1372,
+						"buffer_size": 5885,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1352,
-								1352
+								1061,
+								1061
+							]
+						],
+						"settings":
+						{
+							"color_helper.box_height": 15,
+							"color_helper.color_scheme": "Packages/Material Theme/schemes/Material-Theme.tmTheme",
+							"color_helper.file_palette":
+							[
+							],
+							"color_helper.preview_meta":
+							{
+							},
+							"color_helper.scan":
+							{
+								"allowed_colors":
+								[
+									"hex_compressed",
+									"rgb",
+									"hex",
+									"webcolors",
+									"rgba",
+									"hsla",
+									"hsl"
+								],
+								"compress_hex_output": true,
+								"current_ext": ".php",
+								"current_syntax": "PHP/PHP",
+								"enabled": true,
+								"last_updated": 1488763815.49,
+								"scan_completion_scopes":
+								[
+								],
+								"scan_scopes":
+								[
+									"meta.declaration-list.css -support.type.property-name.css -comment -string",
+									"meta.property-value.css -comment -string",
+									"meta.value.css -comment -string",
+									"meta.tag.inline.any.html string.quoted",
+									"meta.tag.any.html meta.attribute-with-value.style.html"
+								],
+								"use_hex_argb": false
+							},
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 851.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "resources/views/escalations_records/createOld.blade.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2763,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								737,
+								737
+							]
+						],
+						"settings":
+						{
+							"color_helper.box_height": 15,
+							"color_helper.color_scheme": "Packages/Material Theme/schemes/Material-Theme.tmTheme",
+							"color_helper.file_palette":
+							[
+							],
+							"color_helper.preview_meta":
+							{
+							},
+							"color_helper.scan":
+							{
+								"current_ext": ".php",
+								"current_syntax": "Laravel Blade Highlighter/blade",
+								"enabled": false,
+								"last_updated": 1488763815.49
+							},
+							"syntax": "Packages/Laravel Blade Highlighter/blade.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 75.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "resources/assets/js/app.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2047,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1405,
+								1407
 							]
 						],
 						"settings":
@@ -1655,26 +1798,92 @@
 								"current_ext": ".js",
 								"current_syntax": "JavaScript/JavaScript",
 								"enabled": false,
-								"last_updated": 1488584660.79
+								"last_updated": 1488763815.49
 							},
 							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"tab_size": 4,
+							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 600.0,
+						"translation.y": 1125.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "resources/views/escalations_admin/partials/links.blade.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 756,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								339,
+								339
+							]
+						],
+						"settings":
+						{
+							"color_helper.box_height": 15,
+							"color_helper.color_scheme": "Packages/Material Theme/schemes/Material-Theme.tmTheme",
+							"color_helper.file_palette":
+							[
+							],
+							"color_helper.preview_meta":
+							{
+							},
+							"color_helper.scan":
+							{
+								"allowed_colors":
+								[
+									"hex_compressed",
+									"rgb",
+									"hex",
+									"webcolors",
+									"rgba",
+									"hsla",
+									"hsl"
+								],
+								"compress_hex_output": true,
+								"current_ext": ".php",
+								"current_syntax": "Laravel Blade Highlighter/blade",
+								"enabled": true,
+								"last_updated": 1488763815.49,
+								"scan_completion_scopes":
+								[
+								],
+								"scan_scopes":
+								[
+									"meta.declaration-list.css -support.type.property-name.css -comment -string",
+									"meta.property-value.css -comment -string",
+									"meta.value.css -comment -string",
+									"meta.tag.inline.any.html string.quoted",
+									"meta.tag.any.html meta.attribute-with-value.style.html"
+								],
+								"use_hex_argb": false
+							},
+							"syntax": "Packages/Laravel Blade Highlighter/blade.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "resources/assets/js/escalations/stores",
-					"semi_transient": true,
+					"buffer": 6,
+					"file": "gulpfile.js",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 0,
+						"buffer_size": 4094,
 						"regions":
 						{
 						},
@@ -1687,44 +1896,6 @@
 						],
 						"settings":
 						{
-							"color_helper.file_palette":
-							[
-							],
-							"color_helper.scan":
-							{
-								"current_ext": "",
-								"current_syntax": "Text/Plain text",
-								"enabled": false,
-								"last_updated": 1488584660.79
-							},
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "resources/assets/js/escalations/core/routes.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 240,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								110,
-								110
-							]
-						],
-						"settings":
-						{
 							"color_helper.box_height": 15,
 							"color_helper.color_scheme": "Packages/Material Theme/schemes/Material-Theme.tmTheme",
 							"color_helper.file_palette":
@@ -1738,220 +1909,17 @@
 								"current_ext": ".js",
 								"current_syntax": "JavaScript/JavaScript",
 								"enabled": false,
-								"last_updated": 1488584660.79
+								"last_updated": 1488763815.49
 							},
-							"open_with_edit": true,
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "resources/assets/js/escalations/components/EditRecords.vue",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3759,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2611,
-								2611
-							]
-						],
-						"settings":
-						{
-							"color_helper.box_height": 15,
-							"color_helper.color_scheme": "Packages/Material Theme/schemes/Material-Theme.tmTheme",
-							"color_helper.file_palette":
-							[
-							],
-							"color_helper.preview_meta":
-							{
-							},
-							"color_helper.scan":
-							{
-								"allowed_colors":
-								[
-									"hex",
-									"rgba",
-									"webcolors",
-									"hsla",
-									"hsl",
-									"hex_compressed",
-									"rgb"
-								],
-								"compress_hex_output": true,
-								"current_ext": ".vue",
-								"current_syntax": "Vue Syntax Highlight/vue",
-								"enabled": true,
-								"last_updated": 1488584660.79,
-								"scan_completion_scopes":
-								[
-								],
-								"scan_scopes":
-								[
-									"meta.declaration-list.css -support.type.property-name.css -comment -string",
-									"meta.property-value.css -comment -string",
-									"meta.value.css -comment -string",
-									"meta.tag.inline.any.html string.quoted",
-									"meta.tag.any.html meta.attribute-with-value.style.html"
-								],
-								"use_hex_argb": false
-							},
-							"syntax": "Packages/Vue Syntax Highlight/vue.tmLanguage",
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 550.0,
+						"translation.y": 1275.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "app/EscalRecord.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1442,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								787,
-								787
-							]
-						],
-						"settings":
-						{
-							"color_helper.box_height": 15,
-							"color_helper.color_scheme": "Packages/Material Theme/schemes/Material-Theme.tmTheme",
-							"color_helper.file_palette":
-							[
-							],
-							"color_helper.preview_meta":
-							{
-							},
-							"color_helper.scan":
-							{
-								"allowed_colors":
-								[
-									"hex",
-									"rgba",
-									"webcolors",
-									"hsla",
-									"hsl",
-									"hex_compressed",
-									"rgb"
-								],
-								"compress_hex_output": true,
-								"current_ext": ".php",
-								"current_syntax": "PHP/PHP",
-								"enabled": true,
-								"last_updated": 1488584660.79,
-								"scan_completion_scopes":
-								[
-								],
-								"scan_scopes":
-								[
-									"meta.declaration-list.css -support.type.property-name.css -comment -string",
-									"meta.property-value.css -comment -string",
-									"meta.value.css -comment -string",
-									"meta.tag.inline.any.html string.quoted",
-									"meta.tag.any.html meta.attribute-with-value.style.html"
-								],
-								"use_hex_argb": false
-							},
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "app/Http/Controllers/EscalRecordsController.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4998,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4977,
-								4977
-							]
-						],
-						"settings":
-						{
-							"color_helper.box_height": 15,
-							"color_helper.color_scheme": "Packages/Material Theme/schemes/Material-Theme.tmTheme",
-							"color_helper.file_palette":
-							[
-							],
-							"color_helper.preview_meta":
-							{
-							},
-							"color_helper.scan":
-							{
-								"allowed_colors":
-								[
-									"hex",
-									"rgba",
-									"webcolors",
-									"hsla",
-									"hsl",
-									"hex_compressed",
-									"rgb"
-								],
-								"compress_hex_output": true,
-								"current_ext": ".php",
-								"current_syntax": "PHP/PHP",
-								"enabled": true,
-								"last_updated": 1488584660.79,
-								"scan_completion_scopes":
-								[
-								],
-								"scan_scopes":
-								[
-									"meta.declaration-list.css -support.type.property-name.css -comment -string",
-									"meta.property-value.css -comment -string",
-									"meta.value.css -comment -string",
-									"meta.tag.inline.any.html string.quoted",
-									"meta.tag.any.html meta.attribute-with-value.style.html"
-								],
-								"use_hex_argb": false
-							},
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 3349.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
@@ -2018,6 +1986,66 @@
 		"selected_items":
 		[
 			[
+				"gulpf",
+				"gulpfile.js"
+			],
+			[
+				"select2",
+				"node_modules\\admin-lte\\plugins\\select2\\select2.js"
+			],
+			[
+				"escalrecorcon",
+				"app\\Http\\Controllers\\EscalRecordsController.php"
+			],
+			[
+				"escalrecordscon",
+				"app\\Http\\Controllers\\EscalRecordsController.php"
+			],
+			[
+				"escareccon",
+				"app\\Http\\Controllers\\EscalRecordsController.php"
+			],
+			[
+				"escalr",
+				"app\\EscalRecord.php"
+			],
+			[
+				"escalclie",
+				"app\\EscalClient.php"
+			],
+			[
+				"user",
+				"app\\User.php"
+			],
+			[
+				"escalre",
+				"app\\EscalRecord.php"
+			],
+			[
+				"toastrea",
+				"node_modules\\v-toast\\README.md"
+			],
+			[
+				"escalationsrecordsadmincontroller",
+				"app\\Http\\Controllers\\EscalationsRecordsAdminController.php"
+			],
+			[
+				"routesescalrecord",
+				"app\\Http\\Routes\\escal_records.php"
+			],
+			[
+				"escalrec",
+				"app\\EscalRecord.php"
+			],
+			[
+				"routesescal",
+				"app\\Http\\Routes\\escal_records.php"
+			],
+			[
+				"v-toas",
+				"node_modules\\v-toast\\README.md"
+			],
+			[
 				"pagivue",
 				"resources\\assets\\js\\escalations\\components\\Pagination.vue"
 			],
@@ -2070,10 +2098,6 @@
 				"app\\EscalClient.php"
 			],
 			[
-				"user",
-				"app\\User.php"
-			],
-			[
 				"createescre",
 				"database\\migrations\\2017_02_28_150005_create_escal_records_table.php"
 			],
@@ -2092,10 +2116,6 @@
 			[
 				"escalcon",
 				"app\\Http\\Controllers\\EscalRecordsController.php"
-			],
-			[
-				"escalre",
-				"app\\EscalRecord.php"
 			],
 			[
 				"escalclien",
@@ -2476,58 +2496,6 @@
 			[
 				"depar",
 				"app\\Department.php"
-			],
-			[
-				"humanreco",
-				"app\\Http\\Controllers\\HumanResourcesController.php"
-			],
-			[
-				"routehu",
-				"app\\Http\\Routes\\human_resources_routes.php"
-			],
-			[
-				"rolecon",
-				"app\\Http\\Controllers\\RolesController.php"
-			],
-			[
-				"productionhour-for",
-				"resources\\views\\production-hours\\_search-form.blade.php"
-			],
-			[
-				"gul",
-				"gulpfile.js"
-			],
-			[
-				"authenticatesusers",
-				"vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Auth\\AuthenticatesUsers.php"
-			],
-			[
-				"authenticatesandregistersusers",
-				"vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Auth\\AuthenticatesAndRegistersUsers.php"
-			],
-			[
-				"noteadminpar",
-				"resources\\views\\notes\\admin\\partials\\list.blade.php"
-			],
-			[
-				"noteadminpartialli",
-				"resources\\views\\notes\\admin\\partials\\link-to-list.blade.php"
-			],
-			[
-				"notesadminindex",
-				"resources\\views\\notes\\admin\\index.blade.php"
-			],
-			[
-				"notecon",
-				"app\\Http\\Controllers\\NotesController.php"
-			],
-			[
-				"note",
-				"app\\Note.php"
-			],
-			[
-				"notecontro",
-				"app\\Http\\Controllers\\NotesController.php"
 			]
 		],
 		"width": 0.0
@@ -2582,7 +2550,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 331.0,
+	"side_bar_width": 327.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
