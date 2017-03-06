@@ -53,6 +53,7 @@
        * Apply select2 plugin to all the selects in the app
        */
       if(elType == 'select') {
+        console.log(inputType, elType, el);
         el.select2({
           theme: "bootstrap",
           allowClear: true,

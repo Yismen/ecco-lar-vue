@@ -2,9 +2,10 @@
 
 namespace App;
 
+use App\EscalRecord;
 use Illuminate\Database\Eloquent\Model;
-use Cviebrock\EloquentSluggable\SluggableInterface;
 use Cviebrock\EloquentSluggable\SluggableTrait;
+use Cviebrock\EloquentSluggable\SluggableInterface;
 
 class EscalClient extends Model implements SluggableInterface
 {
@@ -28,6 +29,11 @@ class EscalClient extends Model implements SluggableInterface
      * ==========================================
      * Relationships
      */
+
+    public function escal_records()
+    {
+        return $this->hasMany(EscalRecord::class);
+    }
     
     /**
      * ========================================

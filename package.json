@@ -30,12 +30,14 @@
     "select2-bootstrap-theme": "0.1.0-beta.8",
     "summernote": "^0.8.1",
     "timepicker": "^1.11.1",
+    "v-toast": "^2.1.7",
     "vue": "^1.0.22",
     "vue-progressbar": "^0.2.5",
     "vue-resource": "^0.7.0",
     "vue-router": "^0.7.13",
     "vue-spinner": "^1.0.2",
     "vue-strap": "^1.0.11",
+    "vue-toast-mobile": "^2.0.0",
     "vue-validator": "^2.1.1"
   }
 }

@@ -6,19 +6,22 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\EscalRecord;
+use App\EscalClient;
 use Carbon\Carbon;
 
 class EscalRecordsController extends Controller
 {
     private $user;
 
-    public function __construct()
+    public function __construct(Request $request)
     {
         $this->middleware('authorize:view_escalatios_records|edit_escalatios_records|create_escalatios_records', ['only'=>['index','show']]);
         $this->middleware('authorize:edit_escalatios_records', ['only'=>['edit','update']]);
         $this->middleware('authorize:create_escalatios_records', ['only'=>['create','store']]);
         $this->middleware('authorize:destroy_escalatios_records', ['only'=>['destroy']]);
         $this->user = auth()->user();
+
+        // $request->flash(); 
     }
 
     /**
@@ -26,14 +29,25 @@ class EscalRecordsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(EscalRecord $escalations_records)
-    {
-        return redirect('/admin/escalations_records/create');
-        // $escalations_records = $escalations_records
-        //     ->latest()
-        //     ->paginate(10);
-        
-        // return view('escalations_records.index', compact('escalations_records'));
+    public function index(EscalRecord $escalations_records, Request $request)
+    {     
+        if (!$request->ajax()) {
+            // comment this line to allow the Vue app take control...
+            return redirect('/admin/escalations_records/create');
+        }
+
+        $escalations_records = $this->user
+            ->escalationsRecords()
+            ->whereDate('created_at', '=', Carbon::today())
+            ->latest()
+            ->with('escal_client')
+            ->paginate(10);
+            // ->get();
+         
+        if ($request->ajax()) {
+           return $escalations_records;
+        }
+        return view('escalations_records.index');
     }
 
     /**
@@ -41,16 +55,23 @@ class EscalRecordsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(EscalRecord $escalations_record)
+    public function create(EscalRecord $escalations_record, Request $request)
     {
+        // return redirect('admin/escalations_records');
         $escalations_records = $this->user
             ->escalationsRecords()
             ->whereDate('created_at', '=', Carbon::today())
             ->latest()
             ->with('escal_client')
-            ->paginate(25);
+            ->paginate(10);
 
-        return view('escalations_records.create', compact('escalations_record', 'escalations_records'));
+        if ($request->ajax()) {
+            return $escalations_records;
+        }
+
+        // $request->flashOnly(['escal_client_id']);
+
+        return view('escalations_records.createOld', compact('escalations_record', 'escalations_records'));
     }
 
     /**
@@ -61,15 +82,22 @@ class EscalRecordsController extends Controller
      */
     public function store(EscalRecord $escalations_record, Request $request)
     {
-
         $this->validateRequest($request, $escalations_record);
 
-        $this->user->escalationsRecords()->create([
+        $escalation_record = $this->user->escalationsRecords()->create([
             'tracking' => $request->tracking, 
             'escal_client_id' => $request->escalations_client_id
         ]);
 
-        return redirect()->route('admin.escalations_records.create')
+        if ($request->ajax()) {
+            return $escalation_record;
+        }
+
+        // $request->flashOnly('escal_client_id');
+
+        return redirect()
+            ->route('admin.escalations_records.create')
+            ->withInput($request->except('tracking'))
             ->withSuccess("Escalations record $request->tracking have been created!");
     }
 
@@ -124,8 +152,27 @@ class EscalRecordsController extends Controller
     {
         $escalations_record->delete();
 
-        return redirect()->route('admin.escalations_records.index')
+        return redirect()->route('admin.escalations_records.create')
             ->withDanger("Escalations Client $escalations_record->name have been removed!");
+    }
+
+    public function search(Request $request)
+    {
+        $this->validate($request, ['search'=>'required']);
+        $search = $request->search;
+
+        if ($search) {
+            return EscalRecord::orWhere('tracking', 'like', "%$search%")
+                // ->orWhere(['escal_client', function($query) use ($search){
+                //     $query->orWhere('name', 'like', "%$search%");
+                // }])
+                ->get();
+        }
+    }
+
+    public function getClients()
+    {
+        return EscalClient::select('name', 'id')->get();
     }
 
     private function validateRequest($request, $escalations_record)

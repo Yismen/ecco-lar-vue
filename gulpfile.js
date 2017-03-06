@@ -16,12 +16,12 @@ var nodeModules = '../../../node_modules';
 elixir(function(mix) {
     // mix.sass('app.scss');
     
-    mix.copy('node_modules/bootstrap/fonts', 'public/build/fonts');
-    mix.copy('node_modules/ionicons/dist/fonts', 'public/build/fonts');
-    mix.copy('node_modules/font-awesome/fonts', 'public/build/fonts');
+    // mix.copy('node_modules/bootstrap/fonts', 'public/build/fonts');
+    // mix.copy('node_modules/ionicons/dist/fonts', 'public/build/fonts');
+    // mix.copy('node_modules/font-awesome/fonts', 'public/build/fonts');
     // mix.copy('node_modules/datatables.net-dt/images', 'public/build/images');
-    mix.copy('node_modules/summernote/dist/font', 'public/build/css/font');
-    mix.copy('node_modules/icheck/skins/square/blue.png', 'public/build/css');
+    // mix.copy('node_modules/summernote/dist/font', 'public/build/css/font');
+    // mix.copy('node_modules/icheck/skins/square/blue.png', 'public/build/css');
 
 	mix.styles([		
         nodeModules + '/bootstrap/dist/css/bootstrap.min.css',
@@ -42,7 +42,7 @@ elixir(function(mix) {
         nodeModules + '/icheck/skins/square/blue.css',
         nodeModules + '/ionicons/dist/css/ionicons.css',
         nodeModules + '/select2-bootstrap-theme/dist/select2-bootstrap.css',
-        nodeModules + '/select2/dist/css/select2.css',
+        nodeModules + '/select2/select2.css',
         nodeModules + '/summernote/dist/summernote.css',
         'my-css-updates.css',
         // 'btn-raised.css',
@@ -66,7 +66,7 @@ elixir(function(mix) {
         nodeModules + '/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js',
         nodeModules + '/icheck/icheck.js',
         nodeModules + '/js-cookie/src/js.cookie.js',
-        nodeModules + '/select2/dist/js/select2.js',
+        nodeModules + '/select2/select2.js',
         nodeModules + '/summernote/dist/summernote.js',
 
         // nodeModules + '/datatables.net-bs/js/dataTables.bootstrap.js',
@@ -78,15 +78,18 @@ elixir(function(mix) {
 	]);
 
     // mix.browserify('passwords/app.js', 'public/js/passwords.js');
+    mix.browserify('escalations/app.js');
 
 	mix.version([
-		'js/all.js', 
+        'js/all.js', 
+        'js/app.js', 
 		'css/all.css'
 	]);
 
-	// mix.browserSync({
-	// 	proxy: 'localhost:8000',
-	// 	browser: 'google chrome'
-	// });
+	mix.browserSync({
+		browser: "google chrome",
+        proxy: 'localhost:8000',
+        port: 8000
+	});
     
 });

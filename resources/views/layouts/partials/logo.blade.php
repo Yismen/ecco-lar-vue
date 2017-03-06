@@ -1,0 +1,1 @@
+<img src="/images/logo/dainsys-logo.png" class="img-responsive center-block" alt="Logo">

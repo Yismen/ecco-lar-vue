@@ -12,6 +12,13 @@ class EscalRecord extends Model
      * mass assignable
      */
     protected $fillable = ['tracking', 'escal_client_id'];
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    // protected $with = ['escal_client'];
+    protected $appends = ['client'];
 
     /**
      * ==========================================
@@ -19,12 +26,18 @@ class EscalRecord extends Model
      */
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User')
+            ->select(['name', 'id']);
     }
 
     public function escal_client()
     {
         return $this->belongsTo('App\EscalClient');
+    }
+
+    public function getClientAttribute()
+    {
+        return $this->escal_client;
     }
     
     /**
