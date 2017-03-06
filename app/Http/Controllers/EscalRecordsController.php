@@ -15,10 +15,10 @@ class EscalRecordsController extends Controller
 
     public function __construct(Request $request)
     {
-        $this->middleware('authorize:view_escalatios_records|edit_escalatios_records|create_escalatios_records', ['only'=>['index','show']]);
-        $this->middleware('authorize:edit_escalatios_records', ['only'=>['edit','update']]);
-        $this->middleware('authorize:create_escalatios_records', ['only'=>['create','store']]);
-        $this->middleware('authorize:destroy_escalatios_records', ['only'=>['destroy']]);
+        $this->middleware('authorize:view_escalations_records|edit_escalations_records|create_escalations_records', ['only'=>['index','show']]);
+        $this->middleware('authorize:edit_escalations_records', ['only'=>['edit','update']]);
+        $this->middleware('authorize:create_escalations_records', ['only'=>['create','store']]);
+        $this->middleware('authorize:destroy_escalations_records', ['only'=>['destroy']]);
         $this->user = auth()->user();
 
         // $request->flash(); 
