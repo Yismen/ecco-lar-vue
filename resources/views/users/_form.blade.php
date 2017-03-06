@@ -67,16 +67,6 @@
 <!-- /. User Is Admin -->
 
 <!-- Roles -->
-{{-- <div class="form-group {{ $errors->has('roles') ? 'has-error' : null }}">
-	{!! Form::label('roles', 'Roles:', ['class'=>'col-sm-2 control-label']) !!}
-	<div class="col-sm-10">
-		{!! Form::select('roles[]', $rolesList, null, ['class'=>'form-control', 'multiple'=>"multiple", 'id'=>'roles_lists'])!!}
-		<span class="help-block">!! Select the roles that will be served with this menu item:</span>
-	</div>
-</div>--}}
-<!-- /. Roles -->
-
-<!-- Roles -->
 {{-- {{ dd($rolesList) }} --}}
 <div class="form-group {{ $errors->has('roles') ? 'has-error' : null }}">	
 	{!! Form::label('roles', 'Roles:', ['class'=>'col-sm-2 control-label']) !!}
@@ -93,15 +83,21 @@
 </div>
 <!-- /. Roles -->
 
+<hr>
 
-{{-- 
-<link rel="stylesheet" href="{{ asset('plugins/select2/dist/css/select2.min.css') }}">
-<script src="{{ asset('plugins/select2/dist/js/select2.min.js') }}"></script>
-<script>
-	jQuery(document).ready(function($) {
-		$('#roles').select2();
-	});
-</script>
- --}}
+{{-- {{ dd($rolesList) }} --}}
+<div class="form-group has-error">	
+	{!! Form::label('notify', 'Notify:', ['class'=>'col-sm-2 control-label']) !!}
+	<div class="col-sm-10">		
+		<div class="checkbox">
+			<label>
+				{!! Form::checkbox('notify', 1, 1, []) !!}
+				Notify the user
+			</label>
+		</div>
+	</div>
+</div>
+<!-- /. Roles -->
 
+<hr>
 

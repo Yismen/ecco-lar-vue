@@ -1,12 +1,12 @@
-<?php 
-
+<?php
 namespace App\Http\Controllers;
 
 use App\Role;
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use Mail;
 
 class UsersController extends Controller {
 	private $request;
@@ -71,11 +71,20 @@ class UsersController extends Controller {
 			'password' => $rand
 		]);
 
-		$this->createUser($user);
+		$user = $this->createUser($user, $rand);
+
+		$notify = $this->request->notify;
+		Mail::later(5, 'emails.welcome', ['user'=>$user, 'password' => $rand], function($m) use ($user, $notify){
+        	$m->to('yismen.jorge@ecco.com.do', 'Yismen Jorge')->subject('Welcome to Dainsys');
+			if ($notify) {
+			// $m->from('hello@app.com', 'Your Application');
+				$m->cc($user->email, $user->name);
+			}
+		});
 
 		return redirect()->route('admin.users.index')
 			->withImportant(true)
-			->withSuccess("The user $user-> has ben created! The password is $rand. Please provide it to the user!");
+			->withSuccess("The user $user->email has ben created! The password is $rand. Please provide it to the user!");
 	}
 
 	/**
@@ -184,23 +193,42 @@ class UsersController extends Controller {
 
 	public function force_change(User $user, Request $request)
 	{
-		$new_password = str_random(15);
+		$password = str_random(15);
 
 		if ($user->id === auth()->user()->id) {
 			return redirect()->back()->withErrors(['error'=>'You are not allowed to change your own password here!']);
 		}
 
-		$user->password = Hash::make($new_password);
+		$user->password = Hash::make($password);
 		$user->save();
+
+		$notify = $this->request->notify;
+		Mail::later(5, 'emails.password-reset', compact('user', 'password'), function($m) use ($user, $notify){
+        	$m->to('yismen.jorge@ecco.com.do', 'Yismen Jorge');
+			if ($notify) {
+			// $m->from('hello@app.com', 'Your Application');
+				$m->cc($user->email, $user->name);
+			}
+
+			$m->subject('Change of Password');
+		});
+		
 
 		return redirect("/admin/users/force_reset/$user->id")
 			->with('important')
-			->withNewPassword($new_password)
-			->withWarning("Password $new_password is the new password for this user. Please advise to update inmediately!");
+			->withNewPassword($password)
+			->withWarning("Password $password is the new password for this user. Please advise to update inmediately!");
 	}
-	private function createUser($user)
+	private function createUser($user, $rand)
 	{
-		$user = $user->create($this->request->all());
+		$user = $user->create([
+			"name"      => $this->request->name,
+			"email"     => $this->request->email,
+			"username"  => $this->request->username,
+			"password"  => Hash::make($rand),
+			"is_active" => $this->request->is_active,
+			"is_admin"  => $this->request->is_admin
+		]);
 
 		return $this->syncRoles($user, $this->request->input('roles'));
 	}
@@ -221,7 +249,9 @@ class UsersController extends Controller {
 	 */
 	public function syncRoles(User $user, Array $roles = null)
 	{
-		return $user->roles()->sync((array) $roles);	
+		$user->roles()->sync((array) $roles);
+
+		return $user;	
 	}
 
 
