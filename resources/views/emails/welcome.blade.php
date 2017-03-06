@@ -15,8 +15,6 @@
 @section('content')
     <p>
         We have created an user for you in our Dainsys app. Please access the following link to log in: <a href="{{ url('/admin/login') }}">Dainsys</a>
-    </p>
-    <p>
         <hr>
         These are your credentials: <br>
         <strong>Username:</strong> {{ $user->email }} <br>

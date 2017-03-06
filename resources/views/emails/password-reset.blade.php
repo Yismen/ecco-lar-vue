@@ -1,7 +1,7 @@
 @extends('emails.layout')
 
 @section('header')
-    Passord Changed!
+    Password Changed!
 @stop
 
 @section('title')
@@ -14,7 +14,7 @@
 
 @section('content')
     <p>
-        Please clike here <a href="{{ url('/admin/login') }}">Dainsys</a> to log in with the new credentials.
+        Please click here <a href="{{ url('/admin/login') }}">Dainsys</a> to log in with the new credentials.
         <hr>
         <h5>Credentials:</h5>
         <strong>Username:</strong> {{ $user->email }} <br>
