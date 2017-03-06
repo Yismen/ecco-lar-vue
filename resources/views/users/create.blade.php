@@ -24,7 +24,7 @@
 							{{-- {{ dd($rolesList) }} --}}
 							<div class="form-group has-error">	
 								{!! Form::label('notify', 'Notify:', ['class'=>'col-sm-2 control-label']) !!}
-								<div class="col-sm-10">		
+								<div class="col-sm-12">		
 									<div class="checkbox">
 										<label>
 											{!! Form::checkbox('notify', 1, 1, []) !!}

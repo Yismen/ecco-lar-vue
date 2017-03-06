@@ -1,11 +1,26 @@
-<h3>Welcome to Dainsys</h3>
+@extends('emails.layout')
 
-<h4>{{ $user->name }}</h4>
+@section('header')
+    Welcome to Dainsys!
+@stop
 
-<p>We have created an user for you in Dainsys. Please access the following link:</p>
-<p>{{ url('/admin/login') }}</p>
-<p>
-    <strong>Username:</strong> {{ $user->email }} <br>
-    <strong>Password</strong> {{ $password }} <br>
-    <small>We strongly recomend to change this password as soon as yo login!</small>
-</p>
+@section('title')
+    {{ $user->name }}
+@stop
+
+@section('subtitle')
+    A new user have been created for you!
+@stop
+
+@section('content')
+    <p>
+        We have created an user for you in our Dainsys app. Please access the following link to log in: <a href="{{ url('/admin/login') }}">Dainsys</a>
+    </p>
+    <p>
+        <hr>
+        These are your credentials: <br>
+        <strong>Username:</strong> {{ $user->email }} <br>
+        <strong>Password:</strong> {{ $password }} <br>
+        <small>We strongly recomend to change this password as soon as yo login!</small>
+    </p>
+@stop

@@ -68,7 +68,7 @@
        */
       if(elType == 'input') {
         el.iCheck({
-          checkboxClass: 'icheckbox_square-blue',
+          checkboxClass: 'icheckbox_square icheckbox_square-blue',
           radioClass: 'iradio_square-blue'
         });
       }

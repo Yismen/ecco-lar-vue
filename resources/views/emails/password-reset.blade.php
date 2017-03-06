@@ -1,20 +1,25 @@
-<style type="text/css">
-    hr {
-        font-weight: bold;
-    }
-    a {
-        /*background-color: #abb88e;*/
-    }
-</style>
-<h3>Password Changed</h3>
+@extends('emails.layout')
 
-<h4>{{ $user->name }}</h4>
+@section('header')
+    Passord Changed!
+@stop
 
-<p>The admin have changed your password.</p>
-<p>Please clike here <a href="{{ url('/admin/login') }}">Dainsys</a></p>
-<p>
-    <strong>Username:</strong> {{ $user->email }} <br>
-    <strong>Password</strong> {{ $password }} <br>
-    <small>We strongly recomend to change this password as soon as yo login!</small>
-</p>
+@section('title')
+    {{ $user->name }}
+@stop
+
+@section('subtitle')
+    The admin have changed your password
+@stop
+
+@section('content')
+    <p>
+        Please clike here <a href="{{ url('/admin/login') }}">Dainsys</a> to log in with the new credentials.
+        <hr>
+        <h5>Credentials:</h5>
+        <strong>Username:</strong> {{ $user->email }} <br>
+        <strong>Password:</strong> {{ $password }} <br>
+        <small>We strongly recomend to change this password as soon as yo login!</small>
+    </p>
+@stop
 
