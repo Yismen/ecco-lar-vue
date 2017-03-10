@@ -37,9 +37,20 @@ trait EscalationsAdminTrait
             ->get();
     }
 
-    public function fetchDetaileProductionByDate($escalRecords)
+    public function fetchDetailedProductionByDate($escalRecords)
     {
         return $escalRecords->with('user')->whereDate('created_at', '=', $this->date)
+            ->get();
+        
+    }
+
+    public function fetchRandomRecordsByRange($escalRecords, $amount, $user_id, $from, $to)
+    {
+        return $escalRecords->with('user')
+            ->whereUserId($user_id)
+            ->whereBetween('created_at', [$from, $to])
+            ->inRandomOrder()
+            ->take(5)
             ->get();
         
     }
@@ -64,7 +75,10 @@ trait EscalationsAdminTrait
 
         return $escalRecords->whereDate('created_at', '=', $date)
             ->where('is_bbb', true)
-            ->with('user')
+            ->with(['user' => function($query) {
+                return $query->orderBy('name');
+            }])
+            ->orderBy('escal_client_id')
             ->get();
     }
 

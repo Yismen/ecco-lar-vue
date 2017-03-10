@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 use App\Employee;
+use Carbon\Carbon;
 use App\Http\Requests;
+use Illuminate\Http\Request;
 use Yajra\Datatables\Facades\Datatables;
 use GrahamCampbell\Flysystem\Facades\Flysystem as Flysystem;
 
 class TestController extends Controller
 {
-    use TestTrait;
     public function flySystem()
     {
         return $this->testTrait();
@@ -35,5 +34,32 @@ class TestController extends Controller
        return Datatables::eloquent(
             $employees->query()
         )->make(true);
+    }
+
+    public function testComponent()
+    {
+        $carbon = new Carbon();
+        // $data = [
+        //     $carbon->today() => 'Today',
+        //     $carbon->yesterday() => 'Yesterday',
+        //     $carbon->week => 'This Week',
+        //     $carbon->subWeek(1) => 'Last Week',
+        //     $carbon->month => 'This Month',
+        //     $carbon->subMonth() => 'Last Mont',
+        //     $carbon->year => 'This Year',
+        //     $carbon->subYear(1) => 'Last Year'
+        // ];
+        return ($data = [
+                    'today' => $carbon->toDateString(),
+                    'yesterday' => $carbon->yesterday(),
+                    'this_week' => $carbon->weekOfYear ,
+                    'last_week' => $carbon->subWeek(1) ,
+                    'this_month' => $carbon->month ,
+                    'last_month' => $carbon->subMonth() ,
+                    'this_year' => $carbon->year ,
+                    'last_year' => $carbon->subYear(1) ,
+                ]);
+
+        return view('test.component', compact('data'));
     }
 }

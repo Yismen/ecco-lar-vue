@@ -38,7 +38,7 @@ class EscalationsAdminController extends Controller
         $clients     = $this->fetchClientsProductionByDate($escalClient);
         $users       =  $this->fetchUsersProductionByDate($user);
         if ($this->request->has('detailed')) {
-           $detailed       =  $this->fetchDetaileProductionByDate($escalRecords);
+           $detailed       =  $this->fetchDetailedProductionByDate($escalRecords);
         }
 
         $this->request->flash();
@@ -75,32 +75,26 @@ class EscalationsAdminController extends Controller
         return view('escalations_admin.search', compact('records'));
     }
 
-    public function random(Request $request)
+    public function random(Request $request, EscalRecord $escalRecords)
     {
-        if (!$request->tracking) {
-            return view('escalations_admin.search', compact('records'));
+        $users = User::has('escalationsRecords')->lists('name', 'id');
+
+        if (!$request->records) {
+            return view('escalations_admin.random', compact('users'));
         }
 
-        $request->replace([
-            'tracking' => trim($request->tracking),
-            'page' => trim($request->page),
-            // 'escalations_client_id' => $request->escalations_client_id,
-        ]);
-
         $this->validate($request, [
-            'tracking' => 'required|digits_between:3,9'
+            'from' => 'required|date',
+            'to' => 'required|date',
+            'records' => 'required|int',
+            'user_id' => 'required|exists:users,id',
         ]);
 
-        $tracking = $request->tracking;
-
-        $records = EscalRecord::where('tracking', 'like', "%$tracking%")
-            ->with('user')
-            ->orderBy('created_at', 'DESC')
-            ->paginate(10)->appends(['tracking'=>$tracking]);
+        $records = $this->fetchRandomRecordsByRange($escalRecords, $request->records, $request->user_id, $request->from, $request->to); 
 
         $request->flash();
 
-        return view('escalations_admin.search', compact('records'));
+        return view('escalations_admin.random', compact('records', 'users'));
     }
 
 

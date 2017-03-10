@@ -4,107 +4,114 @@
     
     <div class="row">
         <div class="col-sm-12">
-
             {!! Form::open(['url'=>['/admin/escalations_admin/random'], 'method'=>'GET', 'class'=>'form-horizontal', 'role'=>'form', 'autocomplete'=>"off"]) !!}        
-                <legend>Search Records Randomly</legend>
+                <legend>Search Random Records by Range and Agents</legend>
 
                 <div class="col-sm-12">
-                    <!-- Select a User -->
-                    <div class="col-sm-6">
-                        <div class="form-group {{ $errors->has('user') ? 'has-error' : null }}">
-                            {!! Form::label('user', 'Select a User:', ['class'=>'col-sm-2 control-label']) !!}
+                    <!-- From -->
+                    <div class="col-sm-4">
+                      <div class="form-group {{ $errors->has('from') ? 'has-error' : null }}">
+                          {!! Form::label('from', 'From:', ['class'=>'col-sm-2 control-label']) !!}
+                          <div class="col-sm-10">
+                              {!! Form::input('date', 'from', null, ['class'=>'form-control', 'placeholder'=>'From']) !!}        
+                              {!! $errors->first('from', '<span class="text-danger">:message</span>') !!}
+                          </div>
+                      </div>
+                    </div>
+                    <!-- /. From -->   
+                        
+                    <!-- To -->
+                    <div class="col-sm-4">
+                        <div class="form-group {{ $errors->has('to') ? 'has-error' : null }}">
+                            {!! Form::label('to', 'To:', ['class'=>'col-sm-2 control-label']) !!}
                             <div class="col-sm-10">
-                                {!! Form::select('user', [], null, ['class'=>'form-control input-sm']) !!}
-                                {!! $errors->first('name', '<span class="text-danger">:message</span>') !!}
+                                {!! Form::input('date', 'to', null, ['class'=>'form-control', 'placeholder'=>'To']) !!}        
+                                {!! $errors->first('to', '<span class="text-danger">:message</span>') !!}
                             </div>
                         </div>
                     </div>
-                    <!-- /. Select a User -->
+                    <!-- /. To -->
 
-                    <!-- Date -->
-                    <div class="col-sm-6">
-                        <div class="form-group {{ $errors->has('date') ? 'has-error' : null }}">
-                            {!! Form::label('date', 'Date:', ['class'=>'col-sm-2 control-label']) !!}
+                    <!-- Count -->
+                    <div class="col-sm-4">
+                        <div class="form-group {{ $errors->has('records') ? 'has-error' : null }}">
+                            {!! Form::label('records', 'Count:', ['class'=>'col-sm-2 control-label']) !!}
                             <div class="col-sm-10">
-                                {!! Form::select('date', [], null, ['class'=>'form-control input-sm']) !!}
-                                {!! $errors->first('name', '<span class="text-danger">:message</span>') !!}
+                                {!! Form::input('number', 'records', null, ['class'=>'form-control', 'placeholder'=>'Count']) !!}        
+                                {!! $errors->first('records', '<span class="text-danger">:message</span>') !!}
                             </div>
                         </div>
                     </div>
-                    <!-- /. Date -->
+                    <!-- /. Count -->
+                </div>
 
-                    <!-- Amount of Records -->
+                <div class="col-sm-12">
+                    <!-- Agent Name -->
                     <div class="col-sm-6">
-                        <div class="form-group {{ $errors->has('amount') ? 'has-error' : null }}">
-                            {!! Form::label('amount', 'Amount of Records:', ['class'=>'col-sm-2 control-label']) !!}
+                        <div class="form-group {{ $errors->has('user_id') ? 'has-error' : null }}">
+                            {!! Form::label('user_id', 'Agent Name:', ['class'=>'col-sm-2 control-label']) !!}
                             <div class="col-sm-10">
-                                {!! Form::input('number', 'amount', null, ['class'=>'form-control', 'placeholder'=>'Amount of Records']) !!}        
-                                {!! $errors->first('amount', '<span class="text-danger">:message</span>') !!}
+                                {!! Form::select('user_id', $users, null, ['class'=>'form-control input-sm']) !!}
+                                {!! $errors->first('user_id', '<span class="text-danger">:message</span>') !!}
                             </div>
                         </div>
                     </div>
-                    <!-- /. Amount of Records -->
+                    <!-- /. Agent Name -->
 
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <button class="btn btn-primary">
-                                <i class="fa fa-search"> Search</i>
-                            </button>
+                            <div class="col-sm-10 col-sm-offset-2">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fa fa-search"></i>
+                                     Search
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                
-        // user, contextual date, amount to get
-            
-                
-            
+
             {!! Form::close() !!}
 
-            @if (isset($records))
+            @if (isset($records) && $records->count() > 0)
                 <hr>
                 <div class="col-sm-12">
-                    <div class="page-header">Results for Tracking [{{ Request::old('tracking') }}] </div>
+                    <div class="page-header">
+                        Results of Random Records
+                    </div>
                 </div>
 
-                @unless ($records->count() > 0 )
-                    Not found
-                @else
+                <div class="col-sm-12">
 
-                    <div class="col-sm-12">
-                        <div class="box box-success">
-                            <div class="table-responsive">
-                                <table class="table table-hover table-striped table-condensed table-bordered">
-                                    <thead>
+                    <div class="box box-success">
+                        <h3>
+                            Results of {{ Request::old('records') }} Random Records for Period [{{ Request::old('from') }} - {{ Request::old('to') }}]
+                        </h3>
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped table-condensed table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Insert Date:</th>
+                                        <th>Tracking Number:</th>
+                                        <th>Queue:</th>
+                                        <th>Agent Name:</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($records as $record)
                                         <tr>
-                                            <th>Client:</th>
-                                            <th>Count:</th>
+                                            <td>{{ $record->created_at->format('M-d-Y') }}</td>
+                                            <td>{{ $record->tracking }}</td>
+                                            <td>{{ $record->client->name }}</td>
+                                            <td>{{ $record->user->name }}</td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($records as $record)
-                                            <tr>
-                                                <td>{{ $record->tracking }}</td>
-                                                <td>{{ $record->user->name }}</td>
-                                                <td>{{ $record->client->name }}</td>
-                                                <td>{{ $record->created_at->format('M/d/Y') }}</td>
-                                                
-
-                                                {{-- <td>{{ $record->escal_records_count }}</td> --}}
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-
-                                {{ $records }}
-                            </div>
-
-                            {{-- <canvas id="clientsChart" height="100%" width="60px"></canvas> --}}
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
 
-                @endunless
-
+                </div>
 
             @endif
         </div>

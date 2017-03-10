@@ -46,6 +46,7 @@ Route::group(['middleware' => 'web'], function () {
 	})->name('test.plugin');
 
 	Route::get('test', 'TestController@flySystem');
+	Route::get('test/components', 'TestController@testComponent');
 
 	Route::post('test_plugin/data', function(){
 		// return response()->json(["here"=>"here we go", "there"=>"We have more"], 422);
