@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-use App\EscalRecord;
-use App\EscalClient;
 use Carbon\Carbon;
+use App\EscalClient;
+use App\EscalRecord;
+use App\Http\Requests;
+use Validator;
 
 class EscalRecordsController extends Controller
 {
@@ -82,11 +83,13 @@ class EscalRecordsController extends Controller
      */
     public function store(EscalRecord $escalations_record, Request $request)
     {
-        $this->replaceRequest($request)->validateRequest($request, $escalations_record);
+        $insert_date = Carbon::today()->format('Y-m-d');
+        $this->replaceRequest($request)->validateStore($request, $escalations_record, $insert_date);
 
         $escalation_record = $this->user->escalationsRecords()->create([
             'tracking' => $request->tracking, 
             'escal_client_id' => $request->escalations_client_id,
+            'insert_date' => $insert_date,
             'is_bbb' => $request->is_bbb
         ]);
 
@@ -133,7 +136,7 @@ class EscalRecordsController extends Controller
      */
     public function update(Request $request, EscalRecord $escalations_record)
     {
-        $this->replaceRequest($request)->validateRequest($request, $escalations_record);
+        $this->replaceRequest($request)->validateUpdate($request, $escalations_record);
        
         $escalations_record->tracking = $request->tracking;
         $escalations_record->escal_client_id = $request->escalations_client_id;
@@ -160,16 +163,24 @@ class EscalRecordsController extends Controller
 
     public function search(Request $request)
     {
-        $this->validate($request, ['search'=>'required']);
         $search = $request->search;
 
-        if ($search) {
-            return EscalRecord::orWhere('tracking', 'like', "%$search%")
-                // ->orWhere(['escal_client', function($query) use ($search){
-                //     $query->orWhere('name', 'like', "%$search%");
-                // }])
+        $this->validate($request, [
+            'search' => 'required|int|exists:escal_records,tracking'
+            ]);
+
+
+        // return redirect('admin/escalations_records');
+        $escalations_record = $this->user->escalationsRecords()->orWhere('tracking', 'like', "%$search%")
                 ->get();
+
+        if ($request->ajax()) {
+            return $escalations_records;
         }
+
+        // $request->flashOnly(['escal_client_id']);
+
+        return view('escalations_records.createOld', compact('escalations_record', 'escalations_records'));
     }
 
     public function getClients()
@@ -177,12 +188,18 @@ class EscalRecordsController extends Controller
         return EscalClient::select('name', 'id')->get();
     }
 
-    private function validateRequest($request, $escalations_record)
+    private function validateStore($request, $escalations_record, $insert_date)
     {
-        // Add an exception to allow duplicates if the insert date is different
-
         return $this->validate($request, [
-            'tracking' => "required|int|digits:9|unique:escal_records,tracking,$escalations_record->id,id",
+            'tracking' => "required|int|digits:9|unique:escal_records,tracking,id,$escalations_record->id,insert_date,$insert_date",
+            'escalations_client_id' => "required|int|exists:escal_clients,id",
+        ]);
+    }
+
+    private function validateUpdate($request, $escalations_record)
+    {
+        return $this->validate($request, [
+            'tracking' => "required|int|digits:9|unique:escal_records,tracking,$escalations_record->id,id,insert_date,$escalations_record->insert_date",
             'escalations_client_id' => "required|int|exists:escal_clients,id",
         ]);
     }

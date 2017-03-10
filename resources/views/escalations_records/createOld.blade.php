@@ -38,10 +38,11 @@
 						</h4>
 						{{-- Comeback here --}}
 						<div class="col-sm-8">
-							<form action="{{ url('/admin/escalations_records', $escalations_record->tracking) }}" method="POST" class="" style="">
+							<form action="{{ url('/admin/escalations_records/search') }}" method="POST" class="" style="">
+							    {!! csrf_field() !!}
 
 							    <div class="input-group">
-							    	<input type="search" class="form-control" id="search" placeholder="Search">
+							    	<input name="search" type="search" class="form-control" id="search" placeholder="Search">
 							    	<span class="input-group-btn">
 							    		<button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
 							    	</span>

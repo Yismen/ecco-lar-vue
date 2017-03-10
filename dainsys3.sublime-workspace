@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"created",
+				"created_at"
+			],
+			[
 				"is",
 				"is_bbb\t(EscalRecord.php)"
 			],
@@ -38,10 +42,6 @@
 			[
 				"hidd",
 				"hidden-sm"
-			],
-			[
-				"created",
-				"created_at\t(EscalationsAdminController.php)"
 			],
 			[
 				"create",
@@ -529,30 +529,20 @@
 			}
 		},
 		{
-			"file": "app/Http/Routes/escalations_admin.php",
+			"file": "app/Http/Controllers/EscalRecordsController.php",
 			"settings":
 			{
-				"buffer_size": 569,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "app/Http/Controllers/EscalationsAdminController.php",
-			"settings":
-			{
-				"buffer_size": 3443,
+				"buffer_size": 6360,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/Http/Traits/EscalationsAdminTrait.php",
+			"file": "database/migrations/2017_03_09_220522_add_intert_date_to_escalations_records.php",
 			"settings":
 			{
-				"buffer_size": 1829,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
+				"buffer_size": 571,
+				"line_ending": "Unix"
 			}
 		}
 	],
@@ -1108,16 +1098,16 @@
 	[
 		"/F/wamp/www/dainsys3",
 		"/F/wamp/www/dainsys3/app/Http/Controllers",
-		"/F/wamp/www/dainsys3/app/Http/Controllers/Auth",
+		"/F/wamp/www/dainsys3/database",
 		"/F/wamp/www/dainsys3/database/migrations",
-		"/F/wamp/www/dainsys3/resources",
-		"/F/wamp/www/dainsys3/resources/assets/js",
 		"/F/wamp/www/dainsys3/resources/views",
-		"/F/wamp/www/dainsys3/resources/views/escalations_admin/partials",
-		"/F/wamp/www/dainsys3/resources/views/escalclients"
+		"/F/wamp/www/dainsys3/resources/views/escalations_records"
 	],
 	"file_history":
 	[
+		"/F/wamp/www/dainsys3/app/Http/Routes/escalations_admin.php",
+		"/F/wamp/www/dainsys3/app/Http/Traits/EscalationsAdminTrait.php",
+		"/F/wamp/www/dainsys3/app/Http/Controllers/EscalationsAdminController.php",
 		"/F/wamp/www/dainsys3/resources/views/escalclients/edit.blade.php",
 		"/F/wamp/www/dainsys3/resources/views/escalclients/show.blade.php",
 		"/F/wamp/www/dainsys3/resources/views/escalclients/index.blade.php",
@@ -1134,9 +1124,6 @@
 		"/F/wamp/www/dainsys3/app/Http/Controllers/EscalRecordsController.php",
 		"/F/wamp/www/dainsys3/resources/views/escalations_records/edit.blade.php",
 		"/F/wamp/www/dainsys3/resources/views/escalations_admin/by_date.blade.php",
-		"/F/wamp/www/dainsys3/app/Http/Controllers/EscalationsAdminController.php",
-		"/F/wamp/www/dainsys3/app/Http/Traits/EscalationsAdminTrait.php",
-		"/F/wamp/www/dainsys3/app/Http/Routes/escalations_admin.php",
 		"/F/wamp/www/dainsys3/app/EscalRecord.php",
 		"/F/wamp/www/dainsys3/vendor/laravel/framework/src/Illuminate/Foundation/Auth/AuthenticatesAndRegistersUsers.php",
 		"/F/wamp/www/dainsys3/resources/views/profiles/show.blade.php",
@@ -1275,6 +1262,9 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"validateRequest",
+			"Validator",
+			"validateRequest",
 			"escal_client_id",
 			"validateRequest",
 			"$escalRecords",
@@ -1399,10 +1389,7 @@
 			"Name",
 			"escalations_clients",
 			"escalclients",
-			"Client",
-			"Clients",
-			"escalrecord",
-			"$escalrecord"
+			"Client"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1506,26 +1493,23 @@
 							"color_helper.file_palette":
 							[
 							],
-							"color_helper.preview_meta":
-							{
-							},
 							"color_helper.scan":
 							{
 								"allowed_colors":
 								[
 									"rgba",
-									"hex",
-									"hex_compressed",
 									"rgb",
-									"hsla",
+									"hex",
 									"webcolors",
+									"hsla",
+									"hex_compressed",
 									"hsl"
 								],
 								"compress_hex_output": true,
 								"current_ext": ".php",
 								"current_syntax": "PHP/PHP",
 								"enabled": true,
-								"last_updated": 1489097520.63,
+								"last_updated": 1489104115.14,
 								"scan_completion_scopes":
 								[
 								],
@@ -1544,7 +1528,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 450.0,
+						"translation.y": 350.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
@@ -1552,19 +1536,19 @@
 				},
 				{
 					"buffer": 1,
-					"file": "app/Http/Routes/escalations_admin.php",
+					"file": "app/Http/Controllers/EscalRecordsController.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 569,
+						"buffer_size": 6360,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								456,
-								456
+								2583,
+								2583
 							]
 						],
 						"settings":
@@ -1582,18 +1566,18 @@
 								"allowed_colors":
 								[
 									"rgba",
-									"hex",
-									"hex_compressed",
 									"rgb",
+									"hsl",
+									"hex_compressed",
 									"hsla",
 									"webcolors",
-									"hsl"
+									"hex"
 								],
 								"compress_hex_output": true,
 								"current_ext": ".php",
 								"current_syntax": "PHP/PHP",
 								"enabled": true,
-								"last_updated": 1489097520.63,
+								"last_updated": 1489107145.13,
 								"scan_completion_scopes":
 								[
 								],
@@ -1607,149 +1591,43 @@
 								],
 								"use_hex_argb": false
 							},
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1800.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "database/migrations/2017_03_09_220522_add_intert_date_to_escalations_records.php",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 571,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
 							"syntax": "Packages/PHP/PHP.sublime-syntax"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "app/Http/Controllers/EscalationsAdminController.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3443,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1036,
-								1036
-							]
-						],
-						"settings":
-						{
-							"color_helper.box_height": 15,
-							"color_helper.color_scheme": "Packages/Material Theme/schemes/Material-Theme.tmTheme",
-							"color_helper.file_palette":
-							[
-							],
-							"color_helper.preview_meta":
-							{
-							},
-							"color_helper.scan":
-							{
-								"allowed_colors":
-								[
-									"rgba",
-									"hex",
-									"hex_compressed",
-									"rgb",
-									"hsla",
-									"webcolors",
-									"hsl"
-								],
-								"compress_hex_output": true,
-								"current_ext": ".php",
-								"current_syntax": "PHP/PHP",
-								"enabled": true,
-								"last_updated": 1489097520.63,
-								"scan_completion_scopes":
-								[
-								],
-								"scan_scopes":
-								[
-									"meta.declaration-list.css -support.type.property-name.css -comment -string",
-									"meta.property-value.css -comment -string",
-									"meta.value.css -comment -string",
-									"meta.tag.inline.any.html string.quoted",
-									"meta.tag.any.html meta.attribute-with-value.style.html"
-								],
-								"use_hex_argb": false
-							},
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 800.0,
-						"zoom_level": 1.0
-					},
 					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "app/Http/Traits/EscalationsAdminTrait.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1829,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1194,
-								1194
-							]
-						],
-						"settings":
-						{
-							"color_helper.box_height": 15,
-							"color_helper.color_scheme": "Packages/Material Theme/schemes/Material-Theme.tmTheme",
-							"color_helper.file_palette":
-							[
-							],
-							"color_helper.preview_meta":
-							{
-							},
-							"color_helper.scan":
-							{
-								"allowed_colors":
-								[
-									"rgba",
-									"hex",
-									"hex_compressed",
-									"rgb",
-									"hsla",
-									"webcolors",
-									"hsl"
-								],
-								"compress_hex_output": true,
-								"current_ext": ".php",
-								"current_syntax": "PHP/PHP",
-								"enabled": true,
-								"last_updated": 1489097520.63,
-								"scan_completion_scopes":
-								[
-								],
-								"scan_scopes":
-								[
-									"meta.declaration-list.css -support.type.property-name.css -comment -string",
-									"meta.property-value.css -comment -string",
-									"meta.value.css -comment -string",
-									"meta.tag.inline.any.html string.quoted",
-									"meta.tag.any.html meta.attribute-with-value.style.html"
-								],
-								"use_hex_argb": false
-							},
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 861.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -1815,6 +1693,10 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"escalrecorc",
+				"app\\Http\\Controllers\\EscalRecordsController.php"
+			],
 			[
 				"escaladminsear",
 				"resources\\views\\escalations_admin\\search.blade.php"
@@ -2321,10 +2203,6 @@
 			],
 			[
 				"resetspasswords",
-				"vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Auth\\ResetsPasswords.php"
-			],
-			[
-				"illuminate/foundation/auth/resetspasswords",
 				"vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Auth\\ResetsPasswords.php"
 			]
 		],
