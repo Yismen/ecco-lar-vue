@@ -138,7 +138,7 @@ class EscalRecordsController extends Controller
     {
         $this->replaceRequest($request)->validateUpdate($request, $escalations_record);
        
-        $escalations_record->tracking = $request->tracking;
+        // $escalations_record->tracking = $request->tracking;
         $escalations_record->escal_client_id = $request->escalations_client_id;
         $escalations_record->is_bbb = $request->is_bbb;
         $escalations_record->save();
@@ -199,7 +199,7 @@ class EscalRecordsController extends Controller
     private function validateUpdate($request, $escalations_record)
     {
         return $this->validate($request, [
-            'tracking' => "required|int|digits:9|unique:escal_records,tracking,$escalations_record->id,id,insert_date,$escalations_record->insert_date",
+            'tracking' => "required|int|digits:9",
             'escalations_client_id' => "required|int|exists:escal_clients,id",
         ]);
     }

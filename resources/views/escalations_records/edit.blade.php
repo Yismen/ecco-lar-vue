@@ -7,7 +7,7 @@
 			<div class="col-sm-8 col-sm-offset-2">
 				<div class="row box box-primary pad">
 
-					{!! Form::model($escalations_record, ['route'=>['admin.escalations_records.update',$escalations_record->tracking], 'method'=>'PUT', 'class'=>'form-horizontal', 'role'=>'form', 'autocomplete'=>"off"]) !!}
+					{!! Form::model($escalations_record, ['route'=>['admin.escalations_records.update',$escalations_record->id], 'method'=>'PUT', 'class'=>'form-horizontal', 'role'=>'form', 'autocomplete'=>"off"]) !!}
 
 						<legend>Edit Escalations Record {{ $escalations_record->tracking }}</legend>
 					
@@ -23,7 +23,7 @@
 					{!! Form::close() !!}
 					
 					<hr>
-					<form action="{{ url('/admin/escalations_records', $escalations_record->tracking) }}" method="POST" class="" style="display: inline-block;">	
+					<form action="{{ url('/admin/escalations_records', $escalations_record->id) }}" method="POST" class="" style="display: inline-block;">	
 					    {!! csrf_field() !!}
 					    {!! method_field('DELETE') !!}
 					

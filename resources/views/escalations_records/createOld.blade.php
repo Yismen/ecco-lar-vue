@@ -66,7 +66,7 @@
 										<td>{{ $record->escal_client->name }}</td>
 										<td>{{ $record->is_bbb ? 'BBB Record' : '' }}</td>
 										<td>
-											<a href="/admin/escalations_records/{{ $record->tracking }}/edit"><i class="fa fa-edit"> Edit</i></a>
+											<a href="/admin/escalations_records/{{ $record->id }}/edit"><i class="fa fa-edit"> Edit</i></a>
 										</td>
 									</tr>
 								@endforeach

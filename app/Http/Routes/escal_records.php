@@ -1,10 +1,9 @@
 <?php
 
-Route::bind('escalations_records', function($tracking){
-    return App\EscalRecord::whereTracking($tracking)
-        ->with('user')
+Route::bind('escalations_records', function($id){
+    return App\EscalRecord::with('user')
         ->with('escal_client')
-        ->firstOrFail();
+        ->findOrFail($id);
 });
 
 Route::resource('escalations_records', 'EscalRecordsController', ['except'=>['show']]);

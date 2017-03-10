@@ -25,13 +25,13 @@
 							@foreach ($escalations_records as $escalations_record)
 								<tr>
 									<td>
-										<a href="{{ route('admin.escalations_records.show', $escalations_record->tracking) }}">{{ $escalations_record->tracking }}</a>
+										<a href="{{ route('admin.escalations_records.show', $escalations_record->id) }}">{{ $escalations_record->tracking }}</a>
 									</td>
 									<td>
 										{{ $escalations_record->escal_client->name }}
 									</td>
 									<td>
-										<a href="{{ route('admin.escalations_records.edit', $escalations_record->tracking) }}" class="" rel="tooltip" title="Edit" data-placement="left">
+										<a href="{{ route('admin.escalations_records.edit', $escalations_record->id) }}" class="" rel="tooltip" title="Edit" data-placement="left">
 											Edit <i class="fa fa-edit"></i>
 										</a>
 									</td>
