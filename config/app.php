@@ -157,6 +157,8 @@ return [
         App\Providers\LayoutServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class,
         Yajra\Datatables\DatatablesServiceProvider::class,
+        GrahamCampbell\Flysystem\FlysystemServiceProvider::class,
+
 
         /*
          * Application Service Providers...
@@ -216,6 +218,7 @@ return [
         'Image'     => Intervention\Image\Facades\Image::class,
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
         'Datatables'=> Yajra\Datatables\Facades\Datatables::class,
+        'Flysystem' => GrahamCampbell\Flysystem\Facades\Flysystem::class,
 
     ],
 

@@ -44,6 +44,9 @@ Route::group(['middleware' => 'web'], function () {
 	Route::get('test_plugin', function(){
 		return view('test.plugin-test');		
 	})->name('test.plugin');
+
+	Route::get('test', 'TestController@flySystem');
+
 	Route::post('test_plugin/data', function(){
 		// return response()->json(["here"=>"here we go", "there"=>"We have more"], 422);
 		$output = '<div class="row col-sm-12"><div class="alert alert-success">';

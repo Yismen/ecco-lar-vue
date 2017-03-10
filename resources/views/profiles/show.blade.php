@@ -9,11 +9,7 @@
 		<div class="col-sm-4 text-center">
 			<div class="box box-primary pad">
 				<div class="center-block ">	
-					@if (file_exists($profile->photo))				
-						<img src="{{ asset($profile->photo) }}" height="150px" class="img-responsive img-circle center-block profile-user-img animated rotateIn box-shadow" alt="Image">
-					@else				
-						<img src="http://placehold.it/150x150" height="150px" class="img-responsive img-circle center-block profile-user-img animated rotateIn box-shadow" alt="Image">
-					@endif		
+					<img src="{{ file_exists($profile->photo) ? asset($profile->photo) :  'http://placehold.it/300x300'}}" class="img-responsive img-circle center-block profile-user-img animated rotateIn box-shadow" alt="Image">	
 				</div>
 
 				<h3>{{ $profile->user->name }}</h3>	
@@ -135,13 +131,9 @@
 					<hr>
 					@foreach ($profiles as $profile)
 						<div class="col-sm-3">
-							<div class="box box-warning pad">
-								<div class="center-block ">	
-									@if (file_exists($profile->photo))				
-										<img src="{{ asset($profile->photo) }}" height="150px" class="img-responsive img-circle center-block profile-user-img animated rotateIn box-shadow" alt="Image">
-									@else				
-										<img src="http://placehold.it/150x150" height="150px" class="img-responsive img-circle center-block profile-user-img animated rotateIn box-shadow" alt="Image">
-									@endif		
+							<div class="box box-warning pad text-center">
+								<div class="center-block">	
+									<img src="{{ file_exists($profile->photo) ? asset($profile->photo) : 'http://placehold.it/150x150'}}" height="150px" class="img-responsive img-circle center-block profile-user-img animated rotateIn box-shadow" alt="Image">	
 								</div>
 								<h3>
 									<a href="{{ route('admin.profiles.show', $profile->id) }}">{{ $profile->user->name }}</a>

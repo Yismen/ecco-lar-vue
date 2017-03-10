@@ -11,7 +11,7 @@ class EscalRecord extends Model
     /**
      * mass assignable
      */
-    protected $fillable = ['tracking', 'escal_client_id'];
+    protected $fillable = ['tracking', 'escal_client_id', 'is_bbb'];
     /**
      * The accessors to append to the model's array form.
      *

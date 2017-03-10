@@ -14,7 +14,8 @@
 
 @section('content')
     <p>
-        Please click here <a href="{{ url('/admin/login') }}">Dainsys</a> to log in with the new credentials.
+        Please click here <a href="{{ url('/admin/login') }}">Dainsys</a> to log in with the new credentials, or copy and paste this link into your web browser: <br>
+        {{ url('/admin/login') }}
         <hr>
         <h5>Credentials:</h5>
         <strong>Username:</strong> {{ $user->email }} <br>

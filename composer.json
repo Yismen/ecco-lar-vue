@@ -13,7 +13,9 @@
         "intervention/image" : "*", 
         "maatwebsite/excel": "*",
         "doctrine/dbal": "^v2.5.4",
-        "yajra/laravel-datatables-oracle": "^6.13"
+        "yajra/laravel-datatables-oracle": "^6.13",
+        "graham-campbell/flysystem": "^3.6",
+        "league/flysystem-dropbox": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

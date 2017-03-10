@@ -7,9 +7,18 @@ use App\EscalClient;
 use App\EscalRecord;
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use App\Http\Traits\EscalationsAdminTrait;
 
 class EscalationsAdminController extends Controller
 {
+    use EscalationsAdminTrait;
+    private $date;
+
+    function __construct(Request $request) {
+        $this->request = $request;
+        $this->date = $this->request->date;
+    }
+
     public function index()
     {
         return view('escalations_admin.index');
@@ -20,39 +29,21 @@ class EscalationsAdminController extends Controller
         return view('escalations_admin.by_date');
     }
 
-    public function postByDate(Request $request)
+    public function postByDate(EscalClient $escalClient, User $user, EscalRecord $escalRecords)
     {     
-        $this->validate($request, [
+        $this->validate($this->request, [
             'date'=>'required|date'
         ]);
 
-        $date = $request->date;
+        $clients     = $this->fetchClientsProductionByDate($escalClient);
+        $users       =  $this->fetchUsersProductionByDate($user);
+        // $productions =  $this->fetchProductionsByDate($escalRecords, $escalClient);
 
-        $clients = EscalClient::select(['name', 'id'])        
-            ->whereHas('escal_records', function($query) use ($date){
-                $query->whereDate('created_at', '=', $date);
-            })
-            ->withCount(['escal_records' => function($query) use ($date) {
-                $query->whereDate('created_at', '=', $date);
-            }])
-            ->get();
-
-        // return $clients;
-
-        $users = User::select(['name', 'id'])
-            ->whereHas('escalationsRecords', function($query) use ($date){
-                $query->whereDate('created_at', '=', $date);
-            })
-            ->withCount(['escalationsRecords' => function($query) use ($date) {
-                $query->whereDate('created_at', '=', $date);
-            }])
-            ->get();
-
-        if ($request->ajax()) {
+        if ($this->request->ajax()) {
             return $clients;
         }
 
-        $request->flash();
+        $this->request->flash();
 
         return view('escalations_admin.by_date', compact('clients', 'users'));
 
@@ -88,8 +79,6 @@ class EscalationsAdminController extends Controller
 
     public function random(Request $request)
     {
-        // user, contextual date, amount to get
-        return view('escalations_admin.random');
         if (!$request->tracking) {
             return view('escalations_admin.search', compact('records'));
         }
@@ -114,5 +103,30 @@ class EscalationsAdminController extends Controller
         $request->flash();
 
         return view('escalations_admin.search', compact('records'));
+    }
+
+
+
+    public function bbbs(EscalRecord $escalRecords)
+    { 
+
+        if (!$this->request->date) {
+            return view('escalations_admin.bbbs', compact('records'));
+        }
+
+        $this->validate($this->request, [
+            'date'=>'required|date'
+        ]);
+
+        $records = $this->fetchProductionsByBBB($escalRecords);
+
+        if ($this->request->ajax()) {
+            return $records;
+        }
+
+        $this->request->flash();
+
+        return view('escalations_admin.bbbs', compact('records'));
+
     }
 }

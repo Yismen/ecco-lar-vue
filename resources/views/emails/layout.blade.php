@@ -17,7 +17,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>*|MC:SUBJECT|*</title>
+        <title>Dainsys</title>
         <style type="text/css">
       /* /\/\/\/\/\/\/\/\/ CLIENT-SPECIFIC STYLES /\/\/\/\/\/\/\/\/ */
       #outlook a{padding:0;} /* Force Outlook to provide a "view in browser" message */

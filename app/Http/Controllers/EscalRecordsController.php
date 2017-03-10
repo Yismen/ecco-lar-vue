@@ -82,11 +82,12 @@ class EscalRecordsController extends Controller
      */
     public function store(EscalRecord $escalations_record, Request $request)
     {
-        $this->validateRequest($request, $escalations_record);
+        $this->replaceRequest($request)->validateRequest($request, $escalations_record);
 
         $escalation_record = $this->user->escalationsRecords()->create([
             'tracking' => $request->tracking, 
-            'escal_client_id' => $request->escalations_client_id
+            'escal_client_id' => $request->escalations_client_id,
+            'is_bbb' => $request->is_bbb
         ]);
 
         if ($request->ajax()) {
@@ -97,7 +98,7 @@ class EscalRecordsController extends Controller
 
         return redirect()
             ->route('admin.escalations_records.create')
-            ->withInput($request->except('tracking'))
+            ->withInput($request->except('tracking', 'is_bbb'))
             ->withSuccess("Escalations record $request->tracking have been created!");
     }
 
@@ -132,10 +133,11 @@ class EscalRecordsController extends Controller
      */
     public function update(Request $request, EscalRecord $escalations_record)
     {
-        $this->validateRequest($request, $escalations_record);
+        $this->replaceRequest($request)->validateRequest($request, $escalations_record);
        
         $escalations_record->tracking = $request->tracking;
         $escalations_record->escal_client_id = $request->escalations_client_id;
+        $escalations_record->is_bbb = $request->is_bbb;
         $escalations_record->save();
 
         return redirect()->route('admin.escalations_records.create')
@@ -177,14 +179,22 @@ class EscalRecordsController extends Controller
 
     private function validateRequest($request, $escalations_record)
     {
-        $request->replace([
-            'tracking' => trim($request->tracking),
-            'escalations_client_id' => $request->escalations_client_id,
-        ]);
+        // Add an exception to allow duplicates if the insert date is different
 
         return $this->validate($request, [
             'tracking' => "required|int|digits:9|unique:escal_records,tracking,$escalations_record->id,id",
             'escalations_client_id' => "required|int|exists:escal_clients,id",
         ]);
+    }
+
+    public function replaceRequest($request)
+    {        
+        $request->replace([
+            'tracking' => trim($request->tracking),
+            'escalations_client_id' => $request->escalations_client_id,
+            'is_bbb' => $request->is_bbb,
+        ]);
+
+        return $this;
     }
 }

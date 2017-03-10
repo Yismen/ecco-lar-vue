@@ -86,10 +86,10 @@ elixir(function(mix) {
 		'css/all.css'
 	]);
 
-	mix.browserSync({
-		browser: "google chrome",
-        proxy: 'localhost:8000',
-        port: 8000
-	});
+	// mix.browserSync({
+	// 	browser: "google chrome",
+ //        proxy: 'localhost:8000',
+ //        port: 8000
+	// });
     
 });

@@ -31,4 +31,13 @@
     </div>
 </div>
 <!-- /. Client -->
-
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+        <div class="checkbox">
+            <label for="is_bbb">
+                {!! Form::checkbox('is_bbb', '1', null, ['id' => 'is_bbb']) !!} Is BBB or Attorney General?
+            </label>
+            <span class="help-block">Check this box if the CS Agent provides any of the following in their comments: BBB / Better Business Bureau / Attorney General / Threatening a law suit or small claims court / Threatening to cancel service / Asking for VZW corporate contacts</span>
+        </div>
+    </div>
+</div>  

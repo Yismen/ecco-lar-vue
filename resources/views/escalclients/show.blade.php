@@ -2,8 +2,13 @@
 @extends('layouts.'.$layout->app(), ['page_header'=>'Escalations Clients', 'page_description'=>'Details for Escalations Clients'])
 
 @section('content')
-	<div class="container">
-		<div class="col-sm-8 col-sm-offset-2">
+	<div class="container-fluid">
+		<div class="col-sm-4 ">
+			<div class="box box-primary pad">		
+				@include('escalations_admin.partials.links')
+			</div>
+		</div>
+		<div class="col-sm-8">
 			<div class="box box-primary pad">
 				<div class="small-box bg-aqua">
 					<div class="inner">

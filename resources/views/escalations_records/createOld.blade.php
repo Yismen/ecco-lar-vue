@@ -54,14 +54,16 @@
 								<tr>
 									<th>Tracking Number:</th>
 									<th>Client:</th>
+									<th>BBB Record?:</th>
 									<th>Action:</th>
 								</tr>
 							</thead>
 							<tbody>
 								@foreach ($escalations_records as $record)
-									<tr>
+									<tr class="{{ $record->is_bbb ? 'warning' : '' }}">
 										<td>{{ $record->tracking }}</td>
 										<td>{{ $record->escal_client->name }}</td>
+										<td>{{ $record->is_bbb ? 'BBB Record' : '' }}</td>
 										<td>
 											<a href="/admin/escalations_records/{{ $record->tracking }}/edit"><i class="fa fa-edit"> Edit</i></a>
 										</td>

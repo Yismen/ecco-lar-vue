@@ -2,14 +2,19 @@
 @extends('layouts.'.$layout->app(), ['page_header'=>'Escalations Clients', 'page_description'=>'List of Current Escalations Clients'])
 
 @section('content')
-	<div class="container">
-		<div class="col-sm-8 col-sm-offset-2">
+	<div class="container-fluid">
+		<div class="col-sm-4">
+			<div class="box box-primary pad">		
+				@include('escalations_admin.partials.links')
+			</div>
+		</div>
+		<div class="col-sm-8">
 			<div class="box box-primary pad">
 				<h3 class="page-header">
 					Escalations Clients List
-						 	<a href="{{ route('admin.escalations_clients.create') }}" class="pull-right btn btn-primary">
-						 		<i class="fa fa-plus"></i> Create
-						 	</a>
+				 	<a href="{{ route('admin.escalations_clients.create') }}" class="pull-right btn btn-primary">
+				 		<i class="fa fa-plus"></i> Create
+				 	</a>
 				</h3>
 
 				@if (count($escalclients) > 0)
