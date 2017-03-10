@@ -4,14 +4,23 @@
     
     <div class="row">
         <div class="col-sm-12">
-            {!! Form::open(['url'=>['/admin/escalations_admin/by_date',], 'method'=>'POST', 'class'=>'form-horizontal', 'role'=>'form', 'autocomplete'=>"off"]) !!}        
+            {!! Form::open(['url'=>['/admin/escalations_admin/by_date',], 'method'=>'POST', 'class'=>'form-inline', 'role'=>'form', 'autocomplete'=>"off"]) !!}        
                 <legend>Search by Date</legend>
             
                 <!-- Production Date -->
                 <div class="col-sm-12">
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <b>Detailed</b>
+                                <input type="checkbox" value="1" name="detailed">
+                            </label>
+                        </div>
+                    </div>
+
+
                     <div class="form-group {{ $errors->has('date') ? 'has-error' : null }}">
-                        {!! Form::label('date', 'Production Date:', ['class'=>'col-sm-2 control-label']) !!}
-                        <div class="col-sm-10">
+                        {!! Form::label('date', 'Production Date:', ['class'=>'']) !!}
                             <div class="input-group">
                                 {!! Form::input('date', 'date', null, ['class'=>'form-control', 'placeholder'=>'Production Date']) !!}   
                                 <span class="input-group-btn">
@@ -22,7 +31,6 @@
                                 </span>     
                             </div>
                             {!! $errors->first('date', '<span class="text-danger">:message</span>') !!}
-                        </div>
                     </div>
                 </div>
                 <!-- /. Production Date --> 
@@ -95,6 +103,37 @@
                     </div>
                     
                 </div>
+                
+                @if (isset($detailed) && $detailed->count() > 0)
+                    <div class="col-sm-12">
+                        <div class="box box-danger">
+                            <div class="table-responsive">
+                                <h4>Detailed list of tracking numbers</h4>
+                                <table class="table table-hover table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th>Insert Date:</th>
+                                            <th>Client: </th>
+                                            <th>Created By: </th>
+                                            <th>Tracking Number: </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($detailed as $record)
+                                            <tr>
+                                                <td>{{ $record->insert_date }}</td>
+                                                <td>{{ $record->client->name }}</td>
+                                                <td>{{ $record->user->name }}</td>
+                                                <td>{{ $record->tracking }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+                   
 
                 {{-- /Clients and Users --}}
                 {{-- {{ $ }} --}}

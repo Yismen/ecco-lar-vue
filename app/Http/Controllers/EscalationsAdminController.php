@@ -37,15 +37,13 @@ class EscalationsAdminController extends Controller
 
         $clients     = $this->fetchClientsProductionByDate($escalClient);
         $users       =  $this->fetchUsersProductionByDate($user);
-        // $productions =  $this->fetchProductionsByDate($escalRecords, $escalClient);
-
-        if ($this->request->ajax()) {
-            return $clients;
+        if ($this->request->has('detailed')) {
+           $detailed       =  $this->fetchDetaileProductionByDate($escalRecords);
         }
 
         $this->request->flash();
 
-        return view('escalations_admin.by_date', compact('clients', 'users'));
+        return view('escalations_admin.by_date', compact('clients', 'users', 'detailed'));
 
     }
 

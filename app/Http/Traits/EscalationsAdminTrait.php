@@ -37,6 +37,13 @@ trait EscalationsAdminTrait
             ->get();
     }
 
+    public function fetchDetaileProductionByDate($escalRecords)
+    {
+        return $escalRecords->with('user')->whereDate('created_at', '=', $this->date)
+            ->get();
+        
+    }
+
     private function fetchProductionsByDate($escalRecords, $escalClient)
     {
         $date = $this->date;
