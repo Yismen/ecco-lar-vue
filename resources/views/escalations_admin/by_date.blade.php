@@ -7,8 +7,15 @@
             {!! Form::open(['url'=>['/admin/escalations_admin/by_date',], 'method'=>'POST', 'class'=>'form-inline', 'role'=>'form', 'autocomplete'=>"off"]) !!}        
                 <legend>Search by Date</legend>
             
-                <!-- Production Date -->
                 <div class="col-sm-12">
+                
+                    <!-- Production Date -->
+                    <div class="form-group {{ $errors->has('date') ? 'has-error' : null }}">
+                        {!! Form::label('date', 'Production Date:', ['class'=>'']) !!}
+                        {!! Form::input('date', 'date', null, ['class'=>'form-control', 'placeholder'=>'Production Date']) !!}  
+                        {!! $errors->first('date', '<span class="text-danger">:message</span>') !!}
+                    </div>
+
                     <div class="form-group">
                         <div class="checkbox">
                             <label>
@@ -18,20 +25,13 @@
                         </div>
                     </div>
 
-
-                    <div class="form-group {{ $errors->has('date') ? 'has-error' : null }}">
-                        {!! Form::label('date', 'Production Date:', ['class'=>'']) !!}
-                            <div class="input-group">
-                                {!! Form::input('date', 'date', null, ['class'=>'form-control', 'placeholder'=>'Production Date']) !!}   
-                                <span class="input-group-btn">
-                                    <button class="btn btn-primary" type="submit">
-                                        <i class="fa fa-search"></i>
-                                         Search
-                                    </button>
-                                </span>     
-                            </div>
-                            {!! $errors->first('date', '<span class="text-danger">:message</span>') !!}
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit">
+                            <i class="fa fa-search"></i>
+                             Search
+                        </button>  
                     </div>
+
                 </div>
                 <!-- /. Production Date --> 
             {!! Form::close() !!}
