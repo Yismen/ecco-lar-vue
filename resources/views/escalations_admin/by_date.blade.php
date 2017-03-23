@@ -18,9 +18,9 @@
 
                     <div class="form-group">
                         <div class="checkbox">
-                            <label>
-                                <b>Detailed</b>
-                                <input type="checkbox" value="1" name="detailed">
+                            <label for="detailed">
+                                <b>Detailed: </b> 
+                                <input type="checkbox" value="1" name="detailed" id="detailed">
                             </label>
                         </div>
                     </div>

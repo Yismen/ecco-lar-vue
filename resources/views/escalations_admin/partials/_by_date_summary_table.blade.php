@@ -1,6 +1,6 @@
 @if(isset($summary))
     <div class="col-sm-12">
-        <div class="box box-primary">
+        <div class="box box-info">
             <div class="table-responsive">
                 <h3>Summary</h3>
                 <table class="table table-hover table-bordered table-condensed">
