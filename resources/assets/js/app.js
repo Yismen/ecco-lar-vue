@@ -65,12 +65,12 @@
        * Apply iCheck plugin to all the inputs in the app.
        * The plugin will only pick checkboxes and radios
        */
-      if(elType == 'input') {
-        el.iCheck({
-          checkboxClass: 'icheckbox_square icheckbox_square-blue',
-          radioClass: 'iradio_square-blue'
-        });
-      }
+      // if(elType == 'input') {
+      //   el.iCheck({
+      //     checkboxClass: 'icheckbox_square icheckbox_square-blue',
+      //     radioClass: 'iradio_square-blue'
+      //   });
+      // }
 
       /**
        * Apply summernote plugin to all the textareas in the app

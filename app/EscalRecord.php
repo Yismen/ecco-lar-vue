@@ -18,7 +18,7 @@ class EscalRecord extends Model
      * @var array
      */
     // protected $with = ['escal_client'];
-    protected $appends = ['client'];
+    // protected $appends = ['client'];
 
     /**
      * ==========================================

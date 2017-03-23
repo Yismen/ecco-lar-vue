@@ -35,15 +35,16 @@ class EscalationsAdminController extends Controller
             'date'=>'required|date'
         ]);
 
-        $clients     = $this->fetchClientsProductionByDate($escalClient);
-        $users       =  $this->fetchUsersProductionByDate($user);
+        $clients = $this->fetchClientsProductionByDate($escalClient);
+        $users   =  $this->fetchUsersProductionByDate($user);
+        $summary = $this->fetchProductionsByDate($escalRecords, $escalClient, $user);
         if ($this->request->has('detailed')) {
            $detailed       =  $this->fetchDetailedProductionByDate($escalRecords);
         }
 
         $this->request->flash();
 
-        return view('escalations_admin.by_date', compact('clients', 'users', 'detailed'));
+        return view('escalations_admin.by_date', compact('clients', 'users', 'detailed', 'summary'));
 
     }
 

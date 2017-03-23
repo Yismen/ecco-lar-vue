@@ -4,6 +4,7 @@ namespace App\Http\Traits;
 
 use App\User;
 use App\EscalClient;
+use Illuminate\Support\Facades\DB;
 
 trait EscalationsAdminTrait
 {
@@ -15,7 +16,7 @@ trait EscalationsAdminTrait
 
         return $escalClient->select(['name', 'id'])        
             ->whereHas('escal_records', function($query) use ($date){
-                $query->whereDate('created_at', '=', $date);
+                $query->whereDate('created_at', '=', $date)->with('user');
             })
             ->withCount(['escal_records' => function($query) use ($date) {
                 $query->whereDate('created_at', '=', $date);
@@ -39,7 +40,11 @@ trait EscalationsAdminTrait
 
     public function fetchDetailedProductionByDate($escalRecords)
     {
-        return $escalRecords->with('user')->whereDate('created_at', '=', $this->date)
+        return $escalRecords
+            ->with('user')
+            ->with('escal_client')
+            ->orderBy('escal_client_id')
+            ->whereDate('created_at', '=', $this->date)
             ->get();
         
     }
@@ -55,17 +60,16 @@ trait EscalationsAdminTrait
         
     }
 
-    private function fetchProductionsByDate($escalRecords, $escalClient)
+    private function fetchProductionsByDate($escalRecords, $escalClient, $user)
     {
         $date = $this->date;
 
-        return $user->select(['name', 'id'])
-            ->whereHas('escalationsRecords', function($query) use ($date){
-                $query->whereDate('created_at', '=', $date);
-            })
-            ->withCount(['escalationsRecords' => function($query) use ($date) {
-                $query->whereDate('created_at', '=', $date);
-            }])
+        return $escalRecords->select(DB::raw("user_id, escal_client_id, count(tracking) as records"))
+            ->groupBy(['user_id', 'escal_client_id'])
+            ->orderBy('escal_client_id')
+            ->whereDate('created_at', '=', $date)
+            ->with('user')
+            ->with('escal_client')
             ->get();
     }
 
