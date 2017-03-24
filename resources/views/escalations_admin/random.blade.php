@@ -4,7 +4,7 @@
     
     <div class="row">
         <div class="col-sm-12">
-            {!! Form::open(['url'=>['/admin/escalations_admin/random'], 'method'=>'GET', 'class'=>'form-horizontal', 'role'=>'form', 'autocomplete'=>"off"]) !!}        
+            {!! Form::open(['url'=>['/admin/escalations_admin/random'], 'method'=>'POST', 'class'=>'form-horizontal', 'role'=>'form', 'autocomplete'=>"off"]) !!}        
                 <legend>Search Random Records by Range and Agents</legend>
 
                 <div class="col-sm-12">

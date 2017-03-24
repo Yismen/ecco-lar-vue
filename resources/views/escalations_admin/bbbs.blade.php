@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-sm-12">
 
-            {!! Form::open(['url'=>['/admin/escalations_admin/bbbs'], 'method'=>'GET', 'class'=>'form-horizontal', 'role'=>'form', 'autocomplete'=>"off"]) !!}        
+            {!! Form::open(['url'=>['/admin/escalations_admin/bbbs'], 'method'=>'POST', 'class'=>'form-horizontal', 'role'=>'form', 'autocomplete'=>"off"]) !!}        
                 <legend>Search BBBs Records</legend>
 
                  <!-- Production Date -->

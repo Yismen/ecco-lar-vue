@@ -4,7 +4,8 @@
     
     <div class="row">
         <div class="col-sm-12">
-            {!! Form::open(['url'=>['/admin/escalations_admin/by_date',], 'method'=>'POST', 'class'=>'form-inline', 'role'=>'form', 'autocomplete'=>"off"]) !!}        
+            <form action="{{ url('/admin/escalations_admin/by_date') }}" method="POST" class="form-inline" role="form" autocomplete="off" class="form-inline">
+                {!! csrf_field() !!}        
                 <legend>Search by Date</legend>
             
                 <div class="col-sm-12">
@@ -19,8 +20,8 @@
                     <div class="form-group">
                         <div class="checkbox">
                             <label for="detailed">
-                                <b>Detailed: </b> 
-                                <input type="checkbox" value="1" name="detailed" id="detailed">
+                                <b>Detailed: 
+                                <input type="checkbox" value="1" name="detailed" id="detailed"></b> 
                             </label>
                         </div>
                     </div>
@@ -31,11 +32,9 @@
                              Search
                         </button>  
                     </div>
-
                 </div>
-                <!-- /. Production Date --> 
-            {!! Form::close() !!}
-
+                <!-- /. Production Date -->
+            </form>
 
             @if (isset($clients) && isset($users) && isset($summary))
                 <hr>    
@@ -43,12 +42,13 @@
                 <div class="col-sm-12">
                     <div class="page-header">Results for Date [{{ Request::old('date') }}] </div>
                 </div>
+
+                @include('escalations_admin.partials._by_date_summary_table')
+                @include('escalations_admin.partials._by_date_clients_table')
+                @include('escalations_admin.partials._by_date_users_table')
+                @include('escalations_admin.partials._by_date_detailed_table')
             @endif
-                
-            @include('escalations_admin.partials._by_date_summary_table')
-            @include('escalations_admin.partials._by_date_clients_table')
-            @include('escalations_admin.partials._by_date_users_table')
-            @include('escalations_admin.partials._by_date_detailed_table')
+
         </div>
     </div>
 @stop

@@ -48,12 +48,13 @@ class EscalationsAdminController extends Controller
 
     }
 
-    public function getSearch(Request $request)
+    public function search()
     {
-        if (!$request->tracking) {
-            return view('escalations_admin.search', compact('records'));
-        }
+        return view('escalations_admin.search');
+    }
 
+    public function searchPost(Request $request)
+    {
         $request->replace([
             'tracking' => trim($request->tracking),
             'page' => trim($request->page),
@@ -69,25 +70,29 @@ class EscalationsAdminController extends Controller
         $records = EscalRecord::where('tracking', 'like', "%$tracking%")
             ->with('user')
             ->orderBy('created_at', 'DESC')
-            ->paginate(10)->appends(['tracking'=>$tracking]);
+            ->get();
+            // ->paginate(10)->appends(['tracking'=>$tracking]);
 
         $request->flash();
 
         return view('escalations_admin.search', compact('records'));
     }
 
-    public function random(Request $request, EscalRecord $escalRecords)
+    public function random()
     {
         $users = User::has('escalationsRecords')->lists('name', 'id');
 
-        if (!$request->records) {
-            return view('escalations_admin.random', compact('users'));
-        }
+        return view('escalations_admin.random', compact('users'));
+    }
+
+    public function randomPost(Request $request, EscalRecord $escalRecords)
+    {
+        $users = User::has('escalationsRecords')->lists('name', 'id');
 
         $this->validate($request, [
             'from' => 'required|date',
             'to' => 'required|date',
-            'records' => 'required|int',
+            'records' => 'required|int|min:1',
             'user_id' => 'required|exists:users,id',
         ]);
 
@@ -99,14 +104,13 @@ class EscalationsAdminController extends Controller
     }
 
 
+    public function bbbs()
+    {
+        return view('escalations_admin.bbbs');
+    }
 
-    public function bbbs(EscalRecord $escalRecords)
-    { 
-
-        if (!$this->request->date) {
-            return view('escalations_admin.bbbs', compact('records'));
-        }
-
+    public function bbbsPost(EscalRecord $escalRecords)
+    {
         $this->validate($this->request, [
             'date'=>'required|date'
         ]);

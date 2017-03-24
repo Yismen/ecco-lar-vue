@@ -3,7 +3,7 @@
         <div class="box box-danger">
             <div class="table-responsive">
                 <h4>Detailed list of tracking numbers</h4>
-                <table class="table table-hover table-condensed">
+                <table class="table table-hover table-condensed table-bordered">
                     <thead>
                         <tr>
                             <th>Insert Date:</th>
@@ -14,7 +14,7 @@
                     </thead>
                     <tbody>
                         @foreach ($detailed as $record)
-                            <tr>
+                            <tr class="{{ $record->is_bbb ? 'warning' : '' }}">
                                 <td>{{ $record->insert_date }}</td>
                                 <td>{{ $record->escal_client->name }}</td>
                                 <td>{{ $record->user->name }}</td>

@@ -55,7 +55,7 @@ trait EscalationsAdminTrait
             ->whereUserId($user_id)
             ->whereBetween('created_at', [$from, $to])
             ->inRandomOrder()
-            ->take(5)
+            ->take($amount)
             ->get();
         
     }

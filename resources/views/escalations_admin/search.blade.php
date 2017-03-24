@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-sm-12">
 
-            {!! Form::open(['url'=>['/admin/escalations_admin/search'], 'method'=>'GET', 'class'=>'form-horizontal', 'role'=>'form', 'autocomplete'=>"off"]) !!}        
+            {!! Form::open(['url'=>['/admin/escalations_admin/search'], 'method'=>'POST', 'class'=>'form-horizontal', 'role'=>'form', 'autocomplete'=>"off"]) !!}        
                 <legend>Search Records</legend>
 
                 <!-- Tracking Number -->
@@ -64,7 +64,7 @@
                                     </tbody>
                                 </table>
 
-                                {{ $records }}
+                                {{-- {{ $records }} --}}
                             </div>
 
                             {{-- <canvas id="clientsChart" height="100%" width="60px"></canvas> --}}
