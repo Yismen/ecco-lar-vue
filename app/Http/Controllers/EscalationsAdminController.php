@@ -96,13 +96,14 @@ class EscalationsAdminController extends Controller
             'user_id' => 'required|exists:users,id',
         ]);
 
-        $records = $this->fetchRandomRecordsByRange($escalRecords, $request->records, $request->user_id, $request->from, $request->to); 
+        return $request->all();
+
+        return $records = $this->fetchRandomRecordsByRange($escalRecords, $request->records, $request->user_id, $request->from, $request->to); 
 
         $request->flash();
 
         return view('escalations_admin.random', compact('records', 'users'));
     }
-
 
     public function bbbs()
     {

@@ -8,6 +8,7 @@
                 <div class="box box-primary pad">
                     <div class="row">
                         <div class="col-sm-12">
+                        {{-- {{ $production }}  --}}
                             {!! Form::model($production, ['route'=>['admin.production-hours.update', $production->id], 'method'=>'PUT', 'class'=>'form-horizontal', 'role'=>'form', 'novalidate']) !!}	
 									<h4 class="page-header">Edit Production for {{ $production->employee->fullName }}</h4>
 {{-- 

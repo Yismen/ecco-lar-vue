@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"escal",
+				"escal_client\t(EscalationsAdminTrait.php)"
+			],
+			[
+				"esc",
+				"escalRecords"
+			],
+			[
+				"where",
+				"whereDate"
+			],
+			[
 				"required",
 				"required|date"
 			],
@@ -30,10 +42,6 @@
 			[
 				"col-sm",
 				"col-sm-offset-2\t(edit.blade.php)"
-			],
-			[
-				"escal",
-				"escal_client_id\t(EscalRecord.php)"
 			],
 			[
 				"Test",
@@ -146,10 +154,6 @@
 			[
 				"escacli",
 				"escal_client"
-			],
-			[
-				"esc",
-				"escalations_record"
 			],
 			[
 				"es",
@@ -500,10 +504,6 @@
 				"findOrFail\t(routes.php)"
 			],
 			[
-				"where",
-				"whereUsername\t(routes.php)"
-			],
-			[
 				"put",
 				"put(key, value)\tangular-cookies.js"
 			],
@@ -520,19 +520,30 @@
 	"buffers":
 	[
 		{
-			"file": "resources/views/escalations_admin/by_date.blade.php",
+			"file": "resources/views/escalations_admin/random.blade.php",
 			"settings":
 			{
-				"buffer_size": 6715,
+				"buffer_size": 3923,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "app/Http/Traits/EscalationsAdminTrait.php",
+			"contents": "<?php\n\nnamespace App\\Http\\Controllers;\n\nuse App\\Employee;\nuse Carbon\\Carbon;\nuse App\\Production;\nuse App\\Supervisor;\nuse App\\Http\\Requests;\nuse Illuminate\\Http\\Request;\nuse App\\Http\\Requests\\ProductionsUpdateRequest;\n\nclass ProductionHoursController extends Controller\n{\n    private $request;\n    private $supervisorsList;\n\n    public function __construct(Request $request)\n    {\n        $this->middleware('authorize:view_production_hours|edit_production_hours|create_production_hours', ['only'=>['index','show']]);\n        $this->middleware('authorize:edit_production_hours', ['only'=>['edit','update']]);\n        $this->middleware('authorize:create_production_hours', ['only'=>['create','store']]);\n        $this->middleware('authorize:destroy_production_hours', ['only'=>['destroy']]);\n\n        $this->request = $request;  \n        $this->supervisorsList =  Supervisor::lists('name', 'name')->toArray();\n    }\n\n    /**\n     * Display a listing of the resource.\n     *\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function index()\n    {\n        $supervisorsList = $this->supervisorsList;    \n\n        return view('production-hours.index', compact('supervisorsList'));\n    }\n\n    public function queryByDate()\n    {\n        $this->validate($this->request, [\n            'date' => 'required|date',\n            'supervisor'=>'required|exists:supervisors,name'\n        ]);\n\n        $date = Carbon::createFromFormat('Y-m-d', $this->request->input('date'))->format('Y-m-d');\n        $supervisor = $this->request->input('supervisor');\n        $supervisorsList = $this->supervisorsList;\n\n        $employees = $this->getEmployeesWithProduction($date, $supervisor);\n\n        $this->request->flash();\n\n        if ($this->request->ajax()) {\n            return view('production-hours._results', compact('employees', 'supervisorsList'));\n        }\n        \n        return view('production-hours.index', compact('employees', 'supervisorsList'));\n    }\n\n    /**\n     * Retrieve a list of employees belonging to the provided supervisor and\n     * having production for the given date. Otherwiles null will be returned.\n     * $date [date]     The insert date in the production table.\n     * $supervisor [string]     The supervisor assigned to the employees.\n     */\n    private function getEmployeesWithProduction($date, $supervisor)\n    {\n        return Employee::whereHas('productions', function($query)use($date){\n            return $query->where('insert_date', '=', $date);\n        })\n        ->whereHas('supervisor', function($query)use($supervisor){\n            return $query->where('name', '=', $supervisor);\n        })\n        ->with(['productions' => function($query)use($date){\n            return $query->with('source')\n                ->orderBy('name', 'ASC')\n                ->with('client')\n                ->where('insert_date', $date)\n                ->get();\n        }])\n        ->orderBy('first_name')\n        ->paginate(25)->appends(['date'=>$date, 'supervisor'=>$supervisor]);\n    }\n\n    /**\n     * Show the form for creating a new resource.\n     *\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function create()\n    {\n        return \"Create method will not be needed\";\n    }\n\n    /**\n     * Store a newly created resource in storage.\n     *\n     * @param  \\Illuminate\\Http\\Request  $request\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function store(Request $request)\n    {\n        return \"Store method will not be needed\";\n    }\n\n    /**\n     * Display the specified resource.\n     *\n     * @param  int  $id\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function show($id)\n    {\n        return \"Show method will not be needed\";\n    }\n\n    /**\n     * Show the form for editing the specified resource.\n     *\n     * @param  int  $id\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function edit(Production $production)\n    {\n        $clientList = Client::orderBy('name')->lists('name', 'id');\n        $sourceList = Source::orderBy('name')->lists('name', 'id');\n        $reasonsList = Reason::orderBy('reason')->lists('reason', 'id')->toArray();\n        // $reasonsList[0] = '<-- Please Select -->';\n        // dd($production->client()->lists('name', 'id')->toArray());\n\n        return view('production-hours.edit', compact('production', 'clientList', 'sourceList', 'reasonsList'));\n    }\n\n    /**\n     * Update the specified resource in storage.\n     *\n     * @param  int  Production $production\n     * @return Response\n     */\n    public function update(Production $production, ProductionsUpdateRequest $request)\n    {\n        // return $request->only(['in_time','production_hours', 'break_time', 'downtime', 'out_time']);\n        $production->update($request->only(['in_time','production_hours', 'break_time', 'downtime', 'out_time']));\n\n        return redirect()->route('admin.production-hours.edit', $production->id)\n            ->withSuccess(\"Production $production->id has been updated\");\n    }\n\n    /**\n     * Remove the specified resource from storage.\n     *\n     * @param  int  $id\n     * @return \\Illuminate\\Http\\Response\n     */\n    public function destroy($id)\n    {\n        //\n    }\n}\n",
+			"file": "app/Http/Controllers/ProductionHoursController.php",
+			"file_size": 5189,
+			"file_write_time": 131220616677774201,
 			"settings":
 			{
-				"buffer_size": 2471,
+				"buffer_size": 5174,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "resources/views/escalations_admin/partials/_random_results.blade.php",
+			"settings":
+			{
+				"buffer_size": 1851,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -545,10 +556,42 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 57.0,
-		"last_filter": "",
+		"height": 354.0,
+		"last_filter": "Snippet: booalert",
 		"selected_items":
 		[
+			[
+				"Snippet: booalert",
+				"Snippet: Bootstrap information alert"
+			],
+			[
+				"Snippet: alert",
+				"Snippet: Bootstrap error alert"
+			],
+			[
+				"Snippet: booaler",
+				"Snippet: Bootstrap success alert"
+			],
+			[
+				"Snippet: unless",
+				"Snippet: blade-unless"
+			],
+			[
+				"Snippet: myde",
+				"Snippet: My Laravel Delete Form"
+			],
+			[
+				"Snippet: forea",
+				"Snippet: blade-foreach"
+			],
+			[
+				"Snippet: tableres",
+				"Snippet: bs3-table-responsive"
+			],
+			[
+				"Snippet: my input",
+				"Snippet: My blade form input"
+			],
 			[
 				"Snippet: selecho",
 				"Snippet: My blade form select horizontal"
@@ -562,20 +605,12 @@
 				"Snippet: My blade form input horizontal"
 			],
 			[
-				"Snippet: forea",
-				"Snippet: blade-foreach"
-			],
-			[
 				"Snippet: tabres",
 				"Snippet: bs3-table-responsive"
 			],
 			[
 				"Snippet: bladeif",
 				"Snippet: blade-if"
-			],
-			[
-				"Snippet: tableres",
-				"Snippet: bs3-table-responsive"
 			],
 			[
 				"Snippet: check",
@@ -588,10 +623,6 @@
 			[
 				"Snippet: checkbox",
 				"Snippet: checkboxhorizontal"
-			],
-			[
-				"Snippet: alert",
-				"Snippet: bs3-alert-info"
 			],
 			[
 				"Snippet: bsch",
@@ -862,10 +893,6 @@
 				"Snippet: bs3-input-group-text-btn"
 			],
 			[
-				"Snippet: myde",
-				"Snippet: My Laravel Delete Form"
-			],
-			[
 				"Snippet: in",
 				"Snippet: bs3-input-number"
 			],
@@ -1044,22 +1071,6 @@
 			[
 				"Snippet: manytoma",
 				"Snippet: A many-to-many relationship."
-			],
-			[
-				"Snippet: many to ",
-				"Snippet: l5 many to many relation"
-			],
-			[
-				"Snippet: many",
-				"Snippet: l5 many to many relation"
-			],
-			[
-				"Snippet: mysingle",
-				"Snippet: My blade input single error message"
-			],
-			[
-				"Snippet: mybladeerror",
-				"Snippet: My blade input single error message"
 			]
 		],
 		"width": 510.0
@@ -1089,16 +1100,35 @@
 	"expanded_folders":
 	[
 		"/F/wamp/www/dainsys3",
+		"/F/wamp/www/dainsys3/app",
+		"/F/wamp/www/dainsys3/app/Http",
+		"/F/wamp/www/dainsys3/app/Http/Controllers",
 		"/F/wamp/www/dainsys3/resources",
-		"/F/wamp/www/dainsys3/resources/assets"
+		"/F/wamp/www/dainsys3/resources/views"
 	],
 	"file_history":
 	[
+		"/C/Users/Yismen/AppData/Roaming/Sublime Text 3/Packages/PHP Companion/PHP Companion.sublime-settings",
+		"/C/Users/Yismen/AppData/Roaming/Sublime Text 3/Packages/User/PHP Companion.sublime-settings",
+		"/F/wamp/www/dainsys3/app/Http/Routes/escalations_admin.php",
+		"/F/wamp/www/dainsys3/app/Http/Traits/EscalationsAdminTrait.php",
 		"/F/wamp/www/dainsys3/resources/views/escalations_admin/random.blade.php",
+		"/F/wamp/www/dainsys3/resources/views/escalations_admin/bbbs.blade.php",
 		"/F/wamp/www/dainsys3/app/Http/Controllers/EscalationsAdminController.php",
+		"/F/wamp/www/dainsys3/resources/views/escalations_admin/search.blade.php",
+		"/F/wamp/www/dainsys3/resources/views/escalations_admin/partials/_by_date_detailed_table.blade.php",
+		"/F/wamp/www/dainsys3/resources/views/escalations_admin/by_date.blade.php",
+		"/F/wamp/www/dainsys3/resources/views/escalations_admin/partials/_by_date_summary_table.blade.php",
+		"/F/wamp/www/dainsys3/resources/views/escalations_admin/partials/links.blade.php",
+		"/F/wamp/www/dainsys3/resources/assets/js/app.js",
+		"/F/wamp/www/dainsys3/resources/views/escalations_admin/partials/_by_date_users_table.blade.php",
+		"/F/wamp/www/dainsys3/app/EscalRecord.php",
+		"/F/wamp/www/dainsys3/resources/views/escalations_admin/partials/_by_date_clients_table.blade.php",
+		"/F/wamp/www/dainsys3/resources/views/escalations_admin/partials/_by_date_client_table.blade.php",
+		"/F/wamp/www/dainsys3/resources/views/layouts/partials/logo.blade.php",
+		"/F/wamp/www/dainsys3/gulpfile.js",
 		"/F/wamp/www/dainsys3/app/User.php",
 		"/C/Users/Yismen/AppData/Roaming/Sublime Text 3/Packages/User/snippets/blade/My blade form input horizontal.sublime-snippet",
-		"/F/wamp/www/dainsys3/app/Http/Routes/escalations_admin.php",
 		"/F/wamp/www/dainsys3/app/Http/routes.php",
 		"/F/wamp/www/dainsys3/resources/views/test/component.blade.php",
 		"/F/wamp/www/dainsys3/app/Http/Controllers/TestController.php",
@@ -1108,22 +1138,14 @@
 		"/F/wamp/www/dainsys3/resources/views/escalations_records/indexOld.blade.php",
 		"/F/wamp/www/dainsys3/resources/views/escalations_records/edit.blade.php",
 		"/F/wamp/www/dainsys3/resources/views/escalations_records/createOld.blade.php",
-		"/F/wamp/www/dainsys3/app/EscalRecord.php",
 		"/F/wamp/www/dainsys3/database/migrations/2017_03_09_220632_add_insert_date_to_escalations_records.php",
-		"/F/wamp/www/dainsys3/app/Http/Traits/EscalationsAdminTrait.php",
 		"/F/wamp/www/dainsys3/resources/views/escalclients/edit.blade.php",
 		"/F/wamp/www/dainsys3/resources/views/escalclients/show.blade.php",
 		"/F/wamp/www/dainsys3/resources/views/escalclients/index.blade.php",
 		"/F/wamp/www/dainsys3/resources/views/escalclients/create.blade.php",
-		"/F/wamp/www/dainsys3/resources/views/escalations_admin/bbbs.blade.php",
 		"/F/wamp/www/dainsys3/resources/views/escalations_records/_form.blade.php",
-		"/F/wamp/www/dainsys3/resources/views/escalations_admin/search.blade.php",
-		"/F/wamp/www/dainsys3/resources/views/escalations_admin/partials/links.blade.php",
-		"/F/wamp/www/dainsys3/resources/assets/js/app.js",
 		"/F/wamp/www/dainsys3/database/migrations/2017_03_09_184748_add_is_bbb_to_escal_records_table.php",
-		"/F/wamp/www/dainsys3/gulpfile.js",
 		"/F/wamp/www/dainsys3/node_modules/bs-recipes/recipes/gulp.browserify/gulpfile.js",
-		"/F/wamp/www/dainsys3/resources/views/escalations_admin/by_date.blade.php",
 		"/F/wamp/www/dainsys3/vendor/laravel/framework/src/Illuminate/Foundation/Auth/AuthenticatesAndRegistersUsers.php",
 		"/F/wamp/www/dainsys3/resources/views/profiles/show.blade.php",
 		"/F/wamp/www/dainsys3/app/Http/Traits/TestTrait.php",
@@ -1163,7 +1185,6 @@
 		"/F/wamp/www/dainsys3/resources/views/escalations_records/index.blade.php",
 		"/F/wamp/www/dainsys3/resources/assets/js/escalations/core/routes.js",
 		"/F/wamp/www/dainsys3/resources/views/escalations_records/create.blade.php",
-		"/F/wamp/www/dainsys3/resources/views/layouts/partials/logo.blade.php",
 		"/F/wamp/www/dainsys3/resources/assets/js/escalations/components/EditRecords.vue",
 		"/F/wamp/www/dainsys3/resources/assets/js/escalations/components/Admin.vue",
 		"/F/wamp/www/dainsys3/resources/assets/js/escalations/config/interceptors.js",
@@ -1214,14 +1235,7 @@
 		"/F/wamp/www/dainsys3/app/Providers/ViewsComposerServiceProvider.php",
 		"/F/wamp/www/dainsys3/database/migrations/2015_03_24_010000_create_employees_table.php",
 		"/F/wamp/www/dainsys3/app/Http/Controllers/Auth/AuthController.php",
-		"/F/wamp/www/dainsys3/resources/views/users/edit.blade.php",
-		"/F/wamp/www/dainsys3/app/Http/Routes/users.php",
-		"/F/wamp/www/dainsys3/resources/views/users/reset.blade.php",
-		"/F/wamp/www/dainsys3/resources/views/layouts/partials/flashes.blade.php",
-		"/F/wamp/www/dainsys3/vendor/laravel/framework/src/Illuminate/Foundation/Auth/ResetsPasswords.php",
-		"/F/wamp/www/dainsys3/resources/views/layouts/partials/navbar-user.blade.php",
-		"/F/wamp/www/dainsys3/vendor/laravel/framework/src/Illuminate/Http/RedirectResponse.php",
-		"/F/wamp/www/dainsys3/app/System.php"
+		"/F/wamp/www/dainsys3/resources/views/users/edit.blade.php"
 	],
 	"find":
 	{
@@ -1251,6 +1265,12 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"\\App\\",
+			"b",
+			"pre",
+			"h4",
+			"fetchClientsProductionByDate",
+			"fetchProductionsByDate",
 			"user",
 			"$client",
 			"$records",
@@ -1372,13 +1392,7 @@
 			"PasswordComponent",
 			"passwords",
 			"');\n",
-			"createPermissions",
-			"createMenu",
-			"),\n",
-			"validateRequest",
-			"Text",
-			";\n",
-			"$escalations_record->"
+			"createPermissions"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1455,24 +1469,24 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "resources/views/escalations_admin/by_date.blade.php",
+					"file": "resources/views/escalations_admin/random.blade.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6715,
+						"buffer_size": 3923,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								382,
-								382
+								3889,
+								3889
 							]
 						],
 						"settings":
@@ -1489,19 +1503,19 @@
 							{
 								"allowed_colors":
 								[
-									"hex",
-									"rgba",
+									"hex_compressed",
 									"webcolors",
+									"rgba",
+									"hex",
 									"hsl",
-									"hsla",
 									"rgb",
-									"hex_compressed"
+									"hsla"
 								],
 								"compress_hex_output": true,
 								"current_ext": ".php",
 								"current_syntax": "Laravel Blade Highlighter/blade",
 								"enabled": true,
-								"last_updated": 1489510700.09,
+								"last_updated": 1490795739.71,
 								"scan_completion_scopes":
 								[
 								],
@@ -1520,27 +1534,40 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 138.0,
+						"translation.y": 1562.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "app/Http/Traits/EscalationsAdminTrait.php",
+					"file": "app/Http/Controllers/ProductionHoursController.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2471,
+						"buffer_size": 5174,
 						"regions":
 						{
+							"mark":
+							{
+								"flags": 144,
+								"icon": "dot",
+								"regions":
+								[
+									[
+										3932,
+										3932
+									]
+								],
+								"scope": "mark"
+							}
 						},
 						"selection":
 						[
 							[
-								1359,
-								1359
+								3924,
+								3924
 							]
 						],
 						"settings":
@@ -1557,19 +1584,19 @@
 							{
 								"allowed_colors":
 								[
-									"hex",
-									"rgba",
+									"hex_compressed",
 									"webcolors",
+									"rgba",
+									"hex",
 									"hsl",
-									"hsla",
 									"rgb",
-									"hex_compressed"
+									"hsla"
 								],
 								"compress_hex_output": true,
 								"current_ext": ".php",
 								"current_syntax": "PHP/PHP",
 								"enabled": true,
-								"last_updated": 1489510700.09,
+								"last_updated": 1490795739.71,
 								"scan_completion_scopes":
 								[
 								],
@@ -1588,10 +1615,53 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 218.0,
+						"translation.y": 2643.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "resources/views/escalations_admin/partials/_random_results.blade.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1851,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1851,
+								26
+							]
+						],
+						"settings":
+						{
+							"color_helper.box_height": 13,
+							"color_helper.color_scheme": "Packages/Material Theme/schemes/Material-Theme.tmTheme",
+							"color_helper.file_palette":
+							[
+							],
+							"color_helper.scan":
+							{
+								"current_ext": ".php",
+								"current_syntax": "Laravel Blade Highlighter/blade",
+								"enabled": false,
+								"last_updated": 1490416672.16
+							},
+							"open_with_edit": true,
+							"syntax": "Packages/Laravel Blade Highlighter/blade.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
@@ -1657,6 +1727,14 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"escaladminbydae",
+				"resources\\views\\escalations_admin\\by_date.blade.php"
+			],
+			[
+				"esca",
+				"app\\EscalRecord.php"
+			],
 			[
 				"user",
 				"app\\User.php"
@@ -2160,14 +2238,6 @@
 			[
 				"rolesfor",
 				"resources\\views\\roles\\_form.blade.php"
-			],
-			[
-				"routeroles",
-				"app\\Http\\Routes\\roles.php"
-			],
-			[
-				"rolescon",
-				"app\\Http\\Controllers\\RolesController.php"
 			]
 		],
 		"width": 0.0

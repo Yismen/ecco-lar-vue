@@ -51,11 +51,12 @@ trait EscalationsAdminTrait
 
     public function fetchRandomRecordsByRange($escalRecords, $amount, $user_id, $from, $to)
     {
-        return $escalRecords->with('user')
+        return $escalRecords
             ->whereUserId($user_id)
-            ->whereBetween('created_at', [$from, $to])
+            ->whereBetween('insert_date', [$from, $to])
             ->inRandomOrder()
             ->take($amount)
+            ->with('user')
             ->get();
         
     }

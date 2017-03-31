@@ -142,7 +142,7 @@ class ProductionHoursController extends Controller
      */
     public function update(Production $production, ProductionsUpdateRequest $request)
     {
-        // return $request->only(['in_time','production_hours', 'break_time', 'downtime', 'out_time']);
+        return $request->only(['in_time','production_hours', 'break_time', 'downtime', 'out_time']);
         $production->update($request->only(['in_time','production_hours', 'break_time', 'downtime', 'out_time']));
 
         return redirect()->route('admin.production-hours.edit', $production->id)

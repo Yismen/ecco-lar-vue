@@ -73,47 +73,8 @@
 
             {!! Form::close() !!}
 
-            @if (isset($records) && $records->count() > 0)
-                <hr>
-                <div class="col-sm-12">
-                    <div class="page-header">
-                        Results of Random Records
-                    </div>
-                </div>
-
-                <div class="col-sm-12">
-
-                    <div class="box box-success">
-                        <h3>
-                            Results of {{ Request::old('records') }} Random Records for Period [{{ Request::old('from') }} - {{ Request::old('to') }}]
-                        </h3>
-                        <div class="table-responsive">
-                            <table class="table table-hover table-striped table-condensed table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Insert Date:</th>
-                                        <th>Tracking Number:</th>
-                                        <th>Queue:</th>
-                                        <th>Agent Name:</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($records as $record)
-                                        <tr>
-                                            <td>{{ $record->created_at->format('M-d-Y') }}</td>
-                                            <td>{{ $record->tracking }}</td>
-                                            <td>{{ $record->client->name }}</td>
-                                            <td>{{ $record->user->name }}</td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                </div>
-
-            @endif
+            @include('escalations_admin.partials._random_results')
         </div>
     </div>
 @stop
+

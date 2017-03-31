@@ -71,7 +71,7 @@
 <div class="form-group form-group-sm {{ $errors->has('out_time') ? 'has-error' : null }}">
     {!! Form::label('out_time', 'Out Time:', ['class'=>'col-sm-2 control-label']) !!}
     <div class="col-sm-10">
-        {!! Form::input('datetime-local', 'out_time', null, ['class'=>'form-control', 'placeholder'=>'Out Time', 'readonly']) !!}
+        {!! Form::input('text', 'out_time', null, ['class'=>'form-control', 'readonly']) !!}
     </div>
 </div>
 <!-- /. Out Time -->
