@@ -67,7 +67,7 @@
 
             <div class="col-sm-6">
                 <div class="box box-info row">
-                    <h4 class="page-header"><a href="/admin/escalations_admin/by_date">Records Processed This Month By Client</a></h4>
+                    <h4 class="page-header"><a href="/admin/escalations_admin/by_date">Records Processed Today By Client</a></h4>
                     @if(isset($byClients) && count($byClients) > 0)
                         <div id="byClients" style="max-height: 250px;"></div>                    
                     @else
