@@ -27,7 +27,8 @@ class EscalationsAdminController extends Controller
         $today = $this->fetchRecordsEnteredToday();
         $thisMonth = $this->fetchRecordsEnteredThisMonth();
         $bbbRecords = $this->fetchTodaysBBBRecords();
-        return view('escalations_admin.index', compact('users', 'today', 'thisMonth', 'bbbRecords'));
+        $byClients = $this->fetchTodaysRecordsByClient();
+        return view('escalations_admin.index', compact('users', 'today', 'thisMonth', 'bbbRecords', 'byClients'));
     }
 
     public function getByDate()

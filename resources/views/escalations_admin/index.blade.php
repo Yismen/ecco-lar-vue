@@ -65,7 +65,20 @@
                 </div>
             </div>
 
-            <div class="col-sm-12">
+            <div class="col-sm-6">
+                <div class="box box-info row">
+                    <h4 class="page-header"><a href="/admin/escalations_admin/by_date">Records Processed This Month By Client</a></h4>
+                    @if(isset($byClients) && count($byClients) > 0)
+                        <div id="byClients" style="max-height: 250px;"></div>                    
+                    @else
+                        <div class="alert alert-info">
+                            <strong>No Records!</strong> No Records entered today...
+                        </div>
+                    @endif
+                </div>
+            </div>
+
+            <div class="col-sm-6">
                 <div class="box box-danger row">
                     <h4 class="page-header"><a href="/admin/escalations_admin/bbbs">Records Reported as BBB Today</a></h4>
                     @if(isset($bbbRecords) && count($bbbRecords) > 0)
@@ -73,7 +86,6 @@
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Date:</th>
                                         <th>User:</th>
                                         <th>Client:</th>
                                         <th>Tracking Number:</th>
@@ -82,7 +94,6 @@
                                 <tbody>
                                     @foreach ($bbbRecords as $record)
                                         <tr>
-                                            <td>{{ $record->insert_date }}</td>
                                             <td>{{ $record->user->name }}</td>
                                             <td>{{ $record->escal_client->name }}</td>
                                             <td>{{ $record->tracking }}</td>
@@ -107,13 +118,28 @@
     <script>
 
         (function($) {
-            <?php if(isset($today) && count($today) > 0): ?>
-                var data = <?php echo $today ?>;
 
-                new Morris.Bar({
+            <?php if(isset($today) && count($today) > 0): ?>
+                var data = [];
+                $.each(<?php echo $today ?>, function(index, val) {
+                    data.push({label: val.name, value: val.escalations_records_count});
+                });
+
+                new Morris.Donut({
                   element: 'todayRecords',
                   data: data,
-                  barColors: ['#f39c12'],
+                  colors: ['#f39c12', '#e74c3c', '#1abc9c', '#f1c40f', '#e67e22'],
+                  resize: true
+                });
+            <?php endif ?>
+
+            <?php if(isset($thisMonth) && count($thisMonth) > 0): ?>
+                var data = <?php echo $thisMonth ?>;
+
+                new Morris.Bar({
+                  element: 'thisMonthRcords',
+                  data: data,
+                  barColors: ['#3c8dbc'],
                   xkey: 'name',
                   ykeys: ['escalations_records_count'],
                   labels: ['Users'],
@@ -121,17 +147,16 @@
                 });
             <?php endif ?>
 
-            <?php if(isset($thisMonth) && count($thisMonth) > 0): ?>
+            <?php if(isset($byClients) && count($byClients) > 0): ?>
                 var data = [];
-                $.each(<?php echo $thisMonth ?>, function(index, val) {
-                    data.push({label: val.name, value: val.escalations_records_count});
+                $.each(<?php echo $byClients ?>, function(index, val) {
+                    data.push({label: val.name, value: val.escal_records_count});
                 });
 
                 new Morris.Donut({
-                  element: 'thisMonthRcords',
+                  element: 'byClients',
                   data: data,
-                  barColors: ['#3c8dbc'],
-                  labels: ['Users'],
+                  colors: ['#1abc9c', '#3498db', '#9b59b6', '#f1c40f', '#e67e22'],
                   resize: true
                 });
             <?php endif ?>
