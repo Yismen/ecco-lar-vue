@@ -3,7 +3,9 @@
 namespace App\Http\Traits;
 
 use App\User;
+use Carbon\Carbon;
 use App\EscalClient;
+use App\EscalRecord;
 use Illuminate\Support\Facades\DB;
 
 trait EscalationsAdminTrait
@@ -38,7 +40,7 @@ trait EscalationsAdminTrait
             ->get();
     }
 
-    public function fetchDetailedProductionByDate($escalRecords)
+    private function fetchDetailedProductionByDate($escalRecords)
     {
         return $escalRecords
             ->with('user')
@@ -49,7 +51,7 @@ trait EscalationsAdminTrait
         
     }
 
-    public function fetchRandomRecordsByRange($escalRecords, $amount, $user_id, $from, $to)
+    private function fetchRandomRecordsByRange($escalRecords, $amount, $user_id, $from, $to)
     {
         return $escalRecords
             ->whereUserId($user_id)
@@ -84,6 +86,48 @@ trait EscalationsAdminTrait
                 return $query->orderBy('name');
             }])
             ->orderBy('escal_client_id')
+            ->get();
+    }
+
+    private function fetchTodaysBBBRecords()
+    {
+        $date = Carbon::now();
+
+        return EscalRecord::whereDate('created_at', '=', $date->today())
+            ->where('is_bbb', true)
+            ->with(['user' => function($query) {
+                return $query->orderBy('name');
+            }])
+            ->with(['escal_client' => function($query) {
+                return $query->orderBy('name');
+            }])
+            ->orderBy('escal_client_id')
+            ->get();
+    }
+
+    private function fetchRecordsEnteredToday()
+    {
+        $dt = Carbon::now();
+        return User::select(['name', 'id'])
+            ->whereHas('escalationsRecords', function($query) use ($dt){
+                $query->whereDate('created_at', '=', $dt->today()->format('Y-m-d'));
+            })
+            ->withCount(['escalationsRecords' => function($query) use ($dt) {
+                $query->whereDate('created_at', '=', $dt->today()->format('Y-m-d'));
+            }])
+            ->get();
+    }
+
+    private function fetchRecordsEnteredThisMonth()
+    {
+        $dt = Carbon::now();
+        return User::select(['name', 'id'])
+            ->whereHas('escalationsRecords', function($query) use ($dt){
+                $query->whereMonth('created_at', '=', $dt->month);
+            })
+            ->withCount(['escalationsRecords' => function($query) use ($dt) {
+                $query->whereMonth('created_at', '=', $dt->month);
+            }])
             ->get();
     }
 

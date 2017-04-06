@@ -51,7 +51,7 @@
                         <div class="form-group {{ $errors->has('user_id') ? 'has-error' : null }}">
                             {!! Form::label('user_id', 'Agent Name:', ['class'=>'col-sm-2 control-label']) !!}
                             <div class="col-sm-10">
-                                {!! Form::select('user_id', $users, null, ['class'=>'form-control input-sm']) !!}
+                                {!! Form::select('user_id', $users, null, ['class'=>'form-control']) !!}
                                 {!! $errors->first('user_id', '<span class="text-danger">:message</span>') !!}
                             </div>
                         </div>

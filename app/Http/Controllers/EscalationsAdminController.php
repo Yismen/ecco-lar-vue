@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Carbon\Carbon;
 use App\EscalClient;
 use App\EscalRecord;
 use App\Http\Requests;
@@ -21,7 +22,12 @@ class EscalationsAdminController extends Controller
 
     public function index()
     {
-        return view('escalations_admin.index');
+        $dt = Carbon::now();
+
+        $today = $this->fetchRecordsEnteredToday();
+        $thisMonth = $this->fetchRecordsEnteredThisMonth();
+        $bbbRecords = $this->fetchTodaysBBBRecords();
+        return view('escalations_admin.index', compact('users', 'today', 'thisMonth', 'bbbRecords'));
     }
 
     public function getByDate()
