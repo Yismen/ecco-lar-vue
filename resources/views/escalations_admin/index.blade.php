@@ -58,7 +58,7 @@
                     @if(isset($thisMonth) && count($thisMonth) > 0)
                         <div id="thisMonthRcords" style="max-height: 250px;"></div>                    
                     @else
-                        <div class="alert alert-primary">
+                        <div class="alert alert-info">
                             <strong>Nothin This Month!</strong> No Records have been entered this month...
                         </div>
                     @endif
