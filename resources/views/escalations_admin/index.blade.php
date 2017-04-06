@@ -109,7 +109,7 @@
         (function($) {
             <?php if(isset($today) && count($today) > 0): ?>
                 var data = <?php echo $today ?>;
-                console.log(data);
+
                 new Morris.Bar({
                   element: 'todayRecords',
                   data: data,
@@ -122,14 +122,15 @@
             <?php endif ?>
 
             <?php if(isset($thisMonth) && count($thisMonth) > 0): ?>
-                var data = <?php echo $thisMonth ?>;
-                console.log(data);
-                new Morris.Bar({
+                var data = [];
+                $.each(<?php echo $thisMonth ?>, function(index, val) {
+                    data.push({label: val.name, value: val.escalations_records_count});
+                });
+
+                new Morris.Donut({
                   element: 'thisMonthRcords',
                   data: data,
                   barColors: ['#3c8dbc'],
-                  xkey: 'name',
-                  ykeys: ['escalations_records_count'],
                   labels: ['Users'],
                   resize: true
                 });

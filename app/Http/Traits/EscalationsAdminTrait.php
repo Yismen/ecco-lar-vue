@@ -123,10 +123,10 @@ trait EscalationsAdminTrait
         $dt = Carbon::now();
         return User::select(['name', 'id'])
             ->whereHas('escalationsRecords', function($query) use ($dt){
-                $query->whereMonth('created_at', '=', $dt->month);
+                $query->whereMonth('created_at', '=', $dt->month-1);
             })
             ->withCount(['escalationsRecords' => function($query) use ($dt) {
-                $query->whereMonth('created_at', '=', $dt->month);
+                $query->whereMonth('created_at', '=', $dt->month-1);
             }])
             ->get();
     }
