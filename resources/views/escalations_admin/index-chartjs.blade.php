@@ -15,6 +15,27 @@
                 </div>
             </div>
 
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="box box-warning">
+                        <h5 class="page-header"><a href="/admin/escalations_admin/by_date">Records Enteredy by Users Today</a></h5>
+                        <div class="box-body">
+                            <canvas id="recordsByUser"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="box box-warning">
+                        <h5 class="page-header"><a href="/admin/escalations_admin/by_date">Records Enteredy by Clients Today</a></h5>
+                        <div class="box-body">
+                            <canvas id="recordsByClient"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Here we go... --}}
+
             <div class="col-sm-6">
                 <div class="box box-warning row">
                     <h4 class="page-header"><a href="/admin/escalations_admin/by_date">Records Processed Today By User</a></h4>
@@ -44,13 +65,7 @@
             <div class="col-sm-6">
                 <div class="box box-info row">
                     <h4 class="page-header"><a href="/admin/escalations_admin/by_date">Records Processed Today By Client</a></h4>
-                    @if(isset($byClients) && count($byClients) > 0)
-                        <div id="byClients" style="max-height: 250px;"></div>                    
-                    @else
-                        <div class="alert alert-info">
-                            <strong>No Records!</strong> No Records entered today...
-                        </div>
-                    @endif
+                    <div id="byClients" style="max-height: 250px;"></div>    
                 </div>
             </div>
 
@@ -96,17 +111,56 @@
         (function($) {
 
             $.getJSON('/admin/escalations_admin', function(json, textStatus) {
-                // console.log(json)
+                console.log(json)
                 if (textStatus == 'success') {
 
+                    if (json.todayRecordsByUser.length > 0) {
+                        todayRecordsByUser(json.todayRecordsByUser);
+                    }
                     if (json.lastFiveDates.length > 0) {
-                        lastFiveDates(json.lastFiveDates);
+                        lastFiveDays(json.lastFiveDates);
+                    }
+                    if (json.todayRecordsByClient.length > 0) {
+                        recordsByClient(json.todayRecordsByClient);
                     }
 
                 }
             });
 
-            function lastFiveDates(results)
+            function todayRecordsByUser(results) {
+                
+                var labels = [];
+                var data = [];
+                $.each(results, function(index, val) {
+                    labels.push(val.name);
+                    data.push(val.escalations_records_count);
+                });
+                var ctx = "recordsByUser";
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Records By Users',
+                            data: data,
+                            backgroundColor: [
+                                'rgba(26, 188, 156, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)',
+                            ],
+                        }]
+                        
+                    },
+                    options: {
+                        responsive: true
+                    }
+                });
+            }
+
+            function lastFiveDays(results)
             {
                 var labels = [];
                 var data = [];
@@ -126,7 +180,7 @@
                         datasets: [{
                             label: 'Records Entered Last Five Dates',
                             data: data,
-                            backgroundColor: "rgba(75,192,192,1)",
+                            backgroundColor: "rgba(75,192,192,0.5)",
                         }]
                         
                     },
@@ -142,19 +196,34 @@
                 });
             }
 
-            <?php if(isset($today) && count($today) > 0): ?>
+            function recordsByClient(records)
+            {
                 var data = [];
-                $.each(<?php echo $today ?>, function(index, val) {
-                    data.push({label: val.name, value: val.escalations_records_count});
+                $.each(records, function(index, val) {
+                    data.push({label: val.name, value: val.escal_records_count});
                 });
 
                 new Morris.Donut({
-                  element: 'todayRecords',
+                  element: 'byClients',
                   data: data,
-                  colors: ['#f39c12', '#e74c3c', '#1abc9c', '#f1c40f', '#e67e22'],
+                  colors: ['#1abc9c', '#3498db', '#9b59b6', '#f1c40f', '#e67e22'],
                   resize: true
                 });
-            <?php endif ?>
+            }
+
+            // <?php if(isset($today) && count($today) > 0): ?>
+            //     var data = [];
+            //     $.each(<?php echo $today ?>, function(index, val) {
+            //         data.push({label: val.name, value: val.escalations_records_count});
+            //     });
+
+            //     new Morris.Donut({
+            //       element: 'todayRecords',
+            //       data: data,
+            //       colors: ['#f39c12', '#e74c3c', '#1abc9c', '#f1c40f', '#e67e22'],
+            //       resize: true
+            //     });
+            // <?php endif ?>
 
             <?php if(isset($thisMonth) && count($thisMonth) > 0): ?>
                 var data = <?php echo $thisMonth ?>;
@@ -170,19 +239,19 @@
                 });
             <?php endif ?>
 
-            <?php if(isset($byClients) && count($byClients) > 0): ?>
-                var data = [];
-                $.each(<?php echo $byClients ?>, function(index, val) {
-                    data.push({label: val.name, value: val.escal_records_count});
-                });
+            // <?php if(isset($byClients) && count($byClients) > 0): ?>
+            //     var data = [];
+            //     $.each(<?php echo $byClients ?>, function(index, val) {
+            //         data.push({label: val.name, value: val.escal_records_count});
+            //     });
 
-                new Morris.Donut({
-                  element: 'byClients',
-                  data: data,
-                  colors: ['#1abc9c', '#3498db', '#9b59b6', '#f1c40f', '#e67e22'],
-                  resize: true
-                });
-            <?php endif ?>
+            //     new Morris.Donut({
+            //       element: 'byClients',
+            //       data: data,
+            //       colors: ['#1abc9c', '#3498db', '#9b59b6', '#f1c40f', '#e67e22'],
+            //       resize: true
+            //     });
+            // <?php endif ?>
 
         })(jQuery)
     </script>

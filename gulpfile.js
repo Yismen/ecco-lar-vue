@@ -68,6 +68,7 @@ elixir(function(mix) {
         nodeModules + '/icheck/icheck.js',
         nodeModules + '/morris.js/morris.js',
         nodeModules + '/raphael/raphael.js',
+        nodeModules + '/chart.js/dist/Chart.js',
         nodeModules + '/js-cookie/src/js.cookie.js',
         nodeModules + '/select2/dist/js/select2.js',
         nodeModules + '/summernote/dist/summernote.js',

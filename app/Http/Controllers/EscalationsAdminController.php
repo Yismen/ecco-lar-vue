@@ -28,6 +28,20 @@ class EscalationsAdminController extends Controller
         $thisMonth = $this->fetchRecordsEnteredThisMonth();
         $bbbRecords = $this->fetchTodaysBBBRecords();
         $byClients = $this->fetchTodaysRecordsByClient();
+        $lastFiveDates = $this->fetchLastFiveDatesProduction();
+
+        $data = [
+            'todayRecordsByUser' => $today,
+            'todayRecordsByClient' => $byClients,
+            'thisMonthRecords' => $thisMonth,
+            'bbbRecords' => $bbbRecords,
+            'lastFiveDates' => $lastFiveDates,
+        ];
+
+        if ($this->request->ajax()) {
+            return $data;
+        }
+
         return view('escalations_admin.index', compact('users', 'today', 'thisMonth', 'bbbRecords', 'byClients'));
     }
 

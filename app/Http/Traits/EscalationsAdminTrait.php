@@ -144,4 +144,13 @@ trait EscalationsAdminTrait
             ->get();
     }
 
+    private function fetchLastFiveDatesProduction()
+    {
+        return EscalRecord::select(DB::raw("insert_date, count(tracking) as records"))
+            ->groupBy(['insert_date'])
+            ->orderBy('insert_date','DESC')
+            ->take(5)
+            ->get();
+    }
+
 }
