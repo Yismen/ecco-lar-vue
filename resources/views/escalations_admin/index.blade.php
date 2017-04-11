@@ -123,11 +123,18 @@
                     type: 'line',
                     data: {
                         labels: labels,
-                        datasets: [{
-                            label: 'Records Entered Last Five Dates',
-                            data: data,
-                            backgroundColor: "rgba(75,192,192,1)",
-                        }]
+                        datasets: [
+                            {
+                                label: 'Records Entered Last Five Dates',
+                                data: data,
+                                backgroundColor: "rgba(75,192,192,0.5)",
+                            },
+                            {
+                                label: 'Records Entered',
+                                data: [3,8,1,0,9],
+                                backgroundColor: "rgba(66,40,192,0.5)",
+                            }
+                        ]
                         
                     },
                     options: {

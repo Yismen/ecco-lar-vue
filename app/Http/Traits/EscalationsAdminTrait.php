@@ -105,6 +105,30 @@ trait EscalationsAdminTrait
             ->get();
     }
 
+    private function fetchsBBBRecords($dates)
+    {
+
+        return EscalRecord::select(DB::raw("insert_date, count(tracking) as records"))
+            ->groupBy(['insert_date'])
+            ->where('is_bbb', true)
+            ->orderBy('insert_date','DESC')
+            ->take($dates)
+            ->get();
+
+        $date = Carbon::now();
+
+        return EscalRecord::whereDate('created_at', '=', $date->today())
+            ->where('is_bbb', true)
+            ->with(['user' => function($query) {
+                return $query->orderBy('name');
+            }])
+            ->with(['escal_client' => function($query) {
+                return $query->orderBy('name');
+            }])
+            ->orderBy('escal_client_id')
+            ->get();
+    }
+
     private function fetchRecordsEnteredToday()
     {
         $dt = Carbon::now();
@@ -118,16 +142,13 @@ trait EscalationsAdminTrait
             ->get();
     }
 
-    private function fetchRecordsEnteredThisMonth()
-    {
-        $dt = Carbon::now();
-        return User::select(['name', 'id'])
-            ->whereHas('escalationsRecords', function($query) use ($dt){
-                $query->whereMonth('created_at', '=', $dt->month);
-            })
-            ->withCount(['escalationsRecords' => function($query) use ($dt) {
-                $query->whereMonth('created_at', '=', $dt->month);
-            }])
+    private function lastFiveDatesByUser()
+    {        
+        return EscalRecord::select(DB::raw("insert_date, user_id, count(tracking) as records"))
+            ->groupBy(['insert_date', 'user_id'])
+            ->with('user')
+            ->orderBy('insert_date','DESC')
+            ->take(5)
             ->get();
     }
 
@@ -146,7 +167,7 @@ trait EscalationsAdminTrait
 
     private function fetchLastFiveDatesProduction()
     {
-        return EscalRecord::select(DB::raw("insert_date, count(tracking) as records"))
+        return EscalRecord::select(DB::raw("insert_date, count(tracking) as records, count(CASE WHEN is_bbb = 1 THEN 1 ELSE NULL end) as bbbRecords"))
             ->groupBy(['insert_date'])
             ->orderBy('insert_date','DESC')
             ->take(5)

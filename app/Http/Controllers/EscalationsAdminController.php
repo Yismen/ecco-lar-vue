@@ -24,25 +24,24 @@ class EscalationsAdminController extends Controller
     {
         $dt = Carbon::now();
 
-        $today = $this->fetchRecordsEnteredToday();
-        $thisMonth = $this->fetchRecordsEnteredThisMonth();
-        $bbbRecords = $this->fetchTodaysBBBRecords();
-        $byClients = $this->fetchTodaysRecordsByClient();
-        $lastFiveDates = $this->fetchLastFiveDatesProduction();
-
+        // $thisMonth = $this->fetchRecordsEnteredThisMonth();
+        // $bbbRecords = $this->fetchsBBBRecords(5);
+        // $byUserLastFiveDates = $this->fetchsBBBRecords(5);
+        // $byClients = $this->fetchTodaysRecordsByClient();
+        // $lastFiveDates = $this->fetchLastFiveDatesProduction();
+        
         $data = [
-            'todayRecordsByUser' => $today,
-            'todayRecordsByClient' => $byClients,
-            'thisMonthRecords' => $thisMonth,
-            'bbbRecords' => $bbbRecords,
-            'lastFiveDates' => $lastFiveDates,
+            'lastFiveDates' => $this->fetchLastFiveDatesProduction(),
+            'todayRecordsByUser' => $this->fetchRecordsEnteredToday(),
+            'todayRecordsByClient' => $this->fetchTodaysRecordsByClient(),
+            'lastFiveDatesByUser' => $this->lastFiveDatesByUser(),
         ];
 
         if ($this->request->ajax()) {
             return $data;
         }
 
-        return view('escalations_admin.index', compact('users', 'today', 'thisMonth', 'bbbRecords', 'byClients'));
+        return view('escalations_admin.index-chartjs');
     }
 
     public function getByDate()
