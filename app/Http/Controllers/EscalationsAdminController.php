@@ -22,14 +22,14 @@ class EscalationsAdminController extends Controller
 
     public function index()
     {
+        return view('escalations_admin.index-chartjs');
+    }
+
+    public function index_ajax()
+    {
+        
         $dt = Carbon::now();
 
-        // $thisMonth = $this->fetchRecordsEnteredThisMonth();
-        // $bbbRecords = $this->fetchsBBBRecords(5);
-        // $byUserLastFiveDates = $this->fetchsBBBRecords(5);
-        // $byClients = $this->fetchTodaysRecordsByClient();
-        // $lastFiveDates = $this->fetchLastFiveDatesProduction();
-        
         $data = [
             'lastFiveDates' => $this->fetchLastFiveDatesProduction(),
             'todayRecordsByUser' => $this->fetchRecordsEnteredToday(),
@@ -40,8 +40,6 @@ class EscalationsAdminController extends Controller
         if ($this->request->ajax()) {
             return $data;
         }
-
-        return view('escalations_admin.index-chartjs');
     }
 
     public function getByDate()

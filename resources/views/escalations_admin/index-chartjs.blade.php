@@ -45,7 +45,7 @@
 
             function init()
             {
-                $.getJSON('/admin/escalations_admin', function(json, textStatus) {
+                $.getJSON('/admin/escalations_admin/api', function(json, textStatus) {
                     if (textStatus == 'success') {
                         console.log(json)
                         var wrapper;
@@ -196,7 +196,7 @@
                         labels.push(val.name);
                         data.push(val.escal_records_count);
                     });
-                    
+
                     var ctx = "recordsByClient";
                     new Chart(ctx, {
                         type: 'doughnut',
