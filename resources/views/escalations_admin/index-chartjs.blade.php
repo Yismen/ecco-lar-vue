@@ -45,19 +45,22 @@
 
             function init()
             {
-                $.getJSON('/admin/escalations_admin/api', function(json, textStatus) {
+                $.post('/admin/escalations_admin/api', function(data, textStatus, xhr) {
                     if (textStatus == 'success') {
-                        console.log(json)
+                        console.log(data);
+
+                        Chart.defaults.global.hover.mode = 'nearest';
+
                         var wrapper;
 
                         wrapper = $('#lastFiveDatesChartWrapper');
-                        lastFiveDays(json.lastFiveDates, wrapper);
+                        lastFiveDays(data.lastFiveDates, wrapper);
                         
                         wrapper = $('#recordsByUserWrapper');
-                        todayRecordsByUser(json.todayRecordsByUser, wrapper);                        
+                        todayRecordsByUser(data.todayRecordsByUser, wrapper);                        
 
                         wrapper = $('#recordsByClientWrapper');
-                        recordsByClient(json.todayRecordsByClient, wrapper); 
+                        recordsByClient(data.todayRecordsByClient, wrapper); 
 
                     }
                 });
