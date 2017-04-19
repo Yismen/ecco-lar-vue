@@ -6,7 +6,6 @@
             <h1 class=""><i class="fa fa-dashboard"></i> Dashboard</h1>
             <hr>
 
-
             <div class="row">
                 <div class="col-sm-12">
                     <div class="box box-info">
@@ -122,7 +121,6 @@
                             
                         },
                         options: {
-                            responsive: true,
                             scales: {
                                 yAxes: [
                                     {
@@ -177,7 +175,6 @@
                             
                         },
                         options: {
-                            responsive: true
                         }
                     });
                 }              
@@ -219,7 +216,6 @@
                             
                         },
                         options: {
-                            responsive: true
                         }
                     });
 
