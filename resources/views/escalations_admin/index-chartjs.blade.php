@@ -47,7 +47,6 @@
             {
                 $.post('/admin/escalations_admin/api', function(data, textStatus, xhr) {
                     if (textStatus == 'success') {
-                        // console.log(data);
 
                         Chart.defaults.global.hover.mode = 'nearest';
 
