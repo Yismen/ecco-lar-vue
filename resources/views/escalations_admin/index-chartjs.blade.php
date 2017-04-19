@@ -66,7 +66,7 @@
 
             init();
 
-            setInterval(init, 25000);
+            setInterval(init, 55000);
 
 
             function showEmptyResultsAlert(wrapper, message)
