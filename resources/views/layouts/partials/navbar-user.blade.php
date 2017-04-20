@@ -60,12 +60,12 @@
       <!-- Menu Footer-->
       <li class="user-footer">
         <div class="pull-left">
-          <a href="{{ route('admin.profiles.index') }}" class="">
+          <a href="{{ route('admin.profiles.index') }}">
             <i class="fa fa-user"></i> Profile
           </a>
         </div>
         <div class="pull-right">
-          <a href="{{ url('admin/logout') }}" class="">
+          <a href="{{ url('admin/logout') }}">
             <i class="fa fa-sign-out"></i> Sign out
           </a>
         </div>
