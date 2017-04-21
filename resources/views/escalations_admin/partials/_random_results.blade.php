@@ -32,7 +32,7 @@
                         <tbody>
                             @foreach ($records as $record)
                                 <tr>
-                                    <td>{{ $record->created_at->format('M-d-Y') }}</td>
+                                    <td>{{ $record->created_at->toFormattedDateString() }}</td>
                                     <td>{{ $record->tracking }}</td>
                                     <td>{{ $record->client->name }}</td>
                                     <td>{{ $record->user->name }}</td>
