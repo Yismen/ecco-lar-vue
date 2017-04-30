@@ -520,28 +520,28 @@
 	"buffers":
 	[
 		{
-			"file": "resources/views/escalations_admin/index-chartjs.blade.php",
+			"file": "resources/views/layouts/partials/navbar-user.blade.php",
 			"settings":
 			{
-				"buffer_size": 9007,
+				"buffer_size": 2688,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "app/Http/Controllers/EscalationsAdminController.php",
+			"file": "resources/views/escalations_admin/bbbs.blade.php",
 			"settings":
 			{
-				"buffer_size": 3955,
+				"buffer_size": 3816,
 				"encoding": "UTF-8",
-				"line_ending": "Unix"
+				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "app/Http/Traits/EscalationsAdminTrait.php",
+			"file": "resources/views/escalations_admin/partials/_random_results.blade.php",
 			"settings":
 			{
-				"buffer_size": 5573,
+				"buffer_size": 1859,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -554,10 +554,18 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 147.0,
-		"last_filter": "",
+		"height": 354.0,
+		"last_filter": "Snippet: post",
 		"selected_items":
 		[
+			[
+				"Snippet: post",
+				"Snippet: $.post()"
+			],
+			[
+				"Snippet: json\t",
+				"Snippet: jQuery.getJSON"
+			],
 			[
 				"Snippet: setti",
 				"Snippet: setTimeout function"
@@ -1061,14 +1069,6 @@
 			[
 				"wrap",
 				"HTML: Wrap Selection With Tag"
-			],
-			[
-				"Snippet: validacon",
-				"Snippet: Laravel Validator for Controller"
-			],
-			[
-				"Snippet: validate",
-				"Snippet: Laravel Validator for Controller"
 			]
 		],
 		"width": 510.0
@@ -1098,14 +1098,20 @@
 	"expanded_folders":
 	[
 		"/F/wamp/www/dainsys3",
-		"/F/wamp/www/dainsys3/app"
+		"/F/wamp/www/dainsys3/resources",
+		"/F/wamp/www/dainsys3/resources/views",
+		"/F/wamp/www/dainsys3/resources/views/escalations_admin",
+		"/F/wamp/www/dainsys3/resources/views/escalations_admin/partials",
+		"/F/wamp/www/dainsys3/resources/views/layouts/partials"
 	],
 	"file_history":
 	[
 		"/F/wamp/www/dainsys3/app/Http/Routes/escalations_admin.php",
+		"/F/wamp/www/dainsys3/app/Http/Controllers/EscalationsAdminController.php",
+		"/F/wamp/www/dainsys3/app/Http/Traits/EscalationsAdminTrait.php",
+		"/F/wamp/www/dainsys3/resources/views/escalations_admin/index-chartjs.blade.php",
 		"/F/wamp/www/dainsys3/resources/views/escalations_admin/index.blade.php",
 		"/F/wamp/www/dainsys3/resources/views/escalations_admin/home.blade.php",
-		"/F/wamp/www/dainsys3/resources/views/escalations_admin/index-chartjs.blade.php",
 		"/F/wamp/www/dainsys3/app/Http/Controllers/UsersController.php",
 		"/F/wamp/www/dainsys3/gulpfile.js",
 		"/F/wamp/www/dainsys3/app/EscalClient.php",
@@ -1115,9 +1121,7 @@
 		"/F/wamp/www/dainsys3/resources/views/production-hours/_edit-form.blade.php",
 		"/F/wamp/www/dainsys3/app/Production.php",
 		"/F/wamp/www/dainsys3/resources/views/escalations_admin/partials/_random_results.blade.php",
-		"/F/wamp/www/dainsys3/app/Http/Traits/EscalationsAdminTrait.php",
 		"/F/wamp/www/dainsys3/app/EscalRecord.php",
-		"/F/wamp/www/dainsys3/app/Http/Controllers/EscalationsAdminController.php",
 		"/F/wamp/www/dainsys3/app/Http/Controllers/EscalRecordsController.php",
 		"/F/wamp/www/dainsys3/resources/views/production-hours/edit.blade.php",
 		"/F/wamp/www/dainsys3/resources/views/escalations_admin/by_date.blade.php",
@@ -1259,6 +1263,7 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"responsive",
 			"bbb",
 			"lastFiveDays",
 			"bbbRecords",
@@ -1385,8 +1390,7 @@
 			"col-sm-4",
 			"table-hover ",
 			"$client",
-			"td",
-			"this"
+			"td"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1463,24 +1467,24 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "resources/views/escalations_admin/index-chartjs.blade.php",
+					"file": "resources/views/layouts/partials/navbar-user.blade.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 9007,
+						"buffer_size": 2688,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1949,
-								1949
+								2323,
+								2323
 							]
 						],
 						"settings":
@@ -1498,34 +1502,34 @@
 								"current_ext": ".php",
 								"current_syntax": "Laravel Blade Highlighter/blade",
 								"enabled": false,
-								"last_updated": 1491783592.02
+								"last_updated": 1492614950.58
 							},
 							"syntax": "Packages/Laravel Blade Highlighter/blade.sublime-syntax",
-							"tab_size": 4,
+							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 793.0,
+						"translation.y": 621.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "app/Http/Controllers/EscalationsAdminController.php",
+					"file": "resources/views/escalations_admin/bbbs.blade.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3955,
+						"buffer_size": 3816,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								879,
-								879
+								3184,
+								3184
 							]
 						],
 						"settings":
@@ -1540,40 +1544,17 @@
 							},
 							"color_helper.scan":
 							{
-								"allowed_colors":
-								[
-									"hsla",
-									"hex",
-									"hsl",
-									"rgb",
-									"hex_compressed",
-									"rgba",
-									"webcolors"
-								],
-								"compress_hex_output": true,
 								"current_ext": ".php",
-								"current_syntax": "PHP/PHP",
-								"enabled": true,
-								"last_updated": 1491783592.02,
-								"scan_completion_scopes":
-								[
-								],
-								"scan_scopes":
-								[
-									"meta.declaration-list.css -support.type.property-name.css -comment -string",
-									"meta.property-value.css -comment -string",
-									"meta.value.css -comment -string",
-									"meta.tag.inline.any.html string.quoted",
-									"meta.tag.any.html meta.attribute-with-value.style.html"
-								],
-								"use_hex_argb": false
+								"current_syntax": "Laravel Blade Highlighter/blade",
+								"enabled": false,
+								"last_updated": 1492614950.58
 							},
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"syntax": "Packages/Laravel Blade Highlighter/blade.sublime-syntax",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 344.0,
+						"translation.y": 1173.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -1581,19 +1562,19 @@
 				},
 				{
 					"buffer": 2,
-					"file": "app/Http/Traits/EscalationsAdminTrait.php",
+					"file": "resources/views/escalations_admin/partials/_random_results.blade.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5573,
+						"buffer_size": 1859,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4523,
-								4523
+								1407,
+								1407
 							]
 						],
 						"settings":
@@ -1608,43 +1589,20 @@
 							},
 							"color_helper.scan":
 							{
-								"allowed_colors":
-								[
-									"hsla",
-									"hex",
-									"hsl",
-									"rgb",
-									"hex_compressed",
-									"rgba",
-									"webcolors"
-								],
-								"compress_hex_output": true,
 								"current_ext": ".php",
-								"current_syntax": "PHP/PHP",
-								"enabled": true,
-								"last_updated": 1491783592.02,
-								"scan_completion_scopes":
-								[
-								],
-								"scan_scopes":
-								[
-									"meta.declaration-list.css -support.type.property-name.css -comment -string",
-									"meta.property-value.css -comment -string",
-									"meta.value.css -comment -string",
-									"meta.tag.inline.any.html string.quoted",
-									"meta.tag.any.html meta.attribute-with-value.style.html"
-								],
-								"use_hex_argb": false
+								"current_syntax": "Laravel Blade Highlighter/blade",
+								"enabled": false,
+								"last_updated": 1492614950.58
 							},
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"syntax": "Packages/Laravel Blade Highlighter/blade.sublime-syntax",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3218.0,
+						"translation.y": 690.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
@@ -2275,7 +2233,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 325.0,
+	"side_bar_width": 217.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
