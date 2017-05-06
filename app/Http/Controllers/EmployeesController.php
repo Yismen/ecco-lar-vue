@@ -48,6 +48,11 @@ class EmployeesController extends Controller
 		return view('employees.index', compact('employees'));
 	}
 
+	public function index2()
+	{
+		return view('employees.index-vue');
+	}
+
 	/**
 	 * Show the form for creating a new resource.
 	 *

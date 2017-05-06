@@ -45,7 +45,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     |               | sidebar-mini                            |
     |*********************************************************|
     -->
-    <body class="skin-red sidebar-mini sidebar-collapse" style="height: auto;">  
+    <body class="skin-red sidebar-mini sidebar-collapse">  
         <div class="wrapper">
             <!-- Main Header -->
             {{-- @inject('user', 'App\Layout') --}}
@@ -71,7 +71,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </section>
 
                 <!-- Main content -->
-                <section class="content body">
+                <section class="content" id="app">
                     <!-- Your Page Content Here -->
                     <!-- 
                     |************************************|

@@ -82,18 +82,13 @@ elixir(function(mix) {
 	]);
 
     // mix.browserify('passwords/app.js', 'public/js/passwords.js');
-    mix.browserify('escalations/app.js');
+    // mix.browserify('dainsys/app.js');
 
 	mix.version([
         'js/all.js', 
-        'js/app.js', 
+        'js/app.js',
+        'js/dainsys/app.js',
 		'css/all.css'
 	]);
-
-	// mix.browserSync({
-	// 	browser: "google chrome",
- //        proxy: 'localhost:8000',
- //        port: 8000
-	// });
     
 });
