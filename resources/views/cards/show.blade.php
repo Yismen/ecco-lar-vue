@@ -3,7 +3,7 @@
 
 @section('content')
 	@if ($card)
-		<div class="container">
+		<div class="col-sm-8 col-sm-offset-2">
 			<div class="box box-primary pad">
 				<table class="table table-condensed table-hover">
 					<tbody>

@@ -1,8 +1,6 @@
 @extends('layouts.app', ['page_header'=>'Notes', 'page_description'=>'Aproved notes for emails and chats'])
 
 @section('content')
-	<div class="container">
-    	<div class="row">
 			<div class="col-sm-8 col-sm-offset-2">
 				<div class="box box-primary pad">
 					{!! Form::open(['route'=>['notes.search'], 'method'=>'GET', 'class'=>'', 'role'=>'form', 'autocomplete'=>"off", 'id'=>'search-notes-form']) !!}		
@@ -29,8 +27,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
+
 @stop
 
 @section('scripts')

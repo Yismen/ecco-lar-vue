@@ -2,7 +2,7 @@
 @extends('layouts.'.$layout->app(), ['page_header'=>'Users', 'page_description'=>'User details.'])
 
 @section('content')
-	<div class="container">
+	<div class="container-fluid">
     	<div class="row">
 			<div class="col-sm-4 col-sm-offset-4">
 				<div class="box box-primary pad">

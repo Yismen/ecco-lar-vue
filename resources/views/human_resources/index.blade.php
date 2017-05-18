@@ -2,7 +2,7 @@
 @extends('layouts.'.$layout->app(), ['page_header'=>'Human Resources', 'page_description'=>"Dashboard."])
 
 @section('content')
-	<div class="container">
+	<div class="container-fluid">
 
 		<div class="col-lg-8 col-lg-offset-2 col-sm-10 col-sm-offset-1">
 			<div class="box box-primary pad">

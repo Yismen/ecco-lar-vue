@@ -2,7 +2,7 @@
 @extends('layouts.'.$layout->app(), ['page_header'=>'Cards', 'page_description'=>'Cards list.'])
 
 @section('content')
-	<div class="container">
+	<div class="col-sm-8 col-sm-offset-2">
 		<div class="box box-primary pad">
 			<h3 class="page-header">
 				Cards Items List 

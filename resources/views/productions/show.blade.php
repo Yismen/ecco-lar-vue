@@ -2,7 +2,7 @@
 @extends('layouts.'.$layout->app(), ['page_header'=>'Productions', 'page_description'=>'Daily Production Data'])
 
 @section('content')
-	<div class="container">
+	<div class="container-fluid">
     	<div class="row">
 			<div class="col-sm-12">
 				<div class="box box-primary pad">

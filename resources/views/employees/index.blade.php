@@ -2,76 +2,71 @@
 @extends('layouts.'.$layout->app(), ['page_header'=>'Employees', 'page_description'=>'List of active employees.'])
 
 @section('content')
-	<div class="container">
-		<div class="col-sm-10 col-sm-offset-1">
-			<div class="box box-primary pad">
-				<div class="row">
-					<div class="col-sm-12">
+	<div class="col-sm-10 col-sm-offset-1">
+		<div class="box box-primary pad">
+				<div class="col-sm-12">
 
-						<div class="col-md-12">
-							
-							<ul class="nav navbar-nav">
-								<li class="">
-									<span>Filters:</span>
-								</li>
-								<li>
-									<a href="{{ route('admin.employees.index') }}" class="">All</a>
-								</li>
-								<li class="active">
-									<a class="active" href="{{ route('admin.employees.index', ['status'=>'actives']) }}">Actives</a>
-								</li>
-								<li>
-									<a href="{{ route('admin.employees.index', ['status'=>'inactives']) }}">Inactives</a>
-								</li>
-								<li>
-									<a href="{{ route('admin.employees.index', ['status'=>'inactives']) }}">Missing Card Ids</a>
-								</li>
-								<li>
-									<a href="{{ route('admin.employees.index', ['status'=>'inactives']) }}">Missing Punch ID</a>
-								</li>
-								<li>
-									<a href="{{ route('admin.employees.index', ['status'=>'inactives']) }}">Missing Photos</a>
-								</li>
-							</ul>
-						</div><!-- /. Navigation -->
-
-						<div class="col-md-7 pull-right">
-							{!! Form::open(['route'=>['admin.employees.index'], 'method'=>'GET', 'id'=>'search_form', 'class'=>'', 'role'=>'form', 'autocomplete'=>"off"]) !!}		
-								<div class="form-group">
-
-									<div class="input-group">
-								      <input 
-								      	type="search" 
-								      	name="search"
-								      	id="inputSearch" 
-								      	class="form-control"
-								      	 required="required" 
-								      	 title="Search employees" 
-								      	placeholder="Search by name, ID or Phone"
-								      >
-								      <span class="input-group-btn">
-								        <button class="btn btn-default" type="submit">
-											<i class="fa fa-search"></i>
-								        </button>
-								      </span>
-								    </div><!-- /. Input-group -->
-								    <span class="help-block">Separate criterias by commas (,).</span>
-
-								</div><!-- /. form group -->
-							{!! Form::close() !!}
-						</div><!-- /. Search box -->
-					</div><!-- /. Row - Search box -->
-
-					<div class="col-sm-12">
-
-
-						<div class="employees">			
-							@include('employees._employees')
-						</div>
+					<div class="col-md-12">
 						
-					</div><!-- /. Primary box -->
+						<ul class="nav navbar-nav">
+							<li class="">
+								<span>Filters:</span>
+							</li>
+							<li>
+								<a href="{{ route('admin.employees.index') }}" class="">All</a>
+							</li>
+							<li class="active">
+								<a class="active" href="{{ route('admin.employees.index', ['status'=>'actives']) }}">Actives</a>
+							</li>
+							<li>
+								<a href="{{ route('admin.employees.index', ['status'=>'inactives']) }}">Inactives</a>
+							</li>
+							<li>
+								<a href="{{ route('admin.employees.index', ['status'=>'inactives']) }}">Missing Card Ids</a>
+							</li>
+							<li>
+								<a href="{{ route('admin.employees.index', ['status'=>'inactives']) }}">Missing Punch ID</a>
+							</li>
+							<li>
+								<a href="{{ route('admin.employees.index', ['status'=>'inactives']) }}">Missing Photos</a>
+							</li>
+						</ul>
+					</div><!-- /. Navigation -->
+
+					<div class="col-md-7 pull-right">
+						{!! Form::open(['route'=>['admin.employees.index'], 'method'=>'GET', 'id'=>'search_form', 'class'=>'', 'role'=>'form', 'autocomplete'=>"off"]) !!}		
+							<div class="form-group">
+
+								<div class="input-group">
+							      <input 
+							      	type="search" 
+							      	name="search"
+							      	id="inputSearch" 
+							      	class="form-control"
+							      	 required="required" 
+							      	 title="Search employees" 
+							      	placeholder="Search by name, ID or Phone"
+							      >
+							      <span class="input-group-btn">
+							        <button class="btn btn-default" type="submit">
+										<i class="fa fa-search"></i>
+							        </button>
+							      </span>
+							    </div><!-- /. Input-group -->
+							    <span class="help-block">Separate criterias by commas (,).</span>
+
+							</div><!-- /. form group -->
+						{!! Form::close() !!}
+					</div><!-- /. Search box -->
 				</div>
-			</div>
+				<div class="col-sm-12">
+
+
+					<div class="employees">			
+						@include('employees._employees')
+					</div>
+					
+				</div><!-- /. Primary box -->
 		</div>
 	</div>
 @endsection

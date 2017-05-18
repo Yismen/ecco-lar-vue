@@ -3,7 +3,7 @@
 
 @section('content')
 	<div class="jumbotron">
-		<div class="container">
+		<div class="container-fluid">
 			<h1>Hello, {{ ucwords($user->name) }}</h1>
 			<h3>Welcome to Dainsys Intranet</h3>
 			<p>

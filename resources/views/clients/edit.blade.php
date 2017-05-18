@@ -2,7 +2,7 @@
 @extends('layouts.'.$layout->app(), ['page_header'=>'title', 'page_description'=>'description'])
 
 @section('content')
-	<div class="container">
+	<div class="col-sm-8 col-sm-offset-2">
 		<div class="box box-primary pad">
 			{!! Form::model($client, ['route'=>['admin.clients.update', $client->id], 'method'=>'PUT', 'class'=>'form-horizontal', 'role'=>'form']) !!}	
 				<div class="form-group">

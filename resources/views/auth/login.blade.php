@@ -3,8 +3,6 @@
 @extends('layouts.'.$layout->app(), ['page_description'=>'Please log in!'])
 
 @section('content')
-<div class="container">
-    <div class="row">
         <div class="col-sm-6 col-sm-offset-3">
             <div class="box box-primary pad">
                 <form class="form-horizontal" role="form" method="POST" action="{{ url('/admin/login') }}">
@@ -75,6 +73,4 @@
                 </form>
             </div>
         </div>
-    </div>
-</div>
 @endsection

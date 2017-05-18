@@ -3,7 +3,7 @@
 
 @section('content')
 	@if ($permission)
-		<div class="container">
+		<div class="container-fluid">
 			<div class="box box-primary pad">
 				<ul class="list-group">
 					<li class="list-group-item">

@@ -1,8 +1,6 @@
 @extends('layouts.app')
 
-@section('content')
-<div class="container">
-    <div class="row"> 
+@section('content') 
       <div class="col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
         <div class="box box-primary pad">
 
@@ -81,6 +79,4 @@
         </div>
       </div>
         <!-- /.register-box -->
-    </div>
-</div>
 @endsection

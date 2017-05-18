@@ -2,11 +2,11 @@
 @extends('layouts.'.$layout->app(), ['page_header'=>'Welcome', 'page_description'=>'Welcome page!'])
 
 @section('content')
-    <div class="container-fluids">
+    <div class="">
         @if (Auth::check())
 
             <div class="jumbotron no-margin green-div">
-                <div class="container">
+                <div class="container-fluid">
                     <div class="col-sm-12 text-center">
                         @include('layouts.partials.logo')
                         <h1 class="my-main-header">Welcome to Dainsys, {{ $user->name }}</h1>
@@ -21,7 +21,7 @@
         @else
 
             <div class="jumbotron red-div no-margin">
-                <div class="container">
+                <div class="container-fluid">
                     @include('layouts.partials.logo')
                     <div class="text-center">                        
                         <h1 class="my-main-header">Welcome to Dainsys App</h1>
@@ -34,7 +34,7 @@
         @endif
 
         <div class="jumbotron no-margin text-center">
-            <div class="container">
+            <div class="container-fluid">
                 <h1 class="">Services</h1>
                 
                 <div class="col-sm-4">
@@ -53,14 +53,14 @@
         </div>
 
         <div class="jumbotron red-div no-margin text-center">
-            <div class="container">
+            <div class="container-fluid">
                 <h1 class="">Dainsys</h1>
                 <p>Process documentation? Collect data? Customize reports? Just ask for it. Get in contact with the System Administrator and together create what you need. Please log in to gain access to Dainsys!</p>
             </div>
         </div>
 
         <div class="jumbotron">
-            <div class="container">
+            <div class="container-fluid">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto inventore, repudiandae laborum? Natus quis ullam fugiat eius, voluptas sapiente, qui corporis ea? Natus eos laborum sapiente, ducimus eius ut consequuntur!
             </div>
         </div>

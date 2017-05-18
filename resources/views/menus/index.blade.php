@@ -2,7 +2,7 @@
 @extends('layouts.'.$layout->app(), ['page_header'=>'Menu Items', 'page_description'=>'Control menu items'])
 
 @section('content')
-	<div class="container">
+	<div class="container-fluid">
     	<div class="row">
 			<div class="col-sm-8 col-sm-offset-2">
 				<div class="box box-primary pad">

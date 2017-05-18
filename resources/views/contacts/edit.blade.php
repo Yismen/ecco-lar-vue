@@ -1,29 +1,24 @@
 @extends('layouts.main')
 
 @section('content')
-	<div class="container">
-		<div class="row">
-		<br>
-			<div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
-				<div class="well">
+	<div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+		<div class="well">
 
-					{!! Form::model($contact, ['route'=>['contacts.update', $contact->id], 'method'=>'PUT', 'class'=>'form-horizontal', 'role'=>'form']) !!}		
-							<div class="form-group">
-								<legend>Edit contact</legend>
-							</div>
-						
-							@include('contacts._form')
+			{!! Form::model($contact, ['route'=>['contacts.update', $contact->id], 'method'=>'PUT', 'class'=>'form-horizontal', 'role'=>'form']) !!}		
+					<div class="form-group">
+						<legend>Edit contact</legend>
+					</div>
+				
+					@include('contacts._form')
+			
 					
-							
-					
-					{!! Form::close() !!}
-					<hr>
+			
+			{!! Form::close() !!}
+			<hr>
 
-					@if ( $contact->username == Auth::user()->username )
-						{!! delete_form(["contacts.destroy", $contact->id]) !!}
-					@endif
-				</div>
-			</div>
+			@if ( $contact->username == Auth::user()->username )
+				{!! delete_form(["contacts.destroy", $contact->id]) !!}
+			@endif
 		</div>
 	</div>
 @stop

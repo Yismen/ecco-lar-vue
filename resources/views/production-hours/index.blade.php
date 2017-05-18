@@ -2,11 +2,11 @@
 @extends('layouts.'.$layout->app(), ['page_header'=>'Production Hours', 'page_description'=>'Manage production hours.'])
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
                 <div class="box box-primary pad">
-                    <div class="container">
+                    <div class="container-fluid">
                         <div class="row">
                             @include('production-hours._search-form')
                         </div>

@@ -2,7 +2,7 @@
 @extends('layouts.'.$layout->app(), ['page_header'=>'Positions', 'page_description'=>'Positions list!'])
 
 @section('content')
-	<div class="container">
+	<div class="container-fluid">
 		<div class="box box-primary pad">
 		
 			<h3 class="page-header">

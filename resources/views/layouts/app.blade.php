@@ -13,6 +13,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <title>Ecco | {{ $page_header or 'Admin Header' }}</title>
 
         <link rel="stylesheet" type="text/css" href="{{ elixir('css/all.css') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
         <!-- Site Favicon -->
         <link rel="shortcut icon" href="{{ asset('images/favicon/favicon.ico') }}">
         {{-- <meta name="msvalidate.01" content="FF0D79C53170EBEB62609685F3D5A21C" /> --}}
@@ -45,8 +46,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     |               | sidebar-mini                            |
     |*********************************************************|
     -->
-    <body class="skin-red sidebar-mini">  
-        <div class="wrapper">
+    <body class="skin-red sidebar-mini sidebar-collapsed" style="height: auto;">  
+        <div class="wrapper" style="height: auto;">
             <!-- Main Header -->
             {{-- @inject('user', 'App\Layout') --}}
             @include('layouts.partials.navbar-top')
@@ -56,7 +57,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <!-- Content Wrapper. Contains page content -->
             
             <!-- Content Wrapper. Contains page content -->
-            <div class="content-wrapper">
+            <div class="content-wrapper" style="min-height: 946px;">
 
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
@@ -71,7 +72,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </section>
 
                 <!-- Main content -->
-                <section class="content" id="app">
+                <section class="content" id="app" style="width: auto">
                     <!-- Your Page Content Here -->
                     <!-- 
                     |************************************|

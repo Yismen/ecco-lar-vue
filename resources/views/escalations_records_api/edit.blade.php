@@ -2,7 +2,7 @@
 @extends('layouts.'.$layout->app(), ['page_header'=>'Escalations Records', 'page_description'=>'Edit values for Escalations Records!'])
 
 @section('content')
-	<div class="container">	
+	<div class="container-fluid">	
     	<div class="row">
 			<div class="col-sm-8 col-sm-offset-2">
 				<div class="row box box-primary pad">

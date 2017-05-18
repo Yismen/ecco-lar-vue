@@ -2,7 +2,7 @@
 @extends('layouts.'.$layout->app(), ['page_header'=>'Users', 'page_description'=>'Reset a user\'s password and assign a new one.'])
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-sm-8 col-sm-offset-2">
                 <div class="box box-primary pad">

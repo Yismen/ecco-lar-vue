@@ -4,7 +4,7 @@
 @section('content')
 	{{-- {{ $downtime }} --}}
 	@if ($downtime->count() > 0)
-		<div class="col-sm-8 col-sm-offset-2 well row">
+		<div class="col-sm-8 col-sm-offset-2 well">
 			<i class="fa fa-user"> </i>
 			<a href="{{ route('admin.employees.show', $downtime->employee->id) }}">{{ $downtime->employee->fullName }}</a>		
 			, <i class="fa fa-calendar"> </i> {{ $downtime->insert_date }}

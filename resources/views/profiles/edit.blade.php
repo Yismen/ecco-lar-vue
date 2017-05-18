@@ -33,7 +33,7 @@
 				
 				{!! Form::close() !!}
 				
-				<div class="container">
+				<div class="container-fluid">
 					<div class="form-group">
 						<a href="{{ route('admin.profiles.index') }}">
 							<i class="fa fa-arrow-circle-left"></i>

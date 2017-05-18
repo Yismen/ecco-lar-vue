@@ -2,7 +2,7 @@
 @extends('layouts.'.$layout->app(), ['page_header'=>'Departments', 'page_description'=>'List of departments available.'])
 
 @section('content')
-	<div class="container">
+	<div class="col-sm-8 col-sm-offset-2">
 		<div class="box box-primary pad">
             <div class="table table-responsive table-striped">
                 {{-- <div id="people">

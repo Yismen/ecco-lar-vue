@@ -2,7 +2,7 @@
 @extends('layouts.'.$layout->app(), ['page_header'=>'title', 'page_description'=>'description'])
 
 @section('content')
-	<div class="container">
+	<div class="container-fluid">
 
 		<div class="box box-primary pad">
 			{!! Form::open(['route'=>['admin.productions.store'], 'method'=>'POST', 'class'=>'', 'role'=>'form', 'files' => true]) !!}		

@@ -158,7 +158,7 @@ opacity:0.9;
 @extends('layouts.main')
 
 @section('content')
-  <div class="container">
+  <div class="container-fluid">
     {{-- <div class="row info" style="text-align:center;">
         <div class="col-xs-12 alert alert-info">
             The skills meter from <a class="alert-link" href="http://bootsnipp.com/snippets/featured/progress-bar-meter">here</a> is used in this design. 

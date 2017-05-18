@@ -1,7 +1,7 @@
 @extends('layouts.app', ['page_header'=>'Notes', 'page_description'=>'Trashed notes'])
 
 @section('content')
-	<div class="container">
+	<div class="container-fluid">
     	<div class="row">
 			<div class="col-sm-8 col-sm-offset-2">
 				<div class="box box-primary pad">

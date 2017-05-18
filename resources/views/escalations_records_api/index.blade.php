@@ -2,7 +2,7 @@
 @extends('layouts.'.$layout->app(), ['page_header'=>'Escalations Records', 'page_description'=>'List of Current Escalations Records'])
 
 @section('content')
-	<div class="container">
+	<div class="container-fluid">
 		<div class="col-sm-8 col-sm-offset-2">
 			<div class="box box-primary pad">
 				<h3 class="page-header">

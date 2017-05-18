@@ -2,7 +2,7 @@
 @extends('layouts.'.$layout->app(), ['page_header'=>'Permissions', 'page_description'=>'Create a new permission for your app.'])
 
 @section('content')
-	<div class="container">
+	<div class="container-fluid">
 		<div class="box box-primary pad">
 			<div class="row">
 				<div class="col-sm-12">

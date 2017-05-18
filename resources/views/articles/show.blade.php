@@ -29,7 +29,7 @@
         </div>
     </header>
     
-    <div class="container">
+    <div class="container-fluid">
         <div class="col-sm-10 col-sm-offset-1">
             <!-- Preview Image -->
             @if (strlen($article->main_image)>0 )

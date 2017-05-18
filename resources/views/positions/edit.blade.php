@@ -2,7 +2,7 @@
 @extends('layouts.'.$layout->app(), ['page_header'=>'Positions', 'page_description'=>'Edit position '.$position->name])
 
 @section('content')
-	<div class="container">
+	<div class="container-fluid">
 		<div class="box box-primary pad">
 			<div class="row">
 				<div class="col-sm-12">

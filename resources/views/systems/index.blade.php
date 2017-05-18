@@ -2,7 +2,7 @@
 @extends('layouts.'.$layout->app(), ['page_header'=>'Systems for Logins', 'page_description'=>'Manage the systems available in order to save the users logins.'])
 
 @section('content')
-	<div class="container">
+	<div class="container-fluid">
     	<div class="row">
 			<div class="col-sm-8 col-sm-offset-2">
 				<div class="box box-primary pad">

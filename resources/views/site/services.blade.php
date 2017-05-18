@@ -2,7 +2,7 @@
 
 @section('content')
 <br>
-	<div class="container">
+	<div class="container-fluid">
 
         <!-- Image Header -->
         <div class="row">
