@@ -2,8 +2,8 @@
 
 Route::bind('hours', function($id){
     return App\Hour::whereId($id)
-        // ->with('productions')
+        ->with('employee')
         ->firstOrFail();
 });
 
-Route::resource('hours', 'HourController');
+Route::resource('hours', 'HoursController');

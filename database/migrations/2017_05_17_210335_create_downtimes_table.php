@@ -15,25 +15,18 @@ class CreateDowntimesTable extends Migration {
 		Schema::create('downtimes', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->date('insert_date');
+			$table->date('date')->default(new DateTime());
 			$table->integer('employee_id')->unsigned()->index();
+			$table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
 			$table->string('name', 200);
-			$table->integer('year')->unsigned();
-			$table->integer('month')->unsigned();
-			$table->integer('week')->unsigned();
-			$table->time('from_time');
-			$table->time('to_time');
-			$table->integer('break_time')->unsigned();
-			$table->double('total_hours', 2, 2)->unsigned();
+			$table->double('hours', 2, 2)->unsigned();
 			$table->integer('reason_id')->unsigned()->index();
-            $table->string('unique_id')->unique();
+			$table->foreign('reason_id')->references('id')->on('reasons')->onDelete('cascade');
+			$table->integer('type_id')->unsigned();
+			$table->foreign('type_id')->references('id')->on('hours_types')->onDelete('cascade');
+            $table->string('unique_id', 30)->nullable()->unique();
 			
 			$table->timestamps();
-
-			$table->foreign('employee_id')->references('id')->on('employees')
-				->onDelete('cascade')->onUpdate('cascade');
-			$table->foreign('reason_id')->references('id')->on('reasons')
-				->onDelete('cascade')->onUpdate('cascade');
 		});
 	}
 

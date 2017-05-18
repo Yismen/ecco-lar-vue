@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"compl",
+				"completeIt"
+			],
+			[
+				"scr",
+				"scripts\t(index-vue.blade.php)"
+			],
+			[
 				"user",
 				"user_id"
 			],
@@ -506,42 +514,51 @@
 			[
 				"preventDefa",
 				"preventDefault()\tapp.js"
-			],
-			[
-				"empl",
-				"employee"
-			],
-			[
-				"app",
-				"applyScopeStatusToTheQuery"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "resources/views/layouts/partials/navbar-user.blade.php",
+			"file": "resources/views/test/vue.blade.php",
 			"settings":
 			{
-				"buffer_size": 2688,
+				"buffer_size": 599,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "resources/views/escalations_admin/bbbs.blade.php",
+			"file": "vendor/symfony/http-foundation/Session/Session.php",
 			"settings":
 			{
-				"buffer_size": 3816,
+				"buffer_size": 5419,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "resources/assets/js/dainsys/components/Test.vue",
+			"settings":
+			{
+				"buffer_size": 1427,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "resources/views/escalations_admin/home.blade.php",
+			"file": "resources/assets/js/dainsys/components/todos/TodosComponent.vue",
 			"settings":
 			{
-				"buffer_size": 845,
+				"buffer_size": 1209,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "resources/assets/js/dainsys/core/routes.js",
+			"settings":
+			{
+				"buffer_size": 919,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -555,19 +572,91 @@
 	"command_palette":
 	{
 		"height": 354.0,
-		"last_filter": "Snippet: bavbar",
+		"last_filter": "",
 		"selected_items":
 		[
 			[
-				"Snippet: bavbar",
-				"Snippet: bs3-navbar-basic"
+				"Snippet: check",
+				"Snippet: bs3-input-checkbox"
 			],
 			[
-				"Snippet: nav",
-				"Snippet: bs3-navbar-inverse"
+				"Snippet: list",
+				"Snippet: bs3-list-group"
+			],
+			[
+				"Snippet: vfor",
+				"Snippet: <div v-for=\"item in items\">"
+			],
+			[
+				"iden",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"Snippet: compo",
+				"Snippet: Vue component"
+			],
+			[
+				"Snippet: buttonpri",
+				"Snippet: bs3-button-primary"
+			],
+			[
+				"Snippet: vuec",
+				"Snippet: Vue component"
+			],
+			[
+				"artisan ser",
+				"Laravel Artisan 5: Serve"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"artisan",
+				"Laravel Artisan 5: Make:Model"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
 			],
 			[
 				"Snippet: navbar",
+				"Snippet: bs3-navbar-responsive"
+			],
+			[
+				"Snippet: navigation",
+				"Snippet: Bootstrap navigation bar"
+			],
+			[
+				"ide",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"Snippet: nav",
+				"Snippet: bs3-navbar-links"
+			],
+			[
+				"Snippet: nav-",
+				"Snippet: HTML - Navigation object (inline-block)"
+			],
+			[
+				"rei",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"Snippet: vue",
+				"Snippet: Vue component"
+			],
+			[
+				"shell",
+				"Set Syntax: Shell Script (Bash)"
+			],
+			[
+				"Snippet: bavbar",
 				"Snippet: bs3-navbar-basic"
 			],
 			[
@@ -627,14 +716,6 @@
 				"Snippet: bs3-list-group"
 			],
 			[
-				"insta",
-				"Package Control: Install Package"
-			],
-			[
-				"remove",
-				"Package Control: Remove Package"
-			],
-			[
 				"find",
 				"PHPCompanion:Find Use"
 			],
@@ -677,10 +758,6 @@
 			[
 				"Snippet: bladeif",
 				"Snippet: blade-if"
-			],
-			[
-				"Snippet: check",
-				"Snippet: checkboxhorizontal"
 			],
 			[
 				"Snippet: bschek",
@@ -847,10 +924,6 @@
 				"Snippet: <a v-link=\"\">"
 			],
 			[
-				"Snippet: vue",
-				"Snippet: Vue component"
-			],
-			[
 				"Snippet: inputgroupb",
 				"Snippet: bs3-input-group-btn"
 			],
@@ -917,10 +990,6 @@
 			[
 				"Snippet: myv",
 				"Snippet: My Return View"
-			],
-			[
-				"Snippet: vfor",
-				"Snippet: <div v-for=\"item in items\">"
 			],
 			[
 				"Snippet: mymim",
@@ -1017,67 +1086,16 @@
 			[
 				"Snippet: return v",
 				"Snippet: My Return View"
-			],
-			[
-				"Snippet: filla",
-				"Snippet: l5 model fillable"
-			],
-			[
-				"joinli",
-				"JoinLinesEnhanced: join"
-			],
-			[
-				"inline",
-				"Indentation: Reindent Lines"
-			],
-			[
-				"Snippet: list",
-				"Snippet: bs3-list-group-linked"
-			],
-			[
-				"command",
-				"Git: Custom Command"
-			],
-			[
-				"Snippet: myf",
-				"Snippet: My blade form input"
-			],
-			[
-				"Snippet: myrdi",
-				"Snippet: my_redirect_to_route"
-			],
-			[
-				"Snippet: myform\t",
-				"Snippet: My blade form input horizontal"
-			],
-			[
-				"Snippet: sty",
-				"Snippet: HTML - Style tag"
-			],
-			[
-				"Snippet: myb",
-				"Snippet: My Blade View"
-			],
-			[
-				"Snippet: delete",
-				"Snippet: My Laravel Delete Form"
-			],
-			[
-				"Snippet: myvwe",
-				"Snippet: My Blade View"
-			],
-			[
-				"Snippet: my view",
-				"Snippet: My Blade View"
 			]
 		],
 		"width": 510.0
 	},
 	"console":
 	{
-		"height": 117.0,
+		"height": 100.0,
 		"history":
 		[
+			"clear",
 			"git status",
 			"sublime.log_commands(True)",
 			"php artisan",
@@ -1099,23 +1117,82 @@
 	"expanded_folders":
 	[
 		"/F/wamp/www/dainsys3",
-		"/F/wamp/www/dainsys3/public"
+		"/F/wamp/www/dainsys3/resources",
+		"/F/wamp/www/dainsys3/resources/assets/js/dainsys/components",
+		"/F/wamp/www/dainsys3/resources/assets/js/dainsys/components/todos",
+		"/F/wamp/www/dainsys3/resources/assets/js/dainsys/core",
+		"/F/wamp/www/dainsys3/resources/assets/js/dainsys/core/stores",
+		"/F/wamp/www/dainsys3/resources/assets/js/dainsys/views"
 	],
 	"file_history":
 	[
+		"/F/wamp/www/dainsys3/vendor/symfony/http-foundation/Session/Session.php",
+		"/F/wamp/www/dainsys3/vendor/symfony/http-foundation/Session/Storage/SessionStorageInterface.php",
+		"/F/wamp/www/dainsys3/node_modules/laravel-mix/node_modules/clean-css/lib/optimizer/level-2/can-override.js",
+		"/F/wamp/www/dainsys3/resources/views/test/test.blade.php",
+		"/F/wamp/www/dainsys3/resources/assets/js/dainsys/config/interceptors.js",
+		"/F/wamp/www/dainsys3/resources/assets/js/dainsys/app.js",
+		"/F/wamp/www/dainsys3/resources/assets/js/dainsys/components/EscalationsRecords.vue",
+		"/F/wamp/www/dainsys3/node_modules/jorge.form/core/Form.js",
+		"/F/wamp/www/dainsys3/node_modules/jorge.form/main.js",
+		"/F/wamp/www/dainsys3/resources/assets/js/dainsys/components/CreateRecords.vue",
+		"/F/wamp/www/dainsys3/node_modules/jorge.form/README.md",
+		"/F/wamp/www/dainsys3/node_modules/jorge/core/Error.js",
+		"/F/wamp/www/dainsys3/node_modules/jorge/core/Form.js",
+		"/F/wamp/www/dainsys3/package.json",
+		"/F/wamp/www/dainsys3/app/Http/Routes/test.php",
+		"/F/wamp/www/dainsys3/app/Http/Controllers/TestController.php",
+		"/F/wamp/www/dainsys3/node_modules/jorge/package.json",
+		"/F/wamp/www/dainsys3/node_modules/jorge/Form.js",
+		"/F/wamp/www/dainsys3/resources/assets/js/dainsys/core/routes.js",
+		"/F/wamp/www/dainsys3/resources/assets/js/dainsys/core/Error.js",
+		"/F/wamp/www/dainsys3/resources/assets/js/dainsys/core/Form.js",
 		"/F/wamp/www/dainsys3/resources/views/layouts/app.blade.php",
+		"/F/wamp/www/dainsys3/app/Http/Controllers/DateCalcController.php",
+		"/F/wamp/www/dainsys3/vendor/laravel/framework/src/Illuminate/Routing/Controller.php",
+		"/C/Users/Yismen/AppData/Roaming/Sublime Text 3/Packages/User/SublimeLinter.sublime-settings",
+		"/F/wamp/www/dainsys3/app/Http/Controllers/EmployeesController.php",
+		"/F/wamp/www/dainsys3/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php",
+		"/C/Users/Yismen/AppData/Roaming/Sublime Text 3/Packages/Terminal/Terminal.sublime-settings",
+		"/C/Users/Yismen/AppData/Roaming/Sublime Text 3/Packages/Laravel 5 Artisan/Laravel 5 Artisan.sublime-settings",
+		"/C/Users/Yismen/AppData/Roaming/Sublime Text 3/Packages/SublimeLinter/SublimeLinter.sublime-settings",
+		"/C/Users/Yismen/AppData/Roaming/Sublime Text 3/Packages/User/Terminal.sublime-settings",
+		"/F/wamp/www/dainsys3/app/Http/Traits/EmployeesTrait.php",
+		"/F/wamp/www/dainsys3/gulpfile.js",
+		"/F/wamp/www/dainsys3/resources/views/employees/index-vue.blade.php",
+		"/F/wamp/www/dainsys3/resources/assets/js/dainsys/components/Escalations.vue",
+		"/F/wamp/www/dainsys3/resources/assets/js/dainsys/views/NavigationView.vue",
+		"/F/wamp/www/dainsys3/resources/assets/js/dainsys/components/AppComponent.vue",
+		"/F/wamp/www/dainsys3/public/js/dainsys/app.js",
+		"/F/wamp/www/dainsys3/webpack.mix.js",
+		"/F/wamp/www/dainsys3/resources/views/layouts/partials/spinner.blade.php",
+		"/F/wamp/www/dainsys3/resources/assets/css/my-css-updates.css",
+		"/F/wamp/www/dainsys3/resources/views/layouts/partials/flashes.blade.php",
+		"/F/wamp/www/dainsys3/bootstrap/app.php",
+		"/F/wamp/www/dainsys3/node_modules/laravel-mix/setup/webpack.mix.js",
+		"/F/wamp/www/dainsys3/webpack.config.js",
+		"/F/wamp/www/dainsys3/public/js/dainsys/dainsys.js",
+		"/F/wamp/www/dainsys3/yarn-error.log",
+		"/F/wamp/www/dainsys3/npm-debug.log",
+		"/F/wamp/www/dainsys3/node_modules/laravel-mix/src/Mix.js",
+		"/F/laragon/www/test52/package.json",
+		"/F/laragon/www/test52/gulpfile.js",
+		"/F/wamp/www/dainsys3/node_modules/vue/dist/vue.js",
+		"/F/wamp/www/dainsys3/app/Http/Routes/employees.php",
+		"/F/wamp/www/dainsys3/resources/views/employees/index.blade.php",
+		"/F/wamp/www/dainsys3/resources/views/layouts/partials/navbar-user.blade.php",
+		"/F/wamp/www/dainsys3/resources/views/escalations_admin/bbbs.blade.php",
+		"/F/wamp/www/dainsys3/resources/views/escalations_admin/home.blade.php",
+		"/F/wamp/www/dainsys3/resources/assets/js/escalations/app.js",
 		"/F/wamp/www/dainsys3/resources/views/escalations_admin/partials/links.blade.php",
 		"/F/wamp/www/dainsys3/storage/logs/laravel.log",
-		"/F/wamp/www/dainsys3/package.json",
 		"/F/wamp/www/dainsys3/resources/views/escalations_admin/partials/_random_results.blade.php",
 		"/F/wamp/www/dainsys3/app/Http/Routes/escalations_admin.php",
 		"/F/wamp/www/dainsys3/app/Http/Controllers/EscalationsAdminController.php",
 		"/F/wamp/www/dainsys3/app/Http/Traits/EscalationsAdminTrait.php",
 		"/F/wamp/www/dainsys3/resources/views/escalations_admin/index-chartjs.blade.php",
 		"/F/wamp/www/dainsys3/resources/views/escalations_admin/index.blade.php",
-		"/F/wamp/www/dainsys3/resources/views/escalations_admin/home.blade.php",
 		"/F/wamp/www/dainsys3/app/Http/Controllers/UsersController.php",
-		"/F/wamp/www/dainsys3/gulpfile.js",
 		"/F/wamp/www/dainsys3/app/EscalClient.php",
 		"/F/wamp/www/dainsys3/resources/views/escalations_admin/random.blade.php",
 		"/F/wamp/www/dainsys3/resources/views/escalations_admin/partials/_by_date_users_table.blade.php",
@@ -1129,7 +1206,6 @@
 		"/F/wamp/www/dainsys3/resources/assets/js/app.js",
 		"/C/Users/Yismen/AppData/Roaming/Sublime Text 3/Packages/PHP Companion/PHP Companion.sublime-settings",
 		"/C/Users/Yismen/AppData/Roaming/Sublime Text 3/Packages/User/PHP Companion.sublime-settings",
-		"/F/wamp/www/dainsys3/resources/views/escalations_admin/bbbs.blade.php",
 		"/F/wamp/www/dainsys3/resources/views/escalations_admin/search.blade.php",
 		"/F/wamp/www/dainsys3/resources/views/escalations_admin/partials/_by_date_detailed_table.blade.php",
 		"/F/wamp/www/dainsys3/resources/views/escalations_admin/partials/_by_date_summary_table.blade.php",
@@ -1140,7 +1216,6 @@
 		"/C/Users/Yismen/AppData/Roaming/Sublime Text 3/Packages/User/snippets/blade/My blade form input horizontal.sublime-snippet",
 		"/F/wamp/www/dainsys3/app/Http/routes.php",
 		"/F/wamp/www/dainsys3/resources/views/test/component.blade.php",
-		"/F/wamp/www/dainsys3/app/Http/Controllers/TestController.php",
 		"/F/wamp/www/dainsys3/resources/views/components/contextual-date.blade.php",
 		"/F/wamp/www/dainsys3/app/Http/Routes/escal_records.php",
 		"/F/wamp/www/dainsys3/resources/views/escalations_records/indexOld.blade.php",
@@ -1160,8 +1235,6 @@
 		"/F/wamp/www/dainsys3/resources/views/emails/welcome.blade.php",
 		"/F/wamp/www/dainsys3/resources/views/emails/password-reset.blade.php",
 		"/F/wamp/www/dainsys3/config/flysystem.php",
-		"/F/wamp/www/dainsys3/app/Http/Traits/EmployeesTrait.php",
-		"/F/wamp/www/dainsys3/app/Http/Controllers/EmployeesController.php",
 		"/F/wamp/www/dainsys3/resources/views/employees/show.blade.php",
 		"/F/wamp/www/dainsys3/app/Http/Controllers/Traits/EmployeesTrait.php",
 		"/F/wamp/www/dainsys3/config/app.php",
@@ -1180,57 +1253,7 @@
 		"/F/wamp/www/dainsys3/resources/views/escalations_records_admin/index.blade.php",
 		"/C/Users/Yismen/AppData/Roaming/Sublime Text 3/Packages/User/snippets/blade/My blade form select horizontal.sublime-snippet",
 		"/C/Users/Yismen/AppData/Roaming/Sublime Text 3/Packages/User/snippets/blade/My blade form input with addon.sublime-snippet",
-		"/F/wamp/www/dainsys3/resources/assets/js/escalations/core/Form.js",
-		"/F/wamp/www/dainsys3/resources/assets/js/escalations/components/CreateRecords.vue",
-		"/F/wamp/www/dainsys3/node_modules/v-toast/README.md",
-		"/F/wamp/www/dainsys3/resources/assets/js/escalations/app.js",
-		"/F/wamp/www/dainsys3/resources/views/escalations_records_admin/partials/links.blade.php",
-		"/F/wamp/www/dainsys3/resources/views/welcome.blade.php",
-		"/F/wamp/www/dainsys3/resources/views/escalations_records/index.blade.php",
-		"/F/wamp/www/dainsys3/resources/assets/js/escalations/core/routes.js",
-		"/F/wamp/www/dainsys3/resources/views/escalations_records/create.blade.php",
-		"/F/wamp/www/dainsys3/resources/assets/js/escalations/components/EditRecords.vue",
-		"/F/wamp/www/dainsys3/resources/assets/js/escalations/components/Admin.vue",
-		"/F/wamp/www/dainsys3/resources/assets/js/escalations/config/interceptors.js",
-		"/F/wamp/www/dainsys3/resources/assets/js/escalations/core/stores/EscalationsRecords.js",
-		"/F/wamp/www/dainsys3/resources/assets/js/escalations/store.js",
-		"/F/wamp/www/dainsys3/resources/assets/js/escalations/stores/sdfasdf.js",
-		"/F/wamp/www/dainsys3/resources/assets/js/escalations/stores",
-		"/F/wamp/www/dainsys3/resources/assets/css/my-css-updates.css",
-		"/F/wamp/www/dainsys3/resources/assets/js/escalations/components/EditRecord.vue",
-		"/F/wamp/www/dainsys3/resources/assets/js/escalations/classes/Error.js",
-		"/F/wamp/www/dainsys3/resources/assets/js/escalations/classes/Form.js",
-		"/F/wamp/www/dainsys3/resources/assets/js/escalations/classes/Message.js",
-		"/F/wamp/www/dainsys3/resources/assets/js/escalations/components/Pagination.vue",
-		"/F/wamp/www/dainsys3/resources/assets/js/escalations/config/dom-modifiers.js",
-		"/F/wamp/www/dainsys3/resources/assets/js/passwords/app.js",
-		"/F/wamp/www/dainsys3/app/Http/Controllers/EscalClientsController.php",
-		"/F/wamp/www/dainsys3/vendor/symfony/routing/Route.php",
-		"/F/wamp/www/dainsys3/app/Http/Controllers/MenusController.php",
-		"/F/wamp/www/dainsys3/vendor/nesbot/carbon/src/Carbon/Carbon.php",
-		"/F/wamp/www/dainsys3/database/migrations/2017_02_28_150005_create_escal_records_table.php",
-		"/F/wamp/www/dainsys3/app/Http/Routes/escal_clients.php",
-		"/F/wamp/www/dainsys3/resources/views/escalclients/_form.blade.php",
-		"/C/Users/Yismen/AppData/Roaming/Sublime Text 3/Packages/User/snippets/blade/My Return View.sublime-snippet",
-		"/C/Users/Yismen/AppData/Roaming/Sublime Text 3/Packages/User/snippets/blade/My Blade View.sublime-snippet",
-		"/C/Users/Yismen/AppData/Roaming/Sublime Text 3/Packages/User/snippets/blade/My blade form open.sublime-snippet",
-		"/F/wamp/www/dainsys3/vendor/cviebrock/eloquent-sluggable/README.md",
-		"/F/wamp/www/dainsys3/database/migrations/2017_02_28_141138_create_escal_clients_table.php",
-		"/F/wamp/www/dainsys3/database/factories/ModelFactory.php",
-		"/F/wamp/www/dainsys3/.env",
-		"/F/wamp/www/dainsys3/database/migrations/2017_02_28_145839_create_escalations_table.php",
-		"/F/wamp/www/dainsys3/app/Http/Routes/escalations.php",
-		"/F/wamp/www/dainsys3/resources/assets/js/scripts/employee-punch-edit.js",
-		"/F/wamp/www/dainsys3/app/Employee.php",
-		"/F/wamp/www/dainsys3/database/migrations/2015_07_27_193559_create_curves_table.php",
-		"/F/wamp/www/dainsys3/database/migrations/2015_07_28_112742_create_type_of_hours_table.php",
-		"/F/wamp/www/dainsys3/database/migrations/2014_10_12_000000_create_users_table.php",
-		"/F/wamp/www/dainsys3/database/migrations/2015_06_13_123251_create_menus_table.php",
-		"/F/wamp/www/dainsys3/app/TypeOfHour.php",
-		"/F/wamp/www/dainsys3/database/migrations/2015_06_29_194124_create_termination_types_table.php",
-		"/F/wamp/www/dainsys3/database/migrations/2015_06_29_194240_create_termination_reasons_table.php",
-		"/F/wamp/www/dainsys3/database/migrations/2015_07_26_265252_create_sources_table.php",
-		"/F/wamp/www/dainsys3/database/migrations/2015_07_27_193827_create_reasons_table.php"
+		"/F/wamp/www/dainsys3/resources/assets/js/escalations/core/Form.js"
 	],
 	"find":
 	{
@@ -1261,6 +1284,23 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"form",
+			"name",
+			"',\n",
+			"console",
+			"this.http",
+			"fa-star",
+			"EscalationsComponent",
+			"style=\"\"",
+			"style",
+			"stype",
+			"Form",
+			"form",
+			"new",
+			"version",
+			"transformation",
+			"template",
+			"view",
 			"js/all.js",
 			"list-group-item",
 			"responsive",
@@ -1371,24 +1411,7 @@
 			":",
 			"createUser",
 			"escalatios_records",
-			"edit_escalatios_records",
-			"col-sm-6",
-			"4",
-			"12",
-			"tracking",
-			"$client",
-			"search",
-			"tracking",
-			"sr-onlys",
-			"canvas",
-			"c",
-			"canvas",
-			"endif",
-			"escalations_records_admin",
-			"EscalationsRecordsAdminController",
-			"records/",
-			"col-sm-4",
-			"table-hover "
+			"edit_escalatios_records"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1465,131 +1488,24 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "resources/views/layouts/partials/navbar-user.blade.php",
+					"file": "resources/views/test/vue.blade.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2688,
+						"buffer_size": 599,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2323,
-								2323
-							]
-						],
-						"settings":
-						{
-							"color_helper.box_height": 13,
-							"color_helper.color_scheme": "Packages/Material Theme/schemes/Material-Theme.tmTheme",
-							"color_helper.file_palette":
-							[
-							],
-							"color_helper.scan":
-							{
-								"current_ext": ".php",
-								"current_syntax": "Laravel Blade Highlighter/blade",
-								"enabled": false,
-								"last_updated": 1492614950.58
-							},
-							"syntax": "Packages/Laravel Blade Highlighter/blade.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 621.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "resources/views/escalations_admin/bbbs.blade.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3816,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3184,
-								3184
-							]
-						],
-						"settings":
-						{
-							"color_helper.box_height": 13,
-							"color_helper.color_scheme": "Packages/Material Theme/schemes/Material-Theme.tmTheme",
-							"color_helper.file_palette":
-							[
-							],
-							"color_helper.scan":
-							{
-								"allowed_colors":
-								[
-									"rgba",
-									"hsl",
-									"rgb",
-									"hex_compressed",
-									"hex",
-									"webcolors",
-									"hsla"
-								],
-								"compress_hex_output": true,
-								"current_ext": ".php",
-								"current_syntax": "Laravel Blade Highlighter/blade",
-								"enabled": true,
-								"last_updated": 1493470385.68,
-								"scan_completion_scopes":
-								[
-								],
-								"scan_scopes":
-								[
-									"meta.declaration-list.css -support.type.property-name.css -comment -string",
-									"meta.property-value.css -comment -string",
-									"meta.value.css -comment -string",
-									"meta.tag.inline.any.html string.quoted",
-									"meta.tag.any.html meta.attribute-with-value.style.html"
-								],
-								"use_hex_argb": false
-							},
-							"syntax": "Packages/Laravel Blade Highlighter/blade.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "resources/views/escalations_admin/home.blade.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 845,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								316,
-								316
+								383,
+								383
 							]
 						],
 						"settings":
@@ -1606,19 +1522,19 @@
 							{
 								"allowed_colors":
 								[
-									"rgba",
 									"rgb",
-									"webcolors",
-									"hsla",
-									"hex",
+									"hex_compressed",
+									"rgba",
 									"hsl",
-									"hex_compressed"
+									"hsla",
+									"webcolors",
+									"hex"
 								],
 								"compress_hex_output": true,
 								"current_ext": ".php",
 								"current_syntax": "Laravel Blade Highlighter/blade",
 								"enabled": true,
-								"last_updated": 1493742034.86,
+								"last_updated": 1494302586.66,
 								"scan_completion_scopes":
 								[
 								],
@@ -1632,6 +1548,7 @@
 								],
 								"use_hex_argb": false
 							},
+							"open_with_edit": true,
 							"syntax": "Packages/Laravel Blade Highlighter/blade.sublime-syntax",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
@@ -1640,7 +1557,259 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "vendor/symfony/http-foundation/Session/Session.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5419,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2446,
+								2446
+							]
+						],
+						"settings":
+						{
+							"color_helper.box_height": 13,
+							"color_helper.color_scheme": "Packages/Material Theme/schemes/Material-Theme.tmTheme",
+							"color_helper.file_palette":
+							[
+							],
+							"color_helper.preview_meta":
+							{
+							},
+							"color_helper.scan":
+							{
+								"allowed_colors":
+								[
+									"rgb",
+									"hex_compressed",
+									"rgba",
+									"hsl",
+									"hsla",
+									"webcolors",
+									"hex"
+								],
+								"compress_hex_output": true,
+								"current_ext": ".php",
+								"current_syntax": "PHP/PHP",
+								"enabled": true,
+								"last_updated": 1494302586.66,
+								"scan_completion_scopes":
+								[
+								],
+								"scan_scopes":
+								[
+									"meta.declaration-list.css -support.type.property-name.css -comment -string",
+									"meta.property-value.css -comment -string",
+									"meta.value.css -comment -string",
+									"meta.tag.inline.any.html string.quoted",
+									"meta.tag.any.html meta.attribute-with-value.style.html"
+								],
+								"use_hex_argb": false
+							},
+							"history_list_is_closing": true,
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 966.0,
+						"zoom_level": 1.0
+					},
 					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "resources/assets/js/dainsys/components/Test.vue",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1427,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								66,
+								66
+							]
+						],
+						"settings":
+						{
+							"color_helper.box_height": 13,
+							"color_helper.color_scheme": "Packages/Material Theme/schemes/Material-Theme.tmTheme",
+							"color_helper.file_palette":
+							[
+							],
+							"color_helper.preview_meta":
+							{
+							},
+							"color_helper.scan":
+							{
+								"allowed_colors":
+								[
+									"rgb",
+									"hex_compressed",
+									"rgba",
+									"hsl",
+									"hsla",
+									"webcolors",
+									"hex"
+								],
+								"compress_hex_output": true,
+								"current_ext": ".vue",
+								"current_syntax": "Vuejs Complete Package/vue",
+								"enabled": true,
+								"last_updated": 1494302586.66,
+								"scan_completion_scopes":
+								[
+								],
+								"scan_scopes":
+								[
+									"meta.declaration-list.css -support.type.property-name.css -comment -string",
+									"meta.property-value.css -comment -string",
+									"meta.value.css -comment -string",
+									"meta.tag.inline.any.html string.quoted",
+									"meta.tag.any.html meta.attribute-with-value.style.html"
+								],
+								"use_hex_argb": false
+							},
+							"open_with_edit": true,
+							"syntax": "Packages/Vuejs Complete Package/vue.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "resources/assets/js/dainsys/components/todos/TodosComponent.vue",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1209,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								461,
+								461
+							]
+						],
+						"settings":
+						{
+							"color_helper.box_height": 13,
+							"color_helper.color_scheme": "Packages/Material Theme/schemes/Material-Theme.tmTheme",
+							"color_helper.file_palette":
+							[
+								"#fd8e2fff"
+							],
+							"color_helper.no_auto": false,
+							"color_helper.popup_active": false,
+							"color_helper.popup_auto": false,
+							"color_helper.preview_meta":
+							{
+							},
+							"color_helper.scan":
+							{
+								"allowed_colors":
+								[
+									"rgb",
+									"hex_compressed",
+									"rgba",
+									"hsl",
+									"hsla",
+									"webcolors",
+									"hex"
+								],
+								"compress_hex_output": true,
+								"current_ext": ".vue",
+								"current_syntax": "Vuejs Complete Package/vue",
+								"enabled": true,
+								"last_updated": 1494302586.66,
+								"scan_completion_scopes":
+								[
+								],
+								"scan_scopes":
+								[
+									"meta.declaration-list.css -support.type.property-name.css -comment -string",
+									"meta.property-value.css -comment -string",
+									"meta.value.css -comment -string",
+									"meta.tag.inline.any.html string.quoted",
+									"meta.tag.any.html meta.attribute-with-value.style.html"
+								],
+								"use_hex_argb": false
+							},
+							"open_with_edit": true,
+							"syntax": "Packages/Vuejs Complete Package/vue.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 388.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "resources/assets/js/dainsys/core/routes.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 919,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								917,
+								917
+							]
+						],
+						"settings":
+						{
+							"color_helper.box_height": 13,
+							"color_helper.color_scheme": "Packages/Material Theme/schemes/Material-Theme.tmTheme",
+							"color_helper.file_palette":
+							[
+							],
+							"color_helper.preview_meta":
+							{
+							},
+							"color_helper.scan":
+							{
+								"current_ext": ".js",
+								"current_syntax": "JavaScript/JavaScript",
+								"enabled": false,
+								"last_updated": 1494302586.66
+							},
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
 					"type": "text"
 				}
 			]
@@ -1679,7 +1848,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 70.0
+		"height": 53.0
 	},
 	"output.find_results":
 	{
@@ -1706,6 +1875,98 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"viewstest",
+				"resources\\views\\test\\test.blade.php"
+			],
+			[
+				"httproutes",
+				"app\\Http\\Routes\\test.php"
+			],
+			[
+				"testcontr",
+				"app\\Http\\Controllers\\TestController.php"
+			],
+			[
+				"testcontro",
+				"app\\Http\\Controllers\\TestController.php"
+			],
+			[
+				"httprouteste",
+				"app\\Http\\Routes\\test.php"
+			],
+			[
+				"testcon",
+				"app\\Http\\Controllers\\TestController.php"
+			],
+			[
+				"httroutetest",
+				"app\\Http\\Routes\\test.php"
+			],
+			[
+				"jorgeform",
+				"node_modules\\jorge\\Form.js"
+			],
+			[
+				"employescon",
+				"app\\Http\\Controllers\\EmployeesController.php"
+			],
+			[
+				"databasemodel",
+				"vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php"
+			],
+			[
+				"routingcontro",
+				"vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php"
+			],
+			[
+				"app",
+				"bootstrap\\app.php"
+			],
+			[
+				"employeesvi",
+				"resources\\views\\employees\\index-vue.blade.php"
+			],
+			[
+				"appcomp",
+				"resources\\assets\\js\\dainsys\\components\\AppComponent.vue"
+			],
+			[
+				"dainsysroutes",
+				"resources\\assets\\js\\dainsys\\core\\routes.js"
+			],
+			[
+				"webpackmix",
+				"node_modules\\laravel-mix\\setup\\webpack.mix.js"
+			],
+			[
+				"resources/assets/js/dainsys/app.js",
+				"resources\\assets\\js\\dainsys\\app.js"
+			],
+			[
+				"laravelmix",
+				"node_modules\\laravel-mix\\setup\\webpack.mix.js"
+			],
+			[
+				"webpackconfig",
+				"node_modules\\raphael\\webpack.config.js"
+			],
+			[
+				"employeescon",
+				"app\\Http\\Controllers\\EmployeesController.php"
+			],
+			[
+				"vue",
+				"node_modules\\vue\\dist\\vue.js"
+			],
+			[
+				"httproutes/em",
+				"app\\Http\\Routes\\employees.php"
+			],
+			[
+				"dainsysapp",
+				"resources\\assets\\js\\dainsys\\app.js"
+			],
 			[
 				"userscon",
 				"app\\Http\\Controllers\\UsersController.php"
@@ -1773,10 +2034,6 @@
 			[
 				"routes",
 				"app\\Http\\routes.php"
-			],
-			[
-				"testcon",
-				"app\\Http\\Controllers\\TestController.php"
 			],
 			[
 				"routeescalrecord",
@@ -2129,94 +2386,6 @@
 			[
 				"departmentcontro",
 				"app\\Http\\Controllers\\DepartmentsController.php"
-			],
-			[
-				"department",
-				"app\\Department.php"
-			],
-			[
-				"punchescreate",
-				"resources\\views\\punches\\create.blade.php"
-			],
-			[
-				"",
-				".gitattributes"
-			],
-			[
-				"cardcreate",
-				"resources\\views\\cards\\create.blade.php"
-			],
-			[
-				"punchesedit",
-				"resources\\views\\punches\\edit.blade.php"
-			],
-			[
-				"cardsedit",
-				"resources\\views\\cards\\edit.blade.php"
-			],
-			[
-				"punchcont",
-				"app\\Http\\Controllers\\PunchesController.php"
-			],
-			[
-				"pun",
-				"app\\Punch.php"
-			],
-			[
-				"car",
-				"app\\Card.php"
-			],
-			[
-				"employee.",
-				"app\\Employee.php"
-			],
-			[
-				"punchescontroller",
-				"app\\Http\\Controllers\\PunchesController.php"
-			],
-			[
-				"punchesindex",
-				"resources\\views\\punches\\index.blade.php"
-			],
-			[
-				"cardform",
-				"resources\\views\\cards\\_form.blade.php"
-			],
-			[
-				"card",
-				"app\\Card.php"
-			],
-			[
-				"emplo",
-				"app\\Employee.php"
-			],
-			[
-				"punchesform",
-				"resources\\views\\punches\\_form.blade.php"
-			],
-			[
-				"punchecreate",
-				"resources\\views\\punches\\create.blade.php"
-			],
-			[
-				"gend",
-				"app\\Gender.php"
-			],
-			[
-				"gender",
-				"app\\Gender.php"
-			],
-			[
-				"mym",
-				"app\\Console\\Commands\\MyMigrationStatus.php"
-			],
-			[
-				"men",
-				"app\\Menu.php"
-			],
-			[
-				"role",
-				"app\\Role.php"
 			]
 		],
 		"width": 0.0
@@ -2271,7 +2440,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 311.0,
+	"side_bar_width": 319.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

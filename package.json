@@ -3,12 +3,17 @@
   "scripts": {
     "webpack": "cross-env NODE_ENV=development webpack --progress --hide-modules",
     "dev": "cross-env NODE_ENV=development webpack --watch --progress --hide-modules",
+    "dev-h": "cross-env NODE_ENV=development webpack --watch --progress --hide-modules",
     "hmr": "cross-env NODE_ENV=development webpack-dev-server --inline --hot",
     "production": "cross-env NODE_ENV=production webpack --progress --hide-modules",
     "test": "nyc ava --verbose",
     "posttest": "nyc report --reporter=html"
   },
   "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-cli": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-preset-react": "^6.24.1",
     "gulp": "^3.9.0",
     "gulp-util": "^3.0.7"
   },
@@ -31,6 +36,7 @@
     "font-awesome": "^4.6.1",
     "icheck": "^1.0.2",
     "ionicons": "^3.0.0",
+    "jorge.form": "git+https://github.com/Yismen/jorge.form.git",
     "jquery": "^2.2.0",
     "js-cookie": "^2.1.2",
     "laravel-elixir": "^3.0.0",
@@ -44,7 +50,9 @@
     "summernote": "^0.8.1",
     "timepicker": "^1.11.1",
     "v-toast": "^2.1.7",
+    "vee-validate": "^2.0.0-rc.3",
     "vue": "^2.3.2",
+    "vue-bootstrap-modal": "git+https://github.com/Coffcer/vue-bootstrap-modal.git",
     "vue-progressbar": "^0.2.5",
     "vue-resource": "^0.7.0",
     "vue-router": "^2.5.3",

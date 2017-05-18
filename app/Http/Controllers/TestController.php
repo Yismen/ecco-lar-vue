@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Employee;
 use Carbon\Carbon;
 use App\Http\Requests;
@@ -11,6 +12,26 @@ use GrahamCampbell\Flysystem\Facades\Flysystem as Flysystem;
 
 class TestController extends Controller
 {
+    public function vue()
+    {
+        return view('test.vue');
+    }
+    public function apiVueUsers(Request $request)
+    {        
+        return User::take(3)->latest()->select(['name', 'email'])->get();
+    }
+    public function apiVue(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required|min:5',
+            'body' => 'required|min:5',
+        ]);
+        
+        return [
+            'name' => $request->name,
+            'email' => $request->body,
+        ];
+    }
     public function flySystem()
     {
         return $this->testTrait();
