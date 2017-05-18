@@ -1,50 +1,42 @@
 import Vue from 'vue';
 window.Vue = Vue;
 
-// window.Toast = require('vue-toast-mobile').default;
-// import Toast from 'v-toast';
-// window.Toast = Toast;
-/**
- * Require Libraries
- */
-import VueRouter from 'vue-router';
-import VueResource from 'vue-resource';
+Vue.config.debug = true // Comment this line for production
 
+import VueResource from 'vue-resource';
+Vue.http = VueResource;
+Vue.use(VueResource);
+
+// Vue.http.interceptors.request.use(function(config){
+//     config.headers['X-CSRF-TOKEN'] = document.querySelector('#_token').getAttribute('content');
+//     return config;
+// })
+
+// Vue.http.interceptors.push(function(request, next) {
+
+//   response(res) {
+//     console.log(res)
+//   }
+// });
 /**
  * Libraries to use. These libraries are added as part of the constructor.
  * Whithin the instance they can be referenced with the 'this' key.
  */
-Vue.use(VueRouter);
-Vue.use(VueResource);
-
-// Vue.use(progress);
 
 /**
  * Configuration session
  */
-Vue.config.debug = true // Comment this line for production
-Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#_token').getAttribute('content');
 
-/**
- * Override Transitions
- */
-// Vue.transition('fade', {
-//     enterClass: 'fadeIn',
-//     leaveClass: 'fadeOut'
-// });
-// Vue.transition('faderight', {
-//     enterClass: 'fadeInRight',
-//     leaveClass: 'fadeOutRight'
-// });
-// Vue.transition('fadeleft', {
-//     enterClass: 'fadeInLeft',
-//     leaveClass: 'fadeOutLeft'
-// });
+Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#_token').getAttribute('content');
 
 /**
  * Intercepting the http
 */
-Vue.http.interceptors.push(require('./config/interceptors.js'));
+// Vue.http.interceptors.push(require('./config/interceptors.js'));
+
+import VueRouter from 'vue-router';
+Vue.use(VueRouter);
+
 import routes from './core/routes.js';
 
 const router = new VueRouter({
@@ -65,7 +57,6 @@ new Vue({
 
   data() {
         return {
-            errors: 5151
         }
     },
     created() {
@@ -74,3 +65,4 @@ new Vue({
 });
 
 window.router = router;
+// window.http = axios;

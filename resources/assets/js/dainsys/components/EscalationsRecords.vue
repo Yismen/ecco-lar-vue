@@ -62,7 +62,8 @@
 
 <script>
 let shared = require('./../core/stores/EscalationsRecords.js');
-let Form = require('./../core/Form.js');
+import Form from 'jorge.form';
+
 export default {
 
   name: 'EscalationsRecords',

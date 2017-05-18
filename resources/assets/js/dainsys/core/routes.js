@@ -7,13 +7,19 @@ export default [
     { 
         path: '/',
         components: {
-            default: require('./../components/AppComponent'),
-            'home': require('./../components/AppComponent'),
-            'escalations': require('./../components/Escalations'),
+            // default: require('./../components/AppComponent'),
+            sources: require('./../components/sources/SourcesComponent.vue'),
+            test: require('./../components/AddTest')
             // 'employees': require('./../components/EmployeesComponent')
         }
     },
-    {path: '/escalations', component: require('./../components/Escalations')},
+    {path: '/sources/show/:slug', name: 'show-source', component: require('./../components/sources/ShowSource.vue')},
+    {path: '/sources/edit/:slug', name: 'edit-source', component: require('./../components/sources/EditSource.vue')},
+    {path: '/sources/create', name: 'create-source', component: require('./../components/sources/CreateSource.vue')},
+    {path: '/sources/destroy', name: 'destroy-source', component: require('./../components/sources/DestroySource.vue')},
+    
     {path: '/home', component: require('./../components/AppComponent')},
+    {path: '/todos', component: require('./../components/todos/TodosComponent')},
+    {path: '/add-test', component: require('./../components/AddTest')},
     // {path: '/employees', component: require('./../components/EmployeesComponent')},
 ]

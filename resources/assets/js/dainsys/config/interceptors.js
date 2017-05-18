@@ -1,13 +1,6 @@
-
-import Form from './../core/Form.js';
-let form = new Form();
 export default {
-
-    request: function (request) {
-        return request;
-    },
-
     response: function (response) {
+        console.log(response)
     	switch (response.status){
     		case 401:
     			// User is no authorized.

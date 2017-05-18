@@ -50,7 +50,8 @@
 </template>
 
 <script>
-let Form = require('./../core/Form.js');
+import Form from 'jorge.form';
+
 export default {
     name: 'CreateRecords',
   data () {

@@ -14,6 +14,11 @@
 
             };
         },
+
+        created() {
+
+        },
+
         components: {
             'navigation-view': require('./../views/NavigationView')
         }
