@@ -15,7 +15,8 @@ class AddAfpAndArsToEmployeesTable extends Migration
         Schema::table('employees', function (Blueprint $table) {
             $table->integer('ars_id')->unsigned()->nullable()->after('supervisor_id');
             $table->foreign('ars_id')->references('id')->on('ars');
-            $table->integer('afp_id')->unsigned()->nullable()->after('supervisor_id');
+            
+            $table->integer('afp_id')->unsigned()->nullable()->after('ars_id');
             $table->foreign('afp_id')->references('id')->on('afps');
         });
     }
