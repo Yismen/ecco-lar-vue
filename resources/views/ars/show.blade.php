@@ -18,8 +18,8 @@
                                     <a href="{{ route('admin.ars.edit', $ars->slug) }}"><i class="fa fa-pencil"></i></a>
                                 </span>
 
-                                <strong>ID: </strong> {{ $afp->id }} <br>
-                                
+                                <strong>ID: </strong> {{ $ars->id }} <br>
+
                                 Employees: <span class="info-box-number">{{ count($ars->employees) }}</span>
                             </div>
                             <!-- /.info-box-content -->
