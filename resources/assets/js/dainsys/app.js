@@ -32,7 +32,7 @@ Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#_token').getA
 /**
  * Intercepting the http
 */
-// Vue.http.interceptors.push(require('./config/interceptors.js'));
+Vue.http.interceptors.push(require('./config/interceptors.js'));
 
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
@@ -52,7 +52,8 @@ new Vue({
   router: router,
 
   components: {
-    'navigation-view': require('./views/NavigationView')
+    'navigation-view': require('./views/NavigationView'),
+    'dainsys-modal': require('vue-bootstrap-modal'),
   },
 
   data() {

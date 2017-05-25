@@ -48,7 +48,8 @@ class ViewsComposerServiceProvider extends ServiceProvider
             return $view->with([
                 'logged' => auth()->check(),  
                 'user' => $user,
-                'menu' => null
+                'menu' => null,
+                'layout_color' => config('dainsys.layout_color')
             ]);
         });
     }

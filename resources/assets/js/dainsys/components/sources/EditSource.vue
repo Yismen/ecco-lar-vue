@@ -22,6 +22,16 @@
                 </div> <!-- /Col span -->
             </div><!-- ./Form Group -->
 
+            <div class="form-group">
+                <button class="btn btn-danger" @click="showModalConfirmation">
+                    <i class="fa fa-trash"></i> DELETE
+                </button>
+            </div>
+
+            <dainsys-modal :show="showModal" okClass="btn btn-primary"
+                :closeWhenOK="true"
+            ></dainsys-modal>
+
             <!-- <confirm-delete :title="source.name" :closure="cFunction"></confirm-delete> -->
 
             <div class="form-group">
@@ -47,13 +57,21 @@
                 form: new Form({
                     name: ''
                 }),
-                source: {}
+                source: {},
+                showModal: false
             };
+        },
+
+        computed: {
+            showModalConfirmation() {
+                this.showModal = true
+            }
         },
 
         components: {
             'sources-form': require('./_Form'),
-            'confirm-delete': require('./../Confirmation')
+            'confirm-delete': require('./../Confirmation'),
+            'dainsys-modal': require('vue-bootstrap-modal')
         },
 
         methods: {
@@ -65,6 +83,10 @@
             cFunction() {
                 console.log("another function")
             }
+        },
+
+        handleDeleteConfirmed() {
+            alert("Confirmed")
         },
 
         created() {

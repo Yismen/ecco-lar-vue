@@ -70,7 +70,7 @@
               @foreach ($role->menus as $menu)
                 <li>
                   <a href="{{ url('admin/'.$menu->name) }}">
-                    <i class="text-green {{ $menu->icon or 'fa fa-circle-o' }}">
+                    <i class="text-{{ $layout_color }} {{ $menu->icon or 'fa fa-circle-o' }}">
                       
                     </i> {{ $menu->display_name }}
                   </a>

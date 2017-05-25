@@ -6,4 +6,4 @@ Route::bind('hours', function($id){
         ->firstOrFail();
 });
 
-Route::resource('hours', 'HoursController');
+// Route::resource('hours', 'HoursController');

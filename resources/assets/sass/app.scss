@@ -1,2 +1,57 @@
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+/*!
+ * Bootstrap v3.3.7 (http://getbootstrap.com)
+ * Copyright 2011-2016 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap-sass/_blob/master/LICENSE)
+ */
+
+// Core variables and mixins
+@import "bootstrap-sass/_variables";
+@import "bootstrap-sass/_mixins";
+
+// Reset and dependencies
+@import "bootstrap-sass/_normalize";
+@import "bootstrap-sass/_print";
+@import "bootstrap-sass/_glyphicons";
+
+// Core CSS
+@import "bootstrap-sass/_scaffolding";
+@import "bootstrap-sass/_type";
+@import "bootstrap-sass/_code";
+@import "bootstrap-sass/_grid";
+@import "bootstrap-sass/_tables";
+@import "bootstrap-sass/_forms";
+@import "bootstrap-sass/_buttons";
+
+// Components
+@import "bootstrap-sass/_component-animations";
+@import "bootstrap-sass/_dropdowns";
+@import "bootstrap-sass/_button-groups";
+@import "bootstrap-sass/_input-groups";
+@import "bootstrap-sass/_navs";
+@import "bootstrap-sass/_navbar";
+@import "bootstrap-sass/_breadcrumbs";
+@import "bootstrap-sass/_pagination";
+@import "bootstrap-sass/_pager";
+@import "bootstrap-sass/_labels";
+@import "bootstrap-sass/_badges";
+@import "bootstrap-sass/_jumbotron";
+@import "bootstrap-sass/_thumbnails";
+@import "bootstrap-sass/_alerts";
+@import "bootstrap-sass/_progress-bars";
+@import "bootstrap-sass/_media";
+@import "bootstrap-sass/_list-group";
+@import "bootstrap-sass/_panels";
+@import "bootstrap-sass/_responsive-embed";
+@import "bootstrap-sass/_wells";
+@import "bootstrap-sass/_close";
+
+// Components w/ JavaScript
+@import "bootstrap-sass/_modals";
+@import "bootstrap-sass/_tooltip";
+@import "bootstrap-sass/_popovers";
+@import "bootstrap-sass/_carousel";
+
+// Utility classes
+@import "bootstrap-sass/_utilities";
+@import "bootstrap-sass/_responsive-utilities";
 
