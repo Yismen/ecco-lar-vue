@@ -17,6 +17,8 @@
                                     {{ $afp->name }}
                                     <a href="{{ route('admin.afps.edit', $afp->slug) }}"><i class="fa fa-pencil"></i></a>
                                 </span>
+
+                                <strong>ID: </strong> {{ $afp->id }} <br>
                                 Employees: <span class="info-box-number">{{ count($afp->employees) }}</span>
                             </div>
                             <!-- /.info-box-content -->

@@ -28,8 +28,10 @@ class AddAfpAndArsToEmployeesTable extends Migration
     public function down()
     {
         Schema::table('employees', function (Blueprint $table) {
-            $table->dropForeign('ars_id');
-            $table->dropForeign('afp_id');
+            $table->dropForeign('employees_ars_id_foreign');
+            // $table->dropColumn('ars_id');
+            $table->dropForeign('employees_afp_id_foreign');
+            // $table->dropColumn('afp_id');
         });
     }
 }

@@ -1,15 +1,17 @@
 <div class="table-responsive">
-    <table class="table table-condensed">
+    <table class="table table-condensed table-bordered">
         <thead>
             <tr>
+                <th>Id</th>
                 <th>ARS</th>
-                <th>Employees</th>
+                <th class="col-xs-2">Employees</th>
                 <th class="col-xs-2">Edit</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($arss as $ars)
                 <tr>
+                    <td>{{ $ars->id }} </td>
                     <td>
                         <a href="/admin/ars/{{ $ars->slug }}">{{ $ars->name }}</a>
                     </td>

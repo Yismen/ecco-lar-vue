@@ -2,14 +2,16 @@
     <table class="table table-condensed">
         <thead>
             <tr>
+                <th>Id</th>
                 <th>AFP</th>
-                <th>Employees</th>
+                <th class="col-xs-2">Employees</th>
                 <th class="col-xs-2">Edit</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($afps as $afp)
                 <tr>
+                    <td>{{ $afp->id }} </td>
                     <td>
                         <a href="/admin/afps/{{ $afp->slug }}">{{ $afp->name }}</a>
                     </td>
