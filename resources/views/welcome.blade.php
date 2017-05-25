@@ -5,7 +5,7 @@
     <div class="">
         @if (Auth::check())
 
-            <div class="jumbotron no-margin green-div">
+            <div class="jumbotron no-margin {{ config('dainsys.layout_color') }}-div">
                 <div class="container-fluid">
                     <div class="col-sm-12 text-center">
                         @include('layouts.partials.logo')

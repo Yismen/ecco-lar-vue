@@ -65,7 +65,7 @@
         @foreach ($user->rolesList as $role)
           <li class="treeview">
             <a href="#"><i class="fa fa-link"></i> <span>{{ $role->display_name }}</span> 
-            <i class="fa fa-angle-left pull-right"></i></a>
+            <i class="fa fa-angle-left pull-right text-{{ $layout_color }}"></i></a>
             <ul class="treeview-menu">
               @foreach ($role->menus as $menu)
                 <li>
