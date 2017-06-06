@@ -9,7 +9,8 @@ export default [
         components: {
             // default: require('./../components/AppComponent'),
             sources: require('./../components/sources/SourcesComponent.vue'),
-            test: require('./../components/AddTest')
+            test: require('./../components/AddTest'),
+            pagination: require('./../components/test/Pagination.vue')
             // 'employees': require('./../components/EmployeesComponent')
         }
     },

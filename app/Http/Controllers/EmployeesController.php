@@ -19,305 +19,294 @@ use App\Providers\EmployeeServiceProvider as EmployeeProvider;
 
 class EmployeesController extends Controller 
 {
-	use EmployeesTrait;
+    use EmployeesTrait;
 
-	protected $provider;
-	private $request;
-	private $carbon;
-	function __construct(Request $request, Carbon $carbon) {
-		$this->request = $request;
-		$this->carbon = $carbon;
+    protected $provider;
+    private $request;
+    private $carbon;
+    function __construct(Request $request, Carbon $carbon) {
+        $this->request = $request;
+        $this->carbon = $carbon;
 
-		$this->middleware('authorize:view_employees|edit_employees|create_employees', ['only'=>['index','show']]);
-		$this->middleware('authorize:edit_employees', ['only'=>['edit','update']]);
-		$this->middleware('authorize:create_employees', ['only'=>['create','store']]);
-		$this->middleware('authorize:destroy_employees', ['only'=>['destroy']]);
-	}
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @Get("/employees")
-	 * @return Response
-	 */
-	public function index(Employee $employees, Datatables $datatables)
-	{
-		$employees = $this->getEmployees($employees, $this->request, $this->carbon);
+        $this->middleware('authorize:view_employees|edit_employees|create_employees', ['only'=>['index','show']]);
+        $this->middleware('authorize:edit_employees', ['only'=>['edit','update']]);
+        $this->middleware('authorize:create_employees', ['only'=>['create','store']]);
+        $this->middleware('authorize:destroy_employees', ['only'=>['destroy']]);
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @Get("/employees")
+     * @return Response
+     */
 
-		if ($this->request->ajax()) return view('employees._employees', compact('employees'));
+    public function index()
+    {
+        return view('employees.index-datatables');
+    }
 
-		return view('employees.index', compact('employees'));
-	}
+    public function apiEmployees(Request $request)
+    {
+        $employees = Employee::with('position.department');
 
-	public function index2()
-	{
-		return view('employees.index-vue');
-	}
+        return Datatables::of($employees)
+            ->editColumn('id', function ($query) {
+                return '<a href="' . route("admin.employees.show", $query->id) . '" class="">'.$query->id.'</a>';
+            })
+            // ->editColumn('full_name', function ($query) {
+            //     return '<a href="' . route("admin.employees.show", $query->id) . '" class="">'.$query->full_name.'</a>';
+            // })
+            ->addColumn('edit', function($query) {
+                return '<a href="' . route("admin.employees.edit", $query->id) . '" class=""> <i class="fa fa-edit"></i></a>';
+            })
+            ->make(true);
+    }
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @Get("employees/create")
-	 * @return Response
-	 */
-	public function create(Employee $employee, Department $departments)
-	{
-		return view('employees.create', compact('employee', 'departments'));	
-	}
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @Get("employees/create")
+     * @return Response
+     */
+    public function create(Employee $employee, Department $departments)
+    {
+        return view('employees.create', compact('employee'));    
+    }
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store(Employee $employee, Request $request)
-	{
-		$this->validateRequest($request, $employee);
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @return Response
+     */
+    public function store(Employee $employee, Request $request)
+    {
+        $this->validateRequest($request, $employee);
 
-		$employee = $employee->create($request->all());
+        $employee = $employee->create($request->all());
 
-		Cache::forget('employees');
+        Cache::forget('employees');
 
-		return \Redirect::route('admin.employees.index')
-			->withSuccess("Succesfully added employee [$request->first_name $request->last_name];");
-		
-	}
+        if ($request->ajax()) {
+            return $employee;
+        }
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show(Employee $employee)
-	{
-		return view('employees.show', compact('employee'));
-	}
+        return \Redirect::route('admin.employees.index')
+            ->withSuccess("Succesfully added employee [$request->first_name $request->last_name];");
+        
+    }
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit(Employee $employee)
-	{
-		return view('employees.edit', compact('employee'));
-	}
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function show(Employee $employee)
+    {
+        return view('employees.show', compact('employee'));
+    }
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update(Employee $employee, Request $request)
-	{
-		$this->validateRequest($request, $employee);
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function edit(Employee $employee)
+    {
+        return view('employees.edit', compact('employee'));
+    }
 
-		$employee->update($request->all());
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function update(Employee $employee, Request $request)
+    {
+        $this->validateRequest($request, $employee);
 
-		Cache::forget('employees');
+        $employee->update($request->all());
 
-		return redirect()->route('admin.employees.edit', $employee->id)
-			->withSuccess("Succesfully updated employee [$request->first_name $request->last_name]");
+        Cache::forget('employees');
 
-	}
+        if ($request->ajax()) {
+            return $employee;
+        }
 
-	public function updateAddress(Employee $employee, Request $request)
-	{
-		$this->validateAddressRequest($request);
+        return redirect()->route('admin.employees.edit', $employee->id)
+            ->withSuccess("Succesfully updated employee [$request->first_name $request->last_name]");
 
-		$employee->createOrUpdateAddress($request);		
+    }
 
-		if ($request->ajax()) {
-			return response()->json([
-				'type' => 'success', 
-				'message' => "$employee->first_name's address updated!"
-				]);
-		}
+    public function updateAddress(Employee $employee, Request $request)
+    {
+        $this->validateAddressRequest($request);
 
-		return redirect()->route('admin.employees.show', $employee->id)
-			->withSuccess("$employee->first_name's address updated!");
+        $employee = $employee->createOrUpdateAddress($request); 
 
-	}
+        if ($request->ajax()) {
+            return $employee->load('addresses');
+        }
 
-	public function updateCard(Employee $employee, Request $request)
-	{
-		$this->validateCardRequest($request);
+        return redirect()->route('admin.employees.show', $employee->id)
+            ->withSuccess("$employee->first_name's address updated!");
 
-		$employee->createOrUpdateCard($request);		
+    }
 
-		if ($request->ajax()) {
-			return response()->json([
-				'type' => 'success', 
-				'message' => "$employee->first_name's Card updated!"
-				]);
-		}
+    public function updateCard(Employee $employee, Request $request)
+    {
+        $this->validateCardRequest($request);
 
-		return redirect()->route('admin.employees.show', $employee->id)
-			->withSuccess("Card Number Updated");
-	}
+        $employee->createOrUpdateCard($request);        
 
-	public function updatePunch(Employee $employee, Request $request)
-	{
-		$this->validate($request, [		    
-			'punch' => 'required|numeric|digits:5', 
-		]);
+        if ($request->ajax()) {
+            return $employee->load('card');
+        }
 
-		$employee->createOrUpdatePunch($request);
+        return redirect()->route('admin.employees.show', $employee->id)
+            ->withSuccess("Card Number Updated");
+    }
 
-		if ($request->ajax()) {
-			return response()->json([
-				'status'  => 1, 
-				'employee' => $employee, 
-				'message' => "$employee->first_name's Punch updated!"
-				]);
-		}
+    public function updatePunch(Employee $employee, Request $request)
+    {
+        $this->validate($request, [         
+            'punch' => 'required|numeric|digits:5', 
+        ]);
 
-		return redirect()->route('admin.employees.show', $employee->id)
-			->withSuccess("Punch ID Updated");
-	}
+        $employee->createOrUpdatePunch($request);
 
-	public function createLogin(Employee $employee, Login $login, Request $request)
-	{
+        if ($request->ajax()) {
+            return $employee->load('punch');
+        }
 
-		$this->validate($request, [
-		    'login' => 'required|unique:logins,login,NULL,id,system_id,'.$request->input('system_id'),
-		    'system_id' => 'required|exists:systems,id',
-		]);
+        return redirect()->route('admin.employees.show', $employee->id)
+            ->withSuccess("Punch ID Updated");
+    }
 
-		$newlogin = $employee->logins()->create($request->all());
-		$loginsList = $employee->logins;
+    public function createLogin(Employee $employee, Login $login, Request $request)
+    {
+        $newLogin = $this->handleAddLoginsToEmployee($employee, $request);
 
-		Cache::forget('employees');
+        if ($request->ajax()) {
+            return $newLogin;
+        }
 
-		if ($request->ajax()) {
-			// return view('employees.partials._logins', compact('loginsList'));
-			return response()->json([
-				'status'   => 1, 
-				'employee' => $employee, 
-				'newlogin' => $newlogin, 
-				'system'   => $newlogin->system, 
-				'system2'   => $request->login, 
-				'message'  => "$employee->first_name's login [$request->login] has been created!"
-			]);
-		}
+        return redirect()->route('admin.employees.edit', $employee->id)
+            ->withSuccess("Succesfully created [$request->login]");
+    }
 
-		return redirect()->route('admin.employees.edit', $employee->id)
-			->withSuccess("Succesfully created [$request->login]");
-	}
+    public function updateArs(Employee $employee, Request $request)
+    {
+        $employee = $this->handleAUpdateArs($employee, $request);
 
-	public function updateLogin(Employee $employee, Login $login, Request $request)
-	{
-		if ($employee->logins) {
-			$employee->logins->update($request->all());
-		} else {
-			$login = new $login([
-				'login'=>$request->input('login'), 
-				'system_id'=>$request->input('system_id')
-				]);
-			$employee->logins()->save($login);
-		}
+        if ($request->ajax()) {
+            return $employee;
+        }
+    }
 
-		if ($request->ajax()) {
-			return response()->json([
-				'status'  => 1, 
-				'employee' => $employee, 
-				'message' => "$employee->first_name's Login updated!"
-				]);
-		}
+    public function updateAfp(Employee $employee, Request $request)
+    {
+        $employee = $this->handleAUpdateAfp($employee, $request);
 
-		return redirect()->route('admin.employees.show', $employee->id)
-			->withSuccess("Login Number Updated");
-	}
+        if ($request->ajax()) {
+            return $employee;
+        }
+    }
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy(Employee $employee)
-	{
-		Cache::forget('employees');
-		return $employee;
+    public function updateSupervisor(Employee $employee, Request $request)
+    {
+        $employee = $this->handleUpdateSupervisor($employee, $request);
 
-	}
+        if ($request->ajax()) {
+            return $employee;
+        }
+    }
 
-	public function updatePhoto(Employee $employee, Request $request)
-	{
-		// $this->validatePhoto($request)
-		// 	->crateImage('images/employees/')
-		// 	->saveImage()
-		// 	->updateEmployee();
-			
-		$this->validate($request, [
-		    'photo' => 'required|image|max:3000',
-		]);
+    public function updateLogin(Employee $employee, Login $login, Request $request)
+    {
+        if ($employee->logins) {
+            $employee->logins->update($request->all());
+        } else {
+            $login = new $login([
+                'login'=>$request->input('login'), 
+                'system_id'=>$request->input('system_id')
+                ]);
+            $employee->logins()->save($login);
+        }
 
-		$image = new ImageUploader('images/employees/');
+        if ($request->ajax()) {
+            return response()->json([
+                'status'  => 1, 
+                'employee' => $employee, 
+                'message' => "$employee->first_name's Login updated!"
+                ]);
+        }
 
-		$image = $image->saveImage($employee->id, $request->file('photo'));
+        return redirect()->route('admin.employees.show', $employee->id)
+            ->withSuccess("Login Number Updated");
+    }
 
-		if ($image) {
-			$employee->photo = $image;
-			$employee->save();
-		} 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy(Employee $employee)
+    {
+        Cache::forget('employees');
+        return $employee;
 
-		if ($request->ajax()) {
-			return response()->json([
-				'photo' => url($employee->photo), 
-				'type' => 'success',
-				'message' => "$employee->first_name's photo has been updated!"
-			]);
-		}
+    }
 
-		return redirect()->route('admin.employees.edit', $employee->id)
-			->withSuccess("$employee->first_name's photo has been updated!");
-	}
+    public function updatePhoto(Employee $employee, Request $request)
+    {
+        $this->validate($request, [
+            'photo' => 'required|image|max:3000',
+        ]);
 
-	public function updateTermination(Request $request, $employee)
-	{	
+        $image = new ImageUploader('images/employees/');
 
-		$this->validate($request, [
-		    'termination_date' => 'required|date',
-		    'termination_type_id' => 'required|integer|exists:termination_types,id',
-		    'termination_reason_id' => 'required|integer|exists:termination_reasons,id',
-		    'can_be_rehired' => 'required|boolean',
-		]);
+        $image = $image->saveImage($employee->id, $request->file('photo'));
 
-		Termination::whereEmployeeId($employee->id)->delete();
-		
-		$termination = new Termination($request->all());
-		$employee->termination()->save($termination);
+        if ($image) {
+            $now = Carbon::now()->timestamp;
+            $employee->photo = '/'.$image.'?'. $now;
+            $employee->save();
+        } 
 
-		if ($request->ajax()) {
-			return response()->json([
-				'status' => 1, 
-				'data' => $employee->termination, 
-				'message' => "$employee->first_name's termination has been updated!"
-				]);
-		}
+        if ($request->ajax()) {
+            return $employee;
+        }
 
-		return redirect()->route('admin.employees.edit', $employee->id)
-			->withSuccess("$employee->first_name's termination has been updated!");
+        return redirect()->route('admin.employees.edit', $employee->id)
+            ->withSuccess("$employee->first_name's photo has been updated!");
+    }
 
+    public function updateTermination(Request $request, $employee)
+    { 
+        $employee = $this->handleInactivation($employee, $request);
 
-	}
+        if ($request->ajax()) {         
+            return $employee;
+        }
 
-	public function reactivate($employee, Request $request)
-	{
-		// return $request->all();
-		// return $employee;
-		if ($employee->termination) {
-			$employee->termination->delete();
-		}
+        return redirect()->route('admin.employees.edit', $employee->id)
+            ->withSuccess("$employee->first_name's termination has been updated!");
+    }
 
-		$employee->update($request->all());
-		
+    public function reactivate($employee, Request $request)
+    {
+        $employee = $this->handleReactivation($employee, $request);
 
-		return redirect()->route('admin.employees.edit', $employee->id)
-			->withWarning("Employee $employee->full_name has been reactivated. Please make sure to update Hire Date field");
+        if ($request->ajax()) {         
+            return $employee;
+        }       
 
-	}
+        return redirect()->route('admin.employees.edit', $employee->id)
+            ->withWarning("Employee $employee->full_name has been reactivated. Please make sure to update Hire Date field");
+
+    }
 }

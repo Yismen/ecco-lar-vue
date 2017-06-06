@@ -23,7 +23,7 @@ class Ars extends Model implements SluggableInterface
     // Relationships =============================================
     public function employees()
     {
-        return $this->hasMany('App\Employee', 'ars_id');
+        return $this->hasMany('App\Employee');
     }
     
     // Methods ===================================================

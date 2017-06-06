@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddAfpAndArsToEmployeesTable extends Migration
+class AddArsIdToEmployeesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,10 +14,7 @@ class AddAfpAndArsToEmployeesTable extends Migration
     {
         Schema::table('employees', function (Blueprint $table) {
             $table->integer('ars_id')->unsigned()->nullable()->after('supervisor_id');
-            // $table->foreign('ars_id')->references('id')->on('ars');
-            
-            $table->integer('afp_id')->unsigned()->nullable()->after('ars_id');
-            // $table->foreign('afp_id')->references('id')->on('afps');
+            $table->foreign('ars_id')->references('id')->on('ars');
         });
     }
 
@@ -29,10 +26,8 @@ class AddAfpAndArsToEmployeesTable extends Migration
     public function down()
     {
         Schema::table('employees', function (Blueprint $table) {
-            // $table->dropForeign('employees_ars_id_foreign');
+            $table->dropForeign(['ars_id']);
             $table->dropColumn('ars_id');
-            // $table->dropForeign('employees_afp_id_foreign');
-            $table->dropColumn('afp_id');
         });
     }
 }

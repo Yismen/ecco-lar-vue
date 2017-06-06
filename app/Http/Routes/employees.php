@@ -10,6 +10,8 @@
 // 	'uses'=>'EmployeesController@search',
 // ]);
 // 
+Route::post('employees/list', ['as'=>'admin.employees.list', 'uses'=>'EmployeesController@apiEmployees']);
+
 Route::post('employees/logins/{employees}', ['as'=>'admin.employees.login.create', 'uses'=>'EmployeesController@createLogin']);
 
 Route::post('employees/logins/{employees}/update', ['as'=>'admin.employees.login.update', 'uses'=>'EmployeesController@updateLogin']);
@@ -26,8 +28,13 @@ Route::post('employees/updatePunch/{employees}', ['as'=>'admin.employees.updateP
 
 Route::post('employees/updatePhoto/{employees}', ['as'=>'admin.employees.updatePhoto','uses'=>'EmployeesController@updatePhoto']);
 
+Route::post('employees/updateArs/{employees}', ['as'=>'admin.employees.updateArs','uses'=>'EmployeesController@updateArs']);
 
-// Route::get('datatables/employees', ['as'=>'admin.employees.datatables-list', 'uses'=>'EmployeesController@dataTables']);
+Route::post('employees/updateAfp/{employees}', ['as'=>'admin.employees.updateAfp','uses'=>'EmployeesController@updateAfp']);
+
+Route::post('employees/updateSupervisor/{employees}', ['as'=>'admin.employees.updateSupervisor','uses'=>'EmployeesController@updateSupervisor']);
+
+
 Route::get('employees', ['as'=>'admin.employees.datatables-list', 'uses'=>'EmployeesController@index']);
 
 /**
@@ -35,28 +42,18 @@ Route::get('employees', ['as'=>'admin.employees.datatables-list', 'uses'=>'Emplo
  */
 Route::bind('employees', function($id){
 	return App\Employee::whereId($id)
-		->with('department')
-		->with('maritals')
-		->with('positions')
-		->with('genders')
-		->with('addresses')
-		->with('logins')
-		->firstOrFail();
+        ->with('addresses')
+        ->with('afp')
+        ->with('ars')
+        ->with('card')
+        ->with('department')
+        ->with('gender')
+        ->with('logins.system')
+        ->with('marital')
+        ->with('punch')
+        ->with('position')
+        ->with('termination')
+        ->with('supervisor')
+	->firstOrFail();
 });
 Route::resource('employees', 'EmployeesController');
-
-
-
-// Route::group(['prefix'=>'api'], function(){
-// 	Route::bind('employees', function($id){
-// 		return App\Employee::whereId($id)
-// 			->with('department')
-// 			->with('maritals')
-// 			->with('positions')
-// 			->with('genders')
-// 			->with('addresses')
-// 			->with('logins')
-// 			->firstOrFail();
-// 	});
-// 	Route::resource('employees', 'EmployeesController');
-// });

@@ -10,10 +10,10 @@
 						<strong>Name: </strong>{{ $position->name }}
 					</li>
 					<li class="list-group-item">
-						<strong>Department: </strong>{{ $position->departments->department }}
+						<strong>Department: </strong>{{ $position->department->department }}
 					</li>
 					<li class="list-group-item">
-						<strong>Paid as: </strong>{{ $position->payments->payment_type }}
+						<strong>Paid as: </strong>{{ $position->payment->payment_type }}
 					</li>
 					<li class="list-group-item">
 						<strong>Saraly: </strong>RD$ {{ $position->salary }}

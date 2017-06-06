@@ -7,8 +7,8 @@
 
 Route::bind('positions', function($id){
 	return App\Position::whereId($id)
-		->with('departments')
-		->with('payments')
+		->with('department')
+		->with('payment')
 		->firstOrFail();
 });
 

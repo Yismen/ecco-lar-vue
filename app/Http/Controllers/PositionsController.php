@@ -1,11 +1,10 @@
 <?php namespace App\Http\Controllers;
 
 // use App\Http\Request;
-use App\Http\Controllers\Controller;
-
-
-use Illuminate\Http\Request;
 use App\Position;
+use App\Department;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class PositionsController extends Controller {
 
@@ -27,8 +26,8 @@ class PositionsController extends Controller {
 		$positions = $positions
 			->orderBy('department_id')
 			->orderBy('name')
-			->with('departments')
-			->with('payments')
+			->with('department')
+			->with('payment')
 			->paginate(10);
 
 		return view('positions.index', compact('positions'));
@@ -49,9 +48,12 @@ class PositionsController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(Position $position, Request $requests)
+	public function store(Position $position, Request $request)
 	{
-		$position = $position->create($requests->all());
+		$this->validateRequest($request, $position);
+
+		$position = $this->createPosition($position, $request);
+
 		return redirect()->route('admin.positions.index')
 			->withSuccess("Position $position->name has been created!");
 	}
@@ -84,9 +86,11 @@ class PositionsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update(Position $position, Request $requests)
+	public function update(Position $position, Request $request)
 	{
-		$position->update($requests->all());
+		$this->validateRequest($request, $position);
+
+		$position->update($request->all());
 
 		return redirect()->route('admin.positions.show', $position->id)
 			->withSuccess("Position $position->name has been ubdated!!");
@@ -98,12 +102,39 @@ class PositionsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy(Position $position, Request $requests)
+	public function destroy(Position $position, Request $request)
 	{
 		$position->delete();
 		
 		return redirect()->route('admin.positions.index')
 			->withWarning("Position $position->name has been removed!");
+	}
+
+	protected function validateRequest($request, $position)
+	{
+		$this->validate($request, [
+			'name' => 'required|min:2|unique:positions,name,'.$position->id.',id',
+			'department_id' => 'required|exists:departments,id',
+			'payment_id' => 'required|exists:payments,id',
+			'salary' => 'required|numeric|min:0|max:500000',
+		]);
+
+		return $this;
+	}
+
+	protected function createPosition($position, $request)
+	{		
+		$department = Department::find($request->department_id);
+
+		$position->name = $department ? $department->department.' - '.$request->name : $requet->name;
+		$position->department_id = $request->department_id;
+		$position->payment_id = $request->payment_id;
+		$position->salary = $request->salary;
+
+		$position->save();
+
+		return $position;
+
 	}
 
 }

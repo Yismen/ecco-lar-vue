@@ -2,6 +2,10 @@
 
 namespace App\Http\Traits;
 
+use App\Ars;
+use App\Termination;
+use Illuminate\Support\Facades\Cache;
+
 trait EmployeesTrait
 {
     /**
@@ -36,7 +40,7 @@ trait EmployeesTrait
      * validates employees request against a set of rules. Prevent continues if validation fails
      * @return boolean validation passed|failed
      */
-    private function validateRequest(Request $request, $employee)
+    private function validateRequest($request, $employee)
     {
         return $this->validate($request, [
             'first_name' => 'required',
@@ -62,10 +66,6 @@ trait EmployeesTrait
      */
     private function applyScopeStatusToTheQuery($status, $employees)
     {
-        // if (!$status) {
-        //  $status = 'actives';
-        // }
-
         if (!in_array($status, ['actives', 'inactives'])) return $employees;
 
         
@@ -123,5 +123,98 @@ trait EmployeesTrait
     {
         $this->validate($request, ['card'=> 'required|numeric|digits:8|']);
         return $this;
+    }
+
+    protected function handleInactivation($employee, $request)
+    {  
+        $this->validate($request, [
+            'termination_date' => 'required|date',
+            'termination_type_id' => 'required|integer|exists:termination_types,id',
+            'termination_reason_id' => 'required|integer|exists:termination_reasons,id',
+            'can_be_rehired' => 'required|boolean',
+        ]);
+
+        Termination::whereEmployeeId($employee->id)->delete();
+        
+        $termination = new Termination($request->only([
+            'termination_date', 'termination_type_id', 'termination_reason_id', 'can_be_rehired'
+        ]));
+
+        $employee->termination()->save($termination);
+
+        return $employee->load('termination');
+    }
+
+    private function handleReactivation($employee, $request)
+    {        
+        $this->validate($request, [
+            'hire_date' => 'required|date',
+        ]);
+        
+        if ($employee->termination) {
+            $employee->termination->delete();
+        }
+
+        $employee->update($request->only(['hire_date']));
+
+        return $employee->load('termination');
+    }
+
+    private function handleAddLoginsToEmployee($employee, $request)
+    { 
+        $this->validate($request, [
+            'login' => 'required|unique:logins,login,NULL,id,system_id,'.$request->input('system_id'),
+            'system_id' => 'required|exists:systems,id',
+        ]);
+
+        $newlogin = $employee->logins()->create($request->all());
+
+        $loginsList = $employee->logins;
+
+        Cache::forget('employees');
+
+        return $newlogin->load('system');
+    }
+
+    private function handleAUpdateArs($employee, $request)
+    { 
+        $this->validate($request, [
+            'ars_id' => 'required|exists:ars,id',
+        ]);
+
+        $employee->ars_id = $request->ars_id;
+        $employee->save();
+
+        Cache::forget('employees');
+
+        return $employee->load('ars');
+    }
+
+    private function handleAUpdateAfp($employee, $request)
+    { 
+        $this->validate($request, [
+            'afp_id' => 'required|exists:afps,id',
+        ]);
+
+        $employee->afp_id = $request->afp_id;
+        $employee->save();
+
+        Cache::forget('employees');
+
+        return $employee->load('afp');
+    }
+
+    private function handleUpdateSupervisor($employee, $request)
+    { 
+        $this->validate($request, [
+            'supervisor_id' => 'required|exists:supervisors,id',
+        ]);
+
+        $employee->supervisor_id = $request->supervisor_id;
+        $employee->save();
+
+        Cache::forget('employees');
+
+        return $employee->load('supervisor');
     }
 }

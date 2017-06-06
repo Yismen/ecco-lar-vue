@@ -38,7 +38,7 @@
 								</td>
 
 								<td>
-									<a href="{{ route('admin.departments.show', $position->departments->id) }}">{{ $position->departments->department }}</a>
+									<a href="{{ route('admin.departments.show', $position->department->id) }}">{{ $position->department->department }}</a>
 								</td>
 								<td>
 									<a href="{{ route('admin.positions.edit', $position->id) }}" rel="tooltip" title="Edit" data-placement="left">

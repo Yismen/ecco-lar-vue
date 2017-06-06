@@ -7,17 +7,18 @@ class Position extends Model {
 
 	 protected $fillable = ['name', 'department_id', 'payment_id', 'salary'];
 
-	/**
+	 protected $appends = ['name_and_department'];
+	 /**
 	 * ----------------------------------------------------
 	 * Relationships
 	 */
 	
-	public function departments()
+	public function department()
 	{
-		return $this->belongsTo('App\Department', 'department_id');
+		return $this->belongsTo('App\Department');
 	}
 
-	public function payments()
+	public function payment()
 	{
 		return $this->belongsTo('App\Payment', 'payment_id');
 	}
@@ -36,6 +37,13 @@ class Position extends Model {
 	// 	return number_format($salary, 2);
 	// }
 
+	public function getNameAndDepartmentAttribute($name)
+	{
+		return ucwords(trim(
+			$this->department->department.'-'.$this->attributes['name']
+		));
+	}
+
 	public function getDepartmenstListAttribute()
 	{
 		return \App\Department::lists('department', 'id');
@@ -53,6 +61,7 @@ class Position extends Model {
 
 	public function setNameAttribute($name)
 	{
+		// $this->attributes['name'] = $this->department->department;
 		$this->attributes['name'] = ucwords(trim($name));
 	}
 }

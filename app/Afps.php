@@ -20,7 +20,7 @@ class Afps extends Model implements SluggableInterface
     // Relationships =============================================
     public function employees()
     {
-        return $this->hasMany('App\Employee', 'afp_id');
+        return $this->hasMany('App\Employee');
     }
     
     // Methods ===================================================

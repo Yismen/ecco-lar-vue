@@ -10,9 +10,8 @@
                         <table class="table table-hover table-condensed table-bordered" id="testing">
                             <thead>
                                 <tr>
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
-                                    <th>Status</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
                                 </tr>
                             </thead>
                             
@@ -31,12 +30,12 @@
                 "processing": true,
                 "serverSide": true,
                 "ajax": {
-                    "url": '{!! route('test.datatables.data') !!}'
+                    'type': 'post',
+                    "url": '/admin/api/test/datatables',
                 },
                 "columns": [
-                    {"data": "first_name"},
-                    {"data": "last_name"},
-                    {"data": "status"}
+                    { data: 'name', name: 'name' },
+                    { data: 'email', name: 'email' }
                 ],
                 buttons: ['copy', 'excel', 'pdf']
             } );

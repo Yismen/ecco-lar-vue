@@ -51,10 +51,12 @@ new Vue({
 
   router: router,
 
-  components: {
-    'navigation-view': require('./views/NavigationView'),
-    'dainsys-modal': require('vue-bootstrap-modal'),
-  },
+  // components: {
+  //   'navigation-view': require('./views/NavigationView'),
+  //   'dainsys-modal': require('vue-bootstrap-modal'),
+  //   'dainsys-employee-address': require('./components/employees/AddressComponent')
+  // },
+  components:  require('./components/globals/globalComponents.js').default,
 
   data() {
         return {

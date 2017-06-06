@@ -1,16 +1,20 @@
 <?php namespace App;
 
-use App\CivilStatus;
-use App\Department;
+use App\Ars;
+use App\Afps;
 use App\Position;
 use Carbon\Carbon;
+use App\Department;
+use App\CivilStatus;
 use Illuminate\Database\Eloquent\Model;
 
 class Employee extends Model {
 
 	protected $fillable = [
 		'first_name',
+		'second_first_name',
 		'last_name',
+		'second_last_name',
 		'hire_date',
 		'personal_id',
 		'passport',
@@ -27,20 +31,22 @@ class Employee extends Model {
 
 	protected $dates = ['hire_date', 'date_of_birth'];
 
-	protected $appends = ['active', 'full_name', 'status'];
+	protected $appends = [
+		'active', 'full_name', 'status', 'systems_list', 'termination_type_list', 'termination_reason_list', 'ars_list', 'afp_list', 'genders_list', 'maritals_list', 'has_kids_list', 'positions_list', 'supervisors_list'
+	];
 
 	protected $guarded = [];
 
-	protected $genders = [
-		['id'=>1, 'name'=>'Male'],
-		['id'=>2, 'name'=>'Female'],
-	];
+	// protected $gender = [
+	// 	['id'=>1, 'name'=>'Male'],
+	// 	['id'=>2, 'name'=>'Female'],
+	// ];
 
-	protected $maritals = [
-		['id'=>1,'name'=>'Married'],
-		['id'=>2,'name'=>'Single'],
-		['id'=>3,'name'=>'Free Joint'],
-	];
+	// protected $maritals = [
+	// 	['id'=>1,'name'=>'Married'],
+	// 	['id'=>2,'name'=>'Single'],
+	// 	['id'=>3,'name'=>'Free Joint'],
+	// ];
 
 
 /**
@@ -54,22 +60,32 @@ class Employee extends Model {
 	 *
 	 * @return [array] [departments related to current Employee]
 	 */
+	public function ars()
+	{
+		return $this->belongsTo('App\Ars');
+	}
+
+	public function afp()
+	{
+		return $this->belongsTo('App\Afps');
+	}
+
 	public function department()
 	{
 		return $this->belongsToMany('App\Department');
 	}
 	
-	public function genders()
+	public function gender()
 	{
 		return $this->belongsTo('App\Gender', 'gender_id');
 	}
 	
-	public function positions()
+	public function position()
 	{
 		return $this->belongsTo('App\Position', 'position_id');
 	}
 	
-	public function maritals()
+	public function marital()
 	{
 		return $this->belongsTo('App\Marital', 'marital_id');
 	}
@@ -179,6 +195,17 @@ class Employee extends Model {
 	 * return a list array of the systems, including name and id
 	 * @return array a list of systems registered.
 	 */
+
+	public function getArsListAttribute()
+	{
+		return Ars::lists('name', 'id');
+	}
+
+	public function getAfpListAttribute()
+	{
+		return Afps::lists('name', 'id');
+	}
+
 	public function getSupervisorsListAttribute()
 	{
 		return \App\Supervisor::lists('name', 'id')->toArray();
@@ -222,7 +249,8 @@ class Employee extends Model {
 	 */
 	public function getFullNameAttribute()
 	{
-		return ucwords(trim($this->attributes['first_name'] . ' ' . $this->attributes['last_name']));
+		$name = $this->first_name . ' ' . $this->second_first_name . ' ' . $this->last_name. ' ' . $this->second_last_name;
+		return ucwords(trim($name));
 	}
 
 	/**
@@ -284,9 +312,9 @@ class Employee extends Model {
 	 * @param  String $first_name Employee First name
 	 * @return String             Converted to ucwords
 	 */
-	public function getFirstNameAttribute($first_name)
+	public function getFirstNameAttribute($na)
 	{
-		return ucwords($first_name);
+		return ucwords($na);
 	}
 
 	/**
@@ -334,7 +362,7 @@ class Employee extends Model {
 	 *
 	 * @return array [description]
 	 */
-	public function getPositionsIdListAttribute()
+	public function getPositionsListAttribute()
 	{
 		return \App\Position::lists('name', 'id');
 	}
@@ -354,6 +382,11 @@ class Employee extends Model {
 		$this->attributes['first_name'] = ucwords(trim($first_name));
 	}
 
+	public function setSecondFirstNameAttribute($second_first_name)
+	{
+		$this->attributes['second_first_name'] = ucwords(trim($second_first_name));
+	}
+
 	/**
 	 * trim and change to ucwords the last name before saving to the database
 	 *
@@ -362,6 +395,11 @@ class Employee extends Model {
 	public function setLastNameAttribute($last_name)
 	{
 		$this->attributes['last_name'] = ucwords(trim($last_name));
+	}
+
+	public function setSecondLastNameAttribute($second_last_name)
+	{
+		$this->attributes['second_last_name'] = ucwords(trim($second_last_name));
 	}
 
 	/**
@@ -418,17 +456,21 @@ class Employee extends Model {
 	public function createOrUpdateAddress($request)
 	{
 		$address = [
-				'sector'         => $request->input('sector'),
-				'street_address' => $request->input('street_address'),
-				'city'           => $request->input('city'),
-				];
+			'sector'         => $request->input('sector'),
+			'street_address' => $request->input('street_address'),
+			'city'           => $request->input('city'),
+			];
 
 		if ($this->addresses) {
-			return $this->addresses->update($address);
+			$this->addresses->update($address);
+
+			return $this;
 		}
 		
 		$newAddress = new Address($address);
-		return $this->addresses()->save($newAddress);
+		$this->addresses()->save($newAddress);
+
+		return $this;
 	}
 
 	public function createOrUpdateCard($request)
@@ -436,11 +478,13 @@ class Employee extends Model {
 		$newCard = ['card'=>$request->input('card')];
 		
 		if ($this->card) {
-			return $this->card()->update($newCard);
+			$this->card()->update($newCard);
+			return $this;
 		}
 
 		$card = new Card($newCard);
-		return $this->card()->save($card);
+		$this->card()->save($card);
+		return $this;
 	}
 
 	public function createOrUpdatePunch($request)
@@ -448,10 +492,12 @@ class Employee extends Model {
 		$newPunch = ['punch'=>$request->input('punch')];
 		
 		if ($this->card) {
-			return $this->punch()->update($newPunch);
+			$this->punch()->update($newPunch);
+			return $this;
 		}
 
 		$card = new Punch($newPunch);
-		return $this->punch()->save($card);
+		$this->punch()->save($card);
+		return $this;
 	}
 }

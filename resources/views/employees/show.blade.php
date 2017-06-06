@@ -7,15 +7,16 @@
 
 			<div class="row">
 				<div class="col-sm-6 text-centered">
-					<img src="{{ file_exists($employee->photo) ? asset($employee->photo) : 'http://placehold.it/200x200' }}" class="img-circle img-responsive center-block profile-image animated" alt="Image" width="200px">
+					<img src="{{ file_exists(trim(explode('?', $employee->photo)[0], '/')) ? asset($employee->photo) : 'http://placehold.it/200x200' }}" 
+						class="img-circle img-responsive center-block profile-image animated fadeIn" alt="Image" width="200px">
 
 					<div class="text-center animated zoomIn">
 						<h3>{{ $employee->full_name }}</h3>
-						@unless ($employee->positions->isEmpty)
+						@unless ($employee->position->isEmpty)
 							<h5>
-								{{ $employee->positions->name }}
-								@if (count($employee->positions->departments) > 0)
-									, {{ $employee->positions->departments->department }}	
+								{{ $employee->position->name }}
+								@if (count($employee->position->department) > 0)
+									, at {{ $employee->position->department->department }}	
 								@endif
 							</h5>
 						@endunless
@@ -29,7 +30,7 @@
 					{{-- /. Text center div --}}
 				</div>
 				{{-- /. Photo	 --}}
-				<div class="col-sm-6">
+				<div class="col-sm-6 animated bounceIn">
 					<ul class="list-group">
 						<li class="list-group-item">
 							<strong>Hired On: </strong>
@@ -45,56 +46,50 @@
 						<li class="list-group-item">
 							<strong>HousePhone Number: </strong>{{ $employee->secondary_number }}
 						</li>
-						<li class="list-group-item {{ $employee->genders->gender == 'Femenine' ? 'text-warning' : 'text-info' }}">
-							<strong>Gender: </strong>{{ $employee->genders->gender }}
+						<li class="list-group-item {{ $employee->gender->gender == 'Femenine' ? 'text-warning' : 'text-info' }}">
+							<strong>Gender: </strong>
+							<i class="fa fa-{{ $employee->gender->gender == 'Femenine' ? 'female' : 'male' }}"></i> 
+							{{ $employee->gender->gender }}
 						</li>
 						<li class="list-group-item">
 							<strong>Has Kids?: </strong>{{ $employee->has_kids ? 'Yes' : 'No' }}
 						</li>
-						@if (count($employee->maritals) > 0)
+						@if (count($employee->marital) > 0)
 							<li class="list-group-item">
-								<strong>Marital Status: </strong>{{ $employee->maritals->name }}
+								<strong>Marital Status: </strong>{{ $employee->marital->name }}
 							</li>
 						@endif
 							
 						<li class="list-group-item">
 							<strong>Date of Birth: </strong>{{ Carbon\Carbon::parse($employee->date_of_birth)->format('M-d-Y') }}
-						</li>
-
-						<li class="list-group-item">
-							<strong>Salary: </strong>
-							@if (count($employee->positions) > 0)
-								{{ $employee->positions->salary }}
-							@else
-								<h4>No salary set for this employee</h4>
-							@endif
+								, {{ Carbon\Carbon::parse($employee->date_of_birth)->age }} Years
 						</li>
 					 
 						<li class="list-group-item">
-							<strong>Payment Type: </strong>
-							@if (count($employee->positions) > 0 && count($employee->positions->payments) > 0)
-								{{ $employee->positions->payments->payment_type }}
-							@else
-								<h4>No Payment type set for this employee</h4>
+							<strong>Supervisor: </strong>
+							@if (count($employee->supervisor) > 0)
+								{{ $employee->supervisor->name }}
 							@endif									
 						</li>	
+					 
+						<li class="list-group-item">
+							<strong>Position: </strong>
+							@if (count($employee->position) > 0)
+								{{ $employee->position->name }}, At {{ $employee->position->department->department }}
+							@endif									
+						</li>	
+
+						<li class="list-group-item">
+							<strong>Salary: </strong>
+							@if (count($employee->position) > 0)
+								${{ number_format($employee->position->salary, 2) }}, {{ $employee->position->payment->payment_type }}
+							@endif
+						</li>
 					
 						<li class="list-group-item">
 							<strong>Address: </strong>
 							@if (count($employee->addresses) > 0)
-								<ul>
-									<li>
-										<u>Street Address</u>: {{ $employee->addresses->street_address }}
-									</li>
-
-									<li>
-										<u>Zone or Sector</u>: {{ $employee->addresses->sector }}
-									</li>									<li>
-										<u>City</u>: {{ $employee->addresses->city }}
-									</li>
-								</ul>
-							@else
-								<h4>No Address Saved yet</h4>
+								{{ $employee->addresses->street_address }}, {{ $employee->addresses->sector }}. {{ $employee->addresses->city }}
 							@endif
 						</li>
 
@@ -106,8 +101,6 @@
 										<li>{{ $login->login }}</li>
 									@endforeach
 								</ul>
-							@else
-								<h4>No Logins saved for this user so far..</h4>
 							@endif
 								
 						</li>
