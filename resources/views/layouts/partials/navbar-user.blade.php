@@ -42,7 +42,7 @@
       <li class="user-body">
         <div class="row">
           <div class="col-xs-4 text-center">
-            <a href="{{ route('admin.passwords.index') }}">
+            <a href="/admin/contacts">
               <i class="fa fa-users"></i> Contacts
             </a>
           </div>

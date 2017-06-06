@@ -4,16 +4,17 @@
 
 @section('content')
 	<div class="col-sm-8 col-sm-offset-2">
-		<div class="box box-primary pad big-box">
-			{!! Form::open(['route'=>['admin.departments.store'], 'class'=>'form-horizontal', 'role'=>'form']) !!}		
-			<div class="form-group">
-				<legend>Create A New HH RR Department</legend>
-			</div>						
+		<div class="box box-primary">
+			<div class="box-header with-border"><h3>Create a New HH RR Department / Project</h3></div>
+			{!! Form::open(['route'=>['admin.departments.store'], 'class'=>'form-horizontal', 'role'=>'form']) !!}	
+				<div class="box-body">
+					@include('departments._form')	
+				</div>	
 		
-			@include('departments._form')		
-		
-		{!! Form::close() !!}
-		@include('departments._back-to-home')
+			{!! Form::close() !!}
+			<div class="box-footer with-border">
+				@include('departments._back-to-home')
+			</div>
 		</div>
 	</div>
 @endsection

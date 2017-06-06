@@ -29,7 +29,6 @@ class DepartmentsController extends Controller {
 		$departments = $departments->orderBy('department')->paginate(15);
 
 		return view('departments.index', compact('departments'));
-
 	}
 
 	/**
@@ -52,11 +51,11 @@ class DepartmentsController extends Controller {
 	public function store(Request $request, Department $department)
 	{
 		$this->validateRequest($department, $request);
+
 		$department->create($request->all());
 
 		return redirect()->route('admin.departments.index')
 			->withSuccess("Department $department->department has been added!");
-
 	}
 
 	/**
@@ -89,6 +88,8 @@ class DepartmentsController extends Controller {
 	 */
 	public function update(Request $request, Department $department)
 	{
+		$this->validateRequest($department, $request);
+
 		$department->update($request->all());
 
 		return redirect()->route('admin.departments.edit', $department->id)->withSuccess("HH RR Department $department->department has been updated");
@@ -109,10 +110,10 @@ class DepartmentsController extends Controller {
 			->withWarning("HH RR Department $department->department has been removed");
 	}
 
-	public function validateRequest($department, $request)
+	protected function validateRequest($department, $request)
 	{
 		return $this->validate($request, [
-			'department' => "required|unique:departments,department,$department->id,department"
+			'department' => "required|unique:departments,department,$department->id,id"
 		]);
 	}
 

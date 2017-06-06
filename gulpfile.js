@@ -24,15 +24,15 @@ elixir(function(mix) {
     // mix.copy('node_modules/bootstrap-sass/assets/stylesheets/bootstrap', 'resources/assets/sass/bootstrap-sass');
 
     mix
-        .copy('node_modules/bootstrap/fonts', 'public/build/fonts')
-        .copy('node_modules/bootstrap/fonts', 'public/build/fonts/bootstrap')
-        .copy('node_modules/ionicons/dist/fonts', 'public/build/fonts')
-        .copy('node_modules/font-awesome/fonts', 'public/build/fonts')
-        .copy('node_modules/datatables.net-dt/images', 'public/build/images')
-        .copy('node_modules/summernote/dist/font', 'public/build/css/font')
-        .copy('node_modules/icheck/skins/square/blue.png', 'public/build/css')
-        .copy('node_modules/bootstrap-sass/assets/stylesheets/bootstrap', 'resources/assets/sass/bootstrap-sass')
-        .sass('app.scss', 'resources/assets/css/bootstrap.css')
+        // .copy('node_modules/bootstrap/fonts', 'public/build/fonts')
+        // .copy('node_modules/bootstrap/fonts', 'public/build/fonts/bootstrap')
+        // .copy('node_modules/ionicons/dist/fonts', 'public/build/fonts')
+        // .copy('node_modules/font-awesome/fonts', 'public/build/fonts')
+        // .copy('node_modules/datatables.net-dt/images', 'public/build/images')
+        // .copy('node_modules/summernote/dist/font', 'public/build/css/font')
+        // .copy('node_modules/icheck/skins/square/blue.png', 'public/build/css')
+        // .copy('node_modules/bootstrap-sass/assets/stylesheets/bootstrap', 'resources/assets/sass/bootstrap-sass')
+        // .sass('app.scss', 'resources/assets/css/bootstrap.css')
         .styles([		
             'bootstrap.css',
             nodeModules + '/admin-lte/dist/css/AdminLTE.min.css',
@@ -40,7 +40,7 @@ elixir(function(mix) {
             nodeModules + '/admin-lte/plugins/daterangepicker/daterangepicker.css',
             nodeModules + '/animate.css/animate.css',
             nodeModules + '/bootstrap-datepicker/dist/css/bootstrap-datepicker.css',
-            nodeModules + '/bootstrap-material-design/dist/css/bootstrap-material-design.css',
+            // nodeModules + '/bootstrap-material-design/dist/css/bootstrap-material-design.css',
             // nodeModules + '/bootstrap-material-design/dist/css/ripples.css',
             nodeModules + '/datatables.net-bs/css/dataTables.bootstrap.css',
             nodeModules + '/datatables.net-dt/css/jquery.dataTables.css',
