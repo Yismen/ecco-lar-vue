@@ -22,6 +22,7 @@
 						<tr>
 							<th>Position Name</th>
 							<th>Department</th>
+							<th>Salary</th>
 							<th class="col-xs-3">								 
 								<a href="{{ route('admin.positions.create') }}">
 									Add 
@@ -40,6 +41,7 @@
 								<td>
 									<a href="{{ route('admin.departments.show', $position->department->id) }}">{{ $position->department->department }}</a>
 								</td>
+								<td>$ {{ number_format($position->salary, 2) }}</td>
 								<td>
 									<a href="{{ route('admin.positions.edit', $position->id) }}" rel="tooltip" title="Edit" data-placement="left">
 										<i class="fa fa-pencil"></i>
