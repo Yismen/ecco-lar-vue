@@ -27,9 +27,6 @@ class PositionsController extends Controller {
 			->orderBy('department_id')
 			->orderBy('name')
 			->with('department')
-			->orderBy('department_id', function($query){
-				return $query->orderBy('department');
-			})
 			->with('payment')
 			->paginate(50);
 
