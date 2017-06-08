@@ -127,14 +127,15 @@ class PositionsController extends Controller {
 
 	protected function createPosition($position, $request)
 	{		
-		$department = Department::find($request->department_id);
+		// $department = Department::find($request->department_id);
 
-		$position->name = $department ? $department->department.' - '.$request->name : $requet->name;
-		$position->department_id = $request->department_id;
-		$position->payment_id = $request->payment_id;
-		$position->salary = $request->salary;
+		// $position->name = $department ? $department->department.' - '.$request->name : $requet->name;
+		// $position->department_id = $request->department_id;
+		// $position->payment_id = $request->payment_id;
+		// $position->salary = $request->salary;
 
-		$position->save();
+		// $position->save();
+		$position->create($request->all());
 
 		return $position;
 

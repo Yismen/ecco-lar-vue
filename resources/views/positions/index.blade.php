@@ -34,7 +34,7 @@
 						@foreach ($positions as $position)
 							<tr>
 								<td>
-									<a href="{{ route('admin.positions.show', $position->id) }}">{{ $position->name }}</a>
+									<a href="{{ route('admin.positions.show', $position->id) }}">{{ $position->department->department }} - {{ $position->name }}</a>
 								</td>
 
 								<td>
