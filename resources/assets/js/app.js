@@ -41,12 +41,13 @@
       /**
        * Apply select2 plugin to all the selects in the app
        */
-      if(elType == 'select') {
-        console.log(inputType, elType, el);
+      if(elType == 'select' && $(el).is("[multiple]")) {
+        // console.log(inputType, elType, el, $(el).is("[multiple]"), $(el).attr("multiple"));
         el.select2({
           theme: "bootstrap",
-          allowClear: true,
           placeholder: 'Select an option',
+          selectOnClose: true,
+          closeOnSelect: false,
           width: '100%'
         });
       }
