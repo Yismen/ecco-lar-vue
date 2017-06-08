@@ -116,7 +116,7 @@ class PositionsController extends Controller {
 	protected function validateRequest($request, $position)
 	{
 		$this->validate($request, [
-			'name' => 'required|min:2|unique:positions,name,'.$position->id.',id',
+			'name' => 'required|min:2|unique:positions,name,'.$position->id.',id,department_id,'.$request->department_id,
 			'department_id' => 'required|exists:departments,id',
 			'payment_id' => 'required|exists:payments,id',
 			'salary' => 'required|numeric|min:0|max:500000',
