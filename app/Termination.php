@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Termination extends Model {
 
-	protected $fillable = ['employee_id', 'termination_date', 'termination_type_id', 'termination_reason_id', 'can_be_rehired'];	
+	protected $fillable = ['employee_id', 'termination_date', 'termination_type_id', 'termination_reason_id', 'can_be_rehired', 'comments'];	
 
 	// protected $dates = ['termination_date', 'created_at', 'updated_at'];
 

@@ -83,7 +83,7 @@ class TerminationsController extends Controller {
 	 * @return Response
 	 */
 	public function update(CreateTerminationsRequest $request, Termination $terminations)
-	{
+	{return $request->all();
 		$terminations->update($request->all());
 
 		return redirect()->route('terminations.create')->withSuccess("HH RR Termination $terminations->department has been updated");

@@ -1,6 +1,6 @@
 <template>
     <div class="_Termination">
-        <form class="form-horizontal" role="form"
+        <form class="" role="form"
         @submit.prevent="submitTermination"
         autocomplete="off" 
         @keydown="form.error.clear($event.target.name)">
@@ -9,56 +9,85 @@
             <legend>{{ employee.full_name }}' Termination. Current Status is {{ employee.status }}</legend>
         </div>
 
-        <div class="form-group">
-            <label for="input" class="col-sm-2 control-label">Termination Date:</label>
-            <div class="col-sm-10">
-                <input type="date" id="termination_date" 
-                name="termination_date" class="form-control" 
-                v-model="form.fields.termination_date">
-                <span class="text-danger" v-if="form.error.has('termination_date')">{{ form.error.get('termination_date') }}</span>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="input" class="">Termination Date:</label>
+                    <div class="">
+                        <input type="date" id="termination_date" 
+                        name="termination_date" class="form-control" 
+                        v-model="form.fields.termination_date">
+                        <span class="text-danger" v-if="form.error.has('termination_date')">{{ form.error.get('termination_date') }}</span>
+                    </div>
+                </div> <!-- ./Termination Date-->
             </div>
-        </div> <!-- ./Termination Date-->
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="input" class="">Termination Type:</label>
+                    <div class="">
+                        <select name="termination_type_id" id="termination_type_id" class="form-control" v-model="form.fields.termination_type_id">
+                            <option v-for="(termination_type_id, index) in employee.termination_type_list" :value="index">{{ termination_type_id }}</option>
+                        </select>
+                        <span class="text-danger" v-if="form.error.has('termination_type_id')">{{ form.error.get('termination_type_id') }}</span>
+                    </div>
+                </div> <!-- ./Termination Type-->
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="input" class="">Termination Reason:</label>
+                    <div class="">
+                        <select name="termination_reason_id" id="termination_reason_id" class="form-control" v-model="form.fields.termination_reason_id">
+                            <option v-for="(termination_reason_id, index) in employee.termination_reason_list" :value="index">{{ termination_reason_id }}</option>
+                        </select>
+                        <span class="text-danger" v-if="form.error.has('termination_reason_id')">{{ form.error.get('termination_reason_id') }}</span>
+                    </div>
+                </div> <!-- ./Termination Reason-->
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="input" class="">Can be Re-hired?:</label>
+                    <div class="">
+                        <div class="radio">
+                            <label class="text-success">
+                                <input type="radio" name="can_be_rehired" id="can_be_rehired_1" v-bind:value="1" v-model="form.fields.can_be_rehired">
+                                Yes, for sure.
+                            </label>
+                            <label class="text-warning">
+                                <input type="radio" name="can_be_rehired" id="can_be_rehired_2" v-bind:value="0" v-model="form.fields.can_be_rehired">
+                                No, don't do it.
+                            </label>
+                        </div>
+                        <span class="text-danger" v-if="form.error.has('can_be_rehired')">{{ form.error.get('can_be_rehired') }}</span>
+                    </div>
+                </div> 
+                <!-- ./Can be Re-hired?-->
+            </div>
+        </div>
+
+                
+
+                
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label for="input" class="">Additional Comments:</label>
+                    <div class="">
+                        <textarea id="comments" 
+                        name="comments" class="form-control" 
+                        v-model="form.fields.comments" cols="30" rows="10"></textarea>
+                        <span class="text-danger" v-if="form.error.has('comments')">{{ form.error.get('comments') }}</span>
+                    </div>
+                </div> <!-- ./Additional Comments-->
+            </div>
+        </div>
 
         <div class="form-group">
-            <label for="input" class="col-sm-2 control-label">Termination Type:</label>
-            <div class="col-sm-10">
-                <select name="termination_type_id" id="termination_type_id" class="form-control" v-model="form.fields.termination_type_id">
-                    <option v-for="(termination_type_id, index) in employee.termination_type_list" :value="index">{{ termination_type_id }}</option>
-                </select>
-                <span class="text-danger" v-if="form.error.has('termination_type_id')">{{ form.error.get('termination_type_id') }}</span>
-            </div>
-        </div> <!-- ./Termination Type-->
-
-        <div class="form-group">
-            <label for="input" class="col-sm-2 control-label">Termination Reason:</label>
-            <div class="col-sm-10">
-                <select name="termination_reason_id" id="termination_reason_id" class="form-control" v-model="form.fields.termination_reason_id">
-                    <option v-for="(termination_reason_id, index) in employee.termination_reason_list" :value="index">{{ termination_reason_id }}</option>
-                </select>
-                <span class="text-danger" v-if="form.error.has('termination_reason_id')">{{ form.error.get('termination_reason_id') }}</span>
-            </div>
-        </div> <!-- ./Termination Reason-->
-
-        <div class="form-group">
-            <label for="input" class="col-sm-2 control-label">Can be Re-hired?:</label>
-            <div class="col-sm-10">
-                <div class="radio">
-                    <label class="text-success">
-                        <input type="radio" name="can_be_rehired" id="can_be_rehired_1" v-bind:value="1" v-model="form.fields.can_be_rehired">
-                        Yes, for sure.
-                    </label>
-                    <label class="text-warning">
-                        <input type="radio" name="can_be_rehired" id="can_be_rehired_2" v-bind:value="0" v-model="form.fields.can_be_rehired">
-                        No, don't do it.
-                    </label>
-                </div>
-                <span class="text-danger" v-if="form.error.has('can_be_rehired')">{{ form.error.get('can_be_rehired') }}</span>
-            </div>
-        </div> 
-        <!-- ./Can be Re-hired?-->
-
-        <div class="form-group">
-            <div class="col-sm-10 col-sm-offset-2">
+            <div class=" col-sm-offset-2">
                 <button type="submit" class="btn btn-danger" v-if="isActive">
                     TERMINATE
                 </button>
@@ -92,6 +121,7 @@
                 'termination_type_id': this.employee.termination ? this.employee.termination.termination_type_id : '',
                 'termination_reason_id': this.employee.termination ? this.employee.termination.termination_reason_id : '',
                 'can_be_rehired': this.employee.termination ? this.employee.termination.can_be_rehired : '',
+                'comments': this.employee.termination ? this.employee.termination.comments : '',
             }, false),
 
             isActive: this.employee.termination ? false : true,

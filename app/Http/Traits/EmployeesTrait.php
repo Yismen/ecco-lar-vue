@@ -137,7 +137,7 @@ trait EmployeesTrait
         Termination::whereEmployeeId($employee->id)->delete();
         
         $termination = new Termination($request->only([
-            'termination_date', 'termination_type_id', 'termination_reason_id', 'can_be_rehired'
+            'termination_date', 'termination_type_id', 'termination_reason_id', 'can_be_rehired', 'comments'
         ]));
 
         $employee->termination()->save($termination);

@@ -3,8 +3,12 @@
         <div class="col-sm-4">
             <employee-supervisor :employee="{{ $employee }}"></employee-supervisor>
         </div>
-       <div class="col-sm-4"></div>
-       <div class="col-sm-4"></div>   
+       <div class="col-sm-4">
+           Back account here
+       </div>
+       <div class="col-sm-4">
+           Social Security Number here
+       </div>   
     </div>
 </div>
 
