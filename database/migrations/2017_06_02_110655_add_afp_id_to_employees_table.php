@@ -14,7 +14,7 @@ class AddAfpIdToEmployeesTable extends Migration
     {
         Schema::table('employees', function (Blueprint $table) {
             $table->integer('afp_id')->unsigned()->nullable()->after('supervisor_id');
-            $table->foreign('afp_id')->references('id')->on('afps');
+            // $table->foreign('afp_id')->references('id')->on('afps');
         });
     }
 
@@ -26,7 +26,7 @@ class AddAfpIdToEmployeesTable extends Migration
     public function down()
     {
         Schema::table('employees', function (Blueprint $table) {
-            $table->dropForeign(['afp_id']);
+            // $table->dropForeign(['afp_id']);
             $table->dropColumn('afp_id');
         });
     }

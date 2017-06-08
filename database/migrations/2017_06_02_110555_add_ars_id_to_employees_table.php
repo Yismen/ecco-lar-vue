@@ -14,7 +14,7 @@ class AddArsIdToEmployeesTable extends Migration
     {
         Schema::table('employees', function (Blueprint $table) {
             $table->integer('ars_id')->unsigned()->nullable()->after('supervisor_id');
-            $table->foreign('ars_id')->references('id')->on('ars');
+            // $table->foreign('ars_id')->references('id')->on('ars');
         });
     }
 
@@ -26,7 +26,7 @@ class AddArsIdToEmployeesTable extends Migration
     public function down()
     {
         Schema::table('employees', function (Blueprint $table) {
-            $table->dropForeign(['ars_id']);
+            // $table->dropForeign(['ars_id']);
             $table->dropColumn('ars_id');
         });
     }
