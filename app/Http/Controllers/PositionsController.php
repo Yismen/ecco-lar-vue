@@ -92,8 +92,11 @@ class PositionsController extends Controller {
 
 		$position->update($request->all());
 
-		return redirect()->route('admin.positions.show', $position->id)
-			->withSuccess("Position $position->name has been ubdated!!");
+		return redirect()->route('admin.positions.index')
+			->withSuccess("Position $position->name updated!");
+
+		// return redirect()->route('admin.positions.show', $position->id)
+		// 	->withSuccess("Position $position->name has been ubdated!!");
 	}
 
 	/**
