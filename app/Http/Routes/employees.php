@@ -32,6 +32,10 @@ Route::post('employees/updateArs/{employees}', ['as'=>'admin.employees.updateArs
 
 Route::post('employees/updateAfp/{employees}', ['as'=>'admin.employees.updateAfp','uses'=>'EmployeesController@updateAfp']);
 
+Route::post('employees/updateBankAccount/{employees}', ['as'=>'admin.employees.updateBankAccount','uses'=>'EmployeesController@updateBankAccount']);
+
+Route::post('employees/updateSocialSecurity/{employees}', ['as'=>'admin.employees.updateSocialSecurity','uses'=>'EmployeesController@updateSocialSecurity']);
+
 Route::post('employees/updateSupervisor/{employees}', ['as'=>'admin.employees.updateSupervisor','uses'=>'EmployeesController@updateSupervisor']);
 
 
@@ -45,6 +49,8 @@ Route::bind('employees', function($id){
         ->with('addresses')
         ->with('afp')
         ->with('ars')
+        ->with('bankAccount')
+        ->with('socialSecurity')
         ->with('card')
         ->with('department')
         ->with('gender')

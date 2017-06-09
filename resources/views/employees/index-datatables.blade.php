@@ -21,7 +21,9 @@
                                 <th>Name:</th>
                                 <th>Position:</th>
                                 <th>Personal ID:</th>
+                                <th>Passport:</th>
                                 <th>Cell Phone:</th>
+                                <th>Other Phone:</th>
                                 <th>Edit:</th>
                                 
                             </tr>
@@ -55,10 +57,15 @@
                             return (first_name +' '+second_first_name+' '+last_name+' '+second_last_name).trim();
                         }},
                         {data: 'position_id', name: 'position_id', render: function(data, type, full){
-                            return full.position.name;
+                            let position = full.position ? full.position.name : '';
+                            console.log(full)
+                            let department = full.position && full.position.department ? ', At ' + full.position.department.department : '';
+                            return position + department;
                         }},
                         {data: 'personal_id', name: 'personal_id'},
+                        {data: 'passport', name: 'passport'},
                         {data: 'cellphone_number', name: 'cellphone_number'},
+                        {data: 'secondary_phone', name: 'secondary_phone'},
                         {data: 'edit', name: 'edit', searchable: "false", orderable: false},
                     ],
                     buttons: ['copy', 'excel', 'pdf']

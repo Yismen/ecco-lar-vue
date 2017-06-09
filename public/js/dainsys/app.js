@@ -1037,6 +1037,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -1110,6 +1114,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -1151,6 +1159,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jorge_form__ = __webpack_require__(3);
+//
+//
+//
+//
 //
 //
 //
@@ -1278,6 +1290,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -1319,6 +1336,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jorge_form__ = __webpack_require__(3);
+//
+//
+//
+//
+//
 //
 //
 //
@@ -1616,6 +1638,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -1667,6 +1692,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jorge_form__ = __webpack_require__(3);
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -1783,6 +1817,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -1824,6 +1863,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jorge_form__ = __webpack_require__(3);
+//
+//
+//
 //
 //
 //
@@ -1938,6 +1980,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -1979,6 +2026,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jorge_form__ = __webpack_require__(3);
+//
 //
 //
 //
@@ -2801,6 +2849,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     'employee-termination': __webpack_require__(81),
     'employee-ars': __webpack_require__(72),
     'employee-afp': __webpack_require__(71),
+    'employee-bank-account': __webpack_require__(147),
+    'employee-social-security': __webpack_require__(152),
     'employee-supervisor': __webpack_require__(80),
 
     'supervisors-index': __webpack_require__(86)
@@ -2934,14 +2984,14 @@ var Http = function () {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 42 */
@@ -2955,7 +3005,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 44 */
@@ -2976,21 +3026,21 @@ exports.push([module.i, "\n.confirm-delete .in[data-v-252eda8d] {\n    display: 
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 49 */
@@ -3025,7 +3075,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 54 */
@@ -3039,14 +3089,14 @@ exports.push([module.i, "\n.edit[data-v-5e2e1fca] {\n    color: #fd8e2f;\n}\n", 
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 57 */
@@ -3060,7 +3110,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 59 */
@@ -3088,7 +3138,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 63 */
@@ -4142,8 +4192,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('legend', [_vm._v(_vm._s(_vm.employee.full_name) + "' Card:")])]), _vm._v(" "), _c('div', {
+    staticClass: "box-header with-border"
+  }, [_c('h4', [_vm._v(_vm._s(_vm.employee.full_name) + "' Card:")])]), _vm._v(" "), _c('div', {
+    staticClass: "box-body"
+  }, [_c('div', {
     staticClass: "form-group"
   }, [_c('label', {
     staticClass: "col-sm-2 control-label",
@@ -4176,9 +4228,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), (_vm.form.error.has('card')) ? _c('span', {
     staticClass: "text-danger"
-  }, [_vm._v(_vm._s(_vm.form.error.get('card')))]) : _vm._e()])]), _vm._v(" "), _vm._m(0)])])
+  }, [_vm._v(_vm._s(_vm.form.error.get('card')))]) : _vm._e()])])]), _vm._v(" "), _vm._m(0)])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
+    staticClass: "box-footer"
+  }, [_c('div', {
     staticClass: "form-group"
   }, [_c('div', {
     staticClass: "col-sm-10 col-sm-offset-2"
@@ -4187,7 +4241,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "submit"
     }
-  }, [_vm._v("\n                    Save Card\n                ")])])])
+  }, [_vm._v("\n                        Save Card\n                    ")])])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -4220,8 +4274,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('legend', [_vm._v(_vm._s(_vm.employee.full_name) + "' Punch:")])]), _vm._v(" "), _c('div', {
+    staticClass: "box-header with-border"
+  }, [_c('h4', [_vm._v(_vm._s(_vm.employee.full_name) + "' Punch:")])]), _vm._v(" "), _c('div', {
+    staticClass: "box-body"
+  }, [_c('div', {
     staticClass: "form-group"
   }, [_c('label', {
     staticClass: "col-sm-2 control-label",
@@ -4254,9 +4310,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), (_vm.form.error.has('punch')) ? _c('span', {
     staticClass: "text-danger"
-  }, [_vm._v(_vm._s(_vm.form.error.get('punch')))]) : _vm._e()])]), _vm._v(" "), _vm._m(0)])])
+  }, [_vm._v(_vm._s(_vm.form.error.get('punch')))]) : _vm._e()])])]), _vm._v(" "), _vm._m(0)])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
+    staticClass: "box-footer"
+  }, [_c('div', {
     staticClass: "form-group"
   }, [_c('div', {
     staticClass: "col-sm-10 col-sm-offset-2"
@@ -4265,7 +4323,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "submit"
     }
-  }, [_vm._v("\n                    Save Punch\n                ")])])])
+  }, [_vm._v("\n                        Save Punch\n                    ")])])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -4330,8 +4388,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('legend', [_vm._v(_vm._s(_vm.employee.full_name) + "' AFP Info:")])]), _vm._v(" "), _c('div', {
+    staticClass: "box-body"
+  }, [_c('div', {
+    staticClass: "box-header with-border"
+  }, [_c('h4', [_vm._v(_vm._s(_vm.employee.full_name) + "' AFP Info:")])]), _vm._v(" "), _c('div', {
     staticClass: "form-group"
   }, [_c('label', {
     staticClass: "col-sm-2 control-label",
@@ -4371,9 +4431,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v(_vm._s(afp_id))])
   })), _vm._v(" "), (_vm.form.error.has('afp_id')) ? _c('span', {
     staticClass: "text-danger"
-  }, [_vm._v(_vm._s(_vm.form.error.get('afp_id')))]) : _vm._e()])]), _vm._v(" "), _vm._m(0)])])
+  }, [_vm._v(_vm._s(_vm.form.error.get('afp_id')))]) : _vm._e()])]), _vm._v(" "), _vm._m(0)])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
+    staticClass: "box-footer with-border"
+  }, [_c('div', {
     staticClass: "form-group"
   }, [_c('div', {
     staticClass: "col-sm-10 col-sm-offset-2"
@@ -4382,7 +4444,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "submit"
     }
-  }, [_vm._v("\n                    Save AFP\n                ")])])])
+  }, [_vm._v("\n                            Save AFP\n                        ")])])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -4542,6 +4604,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: "employee-photo"
   }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
     staticClass: "col-sm-3 col-xs-4 text-center"
   }, [_c('img', {
     staticClass: "img-circle img-responsive img-center profile-image animated",
@@ -4573,8 +4637,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('legend', [_vm._v(_vm._s(_vm.employee.full_name) + "' Photo:")])]), _vm._v(" "), _c('div', {
+    staticClass: "box-header with-border"
+  }, [_c('h4', [_vm._v(_vm._s(_vm.employee.full_name) + "' Photo:")])]), _vm._v(" "), _c('div', {
+    staticClass: "box-body"
+  }, [_c('div', {
     staticClass: "form-group"
   }, [_c('label', {
     staticClass: "col-sm-2 control-label",
@@ -4592,9 +4658,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), (_vm.form.error.has('photo')) ? _c('span', {
     staticClass: "text-danger"
-  }, [_vm._v(_vm._s(_vm.form.error.get('photo')))]) : _vm._e()])]), _vm._v(" "), _vm._m(0)])])])
+  }, [_vm._v(_vm._s(_vm.form.error.get('photo')))]) : _vm._e()])])]), _vm._v(" "), _vm._m(0)])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
+    staticClass: "box-footer"
+  }, [_c('div', {
     staticClass: "form-group"
   }, [_c('div', {
     staticClass: "col-sm-10 col-sm-offset-2"
@@ -4603,7 +4671,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "submit"
     }
-  }, [_vm._v("\n                        UPDATE PHOTO\n                    ")])])])
+  }, [_vm._v("\n                                UPDATE PHOTO\n                            ")])])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -4636,12 +4704,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('legend', [_vm._v(_vm._s(_vm.employee.full_name) + "' Supervisor:")])]), _vm._v(" "), _c('div', {
+    staticClass: "box-header with-border"
+  }, [_c('h4', [_vm._v(_vm._s(_vm.employee.full_name) + "' Supervisor:")])]), _vm._v(" "), _c('div', {
+    staticClass: "box-body"
+  }, [_c('div', {
     staticClass: "form-group"
   }, [_c('label', {
     attrs: {
-      "for": "input"
+      "for": "supervisor_id"
     }
   }, [_vm._v("Supervisor:")]), _vm._v(" "), _c('select', {
     directives: [{
@@ -4674,9 +4744,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v(_vm._s(supervisor_id))])
   })), _vm._v(" "), (_vm.form.error.has('supervisor_id')) ? _c('span', {
     staticClass: "text-danger"
-  }, [_vm._v(_vm._s(_vm.form.error.get('supervisor_id')))]) : _vm._e()]), _vm._v(" "), _vm._m(0)])])
+  }, [_vm._v(_vm._s(_vm.form.error.get('supervisor_id')))]) : _vm._e()])]), _vm._v(" "), _vm._m(0)])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
+    staticClass: "box-footer"
+  }, [_c('div', {
     staticClass: "form-group"
   }, [_c('div', {
     staticClass: "col-sm-10 col-sm-offset-2"
@@ -4685,7 +4757,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "submit"
     }
-  }, [_vm._v("\n                    Save Supervisor\n                ")])])])
+  }, [_vm._v("\n                        Save Supervisor\n                    ")])])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -4717,8 +4789,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('legend', [_vm._v("Edit " + _vm._s(_vm.employee.full_name) + "' General Information.")])]), _vm._v(" "), _c('div', {
+    staticClass: "box-header with-border"
+  }, [_c('h4', [_vm._v("Edit " + _vm._s(_vm.employee.full_name) + "' General Information")])]), _vm._v(" "), _c('div', {
+    staticClass: "box-body"
+  }, [_c('div', {
     staticClass: "col-sm-6"
   }, [_c('div', {
     staticClass: "form-group"
@@ -5194,9 +5268,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v(_vm._s(position_id))])
   })), _vm._v(" "), (_vm.form.error.has('marital_id')) ? _c('span', {
     staticClass: "text-danger"
-  }, [_vm._v(_vm._s(_vm.form.error.get('position_id')))]) : _vm._e()])]), _vm._v(" "), _vm._m(0)])])
+  }, [_vm._v(_vm._s(_vm.form.error.get('position_id')))]) : _vm._e()])])]), _vm._v(" "), _vm._m(0)])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
+    staticClass: "box-footer"
+  }, [_c('div', {
     staticClass: "form-group"
   }, [_c('div', {
     staticClass: "col-sm-10 col-sm-offset-2"
@@ -5205,7 +5281,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "submit"
     }
-  }, [_vm._v("\n                    UPDATE\n                ")])])])
+  }, [_vm._v("\n                        UPDATE\n                    ")])])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -5487,6 +5563,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "_Reactivation"
   }, [_c('div', {
     staticClass: "col-sm-12"
+  }, [_c('div', {
+    staticClass: "box box-danger"
   }, [_c('form', {
     staticClass: "form-horizontal",
     attrs: {
@@ -5503,20 +5581,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('legend', [_vm._v(_vm._s(_vm.employee.full_name) + "' is Inactive. Reactivate?")])]), _vm._v(" "), _c('div', {
+    staticClass: "box-header with-border"
+  }, [_c('h4', [_vm._v(_vm._s(_vm.employee.full_name) + "' is Inactive. Reactivate?")])]), _vm._v(" "), _c('div', {
+    staticClass: "box-body"
+  }, [_c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-sm-8"
   }, [_c('div', {
     staticClass: "form-group"
   }, [_c('label', {
-    staticClass: "col-sm-2 control-label",
+    staticClass: "col-sm-4 control-label",
     attrs: {
       "for": "input"
     }
   }, [_vm._v("Reactivation Date:")]), _vm._v(" "), _c('div', {
-    staticClass: "col-sm-10"
+    staticClass: "col-sm-8"
   }, [_c('input', {
     directives: [{
       name: "model",
@@ -5541,20 +5621,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), (_vm.form.error.has('hire_date')) ? _c('span', {
     staticClass: "text-danger"
-  }, [_vm._v(_vm._s(_vm.form.error.get('hire_date')))]) : _vm._e()])])]), _vm._v(" "), _vm._m(0)])])])])
+  }, [_vm._v(_vm._s(_vm.form.error.get('hire_date')))]) : _vm._e()])])]), _vm._v(" "), _vm._m(0)])])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "col-sm-2"
+    staticClass: "col-sm-4"
   }, [_c('div', {
     staticClass: "form-group"
   }, [_c('div', {
     staticClass: "col-sm-10 col-sm-offset-2"
   }, [_c('button', {
-    staticClass: "btn btn-warning",
+    staticClass: "btn btn-danger",
     attrs: {
       "type": "submit"
     }
-  }, [_vm._v("\n                                REACTIVATE\n                            ")])])])])
+  }, [_vm._v("\n                                        REACTIVATE\n                                    ")])])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -5630,8 +5710,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('legend', [_vm._v(_vm._s(_vm.employee.full_name) + "' ARS Info:")])]), _vm._v(" "), _c('div', {
+    staticClass: "box-header with-border"
+  }, [_c('h4', [_vm._v(_vm._s(_vm.employee.full_name) + "' ARS Info:")])]), _vm._v(" "), _c('div', {
+    staticClass: "box-body"
+  }, [_c('div', {
     staticClass: "form-group"
   }, [_c('label', {
     staticClass: "col-sm-2 control-label",
@@ -5671,9 +5753,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v(_vm._s(ars_id))])
   })), _vm._v(" "), (_vm.form.error.has('ars_id')) ? _c('span', {
     staticClass: "text-danger"
-  }, [_vm._v(_vm._s(_vm.form.error.get('ars_id')))]) : _vm._e()])]), _vm._v(" "), _vm._m(0)])])
+  }, [_vm._v(_vm._s(_vm.form.error.get('ars_id')))]) : _vm._e()])])]), _vm._v(" "), _vm._m(0)])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
+    staticClass: "box-footer"
+  }, [_c('div', {
     staticClass: "form-group"
   }, [_c('div', {
     staticClass: "col-sm-10 col-sm-offset-2"
@@ -5682,7 +5766,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "submit"
     }
-  }, [_vm._v("\n                    Save ARS\n                ")])])])
+  }, [_vm._v("\n                        Save ARS\n                    ")])])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -5715,8 +5799,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('legend', [_vm._v(_vm._s(_vm.employee.full_name) + "' Address:")])]), _vm._v(" "), _c('div', {
+    staticClass: "box-header with-border"
+  }, [_c('h4', [_vm._v(_vm._s(_vm.employee.full_name) + "' Address:")])]), _vm._v(" "), _c('div', {
+    staticClass: "box-body"
+  }, [_c('div', {
     staticClass: "form-group"
   }, [_c('label', {
     staticClass: "col-sm-2 control-label",
@@ -5815,9 +5901,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), (_vm.form.error.has('city')) ? _c('span', {
     staticClass: "text-danger"
-  }, [_vm._v(_vm._s(_vm.form.error.get('city')))]) : _vm._e()])]), _vm._v(" "), _vm._m(0)])])
+  }, [_vm._v(_vm._s(_vm.form.error.get('city')))]) : _vm._e()])]), _vm._v(" "), _vm._m(0)])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
+    staticClass: "box-footer"
+  }, [_c('div', {
     staticClass: "form-group"
   }, [_c('div', {
     staticClass: "col-sm-10 col-sm-offset-2"
@@ -5826,7 +5914,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "submit"
     }
-  }, [_vm._v("\n                    Submit\n                ")])])])
+  }, [_vm._v("\n                            SAVE ADDRESS\n                        ")])])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -5921,8 +6009,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('legend', [_vm._v(_vm._s(_vm.employee.full_name) + "' Logins:")])]), _vm._v(" "), _c('div', {
+    staticClass: "box-header with-border"
+  }, [_c('h4', [_vm._v(_vm._s(_vm.employee.full_name) + "' Logins:")])]), _vm._v(" "), _c('div', {
+    staticClass: "box-body"
+  }, [_c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-sm-5"
@@ -6002,8 +6092,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     })
   })), _vm._v(" "), (_vm.form.error.has('system_id')) ? _c('span', {
     staticClass: "text-danger"
-  }, [_vm._v(_vm._s(_vm.form.error.get('system_id')))]) : _vm._e()])])]), _vm._v(" "), _vm._m(0)])]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', {
-    staticClass: "row"
+  }, [_vm._v(_vm._s(_vm.form.error.get('system_id')))]) : _vm._e()])])]), _vm._v(" "), _vm._m(0)])])]), _vm._v(" "), _c('div', {
+    staticClass: "box-footer"
   }, [_c('table', {
     staticClass: "table table-condensed table-bordered"
   }, [_vm._m(1), _vm._v(" "), _c('tbody', _vm._l((_vm.logins), function(login) {
@@ -6027,7 +6117,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "submit"
     }
-  }, [_vm._v("\n                            Submit\n                        ")])])])])
+  }, [_vm._v("\n                                Submit\n                            ")])])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('thead', [_c('tr', [_c('th', [_vm._v("Login Name")]), _vm._v(" "), _c('th', [_vm._v("System")]), _vm._v(" "), _c('th', [_vm._v("Edit")])])])
 }]}
@@ -6242,8 +6332,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('legend', [_vm._v(_vm._s(_vm.employee.full_name) + "' Termination. Current Status is " + _vm._s(_vm.employee.status))])]), _vm._v(" "), _c('div', {
+    staticClass: "box-header with-border"
+  }, [_c('h4', [_vm._v(_vm._s(_vm.employee.full_name) + "' Termination. Current Status is " + _vm._s(_vm.employee.status))])]), _vm._v(" "), _c('div', {
+    staticClass: "box-body"
+  }, [_c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-sm-6"
@@ -6390,7 +6482,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.form.fields.can_be_rehired = 1
       }
     }
-  }), _vm._v("\n                                Yes, for sure.\n                            ")]), _vm._v(" "), _c('label', {
+  }), _vm._v("\n                                    Yes, for sure.\n                                ")]), _vm._v(" "), _c('label', {
     staticClass: "text-warning"
   }, [_c('input', {
     directives: [{
@@ -6413,7 +6505,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.form.fields.can_be_rehired = 0
       }
     }
-  }), _vm._v("\n                                No, don't do it.\n                            ")])]), _vm._v(" "), (_vm.form.error.has('can_be_rehired')) ? _c('span', {
+  }), _vm._v("\n                                    No, don't do it.\n                                ")])]), _vm._v(" "), (_vm.form.error.has('can_be_rehired')) ? _c('span', {
     staticClass: "text-danger"
   }, [_vm._v(_vm._s(_vm.form.error.get('can_be_rehired')))]) : _vm._e()])])])]), _vm._v(" "), _c('div', {
     staticClass: "row"
@@ -6450,7 +6542,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), (_vm.form.error.has('comments')) ? _c('span', {
     staticClass: "text-danger"
-  }, [_vm._v(_vm._s(_vm.form.error.get('comments')))]) : _vm._e()])])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.form.error.get('comments')))]) : _vm._e()])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "box-footer"
+  }, [_c('div', {
     staticClass: "form-group"
   }, [_c('div', {
     staticClass: " col-sm-offset-2"
@@ -6459,13 +6553,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "submit"
     }
-  }, [_vm._v("\n                    TERMINATE\n                ")]) : _c('button', {
+  }, [_vm._v("\n                        TERMINATE\n                    ")]) : _c('button', {
     staticClass: "btn btn-warning",
     attrs: {
       "type": "submit"
     }
-  }, [_vm._v("\n                    UPDATE TERMINATION INFO\n                ")])])])]), _vm._v(" "), _c('hr'), _vm._v(" "), (!_vm.isActive) ? _c('div', {
-    staticClass: "row"
+  }, [_vm._v("\n                        UPDATE TERMINATION INFO\n                    ")])])])])]), _vm._v(" "), (!_vm.isActive) ? _c('div', {
+    staticClass: "row with-border"
   }, [_c('employee-reactivation', {
     attrs: {
       "employee": _vm.employee
@@ -20916,6 +21010,520 @@ module.exports = g;
 
 module.exports = __webpack_require__(10);
 
+
+/***/ }),
+/* 145 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jorge_form__ = __webpack_require__(3);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+    name: 'BankAccountComponent',
+
+    data: function data() {
+        return {
+            form: new __WEBPACK_IMPORTED_MODULE_0_jorge_form__["a" /* default */]({
+                'bank_id': this.employee.bank_account ? this.employee.bank_account.bank_id : '',
+                'account_number': this.employee.bank_account ? this.employee.bank_account.account_number : ''
+            }, false)
+
+        };
+    },
+
+
+    props: {
+        employee: {}
+    },
+
+    methods: {
+        handleUpdateBankAccount: function handleUpdateBankAccount() {
+            var _this = this;
+
+            this.form.post('/admin/employees/updateBankAccount/' + this.employee.id).then(function (response) {
+                _this.employee.bank = response.bank;
+                return _this.form.fields.bank_id = response.bank.id;
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 146 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)();
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+/***/ }),
+/* 147 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/* styles */
+__webpack_require__(149)
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(145),
+  /* template */
+  __webpack_require__(148),
+  /* scopeId */
+  "data-v-10f2bdce",
+  /* cssModules */
+  null
+)
+Component.options.__file = "F:\\wamp\\www\\dainsys3\\resources\\assets\\js\\dainsys\\components\\employees\\BankAccountComponent.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] BankAccountComponent.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-loader/node_modules/vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-10f2bdce", Component.options)
+  } else {
+    hotAPI.reload("data-v-10f2bdce", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 148 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "_Bank Account"
+  }, [_c('form', {
+    staticClass: "form-horizontal",
+    attrs: {
+      "role": "form",
+      "autocomplete": "off"
+    },
+    on: {
+      "submit": function($event) {
+        $event.preventDefault();
+        _vm.handleUpdateBankAccount($event)
+      },
+      "keydown": function($event) {
+        _vm.form.error.clear($event.target.name)
+      }
+    }
+  }, [_c('div', {
+    staticClass: "box-header with-border"
+  }, [_c('h4', [_vm._v(_vm._s(_vm.employee.full_name) + "' Bank Account Info:")])]), _vm._v(" "), _c('div', {
+    staticClass: "box-body"
+  }, [_c('div', {
+    staticClass: "col-sm-6"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    staticClass: "col-sm-2 control-label",
+    attrs: {
+      "for": "input"
+    }
+  }, [_vm._v("Bank:")]), _vm._v(" "), _c('div', {
+    staticClass: "col-sm-10"
+  }, [_c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.form.fields.bank_id),
+      expression: "form.fields.bank_id"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "name": "bank_id",
+      "id": "bank_id"
+    },
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.form.fields.bank_id = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, _vm._l((_vm.employee.banks_list), function(bank_id, index) {
+    return _c('option', {
+      domProps: {
+        "value": index
+      }
+    }, [_vm._v(_vm._s(bank_id))])
+  })), _vm._v(" "), (_vm.form.error.has('bank_id')) ? _c('span', {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.form.error.get('bank_id')))]) : _vm._e()])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-sm-6"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    staticClass: "col-sm-2 control-label",
+    attrs: {
+      "for": "input"
+    }
+  }, [_vm._v("Account Number:")]), _vm._v(" "), _c('div', {
+    staticClass: "col-sm-10"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.form.fields.account_number),
+      expression: "form.fields.account_number"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "id": "account_number",
+      "name": "account_number"
+    },
+    domProps: {
+      "value": (_vm.form.fields.account_number)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.form.fields.account_number = $event.target.value
+      }
+    }
+  }), _vm._v(" "), (_vm.form.error.has('account_number')) ? _c('span', {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.form.error.get('account_number')))]) : _vm._e()])])])]), _vm._v(" "), _vm._m(0)])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "box-footer"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('div', {
+    staticClass: "col-sm-10 col-sm-offset-2"
+  }, [_c('button', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "type": "submit"
+    }
+  }, [_vm._v("\n                        Save Bank Account\n                    ")])])])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-loader/node_modules/vue-hot-reload-api").rerender("data-v-10f2bdce", module.exports)
+  }
+}
+
+/***/ }),
+/* 149 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(146);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(2)("26a8886a", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-10f2bdce\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./BankAccountComponent.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-10f2bdce\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./BankAccountComponent.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 150 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jorge_form__ = __webpack_require__(3);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+    name: 'SocialSecurityComponent',
+
+    data: function data() {
+        return {
+            form: new __WEBPACK_IMPORTED_MODULE_0_jorge_form__["a" /* default */]({
+                'number': this.employee.social_security ? this.employee.social_security.number : ''
+            }, false)
+
+        };
+    },
+
+
+    props: {
+        employee: {}
+    },
+
+    methods: {
+        handleUpdateSocialSecurity: function handleUpdateSocialSecurity() {
+            var _this = this;
+
+            this.form.post('/admin/employees/updateSocialSecurity/' + this.employee.id).then(function (response) {
+                console.log(response);
+                _this.employee.social_security = response.social_security;
+                return _this.form.fields.number = response.social_security.number;
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 151 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)();
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+/***/ }),
+/* 152 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/* styles */
+__webpack_require__(154)
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(150),
+  /* template */
+  __webpack_require__(153),
+  /* scopeId */
+  "data-v-43301a7e",
+  /* cssModules */
+  null
+)
+Component.options.__file = "F:\\wamp\\www\\dainsys3\\resources\\assets\\js\\dainsys\\components\\employees\\SocialSecurityComponent.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] SocialSecurityComponent.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-loader/node_modules/vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-43301a7e", Component.options)
+  } else {
+    hotAPI.reload("data-v-43301a7e", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 153 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "_Social Security"
+  }, [_c('form', {
+    staticClass: "form-horizontals",
+    attrs: {
+      "role": "form",
+      "autocomplete": "off"
+    },
+    on: {
+      "submit": function($event) {
+        $event.preventDefault();
+        _vm.handleUpdateSocialSecurity($event)
+      },
+      "keydown": function($event) {
+        _vm.form.error.clear($event.target.name)
+      }
+    }
+  }, [_c('div', {
+    staticClass: "box-header with-border"
+  }, [_c('h4', [_vm._v(_vm._s(_vm.employee.full_name) + "' Social Security Info:")])]), _vm._v(" "), _c('div', {
+    staticClass: "box-body"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "number"
+    }
+  }, [_vm._v("Social Sec. Number:")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.form.fields.number),
+      expression: "form.fields.number"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "id": "number",
+      "name": "number"
+    },
+    domProps: {
+      "value": (_vm.form.fields.number)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.form.fields.number = $event.target.value
+      }
+    }
+  }), _vm._v(" "), (_vm.form.error.has('number')) ? _c('span', {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.form.error.get('number')))]) : _vm._e()])]), _vm._v(" "), _vm._m(0)])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "box-footer"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('div', {
+    staticClass: "col-sm-10 col-sm-offset-2"
+  }, [_c('button', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "type": "submit"
+    }
+  }, [_vm._v("\n                        Save Social Security\n                    ")])])])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-loader/node_modules/vue-hot-reload-api").rerender("data-v-43301a7e", module.exports)
+  }
+}
+
+/***/ }),
+/* 154 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(151);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(2)("b97e167a", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-43301a7e\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./SocialSecurityComponent.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-43301a7e\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./SocialSecurityComponent.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
 
 /***/ })
 /******/ ]);

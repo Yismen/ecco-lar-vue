@@ -11,6 +11,8 @@ export default {
     'employee-termination': require('../employees/TerminationComponent'),
     'employee-ars': require('../employees/ARSComponent'),
     'employee-afp': require('../employees/AFPComponent'),
+    'employee-bank-account': require('../employees/BankAccountComponent'),
+    'employee-social-security': require('../employees/SocialSecurityComponent'),
     'employee-supervisor': require('../employees/SupervisorComponent'),
 
     'supervisors-index': require('../supervisors/IndexComponent'),

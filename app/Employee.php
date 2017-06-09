@@ -32,7 +32,20 @@ class Employee extends Model {
 	protected $dates = ['hire_date', 'date_of_birth'];
 
 	protected $appends = [
-		'active', 'full_name', 'status', 'systems_list', 'termination_type_list', 'termination_reason_list', 'ars_list', 'afp_list', 'genders_list', 'maritals_list', 'has_kids_list', 'positions_list', 'supervisors_list'
+		'active', 
+		'full_name', 
+		'status', 
+		'systems_list', 
+		'termination_type_list', 
+		'termination_reason_list', 
+		'ars_list', 
+		'afp_list', 
+		'genders_list', 
+		'maritals_list', 
+		'has_kids_list', 
+		'positions_list', 
+		'supervisors_list',
+		'banks_list',
 	];
 
 	protected $guarded = [];
@@ -68,6 +81,16 @@ class Employee extends Model {
 	public function afp()
 	{
 		return $this->belongsTo('App\Afps');
+	}
+
+	public function bankAccount()
+	{
+	    return $this->hasOne('App\BankAccount');
+	}
+
+	public function socialSecurity()
+	{
+	    return $this->hasOne('App\SocialSecurity');
 	}
 
 	public function department()
@@ -209,6 +232,11 @@ class Employee extends Model {
 	public function getSupervisorsListAttribute()
 	{
 		return \App\Supervisor::lists('name', 'id')->toArray();
+	}
+
+	public function getBanksListAttribute()
+	{
+		return \App\Bank::lists('name', 'id')->toArray();
 	}
 
 	public function getCurrentSupervisorAttribute()

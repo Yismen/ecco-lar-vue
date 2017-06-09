@@ -1,41 +1,50 @@
 <template>
     <div class="employee-photo">
 
-        <div class="col-sm-3 col-xs-4 text-center">            
-            <img :src="photo" 
-            class="img-circle img-responsive img-center profile-image animated" alt="Image" id="show-photo" with="50px">
-        </div>
+        <div class="row">
+            <div class="col-sm-3 col-xs-4 text-center">            
+                <img :src="photo" 
+                class="img-circle img-responsive img-center profile-image animated" alt="Image" id="show-photo" with="50px">
+            </div>
 
-        <div class="col-sm-9 col-xs-8 ">
-            <form class="form-horizontal" role="form"
-                @submit.prevent="submitPhoto(this)"
-                autocomplete="off" 
-                enctype="multipart/form-data"
-                @change="form.loadFiles($event.target.name, $event.target.files)"
-                @keydown="form.error.clear($event.target.name)">
+            <div class="col-sm-9 col-xs-8 ">
 
-                <div class="form-group">
-                    <legend>{{ employee.full_name }}' Photo:</legend>
-                </div>
-
-                <div class="form-group">
-                    <label for="input" class="col-sm-2 control-label">Photo:</label>
-                    <div class="col-sm-10">
-                        <input type="file" id="photo" 
-                            name="photo" class="form-control"  
-                        >
-                        <span class="text-danger" v-if="form.error.has('photo')">{{ form.error.get('photo') }}</span>
+                <form class="form-horizontal" role="form"
+                    @submit.prevent="submitPhoto(this)"
+                    autocomplete="off" 
+                    enctype="multipart/form-data"
+                    @change="form.loadFiles($event.target.name, $event.target.files)"
+                    @keydown="form.error.clear($event.target.name)">
+                    
+                    <div class="box-header with-border">
+                        <h4>{{ employee.full_name }}' Photo:</h4>
                     </div>
-                </div> <!-- ./Photo -->
-
-                <div class="form-group">
-                    <div class="col-sm-10 col-sm-offset-2">
-                        <button type="submit" class="btn btn-success">
-                            UPDATE PHOTO
-                        </button>
+            
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="input" class="col-sm-2 control-label">Photo:</label>
+                            <div class="col-sm-10">
+                                <input type="file" id="photo" 
+                                    name="photo" class="form-control"  
+                                >
+                                <span class="text-danger" v-if="form.error.has('photo')">{{ form.error.get('photo') }}</span>
+                            </div>
+                        </div> <!-- ./Photo -->
                     </div>
-                </div>
-            </form>
+            
+                    <div class="box-footer">
+                        <div class="form-group">
+                            <div class="col-sm-10 col-sm-offset-2">
+                                <button type="submit" class="btn btn-success">
+                                    UPDATE PHOTO
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                        
+                </form>
+            </div>
+            
         </div>
     </div>
 </template>

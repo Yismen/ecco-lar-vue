@@ -1,33 +1,38 @@
 <template>
     <div class="_Card">
         <form class="form-horizontal" role="form"
-        @submit.prevent="submitCard"
-        autocomplete="off" 
-        @keydown="form.error.clear($event.target.name)">
+            @submit.prevent="submitCard"
+            autocomplete="off" 
+            @keydown="form.error.clear($event.target.name)">
 
-        <div class="form-group">
-            <legend>{{ employee.full_name }}' Card:</legend>
-        </div>
-
-        <div class="form-group">
-            <label for="input" class="col-sm-2 control-label">Card:</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" 
-                 id="card" name="card"
-                v-model="form.fields.card">
-                <span class="text-danger" v-if="form.error.has('card')">{{ form.error.get('card') }}</span>
+            <div class="box-header with-border">
+                <h4>{{ employee.full_name }}' Card:</h4>
             </div>
-        </div> <!-- ./Card -->
-
-        <div class="form-group">
-            <div class="col-sm-10 col-sm-offset-2">
-                <button type="submit" class="btn btn-primary">
-                    Save Card
-                </button>
+    
+            <div class="box-body">
+                <div class="form-group">
+                    <label for="input" class="col-sm-2 control-label">Card:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" 
+                         id="card" name="card"
+                        v-model="form.fields.card">
+                        <span class="text-danger" v-if="form.error.has('card')">{{ form.error.get('card') }}</span>
+                    </div>
+                </div> <!-- ./Card -->
             </div>
-        </div>
-    </form>
-</div>
+    
+            <div class="box-footer">
+                <div class="form-group">
+                    <div class="col-sm-10 col-sm-offset-2">
+                        <button type="submit" class="btn btn-primary">
+                            Save Card
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
 </template>
 
 <script>

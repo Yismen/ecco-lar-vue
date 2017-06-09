@@ -45,7 +45,7 @@ class EmployeesController extends Controller
         return view('employees.index-datatables');
     }
 
-    public function apiEmployees(Request $request)
+    public function apiEmployees(Request $request, Employee $employees)
     {
         $employees = Employee::with('position.department');
 
@@ -53,9 +53,6 @@ class EmployeesController extends Controller
             ->editColumn('id', function ($query) {
                 return '<a href="' . route("admin.employees.show", $query->id) . '" class="">'.$query->id.'</a>';
             })
-            // ->editColumn('full_name', function ($query) {
-            //     return '<a href="' . route("admin.employees.show", $query->id) . '" class="">'.$query->full_name.'</a>';
-            // })
             ->addColumn('edit', function($query) {
                 return '<a href="' . route("admin.employees.edit", $query->id) . '" class=""> <i class="fa fa-edit"></i></a>';
             })
@@ -199,7 +196,7 @@ class EmployeesController extends Controller
 
     public function updateArs(Employee $employee, Request $request)
     {
-        $employee = $this->handleAUpdateArs($employee, $request);
+        $employee = $this->handleUpdateArs($employee, $request);
 
         if ($request->ajax()) {
             return $employee;
@@ -208,7 +205,25 @@ class EmployeesController extends Controller
 
     public function updateAfp(Employee $employee, Request $request)
     {
-        $employee = $this->handleAUpdateAfp($employee, $request);
+        $employee = $this->handleUpdateAfp($employee, $request);
+
+        if ($request->ajax()) {
+            return $employee;
+        }
+    }
+
+    public function updateBankAccount(Employee $employee, Request $request)
+    {
+        $employee = $this->handleUpdateBankAccount($employee, $request);
+
+        if ($request->ajax()) {
+            return $employee;
+        }
+    }
+
+    public function updateSocialSecurity(Employee $employee, Request $request)
+    {
+        $employee = $this->handleUpdateSocialSecurity($employee, $request);
 
         if ($request->ajax()) {
             return $employee;

@@ -35,6 +35,9 @@
 						            <a href="#logins" aria-controls="logins" role="tab" data-toggle="tab">Logins</a>
 						        </li>
 						        <li role="presentation">
+						            <a href="#bank_acc" aria-controls="bank_acc" role="tab" data-toggle="tab">Bank Acc</a>
+						        </li>
+						        <li role="presentation">
 						            <a href="#others" aria-controls="others" role="tab" data-toggle="tab">Others</a>
 						        </li>
 						    </ul><!-- /. Tab List -->
@@ -73,6 +76,10 @@
 						        <div role="tabpanel" class="tab-pane" id="logins">
 						        	@include('employees.partials.logins')
 						        </div><!-- /. Edit Info -->
+						    
+						        <div role="tabpanel" class="tab-pane" id="bank_acc">
+						        	@include('employees.partials.bank_account')
+						        </div><!-- /. Bank Account -->
 						    
 						        <div role="tabpanel" class="tab-pane" id="others">
 						        	@include('employees.partials.others')
