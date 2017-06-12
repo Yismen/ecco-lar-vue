@@ -66,7 +66,7 @@ class ImportsController extends Controller
 
     protected function importDataFromExcel($file)
     {        
-        return $data = Excel::load($file)->toObject();
+        return $data = Excel::load($file, 'UTF-8')->toObject();
         
     }
 

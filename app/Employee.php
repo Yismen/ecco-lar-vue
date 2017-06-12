@@ -283,7 +283,7 @@ class Employee extends Model {
 	public function getFullNameAttribute()
 	{
 		$name = $this->first_name . ' ' . $this->second_first_name . ' ' . $this->last_name. ' ' . $this->second_last_name;
-		return ucwords(trim($name));
+		return ucwords(trim(mb_strtolower($name)));
 	}
 
 	/**
@@ -345,9 +345,14 @@ class Employee extends Model {
 	 * @param  String $first_name Employee First name
 	 * @return String             Converted to ucwords
 	 */
-	public function getFirstNameAttribute($na)
+	public function getFirstNameAttribute($name)
 	{
-		return ucwords($na);
+		return ucwords(mb_strtolower($name));
+	}
+
+	public function getSecondFirstNameAttribute($name)
+	{
+		return ucwords(mb_strtolower($name));
 	}
 
 	/**
@@ -355,9 +360,14 @@ class Employee extends Model {
 	 * @param  String $first_name Employee First name
 	 * @return String             Converted to ucwords
 	 */
-	public function getLastNameAttribute($last_name)
+	public function getLastNameAttribute($name)
 	{
-		return ucwords($last_name);
+		return ucwords(mb_strtolower($name));
+	}
+
+	public function getSecondLastNameAttribute($name)
+	{
+		return ucwords(mb_strtolower($name));
 	}
 
 	/**
