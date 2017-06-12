@@ -2,7 +2,9 @@
 
 Route::bind('ars', function($slug){
 	return App\Ars::whereSlug($slug)
-		->with('employees')
+		->with(['employees' => function($query) {
+            return $query->actives();
+        }])
 		->firstOrFail();
 });
 

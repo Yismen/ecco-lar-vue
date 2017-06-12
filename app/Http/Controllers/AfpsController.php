@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Afps;
+use App\Afp;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 
@@ -20,9 +20,11 @@ class AfpsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Afps $afps)
+    public function index(Afp $afps)
     {
-        $afps = $afps->orderBy('name')->get();
+        $afps = $afps->with(['employees' => function($query) {
+            return $query->actives();
+        }])->orderBy('name')->get();
 
         return view('afp.index', compact('afps'));
     }
@@ -43,7 +45,7 @@ class AfpsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Afps $afp)
+    public function store(Request $request, Afp $afp)
     {
         $this->validate($request, [
             'name' => 'required|min:3|unique:afps,name'
@@ -58,10 +60,10 @@ class AfpsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  Afps $afp
+     * @param  int  Afp $afp
      * @return \Illuminate\Http\Response
      */
-    public function show(Afps $afp)
+    public function show(Afp $afp)
     {
         return view('afp.show', compact('afp'));
     }
@@ -69,10 +71,10 @@ class AfpsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  Afps $afp
+     * @param  int  Afp $afp
      * @return \Illuminate\Http\Response
      */
-    public function edit(Afps $afp)
+    public function edit(Afp $afp)
     {
         return view('afp.edit', compact('afp'));
     }
@@ -81,10 +83,10 @@ class AfpsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  Afps $afp
+     * @param  int  Afp $afp
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Afps $afp)
+    public function update(Request $request, Afp $afp)
     {
         $this->validate($request, [
             'name' => 'required|min:3|unique:afps,name,'.$afp->id
@@ -99,10 +101,10 @@ class AfpsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  Afps $afp
+     * @param  int  Afp $afp
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Afps $afp)
+    public function destroy(Afp $afp)
     {
         $afp->delete();
 

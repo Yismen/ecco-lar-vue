@@ -80,7 +80,7 @@ class Employee extends Model {
 
 	public function afp()
 	{
-		return $this->belongsTo('App\Afps');
+		return $this->belongsTo('App\Afp');
 	}
 
 	public function bankAccount()

@@ -22,7 +22,10 @@ class ArsController extends Controller
      */
     public function index(Ars $arss)
     {
-        $arss = $arss->orderBy('name')->get();
+        $arss = $arss
+            ->with(['employees' => function($query) {
+                return $query->actives();
+            }])->orderBy('name')->get();
 
         return view('ars.index', compact('arss'));
     }

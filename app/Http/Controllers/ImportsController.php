@@ -25,7 +25,7 @@ class ImportsController extends Controller
     {
         $this->validateFiles($request);
 
-        $data  = $this->importDataFromExcel($request->file('excel_file'));
+        return $data  = $this->importDataFromExcel($request->file('excel_file'));
 
         foreach ($data as $row) {
            

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\SluggableInterface;
 use Cviebrock\EloquentSluggable\SluggableTrait;
 
-class Afps extends Model implements SluggableInterface
+class Afp extends Model implements SluggableInterface
 {
     use SluggableTrait;
 
