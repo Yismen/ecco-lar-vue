@@ -39,8 +39,9 @@ class Position extends Model {
 
 	public function getNameAndDepartmentAttribute($name)
 	{
+		$department = $this->department ? $this->department->department : '';
 		return ucwords(trim(
-			$this->department->department.'-'.$this->attributes['name']
+			$department.'-'.$this->attributes['name']
 		));
 	}
 

@@ -157,7 +157,7 @@ class Employee extends Model {
  * Scopes
  * -------------------------------------------------------
  */
-	public function ScopeActives($query)
+	public function scopeActives($query)
 	{
 		return $query->has('termination', false);
 	}
@@ -248,6 +248,11 @@ class Employee extends Model {
 	{
 		return \App\System::lists('display_name', 'id');
 	}
+
+	public function getPhotoAttribute($photo)
+	{
+		return $photo == '' ? 'http://placehold.it/300x300' : $photo;
+	}
 	
 	/**
 	 * determine if the user is active or inactive
@@ -296,10 +301,10 @@ class Employee extends Model {
 	 * @param  datetime $date employee date of birth
 	 * @return datetime       an instance of carbon
 	 */
-	public function getDateOfBirthAttribute($date)
-	{
-		return Carbon::parse($date)->format('Y-m-d');
-	}
+	// public function getDateOfBirthAttribute($date)
+	// {
+	// 	return Carbon::parse($date)->format('Y-m-d');
+	// }
 
 	/**
 	 * define the attribute can be rehired
@@ -468,6 +473,7 @@ class Employee extends Model {
 	{
 		
 	}
+
 	public function inactivate(Carbon $carbon)
 	{
 		///// under construction

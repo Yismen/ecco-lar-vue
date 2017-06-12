@@ -68,7 +68,7 @@ class ImageUploader extends Model
 
 		$file = $this->wantsSquaredImage($file);
 		
-		$file = $file->save($extendedName);
+		$file = $file->save($extendedName)->orientate();
 
 		return $extendedName;
 
