@@ -1,7 +1,7 @@
 <?php namespace App;
 
 use App\Ars;
-use App\Afps;
+use App\Afp;
 use App\Position;
 use Carbon\Carbon;
 use App\Department;
@@ -226,7 +226,7 @@ class Employee extends Model {
 
 	public function getAfpListAttribute()
 	{
-		return Afps::lists('name', 'id');
+		return Afp::lists('name', 'id');
 	}
 
 	public function getSupervisorsListAttribute()
