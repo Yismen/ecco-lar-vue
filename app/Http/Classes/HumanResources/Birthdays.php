@@ -22,7 +22,9 @@ class Birthdays
     {
         $date = $date ? Carbon::parse($date) : Carbon::today(); 
 
-        return static::byMonth($date->month)->with('position')->whereDay('date_of_birth', '=', $date->day);
+        return static::byMonth($date->month)
+            ->whereDay('date_of_birth', '=', $date->day)
+            ->with('position');
     }
 
     public static function lastMonth()
