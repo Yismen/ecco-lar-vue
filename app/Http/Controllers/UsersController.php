@@ -76,7 +76,7 @@ class UsersController extends Controller {
 		$notify = $this->request->notify;
 		Mail::later(5, 'emails.welcome', ['user'=>$user, 'password' => $rand], function($m) use ($user, $notify){
         	$m->to('yismen.jorge@ecco.com.do', 'Yismen Jorge')->subject('Welcome to Dainsys');
-			if ($notify) {
+			if ($notify && config('env') == 'production') {
 			// $m->from('hello@app.com', 'Your Application');
 				$m->cc($user->email, $user->name);
 			}
@@ -205,7 +205,7 @@ class UsersController extends Controller {
 		$notify = $this->request->notify;
 		Mail::later(5, 'emails.password-reset', compact('user', 'password'), function($m) use ($user, $notify){
         	$m->to('yismen.jorge@ecco.com.do', 'Yismen Jorge');
-			if ($notify) {
+			if ($notify && config('env') == 'production') {
 			// $m->from('hello@app.com', 'Your Application');
 				$m->cc($user->email, $user->name);
 			}
