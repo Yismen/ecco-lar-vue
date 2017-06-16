@@ -1,11 +1,11 @@
 <template>
-    <div class="_Termination">
+    <div class="_Termination" >
         <form class="" role="form"
             @submit.prevent="submitTermination"
             autocomplete="off" 
             @keydown="form.error.clear($event.target.name)">
 
-            <div class="box-header with-border">
+            <div class="box-header with-border bg-yellow" :class="{'bg-green': isActive}">
                 <h4>{{ employee.full_name }}' Termination. Current Status is {{ employee.status }}</h4>
             </div>
     
@@ -42,7 +42,8 @@
                         <div class="form-group">
                             <label for="input" class="">Termination Reason:</label>
                             <div class="">
-                                <select name="termination_reason_id" id="termination_reason_id" class="form-control" v-model="form.fields.termination_reason_id">
+                                <select name="termination_reason_id" id="termination_reason_id" class="form-control" 
+                                    v-model="form.fields.termination_reason_id">
                                     <option v-for="(termination_reason_id, index) in employee.termination_reason_list" :value="index">{{ termination_reason_id }}</option>
                                 </select>
                                 <span class="text-danger" v-if="form.error.has('termination_reason_id')">{{ form.error.get('termination_reason_id') }}</span>

@@ -21,8 +21,6 @@ class Reports
                 return $query->whereYear('termination_date', '=', $year)
                     ->whereMonth('termination_date', '=', $month);
             });
-            // ->orWhereYear('ter', '=', $year));
-            ;
     }
 
     public function dgt4($year, $month)
