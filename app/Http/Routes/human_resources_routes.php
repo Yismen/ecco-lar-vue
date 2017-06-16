@@ -11,6 +11,8 @@ Route::group(['middleware' => 'authorize:view_human_resources'], function(){
     Route::get('human_resources/employees/missing_bank_account', 'HumanResourcesController@missingBankAccount');
     Route::get('human_resources/employees/dgt3', 'HumanResourcesController@dgt3');
     Route::post('human_resources/employees/dgt3', 'HumanResourcesController@handleDgt3');
+    Route::get('human_resources/employees/dgt4', 'HumanResourcesController@dgt4');
+    Route::post('human_resources/employees/dgt4', 'HumanResourcesController@handleDgt4');
 
     Route::get('human_resources/employees/birthdays/this_month', 'HumanResourcesController@birthdaysThisMonth');
     Route::get('human_resources/employees/birthdays/next_month', 'HumanResourcesController@birthdaysNextMonth');

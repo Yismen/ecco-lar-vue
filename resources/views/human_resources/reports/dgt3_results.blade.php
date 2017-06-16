@@ -1,33 +1,52 @@
 <div class="row">
-    <div class="col-sm-10 col-sm-offset-1">
-        <div class="box box-success">
+    <div class="col-sm-12">
+        <div class="box box-warning">
             <div class="box-header with-border">
                 <h4>DGT-3 Report for Year {{ 'Year here' }} <span class="badge">{{ $results->count() }} Records</span></h4>
             </div>
     
             <div class="box-body">
-                <table class="table table-condensed table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Hire Date</th>
-                            <th>Personal Id</th>
-                            <th>Passport</th>
-                            <th>Termination Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($results as $employee)
+                <div class="table-responsive">
+                    <table class="table table-condensed table-bordered">
+                        <thead>
                             <tr>
-                                <td>{{ $employee->full_name }}</td>
-                                <td>{{ $employee->hire_date->format('d/M/Y') }}</td>
-                                <td>{{ $employee->personal_id }}</td>
-                                <td>{{ $employee->passport }}</td>
-                                <td>{{ $employee->termination ? $employee->termination->termination_date->format('d/M/Y') : '' }}</td>
+                                <th>Nombre(s) y Apellido(s) del Trabajador</th>
+                                <th>Cédula de Identidad y Electoral</th>
+                                <th>No. Sistema Dominicano de Seguridad Social</th>
+                                <th>Fecha de Nacimiento (dd/mm/aaaa)</th>
+                                <th>Hombre</th>
+                                <th>Mujer</th>
+                                <th>Nacionalidad</th>
+                                <th>Fecha de Entrada (dd/mm/aaaa)</th>
+                                <th>Ocupación</th>
+                                <th>Salario Mensual RD$</th>
+                                <th>Turno</th>
+                                <th>Vacaciones Desde</th>
+                                <th>Vacaciones Hasta</th>
                             </tr>
-                        @endforeach 
-                    </tbody>
-                </table>    
+                        </thead>
+                        <tbody>
+                            @foreach ($results as $employee)
+                                <tr>
+                                    <td>{{ $employee->full_name }}</td>
+                                    <td>{{ $employee->personal_id or $employee->passport }}</td>
+                                    <td>{{ $employee->socialSecurity->number or null}}</td>
+                                    <td>{{ $employee->date_of_birth->format('d/m/Y') }}</td>
+                                    <td>{{ $employee->isOfGender('Masculine', 'X') }}</td>
+                                    <td>{{ $employee->isOfGender('femenine', 'X') }}</td>
+                                    {{-- <td>{{ $employee->isFemenine() ? 'x' : null }}</td> --}}
+                                    <td>Dominicano / "Verificar si es extrangero"</td>
+                                    <td>{{ $employee->hire_date->format('d/m/Y') }}</td>
+                                    <td>{{ $employee->position->name or "AGENTE CALL CENTER" }}</td>
+                                    <td>{{ number_format($employee->computedSalary(), 2) }}</td>
+                                    <td>1</td>
+                                    <td>{{ $employee->vacationsStarts()->format('d/m/Y') }} </td>
+                                    <td>{{ $employee->vacationsEnds()->format('d/m/Y') }} </td>
+                                </tr>
+                            @endforeach 
+                        </tbody>
+                    </table>    
+                </div>
             </div>
     
             {{-- <div class="box-footer"></div> --}}

@@ -13,40 +13,38 @@ use App\Http\Classes\HumanResources\Employees\Reports;
 
 class HumanResourcesController extends Controller 
 {
-    protected $years, $months;
+    /**
+     * List of the lasts 5 years
+     * @var array
+     */
+    protected $last_five_years;
+
+    protected $months_of_the_year  = [
+        1  => 'January',
+        2  => 'February',
+        3  => 'March',
+        4  => 'April',
+        5  => 'May',
+        6  => 'June',
+        7  => 'July',
+        8  => 'August',
+        9  => 'September',
+        10 => 'Octuber',
+        11 => 'November',
+        12 => 'December',
+    ];
 
     public function __construct()
     {
         $currentYear = Carbon::now()->year;
         $currentMonth = Carbon::now()->month;
         $years = [];
-        $months = [];
-
-        $monthsList = [
-            1  =>'January',
-            2  =>'February',
-            3  =>'March',
-            4  =>'April',
-            5  =>'May',
-            6  =>'June',
-            7  =>'July',
-            8  =>'August',
-            9  =>'September',
-            10 =>'Octuber',
-            11 =>'November',
-            12 =>'December',
-        ];
 
         for ($year=$currentYear; $year > $currentYear-5; $year--) { 
             $years[$year] = $year;
         }
 
-        for ($month=1; $month <=12 ; $month++) { 
-            $months[$month] = $monthsList[$month];
-        }
-
-        $this->years = $years;
-        $this->months = $months;
+        $this->last_five_years = $years;
     }
     // use HumanResourcesIssues;
 
@@ -155,27 +153,50 @@ class HumanResourcesController extends Controller
 
     public function dgt3()
     {
-        $years = $this->years;
-        $months = $this->months;
+        $years = $this->last_five_years;
 
-        return view('human_resources.reports.dgt3', compact('years', 'months'));
+        return view('human_resources.reports.dgt3', compact('years'));
     }
 
     public function handleDgt3(Request $request, Reports $report)
+    {
+        $this->validate($request, [
+            'year' => 'required|integer'
+            ]);        
+
+        // return $results = $report->dgt3($request->year)->toSql();
+        $results = $report->dgt3($request->year)->get();
+
+        $years = $this->last_five_years;
+
+        $request->flash();
+
+        return view('human_resources.reports.dgt3', compact('results', 'years'));
+    }
+
+    public function dgt4()
+    {
+        $years = $this->last_five_years;
+        $months = $this->months_of_the_year;
+
+        return view('human_resources.reports.dgt4', compact('years', 'months'));
+    }
+
+    public function handleDgt4(Request $request, Reports $report)
     {
         $this->validate($request, [
             'year' => 'required|integer',
             'month' => 'required|integer|between:1,12',
             ]);        
 
-        $results = $report->dgt3($request->year, $request->month)->get();
+        $results = $report->dgt4($request->year, $request->month)->get();
 
-        $years = $this->years;
-        $months = $this->months;
+        $years = $this->last_five_years;
+        $months = $this->months_of_the_year;
 
         $request->flash();
 
-        return view('human_resources.reports.dgt3', compact('results', 'years', 'months'));
+        return view('human_resources.reports.dgt4', compact('results', 'years', 'months'));
     }
     
 }
