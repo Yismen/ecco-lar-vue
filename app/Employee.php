@@ -8,7 +8,8 @@ use App\Department;
 use App\CivilStatus;
 use Illuminate\Database\Eloquent\Model;
 
-class Employee extends Model {
+class Employee extends Model 
+{
 
 	protected $fillable = [
 		'first_name',
@@ -28,9 +29,16 @@ class Employee extends Model {
 		'supervisor_id',
 		'photo',
 	];
-
+	/**
+	 * Fields to be converted to Carbon instances
+	 * @var Carbon Instance
+	 */
 	protected $dates = ['hire_date', 'date_of_birth'];
 
+	/**
+	 * attributes appended to each query
+	 * @var object
+	 */
 	protected $appends = [
 		'active', 
 		'full_name', 
@@ -91,7 +99,7 @@ class Employee extends Model {
 		return $this->belongsTo('App\Gender', 'gender_id');
 	}
 	
-	public function Nationality()
+	public function nationality()
 	{
 		return $this->belongsTo('App\Nationality');
 	}
@@ -467,11 +475,50 @@ class Employee extends Model {
 	 * Methods
 	 */
 	
+	public function computedSalary()
+	{
+		$base_salary = 8310;
+		if ($this->position && $this->position->salary ) {
+			// if ($this->position->payment->payment_type == 'By-Weekly') {
+			// 	return $this->position->salary * 2;
+			// };
+
+			// if ($this->position->payment->payment_type == 'Monthly') {
+			// 	return $this->position->salary;
+			// };
+			if ($this->position->salary > $base_salary) {
+				return $this->position->salary;
+			};
+		}
+		return $base_salary;
+	}
+
+	public function vacationsStarts()
+	{
+		// $yeards_to = 
+		return $this->hire_date->addYears(1);
+	}
+
+	public function vacationsEnds()
+	{
+		$days = $this->vacationsStarts()->diffInYears(Carbon::today()) >= 5 ? 21 : 14;
+		return $this->vacationsStarts()->addWeeks($days);
+	}
+	
 	public function activesOn($date)
 	{
 		$date = Carbon::parse($date)->format("Y-m-d");
 
-		return $this->where('hire_date', "<=", $date)->with(['termination'=>function($query){
+		return $this->where('hire_date', "<=", $date)
+			->with(['termination'=>function($query){
+				return $query->where('termination_date', '>=', $date);
+			}])
+			->get();
+
+	}
+	public function activesOnYear($year)
+	{
+		return $this->whereYear('hire_date', "<=", $year)->with(['termination'=>function($query){
 			return $query->where('termination_date', '>=', '2012-02-09');
 		}])->get();
 
@@ -541,5 +588,30 @@ class Employee extends Model {
 		$card = new Punch($newPunch);
 		$this->punch()->save($card);
 		return $this;
+	}
+	/**
+	 * cheks if the current employeed 
+	 * @return string or null 'Masculine'
+	 */
+	function isMasculine()
+	{
+		return $this->has('gender') && $this->gender->gender == 'Masculine' ? 'Masculine' : null;
+	}
+
+	function isFemenine()
+	{
+		return $this->has('gender') && $this->gender->gender == 'Femenine' ? 'Femenine' : null;
+	}
+
+	function isOfGender($gender, $return_value = null)
+	{
+		if ($this->has('gender') && strtolower($this->gender->gender) == strtolower($gender)) {
+			if ($return_value) {
+				return $return_value;
+			}
+			return $gender;
+		}
+
+		return null;
 	}
 }
