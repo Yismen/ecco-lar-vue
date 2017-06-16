@@ -91,6 +91,11 @@ class Employee extends Model {
 		return $this->belongsTo('App\Gender', 'gender_id');
 	}
 	
+	public function Nationality()
+	{
+		return $this->hasOne('App\Nationality')-withPivot('employee_nationality');
+	}
+	
 	public function position()
 	{
 		return $this->belongsTo('App\Position', 'position_id');

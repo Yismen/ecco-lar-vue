@@ -84,6 +84,7 @@ Route::bind('employees', function($id){
         ->with('gender')
         ->with('logins.system')
         ->with('marital')
+        ->with('nationality')
         ->with('punch')
         ->with('position')
         ->with('termination')
