@@ -180,7 +180,6 @@ class RolesController extends Controller {
 	 */
 	protected function syncRelations(Role $role, $request)
 	{
-		// dd($request->all());
 		$role->users()->sync((array) $request->input('users_list'));	
 		$role->perms()->sync((array) $request->input('permissions_list'));	
 		$role->menus()->sync((array) $request->input('menus_list'));	

@@ -3,21 +3,11 @@ window.Vue = Vue;
 
 Vue.config.debug = true // Comment this line for production
 
-import VueResource from 'vue-resource';
-Vue.http = VueResource;
-Vue.use(VueResource);
-
 // Vue.http.interceptors.request.use(function(config){
 //     config.headers['X-CSRF-TOKEN'] = document.querySelector('#_token').getAttribute('content');
 //     return config;
 // })
 
-// Vue.http.interceptors.push(function(request, next) {
-
-//   response(res) {
-//     console.log(res)
-//   }
-// });
 /**
  * Libraries to use. These libraries are added as part of the constructor.
  * Whithin the instance they can be referenced with the 'this' key.
@@ -27,12 +17,14 @@ Vue.use(VueResource);
  * Configuration session
  */
 
-Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#_token').getAttribute('content');
+import VueResource from 'vue-resource';
+// Vue.http = VueResource;
+Vue.use(VueResource);
 
-/**
- * Intercepting the http
-*/
+Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#_token').getAttribute('content');
 Vue.http.interceptors.push(require('./config/interceptors.js'));
+
+Vue.http.get('/admin/employees');
 
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);

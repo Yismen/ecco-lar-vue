@@ -12,34 +12,62 @@
 // 
 Route::post('employees/list', ['as'=>'admin.employees.list', 'uses'=>'EmployeesController@apiEmployees']);
 
-Route::post('employees/logins/{employees}', ['as'=>'admin.employees.login.create', 'uses'=>'EmployeesController@createLogin']);
+Route::post('employees/logins/{employees}', 
+    ['as'=>'admin.employees.login.create', 'uses'=>'EmployeesController@createLogin']
+)->middleware('authorize:create_logins');
 
-Route::post('employees/logins/{employees}/update', ['as'=>'admin.employees.login.update', 'uses'=>'EmployeesController@updateLogin']);
+Route::post('employees/logins/{employees}/update', 
+    ['as'=>'admin.employees.login.update', 'uses'=>'EmployeesController@updateLogin']
+)->middleware('authorize:update_logins');
 
-Route::post('employees/reactivate/{employees}', ['as'=>'admin.employees.reactivate','uses'=>'EmployeesController@reactivate']);
+Route::post('employees/reactivate/{employees}', 
+    ['as'=>'admin.employees.reactivate','uses'=>'EmployeesController@reactivate']
+    )->middleware('authorize:edit_employees');
 
-Route::post('employees/terminations/{employees}', ['as'=>'admin.employees.termination','uses'=>'EmployeesController@updateTermination']);
+Route::post('employees/terminations/{employees}', 
+    ['as'=>'admin.employees.termination','uses'=>'EmployeesController@updateTermination']
+    )->middleware('authorize:edit_employees');
 
-Route::post('employees/updateAddress/{employees}', ['as'=>'admin.employees.updateAddress','uses'=>'EmployeesController@updateAddress']);
+Route::post('employees/updateAddress/{employees}', 
+    ['as'=>'admin.employees.updateAddress','uses'=>'EmployeesController@updateAddress']
+    )->middleware('authorize:edit_employees');
 
-Route::post('employees/updateCard/{employees}', ['as'=>'admin.employees.updateCard','uses'=>'EmployeesController@updateCard']);
+Route::post('employees/updateCard/{employees}', 
+    ['as'=>'admin.employees.updateCard','uses'=>'EmployeesController@updateCard']
+    )->middleware('authorize:edit_employees');
 
-Route::post('employees/updatePunch/{employees}', ['as'=>'admin.employees.updatePunch','uses'=>'EmployeesController@updatePunch']);
+Route::post('employees/updatePunch/{employees}', 
+    ['as'=>'admin.employees.updatePunch','uses'=>'EmployeesController@updatePunch']
+    )->middleware('authorize:edit_employees');
 
-Route::post('employees/updatePhoto/{employees}', ['as'=>'admin.employees.updatePhoto','uses'=>'EmployeesController@updatePhoto']);
+Route::post('employees/updatePhoto/{employees}', 
+    ['as'=>'admin.employees.updatePhoto','uses'=>'EmployeesController@updatePhoto']
+    )->middleware('authorize:edit_employees');
 
-Route::post('employees/updateArs/{employees}', ['as'=>'admin.employees.updateArs','uses'=>'EmployeesController@updateArs']);
+Route::post('employees/updateArs/{employees}', 
+    ['as'=>'admin.employees.updateArs','uses'=>'EmployeesController@updateArs']
+    )->middleware('authorize:edit_employees');
 
-Route::post('employees/updateAfp/{employees}', ['as'=>'admin.employees.updateAfp','uses'=>'EmployeesController@updateAfp']);
+Route::post('employees/updateAfp/{employees}', 
+    ['as'=>'admin.employees.updateAfp','uses'=>'EmployeesController@updateAfp']
+    )->middleware('authorize:edit_employees');
 
-Route::post('employees/updateBankAccount/{employees}', ['as'=>'admin.employees.updateBankAccount','uses'=>'EmployeesController@updateBankAccount']);
+Route::post('employees/updateBankAccount/{employees}', 
+    ['as'=>'admin.employees.updateBankAccount','uses'=>'EmployeesController@updateBankAccount']
+    )->middleware('authorize:edit_employees');
 
-Route::post('employees/updateSocialSecurity/{employees}', ['as'=>'admin.employees.updateSocialSecurity','uses'=>'EmployeesController@updateSocialSecurity']);
+Route::post('employees/updateSocialSecurity/{employees}', 
+    ['as'=>'admin.employees.updateSocialSecurity','uses'=>'EmployeesController@updateSocialSecurity']
+    )->middleware('authorize:edit_employees');
 
-Route::post('employees/updateSupervisor/{employees}', ['as'=>'admin.employees.updateSupervisor','uses'=>'EmployeesController@updateSupervisor']);
+Route::post('employees/updateSupervisor/{employees}', 
+    ['as'=>'admin.employees.updateSupervisor','uses'=>'EmployeesController@updateSupervisor']
+    )->middleware('authorize:edit_employees');
 
 
-Route::get('employees', ['as'=>'admin.employees.datatables-list', 'uses'=>'EmployeesController@index']);
+// Route::get('employees', 
+//     ['as'=>'admin.employees.datatables-list', 'uses'=>'EmployeesController@index']
+//     )->middleware('authorize:create_logins');
 
 /**
  * 

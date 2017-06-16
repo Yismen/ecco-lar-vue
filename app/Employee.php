@@ -50,18 +50,6 @@ class Employee extends Model {
 
 	protected $guarded = [];
 
-	// protected $gender = [
-	// 	['id'=>1, 'name'=>'Male'],
-	// 	['id'=>2, 'name'=>'Female'],
-	// ];
-
-	// protected $maritals = [
-	// 	['id'=>1,'name'=>'Married'],
-	// 	['id'=>2,'name'=>'Single'],
-	// 	['id'=>3,'name'=>'Free Joint'],
-	// ];
-
-
 /**
  * ------------------------------------------------------
  * Relationships
@@ -291,10 +279,15 @@ class Employee extends Model {
 	 * @param  [type] $date [description]
 	 * @return [type]       [description]
 	 */
-	public function getHireDateAttribute($date)
-	{
-		return Carbon::parse($date)->format('Y-m-d');
-	}
+	// public function getHireDateAttribute($date)
+	// {
+	// 	return Carbon::parse($date)->format('Y-m-d h:i:s');
+	// }
+
+	// public function getDateOfBirthAttribute($date)
+	// {
+	// 	return Carbon::parse($date)->format('Y-m-d h:i:s');
+	// }
 
 	/**
 	 * Convert the Date of birth to date

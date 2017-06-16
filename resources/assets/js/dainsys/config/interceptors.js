@@ -1,6 +1,6 @@
 export default {
     response: function (response) {
-        console.log(response)
+        console.log("Intercepting: ", response)
     	switch (response.status){
     		case 401:
     			// User is no authorized.
@@ -43,10 +43,15 @@ export default {
                 });
     			break;
             case 200:
+                console.log(response)
                 // Positive response. Just continue to execute.
                 break;
     	}
         return response;
+    },
+
+    request: function(request) {
+        console.log("Request: ", request(request))
     }
 
 }

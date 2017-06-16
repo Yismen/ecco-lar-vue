@@ -73,9 +73,11 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label for="hire_date" class="">Hire Date:</label>
-                        <input type="date" id="hire_date" 
-                        name="hire_date" class="form-control input-sm" 
-                        v-model="form.fields.hire_date">
+                        <datepicker input-class="form-control input-sm" 
+                            v-model="form.fields.hire_date" 
+                            name="hire_date" 
+                            format="MM/dd/yyyy" 
+                        ></datepicker>
                         <span class="text-danger" v-if="form.error.has('hire_date')">{{ form.error.get('hire_date') }}</span>
                     </div>                 
                 </div> <!-- ./Hire Date-->
@@ -83,9 +85,11 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label for="date_of_birth" class="">Date of Birth:</label>
-                        <input type="date" id="date_of_birth" 
-                        name="date_of_birth" class="form-control input-sm" 
-                        v-model="form.fields.date_of_birth">
+                        <datepicker input-class="form-control input-sm" 
+                            name="date_of_birth"                            
+                            v-model="form.fields.date_of_birth" 
+                            format="MM/dd/yyyy" 
+                        ></datepicker>
                         <span class="text-danger" v-if="form.error.has('date_of_birth')">{{ form.error.get('date_of_birth') }}</span>
                     </div>                 
                 </div> <!-- ./Date of Birth-->
@@ -167,7 +171,7 @@
 
 <script>
 
-    import Form from 'jorge.form'
+    import Form from 'jorge.form';
 
     export default {
 
@@ -197,6 +201,10 @@
 
     props: {
         employee: {}
+    },
+
+    components: {
+        'datepicker': require('vuejs-datepicker')
     },
 
     methods: {

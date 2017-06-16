@@ -7,7 +7,7 @@ class Termination extends Model {
 
 	protected $fillable = ['employee_id', 'termination_date', 'termination_type_id', 'termination_reason_id', 'can_be_rehired', 'comments'];	
 
-	// protected $dates = ['termination_date', 'created_at', 'updated_at'];
+	protected $dates = ['termination_date'];
 
 /**
  * ----------------------------------------------------------------------------------
@@ -33,10 +33,10 @@ class Termination extends Model {
 	 * Accessors
 	 */
 	
-	public function getTerminationDateAttribute($date)
-	{
-		return Carbon::parse($this->attributes['termination_date'])->format('Y-m-d');
-	}
+	// public function getTerminationDateAttribute($date)
+	// {
+	// 	return Carbon::parse($this->attributes['termination_date'])->format('Y-m-d');
+	// }
 
 	public function terminateEmployee($employee, $request)
 	{

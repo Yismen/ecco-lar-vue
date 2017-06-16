@@ -5,7 +5,7 @@
 @stop
 
 @section('title')
-    {{ $user->name }}
+    Welcome to Dainsys, {{ $user->name }}.
 @stop
 
 @section('subtitle')
@@ -14,12 +14,16 @@
 
 @section('content')
     <p>
-        We have created an user for you in our Dainsys app. Please access the following link to log in: <a href="{{ url('/admin/login') }}">Dainsys</a>, or copy and paste this link into your web browser URL: <br>
-        {{ url('/admin/login') }}
-        <hr>
-        These are your credentials: <br>
-        <strong>Username:</strong> {{ $user->email }} <br>
-        <strong>Password:</strong> {{ $password }} <br>
-        <small>We strongly encourage you to change this password as soon as you log in!</small>
+        Welcome to Dainsys, your APP!. Please click the following link and provide the credentials given in this email. Please chage your password as soon as you log in.
     </p>
+    <p>
+        {{ url('/admin/login') }}
+    </p>
+    
+    <hr>
+    These are your credentials: <br>
+    <strong>Username:</strong> {{ $user->email }}<br>
+    <strong>Password:</strong> {{ $password }}<br>
+    <small>We strongly encourage you to change this password as soon as you log in!</small>
 @stop
+

@@ -6,8 +6,12 @@
     <div class="box-body">
 
         <div class="list-group">
-            <a href="/admin/employees" target="_blank" class="list-group-item">Employees</a>
-            <a href="#" target="_blank" class="list-group-item">Other</a>
+            <a href="/admin/employees" target="_blank" class="list-group-item">
+                <i class="fa fa-group"></i> Employees
+            </a>
+            <a href="/admin/human_resources/employees/dgt3" target="_blank" class="list-group-item">
+                <i class="fa fa-flag"></i> DGT-3
+            </a>
             <a href="#" target="_blank" class="list-group-item">Other</a>
             <a href="#" target="_blank" class="list-group-item">Other</a>
             <a href="#" target="_blank" class="list-group-item">Other</a>

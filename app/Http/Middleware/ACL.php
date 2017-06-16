@@ -2,8 +2,9 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Support\Facades\Auth;
 use Closure;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 class ACL
 {
@@ -15,6 +16,7 @@ class ACL
      * Laravel Next Clousure.
      */
     private $next;
+    private $user;
     /**
      * If set to true, the current request will be rejected.
      */
@@ -39,19 +41,24 @@ class ACL
     {
         $this->request = $request;
         $this->next = $next;
+        $this->perms = $perms;
+        $this->user = Auth::user();
         
         $this->handleAuthenthication();
 
-        if ($this->isOwnerOrAdmin()) {
-            return $next($request);
-        }
+        // if ($this->isOwnerOrAdmin()) return $next($request);
 
-        $perms = $this->parsePerms($perms);
-        
-        $this->handlePermsissions($perms);
+        $this->parsePerms()
+            ->handlePermsissions();
 
         if ($this->reject) {
-            return redirect("admin")
+            if ($this->request->ajax()) {            
+                return response($this->message, 401);
+            }
+            
+            return redirect()
+                ->back()
+                ->withImportat(true)
                 ->withDanger($this->message);
         }
 
@@ -83,22 +90,33 @@ class ACL
      */
     private function isOwnerOrAdmin()
     {
-        return Auth::user()->hasRole('admin') 
-            || Auth::user()->hasRole('owner');
+        return $this->user->hasRole('admin') 
+            || $this->user->hasRole('owner');
     }
 
-    private function handlePermsissions($perms)
+    private function handlePermsissions()
     {
+        $perms = $this->perms;
         if (! $perms) {
             return $this;
         }
 
-        foreach ($perms as $key => $value) {
-            if (Auth::user()->can($value)) {
+        foreach ($perms as $permission) {
+            if ($this->user->can($permission)) {
                 return $this;
             }            
         }
-        return $this->reject("Unauthorized. Permission [$value] is required to view route ".$this->request->path());
+
+        Log::error(
+            'User '. $this->user->name. ' was denied to access route ['.
+            $this->request->path().
+            '] because missing required permission ['.$permission.'].'
+        );
+
+        return $this->reject(
+            "Unauthorized. Permission [$permission] is required to view route ".
+            $this->request->path().". Contact Site Admin."
+        );
     }
 
     /**
@@ -106,17 +124,23 @@ class ACL
      * @param   string $perms  The list of roles passed by the users
      * @return [type]         [description]
      */
-    private function parsePerms($perms=null)
+    private function parsePerms()
     {
-        if ($perms) {
-            $perms = explode("|", $perms);
+        $perms = $this->perms;
 
-            $perms = array_map(function($value){
-                return trim($value);
-            }, $perms);
+        if (! $perms) {
+            return;
         }
 
-        return $this->perms = $perms;
+        $perms = explode("|", $this->perms);
+
+        $perms = array_map(function($value){
+            return trim($value);
+        }, $perms);
+
+        $this->perms = $perms;
+
+        return $this;
     }
 
     /**
@@ -127,10 +151,6 @@ class ACL
      */
     private function reject($message="Unauthorized.")
     {
-        if ($this->request->ajax()) {            
-            return response($message, 401);
-        }
-
         // I was unable to redirect from here. Had to set 
         // properties in order to redicrect from the 
         // handle method.

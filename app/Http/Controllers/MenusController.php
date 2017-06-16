@@ -8,220 +8,113 @@ use Illuminate\Http\Request;
 use App\Menu;
 use App\Role;
 use App\Permission;
+use App\Http\Traits\MenusTrait;
 
-class MenusController extends Controller {
+class MenusController extends Controller 
+{ 
+    use MenusTrait;
 
-	public function __construct()
-	{
-		$this->middleware('authorize:view_menus|edit_menus|create_menus', ['only'=>['index','show']]);
-		$this->middleware('authorize:edit_menus', ['only'=>['edit','update']]);
-		$this->middleware('authorize:create_menus', ['only'=>['create','store']]);
-		$this->middleware('authorize:destroy_menus', ['only'=>['destroy']]);
-	}
+    protected $permission;
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index(Menu $menus)
-	{
-		$menus = $menus->orderBy('display_name', 'ASC')->get();
+    public function __construct()
+    {
+        $this->middleware('authorize:view_menus|edit_menus|create_menus', ['only'=>['index','show']]);
+        $this->middleware('authorize:edit_menus', ['only'=>['edit','update']]);
+        $this->middleware('authorize:create_menus', ['only'=>['create','store']]);
+        $this->middleware('authorize:destroy_menus', ['only'=>['destroy']]);
+    }
 
-		return view('menus.index', compact('menus'));
-	}
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index(Menu $menus)
+    {
+        $menus = $menus->orderBy('display_name', 'ASC')->get();
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create(Role $roles)
-	{
-		$rolesList = $roles->lists('display_name', 'id');
+        return view('menus.index', compact('menus'));
+    }
 
-		return view('menus.create', compact('rolesList'));
-	}
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
+    public function create(Role $roles)
+    {
+        $rolesList = $roles->lists('display_name', 'id');
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store(Menu $menu, Request $requests, Permission $permission)
-	{
-		$this->createMenu($menu, $requests, $permission);
+        return view('menus.create', compact('rolesList'));
+    }
 
-		return redirect()->route('admin.menus.index')
-			->withSuccess("Menu $menu->display_name has bee created.");
-	}
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @return Response
+     */
+    public function store(Menu $menu, Request $request, Permission $permission)
+    {
+        $this->validateRequest($request, $menu)
+            ->createMenu($menu, $request, $permission);
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show(Menu $menu)
-	{
-		return view('menus.show', compact('menu'));
-	}
+        return redirect()->route('admin.menus.index')
+            ->withSuccess("Menu $menu->display_name has bee created.");
+    }
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit(Menu $menu, Role $roles)
-	{
-		$rolesList = $roles->orderBy('display_name')->lists('display_name', 'id');
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function show(Menu $menu)
+    {
+        return view('menus.show', compact('menu'));
+    }
 
-		return view('menus.edit', compact('menu', 'rolesList'));
-	}
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function edit(Menu $menu, Role $roles)
+    {
+        $rolesList = $roles->orderBy('display_name')->lists('display_name', 'id');
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update(Menu $menu, Request $requests)
-	{
-		$this->updateMenu($menu, $requests);
+        return view('menus.edit', compact('menu', 'rolesList'));
+    }
 
-		return redirect()->route('admin.menus.show', $menu->name)
-			->withSuccess("Menu $menu->display_name has been updated.");
-	}
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function update(Menu $menu, Request $request)
+    {
+        $this->validateRequest($request, $menu)
+            ->updateMenu($menu, $request);
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy(Menu $menu, Permission $permission)
-	{
-		$menu->delete();
+        return redirect()->route('admin.menus.show', $menu->name)
+            ->withSuccess("Menu $menu->display_name has been updated.");
+    }
 
-		$this->destroyPermissions($menu, $permission);
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy(Menu $menu, Permission $permission)
+    {
+        $menu->delete();
 
-		return redirect()->route('admin.menus.index')
-			->withWarning("Menu collection [$menu->display_name] has been removed!");
-	}
+        $this->destroyPermissions($menu, $permission);
 
-	/**
-	 * handle the process of creating the menu item
-	 * 
-	 * @param  [object] $menu     [description]
-	 * @param  [object] $requests [description]
-	 * @return [process]           [the action of syncing the menu-roles]
-	 */
-	private function createMenu($menu, $requests, $permission)
-	{
-		$menu = $menu->create($requests->all());		
-
-		$this->createPermissions($menu, $permission);
-
-		return $this->syncRoles($menu, $requests->get('roles_list'));
-	}
-
-	/**
-	 * handle the process of creating the menu item
-	 * 
-	 * @param  [object] $menu     [description]
-	 * @param  [object] $requests [description]
-	 * @return [process]           [the action of syncing the menu-roles]
-	 */
-	private function updateMenu($menu, $requests)
-	{
-		$menu->update($requests->all());
-
-		return $this->syncRoles($menu, $requests->get('roles_list'));
-	}
-
-	/**
-	 * sync the roles model with the array selected by the user
-	 * 
-	 * @param  Menu   $menu  [description]
-	 * @param  Array  $roles [description]
-	 * @return [type]        [description]
-	 */
-	private function syncRoles(Menu $menu, Array $roles = null)
-	{
-		return $menu->roles()->sync((array) $roles);	
-	}
-
-	private function createPermissions($menu, Permission $permission)
-	{
-		/**
-		 * Add a permission to create records.
-		 */
-		$permission->create([
-			'name' => 'edit_' . str_slug($menu->name, $separator = "_"),
-			'display_name' => ucwords($menu->name) . ' Editor',
-			'description' => 'Can edit, create ' . ucwords($menu->name). '\'s items',
-		]);
-		/**
-		 * Add a permission to view records.
-		 */
-		$permission->create([
-			'name' => 'view_' . str_slug($menu->name, $separator = "_"),
-			'display_name' => ucwords($menu->name) . ' Viewer',
-			'description' => 'Can view ' . ucwords($menu->name) . '\'s items',
-		]);
-		/**
-		 * Add a permission to destroy records.
-		 */
-		$permission->create([
-			'name' => 'destroy_' . str_slug($menu->name, $separator = "_"),
-			'display_name' => ucwords($menu->name) . ' Destroyer',
-			'description' => 'Can destroy ' . ucwords($menu->name) . '\'s items',
-		]);
-		/**
-		 * Add a permission to destroy records.
-		 */
-		$permission->create([
-			'name' => 'create_' . str_slug($menu->name, $separator = "_"),
-			'display_name' => ucwords($menu->name) . ' Creator',
-			'description' => 'Can destroy ' . ucwords($menu->name) . '\'s items',
-		]);
-	}
-
-	private function destroyPermissions($menu, Permission $permission)
-	{
-		/**
-		 * Editor Role
-		 */
-		$editor = $permission->whereName('edit_' . $menu->name)->first();
-
-		if ($editor) {
-			$editor->delete();
-		}
-
-		/**
-		 * Editor Role
-		 */
-		
-		$viewer = $permission->whereName('view_' . $menu->name)->first();
-
-		if ($viewer) {
-			$viewer->delete();
-		}
-		/**
-		 * Destroy Role
-		 */
-		$destroyer = $permission->whereName('destroy_' . $menu->name)->first();
-		/**
-		 * Create Role
-		 */
-		$destroyer = $permission->whereName('create_' . $menu->name)->first();
-
-		if ($destroyer) {
-			$destroyer->delete();
-		}
-
-	}
-
+        return redirect()->route('admin.menus.index')
+            ->withWarning("Menu collection [$menu->display_name] has been removed!");
+    }
 
 }

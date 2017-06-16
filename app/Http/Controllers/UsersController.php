@@ -212,7 +212,6 @@ class UsersController extends Controller {
 
 			$m->subject('Change of Password');
 		});
-		
 
 		return redirect("/admin/users/force_reset/$user->id")
 			->with('important')

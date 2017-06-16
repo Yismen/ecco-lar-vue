@@ -15,9 +15,11 @@
                         <div class="form-group">
                             <label for="input" class="">Termination Date:</label>
                             <div class="">
-                                <input type="date" id="termination_date" 
-                                name="termination_date" class="form-control" 
-                                v-model="form.fields.termination_date">
+                                <datepicker input-class="form-control input-sm" 
+                                    v-model="form.fields.termination_date" 
+                                    name="termination_date" 
+                                    format="MM/dd/yyyy" 
+                                ></datepicker>
                                 <span class="text-danger" v-if="form.error.has('termination_date')">{{ form.error.get('termination_date') }}</span>
                             </div>
                         </div> <!-- ./Termination Date-->
@@ -152,7 +154,8 @@
     },
 
     components: {
-        'employee-reactivation': require('./ReactivationComponent')
+        'employee-reactivation': require('./ReactivationComponent'),
+        'datepicker': require('vuejs-datepicker')
     },
 };
 </script>

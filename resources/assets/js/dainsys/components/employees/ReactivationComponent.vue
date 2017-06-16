@@ -18,9 +18,11 @@
                                 <div class="form-group">
                                     <label for="input" class="col-sm-4 control-label">Reactivation Date:</label>
                                     <div class="col-sm-8">
-                                        <input type="date" id="hire_date" 
-                                        name="hire_date" class="form-control" 
-                                        v-model="form.fields.hire_date">
+                                        <datepicker input-class="form-control input-sm" 
+                                            v-model="form.fields.hire_date" 
+                                            name="hire_date" 
+                                            format="MM/dd/yyyy" 
+                                        ></datepicker>
                                         <span class="text-danger" v-if="form.error.has('hire_date')">{{ form.error.get('hire_date') }}</span>
                                     </div>
                                 </div> <!-- ./Reactivation Date-->
@@ -54,7 +56,7 @@
       data () {
         return {
             form: new Form({                               
-                'hire_date': '',
+                'hire_date': new Date(),
             })
 
         };
@@ -62,6 +64,10 @@
 
     props: {
         employee: {}
+    },
+
+    components: {
+        'datepicker': require('vuejs-datepicker')
     },
 
     methods: {

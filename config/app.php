@@ -163,6 +163,7 @@ return [
         /*
          * Application Service Providers...
          */
+        Barryvdh\Debugbar\ServiceProvider::class,
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
@@ -219,6 +220,7 @@ return [
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
         'Datatables'=> Yajra\Datatables\Facades\Datatables::class,
         'Flysystem' => GrahamCampbell\Flysystem\Facades\Flysystem::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
     ],
 
