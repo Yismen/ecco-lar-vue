@@ -20,10 +20,10 @@
                         @foreach ($results as $employee)
                             <tr>
                                 <td>{{ $employee->full_name }}</td>
-                                <td>{{ $employee->hire_date->format('d/M/Y') }}</td>
+                                <td>{{ $employee->hire_date->format('d/m/Y') }}</td>
                                 <td>{{ $employee->personal_id }}</td>
                                 <td>{{ $employee->passport }}</td>
-                                <td>{{ $employee->termination ? $employee->termination->termination_date->format('d/M/Y') : '' }}</td>
+                                <td>{{ $employee->termination ? $employee->termination->termination_date->format('d/m/Y') : '' }}</td>
                             </tr>
                         @endforeach 
                     </tbody>
