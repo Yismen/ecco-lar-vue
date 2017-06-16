@@ -5,49 +5,15 @@ use Carbon\Carbon;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Classes\HumanResources\Lists;
-use App\Http\Classes\HumanResources\Issues;
-use App\Http\Classes\HumanResources\Birthdays;
-use App\Http\Classes\HumanResources\Employees\Count;
-use App\Http\Classes\HumanResources\Employees\Reports;
+use App\Repositories\HumanResources\Lists;
+use App\Repositories\HumanResources\Issues;
+use App\Repositories\HumanResources\Birthdays;
+use App\Repositories\HumanResources\Employees\Count;
+use App\Repositories\HumanResources\Employees\Reports;
 
 class HumanResourcesController extends Controller 
 {
-    /**
-     * List of the lasts 5 years
-     * @var array
-     */
-    protected $last_five_years;
-
-    protected $months_of_the_year  = [
-        1  => 'January',
-        2  => 'February',
-        3  => 'March',
-        4  => 'April',
-        5  => 'May',
-        6  => 'June',
-        7  => 'July',
-        8  => 'August',
-        9  => 'September',
-        10 => 'Octuber',
-        11 => 'November',
-        12 => 'December',
-    ];
-
-    public function __construct()
-    {
-        $currentYear = Carbon::now()->year;
-        $currentMonth = Carbon::now()->month;
-        $years = [];
-
-        for ($year=$currentYear; $year > $currentYear-5; $year--) { 
-            $years[$year] = $year;
-        }
-
-        $this->last_five_years = $years;
-    }
-    // use HumanResourcesIssues;
-
+    
     /**
      * Display a listing of the resource.
      *
@@ -151,9 +117,9 @@ class HumanResourcesController extends Controller
         return view('human_resources.birthdays.last_month', compact('employees'));
     }
 
-    public function dgt3()
+    public function dgt3(Reports $report)
     {
-        $years = $this->last_five_years;
+        $years = $report->last_five_years;
 
         return view('human_resources.reports.dgt3', compact('years'));
     }
@@ -164,20 +130,19 @@ class HumanResourcesController extends Controller
             'year' => 'required|integer'
             ]);        
 
-        // return $results = $report->dgt3($request->year)->toSql();
         $results = $report->dgt3($request->year)->get();
 
-        $years = $this->last_five_years;
+        $years = $report->last_five_years;
 
         $request->flash();
 
         return view('human_resources.reports.dgt3', compact('results', 'years'));
     }
 
-    public function dgt4()
+    public function dgt4(Reports $report)
     {
-        $years = $this->last_five_years;
-        $months = $this->months_of_the_year;
+        $years = $report->last_five_years;
+        $months = $report->months_of_the_year;
 
         return view('human_resources.reports.dgt4', compact('years', 'months'));
     }
@@ -191,8 +156,8 @@ class HumanResourcesController extends Controller
 
         $results = $report->dgt4($request->year, $request->month)->get();
 
-        $years = $this->last_five_years;
-        $months = $this->months_of_the_year;
+        $years = $report->last_five_years;
+        $months = $report->months_of_the_year;
 
         $request->flash();
 
