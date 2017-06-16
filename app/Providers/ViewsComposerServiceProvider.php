@@ -7,8 +7,6 @@ use Illuminate\Support\ServiceProvider;
 
 class ViewsComposerServiceProvider extends ServiceProvider
 {
-
-    private $layout_color = 'yellow';
     /**
      * Bootstrap the application services.
      *
@@ -51,7 +49,7 @@ class ViewsComposerServiceProvider extends ServiceProvider
                 'logged' => auth()->check(),  
                 'user' => $user,
                 'menu' => null,
-                'layout_color' => env('APP_COLOR', $this->layout_color)
+                'layout_color' => config('dainsys.layout_color')
             ]);
         });
     }
@@ -63,7 +61,7 @@ class ViewsComposerServiceProvider extends ServiceProvider
                 
                 $user = auth()->user();
                 return $view->with([
-                    'layout_color' => env('APP_COLOR', $this->layout_color),
+                    'layout_color' => config('dainsys.layout_color'),
                     'user' => User::whereId($user->id)
                         ->with(['roles'=>function($query){
                             return $query->orderBy('display_name');
