@@ -6,7 +6,6 @@
 		<div class="box box-primary pad">
 
 			<div class="row">
-				<pre>{{ $employee }}</pre>
 				<div class="col-sm-6 text-centered">
 					<img src="{{ file_exists(trim(explode('?', $employee->photo)[0], '/')) ? asset($employee->photo) : 'http://placehold.it/200x200' }}" 
 						class="img-circle img-responsive center-block profile-image animated fadeIn" alt="Image" width="200px">

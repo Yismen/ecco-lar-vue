@@ -93,7 +93,7 @@ class Employee extends Model {
 	
 	public function Nationality()
 	{
-		return $this->hasOne('App\Nationality')-withPivot('employee_nationality');
+		return $this->belongsTo('App\Nationality');
 	}
 	
 	public function position()
