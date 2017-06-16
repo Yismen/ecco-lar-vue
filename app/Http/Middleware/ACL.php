@@ -45,8 +45,8 @@ class ACL
         $this->user = Auth::user();
         
         $this->handleAuthenthication();
-
-        // if ($this->isOwnerOrAdmin()) return $next($request);
+        
+        if (config('app.env') == 'production' && $this->isOwnerOrAdmin()) return $next($request);
 
         $this->parsePerms()
             ->handlePermsissions();
