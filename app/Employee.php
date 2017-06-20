@@ -389,7 +389,7 @@ class Employee extends Model
 
 	public function getDepartmentsListAttribute()
 	{
-		return dd( Department::orderBy('department')->lists('department', 'id'));
+		return Department::orderBy('department')->lists('department', 'id');
 	}
 
 	/**
