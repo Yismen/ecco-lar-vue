@@ -7,7 +7,7 @@
                 <thead>
                     <tr>
                         <th>HH RR Situations</th>
-                        <th>Count</th>
+                        <th class="col-xs-2">Count</th>
                     </tr>
                 </thead>
                 <tbody>

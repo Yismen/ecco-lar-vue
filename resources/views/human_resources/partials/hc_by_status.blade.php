@@ -6,7 +6,7 @@
             <thead>
                 <tr>
                     <th>Status</th>
-                    <th>HC</th>
+                    <th class="col-xs-2">HC</th>
                 </tr>
             </thead>
             <tbody>

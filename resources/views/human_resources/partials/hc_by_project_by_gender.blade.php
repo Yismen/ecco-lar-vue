@@ -8,7 +8,7 @@
                 <thead>
                     <tr>
                         <th>Department</th>
-                        <th>Head Count</th>
+                        <th class="col-xs-2">Head Count</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -24,7 +24,7 @@
                 <tfoot>
                     <tr>
                         <th><span class="pull-right">Total:</span></th>
-                        <th>{{ $hc_by_department->sum('employees_count') }}</th>
+                        <th class="col-xs-2">{{ $hc_by_department->sum('employees_count') }}</th>
                     </tr>
                 </tfoot>
             </table>

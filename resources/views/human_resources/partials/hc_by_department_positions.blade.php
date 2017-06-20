@@ -23,7 +23,7 @@
         @foreach ($by_department_positions as $department)
 
             <ul class="list-group">
-                <li class="list-group-item">
+                <li class="list-group-item  no-padding">
                     <table class="table table-condensed table-bordered">
                         <thead>
                             <tr>
@@ -32,7 +32,7 @@
                                         <a href="/admin/human_resources/employees/by_departments/{{ $department->id }}">{{ $department->department }}</a>
                                     </h4>
                                 </th>
-                                <th>
+                                <th class="col-xs-2">
                                    <h4> 
                                         {{ $department->positions->sum(function($position) {
                                            return $position->employees->sum('employees_count');
@@ -49,7 +49,7 @@
                                             @foreach ($position->employees as $employee)
                                                 <tr>
                                                     <td>{{ $employee->gender->gender }}</td>
-                                                    <td class="col-sm-2">{{ $employee->employees_count }}</td>
+                                                    <td class="col-xs-2">{{ $employee->employees_count }}</td>
                                                 </tr>
                                             @endforeach
                                             <tr>
