@@ -4,13 +4,18 @@ namespace App\Http\Controllers;
 use App\Role;
 use App\User;
 use Illuminate\Http\Request;
+use App\Http\Traits\UsersTrait;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
-use Mail;
 
-class UsersController extends Controller {
+class UsersController extends Controller 
+{
+	use UsersTrait;
 	private $request;
+	protected $user;
 	private $rolesList;
+
+	private $random_password;
 
 
 	public function __construct(Request $request, Role $role)
@@ -22,6 +27,7 @@ class UsersController extends Controller {
 		
 		$this->request = $request;
 		$this->rolesList = $role->all();
+		$this->random_password = str_random(15);
 	}
 	/**
 	 * Display a listing of the resource.
@@ -63,28 +69,14 @@ class UsersController extends Controller {
 	 */
 	public function store(User $user, Request $request)
 	{
-		$rand = str_random(15);
-		$this->validate($request, [
-			'name' => 'required',
-			'email' => 'required|email|unique:users,email',
-			'username' => 'required|unique:users,username',
-			'password' => $rand
-		]);
-
-		$user = $this->createUser($user, $rand);
-
-		$notify = $this->request->notify;
-		Mail::later(5, 'emails.welcome', ['user'=>$user, 'password' => $rand], function($m) use ($user, $notify){
-        	$m->to('yismen.jorge@ecco.com.do', 'Yismen Jorge')->subject('Welcome to Dainsys');
-			if ($notify && config('env') == 'production') {
-			// $m->from('hello@app.com', 'Your Application');
-				$m->cc($user->email, $user->name);
-			}
-		});
+		$this->validateRequest($request, $user)
+			->createUser($user);
 
 		return redirect()->route('admin.users.index')
 			->withImportant(true)
-			->withSuccess("The user $user->email has ben created! The password is $rand. Please provide it to the user!");
+			->withSuccess(
+				"The user {$user->email} has ben created! The password is {$this->random_password}. Please provide it to the user!"
+			);
 	}
 
 	/**
@@ -119,13 +111,8 @@ class UsersController extends Controller {
 	 */
 	public function update(User $user, Request $request)
 	{
-		$this->validate($request, [
-			'name' => 'required',
-			'email' => 'required|email|unique:users,email,' . $user->id,
-			'username' => 'required|unique:users,username,' . $user->id,
-		]);
-
-		$this->updateUser($user, $request);
+		$this->validateRequest($request, $user)
+			->updateUser($user);
 
 		return redirect()->route('admin.users.show', $user->id)
 			->withSuccess("User $user->name has been updated.");
@@ -187,72 +174,21 @@ class UsersController extends Controller {
 
 	public function force_reset(User $user)
 	{
-		// $user = User::findOrFail($user);
 		return view('users.force_reset', compact('user'));
 	}
 
 	public function force_change(User $user, Request $request)
 	{
-		$password = str_random(15);
-
 		if ($user->id === auth()->user()->id) {
 			return redirect()->back()->withErrors(['error'=>'You are not allowed to change your own password here!']);
 		}
-		
-		$user->password = Hash::make($password);
-		$user->save();
 
-		$notify = $this->request->notify;
-		Mail::later(5, 'emails.password-reset', compact('user', 'password'), function($m) use ($user, $notify){
-        	$m->to('yismen.jorge@ecco.com.do', 'Yismen Jorge');
-			if ($notify && config('env') == 'production') {
-			// $m->from('hello@app.com', 'Your Application');
-				$m->cc($user->email, $user->name);
-			}
+		$this->updatePassword($user);
 
-			$m->subject('Change of Password');
-		});
-
-		return redirect("/admin/users/force_reset/$user->id")
+		return redirect("/admin/users/force_reset/{$user->id}")
 			->with('important')
-			->withNewPassword($password)
-			->withWarning("Password $password is the new password for this user. Please advise to update inmediately!");
+			->withNewPassword($this->random_password)
+			->withWarning("Password {$this->random_password} is the new password for this user. Please advise to update inmediately!");
 	}
-	private function createUser($user, $rand)
-	{
-		$user = $user->create([
-			"name"      => $this->request->name,
-			"email"     => $this->request->email,
-			"username"  => $this->request->username,
-			"password"  => Hash::make($rand),
-			"is_active" => $this->request->is_active,
-			"is_admin"  => $this->request->is_admin
-		]);
-
-		return $this->syncRoles($user, $this->request->input('roles'));
-	}
-
-	private function updateUser($user)
-	{
-		$user->update($this->request->all());
-
-		return $this->syncRoles($user, $this->request->input('roles'));
-	}
-
-	/**
-	 * sync the roles model with the array selected by the user
-	 * 
-	 * @param  Menu   $menu  [description]
-	 * @param  Array  $roles [description]
-	 * @return [type]        [description]
-	 */
-	public function syncRoles(User $user, Array $roles = null)
-	{
-		$user->roles()->sync((array) $roles);
-
-		return $user;	
-	}
-
-
 
 }

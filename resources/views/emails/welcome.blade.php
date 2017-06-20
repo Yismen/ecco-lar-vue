@@ -14,7 +14,7 @@
 
 @section('content')
     <p>
-        Welcome to Dainsys, your APP!. Please click the following link and provide the credentials given in this email. Please chage your password as soon as you log in.
+        Please click the following link and provide the credentials given in this email. Please chage your password as soon as you log in.
     </p>
     <p>
         {{ url('/admin/login') }}
