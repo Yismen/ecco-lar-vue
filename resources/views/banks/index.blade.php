@@ -18,8 +18,8 @@
                                 <thead>
                                     <tr>
                                         <th>Name</th>
-                                        <th class="col-xs-2" colspan="2">
-                                            <a href="/admin/banks"><i class="fa fa-plus"></i> Create</a>
+                                        <th class="col-xs-2">
+                                            Edit
                                         </th>
                                     </tr>
                                 </thead>
@@ -28,10 +28,7 @@
                                         <tr>
                                             <td>{{ $bank->name }}</td>
                                             <td>
-                                                <a href="/admin/banks/{{ $bank->id }}"><i class="fa fa-eye"></i></a>
-                                            </td>
-                                            <td>
-                                                <a href="/admin/banks/{{ $bank->id }}/edit"><i class="fa fa-edit"></i></a>
+                                                <a href="/admin/banks/{{ $bank->id }}/edit"><i class="fa fa-edit"></i> Edit</a>
                                             </td>
                                         </tr>
                                     @endforeach

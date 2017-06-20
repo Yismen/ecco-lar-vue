@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class BanksController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('authorize:view_banks', ['only'=>['index','show']]);
+        $this->middleware('authorize:edit_banks', ['only'=>['edit','update']]);
+        $this->middleware('authorize:create_banks', ['only'=>['create','store']]);
+        $this->middleware('authorize:destroy_banks', ['only'=>['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -51,17 +58,6 @@ class BanksController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  Bank $bank
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Bank $bank)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  Bank $bank
@@ -69,7 +65,7 @@ class BanksController extends Controller
      */
     public function edit(Bank $bank)
     {
-        //
+        return view('banks.edit', compact('bank'));
     }
 
     /**
@@ -81,7 +77,12 @@ class BanksController extends Controller
      */
     public function update(Request $request, Bank $bank)
     {
-        //
+        $this->validateRequest($request, $bank);
+
+        $bank->update($request->all());
+
+        return redirect()->route('admin.banks.index')
+            ->withSuccess("Bank $bank->name Updated!!!");
     }
 
     /**

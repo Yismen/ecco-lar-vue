@@ -146,7 +146,7 @@
 
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label for="position_id" class="">Position?:</label>
+                        <label for="position_id" class="">Position:</label>
                         <select name="position_id" id="position_id" class="form-control" v-model="form.fields.position_id">
                             <option v-for="(position_id, index) in employee.positions_list" :value="index">{{ position_id }}</option>
                         </select>
@@ -205,6 +205,13 @@
 
     components: {
         'datepicker': require('vuejs-datepicker')
+    },
+
+    filters: {
+        sort(array) {
+            console.log(array)
+            return array;
+        }
     },
 
     methods: {

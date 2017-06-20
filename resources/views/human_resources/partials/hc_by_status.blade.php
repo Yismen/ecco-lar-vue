@@ -11,12 +11,16 @@
             </thead>
             <tbody>
                 <tr>
-                    <th>Actives</th>
+                    <th>
+                        <a href="/admin/employees/by_status/actives">Actives</a>
+                    </th>
                     <td>{{ $by_status['actives'] }}</td>
                 </tr>
 
                 <tr>
-                    <th>Inactives</th>
+                    <th>
+                        <a href="/admin/employees/by_status/inactives">Inactives</a>
+                    </th>
                     <td>{{ $by_status['inactives'] }}</td>
                 </tr>
             </tbody>

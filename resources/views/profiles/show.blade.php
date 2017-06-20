@@ -129,23 +129,27 @@
 				<div class="col-sm-12">
 					<h3>Ohter Users Profiles </h3>
 					<hr>
-					@foreach ($profiles as $profile)
-						<div class="col-sm-3">
-							<div class="box box-warning pad text-center">
-								<div class="center-block">	
-									<img src="{{ file_exists($profile->photo) ? asset($profile->photo) : 'http://placehold.it/150x150'}}" height="150px" class="img-responsive img-circle center-block profile-user-img animated rotateIn box-shadow" alt="Image">	
+					<div class="row">
+						@foreach ($profiles as $profile)
+							<div class="col-sm-3">
+								<div class="box box-warning pad text-center">
+									<div class="center-block">	
+										<img src="{{ file_exists($profile->photo) ? asset($profile->photo) : 'http://placehold.it/150x150'}}" height="150px" class="img-responsive img-circle center-block profile-user-img animated rotateIn box-shadow" alt="Image">	
+									</div>
+									<h3>
+										<a href="{{ route('admin.profiles.show', $profile->id) }}">{{ $profile->user->name }}</a>
+										@if (auth()->user()->id == $profile->user_id)
+											<a class="pull-right text-warning" href="{{ route('admin.profiles.edit', $profile->id) }}">
+												<i class="fa fa-edit"></i>
+											</a>
+										@endif
+									</h3>
 								</div>
-								<h3>
-									<a href="{{ route('admin.profiles.show', $profile->id) }}">{{ $profile->user->name }}</a>
-									@if (auth()->user()->id == $profile->user_id)
-										<a class="pull-right text-warning" href="{{ route('admin.profiles.edit', $profile->id) }}">
-											<i class="fa fa-edit"></i>
-										</a>
-									@endif
-								</h3>
 							</div>
-						</div>
-					@endforeach
+						@endforeach
+					</div>
+
+					{{ $profiles }}
 				</div>
 			</div>
 		@endif

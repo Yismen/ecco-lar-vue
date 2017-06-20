@@ -15,6 +15,8 @@ export default {
     'employee-social-security': require('../employees/SocialSecurityComponent'),
     'employee-supervisor': require('../employees/SupervisorComponent'),
 
+    'hhrr-in-out-by-months': require('../human_resources/CountByMonthComponent'),
+
     'supervisors-index': require('../supervisors/IndexComponent'),
 
 

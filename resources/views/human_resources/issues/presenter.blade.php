@@ -36,7 +36,7 @@
                                                 <td>{{ $employee->full_name }}</td>
                                                 <td>{{ $employee->position->department->department }} - {{ $employee->position->name }}</td>
                                                 <td>
-                                                    <a href="/admin/employees/{{ $employee->id }}/edit" target="_blank">
+                                                    <a href="/admin/employees/{{ $employee->id }}/edit" target="">
                                                         <i class="fa fa-edit"></i> Edit
                                                     </a>
                                                 </td>

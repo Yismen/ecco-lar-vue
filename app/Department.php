@@ -2,6 +2,7 @@
 
 use App\Employee;
 use App\Position;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 
 class Department extends Model {
@@ -32,7 +33,7 @@ class Department extends Model {
 	 */
 	public function employees()
 	{
-		return $this->belongsToMany(Employee::class);
+		return $this->hasManyThrough(Employee::class, Position::class);
 	}
 
 	/**

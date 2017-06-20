@@ -1,0 +1,1 @@
+@include('human_resources.hc.presenter', ['title'=>'Last Month'])

@@ -22,6 +22,7 @@
 									<tr>
 										<th>Item - Route</th>
 										<th>Description</th>
+										<th>Edit</th>
 									</tr>
 								</thead>
 								<tbody>

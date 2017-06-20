@@ -73,10 +73,13 @@
 							</li>	
 						 
 							<li class="list-group-item">
+								<strong>Ars: </strong> {{ $employee->ars->name or '' }} <br>
+								<strong>Afp: </strong> {{ $employee->afp->name or '' }}								
+							</li>	
+						 
+							<li class="list-group-item">
 								<strong>Position: </strong>
-								@if (count($employee->position) > 0)
-									{{ $employee->position->name }}, At {{ $employee->position->department->department }}
-								@endif									
+								{{ $employee->position->name or '' }}, At {{ $employee->position->department->department or '' }}					
 							</li>	
 
 							<li class="list-group-item">

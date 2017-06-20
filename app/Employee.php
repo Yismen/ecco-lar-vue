@@ -41,19 +41,20 @@ class Employee extends Model
 	 */
 	protected $appends = [
 		'active', 
+		'afp_list', 
+		'ars_list', 
+		'banks_list',
+		'departments_list',
 		'full_name', 
+		'genders_list', 
+		'has_kids_list', 
+		'maritals_list', 
+		'positions_list', 
 		'status', 
+		'supervisors_list',
 		'systems_list', 
 		'termination_type_list', 
 		'termination_reason_list', 
-		'ars_list', 
-		'afp_list', 
-		'genders_list', 
-		'maritals_list', 
-		'has_kids_list', 
-		'positions_list', 
-		'supervisors_list',
-		'banks_list',
 	];
 
 	protected $guarded = [];
@@ -91,7 +92,7 @@ class Employee extends Model
 
 	public function department()
 	{
-		return $this->belongsToMany('App\Department');
+		return $this->belongsTo('App\Department');
 	}
 	
 	public function gender()
@@ -388,7 +389,7 @@ class Employee extends Model
 
 	public function getDepartmentsListAttribute()
 	{
-		return Department::lists('department', 'id');
+		return dd( Department::orderBy('department')->lists('department', 'id'));
 	}
 
 	/**
@@ -413,7 +414,19 @@ class Employee extends Model
 	 */
 	public function getPositionsListAttribute()
 	{
-		return \App\Position::lists('name', 'id');
+		$positions_array = [];
+
+		$positions = Position::orderBy('department_id')
+			->with(['department' => function($query) {
+				return $query->orderBy('department');
+			}])
+			->get();
+
+		foreach ($positions as $position) {
+			$positions_array[$position->id] = $position->department->department." - ".$position->name;
+		}
+		
+		return $positions_array;
 	}
 
 /**

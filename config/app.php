@@ -153,7 +153,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Cviebrock\EloquentSluggable\SluggableServiceProvider::class,
-        App\Providers\ViewsComposerServiceProvider::class,
+        App\Providers\ComposerServiceProvider::class,
         App\Providers\LayoutServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class,
         Yajra\Datatables\DatatablesServiceProvider::class,

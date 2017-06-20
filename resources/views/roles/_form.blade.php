@@ -1,26 +1,10 @@
-
-{{-- Display Errors --}}
-@if( $errors->any() )
-	<div class="col-sm-12">
-		<div class="alert alert-danger">
-			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-			<ul>
-				@foreach ($errors->all() as $error)
-					<li>{{ $error }}</li>
-				@endforeach
-			</ul>
-		</div>
-	</div>
-@endif
-{{-- /. Errors --}}
-
 <!-- Role Name -->
 <div class="form-group {{ $errors->has('name') ? 'has-error' : null }}">
 	{!! Form::label('name', 'Role Name:', ['class'=>'col-sm-2 control-label']) !!}
 	<div class="col-sm-10">
 		{!! Form::input('text', 'name', null, ['class'=>'form-control', 'placeholder'=>'Role Name']) !!}
+		{!! $errors->first('name', '<span class="text-danger">:message</span>') !!}
 	</div>
-	{{-- {!! $errors->first('name', '<span class="text-danger">:message</span>') !!} --}}
 </div>
 <!-- /. Role Name -->
 
@@ -29,8 +13,8 @@
 	{!! Form::label('display_name', 'Display Name:', ['class'=>'col-sm-2 control-label']) !!}
 	<div class="col-sm-10">
 		{!! Form::input('text', 'display_name', null, ['class'=>'form-control', 'placeholder'=>'Display Name']) !!}
+		{!! $errors->first('display_name', '<span class="text-danger">:message</span>') !!}
 	</div>
-	{{-- {!! $errors->first('display_name', '<span class="text-danger">:message</span>') !!} --}}
 </div>
 <!-- /. Display Name -->
 
@@ -39,8 +23,8 @@
 	{!! Form::label('description', 'Description:', ['class'=>'col-sm-2 control-label']) !!}
 	<div class="col-sm-10">
 		{!! Form::input('text', 'description', null, ['class'=>'form-control', 'placeholder'=>'Description']) !!}
+		{!! $errors->first('description', '<span class="text-danger">:message</span>') !!}
 	</div>
-	{{-- {!! $errors->first('description', '<span class="text-danger">:message</span>') !!} --}}
 </div>
 <!-- /. Description -->
 
@@ -49,17 +33,9 @@
 	{!! Form::label('users_list', 'Users:', ['class'=>'col-sm-2 control-label']) !!}
 	<div class="col-sm-10">
 		{!! Form::select('users_list[]', $usersList, null, ['class'=>'form-control', 'multiple'=>"multiple", 'id'=>'users_lists'])!!}
-		{{-- @foreach ($role->usersList as $key=>$value)			
-			<div class="checkbox">
-				<label>
-					{!! Form::checkbox('users[]', $key, null, []) !!}
-					{{ $value }}
-				</label>
-			</div>
-		@endforeach --}}
 		<span class="help-block">!! Select the roles that will be served with this Role item:</span>
+		{!! $errors->first('roles', '<span class="text-danger">:message</span>') !!}
 	</div>
-	{{-- {!! $errors->first('roles', '<span class="text-danger">:message</span>') !!} --}}
 </div>
 <!-- /. Users -->
 
@@ -69,8 +45,8 @@
 	<div class="col-sm-10">
 		{!! Form::select('permissions_list[]', $permissionsList, null, ['class'=>'form-control', 'multiple', 'id'=>'permissions_list'])!!}
 		<span class="help-block">!! Select the roles that will be served with this Role item:</span>
+		{!! $errors->first('roles', '<span class="text-danger">:message</span>') !!}
 	</div>
-	{{-- {!! $errors->first('roles', '<span class="text-danger">:message</span>') !!} --}}
 </div>
 <!-- /. Permissions -->
 
@@ -79,8 +55,8 @@
 	<div class="col-sm-10">	
 		{!! Form::select('menus_list[]', $menusList, null, ['class'=>'form-control', 'multiple'=>"multiple", 'id'=>'menus'])!!}
 		<span class="help-block">!! Select the roles that will be served with this Role item:</span>
+		{!! $errors->first('menus_list', '<span class="text-danger">:message</span>') !!}
 	</div>
-	{{-- {!! $errors->first('menus_list', '<span class="text-danger">:message</span>') !!} --}}
 </div>
 <!-- /. Menus -->
 

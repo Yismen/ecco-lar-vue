@@ -4,7 +4,7 @@
 @section('content')
 	<div class="container-fluid">
     	<div class="row">
-			<div class="col-sm-8 col-sm-offset-2">
+			<div class="col-sm--10 col-sm-offset-1">
 				<div class="box box-primary pad">
 					<h3 class="page-header">
 						Roles List 
@@ -23,7 +23,7 @@
 								<tr>
 									<th>Role Item</th>
 									<th>Description</th>
-									<th class="col-xs-3">
+									<th class="col-xs-2">
 										<a href="{{ route('admin.roles.create') }}">
 									 		Add <i class="fa fa-plus"></i>
 									 	</a>

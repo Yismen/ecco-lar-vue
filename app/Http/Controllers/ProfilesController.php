@@ -2,22 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests;
-use App\Profile;
-use App\User;
 use Gate;
-use Illuminate\Http\Request;
 use Image;
+use App\User;
+use App\Profile;
+use App\Http\Requests;
+use Illuminate\Http\Request;
+use App\Repositories\Profiles;
+use App\Http\Controllers\Controller;
 
 class ProfilesController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Profile $profiles)
+    public function index(Profiles $profiles)
     {   
         if (!auth()->user()->profile) {
             return redirect()->route('admin.profiles.create')
@@ -26,10 +28,7 @@ class ProfilesController extends Controller
 
         $profile = auth()->user()->profile;
 
-        $profiles = $profiles
-                        ->where('id', '!=', $profile->id)
-                        ->with('user')
-                        ->paginate(15);
+        $profiles = $profiles->all();
 
         return view('profiles.show', compact('profile', 'profiles'));
     }
@@ -71,16 +70,12 @@ class ProfilesController extends Controller
             'work'      => 'max:1000',
             'location'  => 'max:100',
         ]);
-        // update the user with the name given
-        // store the data for the profile, associated to the current user        
+
         $user = auth()->user();
 
-        //Update the User name with the new value passed
         $user->name = $request->input('name');
         $user->save();
 
-
-        // Save the image
         $photoPath = $this->saveImage($request, $user);
 
         $user->profile()->create($request->all());
@@ -106,12 +101,9 @@ class ProfilesController extends Controller
      * @param  Profile $profile current profile model
      * @return view           [description]
      */
-    public function show(Profile $profile)
+    public function show(Profile $profile, Profiles $profiles)
     {
-        $profiles = $profile
-                    ->where('id', '!=', $profile->id)
-                    ->with('user')
-                    ->paginate(15);
+        $profiles = $profiles->all();
 
         return view('profiles.show', compact('profile', 'profiles'));
     }
@@ -157,12 +149,9 @@ class ProfilesController extends Controller
 
         $user = $profile->user;
 
-        //Update the User name with the new value passed
         $user->name = $request->input('name');
         $user->save();
         
-
-        // Save the image
         $photoPath = $this->saveImage($request, $user);
 
         $profile->update($request->all());

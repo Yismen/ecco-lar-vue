@@ -4,6 +4,7 @@ use App\Employee;
 use Carbon\Carbon;
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use App\Repositories\Employees;
 use App\Http\Controllers\Controller;
 use App\Repositories\HumanResources\Lists;
 use App\Repositories\HumanResources\Issues;
@@ -21,6 +22,7 @@ class HumanResourcesController extends Controller
      */
     public function index()
     {
+        $hc_by_department = Count::byDepartment();
         $issues = Issues::render();
 
         $birthdays = $this->getBirthdays();
@@ -30,10 +32,15 @@ class HumanResourcesController extends Controller
             'inactives' => Employee::inactives()->count(),
         ];
 
-        $by_department = Count::byDepartment()->get();
+        $by_department_positions = Count::byDepartmentPositionGender()->get();
+
+        $rotationByMonth = collect([
+            'in' => Count::inByMonths(5), 
+            'out' => Count::outByMonths(5), 
+        ]);
 
         return view('human_resources.index', compact(
-            'issues', 'birthdays', 'by_status', 'by_department'
+            'issues', 'birthdays', 'by_status', 'by_department_positions', 'inByMonth', 'outByMonth', 'rotationByMonth', 'hc_by_department'
         ));
     }
 
@@ -117,11 +124,9 @@ class HumanResourcesController extends Controller
         return view('human_resources.birthdays.last_month', compact('employees'));
     }
 
-    public function dgt3(Reports $report)
+    public function dgt3()
     {
-        $years = $report->last_five_years;
-
-        return view('human_resources.reports.dgt3', compact('years'));
+        return view('human_resources.reports.dgt3');
     }
 
     public function handleDgt3(Request $request, Reports $report)
@@ -132,19 +137,15 @@ class HumanResourcesController extends Controller
 
         $results = $report->dgt3($request->year)->get();
 
-        $years = $report->last_five_years;
-
         $request->flash();
 
-        return view('human_resources.reports.dgt3', compact('results', 'years'));
+        return view('human_resources.reports.dgt3', compact('results'));
     }
 
     public function dgt4(Reports $report)
     {
-        $years = $report->last_five_years;
-        $months = $report->months_of_the_year;
 
-        return view('human_resources.reports.dgt4', compact('years', 'months'));
+        return view('human_resources.reports.dgt4');
     }
 
     public function handleDgt4(Request $request, Reports $report)
@@ -156,12 +157,16 @@ class HumanResourcesController extends Controller
 
         $results = $report->dgt4($request->year, $request->month)->get();
 
-        $years = $report->last_five_years;
-        $months = $report->months_of_the_year;
-
         $request->flash();
 
-        return view('human_resources.reports.dgt4', compact('results', 'years', 'months'));
+        return view('human_resources.reports.dgt4', compact('results'));
+    }
+
+    public function byDepartment($id, Employees $employees)
+    {
+        $department = $employees->employeesByDepartment($id);
+
+        return view('human_resources.hc.last_month', compact('department'));     
     }
     
 }

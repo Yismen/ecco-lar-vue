@@ -76,6 +76,7 @@ class RolesController extends Controller {
 		$this->validate($request, [
 		    'name' => 'required',
 		    'display_name' => 'required',
+		    'users_list' => 'required',
 		]);
 
 		$this->createRole($role, $request);
@@ -121,6 +122,7 @@ class RolesController extends Controller {
 		$this->validate($request, [
 		    'name' => 'required',
 		    'display_name' => 'required',
+		    'users_list' => 'required',
 		]);
 
 		$this->updateRole($role, $request);

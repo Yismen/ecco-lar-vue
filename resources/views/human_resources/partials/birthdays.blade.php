@@ -15,7 +15,7 @@
                 <tr>
                     <th><i class="fa fa-star"></i> This Month</th>
                     <td>
-                        <a href="/admin/human_resources/employees/birthdays/this_month" target="_blank">
+                        <a href="/admin/human_resources/employees/birthdays/this_month" target="">
                             <i class="fa fa-eye"></i> {{ $birthdays['this_month'] }}
                         </a>
                     </td>
@@ -24,7 +24,7 @@
                 <tr>
                     <th><i class="fa fa-arrow-right"></i> Next Month</th>
                     <td>
-                        <a href="/admin/human_resources/employees/birthdays/next_month" target="_blank">
+                        <a href="/admin/human_resources/employees/birthdays/next_month" target="">
                             <i class="fa fa-eye"></i> {{ $birthdays['next_month'] }}
                         </a>
                     </td>
@@ -33,7 +33,7 @@
                 <tr>
                     <th><i class="fa fa-arrow-left"></i> Last Month</th>
                     <td>
-                        <a href="/admin/human_resources/employees/birthdays/last_month" target="_blank">
+                        <a href="/admin/human_resources/employees/birthdays/last_month" target="">
                             <i class="fa fa-eye"></i> {{ $birthdays['last_month'] }}
                         </a>
                     </td>

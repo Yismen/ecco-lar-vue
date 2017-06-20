@@ -16,20 +16,16 @@
 						{!! Form::model($permission, ['route'=>['admin.permissions.update', $permission->name], 'method'=>'PUT', 'class'=>'form-horizontal', 'role'=>'form']) !!}	
 							@include('permissions._form')
 
-							<div class="col-sm-6 col-sm-offset-2 clear-fix">
-								<button type="submit" class="btn btn-primary form-control">Update</button>
-							</div>	
-							
-							<div class="form-group">
-								<div class="col-sm-10 col-sm-offset-2">								
-									<a href="{{ route('admin.permissions.index') }}"><< Return to Permissions List</a>
+							<div class="col-sm-8 col-sm-offset-2 clear-fix">
+								<div class="form-group">
+									<button type="submit" class="btn btn-primary">Update</button>
+									<a href="{{ route('admin.permissions.index') }}"><i class="fa fa-angle-double-left"></i> Return to Permissions List</a>
 								</div>
-							</div>
-						
+							</div>	
 						{!! Form::close() !!}
 
-						<div class="col-sm-10 col-sm-offset-1">
 							<div class="form-group">
+						<div class="col-sm-10 col-sm-offset-1">
 								<form action="{{ url('/admin/permissions', $permission->name) }}" method="POST" class="" style="display: inline-block;">
 								    {!! csrf_field() !!}
 								    {!! method_field('DELETE') !!}

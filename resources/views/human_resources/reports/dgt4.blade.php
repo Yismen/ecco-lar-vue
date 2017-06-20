@@ -7,7 +7,9 @@
             <div class="col-sm-8 col-sm-offset-2">
                 <div class="box box-primary">
 
-                    <div class="box-header with-border"><h4>Run DGT-4 Report</h4></div>
+                    <div class="box-header with-border"><h4>Run DGT-4 Report 
+                        <a href="/admin/human_resources" class="pull-right"><i class="fa fa-dashboard"></i></a>
+                    </h4></div>
                         
                     <div class="box-body">
                         {!! Form::open(['/admin/human_resources/dgt4', 'method'=>'POST', 'class'=>'form-horizontal', 'role'=>'form', 'autocomplete'=>"off",  'enctype'=>"multipart/form-data"]) !!}       
@@ -37,7 +39,6 @@
                             <!-- /. Select a Month -->
                     
                             <div class="box-footer">
-                                <button type="submit" class="btn btn-default">CANCEL</button>
                                 <button type="submit" class="btn btn-success">RUN</button>
                             </div>
                     

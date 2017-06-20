@@ -46,7 +46,6 @@
         el.select2({
           theme: "bootstrap",
           placeholder: 'Select an option',
-          selectOnClose: true,
           closeOnSelect: false,
           width: '100%'
         });
