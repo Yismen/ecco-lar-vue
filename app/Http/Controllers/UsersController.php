@@ -198,7 +198,7 @@ class UsersController extends Controller {
 		if ($user->id === auth()->user()->id) {
 			return redirect()->back()->withErrors(['error'=>'You are not allowed to change your own password here!']);
 		}
-
+		
 		$user->password = Hash::make($password);
 		$user->save();
 
