@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Employee;
+use App\Position;
 use App\Department;
 
 class Employees
@@ -25,7 +26,16 @@ class Employees
     public function employeesByDepartment($id)
     {
         return Department::with(['employees' => function($query){
-            return $query->orderBy('first_name', 'asc', 'second_first_name', 'asc')->actives();
+            return $query->orderBy('first_name', 'asc', 'second_first_name', 'asc')->actives()
+                ->with('position.department');
+        }])->findOrFail($id);
+    }
+
+    public function employeesByPosition($id)
+    {
+        return Position::with(['employees' => function($query){
+            return $query->orderBy('first_name', 'asc', 'second_first_name', 'asc')->actives()
+                ->with('position.department');
         }])->findOrFail($id);
     }
 }

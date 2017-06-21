@@ -166,7 +166,14 @@ class HumanResourcesController extends Controller
     {
         $department = $employees->employeesByDepartment($id);
 
-        return view('human_resources.hc.last_month', compact('department'));     
+        return view('human_resources.hc.by_departments', compact('department'));     
+    }
+
+    public function byPosition($id, Employees $employees)
+    {
+        $position = $employees->employeesByPosition($id);
+
+        return view('human_resources.hc.by_positions', compact('position'));  
     }
     
 }
