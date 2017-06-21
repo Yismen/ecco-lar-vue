@@ -10,6 +10,7 @@ Route::group(['middleware' => 'authorize:view_human_resources'], function(){
     Route::get('human_resources/employees/missing_social_security', 'HumanResourcesController@missingSocialSecurity');
     Route::get('human_resources/employees/missing_bank_account', 'HumanResourcesController@missingBankAccount');
     Route::get('human_resources/employees/by_departments/{id}', 'HumanResourcesController@byDepartment');
+    Route::get('human_resources/employees/by_positions/{id}', 'HumanResourcesController@byPositions');
 
     Route::get('human_resources/employees/dgt3', 'HumanResourcesController@dgt3');
     Route::post('human_resources/employees/dgt3', 'HumanResourcesController@handleDgt3');
