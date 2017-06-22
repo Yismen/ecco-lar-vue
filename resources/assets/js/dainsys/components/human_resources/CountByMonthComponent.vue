@@ -114,6 +114,12 @@
                         xAxes: [{
                             stacked: true
                         }]
+                    },
+                    tooltips: {
+                        mode: 'x'
+                    },
+                    legend: {
+                        display: true,
                     }
                 }
             });

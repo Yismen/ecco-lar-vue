@@ -471,7 +471,7 @@ class Employee extends Model
 	 */
 	public function setHireDateAttribute($hire_date)
 	{
-		$this->attributes['hire_date'] = Carbon::parse($hire_date);
+		$this->attributes['hire_date'] = Carbon::parse($hire_date)->format('Y-m-d');
 	}
 
 	/**

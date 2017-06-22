@@ -35,12 +35,18 @@ class Termination extends Model {
 	
 	// public function getTerminationDateAttribute($date)
 	// {
-	// 	return Carbon::parse($this->attributes['termination_date'])->format('Y-m-d');
+	// 	return Carbon::parse($this->attributes['termination_date'] = ])->format('Y-m-d');
 	// }
 
 	public function terminateEmployee($employee, $request)
 	{
 		
+	}
+
+	public function setTerminationDateAttribute($date)
+	{
+		$date = Carbon::parse($date)->format('Y-m-d');
+		$this->attributes['termination_date'] = $date;
 	}
 
 }
