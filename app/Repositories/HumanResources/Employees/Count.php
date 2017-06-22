@@ -14,21 +14,18 @@ class Count
 {
     
     public static function rotationbyMonths(int $months)
-    {
-        $months_ago = Carbon::today()->subMonths($months);
+    {        
+        $today = Carbon::today();
+        $months_ago = Carbon::today()->subMonths($months - 1);
 
-
-        return Employee::select(DB::raw('year(hire_date) as year, monthname(hire_date) as monthname, month(hire_date) as month, COUNT(id) as count'))
-            ->where('hire_date', '>=', $months_ago)
-            ->groupBy('month')
-            ->orderBy('month')
-            ->get();
+        return collect([
+            'entrances' => self::inByMonths($months, $today, $months_ago), 
+            'exits' => self::outByMonths($months, $today, $months_ago), 
+        ]);
     }
     
-    public static function inByMonths(int $months)
+    private static function inByMonths($months, $today, $months_ago)
     {
-        $today = Carbon::today();
-        $months_ago = Carbon::today()->subMonths($months);
 
         return Employee::select(DB::raw('year(hire_date) as year, monthname(hire_date) as monthname, month(hire_date) as month, COUNT(employees.id) as entrances'))
             ->whereBetween('hire_date',  [$months_ago, $today])
@@ -37,12 +34,9 @@ class Count
             ->get();
     }
 
-    public static function outByMonths($months)
+    private static function outByMonths($months, $today, $months_ago)
     {
-        $today = Carbon::today();
-        $months_ago = Carbon::today()->subMonths($months);
-        
-        return Termination::select(DB::raw('year(termination_date) as year, monthname(termination_date) as monthname, month(termination_date) as month, COUNT(id) as outages'))
+        return Termination::select(DB::raw('year(termination_date) as year, monthname(termination_date) as monthname, month(termination_date) as month, COUNT(id) as exits'))
             ->whereBetween('termination_date',  [$months_ago, $today])
             ->orderBy('month')
             ->groupBy('month')

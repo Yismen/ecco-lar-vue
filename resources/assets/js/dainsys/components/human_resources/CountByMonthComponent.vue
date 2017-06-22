@@ -18,35 +18,37 @@
 
         data () {
             return {
-                labels: [],
                 merged_array: [],
-                inData: [],
-                outData: [],
+                labels: [],
+                entrancesData: [],
+                exitsData: [],
             };
         }, 
 
         props: {
-            'data': {
+            'rotations': {
                 type: Object
             }
         },
 
         methods: {
-            setMergedArray() {           
+            setMergedArray() {       
 
-                for (var i = 0; i < this.data.in.length; i++) {
+                console.log(this.rotations)    
+
+                for (var i = 0; i < this.rotations.entrances.length; i++) {
                     this.merged_array.push({
-                        year: this.data.in[i].year, 
-                        month: this.data.in[i].month, 
-                        monthname: this.data.in[i].monthname,
-                        entrances: this.data.in[i].entrances,
-                        outages: 0,
+                        year: this.rotations.entrances[i].year, 
+                        month: this.rotations.entrances[i].month, 
+                        monthname: this.rotations.entrances[i].monthname,
+                        entrances: this.rotations.entrances[i].entrances,
+                        exits: 0,
                     });
                 }
                 let found_index;
 
-                for (var i = 0; i < this.data.out.length; i++) {
-                    let currentObject = this.data.out[i];
+                for (var i = 0; i < this.rotations.exits.length; i++) {
+                    let currentObject = this.rotations.exits[i];
                     let found = this.merged_array.find(function(object, index, array) {
                         found_index = index;
                         return object.month == currentObject.month;
@@ -54,14 +56,14 @@
                     });
 
                     if (found) {
-                        this.merged_array[found_index].outages = currentObject.outages;
+                        this.merged_array[found_index].exits = currentObject.exits;
                     } else {
                         this.merged_array.push({
-                            year: this.data.out[i].year, 
-                            month: this.data.out[i].month, 
-                            monthname: this.data.out[i].monthname,
+                            year: this.rotations.exits[i].year, 
+                            month: this.rotations.exits[i].month, 
+                            monthname: this.rotations.exits[i].monthname,
                             entrances: 0,
-                            outages: this.data.out[i].outages,
+                            exits: this.rotations.exits[i].exits,
                         });
                     }
 
@@ -75,8 +77,8 @@
             setLabels() {
                 for (var i = 0; i < this.merged_array.length; i++) {
                     this.labels.push(this.merged_array[i].monthname)
-                    this.inData.push(this.merged_array[i].entrances);
-                    this.outData.push(this.merged_array[i].outages);
+                    this.entrancesData.push(this.merged_array[i].entrances);
+                    this.exitsData.push(this.merged_array[i].exits);
                 }
             },
 
@@ -94,12 +96,16 @@
                     labels: vm.labels,
                     datasets: [{
                         label: 'Entrances By Month',
-                        data: vm.inData,
+                        data: vm.entrancesData,
+                        fill:false, 
+                        borderColor: "rgba(0, 103, 84, 1)",
                         backgroundColor: "rgba(0, 103, 84, 0.4)",
                     },
                     {
                         label: 'Exits By Month',
-                        data: vm.outData,
+                        data: vm.exitsData,
+                        fill:false, 
+                        borderColor: "rgba(153, 69, 12, 1)",
                         backgroundColor: "rgba(153, 69, 12, 0.4)",
                     }]
                 },

@@ -17955,16 +17955,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     data: function data() {
         return {
-            labels: [],
             merged_array: [],
-            inData: [],
-            outData: []
+            labels: [],
+            entrancesData: [],
+            exitsData: []
         };
     },
 
 
     props: {
-        'data': {
+        'rotations': {
             type: Object
         }
     },
@@ -17973,19 +17973,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         setMergedArray: function setMergedArray() {
             var _this = this;
 
-            for (var i = 0; i < this.data.in.length; i++) {
+            console.log(this.rotations);
+
+            for (var i = 0; i < this.rotations.entrances.length; i++) {
                 this.merged_array.push({
-                    year: this.data.in[i].year,
-                    month: this.data.in[i].month,
-                    monthname: this.data.in[i].monthname,
-                    entrances: this.data.in[i].entrances,
-                    outages: 0
+                    year: this.rotations.entrances[i].year,
+                    month: this.rotations.entrances[i].month,
+                    monthname: this.rotations.entrances[i].monthname,
+                    entrances: this.rotations.entrances[i].entrances,
+                    exits: 0
                 });
             }
             var found_index = void 0;
 
             var _loop = function _loop() {
-                var currentObject = _this.data.out[i];
+                var currentObject = _this.rotations.exits[i];
                 var found = _this.merged_array.find(function (object, index, array) {
                     found_index = index;
                     return object.month == currentObject.month;
@@ -17993,14 +17995,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 });
 
                 if (found) {
-                    _this.merged_array[found_index].outages = currentObject.outages;
+                    _this.merged_array[found_index].exits = currentObject.exits;
                 } else {
                     _this.merged_array.push({
-                        year: _this.data.out[i].year,
-                        month: _this.data.out[i].month,
-                        monthname: _this.data.out[i].monthname,
+                        year: _this.rotations.exits[i].year,
+                        month: _this.rotations.exits[i].month,
+                        monthname: _this.rotations.exits[i].monthname,
                         entrances: 0,
-                        outages: _this.data.out[i].outages
+                        exits: _this.rotations.exits[i].exits
                     });
                 }
 
@@ -18009,15 +18011,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 });
             };
 
-            for (var i = 0; i < this.data.out.length; i++) {
+            for (var i = 0; i < this.rotations.exits.length; i++) {
                 _loop();
             }
         },
         setLabels: function setLabels() {
             for (var i = 0; i < this.merged_array.length; i++) {
                 this.labels.push(this.merged_array[i].monthname);
-                this.inData.push(this.merged_array[i].entrances);
-                this.outData.push(this.merged_array[i].outages);
+                this.entrancesData.push(this.merged_array[i].entrances);
+                this.exitsData.push(this.merged_array[i].exits);
             }
         }
     },
@@ -18034,11 +18036,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 labels: vm.labels,
                 datasets: [{
                     label: 'Entrances By Month',
-                    data: vm.inData,
+                    data: vm.entrancesData,
+                    fill: false,
+                    borderColor: "rgba(0, 103, 84, 1)",
                     backgroundColor: "rgba(0, 103, 84, 0.4)"
                 }, {
                     label: 'Exits By Month',
-                    data: vm.outData,
+                    data: vm.exitsData,
+                    fill: false,
+                    borderColor: "rgba(153, 69, 12, 1)",
                     backgroundColor: "rgba(153, 69, 12, 0.4)"
                 }]
             },
@@ -31374,7 +31380,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 212 */
@@ -31542,7 +31548,9 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-class Error {
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+
+class Errors {
     constructor() {
         this.errors = {};
     }
@@ -31574,7 +31582,7 @@ class Error {
     }
     
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = Error;
+/* harmony export (immutable) */ __webpack_exports__["default"] = Errors;
 
 
 
@@ -31583,10 +31591,10 @@ class Error {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Error_js__ = __webpack_require__(235);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_v_toast__ = __webpack_require__(238);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_v_toast___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_v_toast__);
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_v_toast__ = __webpack_require__(238);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_v_toast___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_v_toast__);
+// import Errors from './Errors.js'
+let Errors = __webpack_require__(235).default;
 
 
 class Form {
@@ -31602,8 +31610,8 @@ class Form {
             this.fields[field] = data[field];
         }
 
-        this.error = new __WEBPACK_IMPORTED_MODULE_0__Error_js__["a" /* default */]();
-        this.notify = __WEBPACK_IMPORTED_MODULE_1_v_toast___default.a;
+        this.error = new Errors();
+        this.notify = __WEBPACK_IMPORTED_MODULE_0_v_toast___default.a;
         this.http = Vue.http;
     }
 
