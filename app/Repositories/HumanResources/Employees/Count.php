@@ -17,9 +17,8 @@ class Count
     {
         $months_ago = Carbon::today()->subMonths($months);
 
-        return DB::raw(value);
 
-        return Employee::select(DB::raw('year(`hire_date`) as year, monthname(`hire_date`) as monthname, month(`hire_date`) as month, COUNT(`id`) as count'))
+        return Employee::select(DB::raw('year(hire_date) as year, monthname(hire_date) as monthname, month(hire_date) as month, COUNT(id) as count'))
             ->where('hire_date', '>=', $months_ago)
             ->groupBy('month')
             ->orderBy('month')
@@ -28,10 +27,11 @@ class Count
     
     public static function inByMonths(int $months)
     {
+        $today = Carbon::today();
         $months_ago = Carbon::today()->subMonths($months);
 
-        return Employee::select(DB::raw('year(`hire_date`) as year, monthname(`hire_date`) as monthname, month(`hire_date`) as month, COUNT(`id`) as count'))
-            ->where('hire_date', '>=', $months_ago)
+        return Employee::select(DB::raw('year(hire_date) as year, monthname(hire_date) as monthname, month(hire_date) as month, COUNT(employees.id) as entrances'))
+            ->whereBetween('hire_date',  [$months_ago, $today])
             ->groupBy('month')
             ->orderBy('month')
             ->get();
@@ -39,10 +39,11 @@ class Count
 
     public static function outByMonths($months)
     {
+        $today = Carbon::today();
         $months_ago = Carbon::today()->subMonths($months);
-
-        return Termination::select(DB::raw('year(`termination_date`) as year, monthname(`termination_date`) as monthname, month(`termination_date`) as month, COUNT(`id`) as count'))
-            ->where('termination_date', '>=', $months_ago)
+        
+        return Termination::select(DB::raw('year(termination_date) as year, monthname(termination_date) as monthname, month(termination_date) as month, COUNT(id) as outages'))
+            ->whereBetween('termination_date',  [$months_ago, $today])
             ->orderBy('month')
             ->groupBy('month')
             ->get();

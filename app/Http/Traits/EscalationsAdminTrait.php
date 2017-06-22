@@ -67,7 +67,7 @@ trait EscalationsAdminTrait
     {
         $date = $this->date;
 
-        return $escalRecords->select(DB::raw("user_id, escal_client_id, count(tracking) as records"))
+        return $escalRecords->select(DB::raw("user_id, escal_client_id, count(tracking) as records, insert_date"))
             ->groupBy(['user_id', 'escal_client_id'])
             ->orderBy('escal_client_id')
             ->whereDate('created_at', '=', $date)

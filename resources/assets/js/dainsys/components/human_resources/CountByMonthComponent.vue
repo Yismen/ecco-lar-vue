@@ -19,6 +19,7 @@
         data () {
             return {
                 labels: [],
+                merged_array: [],
                 inData: [],
                 outData: [],
             };
@@ -31,28 +32,59 @@
         },
 
         methods: {
-            setInData() {
+            setMergedArray() {           
+
                 for (var i = 0; i < this.data.in.length; i++) {
-                    this.labels.push(this.data.in[i].monthname)
-                    this.inData.push(this.data.in[i].count);
+                    this.merged_array.push({
+                        year: this.data.in[i].year, 
+                        month: this.data.in[i].month, 
+                        monthname: this.data.in[i].monthname,
+                        entrances: this.data.in[i].entrances,
+                        outages: 0,
+                    });
+                }
+                let found_index;
+
+                for (var i = 0; i < this.data.out.length; i++) {
+                    let currentObject = this.data.out[i];
+                    let found = this.merged_array.find(function(object, index, array) {
+                        found_index = index;
+                        return object.month == currentObject.month;
+                        // console.log(object, index, array)
+                    });
+
+                    if (found) {
+                        this.merged_array[found_index].outages = currentObject.outages;
+                    } else {
+                        this.merged_array.push({
+                            year: this.data.out[i].year, 
+                            month: this.data.out[i].month, 
+                            monthname: this.data.out[i].monthname,
+                            entrances: 0,
+                            outages: this.data.out[i].outages,
+                        });
+                    }
+
+                    this.merged_array.sort(function(a,b){
+                        return a.month - b.month;
+                    })
+                        
                 }
             },
 
-            setOutData() {
-                for (var i = 0; i < this.data.out.length; i++) {
-                    // if (this.labels.indexOf(this.data.out[i].monthname) == -1) {
-                    //     this.labels.push(this.data.out[i].monthname)
-                    // }
-                    this.outData.push(this.data.out[i].count);
+            setLabels() {
+                for (var i = 0; i < this.merged_array.length; i++) {
+                    this.labels.push(this.merged_array[i].monthname)
+                    this.inData.push(this.merged_array[i].entrances);
+                    this.outData.push(this.merged_array[i].outages);
                 }
-            }
+            },
+
         },
 
         mounted() {
-            this.setInData();
-            this.setOutData();
-
-            console.log(this.labels)
+            this.setMergedArray();
+            this.setLabels();
 
             let ctx = document.getElementById("myChart").getContext('2d');
             let vm = this;
@@ -63,12 +95,12 @@
                     datasets: [{
                         label: 'Entrances By Month',
                         data: vm.inData,
-                        backgroundColor: "rgba(0, 103, 84, 0.5)",
+                        backgroundColor: "rgba(0, 103, 84, 0.4)",
                     },
                     {
                         label: 'Exits By Month',
                         data: vm.outData,
-                        backgroundColor: "rgba(153, 69, 12, 0.5)",
+                        backgroundColor: "rgba(153, 69, 12, 0.4)",
                     }]
                 },
                 options: {

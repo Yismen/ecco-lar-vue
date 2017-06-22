@@ -6,6 +6,7 @@
                 <table class="table table-hover table-bordered table-condensed">
                     <thead>
                         <tr>
+                            <th>Date:</th>
                             <th>Client:</th>
                             <th>Agent:</th>
                             <th>Count:</th>
@@ -14,6 +15,7 @@
                     <tbody>
                         @foreach ($summary as $record)
                             <tr>
+                                <td>{{ $record->insert_date->format('d/M/Y') }}</td>
                                 <td>{{ $record->escal_client->name }}</td>
                                 <td>{{ $record->user->name }}</td>
                                 <td>{{ $record->records }}</td>
@@ -21,7 +23,7 @@
                         @endforeach                            
                     </tbody>
                     <tfoot> 
-                        <th colspan="2">Total:</th>
+                        <th colspan="3">Total:</th>
                         <th>{{ $summary->sum('records') }}</th>
                     </tfoot>
                 </table>
