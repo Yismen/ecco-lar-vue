@@ -12,6 +12,8 @@ class EscalRecord extends Model
      * mass assignable
      */
     protected $fillable = ['tracking', 'escal_client_id', 'is_bbb', 'insert_date'];
+
+    protected $dates = ['insert_date'];
     /**
      * The accessors to append to the model's array form.
      *
