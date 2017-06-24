@@ -208,13 +208,43 @@
     },
 
     filters: {
-        sort(array) {
-            console.log(array)
-            return array;
-        }
+    },
+
+    created() {
+        // console.log(this.employee.positions_list)
+        // this.employee.positions_list = this.sortByProperties(this.employee.positions_list);
+        // console.log(this.employee.positions_list)
     },
 
     methods: {
+        sortByProperties(obj) {
+      
+        // convert object into array
+        var sortable=[];
+        for(var key in obj)
+            if(obj.hasOwnProperty(key)) {
+                sortable.push([key, obj[key]]); // each item is an array in format [key, value]
+            }
+                
+
+            // sort items by value
+            sortable.sort(function(a, b) {
+                var x=a[1].toLowerCase(),
+                y=b[1].toLowerCase();
+                return x<y ? -1 : x>y ? 1 : 0;
+            });
+
+            let sortedObject = [];
+            for (var i = 0; i < sortable.length; i++) {
+
+                let key = sortable[i][0];
+                let value = sortable[i][1];
+                sortedObject[key] = value;
+            }
+            return sortedObject; // array in format [ [ key1, val1 ], [ key2, val2 ], ... ]
+
+        },
+
         handleEdit() {
             this.form.put('/admin/employees/' + this.employee.id)
                 .then(response => {

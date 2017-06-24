@@ -97,14 +97,14 @@
                     datasets: [{
                         label: 'Entrances By Month',
                         data: vm.entrancesData,
-                        fill:false, 
+                        // fill:false, 
                         borderColor: "rgba(0, 103, 84, 1)",
                         backgroundColor: "rgba(0, 103, 84, 0.4)",
                     },
                     {
                         label: 'Exits By Month',
                         data: vm.exitsData,
-                        fill:false, 
+                        // fill:false, 
                         borderColor: "rgba(153, 69, 12, 1)",
                         backgroundColor: "rgba(153, 69, 12, 0.4)",
                     }]

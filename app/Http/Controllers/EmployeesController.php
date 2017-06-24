@@ -86,8 +86,8 @@ class EmployeesController extends Controller
         if ($request->ajax()) {
             return $employee;
         }
-
-        return \Redirect::route('admin.employees.index')
+        
+        return \Redirect::route('admin.employees.edit', $employee->id)
             ->withSuccess("Succesfully added employee [$request->first_name $request->last_name];");
         
     }

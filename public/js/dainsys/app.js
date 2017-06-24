@@ -4898,7 +4898,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "F:\\laragon\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\sources\\_Form.vue"
+Component.options.__file = "F:\\wamp\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\sources\\_Form.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] _Form.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -16048,7 +16048,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "F:\\laragon\\www\\dainsys\\node_modules\\vue-bootstrap-modal\\src\\modal.vue"
+Component.options.__file = "F:\\wamp\\www\\dainsys\\node_modules\\vue-bootstrap-modal\\src\\modal.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] modal.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -16086,7 +16086,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "F:\\laragon\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\AddTest.vue"
+Component.options.__file = "F:\\wamp\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\AddTest.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] AddTest.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -16124,7 +16124,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "F:\\laragon\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\sources\\CreateSource.vue"
+Component.options.__file = "F:\\wamp\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\sources\\CreateSource.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CreateSource.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -16162,7 +16162,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "F:\\laragon\\www\\dainsys\\resources\\assets\\js\\dainsys\\views\\NavigationView.vue"
+Component.options.__file = "F:\\wamp\\www\\dainsys\\resources\\assets\\js\\dainsys\\views\\NavigationView.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] NavigationView.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -16239,11 +16239,43 @@ new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
 
   router: router,
 
-  // components: {
-  //   'navigation-view': require('./views/NavigationView'),
-  //   'dainsys-modal': require('vue-bootstrap-modal'),
-  //   'dainsys-employee-address': require('./components/employees/AddressComponent')
-  // },
+  filters: {
+    sortByProperties: function sortByProperties(obj) {
+
+      // convert object into array
+      var sortable = [];
+      for (var key in obj) {
+        if (obj.hasOwnProperty(key)) sortable.push([key, obj[key]]);
+      } // each item is an array in format [key, value]
+
+      // sort items by value
+      sortable.sort(function (a, b) {
+        var x = a[1].toLowerCase(),
+            y = b[1].toLowerCase();
+        return x < y ? -1 : x > y ? 1 : 0;
+      });
+      return sortable; // array in format [ [ key1, val1 ], [ key2, val2 ], ... ]
+    }
+  },
+
+  methods: {
+    sortProperties: function sortProperties(obj) {
+      // convert object into array
+      var sortable = [];
+      for (var key in obj) {
+        if (obj.hasOwnProperty(key)) sortable.push([key, obj[key]]);
+      } // each item is an array in format [key, value]
+
+      // sort items by value
+      sortable.sort(function (a, b) {
+        var x = a[1].toLowerCase(),
+            y = b[1].toLowerCase();
+        return x < y ? -1 : x > y ? 1 : 0;
+      });
+      return sortable; // array in format [ [ key1, val1 ], [ key2, val2 ], ... ]
+    }
+  },
+
   components: __webpack_require__(156).default,
 
   data: function data() {
@@ -17188,14 +17220,40 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         'datepicker': __webpack_require__(6)
     },
 
-    filters: {
-        sort: function sort(array) {
-            console.log(array);
-            return array;
-        }
+    filters: {},
+
+    created: function created() {
+        // console.log(this.employee.positions_list)
+        // this.employee.positions_list = this.sortByProperties(this.employee.positions_list);
+        // console.log(this.employee.positions_list)
     },
 
+
     methods: {
+        sortByProperties: function sortByProperties(obj) {
+
+            // convert object into array
+            var sortable = [];
+            for (var key in obj) {
+                if (obj.hasOwnProperty(key)) {
+                    sortable.push([key, obj[key]]); // each item is an array in format [key, value]
+                }
+            } // sort items by value
+            sortable.sort(function (a, b) {
+                var x = a[1].toLowerCase(),
+                    y = b[1].toLowerCase();
+                return x < y ? -1 : x > y ? 1 : 0;
+            });
+
+            var sortedObject = [];
+            for (var i = 0; i < sortable.length; i++) {
+
+                var _key = sortable[i][0];
+                var value = sortable[i][1];
+                sortedObject[_key] = value;
+            }
+            return sortedObject; // array in format [ [ key1, val1 ], [ key2, val2 ], ... ]
+        },
         handleEdit: function handleEdit() {
             var _this = this;
 
@@ -18037,13 +18095,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 datasets: [{
                     label: 'Entrances By Month',
                     data: vm.entrancesData,
-                    fill: false,
+                    // fill:false, 
                     borderColor: "rgba(0, 103, 84, 1)",
                     backgroundColor: "rgba(0, 103, 84, 0.4)"
                 }, {
                     label: 'Exits By Month',
                     data: vm.exitsData,
-                    fill: false,
+                    // fill:false, 
                     borderColor: "rgba(153, 69, 12, 1)",
                     backgroundColor: "rgba(153, 69, 12, 0.4)"
                 }]
@@ -31519,7 +31577,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 231 */
@@ -32008,7 +32066,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "F:\\laragon\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\AppComponent.vue"
+Component.options.__file = "F:\\wamp\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\AppComponent.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] AppComponent.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -32046,7 +32104,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "F:\\laragon\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\Confirmation.vue"
+Component.options.__file = "F:\\wamp\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\Confirmation.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Confirmation.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -32084,7 +32142,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "F:\\laragon\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\employees\\AFPComponent.vue"
+Component.options.__file = "F:\\wamp\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\employees\\AFPComponent.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] AFPComponent.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -32122,7 +32180,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "F:\\laragon\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\employees\\ARSComponent.vue"
+Component.options.__file = "F:\\wamp\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\employees\\ARSComponent.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] ARSComponent.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -32160,7 +32218,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "F:\\laragon\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\employees\\AddressComponent.vue"
+Component.options.__file = "F:\\wamp\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\employees\\AddressComponent.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] AddressComponent.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -32198,7 +32256,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "F:\\laragon\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\employees\\BankAccountComponent.vue"
+Component.options.__file = "F:\\wamp\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\employees\\BankAccountComponent.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] BankAccountComponent.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -32236,7 +32294,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "F:\\laragon\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\employees\\CardComponent.vue"
+Component.options.__file = "F:\\wamp\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\employees\\CardComponent.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CardComponent.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -32274,7 +32332,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "F:\\laragon\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\employees\\EditComponent.vue"
+Component.options.__file = "F:\\wamp\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\employees\\EditComponent.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] EditComponent.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -32312,7 +32370,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "F:\\laragon\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\employees\\LoginsComponent.vue"
+Component.options.__file = "F:\\wamp\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\employees\\LoginsComponent.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] LoginsComponent.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -32350,7 +32408,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "F:\\laragon\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\employees\\PhotoComponent.vue"
+Component.options.__file = "F:\\wamp\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\employees\\PhotoComponent.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] PhotoComponent.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -32388,7 +32446,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "F:\\laragon\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\employees\\PunchComponent.vue"
+Component.options.__file = "F:\\wamp\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\employees\\PunchComponent.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] PunchComponent.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -32426,7 +32484,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "F:\\laragon\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\employees\\ReactivationComponent.vue"
+Component.options.__file = "F:\\wamp\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\employees\\ReactivationComponent.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] ReactivationComponent.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -32464,7 +32522,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "F:\\laragon\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\employees\\SocialSecurityComponent.vue"
+Component.options.__file = "F:\\wamp\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\employees\\SocialSecurityComponent.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] SocialSecurityComponent.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -32502,7 +32560,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "F:\\laragon\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\employees\\SupervisorComponent.vue"
+Component.options.__file = "F:\\wamp\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\employees\\SupervisorComponent.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] SupervisorComponent.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -32540,7 +32598,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "F:\\laragon\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\employees\\TerminationComponent.vue"
+Component.options.__file = "F:\\wamp\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\employees\\TerminationComponent.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] TerminationComponent.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -32578,7 +32636,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "F:\\laragon\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\human_resources\\CountByMonthComponent.vue"
+Component.options.__file = "F:\\wamp\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\human_resources\\CountByMonthComponent.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CountByMonthComponent.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -32616,7 +32674,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "F:\\laragon\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\sources\\DestroySource.vue"
+Component.options.__file = "F:\\wamp\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\sources\\DestroySource.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] DestroySource.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -32654,7 +32712,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "F:\\laragon\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\sources\\EditSource.vue"
+Component.options.__file = "F:\\wamp\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\sources\\EditSource.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] EditSource.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -32692,7 +32750,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "F:\\laragon\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\sources\\ShowSource.vue"
+Component.options.__file = "F:\\wamp\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\sources\\ShowSource.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] ShowSource.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -32730,7 +32788,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "F:\\laragon\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\sources\\SourcesComponent.vue"
+Component.options.__file = "F:\\wamp\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\sources\\SourcesComponent.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] SourcesComponent.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -32768,7 +32826,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "F:\\laragon\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\supervisors\\IndexComponent.vue"
+Component.options.__file = "F:\\wamp\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\supervisors\\IndexComponent.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] IndexComponent.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -32806,7 +32864,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "F:\\laragon\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\test\\Pagination.vue"
+Component.options.__file = "F:\\wamp\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\test\\Pagination.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Pagination.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -32844,7 +32902,7 @@ var Component = __webpack_require__(2)(
   /* cssModules */
   null
 )
-Component.options.__file = "F:\\laragon\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\todos\\TodosComponent.vue"
+Component.options.__file = "F:\\wamp\\www\\dainsys\\resources\\assets\\js\\dainsys\\components\\todos\\TodosComponent.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] TodosComponent.vue: functional components are not supported with templates, they should use render functions.")}
 
