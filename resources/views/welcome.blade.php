@@ -52,16 +52,23 @@
             </div>
         </div>
 
-        <div class="jumbotron red-div no-margin text-center">
+        <div class="jumbotron  {{ $layout_color }}-div no-margin text-center">
             <div class="container-fluid">
                 <h1 class="">Dainsys</h1>
                 <p>Process documentation? Collect data? Customize reports? Just ask for it. Get in contact with the System Administrator and together create what you need. Please log in to gain access to Dainsys!</p>
             </div>
         </div>
 
-        <div class="jumbotron">
+        <div class="jumbotron no-margin text-center">
             <div class="container-fluid">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto inventore, repudiandae laborum? Natus quis ullam fugiat eius, voluptas sapiente, qui corporis ea? Natus eos laborum sapiente, ducimus eius ut consequuntur!
+                <h1 class="">Your Roles</h1>
+                <h3 class="">You have the following roles assigned to you. </h3>
+                <p>Access their end points by using the left side menu.</p>
+                @if (Auth::check())
+                    @foreach ($user->roles as $role)
+                        <span for="" class="label label-primary">{{ $role->display_name }}</span>
+                    @endforeach
+                @endif
             </div>
         </div>
     </div>

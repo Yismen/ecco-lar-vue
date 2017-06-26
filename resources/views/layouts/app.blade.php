@@ -45,7 +45,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     |               | sidebar-mini                            |
     |*********************************************************|
     -->
-    <body class="skin-{{ $layout_color }} sidebar-mini sidebar-collapsed" style="height: auto;">  
+    <body class="skin-{{ $layout_color }} {{ $sidebar_mini }} {{ $sidebar_collapse }}" style="height: auto;">  
         <div class="wrapper" style="height: auto;">
             <!-- Main Header -->
             {{-- @inject('user', 'App\Layout') --}}

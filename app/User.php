@@ -50,6 +50,11 @@ class User extends Authenticatable implements CanResetPassword
     {
         return $this->hasMany('App\EscalRecord');
     }
+
+    public function settings()
+    {
+        return $this->hasMany('App\Setting');
+    }
     
     /**
      * ========================================
