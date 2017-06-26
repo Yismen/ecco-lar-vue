@@ -30,9 +30,6 @@ class AppComposer
             'layout_color' => $this->layout_color,
             'sidebar_mini' => $this->sidebar_mini,
             'sidebar_collapse' => $this->sidebar_collapse,
-            // 'sidebar_collapse' => $this->sidebar_collapse,
-            // 'sidebar_collapse' => $this->sidebar_collapse,
-            // 'sidebar_collapse' => $this->sidebar_collapse,
         ]);
     }
 
@@ -60,8 +57,8 @@ class AppComposer
                     break;
                 }
             }
-            return $output;
         }
-        return config('dainsys.'.$name);    
+
+        return $output ? $output : config('dainsys.'.$name);    
     }
 }
