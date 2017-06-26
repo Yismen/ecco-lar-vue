@@ -16,7 +16,8 @@
         "yajra/laravel-datatables-oracle": "^6.13",
         "graham-campbell/flysystem": "^3.6",
         "league/flysystem-dropbox": "^1.0",
-        "barryvdh/laravel-debugbar": "^2.4"
+        "barryvdh/laravel-debugbar": "^2.4",
+        "filp/whoops": "^2.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
