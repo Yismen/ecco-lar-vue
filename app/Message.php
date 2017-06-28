@@ -1,14 +1,15 @@
-<?php namespace App;
+<?php
+
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Message extends Model {
+class Message extends Model
+{
+    protected $fillable = ['recipient_id', 'body'];
 
-	protected $fillable = ['username', 'username_to', 'message'];
-	// 
-	public function user()
-	{
-		return $this->belongsTo('App\User', 'username_from', 'username');
-	}
-
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }

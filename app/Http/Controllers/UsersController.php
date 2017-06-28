@@ -3,8 +3,11 @@ namespace App\Http\Controllers;
 
 use App\Role;
 use App\User;
+use App\AppSetting;
 use Illuminate\Http\Request;
 use App\Http\Traits\UsersTrait;
+use App\Events\EditUserSettings;
+use App\Events\CreateUserSettings;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 
@@ -191,4 +194,28 @@ class UsersController extends Controller
 			->withWarning("Password {$this->random_password} is the new password for this user. Please advise to update inmediately!");
 	}
 
+	public function updateSettings(User $user, Request $request)
+	{		
+		$this->validate($request, [
+			'skin' => '', // exits in skins table
+			'layout'       => '', // exists in layouts table
+			'mini'         => 'boolean', 
+			'collapse'     => 'boolean',
+        ]);
+
+		$user->settings = [
+			'skin' => $request->skin,
+			'layout' => $request->layout,
+			'mini' => $request->mini,
+			'collapse' => $request->collapse,
+		];
+
+		$user->app_setting()->count() > 0 ? 
+			event(new EditUserSettings($user)) : 
+			event(new CreateUserSettings($user));
+
+        return redirect()->back();
+	
+
+	}
 }

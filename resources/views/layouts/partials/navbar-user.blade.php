@@ -16,7 +16,7 @@
 
 @else
   <!-- Messages: style can be found in dropdown.less-->
-  {{-- @include('layouts.partials.navbar-user-features') comment --}}
+  @include('layouts.partials.navbar-user-features')
   <!-- User Account Menu -->
   <li class="dropdown user user-menu">
     <!-- Menu Toggle Button -->
@@ -73,8 +73,5 @@
     </ul>
   </li>
   <!-- Control Sidebar Toggle Button -->
-  <li>
-    <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-  </li>
 
 @endif

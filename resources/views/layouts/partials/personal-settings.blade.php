@@ -4,53 +4,52 @@
     }
 </style>
 <div class="_PersonalSettings">
-    <form action="#" class="sidebar-form" method="post">
-        {{ csrf_field() }}
-        <div class="form-group  form-group-sm">
-            <select class="form-control" name="skin" id="skin">
-                <option value="skin-blue">Blue Skin</option>     
-                <option value="skin-black">Black Skin</option>    
-                <option value="skin-purple">Purple Skin</option>   
-                <option value="skin-yellow">Yellow Skin</option>   
-                <option value="skin-red">Red Skin</option>      
-                <option value="skin-green">Green Skin</option>
-            </select>
-        </div>
-        <!-- /.form-group  form-group-sm -->
-        <div class="form-group  form-group-sm">
-            <select class="form-control" name="layout" id="layout">
-                <option value="fixed">Fixed Layout</option>     
-                <option value="layout-boxed">Boxed Layout</option>    
-                <option value="top-nave">Top Nav Layout</option>   
-            </select>
-        </div>
-        <!-- /.form-group  form-group-sm -->
-        <div class="form-group  form-group-sm">
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" value="sidebar-mini">
-                    Mini sidebar
-                </label>
-                <!-- /label -->
-            </div>
-            <!-- /.checkbox -->
+        
+    <div class="box-body">
+        {!! Form::open(['route'=>['admin.users.update_settings', $user->id], 'method'=>'POST', 'class'=>'', 'role'=>'form', 'autocomplete'=>"off",  'enctype'=>"multipart/form-data"]) !!}    
 
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" value="sidebar-collapse">
-                    Sidebar Collapse
-                </label>
-                <!-- /label -->
+            <div class="form-group form-group-sm {{ $errors->has('skin') ? 'has-error' : null }}">
+                {!! Form::label('skin', 'Sking:', ['class'=>'']) !!}
+                {!! Form::select('skin', $layout_colors, $layout_color, ['class'=>'form-control input-sm']) !!}
+                {!! $errors->first('skin', '<span class="text-danger">:message</span>') !!}
             </div>
-            <!-- /.checkbox -->
-        </div>
-        <!-- /.form-group  form-group-sm -->
 
-        <div class="row">
+            <div class="form-group form-group-sm {{ $errors->has('layout') ? 'has-error' : null }}">
+                {!! Form::label('layout', 'Layouts:', ['class'=>'']) !!}
+                {!! Form::select('layout', $layouts, $layout, ['class'=>'form-control input-sm']) !!}
+                {!! $errors->first('layout', '<span class="text-danger">:message</span>') !!}
+            </div>
+            <!-- /. Layouts -->
+           
+            
             <div class="form-group  form-group-sm">
-                <button class="btn btn-primary form-control">SUBMIT-CHANGES</button>
+                <div class="checkbox">
+                    <label>
+                        {{-- <input type="checkbox" name="sidebar-mini" value="sidebar-mini"> --}}
+                        {{ Form::checkbox('mini', 1, $sidebar_mini ) }}
+                        Mini sidebar
+                    </label>
+                    <!-- /label -->
+                </div>
+                <!-- /.checkbox -->
+
+                <div class="checkbox">
+                    <label>
+                        {{ Form::checkbox('collapse', 1, $sidebar_collapse ) }}
+                        Sidebar Collapse
+                    </label>
+                    <!-- /label -->
+                </div>
+                <!-- /.checkbox -->
             </div>
-        </div>
-        <!-- /.row -->
-    </form>
+            <!-- /.form-group  form-group-sm -->
+
+            <div class="">
+                <div class="form-group  form-group-sm">
+                    <button class="btn btn-primary form-control">SUBMIT-CHANGES</button>
+                </div>
+            </div>
+    
+        {!! Form::close() !!}
+    </div>  
 </div>

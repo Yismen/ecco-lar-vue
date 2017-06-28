@@ -1,22 +1,20 @@
-<?php namespace App\Http\Controllers;
+<?php 
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
-
-use Illuminate\Http\Request;
+namespace App\Http\Controllers;
 
 use App\User;
 use App\Message;
+use App\Http\Requests;
+use Illuminate\Http\Request;
+use App\Events\MessageCreated;
+use App\Http\Controllers\Controller;
 
-class MessagesController extends Controller {
-
-	function __construct() {
-		$this->middleware('authorize:view_messages|edit_messages|create_messages', ['only'=>['index','show']]);
-		$this->middleware('authorize:edit_messages', ['only'=>['edit','update']]);
-		// $this->middleware('authorize:create_messages', ['only'=>['create','store']]);
-		$this->middleware('authorize:destroy_messages', ['only'=>['destroy']]);
+class MessagesController extends Controller 
+{
+	public function __construct()
+	{
+		$this->users = User::orderBy('name', 'ASC')->get();
 	}
-
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -25,7 +23,7 @@ class MessagesController extends Controller {
 	public function index(Message $messages)
 	{
 		// Auth::getUser()
-		return \Auth::getUser()->messages;
+		return \Auth::user()->messages;
 		return $messages->with('user')->get();
 	}
 
@@ -36,7 +34,9 @@ class MessagesController extends Controller {
 	 */
 	public function create()
 	{
-		//
+		$user = $this->users;
+
+		return view('messages.create', compact('users'));
 	}
 
 	/**
@@ -46,7 +46,19 @@ class MessagesController extends Controller {
 	 */
 	public function store()
 	{
-		//
+		$this->validate($request, [
+			'recipient_id' => 'required|exits:users',
+			'body' => 'required|min:5|max:50',
+		]);
+
+		$message = $this->user()->messages()->create($request->only(['recipient_id', 'body']));
+
+		dd($message);
+
+		event(new MessageCreated($this->user));
+
+		return redirect()->route('admin.messages.index')
+			->withSuccess("Message Sent");
 	}
 
 	/**

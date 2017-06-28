@@ -1,18 +1,47 @@
 <?php
 
 return [
+    /**
+     * Define the name of the app. This can be consistent
+     * all accross the app.
+     */
     'app_name' => env('APP_NAME', 'Dainsys'),
 
-    'client_name' => env('APP_NAME', 'Ecco Outsourcing'),
+    /**
+     * The name of the company using the app. This name will 
+     * be used a the top of the page, as well as at the 
+     * bottom.
+     */
+    'client_name' => env('CLIENT_NAME', 'Ecco Outsourcing'),
 
-    'client_name_mini' => env('APP_NAME', 'ECCO'),
+    /**
+     * A short name of the client. 
+     */
+    'client_name_mini' => env('CLIENT_NAME_SHORT', 'ECCO'),
 
-    'layout_color' => env('APP_COLOR', 'yellow'),
+    /**
+     * Admin LTE color skins. Options are:
+     * blue, black, purple, yellow, red, green 
+     */
+    'layout_color' => env('APP_COLOR', 'yellow'), 
 
-    'sidebar_mini' => 'sidebar_mini', // sidebar_mini, sidebar_hidden
+    /**
+     * Admin LTE layouts. Options are:
+     * fixed, layout-boxed, layout-top-nav
+     */
+    'layout' => 'fixed',
+
+    /**
+     * Whether or not the mini sidebar should be visible. Options are:
+     * sidebar-mini, ''
+     */
+    'sidebar_mini' => 'sidebar-mini',
     
-    'sidebar_collapse' => 'sidebar_collapse', // sidebar_collapse, null
+    /**
+     * Admin LTE option to hide or show the sidebar by default. Options are:
+     * sidebar-collapse, ''
+     */
+    'sidebar_collapse' => '',
 
-    'layout' => 'fixed', // fixed, layout-boxed, layout-top-nav
 
 ];

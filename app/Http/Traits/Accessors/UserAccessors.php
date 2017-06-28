@@ -39,4 +39,9 @@ trait UserAccessors
         return ['0' => 'Not Admin', '1'=>'Admin User'];
     }
 
+    public function getLayoutAttribute()
+    {
+        return 'skin-black';
+    }
+
 }

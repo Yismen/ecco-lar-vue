@@ -45,7 +45,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     |               | sidebar-mini                            |
     |*********************************************************|
     -->
-    <body class="skin-{{ $layout_color }} {{ $sidebar_mini }} {{ $sidebar_collapse }}" style="height: auto;">  
+    <body class="skin-{{ $layout_color }} {{ $layout }} {{ $sidebar_mini }} {{ $sidebar_collapse }}" style="height: auto;">  
         <div class="wrapper" style="height: auto;">
             <!-- Main Header -->
             {{-- @inject('user', 'App\Layout') --}}
@@ -97,9 +97,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <strong>Copyright &copy; {{ date("Y") }} <a href="{{ url('/admin') }}">ECCO Outsourcing Group</a>.</strong> All rights reserved.
             </footer>
             <!-- Control Sidebar -->
-            <aside class="control-sidebar control-sidebar-dark">
-                @include('layouts.partials.sidebar-dark')
-            </aside>
             <!-- /.control-sidebar -->
             <!-- Add the sidebar's background. This div must be placed
             immediately after the control sidebar -->

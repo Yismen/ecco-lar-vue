@@ -3,6 +3,7 @@
 namespace App\Http\Traits\Relationships;
 
 use App\Task;
+use App\Message;
 use App\Profile;
 use App\Setting;
 use App\Password;
@@ -33,5 +34,10 @@ trait UserRelationships
     public function settings()
     {
         return $this->hasMany(Setting::class);
+    }
+
+    public function app_setting()
+    {
+        return $this->hasOne('App\AppSetting');
     }
 }
