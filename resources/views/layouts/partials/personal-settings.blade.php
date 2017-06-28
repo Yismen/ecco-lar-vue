@@ -9,13 +9,13 @@
         {!! Form::open(['route'=>['admin.users.update_settings', $user->id], 'method'=>'POST', 'class'=>'', 'role'=>'form', 'autocomplete'=>"off",  'enctype'=>"multipart/form-data"]) !!}    
 
             <div class="form-group form-group-sm {{ $errors->has('skin') ? 'has-error' : null }}">
-                {!! Form::label('skin', 'Sking:', ['class'=>'']) !!}
+                {{-- {!! Form::label('skin', 'Skin:', ['class'=>'']) !!} --}}
                 {!! Form::select('skin', $layout_colors, $layout_color, ['class'=>'form-control input-sm']) !!}
                 {!! $errors->first('skin', '<span class="text-danger">:message</span>') !!}
             </div>
 
             <div class="form-group form-group-sm {{ $errors->has('layout') ? 'has-error' : null }}">
-                {!! Form::label('layout', 'Layouts:', ['class'=>'']) !!}
+                {{-- {!! Form::label('layout', 'Layouts:', ['class'=>'']) !!} --}}
                 {!! Form::select('layout', $layouts, $layout, ['class'=>'form-control input-sm']) !!}
                 {!! $errors->first('layout', '<span class="text-danger">:message</span>') !!}
             </div>

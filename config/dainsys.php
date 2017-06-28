@@ -29,13 +29,13 @@ return [
      * Admin LTE layouts. Options are:
      * fixed, layout-boxed, layout-top-nav
      */
-    'layout' => 'fixed',
+    'layout' => 'default',
 
     /**
      * Whether or not the mini sidebar should be visible. Options are:
      * sidebar-mini, ''
      */
-    'sidebar_mini' => 'sidebar-mini',
+    'sidebar_mini' => '',
     
     /**
      * Admin LTE option to hide or show the sidebar by default. Options are:

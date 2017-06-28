@@ -32,7 +32,7 @@ class AppComposer
             'sidebar_mini' => $this->sidebar_mini,
             'sidebar_collapse' => $this->sidebar_collapse,
             'layouts' => [
-                "default" => "Default",    
+                "default" => "Default Layout",    
                 "fixed" => "Fixed Layout",    
                 "layout-boxed" => "Boxed Layout",   
                 "layout-top-nav" => "Top Nav Layout",  
