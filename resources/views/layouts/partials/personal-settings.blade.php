@@ -27,7 +27,7 @@
                     <label>
                         {{-- <input type="checkbox" name="sidebar-mini" value="sidebar-mini"> --}}
                         {{ Form::checkbox('mini', 1, $sidebar_mini ) }}
-                        Mini sidebar
+                        Show mini sidebar
                     </label>
                     <!-- /label -->
                 </div>
@@ -36,7 +36,7 @@
                 <div class="checkbox">
                     <label>
                         {{ Form::checkbox('collapse', 1, $sidebar_collapse ) }}
-                        Sidebar Collapse
+                        Collapse the sidebar
                     </label>
                     <!-- /label -->
                 </div>

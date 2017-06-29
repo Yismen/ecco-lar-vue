@@ -9,11 +9,13 @@ use App\Department;
 use App\Termination;
 use App\ImageUploader;
 use Illuminate\Http\Request;
+use App\Jobs\NotifyBirthdays;
 use Yajra\Datatables\Datatables;
+use App\Http\Traits\EmployeesTrait;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Cache;
-use App\Http\Traits\EmployeesTrait;
+use Illuminate\Support\Facades\Queue;
 use Intervention\Image\ImageManagerStatic as Image;
 use App\Providers\EmployeeServiceProvider as EmployeeProvider;
 

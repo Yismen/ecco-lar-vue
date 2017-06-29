@@ -4,8 +4,10 @@ namespace App\Jobs;
 
 use App\Contact;
 use App\Jobs\Job;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class NotifyBirthdays extends Job implements ShouldQueue
@@ -27,8 +29,11 @@ class NotifyBirthdays extends Job implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(Schedule $schedule)
     {
-        return Contact::first()->delete();
+        $schedule->call(function() {
+            Log::error('message');
+            return Log::info('Queue Job');
+        })->everyMinute();
     }
 }
