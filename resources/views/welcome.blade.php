@@ -20,7 +20,7 @@
 
         @else
 
-            <div class="jumbotron red-div no-margin">
+            <div class="jumbotron bg-orange bg-disabled no-margin">
                 <div class="container-fluid">
                     @include('layouts.partials.logo')
                     <div class="text-center">                        
@@ -52,7 +52,7 @@
             </div>
         </div>
 
-        <div class="jumbotron  {{ $layout_color }}-div no-margin text-center">
+        <div class="jumbotron no-margin text-center {{ Auth::check() ? $layout_color.'-div' :  'bg-orange bg-disabled' }}">
             <div class="container-fluid">
                 <h1 class="">{{ $app_name }}</h1>
                 <p>Process documentation? Collect data? Customize reports? Just ask for it. Get in contact with the System Administrator and together create what you need. Please log in to gain access to Dainsys!</p>

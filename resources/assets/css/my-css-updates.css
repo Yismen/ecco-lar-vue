@@ -107,4 +107,9 @@
     background-color: #222;
     color: #bab3b2;
   }
+
+  .bg-disabled {
+    opacity: .65;
+    filter: alpha(opacity=65);
+  }
 }

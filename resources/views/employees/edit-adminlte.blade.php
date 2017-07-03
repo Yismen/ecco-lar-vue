@@ -7,7 +7,33 @@
 			<div class="box box-primary pad">
 
 				<div class="row">
-					
+				
+					<div class="col-sm-12">
+						<div class="nav-tabs-custom">
+							<ul class="nav nav-tabs">
+								<li class="active"><a href="#activity" data-toggle="tab" aria-expanded="true">Activity</a></li>
+								<li class=""><a href="#timeline" data-toggle="tab" aria-expanded="false">Timeline</a></li>
+								<li class=""><a href="#settings" data-toggle="tab" aria-expanded="false">Settings</a></li>
+							</ul>
+							<div class="tab-content">
+								<div class="tab-pane active" id="activity">
+									1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia tenetur harum quae dolorum sint itaque, autem enim facere, libero fuga labore aperiam minus corporis quo laudantium facilis obcaecati aliquam quod?
+								</div>
+								<!-- /.tab-pane -->
+								<div class="tab-pane" id="timeline">
+									2. Lorem ipsum dolor sit amet, consectetur adipisicing elit. At possimus laborum quidem vero ipsam, eos sint excepturi tempora aspernatur dicta dolore, autem eligendi in dolorum. Id, maiores iure. Blanditiis, laudantium!
+								</div>
+								<!-- /.tab-pane -->
+
+								<div class="tab-pane" id="settings">
+									3. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum in at, tempore quam dolor iure. Maxime corrupti nesciunt, quas voluptate saepe laudantium, modi eius fuga dicta qui officiis velit debitis.
+								</div>
+								<!-- /.tab-pane -->
+							</div>
+							<!-- /.tab-content -->
+						</div>
+					</div>
+					{{-- ./ Col Div --}}
 					<div class="col-sm-12">
 						<div role="tabpanel">
 						    <ul class="nav nav-tabs" role="tablist">
