@@ -44,7 +44,7 @@ class UsersController extends Controller
 				$query->orderBy('display_name');
 			}])
 			->orderBy('name')
-			->paginate(25);
+			->paginate(20);
 
 		return view('users.index', compact('users'));
 	}
@@ -117,8 +117,8 @@ class UsersController extends Controller
 		$this->validateRequest($request, $user)
 			->updateUser($user);
 
-		return redirect()->route('admin.users.show', $user->id)
-			->withSuccess("User $user->name has been updated.");
+		return redirect()->route('admin.users.index')
+			->withSuccess("User {$user->name} has been updated. Current status is Active = {$user->is_active}");
 	}
 
 	/**
@@ -215,7 +215,5 @@ class UsersController extends Controller
 			event(new CreateUserSettings($user));
 
         return redirect()->back();
-	
-
 	}
 }

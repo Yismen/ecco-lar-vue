@@ -26,6 +26,9 @@ class AppComposer
         return $view->with([
             'logged' => auth()->check(),  
             'user' => $this->user,
+            'app_name' => ucwords(config('dainsys.app_name', 'Dainsys')),
+            'client_name' => ucwords(config('dainsys.client_name', 'Dainsys\' Client')),            
+            'client_name_mini' => strtoupper(config('dainsys.client_name_mini', 'DAINSYS')),
             'menu' => null,
             'layout_color' => $this->layout_color,
             'layout' => $this->layout,

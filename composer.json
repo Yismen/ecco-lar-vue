@@ -32,7 +32,8 @@
             "database"
         ],
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/",
+            "Dainsys\\Tasks\\": "packages/dainsys/tasks/src"
         },
         "files": [
             "app/Http/helpers.php"

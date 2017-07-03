@@ -14,6 +14,8 @@
                              Add New
                         </a>                     
                     </h3>
+                    {{-- /. Header --}}
+                        
                     @if ($users->isEmpty())
                         <div class="bs-callout bs-callout-warning">
                             <h1>
@@ -21,35 +23,57 @@
                             </h1>
                         </div>
                     @else
-                        @foreach ($users as $user)
-                            <div class="div col-sm-6">
-                                <div class="box info-box bg-grey">
-                                    <span class ="info-box-icon">
-                                        <a href="{{ route('admin.users.edit', $user->id) }}">
-                                            <i class="fa fa-pencil"></i>
-                                        </a>
-                                    </span>
-                                    <div class ="info-box-content">
-                                        <span class ="info-box-text">
-                                            <a href="{{ route('admin.users.show', $user->id) }}">
-                                                <i class="fa fa-user"></i>
-                                                 {{ $user->name }}
+                        <div class="row">
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="info-box">
+                                    <span class="info-box-icon bg-aqua"><i class="fa fa-users"></i></span>
+
+                                    <div class="info-box-content">
+                                    <span class="info-box-text">Active Users</span>
+                                    <span class="info-box-number">{{ $users->total() }}</span>
+                                    </div>
+                                    <!-- /.info-box-content -->
+                                    </div>
+                                </div>
+                            <div class="col-md-4 col-sm-6 col-xs-12">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed iste nihil, porro nam tempore delectus! Quaerat incidunt ea ratione in maiores sequi facere maxime ipsam, quo molestias ut minima repellat.</div>
+                            <div class="col-md-4 col-sm-6 col-xs-12">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora, blanditiis dicta laboriosam perspiciatis animi, cumque voluptates, quia aliquam quos quaerat architecto! Hic qui temporibus et iusto perspiciatis tenetur ducimus repellat?</div>
+                        </div>
+                        {{-- ./ Dashboard --}}
+                        <div class="row">
+                            @foreach ($users as $user)
+                                <div class="div col-sm-6">
+                                    <div class="box info-box bg-grey">
+                                        <span class ="info-box-icon">
+                                            <a href="{{ route('admin.users.edit', $user->id) }}">
+                                                <i class="fa fa-pencil"></i>
                                             </a>
                                         </span>
-                                        {{-- <span class ="info-box-number">41,410</span> --}}
-                                        
-                                        @if (count($user->roles) > 0)
-                                            <strong>Roles:</strong>
-                                            @foreach ($user->roles as $role)
-                                                <span class="label label-primary">{{ $role->display_name }}</span>
-                                            @endforeach
-                                        @endif
-                                    </div><!-- /.info-box-content -->
-                                </div><!-- /.info-box -->
-                            </div>
-                        @endforeach
+                                        <div class ="info-box-content">
+                                            <span class ="info-box-text">
+                                                <a href="{{ route('admin.users.show', $user->id) }}">
+                                                    <i class="fa fa-user"></i>
+                                                     {{ $user->name }}
+                                                </a>
+                                            </span>
+                                            {{-- <span class ="info-box-number">41,410</span> --}}
+                                            
+                                            @if (count($user->roles) > 0)
+                                                <strong>Roles:</strong>
+                                                @foreach ($user->roles as $role)
+                                                    <span class="label label-primary">{{ $role->display_name }}</span>
+                                                @endforeach
+                                            @endif
+                                        </div><!-- /.info-box-content -->
+                                    </div><!-- /.info-box -->
+                                </div>
+                            @endforeach
+                        </div>
                         
-                        {{ $users->render() }}
+                        <div class="row">
+                            <div class="col-sm-12">
+                                {{ $users->render() }}
+                            </div>
+                        </div>
 
                     @endif
                 </div>

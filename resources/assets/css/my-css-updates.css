@@ -83,3 +83,28 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+.navbar-nav>.user-menu>.dropdown-menu>.user-footer {
+  background-color: #222;
+  color: #ffffff;
+}
+.user-footer a {
+  color: #fff;
+}
+.user-footer a:hover {
+  color: #bab3b2;
+}
+@media (max-width:991px) {
+  .navbar-nav>.user-menu>.dropdown-menu>.user-footer {
+    background-color: #222;
+    color: #ffffff;
+  }
+
+  .user-footer a {
+    color: #ffffff;
+  }
+  .user-footer a:hover {
+    background-color: #222;
+    color: #bab3b2;
+  }
+}

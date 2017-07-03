@@ -27,7 +27,6 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('mymigration:status')->everyMinute();
-        $schedule->command('inspire')
-                 ->hourly();
+        $schedule->command('inspire')->everyMinute();
     }
 }

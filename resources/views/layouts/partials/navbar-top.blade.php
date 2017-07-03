@@ -3,9 +3,9 @@
     <!-- Logo -->
     <a href="{{ url('/admin') }}" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><b>ECCO</b></span>
+        <span class="logo-mini"><b>{{ $client_name_mini }}</b></span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>ECCO</b>Outsourcing</span>
+        <span class="logo-lg"><b>{{ $client_name_mini }}</b>'s App</span>
     </a>
 
     <!-- Header Navbar -->

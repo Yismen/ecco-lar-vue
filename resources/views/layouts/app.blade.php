@@ -94,7 +94,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     @include('layouts.partials.links.webmaster')
                 </div>
                 <!-- Default to the left -->
-                <strong>Copyright &copy; {{ date("Y") }} <a href="{{ url('/admin') }}">ECCO Outsourcing Group</a>.</strong> All rights reserved.
+                <strong>
+                    Copyright &copy; {{ date("Y") }} 
+                    <a href="{{ url('/admin') }}">
+                        {{ $app_name }}, {{ $client_name }}
+                    </a>.
+                </strong> All rights reserved.
             </footer>
             <!-- Control Sidebar -->
             <!-- /.control-sidebar -->

@@ -2,9 +2,10 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Builder;
+use App\Http\Traits\Mutators\UserMutators;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 use App\Http\Traits\Accessors\UserAccessors;
-use App\Http\Traits\Mutators\UserMutators;
 use Illuminate\Contracts\Auth\CanResetPassword;
 use App\Http\Traits\Relationships\UserRelationships;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -29,6 +30,15 @@ class User extends Authenticatable implements CanResetPassword
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('active', function(Builder $builder) {
+            $builder->where('is_active', '=', 1);
+        });
+    }
     
     public function owns($model)
     {

@@ -3,45 +3,39 @@
 return [
     /**
      * Define the name of the app. This can be consistent
-     * all accross the app.
+     * all accross the app. Set this in your ".env" file.
      */
     'app_name' => env('APP_NAME', 'Dainsys'),
 
     /**
      * The name of the company using the app. This name will 
      * be used a the top of the page, as well as at the 
-     * bottom.
+     * bottom. Set this in your ".env" file.
      */
-    'client_name' => env('CLIENT_NAME', 'Ecco Outsourcing'),
+    'client_name' => env('CLIENT_NAME', 'Dainsys \' Client Name'),
 
     /**
-     * A short name of the client. 
+     * A short name of the client. Set this in your ".env" file.
      */
-    'client_name_mini' => env('CLIENT_NAME_SHORT', 'ECCO'),
+    'client_name_mini' => env('CLIENT_NAME_SHORT', 'DAINSYS'),
 
     /**
-     * Admin LTE color skins. Options are:
-     * blue, black, purple, yellow, red, green 
+     * Admin LTE color skins. Set this in your ".env" file.
      */
-    'layout_color' => env('APP_COLOR', 'yellow'), 
+    'layout_color' => env('APP_COLOR', 'yellow'), // blue, black, purple, yellow, red, green 
 
     /**
-     * Admin LTE layouts. Options are:
-     * fixed, layout-boxed, layout-top-nav
+     * Admin LTE layouts. Set this in your ".env" file.
      */
-    'layout' => 'default',
+    'layout' => env('LAYOUT', 'default'), // default, fixed, layout-boxed, layout-top-nav
 
     /**
-     * Whether or not the mini sidebar should be visible. Options are:
-     * sidebar-mini, ''
+     * Whether or not the mini sidebar should be visible.
      */
-    'sidebar_mini' => '',
+    'sidebar_mini' => '', // sidebar-mini, ''
     
     /**
-     * Admin LTE option to hide or show the sidebar by default. Options are:
-     * sidebar-collapse, ''
+     * Admin LTE option to hide or show the sidebar by default.
      */
-    'sidebar_collapse' => '',
-
-
+    'sidebar_collapse' => '', // sidebar-collapse, ''
 ];

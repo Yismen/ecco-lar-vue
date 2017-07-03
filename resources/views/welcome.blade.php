@@ -9,7 +9,7 @@
                 <div class="container-fluid">
                     <div class="col-sm-12 text-center">
                         @include('layouts.partials.logo')
-                        <h1 class="my-main-header">Welcome to Dainsys, {{ $user->name }}</h1>
+                        <h1 class="my-main-header">Welcome to {{ $app_name }}, {{ $user->name }}</h1>
                         <p><i class="fa fa-arrow-up"></i> Use the top menu icon <i class="fa fa-bars"></i> to see your application's links. </p>
                         <a href="/admin/profiles" class="btn btn-default btn-lg">
                             View your profile! <i class="fa fa-angle-double-right"></i>
@@ -24,7 +24,7 @@
                 <div class="container-fluid">
                     @include('layouts.partials.logo')
                     <div class="text-center">                        
-                        <h1 class="my-main-header">Welcome to Dainsys App</h1>
+                        <h1 class="my-main-header">Welcome to {{ $app_name }} App</h1>
                         <p>An app designed for you.</p>
                         <a href="/admin/login" class="btn btn-primary btn-lg"><i class="fa fa-sign-in"></i> Get Started</a>
                     </div>
@@ -47,14 +47,14 @@
                 </div>
                 <div class="col-sm-4">
                     <h3><i class="fa fa-4x fa-user"></i></h3>
-                    Dainsys allows to monitor performance for users under your groups or just for yourself.
+                    {{ $app_name }} allows to monitor performance for users under your groups or just for yourself.
                 </div>
             </div>
         </div>
 
         <div class="jumbotron  {{ $layout_color }}-div no-margin text-center">
             <div class="container-fluid">
-                <h1 class="">Dainsys</h1>
+                <h1 class="">{{ $app_name }}</h1>
                 <p>Process documentation? Collect data? Customize reports? Just ask for it. Get in contact with the System Administrator and together create what you need. Please log in to gain access to Dainsys!</p>
             </div>
         </div>

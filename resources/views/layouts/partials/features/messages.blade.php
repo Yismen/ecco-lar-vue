@@ -19,7 +19,7 @@
                 <a href="#">
                   <div class="pull-left">
                     <!-- User Image -->
-                    <img src="{{ $user->profile->photo or 'http://placehold.it/350x350' }}" class="img-circle" alt="User Image">
+                    @include('layouts.partials.user-photo')
                   </div>
                   <!-- Message title and timestamp -->
                   <h4>

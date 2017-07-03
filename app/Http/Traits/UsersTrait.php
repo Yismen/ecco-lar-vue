@@ -51,6 +51,15 @@ trait UsersTrait
 
     private function updateUser($user)
     {
+        // dd($this->request->all());
+        if ($user->id == auth()->user()->id && $this->request->is_active == 0) {
+            session()->flash('danger', "You cant inactivate Your self. No changes made.");
+            return $this;
+        }
+        // if ($user->id == auth()->user()->id && $this->request->is_admin == 1) {
+        //     session()->flash('danger', "You cant set yourself as super admin. No changes.");
+        //     return $this;
+        // }
         $user->update($this->request->all());
             
         $this->syncRoles($user, $this->request->input('roles'));

@@ -158,6 +158,7 @@ return [
         Zizaco\Entrust\EntrustServiceProvider::class,
         Yajra\Datatables\DatatablesServiceProvider::class,
         GrahamCampbell\Flysystem\FlysystemServiceProvider::class,
+        Dainsys\Tasks\TasksServiceProvider::class,  
 
 
         /*
