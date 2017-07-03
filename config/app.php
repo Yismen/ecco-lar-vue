@@ -158,7 +158,8 @@ return [
         Zizaco\Entrust\EntrustServiceProvider::class,
         Yajra\Datatables\DatatablesServiceProvider::class,
         GrahamCampbell\Flysystem\FlysystemServiceProvider::class,
-        Dainsys\Tasks\TasksServiceProvider::class,  
+        Dainsys\Tasks\TasksServiceProvider::class,
+        Arcanedev\LogViewer\LogViewerServiceProvider::class,
 
 
         /*
