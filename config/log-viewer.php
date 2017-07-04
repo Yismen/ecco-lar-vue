@@ -38,7 +38,8 @@ return [
         'attributes' => [
             'prefix'     => 'admin/log_viewer',
 
-            'middleware' => env('ARCANEDEV_LOGVIEWER_MIDDLEWARE', null),
+            'middleware' => null,
+            // 'middleware' => ['auth'],
         ],
     ],
 
