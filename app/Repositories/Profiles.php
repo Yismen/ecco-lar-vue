@@ -19,6 +19,9 @@ class Profiles
         return $this->profiles = $this->profile
                     // ->where('id', '!=', $profile->id)
                     ->with('user')
+                    ->whereHas('user', function($query) {
+                        return $query;
+                    })
                     ->paginate(16);
     }
 }
