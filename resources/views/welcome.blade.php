@@ -20,7 +20,7 @@
 
         @else
 
-            <div class="jumbotron intro-header bg-orange bg-disabled no-margin">
+            <div class="jumbotron intro-header no-margin">
                 <div class="container-fluid">
                     @include('layouts.partials.logo')
                     <div class="text-center">                        

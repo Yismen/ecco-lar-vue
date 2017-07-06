@@ -59,16 +59,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="content-wrapper" style="min-height: 946px;">
 
                 <!-- Content Header (Page header) -->
-                <section class="content-header">
-                    <h1>
-                        {{ $page_header or config('dainsys.app_name') }}
-                        <small>{{ $page_description or '' }}</small>
-                    </h1>
-                    <!-- <ol class="breadcrumb">
-                        <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-                        <li class="active">Here</li>
-                    </ol> -->
-                </section>
+                @if (! isset($hide_content_header) )
+                    <section class="content-header">
+                        <h1>
+                            {{ $page_header or config('dainsys.app_name') }}
+                            <small>{{ $page_description or '' }}</small>
+                        </h1>
+                        <!-- <ol class="breadcrumb">
+                            <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
+                            <li class="active">Here</li>
+                        </ol> -->
+                    </section>
+                @endif
 
                 <!-- Main content -->
                 <section class="content" id="app">
