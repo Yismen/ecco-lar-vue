@@ -49,7 +49,14 @@
  * Headers
  */
 .my-main-header {font-family: fantasy; font-size: 76px; }
-
+.intro-header {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    text-align: center;
+    color: #f8f8f8;
+    background: url(../images/backgrounds/main-header.jpg) no-repeat center center;
+    background-size: cover;
+}
 /**
  * Margins
  */
@@ -94,6 +101,13 @@
 .user-footer a:hover {
   color: #bab3b2;
 }
+
+
+  .bg-disabled {
+    opacity: .85;
+    filter: alpha(opacity=85);
+  }
+
 @media (max-width:991px) {
   .navbar-nav>.user-menu>.dropdown-menu>.user-footer {
     background-color: #222;
@@ -106,10 +120,5 @@
   .user-footer a:hover {
     background-color: #222;
     color: #bab3b2;
-  }
-
-  .bg-disabled {
-    opacity: .65;
-    filter: alpha(opacity=65);
   }
 }

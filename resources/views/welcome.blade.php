@@ -20,13 +20,13 @@
 
         @else
 
-            <div class="jumbotron bg-orange bg-disabled no-margin">
+            <div class="jumbotron intro-header bg-orange bg-disabled no-margin">
                 <div class="container-fluid">
                     @include('layouts.partials.logo')
                     <div class="text-center">                        
                         <h1 class="my-main-header">Welcome to {{ $app_name }} App</h1>
                         <p>An app designed for you.</p>
-                        <a href="/admin/login" class="btn btn-primary btn-lg"><i class="fa fa-sign-in"></i> Get Started</a>
+                        <a href="/admin/login" class="btn btn-primary btn-lg active"><i class="fa fa-sign-in"></i> Get Started</a>
                     </div>
                 </div>
             </div>

@@ -62,7 +62,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <section class="content-header">
                     <h1>
                         {{ $page_header or config('dainsys.app_name') }}
-                        <small>{{ $page_description or 'Optional admin description' }}</small>
+                        <small>{{ $page_description or '' }}</small>
                     </h1>
                     <!-- <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
