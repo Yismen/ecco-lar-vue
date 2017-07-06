@@ -24,7 +24,7 @@
                 <div class="container-fluid">
                     @include('layouts.partials.logo')
                     <div class="text-center">                        
-                        <h1 class="my-main-header">Welcome to {{ $app_name }} App</h1>
+                        <h1 class="my-main-header">Welcome to {{ $app_name }}</h1>
                         <p>An app designed for you.</p>
                         <a href="/admin/login" class="btn btn-primary btn-lg active"><i class="fa fa-sign-in"></i> Get Started</a>
                     </div>
