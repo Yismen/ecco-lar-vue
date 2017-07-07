@@ -104,7 +104,7 @@ class ProfilesController extends Controller
     public function show(Profile $profile, Profiles $profiles)
     {
         $profiles = $profiles->all();
-
+        
         return view('profiles.show', compact('profile', 'profiles'));
     }
 

@@ -31,14 +31,14 @@ class User extends Authenticatable implements CanResetPassword
         'password', 'remember_token',
     ];
 
-    protected static function boot()
-    {
-        parent::boot();
+    // protected static function boot()
+    // {
+    //     parent::boot();
 
-        static::addGlobalScope('active', function(Builder $builder) {
-            $builder->where('is_active', '=', 1);
-        });
-    }
+    //     static::addGlobalScope('active', function(Builder $builder) {
+    //         $builder->where('is_active', '=', 1);
+    //     });
+    // }
     
     public function owns($model)
     {

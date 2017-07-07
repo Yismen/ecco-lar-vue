@@ -27,6 +27,10 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\EditUserSettings' => [
             'App\Listeners\UpdateUserSettings'
+        ],
+        'App\Events\EmployeesUpdates' => [
+            'App\Listeners\NotifyEmployeesTerminated',
+            'App\Listeners\NotifyEmployeesHired',
         ]
     ];
 

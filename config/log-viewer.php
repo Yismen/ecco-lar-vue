@@ -33,7 +33,7 @@ return [
      | ------------------------------------------------------------------------------------------------
      */
     'route'         => [
-        'enabled'    => true,
+        'enabled'    => true, // Default is true. Set as false to prevent the package from loading its own routes.
 
         'attributes' => [
             'prefix'     => 'admin/log_viewer',

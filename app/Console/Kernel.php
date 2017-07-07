@@ -13,9 +13,9 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\Inspire::class,
-        Commands\ReportEmployeesHired::class,
-        Commands\MyMigrationStatus::class,
+        'App\Console\Commands\Inspire',
+        'App\Console\Commands\ReportEmployeesHired',
+        'App\Console\Commands\MyMigrationStatus',
     ];
 
     /**
@@ -26,7 +26,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('mymigration:status')->everyMinute();
+        $schedule->command('employees:hired')->everyMinute();
         $schedule->command('mymigration:status')->everyFiveMinutes();
         $schedule->command('inspire')->everyMinute();
     }
