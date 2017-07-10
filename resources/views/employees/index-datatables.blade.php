@@ -19,6 +19,9 @@
                             <tr>
                                 <th>Employee ID:</th>
                                 <th>Name:</th>
+                                <th>Second First Name:</th>
+                                <th>Last Name:</th>
+                                <th>Second Last Name:</th>
                                 <th>Position:</th>
                                 <th>Personal ID:</th>
                                 <th>Passport:</th>
@@ -56,9 +59,11 @@
                             let second_last_name = full.second_last_name  || '';
                             return (first_name +' '+second_first_name+' '+last_name+' '+second_last_name).trim();
                         }},
+                        {data: 'second_first_name', name: 'second_first_name', 'visible': false},
+                        {data: 'last_name', name: 'last_name', 'visible': false},
+                        {data: 'second_last_name', name: 'second_last_name', 'visible': false},
                         {data: 'position_id', name: 'position_id', render: function(data, type, full){
                             let position = full.position ? full.position.name : '';
-                            console.log(full)
                             let department = full.position && full.position.department ? ', At ' + full.position.department.department : '';
                             return position + department;
                         }},
