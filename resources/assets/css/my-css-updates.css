@@ -1,3 +1,18 @@
+.parallax { 
+    position: relative;
+    opacity: 0.70;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* The image used */
+    /* background-image: url("img_parallax.jpg"); */
+
+    /* Set a specific height */
+    /* height: 500px;  */
+
+    /* Create the parallax scrolling effect */
+}
 .main-spinner {
     /*background-color: rgba(0, 0, 0, .2);*/
     border-top: 10px solid rgb(66,139,202);
@@ -54,7 +69,7 @@
     padding-bottom: 50px;
     text-align: center;
     color: #f8f8f8;
-    background: url(../images/backgrounds/main-header.jpg) no-repeat center center;
+    background-image: url('../images/backgrounds/main-header.jpg');
     background-size: cover;
 }
 /**
@@ -109,6 +124,7 @@
   }
 
 @media (max-width:991px) {
+
   .navbar-nav>.user-menu>.dropdown-menu>.user-footer {
     background-color: #222;
     color: #ffffff;

@@ -20,7 +20,7 @@
 
         @else
 
-            <div class="jumbotron intro-header no-margin">
+            <div class="jumbotron parallax intro-header no-margin">
                 <div class="container-fluid">
                     @include('layouts.partials.logo')
                     <div class="text-center">                        
@@ -61,13 +61,20 @@
 
         <div class="jumbotron no-margin text-center">
             <div class="container-fluid">
-                <h1 class="">Your Roles</h1>
-                <h3 class="">You have the following roles assigned to you. </h3>
-                <p>Access their end points by using the left side menu.</p>
+                <h1 class="">Roles Based Access</h1>
                 @if (Auth::check())
+                    <h3 class="">You have the following roles assigned to you. </h3>
+                    <p>Access their end points by using the left side menu.</p>
                     @foreach ($user->roles as $role)
                         <span for="" class="label label-primary">{{ $role->display_name }}</span>
                     @endforeach
+                @else
+                    <h3 class="">Gain access to different end points of the app based on the roles assigned to you. </h3>
+                    <p>
+                        <a href="/admin/login" class="btn btn-success btn-lg">
+                            <i class="fa fa-angle-double-right"></i> Login Page!
+                        </a>
+                    </p>
                 @endif
             </div>
         </div>
