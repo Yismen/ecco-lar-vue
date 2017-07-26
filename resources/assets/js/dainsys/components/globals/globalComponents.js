@@ -14,6 +14,7 @@ export default {
     'employee-bank-account': require('../employees/BankAccountComponent'),
     'employee-social-security': require('../employees/SocialSecurityComponent'),
     'employee-supervisor': require('../employees/SupervisorComponent'),
+    'employee-nationality': require('../employees/NationalityComponent'),
 
     'hhrr-in-out-by-months': require('../human_resources/CountByMonthComponent'),
 

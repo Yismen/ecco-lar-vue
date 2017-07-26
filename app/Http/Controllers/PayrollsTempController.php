@@ -9,10 +9,10 @@ use Maatwebsite\Excel\Facades\Excel;
 class PayrollsTempController extends Controller
 {
     public function __construct() {
-        $this->middleware('authorize:view_payrolss_temp|edit_payrolss_temp|create_payrolss_temp', ['only'=>['index','show']]);
-        $this->middleware('authorize:edit_payrolss_temp', ['only'=>['edit','update']]);
-        $this->middleware('authorize:create_payrolss_temp', ['only'=>['create','store']]);
-        $this->middleware('authorize:destroy_payrolss_temp', ['only'=>['destroy']]);
+        $this->middleware('authorize:view_payrolss_temp|edit_payrolss_temp|create_payrolls_temp', ['only'=>['index','show']]);
+        $this->middleware('authorize:edit_payrolls_temp', ['only'=>['edit','update']]);
+        $this->middleware('authorize:create_payrolls_temp', ['only'=>['create','store']]);
+        $this->middleware('authorize:destroy_payrolls_temp', ['only'=>['destroy']]);
     }
     /**
      * Display a listing of the resource.

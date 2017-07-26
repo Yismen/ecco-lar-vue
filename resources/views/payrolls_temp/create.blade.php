@@ -11,23 +11,23 @@
 					{!! Form::open(['route'=>['admin.payrolls_temp.store'], 'method'=>'POST', 'class'=>'form-horizontal', 'role'=>'form', 'autocomplete'=>"off", 'files' => true]) !!}
 					    
 					    <div class="box-body">
-					    	<div class="col-sm-6">
+					    	{{-- <div class="col-sm-6">
 					    		<div class="form-group {{ $errors->has('from_date') ? 'has-error' : null }}">
 					    		    {!! Form::label('from_date', 'Date From:', ['class'=>'control-label']) !!}
 					    		    {!! Form::input('date', 'from_date', null, ['class'=>'form-control', 'placeholder'=>'Date From']) !!}
 					    		    {!! $errors->first('from_date', '<span class="text-danger">:message</span>') !!}
 					    		</div>
 					    		<!-- /. Date From -->
-					    	</div>
+					    	</div> --}}
 
-					    	<div class="col-sm-6">
+					    	{{-- <div class="col-sm-6">
 					    		<div class="form-group {{ $errors->has('to_date') ? 'has-error' : null }}">
 					    		    {!! Form::label('to_date', 'To Date:', ['class'=>'control-label']) !!}
 					    		    {!! Form::input('date', 'to_date', null, ['class'=>'form-control', 'placeholder'=>'To Date']) !!}
 					    		    {!! $errors->first('to_date', '<span class="text-danger">:message</span>') !!}
 					    		</div>
 					    		<!-- /. To Date -->
-					    	</div>
+					    	</div> --}}
 
 					    	<div class="col-sm-12">
 					    		<div class="form-group {{ $errors->has('payroll_file') ? 'has-error' : null }}">

@@ -10,7 +10,20 @@ class Nationality extends Model
 
     public function employees()
     {
-        return $this->hasMany('App\Employee', 'employee_id', 'id')->withPivot('employee_nationality');
+        return $this->belongsToMany('App\Employee')
+            ->select([
+                'id', 'first_name', 'second_first_name', 'last_name', 'second_last_name', 'photo'
+            ])
+            ;
+    }
+
+    public function setNameAttribute($name)
+    {
+        return $this->attributes['name'] = ucwords(
+            strtolower(
+                trim($name, " ")
+            )
+        );
     }
 
 }

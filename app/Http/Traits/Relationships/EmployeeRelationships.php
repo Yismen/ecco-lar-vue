@@ -39,9 +39,9 @@ trait EmployeeRelationships
         return $this->belongsTo('App\Gender', 'gender_id');
     }
     
-    public function nationality()
+    public function nationalities()
     {
-        return $this->belongsTo('App\Nationality');
+        return $this->belongsToMany('App\Nationality');
     }
     
     public function position()

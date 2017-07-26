@@ -245,6 +245,22 @@ trait EmployeesTrait
         return $employee;
     }
 
+    private function handleUpdateNationality($employee, $request)
+    { 
+        $this->validate($request, [
+            'nationality_id' => 'required|exists:nationalities,id',
+        ]);
+
+        $nationality = $request->nationality_id;
+
+        return $employee->nationalities()->sync([$request->nationality_id]);
+        return $request->all();
+
+        Cache::forget('employees');
+
+        return $employee->load('supervisor');
+    }
+
     private function handleUpdateSupervisor($employee, $request)
     { 
         $this->validate($request, [

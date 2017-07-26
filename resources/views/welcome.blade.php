@@ -3,6 +3,7 @@
 
 @section('content')
     <div class="">
+
         @if (Auth::check())
 
             <div class="jumbotron no-margin {{ $layout_color }}-div">
@@ -20,7 +21,7 @@
 
         @else
 
-            <div class="jumbotron parallax intro-header no-margin">
+            <div class="jumbotron parallax intro-header no-margin bg-orange">
                 <div class="container-fluid">
                     @include('layouts.partials.logo')
                     <div class="text-center">                        
@@ -52,7 +53,8 @@
             </div>
         </div>
 
-        <div class="jumbotron no-margin text-center {{ Auth::check() ? $layout_color.'-div' :  'bg-orange bg-disabled' }}">
+        <div class="jumbotron parallax no-margin text-center {{ Auth::check() ? $layout_color.'-div' :  'bg-orange bg-disabled' }}"
+            style="background-image: url(images/logo/backgrounds/main-header.jpg);">
             <div class="container-fluid">
                 <h1 class="">{{ $app_name }}</h1>
                 <p>Process documentation? Collect data? Customize reports? Just ask for it. Get in contact with the System Administrator and together create what you need. Please log in to gain access to Dainsys!</p>

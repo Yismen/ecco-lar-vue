@@ -40,6 +40,7 @@ class Employee extends Model
 	 */
 	protected $appends = [
 		'active', 
+		'nationality',
 		'afp_list', 
 		'ars_list', 
 		'banks_list',
@@ -49,6 +50,7 @@ class Employee extends Model
 		'has_kids_list', 
 		'maritals_list', 
 		'positions_list', 
+		'nationalities_list', 
 		'status', 
 		'supervisors_list',
 		'systems_list', 
@@ -118,6 +120,10 @@ class Employee extends Model
 	/**
 	 * Methods
 	 */
+	public function getNationalityAttribute()
+	{
+		return $this->nationalities()->first();
+	}
 	
 	public function computedSalary()
 	{

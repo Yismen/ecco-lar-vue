@@ -4,7 +4,7 @@ let webpack = require('webpack');
 let Mix = require('laravel-mix').config;
 let webpackPlugins = require('laravel-mix').plugins;
 let dotenv = require('dotenv')
-
+console.log(Mix)
 /*
  |--------------------------------------------------------------------------
  | Load Environment Variables
@@ -144,9 +144,11 @@ let rules = [
     },
 
     {
-        test: /\.jsx?$/,
+        test: /\.js$/,
+        // exclude: /node_modules\/(?!(jorge.form)\/).*/,
         exclude: /(node_modules|bower_components)/,
-        loader: 'babel-loader' + Mix.babelConfig()
+        // include: /jorge.form/,
+        loader: "babel-loader" + Mix.babelConfig()
     },
 
     {

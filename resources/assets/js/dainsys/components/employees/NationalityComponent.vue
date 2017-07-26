@@ -1,21 +1,21 @@
 <template>
-    <div class="_Supervisor">
+    <div class="_Nationality">
         <form class="form-horizontalS" role="form"
-            @submit.prevent="handleUpdateUSupervisor"
+            @submit.prevent="handleForm"
             autocomplete="off" 
             @keydown="form.error.clear($event.target.name)">
 
             <div class="box-header with-border">
-                <h4>{{ employee.full_name }}' Supervisor:</h4>
+                <h4>{{ employee.full_name }}' Nationality:</h4>
             </div>
     
             <div class="box-body">
                 <div class="form-group">
-                    <label for="supervisor_id" class="">Supervisor:</label>
-                    <select name="supervisor_id" id="supervisor_id" class="form-control" v-model="form.fields.supervisor_id">
-                        <option v-for="(supervisor_id, index) in employee.supervisors_list" :value="index">{{ supervisor_id }}</option>
+                    <label for="nationality_id" class="">Nationality:</label>
+                    <select name="nationality_id" id="nationality_id" class="form-control" v-model="form.fields.nationality_id">
+                        <option v-for="(nationality_id, index) in employee.nationalities_list" :value="index">{{ nationality_id }}</option>
                     </select>
-                    <span class="text-danger" v-if="form.error.has('supervisor_id')">{{ form.error.get('supervisor_id') }}</span>
+                    <span class="text-danger" v-if="form.error.has('nationality_id')">{{ form.error.get('nationality_id') }}</span>
                 </div> <!-- ./ARS-->
             </div>
     
@@ -23,7 +23,7 @@
                 <div class="form-group">
                     <div class="col-sm-10 col-sm-offset-2">
                         <button type="submit" class="btn btn-primary">
-                            Save Supervisor
+                            Save Nationality
                         </button>
                     </div>
                 </div>
@@ -39,12 +39,12 @@
 
     export default {
 
-      name: 'SupervisorsComponent',
+      name: 'NationalityComponent',
 
       data () {
         return {
             form: new Form({
-                'supervisor_id': this.employee.supervisor ? this.employee.supervisor.id : '',
+                'nationality_id': this.employee.nationality ? this.employee.nationality.id : '',
             }, false)
 
         };
@@ -55,11 +55,11 @@
     },
 
     methods: {
-        handleUpdateSupervisor() {
-            this.form.post('/admin/employees/updateSupervisor/' + this.employee.id)
+        handleForm() {
+            this.form.post('/admin/employees/updateNationality/' + this.employee.id)
                 .then(response => {
-                    this.employee.supervisor = response.supervisor;
-                    return this.form.fields.supervisor_id = response.supervisor.id
+                    this.employee.nationality = response.nationality;
+                    return this.form.fields.nationality_id = response.nationality.id
                 })
         }
     }

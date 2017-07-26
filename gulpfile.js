@@ -87,12 +87,13 @@ elixir(function(mix) {
             'myFormSubmit.js',
             'confirmBeforeDestroy.js',
             'destroyFlashMessage.js',
+            // 'dainsys/app.js',
         ])
         // .browserify('passwords/app.js', 'public/js/passwords.js')
-        // .browserify('dainsys/app.js')
+        // .browserify('dainsys/app.js', 'dainsys/app.js')
     	.version([
             'js/all.js', 
-            'js/app.js',
+            // 'js/app.js',
             'js/dainsys/app.js',
     		'css/all.css'
     	]);

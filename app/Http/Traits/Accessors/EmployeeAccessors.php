@@ -8,10 +8,11 @@ use App\Bank;
 use App\Gender;
 use App\System;
 use App\Marital;
+use App\Position;
 use Carbon\Carbon;
 use App\Department;
 use App\Supervisor;
-use App\Position;
+use App\Nationality;
 use App\TerminationType;
 use App\TerminationReason;
 
@@ -21,6 +22,20 @@ trait EmployeeAccessors
      * return a list array of the systems, including name and id
      * @return array a list of systems registered.
      */
+
+    public function getNationalitiesListAttribute()
+    {
+        return Nationality::lists('name', 'id');
+    }
+
+    /**
+     * Return the only natioality for the employee
+     * @return [type] [description]
+     */
+    public function getNationalityAttribute()
+    {
+        return $this->nationalities()->first();
+    }
 
     public function getArsListAttribute()
     {

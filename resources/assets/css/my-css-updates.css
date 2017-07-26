@@ -13,6 +13,11 @@
 
     /* Create the parallax scrolling effect */
 }
+.vertical-center {  
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+}
 .main-spinner {
     /*background-color: rgba(0, 0, 0, .2);*/
     border-top: 10px solid rgb(66,139,202);
@@ -35,25 +40,25 @@
     margin-left: -32px;
     border-radius: 50%;
     z-index: 2;
- }
+}
 @keyframes spinner-loading{
   0% {
       transform: rotate(0deg)
-  } to {
-      transform: rotate(1turn)
+      } to {
+          transform: rotate(1turn)
+      }
   }
-}
 /**
  * Remove extra paddings created by Admin-LTE
  */
-.content {padding-left: 0px; padding-right: 0px; }
+ .content {padding-left: 0px; padding-right: 0px; }
 
 /**
  * Color Divs
  */
-.black-div {background-color: #222d32; color: #ffffff; } 
-.blue-div {background-color: #3c8dbc; color: #ffffff; } 
-.green-div {background-color: #218457; color: #ffffff; }
+ .black-div {background-color: #222d32; color: #ffffff; } 
+ .blue-div {background-color: #3c8dbc; color: #ffffff; } 
+ .green-div {background-color: #218457; color: #ffffff; }
 // .green-div>h1 { color: #ffffff; }
 .grey-div {background-color: #ccc; color: #000; }
 .purple-div {background-color: #605ca8; color: #ffffff; }
@@ -63,8 +68,8 @@
 /**
  * Headers
  */
-.my-main-header {font-family: fantasy; font-size: 76px; }
-.intro-header {
+ .my-main-header {font-family: fantasy; font-size: 76px; }
+ .intro-header {
     padding-top: 50px;
     padding-bottom: 50px;
     text-align: center;
@@ -75,17 +80,17 @@
 /**
  * Margins
  */
-.no-margin{margin:0px; }
+ .no-margin{margin:0px; }
 
 /**
  * Paddings
  */
-.no-padding {padding: 0px; }
+ .no-padding {padding: 0px; }
 
 /**
  * Loader: Any element with the class of loader will get affected
  */
-.loader {
+ .loader {
   border: 16px solid #f3f3f3;
   border-radius: 50%;
   border-top: 16px solid #3498db;
@@ -118,23 +123,23 @@
 }
 
 
-  .bg-disabled {
+.bg-disabled {
     opacity: .85;
     filter: alpha(opacity=85);
-  }
+}
 
 @media (max-width:991px) {
 
   .navbar-nav>.user-menu>.dropdown-menu>.user-footer {
     background-color: #222;
     color: #ffffff;
-  }
+}
 
-  .user-footer a {
+.user-footer a {
     color: #ffffff;
-  }
-  .user-footer a:hover {
+}
+.user-footer a:hover {
     background-color: #222;
     color: #bab3b2;
-  }
+}
 }

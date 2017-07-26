@@ -50,7 +50,6 @@ class EmployeesController extends Controller
     public function apiEmployees(Request $request, Employee $employees)
     {
         $employees = Employee::with('position.department');
-
         return Datatables::of($employees)
             ->editColumn('id', function ($query) {
                 return '<a href="' . route("admin.employees.show", $query->id) . '" class="">'.$query->id.'</a>';
@@ -235,6 +234,15 @@ class EmployeesController extends Controller
     public function updateSupervisor(Employee $employee, Request $request)
     {
         $employee = $this->handleUpdateSupervisor($employee, $request);
+
+        if ($request->ajax()) {
+            return $employee;
+        }
+    }
+
+    public function updateNationality(Employee $employee, Request $request)
+    {
+        $employee = $this->handleUpdateNationality($employee, $request);
 
         if ($request->ajax()) {
             return $employee;

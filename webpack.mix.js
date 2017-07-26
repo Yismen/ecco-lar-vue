@@ -20,8 +20,9 @@ mix
     // .copy('node_modules/summernote/dist/font', 'public/build/css/font')
     // .copy('node_modules/icheck/skins/square/blue.png', 'public/build/css')
     // .copy('node_modules/bootstrap-sass/assets/stylesheets/bootstrap', 'resources/assets/sass/bootstrap-sass')
-    // .sass('app.scss', 'resources/assets/css/bootstrap.css')
+    // .sass('resources/assets/sass/app.scss', 'resources/assets/css/bootstrap.css')
     .js('resources/assets/js/dainsys/app.js', 'public/js/dainsys')
+    
    //  .styles([       
    //      // 'bootstrap.css',
    //      // nodeModules + '/admin-lte/dist/css/AdminLTE.min.css',
@@ -45,7 +46,7 @@ mix
    //      // nodeModules + '/summernote/dist/summernote.css',
    //      // 'my-css-updates.css',
    //      // 'btn-raised.css',
-   // ])
+   // ], public/css/all.css)
     // .scripts([      
     //     nodeModules + '/jquery/dist/jquery.js',
     //     nodeModules + '/bootstrap/dist/js/bootstrap.js',

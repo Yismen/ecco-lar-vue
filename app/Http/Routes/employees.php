@@ -64,6 +64,10 @@ Route::post('employees/updateSupervisor/{employees}',
     ['as'=>'admin.employees.updateSupervisor','uses'=>'EmployeesController@updateSupervisor']
     )->middleware('authorize:edit_employees');
 
+Route::post('employees/updateNationality/{employees}', 
+    ['as'=>'admin.employees.updateNationality','uses'=>'EmployeesController@updateNationality']
+    )->middleware('authorize:edit_employees');
+
 
 // Route::get('employees', 
 //     ['as'=>'admin.employees.datatables-list', 'uses'=>'EmployeesController@index']
@@ -84,7 +88,6 @@ Route::bind('employees', function($id){
         ->with('gender')
         ->with('logins.system')
         ->with('marital')
-        ->with('nationality')
         ->with('punch')
         ->with('position')
         ->with('termination')
