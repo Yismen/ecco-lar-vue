@@ -56,9 +56,6 @@
                                                 <td>{{ $record->user->name }}</td>
                                                 <td>{{ $record->client->name }}</td>
                                                 <td>{{ $record->created_at->format('M/d/Y') }}</td>
-                                                
-
-                                                {{-- <td>{{ $record->escal_records_count }}</td> --}}
                                             </tr>
                                         @endforeach
                                     </tbody>

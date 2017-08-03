@@ -62,7 +62,7 @@
 
 <script>
 let shared = require('./../core/stores/EscalationsRecords.js');
-import Form from 'jorge.form';
+import Form from '../vendor/jorge.form';
 
 export default {
 

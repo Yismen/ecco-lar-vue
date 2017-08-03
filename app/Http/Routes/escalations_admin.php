@@ -7,13 +7,16 @@ Route::get('escalations_admin/by_date', 'EscalationsAdminController@getByDate');
 Route::post('escalations_admin/by_date', 'EscalationsAdminController@postByDate'); 
 
 Route::get('escalations_admin/search', 'EscalationsAdminController@search'); 
-Route::post('escalations_admin/search', 'EscalationsAdminController@searchPost'); 
+Route::post('escalations_admin/search', 'EscalationsAdminController@handleSearch'); 
 
 Route::get('escalations_admin/random', 'EscalationsAdminController@random'); 
-Route::post('escalations_admin/random', 'EscalationsAdminController@randomPost'); 
+Route::post('escalations_admin/random', 'EscalationsAdminController@handleRandom'); 
 
 Route::get('escalations_admin/bbbs', 'EscalationsAdminController@bbbs'); 
-Route::post('escalations_admin/bbbs', 'EscalationsAdminController@bbbsPost'); 
+Route::post('escalations_admin/bbbs', 'EscalationsAdminController@handleBBBs'); 
+
+Route::get('escalations_admin/bbbs_range', 'EscalationsAdminController@bbbs'); 
+Route::post('escalations_admin/bbbs_range', 'EscalationsAdminController@handleBBBsRange'); 
 
 
 

@@ -3,38 +3,29 @@
 @section('views')
     
     <div class="row">
+
+        <div class="col-xs-4">
+            @include('escalations_admin.partials._bbb_form_date')            
+        </div>
+        {{-- /. By Date --}}
+        <div class="col-xs-8">
+            @include('escalations_admin.partials._bbb_form_range')
+        </div>
+        {{-- /. By Range --}}        
+    </div>
+
+    <div class="row">
         <div class="col-sm-12">
-
-            {!! Form::open(['url'=>['/admin/escalations_admin/bbbs'], 'method'=>'POST', 'class'=>'form-horizontal', 'role'=>'form', 'autocomplete'=>"off"]) !!}        
-                <legend>Search BBBs Records</legend>
-
-                 <!-- Production Date -->
-                <div class="col-sm-12">
-                    <div class="form-group {{ $errors->has('date') ? 'has-error' : null }}">
-                        {!! Form::label('date', 'Production Date:', ['class'=>'col-sm-2 control-label']) !!}
-                        <div class="col-sm-10">
-                            <div class="input-group">
-                                {!! Form::input('date', 'date', null, ['class'=>'form-control', 'placeholder'=>'Production Date']) !!}   
-                                <span class="input-group-btn">
-                                    <button class="btn btn-primary" type="submit">
-                                        <i class="fa fa-search"></i>
-                                         Search BBBs
-                                    </button>
-                                </span>     
-                            </div>
-                            {!! $errors->first('date', '<span class="text-danger">:message</span>') !!}
-                        </div>
-                    </div>
-                </div>
-            
-                
-            
-            {!! Form::close() !!}
 
             @if (isset($records))
                 <hr>
                 <div class="col-sm-12">
-                    <div class="page-header">Results for Date[{{ Request::old('date') }}] </div>
+                    @if (Request::old('date'))
+                        <div class="page-header">Results for Date [{{ Request::old('date') }}] </div>
+                    @else
+                        <div class="page-header">Results for Range [{{ Request::old('from') }} to {{ Request::old('to') }}] </div>
+                    @endif
+                    
                 </div>
 
                 @unless ($records->count() > 0 )
@@ -70,13 +61,10 @@
                                     </tbody>
                                 </table>
                             </div>
-
-                            {{-- <canvas id="clientsChart" height="100%" width="60px"></canvas> --}}
                         </div>
                     </div>
 
                 @endunless
-
 
             @endif
         </div>

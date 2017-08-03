@@ -112,7 +112,7 @@
 
 <script>
 
-    import Form from 'jorge.form'
+    import Form from '../../vendor/jorge.form'
 
     export default {
 

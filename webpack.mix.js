@@ -21,7 +21,9 @@ mix
     // .copy('node_modules/icheck/skins/square/blue.png', 'public/build/css')
     // .copy('node_modules/bootstrap-sass/assets/stylesheets/bootstrap', 'resources/assets/sass/bootstrap-sass')
     // .sass('resources/assets/sass/app.scss', 'resources/assets/css/bootstrap.css')
+    // .copy('node_modules/jorge.form', 'resources/assets/js/dainsys/vendor')
     .js('resources/assets/js/dainsys/app.js', 'public/js/dainsys')
+    // .version()
     
    //  .styles([       
    //      // 'bootstrap.css',

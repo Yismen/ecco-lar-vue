@@ -145,9 +145,7 @@ let rules = [
 
     {
         test: /\.js$/,
-        // exclude: /node_modules\/(?!(jorge.form)\/).*/,
         exclude: /(node_modules|bower_components)/,
-        // include: /jorge.form/,
         loader: "babel-loader" + Mix.babelConfig()
     },
 

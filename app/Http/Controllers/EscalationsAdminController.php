@@ -8,16 +8,17 @@ use App\EscalClient;
 use App\EscalRecord;
 use App\Http\Requests;
 use Illuminate\Http\Request;
-use App\Http\Traits\EscalationsAdminTrait;
+use App\Repositories\Escalations\Production;
 
 class EscalationsAdminController extends Controller
 {
-    use EscalationsAdminTrait;
     private $date;
+    private $production;
 
-    function __construct(Request $request) {
+    function __construct(Request $request, Production $production) {
         $this->request = $request;
         $this->date = $this->request->date;
+        $this->production = $production;
     }
 
     public function index()
@@ -27,14 +28,11 @@ class EscalationsAdminController extends Controller
 
     public function index_ajax()
     {
-        
-        $dt = Carbon::now();
-
         $data = [
-            'lastFiveDates' => $this->fetchLastFiveDatesProduction(),
-            'todayRecordsByUser' => $this->fetchRecordsEnteredToday(),
-            'todayRecordsByClient' => $this->fetchTodaysRecordsByClient(),
-            'lastFiveDatesByUser' => $this->lastFiveDatesByUser(),
+            'todayRecordsByUser' => $this->production->users->today()->get(),
+            'todayRecordsByClient' => $this->production->clients->today()->get(),
+            'lastFiveDates' => $this->production->records->lastManyDays(5)->get(),
+            // 'lastFiveDatesByUser' => $this->production->records->usersDays(5),
         ];
 
         if ($this->request->ajax()) {
@@ -47,17 +45,17 @@ class EscalationsAdminController extends Controller
         return view('escalations_admin.by_date');
     }
 
-    public function postByDate(EscalClient $escalClient, User $user, EscalRecord $escalRecords)
+    public function postByDate()
     {     
         $this->validate($this->request, [
             'date'=>'required|date'
         ]);
 
-        $clients = $this->fetchClientsProductionByDate($escalClient);
-        $users   =  $this->fetchUsersProductionByDate($user);
-        $summary = $this->fetchProductionsByDate($escalRecords, $escalClient, $user);
+        $clients = $this->production->clients->byDate($this->request->date)->get();
+        $users   =  $this->production->users->byDate($this->request->date)->get();
+        $summary = $this->production->records->byDate($this->request->date)->get();
         if ($this->request->has('detailed')) {
-           $detailed       =  $this->fetchDetailedProductionByDate($escalRecords);
+           $detailed =  $this->production->records->detailedByDate($this->request->date)->get();
         }
 
         $this->request->flash();
@@ -71,52 +69,50 @@ class EscalationsAdminController extends Controller
         return view('escalations_admin.search');
     }
 
-    public function searchPost(Request $request)
+    public function handleSearch()
     {
-        $request->replace([
-            'tracking' => trim($request->tracking),
-            'page' => trim($request->page),
-            // 'escalations_client_id' => $request->escalations_client_id,
+        $this->request->replace([
+            'tracking' => trim($this->request->tracking),
+            'page' => trim($this->request->page),
         ]);
 
-        $this->validate($request, [
+        $this->validate($this->request, [
             'tracking' => 'required|digits_between:3,9'
         ]);
 
-        $tracking = $request->tracking;
-
-        $records = EscalRecord::where('tracking', 'like', "%$tracking%")
-            ->with('user')
-            ->orderBy('created_at', 'DESC')
+        $records = $this->production->records
+            ->search($this->request->tracking)
             ->get();
-            // ->paginate(10)->appends(['tracking'=>$tracking]);
 
-        $request->flash();
+        $this->request->flash();
 
         return view('escalations_admin.search', compact('records'));
     }
 
     public function random()
     {
-        $users = User::has('escalationsRecords')->lists('name', 'id');
+        $users = User::has('escalationsRecords')
+            ->orderBy('name', 'ASC')->lists('name', 'id');
 
         return view('escalations_admin.random', compact('users'));
     }
 
-    public function randomPost(Request $request, EscalRecord $escalRecords)
+    public function handleRandom()
     {
         $users = User::has('escalationsRecords')->lists('name', 'id');
 
-        $this->validate($request, [
+        $this->validate($this->request, [
             'from' => 'required|date',
             'to' => 'required|date',
             'records' => 'required|int|min:1',
             'user_id' => 'required|exists:users,id',
         ]);
 
-        $records = $this->fetchRandomRecordsByRange($escalRecords, $request->records, $request->user_id, $request->from, $request->to); 
+        $records = $this->production->records->randBetween(
+            $this->request->records, $this->request->user_id, $this->request->from, $this->request->to
+        )->get(); 
 
-        $request->flash();
+        $this->request->flash();
 
         return view('escalations_admin.random', compact('records', 'users'));
     }
@@ -126,13 +122,36 @@ class EscalationsAdminController extends Controller
         return view('escalations_admin.bbbs');
     }
 
-    public function bbbsPost(EscalRecord $escalRecords)
+    public function handleBBBs()
     {
         $this->validate($this->request, [
             'date'=>'required|date'
         ]);
 
-        $records = $this->fetchProductionsByBBB($escalRecords);
+        $records = $this->production->bbbs->byDate($this->request->date)->get();
+        // $records = $this->fetchProductionsByBBB($escalRecords);
+
+        if ($this->request->ajax()) {
+            return $records;
+        }
+
+        $this->request->flash();
+
+        return view('escalations_admin.bbbs', compact('records'));
+
+    }
+
+    public function handleBBBsRange()
+    {
+        $this->validate($this->request, [
+            'from'=>'required|date',
+            'to'=>'required|date'
+        ]);
+
+        $records = $this->production->bbbs->range(
+            $this->request->from, $this->request->to
+        )
+        ->get();
 
         if ($this->request->ajax()) {
             return $records;

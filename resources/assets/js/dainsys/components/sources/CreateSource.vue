@@ -36,7 +36,7 @@
 </template>
 
 <script>
-    import Form from 'jorge.form'
+    import Form from '../../vendor/jorge.form'
 
     import shared from './../../core/stores/SourcesStore.js'
     export default {
