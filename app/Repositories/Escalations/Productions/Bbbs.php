@@ -14,10 +14,9 @@ class Bbbs
         $this->record = $record;
     }
 
-    public function byDate($date)
+    private function fetch()
     {
         return $this->record
-            ->whereDate('created_at', '=', $date)
             ->where('is_bbb', true)
             ->with(['user' => function($query) {
                 return $query->orderBy('name');
@@ -25,22 +24,22 @@ class Bbbs
             ->with(['escal_client' => function($query) {
                 return $query->orderBy('name');
             }])
-            ->orderBy('escal_client_id');
+            ->orderBy('created_at', 'DESC')
+            ->orderBy('escal_client_id')
+            ;
+    }
+
+    public function byDate($date)
+    {
+        return $this->fetch()
+            ->whereDate('created_at', '=', $date)
+            ;
     }
 
     public function range($from, $to)
     {
-        return $this->record
+        return $this->fetch()
             ->whereBetween('insert_date', [$from, $to])
-            ->where('is_bbb', true)
-            ->with(['user' => function($query) {
-                return $query->orderBy('name');
-            }])
-            ->with(['escal_client' => function($query) {
-                return $query->orderBy('name');
-            }])
-            ->orderBy('created_at')
-            ->orderBy('escal_client_id')
             ;
     }
 
@@ -53,7 +52,5 @@ class Bbbs
             ->orderBy('insert_date','DESC')
             ->take($days);
     }
-
-
-
+    
 }
