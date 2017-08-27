@@ -4,35 +4,18 @@
 @section('content')
     <div class="">
 
-        @if (Auth::check())
-
-            <div class="jumbotron no-margin {{ $layout_color }}-div">
-                <div class="container-fluid">
-                    <div class="col-sm-12 text-center">
-                        @include('layouts.partials.logo')
-                        <h1 class="my-main-header">Welcome to {{ $app_name }}, {{ $user->name }}</h1>
-                        <p><i class="fa fa-arrow-up"></i> Use the top menu icon <i class="fa fa-bars"></i> to see your application's links. </p>
-                        <a href="/admin/profiles" class="btn btn-default btn-lg">
-                            View your profile! <i class="fa fa-angle-double-right"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-        @else
-
-            <div class="jumbotron parallax intro-header no-margin bg-orange">
-                <div class="container-fluid">
+        <div class="jumbotron no-margin parallax intro-header {{ $layout_color }}-div">
+            <div class="container-fluid">
+                <div class="col-sm-12 text-center">
                     @include('layouts.partials.logo')
-                    <div class="text-center">                        
-                        <h1 class="my-main-header">Welcome to {{ $app_name }}</h1>
-                        <p>An app designed for you.</p>
-                        <a href="/admin/login" class="btn btn-primary btn-lg active"><i class="fa fa-sign-in"></i> Get Started</a>
-                    </div>
+                    <h1 class="my-main-header">Welcome to {{ $app_name }}, {{ $user->name }}</h1>
+                    <p><i class="fa fa-arrow-up"></i> Use the top menu icon <i class="fa fa-bars"></i> to see your application's links. </p>
+                    <a href="/admin/profiles" class="btn btn-default btn-lg">
+                        View your profile! <i class="fa fa-angle-double-right"></i>
+                    </a>
                 </div>
             </div>
-
-        @endif
+        </div>
 
         <div class="jumbotron no-margin text-center">
             <div class="container-fluid">
@@ -53,8 +36,7 @@
             </div>
         </div>
 
-        <div class="jumbotron parallax no-margin text-center {{ Auth::check() ? $layout_color.'-div' :  'bg-orange bg-disabled' }}"
-            style="background-image: url(images/logo/backgrounds/main-header.jpg);">
+        <div class="jumbotron no-margin text-center {{ $layout_color.'-div' }}">
             <div class="container-fluid">
                 <h1 class="">{{ $app_name }}</h1>
                 <p>Process documentation? Collect data? Customize reports? Just ask for it. Get in contact with the System Administrator and together create what you need. Please log in to gain access to Dainsys!</p>
@@ -64,20 +46,13 @@
         <div class="jumbotron no-margin text-center">
             <div class="container-fluid">
                 <h1 class="">Roles Based Access</h1>
-                @if (Auth::check())
-                    <h3 class="">You have the following roles assigned to you. </h3>
-                    <p>Access their end points by using the left side menu.</p>
-                    @foreach ($user->roles as $role)
-                        <span for="" class="label label-primary">{{ $role->display_name }}</span>
-                    @endforeach
-                @else
-                    <h3 class="">Gain access to different end points of the app based on the roles assigned to you. </h3>
-                    <p>
-                        <a href="/admin/login" class="btn btn-success btn-lg">
-                            <i class="fa fa-angle-double-right"></i> Login Page!
-                        </a>
-                    </p>
-                @endif
+                <h3 class="">You have the following roles assigned to you. </h3>
+                <p>Access their end points by using the left side menu.</p>
+                @foreach ($user->roles as $role)
+                    <h4>
+                         <span class="label label-success">{{ $role->display_name }}</span>
+                    </h4>
+                @endforeach
             </div>
         </div>
     </div>

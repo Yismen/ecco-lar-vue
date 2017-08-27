@@ -22,6 +22,8 @@ class HumanResourcesController extends Controller
      */
     public function index()
     {
+        $hc_by_department_and_aging = Count::byDepartmentAndAging()->get();
+            
         $hc_by_department = Count::byDepartment();
         $issues = Issues::render();
 
@@ -37,7 +39,7 @@ class HumanResourcesController extends Controller
         $rotationByMonth = Count::rotationbyMonths(5);
         
         return view('human_resources.index', compact(
-            'issues', 'birthdays', 'by_status', 'by_department_positions', 'inByMonth', 'outByMonth', 'rotationByMonth', 'hc_by_department'
+            'issues', 'birthdays', 'by_status', 'by_department_positions', 'inByMonth', 'outByMonth', 'rotationByMonth', 'hc_by_department', 'hc_by_department_and_aging' 
         ));
     }
 

@@ -42,16 +42,24 @@ class PayrollsTempController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'from_date'    => 'required|date',
-            'to_date'      => 'required|date|after:from_date',
-            // 'payroll_file' => 'required|mimes:xls,xlsx',
-            // 'payroll_file' => 'required|mimetypes:CSV',
-            'payroll_file' => 'required|file',
-        ]);
-
-        return dd(Excel::load($request->file('payroll_file'))->toObject());
-        return $request->all();
+        // $this->validate($request, [
+        //     'from_date'    => 'required|date',
+        //     'to_date'      => 'required|date|after:from_date',
+        //     // 'payroll_file' => 'required|mimes:xls,xlsx',
+        //     // 'payroll_file' => 'required|mimetypes:CSV',
+        //     'payroll_file' => 'required|file',
+        // ]);
+        $that = $this;
+        foreach (Excel::load($request->file('payroll_file')) as $item) {
+            // validate
+            // Check if exists in the db
+            // import
+            $request->item = $item;
+            // filter_var($ma, PHP_VALID);
+            // $this->validate($request->item, [
+            //     'supervisor' => 'required'
+            // ]);
+        }
     }
 
     /**

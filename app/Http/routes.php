@@ -63,7 +63,7 @@ Route::group(['middleware' => 'web'], function () {
 	 * -------------------------------------------------
 	 */
 	Route::get('/', function () {
-		return view('welcome');
+		return view('auth.login');
 	});
 
 	Route::get('notes', ['as'=>'notes.index', 'uses'=>'NotesController@getNotes']);
@@ -83,20 +83,21 @@ Route::group(['middleware' => 'web'], function () {
 	    
 	    Route::auth();  
 
-	    Route::get('/', function () {
-			$user = Auth::user();
-
-			if($user && !$user->profile) return redirect()->route('admin.profiles.create');
-
-	    	return view('welcome', compact('user'));
-		});
-
 		/**
 		 * ----------------------------------------------
 		 * Admin routes requiring authentication        |
 		 * ----------------------------------------------
 		 */
 	    Route::group(['middleware' => 'auth'], function() {	
+
+		    Route::get('/', function () {
+				$user = Auth::user();
+
+				if($user && !$user->profile) return redirect()->route('admin.profiles.create');
+
+		    	return view('welcome', compact('user'));
+			});
+
 	    	Route::get('passwords', 'PasswordController@home')->name('admin.passwords.index');
 			Route::get('test-datatables', 'TestController@testDatatablesView')->name('test.datatables');
 			Route::get('test-datatables/data', 'TestController@testDatatablesData')->name('test.datatables.data');

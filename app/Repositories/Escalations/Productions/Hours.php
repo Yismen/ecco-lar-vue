@@ -1,38 +1,21 @@
 <?php
 
 namespace App\Repositories\Escalations\Productions;
-
-use App\EscalRecord;
+use App\EscalationHour;
 use Illuminate\Support\Facades\DB;
-use App\Repositories\Escalations\Productions\Hours;
 
-class Records
+class Hours
 {
-    private $record;
+    private $hour;
 
-    public function __construct(EscalRecord $record)
+    public function __construct(EscalationHour $hour)
     {
-        $this->record = $record;
-    }
-
-    public function groupedByDate($paginated = false, $pages = 15)
-    {
-        $records = $this->record
-            ->select(['id', 'insert_date'])
-            ->orderBy('insert_date', 'DESC')
-            ->groupBy('insert_date')
-        ;
-
-        if ($paginated) {
-            return $records->paginate($pages);
-        }
-
-        return $records->get();
+        $this->hour = $hour;
     }
 
     public function detailedByDate($date)
     {        
-        return $this->record
+        return $this->hour
             ->with('user')
             ->with('escal_client')
             ->orderBy('escal_client_id')
@@ -42,18 +25,24 @@ class Records
 
     public function byDate($date)
     {
-        return $this->record
-            ->select(DB::raw("user_id, escal_client_id, count(tracking) as records, insert_date"))
-            ->groupBy(['user_id', 'escal_client_id'])
-            ->orderBy('escal_client_id')
-            ->whereDate('insert_date', '=', $date)
+        return $this->hour
+            ->groupBy(['user_id', 'client_id'])
+            ->orderBy('client_id')
+            ->whereDate('date', '=', $date)
             ->with('user')
-            ->with('escal_client');
+            ->with('client')
+            // ->with('records')
+            ;
+    }
+
+    public function forRecordsInDate()
+    {
+        return 45;
     }
 
     public function randBetween($amount = 10, $user_id, $from, $to)
     {        
-        return $this->record
+        return $this->hour
             ->whereUserId($user_id)
             ->whereBetween('insert_date', [$from, $to])
             ->inRandomOrder()
@@ -64,7 +53,7 @@ class Records
 
     public function lastManyDays($days = 5)
     {   
-        return $this->record
+        return $this->hour
             ->select(DB::raw("insert_date, count(tracking) as records, count(CASE WHEN is_bbb = 1 THEN 1 ELSE NULL end) as bbbRecords"))
             ->groupBy(['insert_date'])
             ->orderBy('insert_date','DESC')
@@ -74,7 +63,7 @@ class Records
 
     public function usersDays($days = 5)
     {
-        return $this->record
+        return $this->hour
             ->select(DB::raw("insert_date, user_id, count(tracking) as records"))
             ->groupBy(['insert_date', 'user_id'])
             ->with('user')
@@ -85,7 +74,7 @@ class Records
 
     public function search(int $tracking)
     {
-        return $this->record
+        return $this->hour
             ->where('tracking', 'like', "%$tracking%")
             ->with('user')
             ->orderBy('created_at', 'DESC')

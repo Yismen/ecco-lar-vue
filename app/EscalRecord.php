@@ -2,9 +2,10 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-use App\EscalClient;
 use App\User;
+use App\EscalClient;
+use App\EscalationHour;
+use Illuminate\Database\Eloquent\Model;
 
 class EscalRecord extends Model
 {
@@ -27,6 +28,11 @@ class EscalRecord extends Model
     {
         return $this->belongsTo('App\User')
             ->select(['name', 'id']);
+    }
+
+    public function hour()
+    {
+        return $this->belongsTo('App\EscalationHour', 'escal_client_id', 'client_id', 'user_id', 'user_id');
     }
 
     public function escal_client()

@@ -1,30 +1,56 @@
-@inject('layout', 'App\Layout')
-@extends('layouts.'.$layout->app(), ['page_header'=>config("dainsys.app_name"), 'page_description'=>'Escalations Hours List'])
+@extends('escalations_admin.home')
 
-@section('content')
-	<div class="container-fluid">
-    	<div class="row">
-			<div class="col-sm-8 col-sm-offset-2">
-				<div class="box box-primary">
-					<div class="box-header "><h2>Escalations Hours</h2></div>
+@section('views')
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="box box-primary">
+                        <div class="box-header "><h2>Escalations Hours</h2></div>
 
-					    
-					<div class="box-body no-padding">
-					    {!! Form::open(['route'=>['admin.escalations_hours.search'], 'method'=>'POST', 'class'=>'', 'role'=>'form', 'autocomplete'=>"off",  'enctype'=>"multipart/form-data"]) !!}       
-					
-					    	@include('escalations_hours._form')
-					
-					        <div class="box-footer">
-					            <button type="submit" class="btn btn-primary">SUBMIT</button>
-					        </div>
-					
-					    {!! Form::close() !!}
-					</div>  
-					
-				</div>
-			</div>
-		</div>
-	</div>
+
+                        @unless ($dates->count() > 0)
+                            <div class="alert alert-info">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <strong>No Records!</strong> Alert body ...
+                            </div>
+                        @else
+                            <div class="row">
+                                @foreach ($dates as $date)
+                                    <div class="col-md-2 col-sm-3 col-xs-4">
+                                        <div class="alert alert-info">
+                                            <a href="{{ route('admin.escalations_hours.byDate', ['date'=>$date->insert_date->format("Y-m-d")]) }}">
+                                                <i class="fa fa-calendar"></i> 
+                                                {{ $date->insert_date->format("M/d/Y") }}
+                                            </a>
+                                        </div>
+                                    </div>
+                                @endforeach 
+                            </div>   
+                            <div class="col-sm-12">   
+                                {{ $dates->render() }}
+                            </div>                    
+                        @endunless
+
+                         {{--    
+                        <div class="box-body no-padding">
+                            {!! Form::open(['route'=>['admin.escalations_hours.search'], 'method'=>'POST', 'class'=>'', 'role'=>'form', 'autocomplete'=>"off",  'enctype'=>"multipart/form-data"]) !!}
+                                @include('escalations_hours._form_search')
+                            {!! Form::close() !!}
+                        </div>  
+                         --}}
+                    </div>
+            
+                </div>
+
+                    @include('escalations_hours._search_results')
+            </div>
+                
+                
+        </div>
+
+        
+    </div>
 @endsection
 @section('scripts')
 

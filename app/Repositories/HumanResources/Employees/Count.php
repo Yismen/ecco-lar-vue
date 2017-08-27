@@ -26,12 +26,44 @@ class Count
     
     private static function inByMonths($months, $today, $months_ago)
     {
-
         return Employee::select(DB::raw('year(hire_date) as year, monthname(hire_date) as monthname, month(hire_date) as month, COUNT(employees.id) as entrances'))
             ->whereBetween('hire_date',  [$months_ago, $today])
             ->groupBy('month')
             ->orderBy('month')
             ->get();
+    }
+    
+    public static function byDepartmentAndAging()
+    {
+        return Department::
+            orderBy('department', 'ASC')
+            ->whereHas('employees', function($query) {
+                return $query->actives();
+            })
+            ->withCount(['employees' => function($query) {
+                return $query
+                    ->actives();
+
+            }])
+            ->withCount(['employeesLastTreeMonths' => function($query) {
+                return $query->actives();
+            }])
+            ->withCount(['employeesBetweenThreeAndSixMonths' => function($query) {
+                return $query->actives();
+            }])
+            ->withCount(['employeesBetweenSixAndNimeMonths' => function($query) {
+                return $query->actives();
+            }])
+            ->withCount(['employeesBetweenNimeMonthsAndAYear' => function($query) {
+                return $query->actives();
+            }])
+            ->withCount(['employeesBetweenOneAndThreeYears' => function($query) {
+                return $query->actives();
+            }])
+            ->withCount(['employeesOverThreeYears' => function($query) {
+                return $query->actives();
+            }]);
+        ;
     }
 
     private static function outByMonths($months, $today, $months_ago)

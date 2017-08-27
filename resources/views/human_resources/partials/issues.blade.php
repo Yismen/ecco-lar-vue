@@ -1,4 +1,4 @@
-<div class="box box-danger danger">
+<div class="box box-danger danger animated-delayed">
     <div class="box-header with-border"><h4><i class="fa fa-exclamation-triangle"> </i> Issues</h4></div>
 
     <div class="box-body">
