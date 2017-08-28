@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Cache;
 class Count
 {
     
-    public static function rotationbyMonths(int $months)
+    public static function rotationbyMonths($months)
     {        
         $today = Carbon::today();
         $months_ago = Carbon::today()->subMonths($months - 1);

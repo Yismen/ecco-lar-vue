@@ -37,7 +37,7 @@
 	<script>
 		$(function () {
 			setTimeout(function() {
-				$('.animated-delayed').addClass('animated rubberBand')
+				$('.animated-delayed').addClass(' rubberBand')
 			}, 1000);
 		});	
 	</script>
