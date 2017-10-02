@@ -45,18 +45,14 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
+        if($e instanceof \Illuminate\Session\TokenMismatchException && ! $request->ajax()){
+              return redirect()
+                  ->back()
+                  ->withInput($request->except('_token'))
+                  ->withDanger("Seems like your session expired!");
+                  
+        }
         return parent::render($request, $e);
-        
-        if ($this->isHttpException($e))
-        {
-            return $this->renderHttpException($e);
-        }
-
-        if (config('app.debug'))
-        {
-            return $this->renderExceptionWithWhoops($e);
-        }
-
     }
 
     /**
