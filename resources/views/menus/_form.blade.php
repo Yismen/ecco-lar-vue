@@ -1,6 +1,6 @@
 <!-- Menu Name -->
 <div class="form-group {{ $errors->has('name') ? 'has-error' : null }}">
-    {!! Form::label('name', 'Menu Name:', ['class'=>'col-sm-2 control-label']) !!}
+    {!! Form::label('name', 'Route: \'admin/\'', ['class'=>'col-sm-2 control-label']) !!}
     <div class="col-sm-10">
         {!! Form::input('text', 'name', null, ['class'=>'form-control', 'placeholder'=>'Menu Name']) !!}
         {!! $errors->first('name', '<span class="text-danger">:message</span>') !!}

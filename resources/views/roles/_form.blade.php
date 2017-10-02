@@ -1,11 +1,11 @@
 <!-- Role Name -->
-<div class="form-group {{ $errors->has('name') ? 'has-error' : null }}">
+{{-- <div class="form-group {{ $errors->has('name') ? 'has-error' : null }}">
 	{!! Form::label('name', 'Role Name:', ['class'=>'col-sm-2 control-label']) !!}
 	<div class="col-sm-10">
 		{!! Form::input('text', 'name', null, ['class'=>'form-control', 'placeholder'=>'Role Name']) !!}
 		{!! $errors->first('name', '<span class="text-danger">:message</span>') !!}
 	</div>
-</div>
+</div> --}}
 <!-- /. Role Name -->
 
 <!-- Display Name -->
