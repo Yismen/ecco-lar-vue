@@ -24,7 +24,6 @@ class CreatePayrollTempsTable extends Migration
             $table->text('name_slug')->nullable();
 
             $table->double('regular_income', 15, 8)->default(0.00);
-            // $table->double('nighly _income', 15, 8)->default(0.00);
             $table->double('nightly_income', 15, 8)->default(0.00);
             $table->double('holidays_income', 15, 8)->default(0.00);
             $table->double('overtime_income', 15, 8)->default(0.00);

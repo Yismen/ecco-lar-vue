@@ -17,7 +17,7 @@ class PayrollsController extends Controller
      */
     public function index()
     {
-        //
+        return "All reports from here...";
     }
 
     /**
