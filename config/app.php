@@ -159,7 +159,7 @@ return [
         Yajra\Datatables\DatatablesServiceProvider::class,
         GrahamCampbell\Flysystem\FlysystemServiceProvider::class,
         // Dainsys\Tasks\TasksServiceProvider::class,
-        Dainsys\Payrolls\PayrollsServiceProvider::class, 
+        // Dainsys\Payrolls\PayrollsServiceProvider::class, 
         Arcanedev\LogViewer\LogViewerServiceProvider::class,
 
 
