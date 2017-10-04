@@ -1,0 +1,14 @@
+{
+    "name": "yismen/payrolls_reports",
+    "description": "Payrolls Reports",
+    "type": "laravel",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Yismen Jorge",
+            "email": "yismen.jorge@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}

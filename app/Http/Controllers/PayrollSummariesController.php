@@ -28,21 +28,11 @@ class PayrollSummariesController extends Controller
      */
     public function index()
     {
-        return redirect('admin/payrolls_summary/create');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
         $dates = PayrollSummary::groupBy('payroll_id')
             ->orderBy('payment_date', "DESC")
             ->paginate(45);
 
-        return view('payrolls_summary.create', compact('dates'));
+        return view('payrolls_summary.index', compact('dates'));
     }
 
     /**
@@ -54,28 +44,31 @@ class PayrollSummariesController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'payroll_file' => 'required|file|mimes:xls,xlsx,csv',
-        ]);
+            'payroll_file.*' => 'required|file|mimes:xls,xlsx,csv',
+        ], ['payroll_file.*' => 'Este campo es requerido']);
 
-        $validator = $this->ValidateFileName($request);
+        foreach ($request->file('payroll_file') as $file) {
+            $validator = $this->ValidateFileName($file);
 
-        if ($validator->fails()) {
-            return redirect('admin/payrolls_summary/create')
-                ->withErrors($validator);
+            if ($validator->fails()) {
+                return redirect('admin/payrolls_summary')
+                    ->withErrors($validator);
+            }
+
+            $this->loadDataFromExcelFile($file);
+
         }
-        
-        $this->loadDataFromExcelFile($request);
 
         if (count($this->file_errors) > 0) {  
             $request->session()->flash('file_errors', ['errors'=>$this->file_errors]);    
-            return redirect('admin/payrolls_summary/create')
+            return redirect('admin/payrolls_summary')
                 // ->withErrors($this->file_errors)
                 ->withDanger('The file contains errors');
         }
 
         $this->saveDataToDB();
 
-        return redirect('admin/payrolls_summary/create')
+        return redirect('admin/payrolls_summary')
             ->withSuccess('The data was imported!');
 
     }
@@ -130,9 +123,9 @@ class PayrollSummariesController extends Controller
     {
             return Validator::make($data, 
                     [
-                        'from_date' => 'required',
-                        'to_date' => 'required',
-                        'payment_date' => 'required',
+                        'from_date' => 'required|date',
+                        'to_date' => 'required|date',
+                        'payment_date' => 'required|date',
                         'payroll_id' => 'required',
                         'unique_id' => 'required',
                         // 'unique_id' => 'required|unique:payroll_summaries',
@@ -161,12 +154,11 @@ class PayrollSummariesController extends Controller
                 );
     }
 
-    private function loadDataFromExcelFile(Request $request)
+    private function loadDataFromExcelFile($file)
     {
-        return Excel::load($request->file('payroll_file'), function($reader) {
+        return Excel::load($file, function($reader) {
             foreach($reader->toArray() as $data){
-                
-                // dd($data);
+
                 $validator = $this->validateRow($data);
 
                 if ($validator->fails()) {
@@ -174,7 +166,9 @@ class PayrollSummariesController extends Controller
                     $field_with_error = array_keys($message->getMessages());
                     $data = $validator->getData();
 
-                    $this->file_errors[] = [
+                    $this->file_errors[
+                        explode(".", $reader->file->getClientOriginalName())[0]
+                    ][] = [
                         'data' => $data,
                         'failed_field' => $field_with_error,
                         'error_messages' => $message->getMessages(),
@@ -186,11 +180,11 @@ class PayrollSummariesController extends Controller
         });
     }
 
-    private function ValidateFileName(Request $request)
+    private function ValidateFileName($file)
     {
          return Validator::make(
             [
-                'file_name' => $request->file('payroll_file')->getClientOriginalName()
+                'file_name' => $file->getClientOriginalName()
             ], 
             [
                 'file_name' => [

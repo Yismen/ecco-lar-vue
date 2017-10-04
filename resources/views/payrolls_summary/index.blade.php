@@ -1,3 +1,4 @@
+
 @inject('layout', 'App\Layout')
 @extends('layouts.'.$layout->app(), ['page_header'=>'Payrolls Temporary', 'page_description'=>'Import temporary data from Excel file.'])
 
@@ -16,9 +17,12 @@
 					    		<div class="form-group {{ $errors->has('payroll_file') ? 'has-error' : null }}">
 								    <label class="col-sm-2 control-label">Payroll File:</label>
 							    	<div class="col-sm-10">
-							    		<input type="file" class="form-control" name="payroll_file">
-						    		    {!! $errors->first('payroll_file', '<span class="text-danger">:message</span>') !!}
-						    		    {!! $errors->first('file_name', '<span class="text-danger">:message</span>') !!}
+							    		<input type="file" class="form-control" multiple="multiple" name="payroll_file[]">
+							    		@if ($errors->any())
+							    		    @foreach ($errors->all() as $error)
+							    		        <span class="text-danger">{{ $error }}</span>
+							    		    @endforeach
+							    		@endif
 							    		<span class="help-block">Please select a file to be uploaded</span>
 							    	</div>
 					    		</div>
