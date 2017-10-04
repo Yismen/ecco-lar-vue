@@ -35,7 +35,7 @@
         ],
         "psr-4": {
             "App\\": "app/",
-            "Dainsys\\Taks\\": "packages/dainsys/tasks/src",
+            // "Dainsys\\Taks\\": "packages/dainsys/tasks/src",
             "Dainsys\\Payrolls\\": "packages/dainsys/payrolls/src"
         },
         "files": [
