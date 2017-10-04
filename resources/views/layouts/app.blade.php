@@ -83,6 +83,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     @include('layouts.partials.flashes')
                     @include('layouts.partials.spinner')
                     
+                    {{-- @include('layouts.partials.back-to-top') --}}
                     @yield('content')
                 </section>
                 <!-- /.content -->
