@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Hour;
 
-class HourController extends Controller
+class HoursController extends Controller
 {
     private $request;
     private $hours;

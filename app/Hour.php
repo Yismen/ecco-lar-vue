@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Hour extends Model
 {
-    protected $fillable = ['employee_id', 'name', 'date', 'regulars', 'overtime', 'nightly', 'holidays', 'training'];
+    protected $fillable = ['employee_id', 'name', 'date', 'unique_id', 'regulars', 'nightly', 'holidays', 'training'];
+
+    protected $dates = ['date'];
     // Relationships =============================================
     public function employees()
     {

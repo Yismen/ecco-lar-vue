@@ -100,7 +100,7 @@ return [
             'provider' => 'users',
             'email' => 'auth.emails.password',
             'table' => 'password_resets',
-            'expire' => (10*60), // 8 hours, default is 60
+            'expire' => 60,
         ],
     ],
 
