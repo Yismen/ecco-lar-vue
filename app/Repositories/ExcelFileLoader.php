@@ -7,17 +7,26 @@ use Illuminate\Support\Facades\Validator;
 
 class ExcelFileLoader
 {
+    /**
+     * Data upload from files
+     * @var array
+     */
     private $data = [];
 
+    /**
+     * Validation errors found on the file
+     * @var array
+     */
     private $errors = [];
 
+    /**
+     * rules to validate each line of data.
+     * @var array
+     */
     private $validation_rules = [];
-
-    private $file_name_rules = [];
 
     public function __construct($rules)
     {
-        // $this->file_name_rules = $file_name_rules;
         $this->validation_rules = $rules;
     }
 
@@ -26,24 +35,7 @@ class ExcelFileLoader
         foreach ($files as $file) {
             Excel::load($file, function($reader) {
                 foreach($reader->toArray() as $data){
-
-                    $validator = $this->validateRow($data);
-
-                    if ($validator->fails()) {
-                        $messages = $validator->messages()->getMessages();
-                        $field_with_error = array_keys($messages);
-                        $data = $validator->getData();
-
-                        $this->errors[
-                            explode(".", $reader->file->getClientOriginalName())[0]
-                        ][] = [
-                            'data' => $data,
-                            'failed_field' => $field_with_error,
-                            'error_messages' => $messages,
-                        ];
-                    } else {
-                        $this->data[] = $data;
-                    }
+                    $this->handleRow($reader, $data);
                 }
             });
         }
@@ -70,25 +62,24 @@ class ExcelFileLoader
         return false;
     }
 
-    public function validateFileName($file, string $filename)
+    public function handleRow($reader, $data)
     {
-        return Validator::make(
-            [
-                'file_name' => $file->getClientOriginalName()
-            ], 
-            [
-                'file_name' => [
-                    'required',
-                    'regex:/(payroll_import)\w+/',
-                ],
-            ], [
-                'regex' => 'No ha elegido el archivo correcto. Recuerde elegir un archivo de excel nombrado "payrol_import_##*"'
-            ]
-        );
-    }
+        $validator = Validator::make($data, $this->validation_rules);
 
-    public function validateRow($data)
-    {
-            return Validator::make($data, $this->validation_rules);
+        if ($validator->fails()) {
+            $messages = $validator->messages()->getMessages();
+            $field_with_error = array_keys($messages);
+            $data = $validator->getData();
+
+            $this->errors[
+                explode(".", $reader->file->getClientOriginalName())[0]
+            ][] = [
+                'data' => $data,
+                'failed_field' => $field_with_error,
+                'error_messages' => $messages,
+            ];
+        } else {
+            $this->data[] = $data;
+        }
     }
 }

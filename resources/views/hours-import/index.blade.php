@@ -10,7 +10,9 @@
                     <div class="box-body">
                         {!! Form::open(['route'=>['admin.hours-import.import'], 'method'=>'POST', 'class'=>'form-horizontal', 'role'=>'form', 'autocomplete'=>"off", 'enctype'=>"multipart/form-data"]) !!}       
                            
-                           <div class="box-header with-border"><h4>Import Hours</h4></div>
+                           <div class="box-header with-border">
+                                <h4>Import Hours <a class="pull-right" href="{{ route('admin.hours.index') }}"><i class="fa fa-clock-o"></i> Hours</a></h4>
+                           </div>
                     
                             <!-- Select a File -->
                             <div class="col-sm-12">

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Hour;
+use App\Employee;
+use App\Http\Requests;
+use Illuminate\Http\Request;
 
 class HoursController extends Controller
 {
@@ -21,6 +21,7 @@ class HoursController extends Controller
         $this->middleware('authorize:edit_hours', ['only'=>['edit','update']]);
         $this->middleware('authorize:create_hours', ['only'=>['create','store']]);
         $this->middleware('authorize:destroy_hours', ['only'=>['destroy']]);
+        $this->middleware('authorize:view_by_date', ['only'=>['byDate']]);
     }
 
     /**
@@ -30,7 +31,11 @@ class HoursController extends Controller
      */
     public function index()
     {
-        return $this->hours->get();
+        $dates = $this->hours->select(['date'])
+            ->orderBy('date', 'DESC')->groupBy('date')->paginate(20);
+
+        return view('hours.index')
+            ->with(['dates' => $dates]);  
     }
 
     /**
@@ -40,7 +45,9 @@ class HoursController extends Controller
      */
     public function create()
     {
-        //
+        $employees = Employee::actives()->lists('first_name', 'last_name', 'id');
+
+        return view('hours.create', compact('employees'));
     }
 
     /**
@@ -71,9 +78,11 @@ class HoursController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Hour $hour)
     {
-        //
+        // $employees = Employee::actives()->lists('first_name', 'last_name', 'id');
+
+        return view('hours.edit', compact('hour'));
     }
 
     /**
@@ -83,9 +92,20 @@ class HoursController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Hour $hour)
     {
-        //
+        $this->validate($request, [
+            'regulars' => 'required|numeric|min:0|max:21',
+            'nightly' => 'required|numeric|min:0|max:'.$request->regulars,
+            'holidays' => 'required|numeric|min:0|max:21',
+            'training' => 'required|numeric|min:0|max:21',
+            'overtime' => 'required|numeric|min:0|max:21',
+        ]);
+
+        $hour->update($request->only(['regulars', 'nightly', 'holidays', 'training', 'overtime']));
+
+        return redirect()->route('admin.hours.edit', $hour->id)
+            ->withSuccess("Hours Updated");
     }
 
     /**
@@ -94,8 +114,18 @@ class HoursController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Hour $hour)
     {
-        //
+        $hour->delete();
+
+        return redirect()->route('admin.hours.index')
+            ->withDanger("Removed hours for date ".$hour->date->format("M/d/Y").", for employee ".$hour->employee->full_name);
+    }
+
+    public function byDate($date)
+    {
+       $hours = $this->hours->whereDate('date', '=', $date)->with('employee.position.department')->paginate(50);
+
+       return view('hours.by-date', compact('date', 'hours'));
     }
 }

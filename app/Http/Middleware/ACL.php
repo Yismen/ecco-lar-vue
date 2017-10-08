@@ -46,7 +46,10 @@ class ACL
         
         $this->handleAuthenthication();
         
-        if (config('app.env') == 'production' && $this->isOwnerOrAdmin()) return $next($request);
+        if (
+            // config('app.env') == 'production' && 
+            $this->isOwnerOrAdmin()
+            ) return $next($request);
 
         $this->parsePerms()
             ->handlePermsissions();
@@ -151,9 +154,6 @@ class ACL
      */
     private function reject($message="Unauthorized.")
     {
-        // I was unable to redirect from here. Had to set 
-        // properties in order to redicrect from the 
-        // handle method.
         $this->message = $message;
         return $this->reject = true;
     }

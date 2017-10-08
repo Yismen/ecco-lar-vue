@@ -1,3 +1,6 @@
+.alert-default {
+  background-color: #d2d6de;
+}
 .blur {
   -webkit-filter: blur(5px);
   -moz-filter: blur(5px);

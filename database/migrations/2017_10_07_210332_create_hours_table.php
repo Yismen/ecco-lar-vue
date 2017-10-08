@@ -20,10 +20,11 @@ class CreateHoursTable extends Migration {
             $table->string('unique_id', 30);
 			$table->string('name', 300);
 			$table->date('date');
-            $table->double('regulars', 5, 5)->default(0.00);
-            $table->double('nightly', 5, 5)->default(0.00);
-            $table->double('holidays', 5, 5)->default(0.00);
-            $table->double('training', 5, 5)->default(0.00);
+            $table->double('regulars', 15, 8)->default(0.00);
+            $table->double('nightly', 15, 8)->default(0.00);
+            $table->double('holidays', 15, 8)->default(0.00);
+            $table->double('training', 15, 8)->default(0.00);
+            $table->double('overtime', 15, 8)->default(0.00);
 			$table->timestamps();
 		});
 	}

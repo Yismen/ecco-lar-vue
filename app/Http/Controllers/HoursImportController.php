@@ -5,13 +5,15 @@ namespace App\Http\Controllers;
 use App\Hour;
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use App\Http\Traits\HoursImportTrait;
 use App\Repositories\ExcelFileLoader;
 
 class HoursImportController extends Controller
 {
-    public function byDate($date)
-    {
-        return $date;
+    use HoursImportTrait;
+
+    function __construct() {
+        $this->middleware('authorize:manage-hours-import');
     }
     /**
      * Shows the dashboard to import hours
@@ -44,6 +46,7 @@ class HoursImportController extends Controller
             'nightly' => 'required|numeric|min:0',
             'holidays' => 'required|numeric|min:0',
             'training' => 'required|numeric|min:0',
+            'overtime' => 'required|numeric|min:0',
         ]))
         ->load($request->file('file_name'));
 
@@ -57,17 +60,5 @@ class HoursImportController extends Controller
 
         return redirect('admin/hours-import')
             ->withSuccess('The data was imported!');
-    }
-
-    private function saveDataToDB($rows)
-    {
-        foreach ($rows as $data) {
-            $exists = Hour::where('unique_id', '=', $data['unique_id'])->first();
-
-            if ($exists) {
-                $exists->delete();
-            }
-            Hour::create($data);
-        }
     }
 }
