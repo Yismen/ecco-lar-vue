@@ -19,8 +19,9 @@ class CreatePayrollDiscountConceptsTable extends Migration
             $table->timestamps();
         });
 
-        PayrollDiscountConcept::create(['name' => 'Loan']);
+        PayrollDiscountConcept::create(['name' => 'Caffeteria']);
         PayrollDiscountConcept::create(['name' => 'Card']);
+        PayrollDiscountConcept::create(['name' => 'Loan']);
         PayrollDiscountConcept::create(['name' => 'Uniforms']);
     }
 

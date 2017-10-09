@@ -8,7 +8,7 @@ use App\PayrollDiscountConcept;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 
-class PayrollDiscount extends Model
+class PayrollAdditional extends Model
 {
     protected $fillable = ['date', 'employee_id', 'name', 'amount', 'concept_id', 'comment'];
 
@@ -21,12 +21,12 @@ class PayrollDiscount extends Model
 
     public function concept()
     {
-        return $this->belongsTo(PayrollDiscountConcept::class);
+        return $this->belongsTo(PayrollAdditionalConcept::class);
     }
 
     public function getConceptsListAttribute()
     {
-        return PayrollDiscountConcept::lists('name', 'id');
+        return PayrollAdditionalConcept::lists('name', 'id');
     }
 
     public function getEmployeesListAttribute()

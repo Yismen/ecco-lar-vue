@@ -51,6 +51,16 @@
         });
       }
 
+      if(elType == 'select' && $(el).hasClass("select2")) {
+        // console.log(inputType, elType, el, $(el).is("[multiple]"), $(el).attr("multiple"));
+        el.select2({
+          theme: "bootstrap",
+          placeholder: 'Select an option',
+          closeOnSelect: true,
+          width: '100%'
+        });
+      }
+
       /**
        * Apply iCheck plugin to all the inputs in the app.
        * The plugin will only pick checkboxes and radios
@@ -66,7 +76,9 @@
        * Apply summernote plugin to all the textareas in the app
        */
       if(elType == 'textarea') {
-        el.summernote();
+        if (el.hasClass('editor')) {
+          el.summernote();
+        }
       }
 
       /**
@@ -80,5 +92,6 @@
       }
             
   });
-  $('form').first().find(':input').filter(':visible:first').focus();
+
+  $('section.content').first().find(':input').filter(':visible:first').focus();
 })(jQuery);
