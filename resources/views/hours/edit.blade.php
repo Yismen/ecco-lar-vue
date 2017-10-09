@@ -7,12 +7,12 @@
             <div class="col-sm-8 col-sm-offset-2">
                 <div class="box box-primary">
                         
-                    <div class="box-body">
-                            
-                        {!! Form::model($hour, ['route'=>['admin.hours.update', $hour->id], 'method'=>'PUT', 'class'=>'', 'role'=>'form', 'autocomplete'=>"off",  'enctype'=>"multipart/form-data"]) !!}       
-                           <div class="box-header with-border">
-                                <h4>Edit Hours <a href="{{ route('admin.hours.index') }}" class="pull-right"><i class="fa fa-dashboard"></i> Dashboard</a></h4>
-                           </div>
+                    <div class="box-body">       
+                       <div class="box-header with-border">
+                            <h4>Edit Hours <a href="{{ route('admin.hours.index') }}" class="pull-right"><i class="fa fa-dashboard"></i> Dashboard</a></h4>
+                       </div>
+                           
+                        {!! Form::model($hour, ['route'=>['admin.hours.update', $hour->id], 'method'=>'PUT', 'class'=>'', 'role'=>'form', 'autocomplete'=>"off",  'enctype'=>"multipart/form-data"]) !!}
                            <div class="alert alert-default">
                                 <h3>
                                     <strong>Name: </strong> {{ $hour->employee_id }}, {{ $hour->employee->full_name }} <br>
