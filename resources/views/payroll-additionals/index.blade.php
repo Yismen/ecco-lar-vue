@@ -8,8 +8,15 @@
                 <div class="box box-success">
                     <div class="box-header with-border">    
                         <h4>
-                            Payroll Additionals Management
-                            <a href="{{ route('admin.payroll-additionals.create') }}" class="pull-right"><i class="fa fa-plus"></i> Create</a>
+                            <div class="col-sm-8">
+                                Payroll Additionals Management
+                            </div>
+                            <div class="col-sm-2 pull-right">
+                                <a href="{{ route('admin.payroll-additionals.create') }}" class="pull-right"><i class="fa fa-plus"></i> Create</a>
+                            </div>
+                            <div class="col-sm-2 pull-right">
+                                <a href="{{ route('admin.payroll-additionals.import') }}" class="pull-right"><i class="fa fa-upload"></i> Import</a>                            
+                            </div>
                         </h4>
                     </div>
 

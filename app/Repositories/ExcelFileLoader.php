@@ -32,16 +32,25 @@ class ExcelFileLoader
 
     public function load($files)
     {
-        foreach ($files as $file) {
-            Excel::load($file, function($reader) {
-                foreach($reader->toArray() as $data){
-                    $this->handleRow($reader, $data);
-                }
-            });
+        if (is_array($files)) {
+            foreach ($files as $file) {
+                $this->handleLoad($file);
+            }
+        } else {
+            $this->handleLoad($files);
         }
-
+        
         return $this;
             
+    }
+
+    private function handleLoad($file)
+    {
+        Excel::load($file, function($reader) {
+            foreach($reader->toArray() as $index => $data){
+                $this->handleRow($reader, $data, $index);
+            }
+        });
     }
 
     public function data()
@@ -62,7 +71,7 @@ class ExcelFileLoader
         return false;
     }
 
-    public function handleRow($reader, $data)
+    private function handleRow($reader, $data, $index)
     {
         $validator = Validator::make($data, $this->validation_rules);
 
@@ -75,6 +84,7 @@ class ExcelFileLoader
                 explode(".", $reader->file->getClientOriginalName())[0]
             ][] = [
                 'data' => $data,
+                'row_error' =>  $index + 2,
                 'failed_field' => $field_with_error,
                 'error_messages' => $messages,
             ];

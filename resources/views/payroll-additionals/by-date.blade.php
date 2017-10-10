@@ -16,7 +16,7 @@
                             </div>
                             <div class="col-xs-2">
                                 <a href="{{ route('admin.payroll-additionals.create') }}">
-                                    <i class="fa fa-upload"></i><span class="hidden-sm hidden-xs"> Create</span>
+                                    <i class="fa fa-plus"></i><span class="hidden-sm hidden-xs"> Create</span>
                                 </a>
                             </div>
                         </h4>
@@ -31,7 +31,7 @@
                                         <th>Employee ID</th>
                                         <th>Name</th>
                                         <th>Project - Position</th>
-                                        <th>Discount</th>
+                                        <th>Additional Amount</th>
                                         <th>Concept</th>
                                         <th>Edit</th>
                                     </tr>
@@ -43,7 +43,7 @@
                                             <td>{{ $additional->employee_id }}</td>
                                             <td>{{ $additional->employee->full_name }}</td>
                                             <td>{{ $additional->employee->position->department->department }} - {{ $additional->employee->position->name }}</td>
-                                            <td>${{ number_format($additional->amount, 2) }}</td>
+                                            <td>${{ number_format($additional->additional_amount, 2) }}</td>
                                             <td>{{ $additional->concept->name }}</td>
                                             <td><a href="{{ route('admin.payroll-additionals.edit', $additional->id) }}"><i class="fa fa-edit"></i> Edit</a></td>
                                         </tr>
@@ -51,7 +51,7 @@
                                 </tbody>
                                 <tfoot>
                                     <th colspan="4">Totals</th>
-                                    <th>${{ number_format($additionals->sum('amount'), 2) }}</th>
+                                    <th>${{ number_format($additionals->sum('additional_amount'), 2) }}</th>
                                     <th></th>
                                     <th></th>
                                 </tfoot>

@@ -16,7 +16,7 @@
                             </div>
                             <div class="col-xs-2">
                                 <a href="{{ route('admin.payroll-discounts.create') }}">
-                                    <i class="fa fa-upload"></i><span class="hidden-sm hidden-xs"> Create</span>
+                                    <i class="fa fa-plus"></i><span class="hidden-sm hidden-xs"> Create</span>
                                 </a>
                             </div>
                         </h4>
@@ -43,7 +43,7 @@
                                             <td>{{ $discount->employee_id }}</td>
                                             <td>{{ $discount->employee->full_name }}</td>
                                             <td>{{ $discount->employee->position->department->department }} - {{ $discount->employee->position->name }}</td>
-                                            <td>${{ number_format($discount->amount, 2) }}</td>
+                                            <td>${{ number_format($discount->discount_amount, 2) }}</td>
                                             <td>{{ $discount->concept->name }}</td>
                                             <td><a href="{{ route('admin.payroll-discounts.edit', $discount->id) }}"><i class="fa fa-edit"></i> Edit</a></td>
                                         </tr>
@@ -51,7 +51,7 @@
                                 </tbody>
                                 <tfoot>
                                     <th colspan="4">Totals</th>
-                                    <th>${{ number_format($discounts->sum('amount'), 2) }}</th>
+                                    <th>${{ number_format($discounts->sum('discount_amount'), 2) }}</th>
                                     <th></th>
                                     <th></th>
                                 </tfoot>

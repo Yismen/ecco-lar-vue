@@ -26,9 +26,9 @@ class PayrollDiscountRequest extends Request
         return [
             'date' => 'required|date',
             'employee_id' => 'required|exists:employees,id',
-            'amount' => 'required|min:0',
+            'discount_amount' => 'required|min:0',
             'concept_id' => 'required|exists:payroll_discount_concepts,id',
-            'concept_id' => 'max:150',
+            'comment' => 'max:250',
         ];
     }
 }

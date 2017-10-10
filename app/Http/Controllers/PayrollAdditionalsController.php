@@ -5,15 +5,20 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\PayrollAdditional;
 use Illuminate\Http\Request;
+use App\Repositories\ExcelFileLoader;
+use App\Http\Traits\PayrollAdditionalsTrait;
 use App\Http\Requests\PayrollAdditionalRequest;
 
 class PayrollAdditionalsController extends Controller
 {
+    use PayrollAdditionalsTrait;
+
     function __construct() {
         $this->middleware('authorize:view_payroll-additionals', ['only'=>['index','show']]);
         $this->middleware('authorize:edit_payroll-additionals', ['only'=>['edit','update']]);
         $this->middleware('authorize:create_payroll-additionals', ['only'=>['create','store']]);
         $this->middleware('authorize:destroy_payroll-additionals', ['only'=>['destroy']]);
+        $this->middleware('authorize:import_payrolls-additionals', ['only'=>['import', 'handleImport']]);
     }
     /**
      * Display a listing of the resource.
@@ -45,7 +50,7 @@ class PayrollAdditionalsController extends Controller
      */
     public function store(PayrollAdditionalRequest $request, PayrollAdditional $additional)
     {
-        $additional = $additional->create($request->only(['date', 'employee_id', 'amount', 'concept_id', 'comment']));
+        $additional = $additional->create($request->only(['date', 'employee_id', 'additional_amount', 'concept_id', 'comment']));
 
         return redirect()->route('admin.payroll-additionals.index')
             ->withSuccess("Additional created!");
@@ -80,9 +85,12 @@ class PayrollAdditionalsController extends Controller
      * @param  int  PayrollAdditional $additional
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PayrollAdditional $additional)
+    public function update(PayrollAdditionalRequest $request, PayrollAdditional $additional)
     {
-        //
+        $additional->update($request->only(['date', 'employee_id', 'additional_amount', 'concept_id', 'comment']));
+
+        return redirect()->route('admin.payroll-additionals.edit', $additional->id)
+            ->withSuccess("Additional Income Updated!");
     }
 
     /**
@@ -102,9 +110,42 @@ class PayrollAdditionalsController extends Controller
             // ->orderBy(function($query) {
             //     $query;
             // })
+            ->orderBy('employee_id', 'ASC')
             ->with('employee')->paginate(50);
 
         return view('payroll-additionals.by-date', compact('additionals', 'date'));
+    }
+
+    public function import()
+    {
+        return view('payroll-additionals.import');
+    }
+
+    public function handleImport(Request $request)
+    {
+        $this->validate($request, [
+            'additionals-file.*' => 'required|file|mimes:xls,xlsx,csv',
+        ]);
+
+        $loader = (new ExcelFileLoader([
+            'date' => 'required|date',
+            'employee_id' => 'required|exists:employees,id',
+            'additional_amount' => 'required|min:0',
+            'concept_id' => 'required|exists:payroll_discount_concepts,id',
+            'comment' => 'max:250',
+        ]))
+        ->load($request->file('additionals-file'));
+        
+        if ($loader->hasErrors()) {
+            $request->session()->flash('file_errors', ['errors'=>$loader->errors()]); 
+            return redirect()->route('admin.payroll-additionals.import')
+                ->withDanger('The file contains errors');
+        }
+
+        $this->saveDataToDB($loader->data());
+
+        return redirect()->route('admin.payroll-additionals.index')
+            ->withSuccess('The data was imported!');
     }
 
 }

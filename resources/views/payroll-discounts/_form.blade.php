@@ -28,11 +28,11 @@
 <div class="col-sm-12">
    <!-- Amount -->
    <div class="col-sm-6">
-       <div class="form-group {{ $errors->has('amount') ? 'has-error' : null }}">
-           {!! Form::label('amount', 'Amount:', ['class'=>'col-sm-2 control-label']) !!}
+       <div class="form-group {{ $errors->has('discount_amount') ? 'has-error' : null }}">
+           {!! Form::label('discount_amount', 'Amount:', ['class'=>'col-sm-2 control-label']) !!}
            <div class="col-sm-10">
-               {!! Form::input('number', 'amount', null, ['class'=>'form-control', 'placeholder'=>'Amount']) !!}        
-               {!! $errors->first('amount', '<span class="text-danger">:message</span>') !!}
+               {!! Form::input('number', 'discount_amount', null, ['class'=>'form-control', 'placeholder'=>'Amount']) !!}        
+               {!! $errors->first('discount_amount', '<span class="text-danger">:message</span>') !!}
            </div>
        </div>
    </div>

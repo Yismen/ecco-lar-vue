@@ -8,8 +8,16 @@
                 <div class="box box-warning">
                     <div class="box-header with-border">    
                         <h4>
-                            Payroll Discounts Management
-                            <a href="{{ route('admin.payroll-discounts.create') }}" class="pull-right"><i class="fa fa-plus"></i> Create</a>
+                            <div class="col-sm-8">
+                                Payroll Discounts Management
+                            </div>
+                            <div class="col-sm-2 pull-right">
+                                <a href="{{ route('admin.payroll-discounts.create') }}" class="pull-right"><i class="fa fa-plus"></i> Create</a>
+                            </div>
+                            <div class="col-sm-2 pull-right">
+                                <a href="{{ route('admin.payroll-discounts.import') }}" class="pull-right"><i class="fa fa-upload"></i> Import</a>                            
+                            </div>
+                        </h4>
                         </h4>
                     </div>
 
@@ -19,7 +27,7 @@
                             <div class="row">
                                 @foreach ($dates as $date)
                                     <div class="col-sm-3">
-                                        <div class="alert alert-info">
+                                        <div class="alert alert-warning">
                                             <a href="{{ route('admin.payroll-discounts.by-date', date("Y-m-d", strtotime($date->date))) }}">
                                                 <i class="fa fa-calendar"></i> 
                                                 {{ date("M/d/Y", strtotime($date->date)) }}

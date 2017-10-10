@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class PayrollAdditional extends Model
 {
-    protected $fillable = ['date', 'employee_id', 'name', 'amount', 'concept_id', 'comment'];
+    protected $fillable = ['date', 'employee_id', 'name', 'additional_amount', 'concept_id', 'comment'];
 
     protected $dates = ['date'];
 
