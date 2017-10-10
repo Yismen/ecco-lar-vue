@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\PayrollDiscount;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Repositories\ExcelFileLoader;
 use App\Http\Traits\PayrollDiscountsTrait;
 use App\Http\Requests\PayrollDiscountRequest;
@@ -106,9 +107,8 @@ class PayrollDiscountsController extends Controller
     public function byDate($date, PayrollDiscount $discount)
     {
         $discounts =  $discount->whereDate('date', '=', $date)
-            // ->orderBy(function($query) {
-            //     $query;
-            // })
+            ->select('*', DB::raw('sum(discount_amount) as discount_amount_sum'))
+            ->groupBy('employee_id')
             ->orderBy('employee_id', 'ASC')
             ->with('employee')->paginate(50);
 
@@ -145,5 +145,15 @@ class PayrollDiscountsController extends Controller
 
         return redirect()->route('admin.payroll-discounts.index')
             ->withSuccess('The data was imported!');
+    }
+
+    public function details($date, $employee_id, PayrollDiscount $discount)
+    {
+        $discounts =  $discount->whereDate('date', '=', $date)
+            ->where('employee_id', '=', $employee_id)
+            ->orderBy('employee_id', 'ASC')
+            ->with('employee.position.department')->paginate(50);
+
+        return view('payroll-discounts.details', compact('discounts', 'date'));
     }
 }

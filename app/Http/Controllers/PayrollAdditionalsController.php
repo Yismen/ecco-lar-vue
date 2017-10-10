@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests;
+use DB;
 use App\PayrollAdditional;
 use Illuminate\Http\Request;
 use App\Repositories\ExcelFileLoader;
@@ -107,11 +108,10 @@ class PayrollAdditionalsController extends Controller
     public function byDate($date, PayrollAdditional $additional)
     {
         $additionals =  $additional->whereDate('date', '=', $date)
-            // ->orderBy(function($query) {
-            //     $query;
-            // })
+            ->select('*', DB::raw('sum(additional_amount) as additional_amount_sum'))
+            ->groupBy('employee_id')
             ->orderBy('employee_id', 'ASC')
-            ->with('employee')->paginate(50);
+            ->with('employee.position.department')->paginate(50);
 
         return view('payroll-additionals.by-date', compact('additionals', 'date'));
     }
@@ -146,6 +146,16 @@ class PayrollAdditionalsController extends Controller
 
         return redirect()->route('admin.payroll-additionals.index')
             ->withSuccess('The data was imported!');
+    }
+
+    public function details($date, $employee_id, PayrollAdditional $additional)
+    {
+        $additionals =  $additional->whereDate('date', '=', $date)
+            ->where('employee_id', '=', $employee_id)
+            ->orderBy('employee_id', 'ASC')
+            ->with('employee.position.department')->paginate(50);
+
+        return view('payroll-additionals.details', compact('additionals', 'date'));
     }
 
 }

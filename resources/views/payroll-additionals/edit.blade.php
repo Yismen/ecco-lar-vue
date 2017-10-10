@@ -9,7 +9,11 @@
                         
                     <div class="box-body">       
                        <div class="box-header with-border">
-                            <h4>Edit Payroll Additionals <a href="{{ route('admin.payroll-additionals.index') }}" class="pull-right"><i class="fa fa-dashboard"></i> Dashboard</a></h4>
+                            <h4>
+                                Edit Payroll Additionals 
+                                <a href="{{ route('admin.payroll-additionals.details',  [$additional->date, $additional->employee_id]) }}" class="pull-right">
+                                    <i class="fa fa-angle-double-left"></i> Back</a>
+                            </h4>
                        </div>
                            
                         {!! Form::model($additional, ['route'=>['admin.payroll-additionals.update', $additional->id], 'method'=>'PUT', 'class'=>'form-horizontal', 'role'=>'form', 'autocomplete'=>"off",  'enctype'=>"multipart/form-data"]) !!}
