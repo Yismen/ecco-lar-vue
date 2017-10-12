@@ -4,11 +4,11 @@
     
     <div class="row">
 
-        <div class="col-xs-4">
+        <div class="col-sm-4">
             @include('escalations_admin.partials._bbb_form_date')            
         </div>
         {{-- /. By Date --}}
-        <div class="col-xs-8">
+        <div class="col-sm-8">
             @include('escalations_admin.partials._bbb_form_range')
         </div>
         {{-- /. By Range --}}        
