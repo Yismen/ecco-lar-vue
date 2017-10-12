@@ -53,7 +53,6 @@
                                     <th colspan="4">Totals</th>
                                     <th>${{ number_format($additionals->sum('additional_amount_sum'), 2) }}</th>
                                     <th></th>
-                                    <th></th>
                                 </tfoot>
                             </table>
                         </div>
