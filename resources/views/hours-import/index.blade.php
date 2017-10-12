@@ -39,7 +39,7 @@
                     
                         {!! Form::close() !!}
 
-                        @include('hours-import._errors')
+                        @include('layouts.partials.file-import-errors')
                     </div>  
                 </div>
                 @include('hours-import._dashboard')
