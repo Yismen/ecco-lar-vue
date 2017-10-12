@@ -14,11 +14,9 @@
                 </div>
 
                 <div class="col-sm-9">
-                    <div class="box box-danger pad">
-                            @yield('views')
-                        </div>
+                    <div class="pad">
+                        @yield('views')
                     </div>
-
                 </div>
             </div>
         </div>
