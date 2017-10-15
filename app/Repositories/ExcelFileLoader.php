@@ -34,12 +34,18 @@ class ExcelFileLoader
     {
         if (is_array($files)) {
             foreach ($files as $file) {
-                $this->handleLoad($file);
+                if (is_array($file)) {
+                    foreach ($file as $subFile) {
+                        $this->handleLoad($subFile);
+                    }
+                } else {
+                    $this->handleLoad($file);
+                }
             }
         } else {
             $this->handleLoad($files);
         }
-        
+
         return $this;
             
     }
