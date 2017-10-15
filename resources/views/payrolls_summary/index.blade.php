@@ -29,7 +29,8 @@
 					    	</div>
 					    </div>
 
-					    @include('payrolls_summary._import_errors')
+					    {{-- @include('payrolls_summary._import_errors') --}}
+					    @include('layouts.partials.file-import-errors')
 					
 					    <div class="box-footer">
 					        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> IMPORT</button>

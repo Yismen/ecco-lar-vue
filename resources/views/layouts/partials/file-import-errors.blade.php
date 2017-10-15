@@ -7,6 +7,7 @@
             @foreach ($file_errors['errors'] as $key => $file_error)
                 <div class="col-sm-6">
                     <div class="alert alert-danger">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <h4>File Name: {{ $key }}</h4>
                         <ul>
                             @foreach ($file_error as $error)
