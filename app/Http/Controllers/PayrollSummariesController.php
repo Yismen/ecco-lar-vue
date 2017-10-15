@@ -8,6 +8,8 @@ use App\PayrollSummary;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Repositories\ExcelFileLoader;
+use App\Http\Requests\PayrollImportFromExcelRequest;
 
 class PayrollSummariesController extends Controller
 {
@@ -41,32 +43,45 @@ class PayrollSummariesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PayrollImportFromExcelRequest $request)
     {
-        $this->validate($request, [
-            'payroll_file.*' => 'required|file|mimes:xls,xlsx,csv',
-        ], ['payroll_file.*' => 'Este campo es requerido']);
+        $loader = (new ExcelFileLoader([
+                'from_date' => 'required|date',
+                'to_date' => 'required|date',
+                'payment_date' => 'required|date',
+                'payroll_id' => 'required',
+                'unique_id' => 'required',
+                // 'unique_id' => 'required|unique:payroll_summaries',
 
-        foreach ($request->file('payroll_file') as $file) {
-            $validator = $this->ValidateFileName($file);
+                'employee_id' => 'required|exists:employees,id',
+                'name' => 'required',
 
-            if ($validator->fails()) {
-                return redirect('admin/payrolls_summary')
-                    ->withErrors($validator);
-            }
+                'regular_incomes' => 'required|numeric|min:0',
+                'nightly_incomes' => 'required|numeric|min:0',
+                'holidays_incomes' => 'required|numeric|min:0',
+                'overtime_incomes' => 'required|numeric|min:0',
+                'training_incomes' => 'required|numeric|min:0',
 
-            $this->loadDataFromExcelFile($file);
+                'incentive_incomes' => 'required|numeric|min:0',
+                'other_incomes' => 'required|numeric|min:0',
 
-        }
+                'tss_payroll_incomes' => 'required|numeric|min:0',
+                'gross_incomes' => 'required|numeric|min:0',
+                'net_incomes' => 'required|numeric|min:0',
+                'payment_incomes' => 'required|numeric|min:0',
+                
+                'ars_discounts' => 'required|numeric|min:0',
+                'afp_discounts' => 'required|numeric|min:0',
+                'other_discounts' => 'required|numeric|min:0',
+        ]))->load($request->file('payroll_file'));
 
-        if (count($this->file_errors) > 0) {  
-            $request->session()->flash('file_errors', ['errors'=>$this->file_errors]);    
+        if ($loader->hasErrors()) {  
+            $request->session()->flash('file_errors', ['errors' => $loader->errors()]);    
             return redirect('admin/payrolls_summary')
-                // ->withErrors($this->file_errors)
                 ->withDanger('The file contains errors');
         }
 
-        $this->saveDataToDB();
+        $this->saveDataToDB($loader->data());
 
         return redirect('admin/payrolls_summary')
             ->withSuccess('The data was imported!');
@@ -119,87 +134,9 @@ class PayrollSummariesController extends Controller
         return view('payrolls_summary.by_payroll_id_summary', compact('payroll_summaries', 'payroll_id'));
     }
 
-    private function validateRow($data)
+    private function saveDataToDB($rows)
     {
-            return Validator::make($data, 
-                    [
-                        'from_date' => 'required|date',
-                        'to_date' => 'required|date',
-                        'payment_date' => 'required|date',
-                        'payroll_id' => 'required',
-                        'unique_id' => 'required',
-                        // 'unique_id' => 'required|unique:payroll_summaries',
-
-                        'employee_id' => 'required|exists:employees,id',
-                        'name' => 'required',
-
-                        'regular_incomes' => 'required|numeric|min:0',
-                        'nightly_incomes' => 'required|numeric|min:0',
-                        'holidays_incomes' => 'required|numeric|min:0',
-                        'overtime_incomes' => 'required|numeric|min:0',
-                        'training_incomes' => 'required|numeric|min:0',
-
-                        'incentive_incomes' => 'required|numeric|min:0',
-                        'other_incomes' => 'required|numeric|min:0',
-
-                        'tss_payroll_incomes' => 'required|numeric|min:0',
-                        'gross_incomes' => 'required|numeric|min:0',
-                        'net_incomes' => 'required|numeric|min:0',
-                        'payment_incomes' => 'required|numeric|min:0',
-                        
-                        'ars_discounts' => 'required|numeric|min:0',
-                        'afp_discounts' => 'required|numeric|min:0',
-                        'other_discounts' => 'required|numeric|min:0',
-                    ]
-                );
-    }
-
-    private function loadDataFromExcelFile($file)
-    {
-        return Excel::load($file, function($reader) {
-            foreach($reader->toArray() as $data){
-
-                $validator = $this->validateRow($data);
-
-                if ($validator->fails()) {
-                    $message = $validator->messages();
-                    $field_with_error = array_keys($message->getMessages());
-                    $data = $validator->getData();
-
-                    $this->file_errors[
-                        explode(".", $reader->file->getClientOriginalName())[0]
-                    ][] = [
-                        'data' => $data,
-                        'failed_field' => $field_with_error,
-                        'error_messages' => $message->getMessages(),
-                    ];
-                } else {
-                    $this->data[] = $data;
-                }
-            }
-        });
-    }
-
-    private function ValidateFileName($file)
-    {
-         return Validator::make(
-            [
-                'file_name' => $file->getClientOriginalName()
-            ], 
-            [
-                'file_name' => [
-                    'required',
-                    'regex:/(payroll_import)\w+/',
-                ],
-            ], [
-                'regex' => 'No ha elegido el archivo correcto. Recuerde elegir un archivo de excel nombrado "payrol_import_##*"'
-            ]
-        );
-    }
-
-    private function saveDataToDB()
-    {
-        foreach ($this->data as $data) {
+        foreach ($rows as $data) {
             $exists = PayrollSummary::where('unique_id', '=', $data['unique_id'])->first();
 
             if ($exists) {
