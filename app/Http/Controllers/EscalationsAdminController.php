@@ -45,6 +45,11 @@ class EscalationsAdminController extends Controller
         return view('escalations_admin.by_date');
     }
 
+    public function getByRange()
+    {
+        return view('escalations_admin.by_date');
+    }
+
     public function postByDate()
     {     
         $this->validate($this->request, [
