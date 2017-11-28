@@ -64,6 +64,21 @@ class EscalationsAdminController extends Controller
 
     }
 
+    public function postByRange()
+    {     
+        $this->validate($this->request, [
+            'from'=>'required|date',
+            'to'=>'required|date'
+        ]);
+           
+        $detailed =  $this->production->records->detailedByRange($this->request)->get();
+
+        $this->request->flash();
+
+        return view('escalations_admin.by_date', compact('detailed'));
+
+    }
+
     public function search()
     {
         return view('escalations_admin.search');

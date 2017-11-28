@@ -36,7 +36,18 @@ class Records
             ->with('user')
             ->with('escal_client')
             ->orderBy('escal_client_id')
-            ->whereDate('created_at', '=', $date)
+            ->whereDate('insert_date', '=', $date)
+            ;
+    } 
+
+    public function detailedByRange($request)
+    {        
+        return $this->record
+            ->with('user')
+            ->with('escal_client')
+            ->orderBy('insert_date', 'asc')
+            ->orderBy('escal_client_id', 'asc')
+            ->whereBetween('insert_date', [$request->from, $request->to])
             ;
     }    
 
