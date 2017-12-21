@@ -39,7 +39,8 @@ elixir(function(mix) {
             nodeModules + '/admin-lte/dist/css/skins/_all-skins.css',
             nodeModules + '/admin-lte/plugins/daterangepicker/daterangepicker.css',
             nodeModules + '/animate.css/animate.css',
-            nodeModules + '/bootstrap-datepicker/dist/css/bootstrap-datepicker.css',
+            nodeModules + '/bootstrap-datepicker/css/bootstrap-datepicker.css',
+            nodeModules + '/bootstrap-datepicker/css/bootstrap-timepicker.css',
             // nodeModules + '/bootstrap-material-design/dist/css/bootstrap-material-design.css',
             // nodeModules + '/bootstrap-material-design/dist/css/ripples.css',
             nodeModules + '/datatables.net-bs/css/dataTables.bootstrap.css',
@@ -94,7 +95,7 @@ elixir(function(mix) {
     	.version([
             'js/all.js', 
             // 'js/app.js',
-            'js/dainsys/app.js',
+            // 'js/dainsys/app.js',
     		'css/all.css'
     	]);
     

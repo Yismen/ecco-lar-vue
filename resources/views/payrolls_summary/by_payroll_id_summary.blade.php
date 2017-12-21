@@ -10,7 +10,7 @@
                         <h2>
                             Summary for Payroll ID [{{ $payroll_id }}] 
                             <span class="badge badge-danger">{{ $payroll_summaries->count() }} Records</span> 
-                            <a href="{{ route('admin.payrolls_summary.create') }}" class="pull-right"><i class="fa fa-list"></i> List</a>
+                            <a href="{{ route('admin.payrolls_summary.index') }}" class="pull-right"><i class="fa fa-list"></i> List</a>
                         </h2>
                     </div>
 

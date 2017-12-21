@@ -45,7 +45,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-        if($e instanceof \Illuminate\Session\TokenMismatchException && ! $request->ajax()){
+        if($e instanceof \Illuminate\Session\TokenMismatchExceptio){
               return redirect()
                   ->back()
                   ->withInput($request->except('_token'))

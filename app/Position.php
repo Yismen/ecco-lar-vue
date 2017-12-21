@@ -1,13 +1,15 @@
 <?php namespace App;
 
 use App\Employee;
+use App\PaymentType;
+use App\PaymentFrequency;
 use Illuminate\Database\Eloquent\Model;
 
 class Position extends Model {
 
-	 protected $fillable = ['name', 'department_id', 'payment_id', 'salary'];
+	 protected $fillable = ['name', 'department_id', 'payment_type_id', 'payment_frequency_id', 'salary'];
 
-	 protected $appends = ['name_and_department'];
+	 protected $appends = ['name_and_department', 'pay_per_hours'];
 	 /**
 	 * ----------------------------------------------------
 	 * Relationships
@@ -18,9 +20,14 @@ class Position extends Model {
 		return $this->belongsTo('App\Department');
 	}
 
-	public function payment()
+	public function payment_type()
 	{
-		return $this->belongsTo('App\Payment', 'payment_id');
+		return $this->belongsTo(PaymentType::class, 'payment_type_id');
+	}
+
+	public function payment_frequency()
+	{
+		return $this->belongsTo(PaymentFrequency::class, 'payment_frequency_id');
 	}
 
 	public function employees()
@@ -32,10 +39,6 @@ class Position extends Model {
 	 * -----------------------------------------------------
 	 * Accessors
 	 */
-	// public function getSalaryAttribute($salary)
-	// {
-	// 	return number_format($salary, 2);
-	// }
 
 	public function getNameAndDepartmentAttribute($name)
 	{
@@ -50,9 +53,27 @@ class Position extends Model {
 		return \App\Department::lists('department', 'id');
 	}
 
-	public function getPaymentsListAttribute()
+	public function getPaymentTypesListAttribute()
 	{
-		return \App\Payment::lists('payment_type', 'id');
+		return PaymentType::lists('name', 'id');
+	}
+
+	public function getPayPerHoursAttribute()
+	{
+		$salary = $this->salary;
+
+		if ($this->payment_type) {
+			if (strtolower($this->payment_type->name) == 'salary') {
+				return $salary / 23.83 / 8;
+			}
+		}
+
+		return $salary;
+	}
+
+	public function getPaymentFrequenciesListAttribute()
+	{
+		return PaymentFrequency::lists('name', 'id');
 	}
 
 	/**

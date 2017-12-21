@@ -15,8 +15,8 @@
                             @include('escalations_hours._form')
                     
                             <div class="box-footer">
-                                <button type="submit" class="btn btn-default">CANCEL</button>
-                                <button type="submit" class="btn btn-primary">SUBMIT</button>
+                                <button type="submit" class="btn btn-primary">CREATE</button>
+                                <button type="reset" class="btn btn-default">CANCEL</button>
                             </div>
                     
                         {!! Form::close() !!}

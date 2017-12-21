@@ -22,6 +22,7 @@ mix
     // .copy('node_modules/bootstrap-sass/assets/stylesheets/bootstrap', 'resources/assets/sass/bootstrap-sass')
     // .sass('resources/assets/sass/app.scss', 'resources/assets/css/bootstrap.css')
     // .copy('node_modules/jorge.form', 'resources/assets/js/dainsys/vendor')
+    // .copy('node_modules/dainsys-form', 'resources/assets/js/dainsys/vendor/dainsys-form')
     .js('resources/assets/js/dainsys/app.js', 'public/js/dainsys')
     // .version()
     
@@ -89,6 +90,11 @@ mix
     //     'css/all.css'
     // ]);;
 
+.browserSync({
+  proxy: 'dainsys.dev',
+  browser: 'firefox'
+  // browser: 'Chrome'
+});
 
 // Full API
 // mix.js(src, output);

@@ -22,7 +22,7 @@
 
 <div class="form-group {{ $errors->has('body') ? 'has-error' : null }}">
 	{!! Form::label('body', 'Content:', ['class'=>'']) !!}
-	{!! Form::textarea('body', null, ['class'=>'form-control', 'placeholder'=>'Content']) !!}
+	{!! Form::textarea('body', null, ['class'=>'form-control editor', 'placeholder'=>'Content']) !!}
 </div>
 <!-- /. Content -->
 

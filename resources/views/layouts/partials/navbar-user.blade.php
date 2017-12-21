@@ -47,7 +47,7 @@
             </a>
           </div>
           <div class="col-xs-4 text-center">
-            <a href="{{ route('admin.passwords.index') }}">
+            <a href="{{-- {{ route('admin.passwords.index') }} --}}">
               <i class="fa fa-archive"></i> Vault
             </a>
           </div>

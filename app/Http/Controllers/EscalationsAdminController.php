@@ -60,7 +60,7 @@ class EscalationsAdminController extends Controller
         $users   =  $this->production->users->byDate($this->request->date)->get();
         $summary = $this->production->records->byDate($this->request->date)->get();
         if ($this->request->has('detailed')) {
-           $detailed =  $this->production->records->detailedByDate($this->request->date)->get();
+           $detailed =  $this->production->records->detailedByDate($this->request)->get();
         }
 
         $this->request->flash();

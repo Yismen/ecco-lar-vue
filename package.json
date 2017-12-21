@@ -2,7 +2,8 @@
   "private": true,
   "scripts": {
     "webpack": "cross-env NODE_ENV=development webpack --progress --hide-modules",
-    "dev": "cross-env NODE_ENV=development webpack --watch --progress --hide-modules",
+    "dev": "cross-env NODE_ENV=development webpack --progress --hide-modules",
+    "watch": "cross-env NODE_ENV=development webpack --watch --progress --hide-modules",
     "dev-h": "cross-env NODE_ENV=development webpack --watch --progress --hide-modules",
     "hmr": "cross-env NODE_ENV=development webpack-dev-server --inline --hot",
     "production": "cross-env NODE_ENV=production webpack --progress --hide-modules",
@@ -37,6 +38,7 @@
     "bootstrap-sass": "^3.0.0",
     "bootstrap-timepicker": "^0.5.2",
     "chart.js": "^2.5.0",
+    "dainsys-form": "git+https://github.com/Yismen/dainsys-form.git",
     "datatables.net": "^1.10.12",
     "datatables.net-bs": "^1.10.12",
     "datatables.net-buttons": "^1.2.1",
@@ -46,7 +48,7 @@
     "font-awesome": "^4.6.1",
     "icheck": "^1.0.2",
     "ionicons": "^3.0.0",
-    "jorge.form": "https://github.com/Yismen/jorge.form.git",
+    "jorge.form": "git+https://github.com/Yismen/jorge.form.git",
     "jquery": "^2.2.0",
     "js-cookie": "^2.1.2",
     "laravel-elixir": "^3.0.0",
@@ -75,7 +77,9 @@
     "vue-strap": "^1.0.11",
     "vue-toast-mobile": "^2.0.0",
     "vue-validator": "^2.1.1",
-    "vuejs-datepicker": "^0.7.14",
+    "vue2-filters": "^0.2.2",
+    "vuejs-datepicker": "^0.9.20",
+    "vuex": "^3.0.1",
     "webpack": "^2.5.0"
   }
 }

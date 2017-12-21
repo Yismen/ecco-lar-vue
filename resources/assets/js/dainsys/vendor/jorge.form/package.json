@@ -1,7 +1,7 @@
 {
   "_args": [
     [
-      "jorge.form@git+https://github.com/Yismen/jorge.form.git",
+      "https://github.com/Yismen/jorge.form.git",
       "F:\\wamp\\www\\dainsys"
     ]
   ],
@@ -21,9 +21,9 @@
       "sshUrl": "git+ssh://git@github.com/Yismen/jorge.form.git",
       "type": "github"
     },
-    "name": "jorge.form",
-    "raw": "jorge.form@git+https://github.com/Yismen/jorge.form.git",
-    "rawSpec": "git+https://github.com/Yismen/jorge.form.git",
+    "name": null,
+    "raw": "https://github.com/Yismen/jorge.form.git",
+    "rawSpec": "https://github.com/Yismen/jorge.form.git",
     "scope": null,
     "spec": "git+https://github.com/Yismen/jorge.form.git",
     "type": "hosted"
@@ -32,9 +32,9 @@
     "/"
   ],
   "_resolved": "git+https://github.com/Yismen/jorge.form.git#b95bc9333703cb6fe81617666e38081f303c7247",
-  "_shasum": "33be8d59d8df274ab2857ae10631799b5b08713d",
+  "_shasum": "2eb79c27f198fbfa1fba7e9a52e14712c9a29dd1",
   "_shrinkwrap": null,
-  "_spec": "jorge.form@git+https://github.com/Yismen/jorge.form.git",
+  "_spec": "https://github.com/Yismen/jorge.form.git",
   "_where": "F:\\wamp\\www\\dainsys",
   "author": {
     "name": "Yismen Jorge"

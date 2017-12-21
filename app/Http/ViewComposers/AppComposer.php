@@ -5,6 +5,7 @@ namespace App\Http\ViewComposers;
 use App\User;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 class AppComposer
 {
@@ -54,12 +55,16 @@ class AppComposer
     public function user()
     {
         if (Auth::check()) {
-            return User::with(['roles'=>function($query){
-                return $query->orderBy('display_name');
-            }])
-            ->with('profile')
-            ->with('app_setting')
-            ->find(Auth::id());
+
+            return Cache::rememberForever('user-navbar', function() {
+                return User::with(['roles'=>function($query){
+                    return $query->orderBy('display_name');
+                }])
+                ->with('profile')
+                ->with('app_setting')
+                ->find(Auth::id());
+            });
+                
         }
         
         return null;

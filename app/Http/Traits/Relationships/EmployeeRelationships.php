@@ -4,11 +4,6 @@ namespace App\Http\Traits\Relationships;
 
 trait EmployeeRelationships
 {
-    /**
-     * many to many relationship with the department model
-     *
-     * @return [array] [departments related to current Employee]
-     */
     public function ars()
     {
         return $this->belongsTo('App\Ars');
@@ -31,7 +26,7 @@ trait EmployeeRelationships
 
     public function department()
     {
-        return $this->belongsTo('App\Department');
+        return $this->hasManyThrough('App\Department', 'App\Position');
     }
     
     public function gender()
@@ -46,7 +41,7 @@ trait EmployeeRelationships
     
     public function position()
     {
-        return $this->belongsTo('App\Position', 'position_id');
+        return $this->belongsTo('App\Position');
     }
     
     public function marital()
@@ -92,5 +87,20 @@ trait EmployeeRelationships
     public function supervisor()
     {
         return $this->belongsTo('App\Supervisor');
+    }
+
+    public function payrollAdditionals()
+    {
+        return $this->hasMany('App\PayrollAdditional');
+    }
+
+    public function payrollDiscounts()
+    {
+        return $this->hasMany('App\PayrollDiscount');
+    }
+
+    public function payrollIncentives()
+    {
+        return $this->hasMany('App\PayrollIncentive');
     }
 }

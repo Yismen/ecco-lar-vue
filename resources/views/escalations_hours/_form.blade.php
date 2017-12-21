@@ -4,10 +4,9 @@
         <div class="form-group {{ $errors->has('user_id') ? 'has-error' : null }}">
             {!! Form::label('user_id', 'User:', ['class'=>'col-sm-2 control-label']) !!}
             <div class="col-sm-10">
-                <select name="user_id" class="form-control input-sm" readonly>
-                    <option value="{{ $user->id }}">{{ $user->name }}</option>
-                </select>
-                {!! $errors->first('name', '<span class="text-danger">:message</span>') !!}
+                <label class="form-control">{{ $user->name }}</label>
+                <input type="hidden" name="user_id" id="user_id" value="{{ $user->id }}">
+                {!! $errors->first('user_id', '<span class="text-danger">:message</span>') !!}
             </div>
         </div>
     </div>
@@ -18,26 +17,26 @@
         <div class="form-group {{ $errors->has('client_id') ? 'has-error' : null }}">
             {!! Form::label('client_id', 'Client:', ['class'=>'col-sm-2 control-label']) !!}
             <div class="col-sm-10">
-                <select name="client_id" class="form-control input-sm" readonly>
-                    <option value="{{ $client->id }}">{{ $client->name }}</option>
-                </select>
-                {!! $errors->first('name', '<span class="text-danger">:message</span>') !!}
+                <label class="form-control">{{ $client->name }}</label>
+                <input type="hidden" name="client_id" id="client_id" value="{{ $client->id }}">
+                {!! $errors->first('client_id', '<span class="text-danger">:message</span>') !!}
             </div>
         </div>
     </div>
     <!-- /. Client -->
     
-    <!-- Records -->
+    <!-- Date -->
     <div class="col-sm-4">
-        <div class="form-group {{ $errors->has('records') ? 'has-error' : null }}">
-            {!! Form::label('records', 'Records:', ['class'=>'col-sm-3 control-label']) !!}
+        <div class="form-group {{ $errors->has('date') ? 'has-error' : null }}">
+            {!! Form::label('date', 'Date:', ['class'=>'col-sm-3 control-label']) !!}
             <div class="col-sm-9">
-                <input type="text" name="records" class="form-control" value="{{ $records }}" readonly>
-                {!! $errors->first('records', '<span class="text-danger">:message</span>') !!}
+                <label class="form-control">{{ $date }}</label>
+                <input type="hidden" name="date" id="date" value="{{ $date }}">
+                {!! $errors->first('date', '<span class="text-danger">:message</span>') !!}
             </div>
         </div>
     </div>
-    <!-- /. Records -->
+    <!-- /. Date -->
 
 </div>
 
@@ -47,7 +46,7 @@
             <div class="form-group {{ $errors->has('entrance') ? 'has-error' : null }}">
                 {!! Form::label('entrance', 'Entrance:', ['class'=>'col-sm-3 control-label']) !!}
                 <div class="col-sm-9">
-                    {!! Form::input('date_time', 'entrance', null, ['class'=>'form-control', 'placeholder'=>'Entrance']) !!}        
+                    {!! Form::input('time', 'entrance', null, ['class'=>'form-control', 'placeholder'=>'Entrance']) !!}        
                     {!! $errors->first('entrance', '<span class="text-danger">:message</span>') !!}
                 </div>
         </div>
@@ -59,7 +58,7 @@
         <div class="form-group {{ $errors->has('out') ? 'has-error' : null }}">
             {!! Form::label('out', 'Out:', ['class'=>'col-sm-2 control-label']) !!}
             <div class="col-sm-10">
-                {!! Form::input('date_time', 'out', null, ['class'=>'form-control', 'placeholder'=>'Out']) !!}        
+                {!! Form::input('time', 'out', null, ['class'=>'form-control', 'placeholder'=>'Out']) !!}        
                 {!! $errors->first('out', '<span class="text-danger">:message</span>') !!}
             </div>
         </div>

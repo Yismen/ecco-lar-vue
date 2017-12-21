@@ -27,7 +27,8 @@ class PositionsController extends Controller {
 			->orderBy('department_id')
 			->orderBy('name')
 			->with('department')
-			->with('payment')
+			->with('payment_type')
+			->with('payment_frequency')
 			->paginate(50);
 
 		return view('positions.index', compact('positions'));
@@ -118,7 +119,8 @@ class PositionsController extends Controller {
 		$this->validate($request, [
 			'name' => 'required|min:2|unique:positions,name,'.$position->id.',id,department_id,'.$request->department_id,
 			'department_id' => 'required|exists:departments,id',
-			'payment_id' => 'required|exists:payments,id',
+			'payment_type_id' => 'required|exists:payment_types,id',
+			'payment_frequency_id' => 'required|exists:payment_frequencies,id',
 			'salary' => 'required|numeric|min:0|max:500000',
 		]);
 

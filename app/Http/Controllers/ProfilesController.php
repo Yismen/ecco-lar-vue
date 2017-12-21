@@ -10,6 +10,7 @@ use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Repositories\Profiles;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
 
 class ProfilesController extends Controller
 {
@@ -79,6 +80,8 @@ class ProfilesController extends Controller
         $photoPath = $this->saveImage($request, $user);
 
         $user->profile()->create($request->all());
+
+        Cache::forget('user-navbar');
 
         if($photoPath) {
             $user->profile->photo = $photoPath;
@@ -155,6 +158,8 @@ class ProfilesController extends Controller
         $photoPath = $this->saveImage($request, $user);
 
         $profile->update($request->all());
+
+        Cache::forget('user-navbar');
 
         $profile->photo = $photoPath;
         $profile->save();

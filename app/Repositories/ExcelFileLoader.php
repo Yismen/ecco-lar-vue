@@ -25,7 +25,7 @@ class ExcelFileLoader
      */
     private $validation_rules = [];
 
-    public function __construct($rules)
+    public function __construct($rules = [])
     {
         $this->validation_rules = $rules;
     }

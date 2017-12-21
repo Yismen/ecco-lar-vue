@@ -3,11 +3,11 @@
 @section('views')
     
     <div class="col-sm-6">
-        @include('escalations_admin.partials._by_date_day_form')
+        @include('escalations_admin.partials._by_date_form_day')
     </div>
 
     <div class="col-sm-6">
-        @include('escalations_admin.partials._by_date_range_form')
+        @include('escalations_admin.partials._by_date_form_range')
     </div>
 
     @if (isset($clients) && isset($users) && isset($summary))

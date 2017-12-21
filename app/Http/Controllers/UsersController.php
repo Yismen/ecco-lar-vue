@@ -10,6 +10,7 @@ use App\Events\EditUserSettings;
 use App\Events\CreateUserSettings;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Cache;
 
 class UsersController extends Controller 
 {
@@ -39,6 +40,7 @@ class UsersController extends Controller
 	 */
 	public function index(User $users)
 	{
+		// return \Session::all();
 		$users = $users
 			->with(['roles'=> function($query){
 				$query->orderBy('display_name');
@@ -209,11 +211,17 @@ class UsersController extends Controller
 			'mini' => $request->mini,
 			'collapse' => $request->collapse,
 		];
+		$this->updateOrCreateSettings($user);
 
+        return redirect()->back();
+	}
+
+	private function updateOrCreateSettings($user)
+	{
 		$user->app_setting()->count() > 0 ? 
 			event(new EditUserSettings($user)) : 
 			event(new CreateUserSettings($user));
 
-        return redirect()->back();
+		Cache::forget('user-navbar');
 	}
 }

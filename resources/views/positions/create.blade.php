@@ -3,27 +3,28 @@
 
 @section('content')
 	<div class="container-fluid">
-		<div class="box box-primary pad">
-			<div class="row">
-				<div class="col-sm-12">
-					{!! Form::open(['route'=>['admin.positions.store'], 'method'=>'POST', 'class'=>'form-horizontal', 'role'=>'form']) !!}
-						<div class="form-group">
-							<legend>Adding a New Position</legend>
-						</div>
-
-						@include('positions._form')
-
-						<div class="col-sm-10 col-sm-offset-2">
-							<button type="submit" class="btn btn-primary form-control">Create</button>
-							<br><br>
-							<a href="{{ route('admin.positions.index') }}"><< Return to Positions List</a>
-						</div>
-
-					{!! Form::close() !!}
+		<div class="col-sm-10 col-sm-offset-1">
+			<div class="box box-success">
+				<div class="box-header with-border">
+					<h4>
+						Adding a New Position
+						<a href="{{ route('admin.positions.index') }}" class="pull-right" title="Back to the list"><i class="fa fa-list"></i></a>
+					</h4>
 				</div>
-			</div>
+				<div class="box-body">
+					{!! Form::open(['route'=>['admin.positions.store'], 'method'=>'POST', 'class'=>'form-horizontal', 'role'=>'form']) !!}
 
-			{{-- // errors --}}
+							@include('positions._form')
+
+							<div class="col-sm-10 col-sm-offset-2">
+								<button type="submit" class="btn btn-success form-control">CREATE</button>
+							</div>
+
+						{!! Form::close() !!}
+				</div>
+
+				{{-- // errors --}}
+			</div>
 		</div>
 
 	</div>

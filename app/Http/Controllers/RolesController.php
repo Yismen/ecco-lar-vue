@@ -8,6 +8,7 @@ use App\User;
 use App\Permission;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
 
 
 class RolesController extends Controller {
@@ -156,6 +157,8 @@ class RolesController extends Controller {
 	{
 		$role = $role->create($request->all());
 
+		Cache::forget('user-navbar');
+
 		return $this->syncRelations($role,  $request);
 	}
 
@@ -170,6 +173,8 @@ class RolesController extends Controller {
 	protected function updateRole($role, $request)
 	{
 		$role->update($request->all());
+
+		Cache::forget('user-navbar');
 
 		return $this->syncRelations($role,  $request);
 	}

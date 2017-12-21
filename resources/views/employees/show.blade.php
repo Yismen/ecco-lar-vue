@@ -85,7 +85,7 @@
 							<li class="list-group-item">
 								<strong>Salary: </strong>
 								@if (count($employee->position) > 0)
-									${{ number_format($employee->position->salary, 2) }}, {{ $employee->position->payment->payment_type }}
+									${{ number_format($employee->position->salary, 2) }}, {{ $employee->position->payment_type->name or 'Missing Payment Type in his position. Please fix!' }}, {{ $employee->position->payment_frequency->name or 'Missing Payment Frequency in his position. Please fix!' }}
 								@endif
 							</li>
 						

@@ -5,7 +5,8 @@
 	@if ($position)
 		<div class="container-fluid">
 			<div class="box box-primary pad">
-				<ul class="list-group">
+				<div class="box-body">
+					<ul class="list-group">
 					<li class="list-group-item">
 						<strong>Name: </strong>{{ $position->name }}
 					</li>
@@ -13,16 +14,18 @@
 						<strong>Department: </strong>{{ $position->department->department }}
 					</li>
 					<li class="list-group-item">
-						<strong>Paid as: </strong>{{ $position->payment->payment_type }}
+						<strong>Payment Type: </strong>{{ $position->payment_type ? $position->payment_type->name : 'Please Add One!' }}
+					</li>
+					<li class="list-group-item">
+						<strong>Payment Frequency: </strong>{{ $position->payment_frequency ? $position->payment_frequency->name : 'Please Add One!' }}
 					</li>
 					<li class="list-group-item">
 						<strong>Saraly: </strong>RD$ {{ $position->salary }}
 					</li>
 				</ul>
-				<a href="{{ route('admin.positions.edit', $position->id) }}" class="btn btn-warning"> Edit </a>
-				{{-- {!! delete_button('positions.destroy', $position->name, ['class'=>"btn btn-danger", 'label' => 'Delete']) !!} --}}
-				<hr>
-				<a href="{{ route('admin.positions.index') }}" class=""> << Return to Positions List </a>
+					<a href="{{ route('admin.positions.edit', $position->id) }}" class="btn btn-warning"> Edit </a>
+					<a href="{{ route('admin.positions.index') }}" class="pull-right" title="Back to the list"><i class="fa fa-list"></i></a>
+				</div>
 			</div>
 		</div>
 		{{-- /. Row --}}

@@ -34,7 +34,18 @@
      if(inputType == 'time') {
         $(el).prop('type', "text");
         el.timepicker({
-            showMeridian: false
+            showMeridian: false,
+            format: 'HH:mm:ss'
+        });
+      }
+
+      /**
+       * Apply datetimepicker plugin to all the input with the type of date in the app
+       */
+      if(inputType == 'date_time') {
+        $(el).prop('type', "text");
+        el.datetimepicker({
+          format: 'YYYY-MM-DD HH:mm:ss',
         });
       }
 
@@ -79,16 +90,6 @@
         if (el.hasClass('editor')) {
           el.summernote();
         }
-      }
-
-      /**
-       * Apply datetimepicker plugin to all the input with the type of date in the app
-       */
-      if(inputType == 'datetime-local') {
-        $(el).prop('type', "text");
-        el.datetimepicker({
-          format: 'YYYY-MM-DD HH:mm:ss',
-        });
       }
             
   });

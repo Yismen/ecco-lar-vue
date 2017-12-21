@@ -4,8 +4,10 @@ namespace App;
 
 use App\User;
 use App\EscalClient;
+use Carbon\Carbon;
 use App\EscalationHour;
 use Illuminate\Database\Eloquent\Model;
+
 
 class EscalRecord extends Model
 {
@@ -30,9 +32,16 @@ class EscalRecord extends Model
             ->select(['name', 'id']);
     }
 
-    public function hour()
+    public function hours()
     {
-        return $this->belongsTo('App\EscalationHour', 'escal_client_id', 'client_id', 'user_id', 'user_id');
+        return $this
+            ->belongsTo('App\EscalationHour', 'escal_client_id', 'client_id')
+            ->leftJoin('escal_records', function($join) {
+                $join->on('escal_records.user_id', '=', 'escalation_hours.user_id')
+                    ->on('escal_records.insert_date', '=', 'escalation_hours.date')
+                    ;
+            })
+            ;
     }
 
     public function escal_client()
@@ -53,6 +62,31 @@ class EscalRecord extends Model
     {
         
     }
+
+    public function productionHours($entrance, $out, $break) 
+    {        
+        $dtEntrance = Carbon::parse($entrance);
+        $dtOut = Carbon::parse($out);
+        
+        return ($dtEntrance->diffInMinutes($dtOut, false) - $break) / 60;
+    }
+
+    public function productivity($records, $hours) 
+    {        
+        if ($records == 0 || $hours == 0) {
+            return 0;
+        }
+
+        return $records / $hours;
+    }
+
+    // public function tp()
+    // {
+    //     if ($this->hours->productionHours() == 0 || $this->records() == 0) {
+    //         return 0;
+    //     }
+    //     return $this->records() / $this->hours->productionHours();
+    // }
     
     /**
      * ==========================================

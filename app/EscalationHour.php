@@ -30,6 +30,16 @@ class EscalationHour extends Model
         return User::lists('name', 'id');
     }
 
+    public function getEntranceAttribute($time)
+    {
+        return Carbon::parse($time)->format("H:i");
+    }
+
+    public function getOutAttribute($time)
+    {
+        return Carbon::parse($time)->format("H:i");
+    }
+
     public function client()
     {
         return $this->belongsTo(EscalClient::class);
@@ -45,9 +55,15 @@ class EscalationHour extends Model
         $dtEntrance = Carbon::parse($this->entrance);
         $dtOut = Carbon::parse($this->out);
 
-        return ($dtOut->diffInMinutes($dtEntrance) - $this->break) / 60;
-        return ($dtOut->diffInSeconds($dtEntrance) - $this->break) / 60 / 60;
+        return ($dtEntrance->diffInMinutes($dtOut) - $this->break) / 60;
     }
+
+    public function productionHours()
+    {
+        return $this->production_hours;
+    }
+
+
 
     public function recordsCount($user_id, $client_id, $date)
     {
@@ -63,7 +79,7 @@ class EscalationHour extends Model
 
     public function tp()
     {
-        return $this->records()/$this->hours();
+        return $this->recordsCount() / $this->productionHours();
     }
 
 

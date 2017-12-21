@@ -153,19 +153,19 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Cviebrock\EloquentSluggable\SluggableServiceProvider::class,
-        App\Providers\ComposerServiceProvider::class,
-        App\Providers\LayoutServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class,
         Yajra\Datatables\DatatablesServiceProvider::class,
         GrahamCampbell\Flysystem\FlysystemServiceProvider::class,
-        Arcanedev\LogViewer\LogViewerServiceProvider::class,
+        // Arcanedev\LogViewer\LogViewerServiceProvider::class,
+        // Barryvdh\Debugbar\ServiceProvider::class,
 
         Dainsys\Payrolls\PayrollsServiceProvider::class,  
 
         /*
          * Application Service Providers...
          */
-        Barryvdh\Debugbar\ServiceProvider::class,
+        App\Providers\LayoutServiceProvider::class,
+        App\Providers\ComposerServiceProvider::class,
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
