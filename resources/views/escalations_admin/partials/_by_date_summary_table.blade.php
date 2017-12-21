@@ -30,7 +30,7 @@
                                         </a>
                                     @else
                                         <a href="{{ route('admin.escalations_hours.create', [$record->escal_records_user_id, $record->escal_records_escal_client_id, $record->escal_records_insert_date]
-                                        ) }}" target="_new">
+                                        ) }}" target="_blanc">
                                             <i class="fa fa-plus"></i> {{ $production_hours = '' }}Create
                                         </a>
                                     @endif

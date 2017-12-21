@@ -55,15 +55,12 @@ class AppComposer
     public function user()
     {
         if (Auth::check()) {
-
-            return Cache::rememberForever('user-navbar', function() {
-                return User::with(['roles'=>function($query){
-                    return $query->orderBy('display_name');
-                }])
-                ->with('profile')
-                ->with('app_setting')
-                ->find(Auth::id());
-            });
+            return User::with(['roles'=>function($query){
+                return $query->orderBy('display_name');
+            }])
+            ->with('profile')
+            ->with('app_setting')
+            ->find(Auth::id());
                 
         }
         

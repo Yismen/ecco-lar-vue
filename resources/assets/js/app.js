@@ -22,7 +22,7 @@
        * Apply datepicker plugin to all the input with the type of date in the app
        */
       if(inputType == 'date') {
-        // $(el).prop('type', "text");
+        $(el).prop('type', "text");
         el.datepicker({
           // format: 'm/d/yyyy',
           format: 'yyyy-mm-dd',
