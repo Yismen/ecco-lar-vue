@@ -22,13 +22,15 @@ trait UsersTrait
 
     private function sendEmail($user, $notify, $email_view, $subject = 'Welcome to Dainsys')
     {
-        Mail::later(5, 'emails.'.$email_view, ['user'=>$user, 'password' => $this->random_password], function($email) use ($user, $notify, $subject){
-            $email->to('yismen.jorge@ecco.com.do', 'Yismen Jorge')->subject($subject);
-            if ($notify && config('app.env') == 'production') {
-                $email->cc($user->email, $user->name);
-            }
-        });
-
+        if ($notify) {
+            Mail::later(5, 'emails.'.$email_view, ['user'=>$user, 'password' => $this->random_password], function($email) use ($user, $notify, $subject){
+                $email->to('yismen.jorge@ecco.com.do', 'Yismen Jorge')->subject($subject);
+                if ($notify && config('app.env') == 'production') {
+                    $email->cc($user->email, $user->name);
+                }
+            });
+        }
+        
         return $this;
     }
 
