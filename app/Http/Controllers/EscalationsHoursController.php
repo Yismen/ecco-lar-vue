@@ -27,13 +27,11 @@ class EscalationsHoursController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(EscalationHour $hour)
     {
-        $dates = $this->production->records->groupedByDate(true);
+        $hours = $hour->paginate(40);
 
-        return view('escalations_hours.index', [
-            'dates' => $dates
-        ]);
+        return view('escalations_hours.index', compact('hours'));
     }
 
     /**
@@ -116,24 +114,21 @@ class EscalationsHoursController extends Controller
         //
     }
 
-    public function byDate()
+    public function byDate(EscalationHour $hour)
     {
         $this->validate($this->request, [
             'date' => 'required|date|exists:escal_records,insert_date'
         ]);
 
-        return $records = $this->production->records
-            ->byDate($this->request->date)
-            ->with('hour')
-            // ->has('hour')
-            ->get();
+        $hours = $hour
+            ->whereDate('date', '=', $this->request->date)
+            ->with('user')
+            ->orderBy('user_id')
+            ->orderBy('client_id')
+            ->with('client')
+            ->paginate(40);
 
-
-        return $pending_records = $this->production->records
-            ->byDate($this->request->date)
-            ->with('hour')
-            ->doesntHave('hour')
-            ->get();
+        return view('escalations_hours._by_date', compact('hours'));
     }
 
     public function search()

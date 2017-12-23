@@ -58,7 +58,7 @@ class EscalationsAdminController extends Controller
 
         $clients = $this->production->clients->byDate($this->request->date)->get();
         $users   =  $this->production->users->byDate($this->request->date)->get();
-        $summary = $this->production->records->byDate($this->request->date)->get();
+        return $summary = $this->production->records->byDate($this->request->date)->get();
         if ($this->request->has('detailed')) {
            $detailed =  $this->production->records->detailedByDate($this->request)->get();
         }

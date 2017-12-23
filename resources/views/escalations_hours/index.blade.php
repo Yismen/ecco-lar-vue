@@ -8,27 +8,26 @@
                     <div class="box box-primary">
                         <div class="box-header "><h2>Escalations Hours</h2></div>
 
-
-                        @unless ($dates->count() > 0)
+                        @unless ($hours->count() > 0)
                             <div class="alert alert-info">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                                 <strong>No Records!</strong> Alert body ...
                             </div>
                         @else
                             <div class="row">
-                                @foreach ($dates as $date)
+                                @foreach ($hours as $hour)
                                     <div class="col-md-2 col-sm-3 col-xs-4">
                                         <div class="alert alert-info">
-                                            <a href="{{ route('admin.escalations_hours.byDate', ['date'=>$date->insert_date->format("Y-m-d")]) }}">
+                                            <a href="{{ route('admin.escalations_hours.byDate', ['date'=>$hour->date->format('Y-m-d') ]) }}">
                                                 <i class="fa fa-calendar"></i> 
-                                                {{ $date->insert_date->format("M/d/Y") }}
+                                                {{ $hour->date->format('M/d/Y') }}
                                             </a>
                                         </div>
                                     </div>
                                 @endforeach 
                             </div>   
                             <div class="col-sm-12">   
-                                {{ $dates->render() }}
+                                {{ $hours->render() }}
                             </div>                    
                         @endunless
 

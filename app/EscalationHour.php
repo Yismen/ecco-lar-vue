@@ -2,21 +2,17 @@
 
 namespace App;
 
+use DateTime;
 use App\User;
 use Carbon\Carbon;
 use App\EscalClient;
-use DateTime;
 use Illuminate\Database\Eloquent\Model;
 
 class EscalationHour extends Model
 {
-
     protected $dates = ['date'];
+
     protected $fillable = ['date', 'user_id', 'client_id', 'entrance', 'out', 'break'];
-
-    protected $appends = ['production_hours'];
-
-    // protected $
 
     protected $table = 'escalation_hours';
 
