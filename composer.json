@@ -10,6 +10,7 @@
         "laravelcollective/html": "~5.0",
         "cviebrock/eloquent-sluggable": "^3.1",
         "zizaco/entrust": "dev-laravel-5",
+        "guzzlehttp/guzzle": "~5.3|~6.0",
         "intervention/image" : "*", 
         "maatwebsite/excel": "*",
         "doctrine/dbal": "^v2.5.4",
