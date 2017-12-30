@@ -57,7 +57,7 @@ class EscalationsHoursController extends Controller
     {
         $hours = $hours->create($request->all());
 
-        return redirect()->route('admin.escalations_hours.edit', $hour->id)
+        return redirect()->route('admin.escalations_hours.edit', $hours->id)
             ->withSuccess("Hours created.");
     }
 
@@ -99,7 +99,7 @@ class EscalationsHoursController extends Controller
     {
         $hours->update($request->all());
 
-        return redirect()->route('admin.escalations_hours.edit', $hour->id)
+        return redirect()->route('admin.escalations_hours.edit', $hours->id)
             ->withWarning("Hours updated!");
     }
 
