@@ -23,10 +23,12 @@
 										<th>Production Hours:</th>
 										<th>Productivity:</th>
 									</tr>
-									<tr>
+									<tr class="{{
+                                        $hours->production_hours <= 0 ? 'danger' : '' 
+                                        }}">
 										<td>{{ $hours->records }}</td>
-										<td>{{ number_format($hours->production_hours, 3) }}</td>
-										<td>{{ number_format($hours->records / $hours->production_hours, 2) }}</td>
+										<td>{{ number_format($hours->production_hours, 2) }}</td>
+										<td>{{ $hours->production_hours == 0 ? 0 : number_format($hours->records / $hours->production_hours, 2) }}</td>
 									</tr>
 								</tbody>
 							</table>

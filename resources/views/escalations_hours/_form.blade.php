@@ -4,7 +4,7 @@
         <div class="form-group {{ $errors->has('user_id') ? 'has-error' : null }}">
             {!! Form::label('user_id', 'User:', ['class'=>'col-sm-2 control-label']) !!}
             <div class="col-sm-10">
-                <label class="form-control">{{ $user->name }}</label>
+                <label class="form-control bg-green">{{ $user->name }}</label>
                 <input type="hidden" name="user_id" id="user_id" value="{{ $user->id }}">
                 {!! $errors->first('user_id', '<span class="text-danger">:message</span>') !!}
             </div>
@@ -17,7 +17,7 @@
         <div class="form-group {{ $errors->has('client_id') ? 'has-error' : null }}">
             {!! Form::label('client_id', 'Client:', ['class'=>'col-sm-2 control-label']) !!}
             <div class="col-sm-10">
-                <label class="form-control">{{ $client->name }}</label>
+                <label class="form-control bg-green">{{ $client->name }}</label>
                 <input type="hidden" name="client_id" id="client_id" value="{{ $client->id }}">
                 {!! $errors->first('client_id', '<span class="text-danger">:message</span>') !!}
             </div>
@@ -30,7 +30,7 @@
         <div class="form-group {{ $errors->has('date') ? 'has-error' : null }}">
             {!! Form::label('date', 'Date:', ['class'=>'col-sm-3 control-label']) !!}
             <div class="col-sm-9">
-                <label class="form-control">{{ $date }}</label>
+                <label class="form-control bg-green">{{ $date->format('M/d/Y') }}</label>
                 <input type="hidden" name="date" id="date" value="{{ $date }}">
                 {!! $errors->first('date', '<span class="text-danger">:message</span>') !!}
             </div>
