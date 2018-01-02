@@ -6,6 +6,7 @@ use App\User;
 use App\EscalClient;
 use App\Http\Requests;
 use App\EscalationHour;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Requests\EscalationsHoursRequest;
 use App\Repositories\Escalations\Production;
@@ -41,6 +42,7 @@ class EscalationsHoursController extends Controller
      */
     public function create($user_id, $client_id, $date)
     {
+        $date = new Carbon($date);
         $user = User::select('id', 'name')->findOrFail($user_id);
         $client = EscalClient::select('id', 'name')->findOrFail($client_id);
 
