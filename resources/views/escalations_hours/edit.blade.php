@@ -48,7 +48,7 @@
 							
 							        <div class="box-footer">
 							            <button type="submit" class="btn btn-warning"><i class="fa fa-edit"></i> UPDATE</button>
-							            <button type="submit" class="btn btn-default">CANCEL</button>
+							            <button type="reset" class="btn btn-default">CANCEL</button>
 							        </div>
 							
 							    {!! Form::close() !!}
