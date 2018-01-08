@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Builder;
 use App\Http\Traits\Mutators\UserMutators;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
@@ -51,6 +52,14 @@ class User extends Authenticatable implements CanResetPassword
             if (Auth::user()->has('profile')) {
                 return $this->profile;
             }
+        }
+        return false;
+    }
+
+    public function isOnline()
+    {
+        if (Cache::has('online-user-'.$this->id)) {
+            return true;
         }
         return false;
     }
