@@ -46,7 +46,7 @@ class UsersController extends Controller
 				$query->orderBy('display_name');
 			}])
 			->orderBy('name')
-			->paginate(20);
+			->get();
 
 		return view('users.index', compact('users'));
 	}
