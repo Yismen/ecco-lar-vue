@@ -14,7 +14,7 @@
 
 <template>
     <div class="_LastMonth">
-        <div class="box box-warning">
+        <div class="box box-danger">
             <results-table :records="records">Last Month Escal Records</results-table>
         </div>
     </div>

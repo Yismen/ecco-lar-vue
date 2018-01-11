@@ -14,7 +14,7 @@
 
 <template>
     <div class="_LastWeek">
-        <div class="box box-primary">
+        <div class="box box-danger">
             <results-table :records="records">Last Week Escal Records</results-table>
         </div>
     </div>

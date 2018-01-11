@@ -14,7 +14,7 @@
 
 <template>
     <div class="_LastTenDays">
-        <div class="box box-warning">
+        <div class="box box-info">
             <results-table :records="records">Last Ten Days Escal Records</results-table>
         </div>
     </div>

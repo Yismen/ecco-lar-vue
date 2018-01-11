@@ -14,7 +14,7 @@
 
 <template>
     <div class="_ThisMonth">
-        <div class="box box-warning">
+        <div class="box box-primary">
             <results-table :records="records">This Month Escal Records</results-table>
         </div>
     </div>
