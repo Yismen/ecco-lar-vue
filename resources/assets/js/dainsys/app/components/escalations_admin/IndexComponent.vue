@@ -18,30 +18,12 @@
         </div>
         <!-- Weelly -->
         <div class="col-sm-12">
-            <div class="col-sm-6">
                 <this-week :records="this_week"></this-week>
-            </div>
-            <div class="col-sm-6">
                 <last-week :records="last_week"></last-week>
-            </div>
-        </div>
-        <!-- Month -->
-        <div class="col-sm-12">
-            <div class="col-sm-6">
                 <this-month :records="this_month"></this-month>
-            </div>
-            <div class="col-sm-6">
                 <last-month :records="last_month"></last-month>
-            </div>
+                <last-ten-days :records="last_ten_days"></last-ten-days>
         </div>
-        <!-- Month -->
-        <div class="col-sm-12">
-            <div class="col-sm-12">
-                <last-ten-days :records="this_month"></last-ten-days>
-            </div>
-        </div>
-
-
     </div>
 </template>
 
@@ -99,6 +81,7 @@
                         this.last_week = data.last_week || [];
                         this.this_month = data.this_month || [];
                         this.last_month = data.last_month || [];
+                        this.last_ten_days = data.last_ten_days || [];
                     }
                 });
             }

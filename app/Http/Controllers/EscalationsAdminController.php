@@ -32,11 +32,11 @@ class EscalationsAdminController extends Controller
             'todayRecordsByUser' => $this->production->users->today()->get(),
             'todayRecordsByClient' => $this->production->clients->today()->get(),
             'lastFiveDates' => $this->production->records->lastManyDays(5)->get(),
-            'last_ten_days' => $this->production->records->manyDaysAgo(10),
             'this_week'     => $this->production->records->thisWeek(),
             'last_week'     => $this->production->records->lastWeek(),
             'this_month'     => $this->production->records->thisMonth(),
             'last_month'     => $this->production->records->lastMonth(),
+            'last_ten_days' => $this->production->records->manyDaysAgo(10),
         ];
 
         if ($this->request->ajax()) {
