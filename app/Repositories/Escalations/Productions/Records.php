@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Escalations\Productions;
 
+use Carbon\Carbon;
 use App\EscalRecord;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\Escalations\Productions\Hours;
@@ -9,10 +10,12 @@ use App\Repositories\Escalations\Productions\Hours;
 class Records
 {
     private $record;
+    private $date;
 
-    public function __construct(EscalRecord $record)
+    public function __construct(EscalRecord $record, Carbon $date)
     {
         $this->record = $record;
+        $this->date = $date;
     }
 
     public function groupedByDate($paginated = false, $pages = 15)
@@ -55,6 +58,74 @@ class Records
 
     public function byDate($date)
     {
+        return $this->query()
+            ->whereDate('escal_records.insert_date', '=', $date);
+    }
+
+    public function byRange($from, $to)
+    {
+        return $this->query()
+            ->whereDate('escal_records.insert_date', '>=', $from)
+            ->whereDate('escal_records.insert_date', '<=', $to);
+    }
+
+    public function manyDaysAgo($days = 10)
+    {
+        $from = (new Carbon)->subDays($days)->format("Y-m-d");
+        $to = (new Carbon)->format("Y-m-d");
+
+        return $this->query()
+            ->where(DB::raw('date(escal_records.insert_date)'), '>=', $from)
+            ->where(DB::raw('date(escal_records.insert_date)'), '<=', $to)
+            ->get();
+    }
+
+    public function thisWeek()
+    {
+        $year = $this->date->year;
+        $current_week = $this->date->weekOfYear;
+
+        return $this->query()
+            ->where(DB::raw('year(escal_records.insert_date)'), '=', $year)
+            ->where(DB::raw('WEEKOFYEAR(escal_records.insert_date)'), '=', $current_week)
+            ->get();
+    }
+
+    public function lastWeek()
+    {
+        $year = (new Carbon)->subWeek()->year;
+        $last_week = (new Carbon)->subWeek()->weekOfYear;
+
+        return $this->query()
+            ->where(DB::raw('year(escal_records.insert_date)'), '=', $year)
+            ->where(DB::raw('WEEKOFYEAR(escal_records.insert_date)'), '=', $last_week)
+            ->get();
+    }
+
+    public function thisMonth()
+    {
+        $year = $this->date->year;
+        $current_month = $this->date->month;
+
+        return $this->query()
+            ->where(DB::raw('year(escal_records.insert_date)'), '=', $year)
+            ->where(DB::raw('month(escal_records.insert_date)'), '=', $current_month)
+            ->get();
+    }
+
+    public function lastMonth()
+    {
+        $year = (new Carbon)->subMonth()->year;
+        $last_month = (new Carbon)->subMonth()->month;
+
+        return $this->query()
+            ->where(DB::raw('year(escal_records.insert_date)'), '=', $year)
+            ->where(DB::raw('month(escal_records.insert_date)'), '=', $last_month)
+            ->get();
+    }
+
+    private function query()
+    {
         return $this->record
             ->select(DB::raw("
                 escal_records.id as escal_records_id, 
@@ -75,9 +146,9 @@ class Records
                     (TIMESTAMPDIFF(MINUTE, escalation_hours.entrance, escalation_hours.out) - escalation_hours.break) / 60
                 ) as escalation_hours_production_hours
             "))
-            ->groupBy(['escal_records.user_id', 'escal_records.escal_client_id'])
+            ->groupBy(['escal_records.user_id', 'escal_records.escal_client_id', 'escal_records.insert_date'])
+            ->orderBy('escal_records.insert_date')
             ->orderBy('escal_records.escal_client_id')
-            ->whereDate('escal_records.insert_date', '=', $date)
             ->leftJoin('escalation_hours', function($join) {
                 return $join
                     ->on('escal_records.user_id', '=', 'escalation_hours.user_id')
@@ -86,7 +157,6 @@ class Records
                     ;
             })
             ->with('user')
-            // ->with('hours')
             ->with('escal_client');
     }
 

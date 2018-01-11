@@ -11,7 +11,6 @@ const router = new VueRouter({
 
 import store from './app/stores/Store.js'
 
-
 new Vue({
  el: '#app',
 
@@ -22,6 +21,3 @@ new Vue({
   store: new Vuex.Store(store)
   
 });
-
-window.router = router;
-// window.http = axios;

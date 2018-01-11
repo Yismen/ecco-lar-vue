@@ -1,17 +1,31 @@
 import Moment from 'moment';
 export default {
     state: {
-        payment_date: Moment()
+        generated: false,
+        employees: []
     },
+
     getters: {
-        today(state) {
-            return state.payment_date.format('MM/DD/YY')
+        fromDate(state) {
+            return  state.employees.employees_with_hours ? state.employees.employees_with_hours.from : null;
+        },
+
+        toDate(state) {
+            return  state.employees.employees_with_hours ? state.employees.employees_with_hours.to : null;
+        },
+        isGenerated(state) {
+            return state.generated;
+        },
+        allEmployees(state) {
+           return state.employees.employees_with_hours ? state.employees.employees_with_hours.data : [];
         }
     },
 
     mutations: {
-        updatePaymentDate(state) {
-            return state.payment_date;
+        payrollGenerated(state, payload) {
+            state.generated = true;
+            return state.employees = payload;
         }
-    }
+    },
+
 };

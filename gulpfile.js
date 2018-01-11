@@ -14,15 +14,6 @@ var nodeModules = '../../../node_modules';
 
 
 elixir(function(mix) {
-    // mix.copy('node_modules/bootstrap/fonts', 'public/build/fonts');
-    // mix.copy('node_modules/bootstrap/fonts', 'public/build/fonts/bootstrap');
-    // mix.copy('node_modules/ionicons/dist/fonts', 'public/build/fonts');
-    // mix.copy('node_modules/font-awesome/fonts', 'public/build/fonts');
-    // mix.copy('node_modules/datatables.net-dt/images', 'public/build/images');
-    // mix.copy('node_modules/summernote/dist/font', 'public/build/css/font');
-    // mix.copy('node_modules/icheck/skins/square/blue.png', 'public/build/css');
-    // mix.copy('node_modules/bootstrap-sass/assets/stylesheets/bootstrap', 'resources/assets/sass/bootstrap-sass');
-
     mix
         // .copy('node_modules/bootstrap/fonts', 'public/build/fonts')
         // .copy('node_modules/bootstrap/fonts', 'public/build/fonts/bootstrap')
@@ -39,8 +30,8 @@ elixir(function(mix) {
             nodeModules + '/admin-lte/dist/css/skins/_all-skins.css',
             nodeModules + '/admin-lte/plugins/daterangepicker/daterangepicker.css',
             nodeModules + '/animate.css/animate.css',
-            nodeModules + '/bootstrap-datepicker/css/bootstrap-datepicker.css',
-            nodeModules + '/bootstrap-datepicker/css/bootstrap-timepicker.css',
+            nodeModules + '/bootstrap-datepicker/dist/css/bootstrap-datepicker.css',
+            nodeModules + '/bootstrap-timepicker/css/bootstrap-timepicker.css',
             // nodeModules + '/bootstrap-material-design/dist/css/bootstrap-material-design.css',
             // nodeModules + '/bootstrap-material-design/dist/css/ripples.css',
             nodeModules + '/datatables.net-bs/css/dataTables.bootstrap.css',
@@ -53,7 +44,7 @@ elixir(function(mix) {
             nodeModules + '/ionicons/dist/css/ionicons.css',
             nodeModules + '/select2-bootstrap-theme/dist/select2-bootstrap.css',
             nodeModules + '/select2/dist/css/select2.css',
-            nodeModules + '/morris.js/morris.css',
+            // nodeModules + '/morris.js/morris.css',
             nodeModules + '/summernote/dist/summernote.css',
             'my-css-updates.css',
         // 'btn-raised.css',
@@ -76,9 +67,9 @@ elixir(function(mix) {
             nodeModules + '/dropzone/dist/dropzone.js',
             nodeModules + '/eonasdan-bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js',
             nodeModules + '/icheck/icheck.js',
-            nodeModules + '/morris.js/morris.js',
-            nodeModules + '/raphael/raphael.js',
-            nodeModules + '/chart.js/dist/Chart.js',
+            // nodeModules + '/morris.js/morris.js',
+            // nodeModules + '/raphael/raphael.js',
+            // nodeModules + '/chart.js/dist/Chart.js',
             nodeModules + '/js-cookie/src/js.cookie.js',
             nodeModules + '/select2/dist/js/select2.js',
             nodeModules + '/summernote/dist/summernote.js',

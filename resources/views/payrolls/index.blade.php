@@ -1,51 +1,52 @@
+
 @inject('layout', 'App\Layout')
-@extends('layouts.'.$layout->app(), ['page_header'=>config('dainsys.app_name'), 'page_description'=>'No Description'])
+@extends('layouts.'.$layout->app(), ['page_header'=>'Payrolls Temporary', 'page_description'=>'Import temporary data from Excel file.'])
 
 @section('content')
 	<div class="container-fluid">
-		<div class="col-sm-8 col-sm-offset-2">
-			<div class="box box-primary pad">
-				<h3 class="page-header">
-					Payments Items List
-						 	<a href="{{ route('admin.payments.create') }}" class="pull-right btn btn-primary">
-						 		<i class="fa fa-plus"></i> Create
-						 	</a>
-				</h3>
-				@if ($payments->isEmpty())
-					<div class="bs-callout bs-callout-warning">
-						<h1>No Payments has been added yet, please add one</h1>
-					</div>
-				@else
-					<table class="table table-condensed table-hover">
-						<thead>
-							<tr>
-								<th>Payment Name</th>
-								<th class="col-xs-3">Actions</th>
-							</tr>
-						</thead>
-						<tbody>
-							@foreach ($payments as $payment)
-								<tr>
-									<td>
-										<a href="{{ route('admin.payments.show', $payment->id) }}">{{ $payment->payment_type }}</a>
-									</td>
-									<td>
-										<a href="{{ route('admin.payments.edit', $payment->id) }}" class="" rel="tooltip" title="Edit" data-placement="left">
-											Edit <i class="fa fa-edit"></i>
-										</a>
-										{{-- {!! delete_button('payments.destroy', $payment->id, ['class'=>'btn btn-danger','label'=>'<i class="fa fa-trash"></i>']) !!} --}}
-									</td>
-								</tr>
-							@endforeach
-						</tbody>
-					</table>
-					{!! $payments->render() !!}
-				@endif
+    	<div class="row">
+			<div class="col-sm-8 col-sm-offset-2">
+				<div class="box box-primary">
+					<div class="box-header with-border">Import Data</div>
+
+					{!! Form::open(['route'=>['admin.payrolls.store'], 'method'=>'POST', 'class'=>'form-horizontal', 'role'=>'form', 'autocomplete'=>"off", 'files' => true]) !!}
+					    
+					    <div class="box-body">
+
+					    	<div class="col-sm-12">
+					    		<div class="form-group {{ $errors->has('payroll_file') ? 'has-error' : null }}">
+								    <label class="col-sm-2 control-label">Payroll File:</label>
+							    	<div class="col-sm-10">
+							    		<input type="file" class="form-control" multiple="multiple" name="payroll_file[]">
+							    		@if ($errors->any())
+							    		    @foreach ($errors->all() as $error)
+							    		        <span class="text-danger">{{ $error }}</span>
+							    		    @endforeach
+							    		@endif
+							    		<span class="help-block">Please select a file to be uploaded</span>
+							    	</div>
+					    		</div>
+					    	</div>
+					    </div>
+
+					    {{-- @include('payrolls._import_errors') --}}
+					    @include('layouts.partials.file-import-errors')
+					
+					    <div class="box-footer">
+					        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> IMPORT</button>
+					        <button type="reset" class="btn btn-default">CANCEL</button>
+					    </div>
+					
+					{!! Form::close() !!}
+					
+				</div>
+
+				@include('payrolls._dashboard')
+				
 			</div>
 		</div>
 	</div>
-@stop
-
+@endsection
 @section('scripts')
-	
+
 @stop

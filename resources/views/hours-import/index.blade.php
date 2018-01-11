@@ -33,8 +33,8 @@
                             <!-- /. Select a File -->
                     
                             <div class="box-footer">
-                                <button type="submit" class="btn btn-default">CANCEL</button>
                                 <button type="submit" class="btn btn-primary">SUBMIT</button>
+                                <button type="reset" class="btn btn-default">CANCEL</button>
                             </div>
                     
                         {!! Form::close() !!}

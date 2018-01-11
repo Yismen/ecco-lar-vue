@@ -1,2 +1,5 @@
 import Form from '../vendor/dainsys-form';
-export default Form;
+
+export default {
+    Form: Form
+}

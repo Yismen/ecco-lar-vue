@@ -23,16 +23,20 @@ class EscalationsAdminController extends Controller
 
     public function index()
     {
-        return view('escalations_admin.index-chartjs');
+         return view('escalations_admin.index-chartjs');
     }
 
     public function index_ajax()
     {
-        $data = [
+       $data = [
             'todayRecordsByUser' => $this->production->users->today()->get(),
             'todayRecordsByClient' => $this->production->clients->today()->get(),
             'lastFiveDates' => $this->production->records->lastManyDays(5)->get(),
-            // 'lastFiveDatesByUser' => $this->production->records->usersDays(5),
+            'last_ten_days' => $this->production->records->manyDaysAgo(10),
+            'this_week'     => $this->production->records->thisWeek(),
+            'last_week'     => $this->production->records->lastWeek(),
+            'this_month'     => $this->production->records->thisMonth(),
+            'last_month'     => $this->production->records->lastMonth(),
         ];
 
         if ($this->request->ajax()) {

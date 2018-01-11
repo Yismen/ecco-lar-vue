@@ -1,83 +1,95 @@
 <template>
     <div class="_WithHoursList">
-        <div class="box-body">
-            <div class="table-responsive" v-if="hasEmployees">
-                <div class="box-header">
-                    <h3>
-                        <div class="col-sm-6">Employees With Hours </div>
-
-                        <form method="POST" role="form" 
-                            class="form-horizontal pull-right col-sm-6" 
-                            v-if="selectedEmployees.length > 0"
-                            @submit.prevent="closePayroll">
-                            <div class="form-group">
-                                <label for="date" class="label-control col-sm-2 hidden-xs">Date:</label>
-                                <div class="col-sm-10">
-                                    <div class="col-sm-6">
-                                        <datepicker input-class="form-control" 
-                                            v-model="form.fields.payment_date" 
-                                            name="payment_date" 
-                                            id="payment_date"
-                                            format="MM/dd/yyyy" 
-                                            placeholder="From Date"
-                                            :bootstrapStyling="true"
-                                            :calendarButton="true"
-                                            calendarButtonIcon="fa fa-calendar"
-                                            :clearButton="true"
-                                        ></datepicker>
-                                        <span class="text-danger" v-show="form.error.has('payment_date')">{{ form.error.get('payment_date') }}</span>                              
-                                    </div>
-                                    <button type="submit" class="btn btn-warning col-sm-6">Close Payroll</button>
-                                </div>
-                                    
-                            </div>                    
-                        </form>
-                    </h3>
-
-                </div>
-                <table class="table table-hover table-condensed table-bordered">
-                    <thead>
-                        <tr>                        
-                            <th>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" v-model="selected" @change="checkboxAllChanged">
-                                        <strong>Employee ID (All)</strong>
-                                    </label>
-                                </div>
-                            </th>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Salary Composition</th>
-                            <th>Paymen Per Hours</th>
-
-                            <th>Regular Salary</th>
-                            <th>Nightly Salary</th>
-                            <th>Overtime Salary</th>
-                            <th>Holiday Salary</th>
-                            <th>Trainig Salary</th>
-
-                            <th>Incentives</th>
-                            <th>Other Incomes</th>
-
-                            <th>ARS Discount</th>
-                            <th>AFP Discount</th>
-                            <th>Other Discounts</th>
+        <div class="col-sm-12" v-if="isGenerated">
+            <div class="box" :class="[hasEmployees ? 'box-info' : 'box-danger']" >
+                <div class="box-body">
+                    <div class="table-responsive">
+                        <div class="box-header">
+                            <div class="col-sm-4"><h3>Employees With Hours <span class="badge bg-light-blue">{{ employeesCount }}</span></h3></div>
                             
-                            <th>TSS Amount</th>
-                            <th>Gross Amount</th>
-                            <th>Net Amount</th>
-                            <th>Payment Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <payroll-line v-for="employee in employees" :key="employee.id" :employee="employee"></payroll-line>                        
-                    </tbody>
-                </table>
-            </div>
+                            <div class="col-sm-8">
+                                <div class="col-lg-2">Selected <span class="badge bg-red" :class="{'bg-green': hasEmployeesSelected}">{{ selectedEmployees.length }}</span></div>
+                                
+                                <form role="form" 
+                                    class="form-horizontal col-lg-10" 
+                                    v-if="hasEmployeesSelected" 
+                                    @keydown="form.error.clear($event.target.name)"
+                                    @submit.prevent="closePayroll">
 
-            <div class="alert alert-info" v-else>
-                <strong>Crap!</strong> I dont have any employee to show you with these criterias. Please redifine your search.
+                                    <div class="form-group">
+                                        <label for="date" class="label-control col-sm-2 hidden-xs">Date:</label>
+                                        <div class="col-sm-10">
+                                            <div class="col-sm-8">
+                                                <datepicker input-class="form-control" 
+                                                    v-model="form.fields.payment_date" 
+                                                    name="payment_date" 
+                                                    id="payment_date"
+                                                    format="MM/dd/yyyy" 
+                                                    placeholder="From Date"
+                                                    :bootstrapStyling="true"
+                                                    :calendarButton="true"
+                                                    calendarButtonIcon="fa fa-calendar"
+                                                    :clearButton="true"
+                                                ></datepicker>
+                                                <span class="text-danger" v-show="form.error.has('payment_date')">{{ form.error.get('payment_date') }}</span>                              
+                                            </div>
+                                            <button type="submit" class="btn btn-warning col-sm-4">Close Payroll</button>
+                                        </div>
+                                            
+                                    </div>                    
+                                </form>
+                            </div>
+
+                        </div>
+                        <div class="box-body">
+                            <table class="table table-striped table-condensed table-bordered" v-if="hasEmployees">
+                                <thead>
+                                    <tr>                        
+                                        <th>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" v-model="selected" @change="checkboxAllChanged">
+                                                    <strong>Employee ID (All) </strong>
+                                                </label>
+                                            </div>
+                                        </th>
+                                        <th>Name</th>
+                                        <th>Position</th>
+                                        <th>Salary Composition</th>
+                                        <th>Paymen Per Hours</th>
+
+                                        <th>Regular Salary</th>
+                                        <th>Nightly Salary</th>
+                                        <th>Overtime Salary</th>
+                                        <th>Holiday Salary</th>
+                                        <th>Trainig Salary</th>
+
+                                        <th>Incentives</th>
+                                        <th>Other Incomes</th>
+
+                                        <th>ARS Discount</th>
+                                        <th>AFP Discount</th>
+                                        <th>Other Discounts</th>
+                                        
+                                        <th>TSS Amount</th>
+                                        <th>Gross Amount</th>
+                                        <th>Net Amount</th>
+                                        <th>Payment Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <payroll-line v-for="employee in employees" :key="employee.id" :employee="employee"></payroll-line>                        
+                                </tbody>
+                            </table>
+
+                            <div class="alert alert-danger" v-else>
+                                <strong>Crap!</strong> I dont have any employee to show you with these criterias. Please redifine your search.
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                </div>
             </div>
         </div>
     </div>
@@ -85,8 +97,6 @@
 
 <script>
     import payrollLineComponent from './../PayrollLine';
-    import Event from './../../../../../vendor/dainsys-event';
-    import Form from './../../../../../vendor/dainsys-form';
 
     export default {
 
@@ -94,30 +104,66 @@
 
         data() {
             return {
-                form: new Form({
-                    'payment_date': new Date(),
+                selected: false,
+                form: new (this.$ioc.resolve('Form'))({
+                    from_date: '',
+                    to_date: '',
+                    payment_date: new Date(new Date().setUTCHours(-3)),
+                    activeEmployees: []
                 }, {notify: false}),
-                selected: true
+                children: [],
+                event: this.$ioc.resolve('Event')
             }
         },
 
-        props: ['employees'],
-
-        mounted(){
+        mounted() {
             this.checkboxAllChanged();
+            
+            this.assignChildren();
         },
 
         computed: {
+            isGenerated(){
+                return this.$store.state.PayrollStore.generated;
+            },
+            employees() {
+                return this.$store.getters.allEmployees;
+            },
+            employeesCount() {
+                return this.employees.length;
+            },
+            fromDate() {
+                return this.$store.getters.fromDate;
+            },
+            toDate() {
+                return this.$store.getters.toDate;
+            },
+            childrenEmployees() {
+                return this.children.map(function(item, index){
+                    return {
+                        selected: item.selected,
+                        data: {
+                            identity: item.identity,
+                            salary: item.salary,
+                            other_incomes: item.other_incomes,
+                            discounts: item.discounts,
+                        }
+                    }
+                });
+            },
+
             hasEmployees() {
                 return this.employees && this.employees.length > 0 ? true : false;
             },
 
             selectedEmployees() {
-                return this.$children.filter(item => {
+                return this.form.fields.activeEmployees = this.childrenEmployees.filter(item => {
                     return item.selected;
                 });
-                this.hasEmployeesSelected = filtered.length > 0 ? true : false;
-                return filtered;
+            },
+            
+            hasEmployeesSelected() {
+                return this.selectedEmployees.length > 0 ? true : false;
             }
         },
 
@@ -127,19 +173,26 @@
             datepicker: require('vuejs-datepicker')
         },
 
-        methods: {   
-            closePayroll() {
-                return console.log("Close Payroll")
-                this.form.post('/admin/payrolls/generate/filter')
-                    .then(response => {
-                        let data = {
-                            employees: response
-                        }
-                        this.$emit('payroll-generated', data);
-                    });
+        methods: {  
+            assignChildren() {
+                return this.children = this.$children;
+            
             },
+
+            closePayroll() {
+                this.form.fields.from_date = this.fromDate;
+                this.form.fields.to_date = this.toDate;
+
+                this.form.post('/admin/payrolls/close')
+                    .then(response => {
+                        console.log("Alert payroll was close", "Take other actions", response)
+                    });
+
+
+            },
+
             checkboxAllChanged() {
-                Event.fire('checkbox-all-changed', this.selected);
+                this.event.fire('checkbox-all-changed', this.selected);
             }
         }
     };

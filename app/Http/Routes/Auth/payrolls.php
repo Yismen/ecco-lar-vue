@@ -5,20 +5,24 @@
     // Payment type fix
 // Close Payroll (store method)
     // Save to Payrolls summary table
-Route::get('payrolls/generate', 'GeneratePayrollsController@generate');
-Route::post('payrolls/generate', 'GeneratePayrollsController@handleGenerate');
+Route::get('payrolls/import_from_excel', 'Payroll\SummaryController@importDataFromExcel');
+Route::post('payrolls/import_from_excel', 'Payroll\SummaryController@postImportDataFromExcel');
+Route::get('payrolls/by_payroll_id/{payroll_id}', 'Payroll\SummaryController@byPayrollID')->name('admin.payrolls.by_payroll_id');
 
-Route::get('payrolls/prepare', 'GeneratePayrollsController@prepare');
-Route::post('payrolls/filter-positions-by-department', 'GeneratePayrollsController@filterPositionsByDepartment');
+Route::get('payrolls/generate', 'Payroll\GenerateController@generate')->name('admin.payrol.generate');
+Route::post('payrolls/generate', 'Payroll\GenerateController@handleGenerate');
 
-Route::post('payrolls/generate/filter', 'GeneratePayrollsController@filter');
-Route::post('payrolls/close', 'GeneratePayrollsController@close');
+Route::get('payrolls/prepare', 'Payroll\GenerateController@prepare');
+Route::post('payrolls/filter-positions-by-department', 'Payroll\GenerateController@filterPositionsByDepartment');
+
+Route::post('payrolls/generate/filter', 'Payroll\GenerateController@filter');
+Route::post('payrolls/close', 'Payroll\GenerateController@close');
 
 Route::bind('payrolls', function($id) {
 	return App\Payroll::find($id);
 });
 
-Route::resource('payrolls', 'PayrollsController');
+Route::resource('payrolls', 'Payroll\PayrollController');
 
 
 

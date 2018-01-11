@@ -19,10 +19,10 @@ class Users
     {
         return $this->user->select(['name', 'id'])
             ->whereHas('escalationsRecords', function($query) use ($date){
-                $query->whereDate('created_at', '=', $date);
+                $query->whereDate('insert_date', '=', $date);
             })
             ->withCount(['escalationsRecords' => function($query) use ($date) {
-                $query->whereDate('created_at', '=', $date);
+                $query->whereDate('insert_date', '=', $date);
             }]);
     }
 
@@ -35,6 +35,7 @@ class Users
 
     public function today()
     {
-        return $this->byDate(Carbon::today());
+        $date = (new Carbon)->today()->format("Y-m-d");
+        return $this->byDate($date);
     }
 }

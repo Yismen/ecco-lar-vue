@@ -90,11 +90,12 @@ mix
     //     'css/all.css'
     // ]);;
 
-.browserSync({
-  proxy: 'dainsys.dev',
-  browser: 'firefox'
-  // browser: 'Chrome'
-});
+// .browserSync({
+//   proxy: 'dainsys.dev',
+//   browser: 'firefox'
+//   // browser: 'Chrome'
+// })
+;
 
 // Full API
 // mix.js(src, output);

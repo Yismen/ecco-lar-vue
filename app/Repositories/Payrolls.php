@@ -4,9 +4,11 @@ namespace App\Repositories;
 
 use App\Employee;
 use App\Position;
+use Carbon\Carbon;
 use App\Department;
 use App\PaymentType;
 use App\PaymentFrequency;
+use App\payment_frequency;
 use Illuminate\Http\Request;
 use App\Repositories\Payroll\Parser;
 
@@ -17,14 +19,16 @@ class Payrolls
     public $position;
     public $payment_type;
     private $payment_frequency;
+    private $carbon;
     
-    function __construct(Employee $employees, Department $department, Position $position, PaymentType $payment_type, PaymentFrequency $payment_frequency)
+    function __construct(Employee $employees, Department $department, Position $position, PaymentType $payment_type, PaymentFrequency $payment_frequency, Carbon $carbon)
     {
         $this->employees = $employees;
         $this->department = $department;
         $this->position = $position;
         $this->payment_type = $payment_type;
         $this->payment_frequency = $payment_frequency;
+        $this->carbon = $carbon;
     }
 
     public function all()
@@ -34,6 +38,9 @@ class Payrolls
 
     private function filter(Request $request) 
     {
+        $from = $this->carbon->parse($request->from)->format('Y-m-d');
+        $to = $this->carbon->parse($request->to)->format('Y-m-d');
+
         return $this->employees
             ->orderBy('first_name')
             ->with(['payrollAdditionals' => function($query) use ($request) {
@@ -60,20 +67,37 @@ class Payrolls
                         return $query->where('id', 'like', $request->payment_frequency);
                     });
             })
-            ->with('hours');
+            ->with(['hours' => function($query) use ($from, $to) {
+                return $query
+                    ->whereDate('date', '>=', $from)                
+                    ->whereDate('date', '<=', $to);
+            }]);
     }
 
     public function employeesWithHours(Request $request)
     {
+        $from = $this->carbon->parse($request->from)->format('Y-m-d');
+        $to = $this->carbon->parse($request->to)->format('Y-m-d');
+
+        return [
+            'from' => $request->from,
+            'to' => $request->to,
+            'data' => $this->filter($request)
+                ->whereHas('hours', function($query) use ($request, $from, $to) {
+                    return $query
+                        ->whereDate('date', '>=', $from)                
+                        ->whereDate('date', '<=', $to)  
+                        ;
+                })
+                ->get(),
+            ];
+            
         return $this->filter($request)
             ->whereHas('hours', function($query)  use ($request) {
                 return $query
-                    // ->groupBy(['date', 'employee_id'])
                     ->whereBetween('date', [$request->from, $request->to])
-                    // ->raw('*, sum(regulars) as sum_of_regulars')
                     ;
             })
-            // ->take(25)
             ->get();
 
             return $this->parsePayroll($payrolls);
@@ -87,14 +111,17 @@ class Payrolls
 
     public function activesWithoutHours(Request $request)
     {
+        $from = $this->carbon->parse($request->from)->format('Y-m-d');
+        $to = $this->carbon->parse($request->to)->format('Y-m-d');
+
         return $this->filter($request)
             ->actives()
-            ->whereDoesntHave('hours', function($query)  use ($request) {
+            ->whereDoesntHave('hours', function($query)  use ($request, $from, $to) {
                 return $query
-                    ->whereBetween('date', [$request->from, $request->to])
+                    ->whereDate('date', '>=', $from)                
+                    ->whereDate('date', '<=', $to)                
                     ;
             })
-            ->take(5)
             ->get();
     }
 

@@ -1,17 +1,18 @@
-<?php
+<?php 
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Payroll;
 
 use Validator;
 use App\Http\Requests;
-use App\PayrollSummary;
+use App\Payroll;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Repositories\ExcelFileLoader;
 use App\Http\Requests\PayrollImportFromExcelRequest;
 
-class PayrollSummariesController extends Controller
+class SummaryController extends Controller
 {
     private $data = [];
     private $file_errors = [];
@@ -30,7 +31,7 @@ class PayrollSummariesController extends Controller
      */
     public function index()
     {
-        $dates = PayrollSummary::groupBy('payroll_id')
+        $dates = Payroll::groupBy('payroll_id')
             ->orderBy('payment_date', "DESC")
             ->paginate(45);
 
@@ -94,7 +95,7 @@ class PayrollSummariesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(PayrollSummary $summary)
+    public function show(Payroll $summary)
     {
         return view('payrolls_summary.show', compact('summary'));
     }
@@ -125,7 +126,7 @@ class PayrollSummariesController extends Controller
 
     public function byPayrollID($payroll_id)
     {
-        $payroll_summaries = PayrollSummary::with('employee.position.department')
+        $payroll_summaries = Payroll::with('employee.position.department')
             // ->orderBy('employee.first_name')
             ->where('payroll_id', $payroll_id)
             ->orderBy('name')
@@ -137,12 +138,12 @@ class PayrollSummariesController extends Controller
     private function saveDataToDB($rows)
     {
         foreach ($rows as $data) {
-            $exists = PayrollSummary::where('unique_id', '=', $data['unique_id'])->first();
+            $exists = Payroll::where('unique_id', '=', $data['unique_id'])->first();
 
             if ($exists) {
                 $exists->delete();
             }
-            PayrollSummary::create($data);
+            Payroll::create($data);
         }
     }
 }

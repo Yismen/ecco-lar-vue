@@ -13,6 +13,7 @@ export default [
             test: require('./../components/test/AddTest'),
             pagination: require('./../components/test/Pagination.vue'),
             notes: require('./../components/notes/IndexComponent'),
+            escalations_admin: require('./../components/escalations_admin/IndexComponent'),
             payrolls: require('./../components/payrolls/Index')
         }
     },

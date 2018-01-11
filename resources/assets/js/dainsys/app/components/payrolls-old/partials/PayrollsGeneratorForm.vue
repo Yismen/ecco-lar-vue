@@ -4,14 +4,7 @@
             <div class="col-sm-10 col-sm-offset-1">
                 <div class="box box-primary">
                     <div class="box-body">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <h4>
-                                    Generate Payrolls
-                                    <a href="/admin/payrolls" title="Back to Payrolls" class="pull-right"><i class="fa fa-list"></i> Payrolls</a>
-                                </h4>
-                            </div>
-                        </div>
+
                         <form @submit.prevent="generatePayroll" class="" 
                             @keydown="form.error.clear($event.target.name)" role="form">
 
@@ -93,13 +86,19 @@
                                     ></datepicker>
                                     <span class="text-danger" v-show="form.error.has('to')">{{ form.error.get('to') }}</span>
                                 </div>
-                                <!-- /. To Date -->   
+                                <!-- /. To Date -->
+                                
+                                                              
 
                                 <div class="form-group col-sm-4">
-                                    <button type="submit" class="btn btn-primary form-control"><i class="fa fa-money"></i> GENERATE PAYROLL</button>
+                                    <button type="submit" class="btn btn-primary form-control">FILTER</button>
+                                    <br>
                                 </div>
 
                             </div>
+
+                                
+
                         </form>
                     </div>
                 </div>
@@ -109,16 +108,19 @@
 </template>
 
 <script>
+    import Form from '../../../../vendor/dainsys-form';
+    
     import moment from 'moment'
+    console.log(window)
     export default {
 
         name: 'PayrollsGeneratorForm',
 
         data () {
             return {
-                form: new (this.$ioc.resolve('Form'))({
-                    'from': '', // new Date
-                    'to': '',
+                form: new Form({
+                    'from': new Date(),
+                    'to': new Date(),
                     'department': '',
                     'position': '',
                     'payment_type': '',
@@ -155,15 +157,8 @@
             },
 
             prepare() {
-                let dt = new Date();
-                dt.setUTCHours(-2);
-
-                this.form.fields.from = dt;
-                this.form.fields.to = dt;
-                
                 this.form.get('/admin/payrolls/prepare')
                     .then(response => {
-
                         this.departments = response.departments;
                         this.positions = response.positions;
                         this.payment_types = response.payment_types;
@@ -186,14 +181,17 @@
             generatePayroll() {
                 this.form.post('/admin/payrolls/generate/filter')
                     .then(response => {
-                        this.$store.commit('payrollGenerated', response);
+                        let data = {
+                            employees: response
+                        }
+                        this.$emit('payroll-generated', data);
                     });
             }
         },
 
         mounted() {
             document.getElementById('department').focus();
-
+            // PayrollStore.modules.PayrollStore.commit('updatePaymentDate')
             this.prepare();
         }
     };

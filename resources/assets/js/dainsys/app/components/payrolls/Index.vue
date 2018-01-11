@@ -1,15 +1,13 @@
 <template>
     <div class="Payrolls_Index">
-        <div class="box-header with-border">
-            Generate Payroll Roll
+    
+        <div class="box-body">
+            <generate-form></generate-form>
         </div>
 
         <div class="box-body">
-            <generate-form @payroll-generated="payrollGenerated"></generate-form>
-        </div>
-
-        <div class="box-body">
-            <employees-list :employees="employeesList"></employees-list>
+            <employees-without-hours></employees-without-hours>
+            <employees-with-hours></employees-with-hours>
         </div> 
     </div>
 </template>
@@ -21,26 +19,13 @@
 
         data () {
             return {
-                employees: []
             };
-        },
-
-        computed: {
-            employeesList() {
-                return this.employees;
-            }
-        },
-
-        methods: {
-            payrollGenerated(response) {
-                console.log(response)
-                this.employees = response.employees;
-            }
         },
 
         components: {
             'generate-form': require('./partials/PayrollsGeneratorForm'),
-            'employees-list': require('./partials/EmployeesList')
+            'employees-with-hours': require('./partials/employee-lists/_WithHoursList'),
+            'employees-without-hours': require('./partials/employee-lists/_WithoutHoursList'),
         }
     };
 </script>
