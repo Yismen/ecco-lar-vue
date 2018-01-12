@@ -13,6 +13,9 @@
 </template>
 
 <script>
+    import EmployeesWithHours from './partials/employee-lists/_WithHoursList'
+    import GenerateForm from './partials/PayrollsGeneratorForm'
+    import EmployeesWithoutHours from './partials/employee-lists/_WithoutHoursList'
     export default {
 
         name: 'PayrollsIndex',
@@ -23,9 +26,7 @@
         },
 
         components: {
-            'generate-form': require('./partials/PayrollsGeneratorForm'),
-            'employees-with-hours': require('./partials/employee-lists/_WithHoursList'),
-            'employees-without-hours': require('./partials/employee-lists/_WithoutHoursList'),
+            GenerateForm, EmployeesWithHours, EmployeesWithoutHours
         }
     };
 </script>
