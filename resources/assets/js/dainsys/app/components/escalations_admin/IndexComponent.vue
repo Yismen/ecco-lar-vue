@@ -1,6 +1,5 @@
 <template>
     <div class="EscalationsAdmin_Index">
-        LastFiveDates
         <div class="col-sm-12">
             <div class="row">
                 <div class="col-sm-12">
