@@ -45,8 +45,8 @@
 										<a href="{{ route('admin.departments.show', $position->department->id) }}">{{ $position->department->department }}</a>
 									</td>
 									<td>$ {{ number_format($position->salary, 2) }}</td>
-									<td>{{ $position->payment_frequency ? $position->payment_frequency->name : '' }}</td>
 									<td>{{ $position->payment_type ? $position->payment_type->name : '' }}</td>
+									<td>{{ $position->payment_frequency ? $position->payment_frequency->name : '' }}</td>
 									<td class="text-warning">
 										<a href="{{ route('admin.positions.edit', $position->id) }}" rel="tooltip" title="Edit" data-placement="left" class="text-warning">
 											<i class="fa fa-pencil"></i> Edit
