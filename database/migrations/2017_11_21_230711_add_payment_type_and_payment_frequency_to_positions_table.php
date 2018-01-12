@@ -13,12 +13,15 @@ class AddPaymentTypeAndPaymentFrequencyToPositionsTable extends Migration
     public function up()
     {
         Schema::table('positions', function (Blueprint $table) {
+            if (!Schema::hasColumn('positions', 'payment_type_id')) {
+                $table->integer('payment_type_id')->unsigned()->nullable()->after('name');
+                // $table->foreign('payment_type_id')->references('id')->on('payment_types');
+            }
+            if (!Schema::hasColumn('positions', 'payment_frequency_id')) {
+                $table->integer('payment_frequency_id')->unsigned()->nullable()->after('name');
+                // $table->foreign('payment_frequency_id')->references('id')->on('payment_frequencies');
+            }
 
-            $table->integer('payment_type_id')->unsigned()->nullable()->after('name');
-            $table->integer('payment_frequency_id')->unsigned()->nullable()->after('payment_type_id');
-
-            // $table->foreign('payment_type_id')->references('id')->on('payment_types');
-            // $table->foreign('payment_frequency_id')->references('id')->on('payment_frequencies');
         });
     }
 
