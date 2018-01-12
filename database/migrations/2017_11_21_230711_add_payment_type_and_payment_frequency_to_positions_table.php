@@ -17,8 +17,8 @@ class AddPaymentTypeAndPaymentFrequencyToPositionsTable extends Migration
             $table->integer('payment_type_id')->unsigned()->nullable()->after('name');
             $table->integer('payment_frequency_id')->unsigned()->nullable()->after('payment_type_id');
 
-            $table->foreign('payment_type_id')->references('id')->on('payment_types');
-            $table->foreign('payment_frequency_id')->references('id')->on('payment_frequencies');
+            // $table->foreign('payment_type_id')->references('id')->on('payment_types');
+            // $table->foreign('payment_frequency_id')->references('id')->on('payment_frequencies');
         });
     }
 
