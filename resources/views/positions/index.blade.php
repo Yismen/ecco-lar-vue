@@ -24,8 +24,8 @@
 								<th>Position Name</th>
 								<th>Department</th>
 								<th>Salary</th>
-								<th>Payment Frequency</th>
 								<th>Payment Type</th>
+								<th>Payment Frequency</th>
 								<th>								 
 									<a href="{{ route('admin.positions.create') }}">
 										Add 
@@ -51,7 +51,6 @@
 										<a href="{{ route('admin.positions.edit', $position->id) }}" rel="tooltip" title="Edit" data-placement="left" class="text-warning">
 											<i class="fa fa-pencil"></i> Edit
 										</a>
-										{{-- {!! delete_button('positions.destroy', $position->id, ['class'=>'btn btn-danger','label'=>'<i class="fa fa-trash"></i>']) !!} --}}
 									</td>
 								</tr>
 							@endforeach
