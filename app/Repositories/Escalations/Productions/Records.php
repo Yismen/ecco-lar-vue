@@ -62,6 +62,14 @@ class Records
             ->whereDate('escal_records.insert_date', '=', $date);
     }
 
+    public function between($from, $to)
+    {
+        return $this->query()
+            ->whereDate('escal_records.insert_date', '>=', $from)
+            ->whereDate('escal_records.insert_date', '<=', $to)
+            ->get();
+    }
+
     public function byRange($from, $to)
     {
         return $this->query()
