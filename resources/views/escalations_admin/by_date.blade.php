@@ -1,7 +1,6 @@
 @extends('escalations_admin.home')
 
 @section('views')
-    
     <div class="col-sm-6">
         @include('escalations_admin.partials._by_date_form_day')
     </div>

@@ -25,8 +25,7 @@
                                         <a href="{{ route('admin.escalations_hours.edit', $record->escalation_hours_id) }}" target="_new">
                                             {{ $production_hours = number_format(
                                                 $record->escalation_hours_production_hours
-                                            , 2) }} 
-                                            <i class="fa fa-pencil"></i>
+                                            , 2) }}<i class="fa fa-pencil"></i>
                                         </a>
                                     @else
                                         <a href="{{ route('admin.escalations_hours.create', [$record->escal_records_user_id, $record->escal_records_escal_client_id, $record->escal_records_insert_date]
