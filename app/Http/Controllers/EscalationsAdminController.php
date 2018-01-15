@@ -79,12 +79,17 @@ class EscalationsAdminController extends Controller
             'from'=>'required|date',
             'to'=>'required|date'
         ]);
-           
+
+        $summary = $this->production->records->between(
+            (new Carbon)->parse($this->request->from)->format("Y-m-d"),
+            (new Carbon)->parse($this->request->to)->format("Y-m-d")
+        );
+
         $detailed =  $this->production->records->detailedByRange($this->request)->get();
 
         $this->request->flash();
 
-        return view('escalations_admin.by_date', compact('detailed'));
+        return view('escalations_admin.by_date', compact('detailed', 'summary'));
 
     }
 
