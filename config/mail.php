@@ -114,9 +114,9 @@ return [
 
     'stream' => [
         'ssl' => [
-            'allow_self_signed' => true,
-            'verify_peer' => false,
-            'verify_peer_name' => false,
+            'allow_self_signed' => env('ALLOW_SELF_SIGNED', false),
+            'verify_peer' => env('VERIFY_PEER', true),
+            'verify_peer_name' => env('VERIFY_PEER_NAME', true),
         ],
     ],
 ];
