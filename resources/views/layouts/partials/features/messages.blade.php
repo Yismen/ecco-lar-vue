@@ -35,7 +35,7 @@
             <!-- /.menu -->
       </li>
       
-      <li class="footer"><a href="#">See All Messages</a></li>
+      <li class="footer"><a href="/admin/messages">See All Messages</a></li>
     </ul>
   </li>
   <!-- /.messages-menu -->

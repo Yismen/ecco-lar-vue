@@ -30,7 +30,7 @@
         </ul>
       </li>
       <li class="footer">
-        <a href="#">View all tasks</a>
+        <a href="/admin/tasks">View all tasks</a>
       </li>
     </ul>
   </li>

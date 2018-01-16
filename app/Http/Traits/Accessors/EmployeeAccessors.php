@@ -230,18 +230,8 @@ trait EmployeeAccessors
      */
     public function getPositionsListAttribute()
     {
-        $positions_array = [];
-
-        $positions = Position::orderBy('department_id')
-            ->with(['department' => function($query) {
-                return $query->orderBy('department');
-            }])
+        return  Position::orderBy('department_id')
+            ->select(['id', 'department_id', 'name'])
             ->get();
-
-        foreach ($positions as $position) {
-            $positions_array[$position->id] = $position->department->department." - ".$position->name;
-        }
-        
-        return $positions_array;
     }
 }

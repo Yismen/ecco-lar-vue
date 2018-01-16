@@ -35,11 +35,11 @@
 @section('scripts')
 	<script src="/js/dainsys/app.js"></script>
 	<script>
-		$(function () {
-			setTimeout(function() {
-				$('.animated-delayed').addClass(' rubberBand')
-			}, 1000);
-		});	
+		// $(function () {
+		// 	setTimeout(function() {
+		// 		$('.animated-delayed').addClass('rubberBand')
+		// 	}, 1000);
+		// });	
 	</script>
 @stop
 

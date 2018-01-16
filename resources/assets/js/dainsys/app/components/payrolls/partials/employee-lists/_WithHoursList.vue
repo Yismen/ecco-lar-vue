@@ -56,7 +56,12 @@
                                         <th>Name</th>
                                         <th>Position</th>
                                         <th>Salary Composition</th>
-                                        <th>Paymen Per Hours</th>
+                                        <th>Payment Per Hours</th>
+                                        
+                                        <th>TSS Amount</th>
+                                        <th>Gross Amount</th>
+                                        <th>Net Amount</th>
+                                        <th>Payment Amount</th>
 
                                         <th>Regular Salary</th>
                                         <th>Nightly Salary</th>
@@ -70,11 +75,6 @@
                                         <th>ARS Discount</th>
                                         <th>AFP Discount</th>
                                         <th>Other Discounts</th>
-                                        
-                                        <th>TSS Amount</th>
-                                        <th>Gross Amount</th>
-                                        <th>Net Amount</th>
-                                        <th>Payment Amount</th>
                                     </tr>
                                 </thead>
                                 <tbody>

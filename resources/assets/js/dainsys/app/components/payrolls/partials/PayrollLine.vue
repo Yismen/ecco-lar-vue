@@ -12,6 +12,11 @@
         <td v-text="employee.position.name_and_department"></td>
         <td>{{ employee.position.payment_type.name }}, {{ employee.position.payment_frequency.name }}</td>
         <td>{{ payPerHours | currency }}</td>
+        
+        <td title="TSS Amount" class="info">{{ tssAmount  | currency }}</td>
+        <td title="Gross Amount" class="info">{{ grossAmount  | currency }}</td>
+        <td title="Net Amount" class="info">{{ netAmount  | currency }}</td>
+        <td title="Payment Amount" class="info">{{ paymentAmount  | currency }}</td>
 
         <td :title="'Total Regular Hours = ' + hours.regular">{{ salary.regular | currency }}</td>
         <td :title="'Total Nighly Hours = ' + hours.nightly">{{ nightlySalary | currency }}</td>
@@ -25,11 +30,6 @@
         <td :title="'ARS Discount = ' + salary.regular + ' * ' + rates.ars" class="danger">{{ arsDiscount  | currency }}</td>
         <td :title="'AFP Discount = ' + salary.regular + ' * ' + rates.afp" class="danger">{{ afpDiscount  | currency }}</td>
         <td title="Other Discounts" class="danger">{{ discounts.others  | currency }}</td>
-        
-        <td title="TSS Amount" class="info">{{ tssAmount  | currency }}</td>
-        <td title="Gross Amount" class="info">{{ grossAmount  | currency }}</td>
-        <td title="Net Amount" class="info">{{ netAmount  | currency }}</td>
-        <td title="Payment Amount" class="info">{{ paymentAmount  | currency }}</td>
     </tr>
 </template>
 
@@ -92,27 +92,21 @@
 
         props: ['employee'],
 
+        watch: {
+            employee(employee, oldEmployee) {
+                console.log(employee, oldEmployee, "changed");
+                this.calculateAll();
+            }
+        },
+
         mounted() { 
             this.eventListeners(); 
 
-            this.getSumOfHours(this.employee.hours);
-
-            this.getHourlySalaries(this.employee.position.pay_per_hours);
-
-            this.getIncentives(this.employee.payroll_incentives);
-
-            this.getAdditionals(this.employee.payroll_additionals);
-
-            this.getOtherDiscounts(this.employee.payroll_discounts);
-
+            this.calculateAll();
 
         },
 
-        computed: {
-            uniqueId() {
-                return this.employee.employee_id + '-';
-            },
-            
+        computed: {            
             regularSalary() {
                 return this.salary.regular;
             },
@@ -146,42 +140,40 @@
             },
 
             tssAmount() {
-                return this.salary.regular;
+                return this.salary.tss = this.salary.regular + this.other_incomes.additionals;
             },
 
             grossAmount() {
-                return this.salary.regular + this.other_incomes.additionals;
+                return this.salary.gross = this.salary.regular + 
+                    this.salary.nightly +
+                    this.salary.overtime +
+                    this.salary.holiday +
+                    this.salary.training  +
+                    this.other_incomes.incentives +
+                    this.other_incomes.additionals;
             },
 
             netAmount() {
-                return this.salary.regular + 
-                    this.salary.mightly +
-                    this.salary.overtime +
-                    this.salary.holiday +
-                    this.salary.training 
-                    +
-                    this.other_incomes.incentives +
-                    this.other_incomes.additionals
-                    -
+                return this.salary.net = this.grossAmount -
                     this.discounts.ars -
                     this.discounts.afp -
                     this.discounts.others;
             },
 
             paymentAmount() {
-                return this.salary.regular + 
-                    this.salary.mightly +
-                    this.salary.overtime +
-                    this.salary.holiday +
-                    this.salary.training 
-                    -
-                    this.discounts.ars -
-                    this.discounts.afp -
-                    this.discounts.others;
+                return this.salary.payment = 0;
             }
         },
 
         methods: {
+            calculateAll()
+            {
+                this.getSumOfHours(this.employee.hours);
+                this.getHourlySalaries(this.employee.position.pay_per_hours);  
+                this.getIncentives(this.employee.payroll_incentives);
+                this.getAdditionals(this.employee.payroll_additionals);
+                this.getOtherDiscounts(this.employee.payroll_discounts);
+            },
 
             eventListeners() {
                 let vm = this;

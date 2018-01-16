@@ -73,18 +73,6 @@ class GenerateController extends Controller
             return response()->json("Errors", 401);
         }
         return response()->json("success", 200);
-
-
-
-        foreach ($request->activeEmployees as $employee) {
-            $employee = collect($employee);
-            new PayrollCloser(
-                $carbon->parse($request->from_date)->format('Y-m-d'),
-                $carbon->parse($request->to_date)->format('Y-m-d'),
-                $carbon->parse($request->payment_date)->format('Y-m-d'),
-                $employee['data']
-            );
-        }
     }
 
 }

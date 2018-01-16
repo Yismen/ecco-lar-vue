@@ -84,7 +84,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     @include('layouts.partials.flashes')
                     @include('layouts.partials.spinner')
                     
-                    {{-- @include('layouts.partials.back-to-top') --}}
                     @yield('content')
                 </section>
                 <!-- /.content -->
@@ -95,6 +94,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <footer class="main-footer">
                 <!-- To the right -->
                 <div class="pull-right hidden-xs">
+                    @include('layouts.partials.back-to-top')
                     @include('layouts.partials.links.webmaster')
                 </div>
                 <!-- Default to the left -->

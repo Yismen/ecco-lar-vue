@@ -148,7 +148,8 @@
                     <div class="form-group">
                         <label for="position_id" class="">Position:</label>
                         <select name="position_id" id="position_id" class="form-control" v-model="form.fields.position_id">
-                            <option v-for="(position_id, index) in employee.positions_list" :value="index">{{ position_id }}</option>
+                            <option v-for="position in employee.positions_list" :value="position.id">{{ position.name_and_department }}</option>
+                            <!-- <option v-for="(position_id, index) in employee.positions_list" :value="index">{{ position_id }}</option> -->
                         </select>
                         <span class="text-danger" v-if="form.error.has('marital_id')">{{ form.error.get('position_id') }}</span>
                     </div>                 
@@ -172,6 +173,7 @@
 <script>
 
     import Form from '../../../vendor/jorge.form'
+    import datepicker from 'vuejs-datepicker'
 
     export default {
 
@@ -204,7 +206,7 @@
     },
 
     components: {
-        'datepicker': require('vuejs-datepicker')
+        datepicker
     },
 
     filters: {

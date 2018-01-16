@@ -46,12 +46,12 @@
               <i class="fa fa-users"></i> Contacts
             </a>
           </div>
-          <div class="col-xs-4 text-center">
-            <a href="{{-- {{ route('admin.passwords.index') }} --}}">
+          {{-- <div class="col-xs-4 text-center">
+            <a href="{{ route('admin.passwords.index') }}">
               <i class="fa fa-archive"></i> Vault
             </a>
-          </div>
-          <div class="col-xs-4 text-center">
+          </div> --}}
+          <div class="col-xs-4 text-center pull-right">
             <a href="/admin/users/reset"><i class="fa fa-key"></i> Reset Password</a>
           </div>
         </div>
