@@ -81,19 +81,10 @@ class Count
      */
     public static function byDepartment()
     {
-        if (Cache::has('employees_by_department')) {
-            return Cache::get('employees_by_department');
-        }
-
-        $cached = Department::
+        return Department::
             withCount(['employees' => function($query) {
                 return $query
-                    ->actives()
-                    // ->select(DB::raw('employees.gender_id'))
-                    // ->groupBy(['employees.gender_id'])
-                    // ->with('gender')
-                    // ->orderBy('gender_id', 'ASC')
-                    ;
+                    ->actives();
 
             }])
             ->orderBy('employees_count', "Desc")
@@ -101,11 +92,6 @@ class Count
                 return $query->actives();
             })
             ->get();
-
-        
-        Cache::put('employees_by_department', $cached, 120);
-
-        return $cached; 
     }
     /**
      * [byDepartmentPositionGender description]
