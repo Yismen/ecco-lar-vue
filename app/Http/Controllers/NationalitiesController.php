@@ -16,12 +16,11 @@ class NationalitiesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Nationality $nationalities)
+    public function index()
     {
-        $nationalities = $nationalities
-            ->orderBy('name', 'ASC')
+        $nationalities = Nationality::orderBy('name', 'ASC')
             ->with('employees')
-            ->paginate(30);
+            ->paginate(50);
 
        return view('nationalities.index', compact('nationalities'));
     }
@@ -60,7 +59,7 @@ class NationalitiesController extends Controller
      */
     public function show(Nationality $nationality)
     {
-        return $nationality;
+        return view('nationalities.show', compact('nationality'));
     }
 
     /**
