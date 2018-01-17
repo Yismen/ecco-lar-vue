@@ -26,7 +26,11 @@
                         <tbody>
                             @foreach ($nationality->employees as $employee)
                                 <tr>
-                                    <td>{{ $employee->full_name }}</td>
+                                    <td>
+                                        <a href="{{ route('admin.employees.show', $employee->id) }}">
+                                            {{ $employee->full_name }}
+                                        </a>
+                                    </td>
                                     <td>{{ $employee->position ? $employee->position->name_and_department : '' }}</td>
                                     <td class="col-xs-1">
                                         <a href="{{ $employee->photo }}" target="_photo">
