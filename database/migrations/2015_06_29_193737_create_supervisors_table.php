@@ -16,6 +16,7 @@ class CreateSupervisorsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('name');
+			$table->string('department_id');
 			$table->timestamps();
 		});
 	}

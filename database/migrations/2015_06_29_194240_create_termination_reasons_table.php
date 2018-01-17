@@ -36,6 +36,10 @@ class CreateTerminationReasonsTable extends Migration {
 			'id'=>4,
 			'reason'=>'Low Performanc',
 		]);
+		factory(App\TerminationReason::class)->create([
+			'id'=>5,
+			'reason'=>'Other',
+		]);
 	}
 
 	/**
