@@ -16,7 +16,7 @@ class CreateNotesTable extends Migration
             $table->increments('id');
             $table->string('slug', 100)->index();
             $table->string('title', 100);
-            $table->string('body', 6000);
+            $table->text('body', 6000);
             $table->text('tags')->nullable();
             $table->softDeletes();
             $table->timestamps();
