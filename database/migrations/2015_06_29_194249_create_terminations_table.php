@@ -16,7 +16,7 @@ class CreateTerminationsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('employee_id')->unsigned()->index();
-			$table->timestamp('termination_date');
+			$table->dateTime('termination_date');
 			$table->integer('termination_type_id')->unsigned()->index();
 			$table->integer('termination_reason_id')->unsigned()->index();
 			$table->boolean('can_be_rehired')->unsigned();
