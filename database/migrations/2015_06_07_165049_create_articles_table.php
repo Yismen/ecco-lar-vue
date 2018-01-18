@@ -23,9 +23,6 @@ class CreateArticlesTable extends Migration {
 			$table->string('slug', 120);
 			$table->timestamp('published_at');
 			$table->timestamps();
-
-			$table->foreign('user_id')->references('id')->on('users')
-				->onDelete('cascade')->onUpdate('cascade');
 		});
 	}
 
