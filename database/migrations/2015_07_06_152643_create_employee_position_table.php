@@ -14,13 +14,13 @@ class CreateEmployeePositionTable extends Migration {
 	{
 		Schema::create('employee_position', function(Blueprint $table)
 		{
-			$table->integer('employee_id')->unsigned()->index();
-			$table->integer('position_id')->unsigned()->index();
+			$table->integer('employee_id')->unsigned();
+			$table->integer('position_id')->unsigned();
 
 			$table->foreign('employee_id')->references('id')->on('employees')
 				->onDelete('cascade')->onUpdate('cascade');
-			$table->foreign('position_id')->references('id')->on('positions')
-				->onDelete('cascade')->onUpdate('cascade');
+			// $table->foreign('position_id')->references('id')->on('positions')
+			// 	->onDelete('cascade')->onUpdate('cascade');
 		});
 	}
 

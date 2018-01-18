@@ -17,6 +17,7 @@ class CreateSourcesTable extends Migration {
 		{	
 			$table->increments('id');
 			$table->string('name', 100)->unique();
+            $table->string('slug', 150)->nullable();
 			$table->timestamps();
 		});
 		factory(App\Source::class)->create(['id'=>1, 'name'=>'Data Entry']);

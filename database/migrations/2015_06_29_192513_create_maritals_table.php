@@ -32,7 +32,7 @@ class CreateMaritalsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('martitals');
+		Schema::drop('maritals');
 	}
 
 }

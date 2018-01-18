@@ -16,14 +16,11 @@ class AddForeignsToEmployeesTable extends Migration
 
             $table->integer('position_id')->unsigned()->nullable()->index();
 
-            $table->foreign('gender_id')->references('id')->on('genders')
-                ->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('marital_id')->references('id')->on('civil_status')
-                ->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('position_id')->references('id')->on('positions')
-                ->onDelete('cascade')->onUpdate('cascade');
+            // $table->foreign('gender_id')->references('id')->on('genders');
+            // $table->foreign('marital_id')->references('id')->on('civil_status');
+            // $table->foreign('position_id')->references('id')->on('positions');
 
-            $table->foreign('supervisor_id')->references('id')->on('supervisors');
+            // $table->foreign('supervisor_id')->references('id')->on('supervisors');
         });
     }
 
@@ -35,10 +32,10 @@ class AddForeignsToEmployeesTable extends Migration
     public function down()
     {
         Schema::table('employees', function (Blueprint $table) {
-           $table->dropForeign('gender_id');
-           $table->dropForeign('marital_id');
-           $table->dropForeign('position_id');
-           $table->dropForeign('supervisor_id');
+           // $table->dropForeign('gender_id');
+           // $table->dropForeign('marital_id');
+           // $table->dropForeign('position_id');
+           // $table->dropForeign('supervisor_id');
         });
     }
 }

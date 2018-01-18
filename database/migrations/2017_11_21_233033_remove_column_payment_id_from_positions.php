@@ -13,7 +13,7 @@ class RemoveColumnPaymentIdFromPositions extends Migration
     public function up()
     {
         Schema::table('positions', function (Blueprint $table) {
-            $table->dropIndex('positions_payment_id_index');
+            // $table->dropIndex('positions_payment_id_index');
             $table->dropColumn('payment_id');
         });
     }

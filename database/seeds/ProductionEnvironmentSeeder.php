@@ -17,25 +17,30 @@ class ProductionEnvironmentSeeder extends Seeder
     public function run()
     {
         Model::unguard();
+        //disable foreign key check for this connection before running seeders
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
         $this->seedUsersTable()
             ->seedGendersTable()
             ->seedMaritalsTable() 
-            ->seedRolesTable();
+            ->seedRolesTable()
+            ;
 
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         Model::reguard();   
     }
 
     protected function seedUsersTable()
     {
-        // User::truncate();
+        User::truncate();
         factory(App\User::class)->create([
             'name' => 'Yismen Jorge', // $faker->name,
             'email' => 'yismen.jorge@gmail.com', // $faker->email,
+            'username' => 'yjorge', // $faker->name,
             'password' => bcrypt('password'), // bcrypt(str_random(10)),
             'remember_token' => str_random(10),
-            'is_active ' => 1,
-            'is_admin ' => 1,
+            'is_active' => 1,
+            'is_admin' => 1,
         ]);
 
         return $this;
@@ -43,7 +48,7 @@ class ProductionEnvironmentSeeder extends Seeder
 
     protected function seedRolesTable()
     {
-        // Role::truncate();
+        Role::truncate();
 
         Role::create([
             'id' => 1,
@@ -67,7 +72,7 @@ class ProductionEnvironmentSeeder extends Seeder
 
     protected function seedMaritalsTable()
     {
-        // Marital::truncate();        
+        Marital::truncate();        
 
         Marital::create(['id'=>1,'name'=>'Married']);
         Marital::create(['id'=>2,'name'=>'Single']);
@@ -78,8 +83,7 @@ class ProductionEnvironmentSeeder extends Seeder
 
     protected function seedGendersTable()
     {
-        $limit = 3;
-        // Gender::truncate(); 
+        Gender::truncate();        
         
         Gender::create(['id'=>1,'gender'=>'Male']);
         Gender::create(['id'=>2,'gender'=>'Female']);

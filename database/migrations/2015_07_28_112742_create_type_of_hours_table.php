@@ -17,7 +17,7 @@ class CreateTypeOfHoursTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('type', 100);
-			$table->string('Display Name', 100);
+			$table->string('display_name', 100);
 			$table->timestamps();
 		});
 

@@ -21,12 +21,11 @@ class CreatePositionsTable extends Migration {
 		    $table->double('salary', 15, 2);
 			$table->timestamps();
 
-			$table->foreign('department_id')->references('id')->on('departments')
-				->onDelete('cascade')->onUpdate('cascade');
-				
+			// $table->foreign('department_id')->references('id')->on('departments')
+				// ->onDelete('cascade')->onUpdate('cascade');
 
-			$table->foreign('payment_id')->references('id')->on('payments')
-				->onDelete('cascade')->onUpdate('cascade');
+			// $table->foreign('payment_id')->references('id')->on('payments')
+			// 	->onDelete('cascade')->onUpdate('cascade');
 		});
 	}
 

@@ -33,8 +33,8 @@ class AddPaymentTypeAndPaymentFrequencyToPositionsTable extends Migration
     public function down()
     {
         Schema::table('positions', function (Blueprint $table) {
-            $table->dropForeign(['payment_type_id']);
-            $table->dropForeign(['payment_frequency_id']);
+            // $table->dropForeign(['payment_type_id']);
+            // $table->dropForeign(['payment_frequency_id']);
 
             $table->dropColumn('payment_type_id');
             $table->dropColumn('payment_frequency_id');
