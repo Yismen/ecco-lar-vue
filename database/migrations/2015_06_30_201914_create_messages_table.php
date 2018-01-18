@@ -15,16 +15,16 @@ class CreateMessagesTable extends Migration {
 		Schema::create('messages', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('username_from')->index();
-			$table->string('username_to')->index();
+			$table->string('user_id_from')->index();
+			$table->string('user_id_to')->index();
 			$table->string('message');
 			$table->timestamps();
 
 
-			$table->foreign('username_from')->references('username')->on('users')
+			$table->foreign('user_id_from')->references('id')->on('users')
 				->onDelete('cascade')->onUpdate('cascade');
 
-			$table->foreign('username_to')->references('username')->on('users')
+			$table->foreign('user_id_to')->references('id')->on('users')
 				->onDelete('cascade')->onUpdate('cascade');
 		});
 	}
