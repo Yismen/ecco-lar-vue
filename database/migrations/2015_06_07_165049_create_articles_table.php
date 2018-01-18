@@ -15,7 +15,7 @@ class CreateArticlesTable extends Migration {
 		Schema::create('articles', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('username', 80)->index();
+			$table->string('user_id', 80)->index();
 			$table->string('title', 120);
 			$table->string('body', 1200);
 			$table->string('excert', 300);
@@ -24,7 +24,7 @@ class CreateArticlesTable extends Migration {
 			$table->timestamp('published_at');
 			$table->timestamps();
 
-			$table->foreign('username')->references('username')->on('users')
+			$table->foreign('user_id')->references('id')->on('users')
 				->onDelete('cascade')->onUpdate('cascade');
 		});
 	}
