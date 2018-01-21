@@ -19,11 +19,9 @@ class NotesAdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Note $notes, Request $request)
+    public function index(Request $request)
     {
-        $notes = Cache::rememberForever('notes', function() use($notes) {
-            return $notes->get();
-        });
+        $notes = Note::get();
 
         if ($request->ajax()) return $notes;
         
