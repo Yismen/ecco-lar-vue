@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class Note extends Model implements SluggableInterface
 {
 	use SluggableTrait;
-  use SoftDeletes;
+  // use SoftDeletes;
 
 	protected $sluggable = [
 		'build_from' => 'title',

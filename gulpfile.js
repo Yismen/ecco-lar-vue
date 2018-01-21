@@ -35,7 +35,7 @@ elixir(function(mix) {
             // nodeModules + '/bootstrap-material-design/dist/css/bootstrap-material-design.css',
             // nodeModules + '/bootstrap-material-design/dist/css/ripples.css',
             nodeModules + '/datatables.net-bs/css/dataTables.bootstrap.css',
-            nodeModules + '/datatables.net-dt/css/jquery.dataTables.css',
+            // nodeModules + '/datatables.net-dt/css/jquery.dataTables.css',
             nodeModules + '/datatables.net-buttons-dt/css/buttons.dataTables.css',
             nodeModules + '/dropzone/dist/dropzone.css',
             nodeModules + '/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css',

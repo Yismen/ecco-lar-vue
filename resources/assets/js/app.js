@@ -27,6 +27,8 @@
           // format: 'm/d/yyyy',
           format: 'yyyy-mm-dd',
           todayHighlight: true,
+          autoclose: true,
+          clearBtn: true,
           todayBtn: true,
         });
       }

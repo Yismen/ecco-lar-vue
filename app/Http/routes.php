@@ -15,7 +15,10 @@ Route::group(['middleware' => 'web'], function () {
 	 * -------------------------------------------------
 	 */
 	Route::get('/', function () {
-		return view('auth.login');
+		return redirect('/admin');
+	});
+	Route::get('/home', function () {
+		return redirect('/admin');
 	});
 
     foreach (File::allFiles(__DIR__.'/Routes/Web') as $partial) {
