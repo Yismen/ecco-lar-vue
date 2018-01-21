@@ -17,10 +17,10 @@ class NotesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Note $notes, Request $request)
+    public function index(Request $request)
     {
         if ($request->ajax()) {
-            $notes = $notes->get();
+            $notes = Note::orderBy('title')->get();
             return $notes;
         }
 
