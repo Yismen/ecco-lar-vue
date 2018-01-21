@@ -40,4 +40,9 @@ trait UserRelationships
     {
         return $this->hasOne('App\AppSetting');
     }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
 }
