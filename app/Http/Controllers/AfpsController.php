@@ -20,12 +20,12 @@ class AfpsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Afp $afps)
+    public function index()
     {
-        $afps = $afps->with(['employees' => function($query) {
+        $afps = Afp::with(['employees' => function($query) {
             return $query->actives();
         }])->orderBy('name')->get();
-
+        
         return view('afp.index', compact('afps'));
     }
 
