@@ -3,7 +3,7 @@
 
 @section('content')
 	<div class="container-fluid">
-		<div class="col-sm-8 col-sm-offset-2">
+		<div class="col-sm-10 col-sm-offset-1">
 			<div class="box box-primary pad">
 			
 				<h3 class="page-header">

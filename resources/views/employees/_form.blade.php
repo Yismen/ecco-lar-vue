@@ -118,7 +118,14 @@
 	<div class="col-sm-6">
 		<div class="form-group {{ $errors->has('position_id') ? 'has-error' : null }}">
 			{!! Form::label('position_id', 'Position:', ['class'=>'']) !!}
-			{!! Form::select('position_id', $employee->positionsList, null, ['class'=>'form-control input-sm']) !!}
+			<select name="position_id" id="position_id" class="form-control input-sm">
+				@foreach ($employee->positionsList as $position)
+					<option value="{{ $position->id }}" {{ old('position_id') == $position->id ? 'selected' : '' }}>
+						{{ $position->name_and_department }},
+						${{ $position->salary }} - {{ $position->payment_type['name'] }}
+					</option>
+				@endforeach
+			</select>
 		    {!! $errors->first('position_id', '<span class="text-danger">:message</span>') !!}
 		</div>
 	</div>
