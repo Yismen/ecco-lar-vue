@@ -10,39 +10,37 @@ use App\Department;
 use App\Termination;
 use App\ImageUploader;
 use Illuminate\Http\Request;
-use App\Jobs\NotifyBirthdays;
 use Yajra\Datatables\Datatables;
 use App\Http\Traits\EmployeesTrait;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Queue;
 use Intervention\Image\ImageManagerStatic as Image;
-use App\Providers\EmployeeServiceProvider as EmployeeProvider;
 
-class EmployeesController extends Controller 
+class EmployeesController extends Controller
 {
     use EmployeesTrait;
 
     protected $provider;
     private $request;
     private $carbon;
-    function __construct(Request $request, Carbon $carbon) {
+
+    public function __construct(Request $request, Carbon $carbon)
+    {
         $this->request = $request;
         $this->carbon = $carbon;
 
-        $this->middleware('authorize:view_employees|edit_employees|create_employees', ['only'=>['index','show']]);
-        $this->middleware('authorize:edit_employees', ['only'=>['edit','update']]);
-        $this->middleware('authorize:create_employees', ['only'=>['create','store']]);
-        $this->middleware('authorize:destroy_employees', ['only'=>['destroy']]);
+        $this->middleware('authorize:view_employees|edit_employees|create_employees', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit_employees', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create_employees', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy_employees', ['only' => ['destroy']]);
     }
+
     /**
      * Display a listing of the resource.
      *
      * @Get("/employees")
      * @return Response
      */
-
     public function index()
     {
         return view('employees.index-datatables');
@@ -53,10 +51,10 @@ class EmployeesController extends Controller
         $employees = Employee::with('position.department');
         return Datatables::of($employees)
             ->editColumn('id', function ($query) {
-                return '<a href="' . route("admin.employees.show", $query->id) . '" class="">'.$query->id.'</a>';
+                return '<a href="' . route('admin.employees.show', $query->id) . '" class="">' . $query->id . '</a>';
             })
-            ->addColumn('edit', function($query) {
-                return '<a href="' . route("admin.employees.edit", $query->id) . '" class=""><i class="fa fa-edit"></i> Edit</a>';
+            ->addColumn('edit', function ($query) {
+                return '<a href="' . route('admin.employees.edit', $query->id) . '" class=""><i class="fa fa-edit"></i> Edit</a>';
             })
             ->make(true);
     }
@@ -69,7 +67,7 @@ class EmployeesController extends Controller
      */
     public function create(Employee $employee, Department $departments)
     {
-        return view('employees.create', compact('employee'));    
+        return view('employees.create', compact('employee'));
     }
 
     /**
@@ -88,10 +86,9 @@ class EmployeesController extends Controller
         if ($request->ajax()) {
             return $employee;
         }
-        
+
         return \Redirect::route('admin.employees.edit', $employee->id)
             ->withSuccess("Succesfully added employee [$request->first_name $request->last_name];");
-        
     }
 
     /**
@@ -136,14 +133,13 @@ class EmployeesController extends Controller
 
         return redirect()->route('admin.employees.edit', $employee->id)
             ->withSuccess("Succesfully updated employee [$request->first_name $request->last_name]");
-
     }
 
     public function updateAddress(Employee $employee, Request $request)
     {
         $this->validateAddressRequest($request);
 
-        $employee = $employee->createOrUpdateAddress($request); 
+        $employee = $employee->createOrUpdateAddress($request);
 
         if ($request->ajax()) {
             return $employee->load('addresses');
@@ -151,27 +147,40 @@ class EmployeesController extends Controller
 
         return redirect()->route('admin.employees.show', $employee->id)
             ->withSuccess("$employee->first_name's address updated!");
-
     }
 
+    /**
+     * Update card id attribute
+     *
+     * @param Employee $employee
+     * @param Request $request
+     * @return void
+     */
     public function updateCard(Employee $employee, Request $request)
     {
         $this->validateCardRequest($request);
 
-        $employee->createOrUpdateCard($request);        
+        $employee->createOrUpdateCard($request);
 
         if ($request->ajax()) {
             return $employee->load('card');
         }
 
         return redirect()->route('admin.employees.show', $employee->id)
-            ->withSuccess("Card Number Updated");
+            ->withSuccess('Card Number Updated');
     }
 
+    /**
+     * Create or update pun id attribute
+     *
+     * @param Employee Model
+     * @param Request $request
+     * @return void
+     */
     public function updatePunch(Employee $employee, Request $request)
     {
-        $this->validate($request, [         
-            'punch' => 'required|numeric|digits:5', 
+        $this->validate($request, [
+            'punch' => 'required|numeric|digits:5',
         ]);
 
         $employee->createOrUpdatePunch($request);
@@ -181,7 +190,7 @@ class EmployeesController extends Controller
         }
 
         return redirect()->route('admin.employees.show', $employee->id)
-            ->withSuccess("Punch ID Updated");
+            ->withSuccess('Punch ID Updated');
     }
 
     public function createLogin(Employee $employee, Login $login, Request $request)
@@ -256,22 +265,22 @@ class EmployeesController extends Controller
             $employee->logins->update($request->all());
         } else {
             $login = new $login([
-                'login'=>$request->input('login'), 
-                'system_id'=>$request->input('system_id')
-                ]);
+                'login' => $request->input('login'),
+                'system_id' => $request->input('system_id')
+            ]);
             $employee->logins()->save($login);
         }
 
         if ($request->ajax()) {
             return response()->json([
-                'status'  => 1, 
-                'employee' => $employee, 
+                'status' => 1,
+                'employee' => $employee,
                 'message' => "$employee->first_name's Login updated!"
-                ]);
+            ]);
         }
 
         return redirect()->route('admin.employees.show', $employee->id)
-            ->withSuccess("Login Number Updated");
+            ->withSuccess('Login Number Updated');
     }
 
     /**
@@ -284,7 +293,6 @@ class EmployeesController extends Controller
     {
         Cache::forget('employees');
         return $employee;
-
     }
 
     public function updatePhoto(Employee $employee, Request $request)
@@ -299,9 +307,9 @@ class EmployeesController extends Controller
 
         if ($image) {
             $now = Carbon::now()->timestamp;
-            $employee->photo = '/'.$image.'?'. $now;
+            $employee->photo = '/' . $image . '?' . $now;
             $employee->save();
-        } 
+        }
 
         if ($request->ajax()) {
             return $employee;
@@ -312,10 +320,10 @@ class EmployeesController extends Controller
     }
 
     public function updateTermination(Request $request, $employee)
-    { 
+    {
         $employee = $this->handleInactivation($employee, $request);
 
-        if ($request->ajax()) {         
+        if ($request->ajax()) {
             return $employee;
         }
 
@@ -327,15 +335,20 @@ class EmployeesController extends Controller
     {
         $employee = $this->handleReactivation($employee, $request);
 
-        if ($request->ajax()) {         
+        if ($request->ajax()) {
             return $employee;
-        }       
+        }
 
         return redirect()->route('admin.employees.edit', $employee->id)
             ->withWarning("Employee $employee->full_name has been reactivated. Please make sure to update Hire Date field");
-
     }
 
+    /**
+     * Allows to export employees to excel by status
+     *
+     * @param string $status
+     * @return download file
+     */
     public function toExcel($status)
     {
         $status = strtolower($status);
@@ -343,28 +356,32 @@ class EmployeesController extends Controller
         $statuses = ['actives', 'inactives', 'all'];
 
         if (!in_array($status, $statuses)) {
-            return redirect()->back()->withDanger("The searched status is not not allowed");
+            return redirect()->back()->withDanger('The searched status is not not allowed');
         }
 
-        $employees =  Employee::select([
+        $employees = Employee::select([
             'id', 'first_name', 'second_first_name', 'last_name', 'second_last_name', 'personal_id', 'passport', 'hire_date'
-            ])
+        ])
             ->with('address')->with('bankAccount')
             ->orderBy('first_name', 'ASC')
             ->$status()
             ->get();
 
-        Excel::create('Employees', function($excel) use ($employees) {
-            $excel->sheet('Employees', function($sheet) use ($employees) {
+        Excel::create('Employees', function ($excel) use ($employees) {
+            $excel->sheet('Employees', function ($sheet) use ($employees) {
                 $sheet->setColumnFormat([
                     'F' => 'mm/dd/yyyy'
-                    ])
+                ])
                     ->loadView('employees.excel.employees', compact('employees'));
             })->download('xlsx');
         });
-        
     }
 
+    /**
+     * Allows to export all employees to excel
+     *
+     * @return download
+     */
     public function toExcelAll()
     {
         $employees = Employee::select([
@@ -382,9 +399,5 @@ class EmployeesController extends Controller
                     ->loadView('employees.excel.employees', compact('employees'));
             })->download('xlsx');
         });
-
     }
-
-    
-    
 }
