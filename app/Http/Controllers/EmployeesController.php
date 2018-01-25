@@ -56,7 +56,7 @@ class EmployeesController extends Controller
                 return '<a href="' . route("admin.employees.show", $query->id) . '" class="">'.$query->id.'</a>';
             })
             ->addColumn('edit', function($query) {
-                return '<a href="' . route("admin.employees.edit", $query->id) . '" class=""> <i class="fa fa-edit"></i></a>';
+                return '<a href="' . route("admin.employees.edit", $query->id) . '" class=""><i class="fa fa-edit"></i> Edit</a>';
             })
             ->make(true);
     }
@@ -351,8 +351,7 @@ class EmployeesController extends Controller
             ])
             ->with('address')->with('bankAccount')
             ->orderBy('first_name', 'ASC')
-            ->has('bankAccount')
-            ->$status()->take(5)
+            ->$status()
             ->get();
 
         Excel::create('Employees', function($excel) use ($employees) {
