@@ -122,7 +122,7 @@
 				@foreach ($employee->positionsList as $position)
 					<option value="{{ $position->id }}" {{ old('position_id') == $position->id ? 'selected' : '' }}>
 						{{ $position->name_and_department }},
-						${{ $position->salary }} - {{ $position->payment_type['name'] }}
+						${{ $position->salary }} - {{ $position->payment_type['name'] }} 
 					</option>
 				@endforeach
 			</select>
