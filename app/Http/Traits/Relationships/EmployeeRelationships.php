@@ -49,6 +49,11 @@ trait EmployeeRelationships
         return $this->belongsTo('App\Marital', 'marital_id');
     }
     
+    public function address()
+    {
+        return $this->hasOne('App\Address', 'employee_id');
+    }
+    
     public function addresses()
     {
         return $this->hasOne('App\Address', 'employee_id');
