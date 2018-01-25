@@ -1,20 +1,18 @@
-<?php namespace App\Http\Controllers;
+<?php
+
+namespace App\Http\Controllers;
 
 use App\Employee;
-use Carbon\Carbon;
-use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Repositories\Employees;
-use App\Http\Controllers\Controller;
 use App\Repositories\HumanResources\Lists;
 use App\Repositories\HumanResources\Issues;
 use App\Repositories\HumanResources\Birthdays;
 use App\Repositories\HumanResources\Employees\Count;
 use App\Repositories\HumanResources\Employees\Reports;
 
-class HumanResourcesController extends Controller 
+class HumanResourcesController extends Controller
 {
-    
     /**
      * Display a listing of the resource.
      *
@@ -23,7 +21,7 @@ class HumanResourcesController extends Controller
     public function index()
     {
         $hc_by_department_and_aging = Count::byDepartmentAndAging()->get();
-            
+
         $hc_by_department = Count::byDepartment();
         $issues = Issues::render();
 
@@ -37,9 +35,9 @@ class HumanResourcesController extends Controller
         $by_department_positions = Count::byDepartmentPositionGender()->get();
 
         $rotationByMonth = Count::rotationbyMonths(5);
-        
+
         return view('human_resources.index', compact(
-            'issues', 'birthdays', 'by_status', 'by_department_positions', 'inByMonth', 'outByMonth', 'rotationByMonth', 'hc_by_department', 'hc_by_department_and_aging' 
+            'issues', 'birthdays', 'by_status', 'by_department_positions', 'inByMonth', 'outByMonth', 'rotationByMonth', 'hc_by_department', 'hc_by_department_and_aging'
         ));
     }
 
@@ -95,7 +93,7 @@ class HumanResourcesController extends Controller
     public function getBirthdays()
     {
         return [
-            'today'      => Birthdays::onDate()->get(),
+            'today' => Birthdays::onDate()->get(),
             'last_month' => Birthdays::lastMonth()->count(),
             'this_month' => Birthdays::currentMonth()->count(),
             'next_month' => Birthdays::nextMonth()->count(),
@@ -132,7 +130,7 @@ class HumanResourcesController extends Controller
     {
         $this->validate($request, [
             'year' => 'required|integer'
-            ]);        
+        ]);
 
         $results = $report->dgt3($request->year)->get();
 
@@ -141,9 +139,27 @@ class HumanResourcesController extends Controller
         return view('human_resources.reports.dgt3', compact('results'));
     }
 
-    public function dgt4(Reports $report)
+    public function dgt3ToExcel(Request $request, Reports $report)
     {
+        $this->validate($request, [
+            'year' => 'required|integer'
+        ]);
 
+        $results = $report->dgt3($request->year)->get();
+
+        $request->flash();
+
+        Excel::create('DGT3-' . $request->year, function ($excel) {
+            $excel->sheet('DGT3', function ($sheet) {
+                $sheet->loadView('human_resources.reports.dgt3', compact('results'));
+            });
+        })->download('xlsx');
+
+        return view('human_resources.reports.dgt3', compact('results'));
+    }
+
+    public function dgt4()
+    {
         return view('human_resources.reports.dgt4');
     }
 
@@ -152,7 +168,7 @@ class HumanResourcesController extends Controller
         $this->validate($request, [
             'year' => 'required|integer',
             'month' => 'required|integer|between:1,12',
-            ]);        
+            ]);
 
         $results = $report->dgt4($request->year, $request->month)->get();
 
@@ -165,14 +181,13 @@ class HumanResourcesController extends Controller
     {
         $department = $employees->employeesByDepartment($id);
 
-        return view('human_resources.hc.by_departments', compact('department'));     
+        return view('human_resources.hc.by_departments', compact('department'));
     }
 
     public function byPosition($id, Employees $employees)
     {
         $position = $employees->employeesByPosition($id);
 
-        return view('human_resources.hc.by_positions', compact('position'));  
+        return view('human_resources.hc.by_positions', compact('position'));
     }
-    
 }
