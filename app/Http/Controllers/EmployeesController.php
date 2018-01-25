@@ -49,6 +49,7 @@ class EmployeesController extends Controller
     public function apiEmployees(Request $request, Employee $employees)
     {
         $employees = Employee::with('position.department');
+        
         return Datatables::of($employees)
             ->editColumn('id', function ($query) {
                 return '<a href="' . route('admin.employees.show', $query->id) . '" class="">' . $query->id . '</a>';
