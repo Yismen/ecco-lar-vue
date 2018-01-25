@@ -118,7 +118,9 @@
                     <div class="form-group">
                         <label for="gender_id" class="">Gender:</label>
                         <select name="gender_id" id="gender_id" class="form-control" v-model="form.fields.gender_id">
-                            <option v-for="(gender_id, index) in employee.genders_list" :value="index">{{ gender_id }}</option>
+                            <option v-for="(gender_id, index) in employee.genders_list" :value="index" :key="index">
+                                {{ gender_id }}
+                            </option>
                         </select>
                         <span class="text-danger" v-if="form.error.has('gender_id')">{{ form.error.get('gender_id') }}</span>
                     </div>                 
@@ -128,7 +130,7 @@
                     <div class="form-group">
                         <label for="marital_id" class="">Marital Status:</label>
                         <select name="marital_id" id="marital_id" class="form-control" v-model="form.fields.marital_id">
-                            <option v-for="(marital_id, index) in employee.maritals_list" :value="index">{{ marital_id }}</option>
+                            <option v-for="(marital_id, index) in employee.maritals_list" :value="index" :key="index">{{ marital_id }}</option>
                         </select>
                         <span class="text-danger" v-if="form.error.has('marital_id')">{{ form.error.get('marital_id') }}</span>
                     </div>                 
@@ -138,7 +140,9 @@
                     <div class="form-group">
                         <label for="has_kids" class="">Has Kids?:</label>
                         <select name="has_kids" id="has_kids" class="form-control" v-model="form.fields.has_kids">
-                            <option v-for="(has_kids, index) in employee.has_kids_list" :value="index">{{ has_kids }}</option>
+                            <option v-for="(has_kids, index) in employee.has_kids_list" :value="index" :key="index">
+                                {{ has_kids }}
+                            </option>
                         </select>
                         <span class="text-danger" v-if="form.error.has('marital_id')">{{ form.error.get('has_kids') }}</span>
                     </div>                 
@@ -148,12 +152,15 @@
                     <div class="form-group">
                         <label for="position_id" class="">Position:</label>
                         <select name="position_id" id="position_id" class="form-control" v-model="form.fields.position_id">
-                            <option v-for="position in employee.positions_list" :value="position.id">{{ position.name_and_department }}</option>
-                            <!-- <option v-for="(position_id, index) in employee.positions_list" :value="index">{{ position_id }}</option> -->
+                            <option v-for="position in employee.positions_list" :key="position.id" :value="position.id">
+                                {{ position.name_and_department }},
+                                ${{ position.salary }}, {{ position.payment_type ? position.payment_type.name : '' }}
+                            </option>
                         </select>
                         <span class="text-danger" v-if="form.error.has('marital_id')">{{ form.error.get('position_id') }}</span>
                     </div>                 
-                </div> <!-- ./Position-->
+                </div> 
+                <!-- ./Position-->
             </div>
     
             <div class="box-footer">
