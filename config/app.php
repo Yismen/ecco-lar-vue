@@ -156,6 +156,7 @@ return [
         Zizaco\Entrust\EntrustServiceProvider::class,
         Yajra\Datatables\DatatablesServiceProvider::class,
         GrahamCampbell\Flysystem\FlysystemServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
         // Arcanedev\LogViewer\LogViewerServiceProvider::class,
         // Barryvdh\Debugbar\ServiceProvider::class,
 
@@ -223,6 +224,7 @@ return [
         'Datatables'=> Yajra\Datatables\Facades\Datatables::class,
         'Flysystem' => GrahamCampbell\Flysystem\Facades\Flysystem::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 
     ],
 
