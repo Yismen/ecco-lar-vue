@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Excel;
 use App\Login;
 use App\Employee;
 use Carbon\Carbon;
@@ -334,4 +335,37 @@ class EmployeesController extends Controller
             ->withWarning("Employee $employee->full_name has been reactivated. Please make sure to update Hire Date field");
 
     }
+
+    public function toExcel($status)
+    {
+        $status = strtolower($status);
+
+        $statuses = ['actives', 'inactives', 'all'];
+
+        if (!in_array($status, $statuses)) {
+            return redirect()->back()->withDanger("The searched status is not not allowed");
+        }
+
+        $employees =  Employee::select([
+            'id', 'first_name', 'second_first_name', 'last_name', 'second_last_name', 'personal_id', 'passport', 'hire_date'
+            ])
+            ->with('address')->with('bankAccount')
+            ->orderBy('first_name', 'ASC')
+            ->has('bankAccount')
+            ->$status()->take(5)
+            ->get();
+
+        Excel::create('Employees', function($excel) use ($employees) {
+            $excel->sheet('Employees', function($sheet) use ($employees) {
+                $sheet->setColumnFormat([
+                    'F' => 'mm/dd/yyyy'
+                    ])
+                    ->loadView('employees.excel.employees', compact('employees'));
+            })->download('xlsx');
+        });
+        
+    }
+
+    
+    
 }
