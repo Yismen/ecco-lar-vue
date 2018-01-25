@@ -16,6 +16,11 @@ Route::get('employees/export_to_excel/{status}',
     ['as'=>'admin.employees.export_to_excel', 'uses'=>'EmployeesController@toExcel']
 )->middleware('authorize:employees_to_excel');
 
+Route::get(
+    'employees/export_all_to_excel',
+    ['as' => 'admin.employees.export_all_to_excel', 'uses' => 'EmployeesController@toExcelAll']
+)->middleware('authorize:employees_all_to_excel');
+
 Route::post('employees/logins/{employees}', 
     ['as'=>'admin.employees.login.create', 'uses'=>'EmployeesController@createLogin']
 )->middleware('authorize:create_logins');
