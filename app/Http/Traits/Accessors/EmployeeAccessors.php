@@ -22,7 +22,6 @@ trait EmployeeAccessors
      * return a list array of the systems, including name and id
      * @return array a list of systems registered.
      */
-
     public function getNationalitiesListAttribute()
     {
         return Nationality::lists('name', 'id');
@@ -71,7 +70,7 @@ trait EmployeeAccessors
     {
         return $photo == '' ? 'http://placehold.it/300x300' : $photo;
     }
-    
+
     /**
      * determine if the user is active or inactive
      * @return string user status
@@ -80,7 +79,9 @@ trait EmployeeAccessors
     {
         $status = 'Active';
 
-        if($this->termination) $status = 'Inactive';
+        if ($this->termination) {
+            $status = 'Inactive';
+        }
 
         return $this->status = $status;
     }
@@ -88,7 +89,7 @@ trait EmployeeAccessors
     /**
      * set the active attribute
      * @return  boolean   if user has termination
-     */ 
+     */
     public function getActiveAttribute()
     {
         return $this->termination == false;
@@ -100,7 +101,7 @@ trait EmployeeAccessors
      */
     public function getFullNameAttribute()
     {
-        $name = $this->first_name . ' ' . $this->second_first_name . ' ' . $this->last_name. ' ' . $this->second_last_name;
+        $name = $this->first_name . ' ' . $this->second_first_name . ' ' . $this->last_name . ' ' . $this->second_last_name;
         return ucwords(trim(mb_strtolower($name)));
     }
 
@@ -200,7 +201,7 @@ trait EmployeeAccessors
      */
     public function getHasKidsListAttribute()
     {
-        return ['0'=> 'No', '1'=>'Yes'];
+        return ['0' => 'No', '1' => 'Yes'];
     }
 
     public function getDepartmentsListAttribute()
@@ -230,8 +231,6 @@ trait EmployeeAccessors
      */
     public function getPositionsListAttribute()
     {
-        return  Position::orderBy('department_id')
-            ->select(['id', 'department_id', 'name'])
-            ->get();
+        return  Position::orderBy('department_id')->get();
     }
 }
