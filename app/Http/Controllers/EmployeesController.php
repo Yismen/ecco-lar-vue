@@ -365,6 +365,26 @@ class EmployeesController extends Controller
         
     }
 
+    public function toExcelAll()
+    {
+        $employees = Employee::select([
+            'id', 'first_name', 'second_first_name', 'last_name', 'second_last_name', 'personal_id', 'passport', 'hire_date'
+        ])
+            ->with('address')->with('bankAccount')
+            ->orderBy('first_name', 'ASC')
+            ->get();
+
+        Excel::create('Employees', function ($excel) use ($employees) {
+            $excel->sheet('Employees', function ($sheet) use ($employees) {
+                $sheet->setColumnFormat([
+                    'F' => 'mm/dd/yyyy'
+                ])
+                    ->loadView('employees.excel.employees', compact('employees'));
+            })->download('xlsx');
+        });
+
+    }
+
     
     
 }
