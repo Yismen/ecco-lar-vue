@@ -6,10 +6,26 @@
         <div class="box box-primary">
             
             <div class="box-header with-border">
-                Employees List
-                <a href="{{ route('admin.employees.create') }}" class="pull-right">
-                    <i class="fa fa-plus"></i> Create
-                </a>
+
+                <div class="col-sm-6">
+                    <h3>Employees List</h3>
+                </div>
+                <div class="col-sm-6">                    
+                    <a href="{{ route('admin.employees.export_to_excel', 'actives') }}" class="">
+                        <i class="fa fa-download"></i> Actives
+                    </a>    
+                    <a href="{{ route('admin.employees.export_to_excel', 'inactives') }}" class="">
+                        <i class="fa fa-download"></i> Inactives
+                    </a> 
+                    <a href="{{ route('admin.employees.export_to_excel', 'all') }}" class="">
+                        <i class="fa fa-file-excel-o"></i> All
+                    </a> 
+                    <a href="{{ route('admin.employees.create') }}" class="pull-right">
+                        <i class="fa fa-plus"></i> Create
+                    </a>
+                </div>
+                    
+
             </div>
 
             <div class="box-body">
