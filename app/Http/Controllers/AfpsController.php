@@ -25,7 +25,7 @@ class AfpsController extends Controller
         $afps = Afp::with(['employees' => function($query) {
             return $query->actives();
         }])->orderBy('name')->get();
-        
+
         return view('afp.index', compact('afps'));
     }
 
@@ -45,13 +45,13 @@ class AfpsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Afp $afp)
+    public function store(Request $request)
     {
         $this->validate($request, [
             'name' => 'required|min:3|unique:afps,name'
         ]);
 
-        $afp = $afp->create($request->all());
+        $afp = Afp::create($request->all());
         
         return redirect()->route('admin.afps.index')
             ->withSuccess("AFP $afp->name created!");
