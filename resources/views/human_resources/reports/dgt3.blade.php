@@ -48,9 +48,7 @@
                     <strong>Sorry!</strong> Nothing found
                 </div>
             </div>
-        @endif
-        
-        @if (isset($results) && $results->count() > 0)
+        @else
             @include('human_resources.reports.dgt3_results', ['results' => $results])
         @endif
     </div>
