@@ -38,8 +38,8 @@ return [
         'attributes' => [
             'prefix'     => 'admin/log_viewer',
 
-            'middleware' => null,
-            // 'middleware' => ['auth'],
+            // 'middleware' => null,
+            'middleware' => ['web', 'authorize:view_logs'],
         ],
     ],
 

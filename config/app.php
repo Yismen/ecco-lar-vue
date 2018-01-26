@@ -157,7 +157,7 @@ return [
         Yajra\Datatables\DatatablesServiceProvider::class,
         GrahamCampbell\Flysystem\FlysystemServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
-        // Arcanedev\LogViewer\LogViewerServiceProvider::class,
+        Arcanedev\LogViewer\LogViewerServiceProvider::class,
         // Barryvdh\Debugbar\ServiceProvider::class,
 
         Dainsys\Payrolls\PayrollsServiceProvider::class,  
