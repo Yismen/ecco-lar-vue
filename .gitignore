@@ -4,6 +4,7 @@
 /public/storage
 /storage/framework/sessions
 /.phpintel
+/.vscode
 Homestead.yaml
 Homestead.json
 .env
