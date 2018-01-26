@@ -24,7 +24,6 @@ class HumanResourcesController extends Controller
 
         $hc_by_department = Count::byDepartment();
         $issues = Issues::render();
-
         $birthdays = $this->getBirthdays();
 
         $by_status = [
@@ -92,7 +91,7 @@ class HumanResourcesController extends Controller
 
     public function getBirthdays()
     {
-        return [
+       return [
             'today' => Birthdays::onDate()->get(),
             'last_month' => Birthdays::lastMonth()->count(),
             'this_month' => Birthdays::currentMonth()->count(),
@@ -119,62 +118,6 @@ class HumanResourcesController extends Controller
         $employees = Birthdays::lastMonth()->paginate(25);
 
         return view('human_resources.birthdays.last_month', compact('employees'));
-    }
-
-    public function dgt3()
-    {
-        return view('human_resources.reports.dgt3');
-    }
-
-    public function handleDgt3(Request $request, Reports $report)
-    {
-        $this->validate($request, [
-            'year' => 'required|integer'
-        ]);
-
-        $results = $report->dgt3($request->year)->get();
-
-        $request->flash();
-
-        return view('human_resources.reports.dgt3', compact('results'));
-    }
-
-    public function dgt3ToExcel(Request $request, Reports $report)
-    {
-        $this->validate($request, [
-            'year' => 'required|integer'
-        ]);
-
-        $results = $report->dgt3($request->year)->get();
-
-        $request->flash();
-
-        Excel::create('DGT3-' . $request->year, function ($excel) {
-            $excel->sheet('DGT3', function ($sheet) {
-                $sheet->loadView('human_resources.reports.dgt3', compact('results'));
-            });
-        })->download('xlsx');
-
-        return view('human_resources.reports.dgt3', compact('results'));
-    }
-
-    public function dgt4()
-    {
-        return view('human_resources.reports.dgt4');
-    }
-
-    public function handleDgt4(Request $request, Reports $report)
-    {
-        $this->validate($request, [
-            'year' => 'required|integer',
-            'month' => 'required|integer|between:1,12',
-            ]);
-
-        $results = $report->dgt4($request->year, $request->month)->get();
-
-        $request->flash();
-
-        return view('human_resources.reports.dgt4', compact('results'));
     }
 
     public function byDepartment($id, Employees $employees)
