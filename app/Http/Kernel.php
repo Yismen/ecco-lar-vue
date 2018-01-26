@@ -16,7 +16,7 @@ class Kernel extends HttpKernel
     protected $middleware = [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
     ];
-
+    
     /**
      * The application's route middleware groups.
      *
@@ -29,6 +29,7 @@ class Kernel extends HttpKernel
             \Illuminate\Session\Middleware\StartSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
+            \App\Http\Middleware\UsersOnline::class,
         ],
 
         'api' => [
@@ -49,7 +50,6 @@ class Kernel extends HttpKernel
         'guest'          => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle'       => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'authorize'      => \App\Http\Middleware\ACL::class,
-        'authorize'      => \App\Http\Middleware\UsersOnline::class,
         'role'           => \Zizaco\Entrust\Middleware\EntrustRole::class,
         'permission'     => \Zizaco\Entrust\Middleware\EntrustPermission::class,
         'ability'        => \Zizaco\Entrust\Middleware\EntrustAbility::class,
