@@ -9,7 +9,6 @@ use App\Repositories\HumanResources\Lists;
 use App\Repositories\HumanResources\Issues;
 use App\Repositories\HumanResources\Birthdays;
 use App\Repositories\HumanResources\Employees\Count;
-use App\Repositories\HumanResources\Employees\Reports;
 
 class HumanResourcesController extends Controller
 {
