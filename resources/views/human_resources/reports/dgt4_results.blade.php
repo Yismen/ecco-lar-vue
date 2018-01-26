@@ -2,7 +2,16 @@
     <div class="col-sm-10 col-sm-offset-1">
         <div class="box box-success">
             <div class="box-header with-border">
-                <h4>DGT-4 Report for Year {{ 'Year here' }} <span class="badge">{{ $results->count() }} Records</span></h4>
+                <div class="col-xs-6">
+
+                </div>
+                <div class="col-xs-6">
+                    <a href="/admin/human_resources/employees/dgt4_to_excel/{{ request('year') }}/{{ request('month') }}"><i class="fa fa-download"></i> Download to Excel</a>
+                </div>
+                    <h4>
+                        DGT-4 Report for {{ date('F', mktime(0,0,0, request('month'), 10)) }}, {{ request('year') }}
+                        <span class="badge">{{ $results->count() }} Records</span>
+                    </h4>
             </div>
     
             <div class="box-body">

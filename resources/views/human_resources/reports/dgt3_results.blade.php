@@ -2,7 +2,12 @@
     <div class="col-sm-12">
         <div class="box box-warning">
             <div class="box-header with-border">
-                <h4>DGT-3 Report for Year {{ 'Year here' }} <span class="badge">{{ $results->count() }} Records</span></h4>
+                <div class="col-xs-8">
+                    <h4>DGT-3 Report for Year {{ request('year') }} <span class="badge">{{ $results->count() }} Records</span></h4>
+                </div>
+                <div class="col-xs-4">
+                    <a href="/admin/human_resources/employees/dgt3_to_excel/{{ request('year') }}"><i class="fa fa-download"></i> Download to Excel</a>
+                </div>
             </div>
     
             <div class="box-body">
@@ -40,8 +45,8 @@
                                     <td>{{ $employee->position->name or "AGENTE CALL CENTER" }}</td>
                                     <td>{{ number_format($employee->computedSalary(), 2) }}</td>
                                     <td>1</td>
-                                    <td>{{ $employee->vacationsStarts()->format('d/m/Y') }} </td>
-                                    <td>{{ $employee->vacationsEnds()->format('d/m/Y') }} </td>
+                                    <td>{{ $employee->vacationsStarts()->format('d/m') }} </td>
+                                    <td>{{ $employee->vacationsEnds()->format('d/m') }} </td>
                                 </tr>
                             @endforeach 
                         </tbody>

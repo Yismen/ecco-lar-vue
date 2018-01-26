@@ -29,12 +29,7 @@
                             <div class="col-sm-6">
                                 <button type="submit" class="btn btn-warning">RUN DGT-3</button>
                             </div> 
-                    {{-- 
-                            <div class="box-footer">
-                                <button type="submit" class="btn btn-default">CANCEL</button>
-                                <button type="submit" class="btn btn-success">RUN DGT-3</button>
-                            </div> --}}
-                    
+                            
                         {!! Form::close() !!}
                     </div>  
                     
@@ -42,15 +37,18 @@
             </div>
         </div>
 
-        @if (isset($results) && $results->count() == 0)
-            <div class="row">
-                <div class="alert alert-error">
-                    <strong>Sorry!</strong> Nothing found
+        @if (isset($results))    
+            @if ($results->count() > 0)
+                @include('human_resources.reports.dgt3_results', ['results' => $results])
+            @else
+                <div class="row">
+                    <div class="alert alert-error">
+                        <strong>Sorry!</strong> Nothing found
+                    </div>
                 </div>
-            </div>
-        @else
-            @include('human_resources.reports.dgt3_results', ['results' => $results])
+            @endif
         @endif
+
     </div>
 @endsection
 @section('scripts')

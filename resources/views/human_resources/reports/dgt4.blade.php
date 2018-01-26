@@ -49,17 +49,18 @@
             </div>
         </div>
 
-        @if (isset($results) && $results->count() == 0)
-            <div class="row">
-                <div class="alert alert-error">
-                    <strong>Sorry!</strong> Nothing found
+        @if (isset($results))
+            @if ($results->count() > 0)
+                @include('human_resources.reports.dgt4_results', ['results' => $results])
+            @else            
+                <div class="row">
+                    <div class="alert alert-error">
+                        <strong>Sorry!</strong> Nothing found
+                    </div>
                 </div>
-            </div>
+            @endif
         @endif
-        
-        @if (isset($results) && $results->count() > 0)
-            @include('human_resources.reports.dgt4_results', ['results' => $results])
-        @endif
+
     </div>
 @endsection
 @section('scripts')
