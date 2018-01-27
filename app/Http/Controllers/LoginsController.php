@@ -6,6 +6,8 @@ namespace App\Http\Controllers;
 use App\Login;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Employee;
+use Maatwebsite\Excel\Facades\Excel;
 
 class LoginsController extends Controller {
 
@@ -22,13 +24,17 @@ class LoginsController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index(Login $logins)
+	public function index()
 	{
-		$logins = $logins->with('employee')
+		$logins = Login::with('employee')
 			->with('system')
-			->paginate(10);
+			->orderBy('employee_id')->orderBy('login')
+			->paginate(100);
 
-		return view('logins.index', compact('logins'));
+		$employees = Employee::orderBy('first_name')->actives()->get()->lists('fullName', 'id')->toArray();
+		$employees['%'] = '%*(All)';
+
+		return view('logins.index', compact('logins', 'employees'));
 	}
 
 	/**
@@ -112,6 +118,23 @@ class LoginsController extends Controller {
 			'login' => 'required',
 			'employee_id' => 'required|exists:employees,id',
 		]);
+	}
+
+	public function toExcel(Request $request)
+	{
+		$logins = Login::with('employee')
+			->whereHas('employee', function($query) use ($request) {
+				return $query->where('employee_id', 'like', $request->employee_id);
+			})
+			->with('system')
+			->orderBy('employee_id')->orderBy('login')
+			->get();
+
+		Excel::create('Logins', function($excel) use($logins) {
+			$excel->sheet('Logins', function($sheet) use($logins) {
+				$sheet->loadView('logins.partials.results-to-excel', compact('logins'));
+			});
+		})->download();
 	}
 
 }

@@ -1,6 +1,7 @@
 <?php namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Employee;
 
 class Login extends Model {
 
@@ -15,7 +16,7 @@ class Login extends Model {
 
 	public function employee()
 	{
-		return $this->belongsTo('App\Employee')->orderBy('first_name', 'ASC');
+		return $this->belongsTo('App\Employee');
 	}
 
 	public function system()
@@ -30,14 +31,13 @@ class Login extends Model {
 
 	public function getEmployeesListAttribute()
 	{
-		$employees = \App\Employee::all();
+		$employees = Employee::orderBy('first_name')->actives()->get();
 
 		return $employees->lists('fullName', 'id');
 	}
 
 	public function getSystemsListAttribute()
 	{
-		// dd(\App\Employee::lists('first_name', 'id'));
 		return \App\System::lists('name', 'id');
 	}
 
@@ -48,11 +48,6 @@ class Login extends Model {
 	
 	public function setLoginAttribute($login)
 	{
-		// $login = trim($login);
-		// $login = str_replace(' ', '', $login);
-		$login = strtolower($login);
-
-		$this->attributes['login'] = $login;
-		// $this->attributes['login'] = strtoupper(trim($name));
+		$this->attributes['login'] = trim($login);
 	}
 }
