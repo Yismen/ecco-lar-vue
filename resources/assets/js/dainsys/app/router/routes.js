@@ -10,8 +10,6 @@ export default [
         path: '/',
         components: {
             sources: require('./../components/sources/SourcesComponent.vue'),
-            test: require('./../components/test/AddTest'),
-            pagination: require('./../components/test/Pagination.vue'),
             notes: require('./../components/notes/IndexComponent'),
             escalations_admin: require('./../components/escalations_admin/IndexComponent'),
             payrolls: require('./../components/payrolls/Index')
@@ -25,8 +23,6 @@ export default [
     {path: '/sources/create', name: 'create-source', component: require('./../components/sources/CreateSource.vue')},
     {path: '/sources/destroy', name: 'destroy-source', component: require('./../components/sources/DestroySource.vue')},
     
-    {path: '/home', component: require('./../components/site/AppComponent')},
     {path: '/todos', component: require('./../components/todos/TodosComponent')},
-    {path: '/add-test', component: require('./../components/test/AddTest')},
     { path: '*', redirect: '/' },
 ]
