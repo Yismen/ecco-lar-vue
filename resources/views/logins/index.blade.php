@@ -3,65 +3,61 @@
 
 @section('content')
 	<div class="container-fluid">
+		<div class="">
+			<div class="col-sm-8 col-sm-offset-2">
+				<div class="box box-success">
+				
+					<div class="box-body">
+						{!! Form::open(['url' => '/admin/logins/to_excel', 'method' => 'post', 'class'=>'', 'role' => 'form']) !!}
+
+							<div class="col-sm-9">
+								<div class="form-group {{ $errors->has('employee_id') ? 'has-error' : null }}">
+									{!! Form::label('employee_id', 'Employee:', ['class'=>'col-sm-2 control-label']) !!}
+									<div class="col-sm-10">
+										{!! Form::select('employee_id', $employees, '%', ['class'=>'form-control select2']) !!}
+									</div>
+								</div>
+							</div>
+
+							<div class="col-sm-3">
+								<div class="form-group">
+									<button class="btn btn-primary" type="submit"><i class="fa fa-download"></i> EXPORT TO EXCEL</button>
+								</div>
+							</div>
+
+						{!! Form::close() !!}	
+					</div>			
+					
+				</div>
+			</div>
+		</div>
+		{{--  /.Exporter Form  --}}
     	<div class="row">
 			<div class="col-sm-8 col-sm-offset-2">
-				<div class="box box-primary pad">
+				<div class="box box-primary">
 
-					<h3 class="page-header">
-						Logins Items List
-					 	<a href="{{ route('admin.logins.create') }}">
-					 		<i class="fa fa-plus"></i>
-					 	</a>
-					</h3>
+					<div class="box-header with-border">
+						<h3>
+							Logins Items List
+							<a href="{{ route('admin.logins.create') }}" class="pull-right">
+								<i class="fa fa-plus"></i> Create
+							</a>
+						</h3>
+					</div>
 
-					@if ($logins->isEmpty())
-						<div class="bs-callout bs-callout-warning">
-							<h1>No Logins has been added yet, please add one</h1>
-						</div>
-					@else
-						<table class="table table-condensed table-hover">
-							<thead>
-								<tr>
-									<th>Login</th>
-									<th>System</th>
-									<th>Employee</th>
-									<th class="col-xs-3">
-										<a href="{{ route('admin.logins.create') }}">
-									 		<i class="fa fa-plus"></i> Add
-									 	</a>
-									</th>
-								</tr>
-							</thead>
-							<tbody>
-								@foreach ($logins as $login)
-									<tr>
-										<td>
-											<a href="{{ route('admin.logins.show', $login->id) }}">{{ $login->login }}</a>
-										</td>
-										<td>
-											<a href="{{ route('admin.systems.show', $login->system->id) }}">{{ ucwords(trim($login->system->name)) }}</a>
-										</td>
-										<td>
-											<a href="{{ route('admin.employees.show', $login->employee->id) }}">
-												{{ ucwords(trim($login->employee->first_name ))}} 
-												{{ ucwords(trim($login->employee->last_name ))}}
-											</a>
-										</td>
-										<td>
-											<a href="{{ route('admin.logins.edit', $login->id) }}" class="btn btn-warning">
-												<i class="fa fa-edit"></i>
-											</a>
-											{{-- {!! delete_button('logins.destroy', $login->id, ['class'=>'btn btn-danger','label'=>'<i class="fa fa-trash"></i>']) !!}  --}}
-										</td>
-									</tr>
-								@endforeach
-							</tbody>
-						</table>
+					<div class="box-body">
+							@if ($logins->isEmpty())
+							<div class="bs-callout bs-callout-warning">
+								<h1>No Logins has been added yet, please add one</h1>
+							</div>
+						@else
+							@include('logins.partials.results', ['logins', $logins])
+						@endif
+					</div>
 
-						<div class="text-center">
-							{{ $logins->render() }}
-						</div>
-					@endif
+					<div class="box-footer with-border">
+						{{ $logins->render() }}
+					</div>
 
 				</div>
 			</div>
