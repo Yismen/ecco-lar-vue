@@ -68,7 +68,8 @@
                         },
                         legend: false,
                         tooltips: {
-                            intersect: false
+                            intersect: false,
+                             mode: 'index'
                         },
                         scales: {
                             yAxes: [
