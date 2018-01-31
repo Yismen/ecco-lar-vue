@@ -54,6 +54,7 @@
                         
                     },
                     options: {
+                        legend: false
                     }
                 });
 

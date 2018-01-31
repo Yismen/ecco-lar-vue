@@ -108,17 +108,6 @@ trait EmployeesTrait
 
     }
 
-    protected function validateAddressRequest($request)
-    {
-        $this->validate($request, [
-            'sector'         => 'required',
-            'street_address' => 'required',
-            'city'           => 'required',     
-        ]);
-
-        return $this;
-    }
-
     protected function validateCardRequest($request)
     {
         $this->validate($request, ['card'=> 'required|numeric|digits:8|']);

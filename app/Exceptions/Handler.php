@@ -45,19 +45,13 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-        if($e instanceof \Illuminate\Session\TokenMismatchExceptio){
-              return redirect()
-                  ->back()
-                  ->withInput($request->except('_token'))
-                  ->withDanger("Seems like your session expired!");
-                  
-        }
+        // \Illuminate\Support\Facades\Log::error($e);
         return parent::render($request, $e);
     }
 
     /**
      * Render an exception using Whoops.
-     * 
+     *
      * @param  \Exception $e
      * @return \Illuminate\Http\Response
      */

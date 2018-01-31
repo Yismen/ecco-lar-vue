@@ -190,25 +190,16 @@ class Employee extends Model
 			]);
 	}
 
-
-
 	public function createOrUpdateAddress($request)
 	{
-		$address = [
-			'sector'         => $request->input('sector'),
-			'street_address' => $request->input('street_address'),
-			'city'           => $request->input('city'),
-			];
-
-		if ($this->addresses) {
-			$this->addresses->update($address);
-
-			return $this;
-		}
+		$request = $request->only(['sector', 'street_address', 'city']);
 		
-		$newAddress = new Address($address);
-		$this->addresses()->save($newAddress);
+		if ($this->addresses) {
+			$this->addresses->update($request);
+			return $this;
+		}		
 
+		$this->addresses()->create($request);
 		return $this;
 	}
 

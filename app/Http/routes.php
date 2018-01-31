@@ -31,7 +31,7 @@ Route::group(['middleware' => 'web'], function () {
 	 * ----------------------------------------------
 	 */
 	Route::group(['prefix' => 'admin'], function() {
-	    // dd(Config::get('mail', 'default'));
+		
 	    Route::auth();  
 
 		/**

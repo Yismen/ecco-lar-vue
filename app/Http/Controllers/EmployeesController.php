@@ -136,20 +136,6 @@ class EmployeesController extends Controller
             ->withSuccess("Succesfully updated employee [$request->first_name $request->last_name]");
     }
 
-    public function updateAddress(Employee $employee, Request $request)
-    {
-        $this->validateAddressRequest($request);
-
-        $employee = $employee->createOrUpdateAddress($request);
-
-        if ($request->ajax()) {
-            return $employee->load('addresses');
-        }
-
-        return redirect()->route('admin.employees.show', $employee->id)
-            ->withSuccess("$employee->first_name's address updated!");
-    }
-
     /**
      * Update card id attribute
      *

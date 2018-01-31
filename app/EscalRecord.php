@@ -2,12 +2,8 @@
 
 namespace App;
 
-use App\User;
-use App\EscalClient;
 use Carbon\Carbon;
-use App\EscalationHour;
 use Illuminate\Database\Eloquent\Model;
-
 
 class EscalRecord extends Model
 {
@@ -36,12 +32,10 @@ class EscalRecord extends Model
     {
         return $this
             ->belongsTo('App\EscalationHour', 'escal_client_id', 'client_id')
-            ->leftJoin('escal_records', function($join) {
+            ->leftJoin('escal_records', function ($join) {
                 $join->on('escal_records.user_id', '=', 'escalation_hours.user_id')
-                    ->on('escal_records.insert_date', '=', 'escalation_hours.date')
-                    ;
-            })
-            ;
+                    ->on('escal_records.insert_date', '=', 'escalation_hours.date');
+            });
     }
 
     public function escal_client()
@@ -53,26 +47,25 @@ class EscalRecord extends Model
     {
         return $this->escal_client;
     }
-    
+
     /**
      * ========================================
      * Methods
      */
     public function createForUser($request)
     {
-        
     }
 
-    public function productionHours($entrance, $out, $break) 
-    {        
+    public function productionHours($entrance, $out, $break)
+    {
         $dtEntrance = Carbon::parse($entrance);
         $dtOut = Carbon::parse($out);
-        
+
         return ($dtEntrance->diffInMinutes($dtOut, false) - $break) / 60;
     }
 
-    public function productivity($records, $hours) 
-    {        
+    public function productivity($records, $hours)
+    {
         if ($records == 0 || $hours == 0) {
             return 0;
         }
@@ -87,12 +80,12 @@ class EscalRecord extends Model
     //     }
     //     return $this->records() / $this->hours->productionHours();
     // }
-    
+
     /**
      * ==========================================
      * Scopes
      */
-    
+
     /**
      * ======================================
      * Accessors
@@ -106,7 +99,7 @@ class EscalRecord extends Model
     {
         return $this->escal_client()->lists('id')->toArray();
     }
-    
+
     /**
      * =======================================
      * Mutators

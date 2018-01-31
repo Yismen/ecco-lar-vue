@@ -1,8 +1,8 @@
 <template>
     <div class="_LastFiveDates">
         <div class="box box-info">
-            <div class="box-header">
-                 <h4 class="page-header">
+            <div class="box-header with-border">
+                 <h4>
                     <a href="/admin/escalations_admin/by_date"><i class="fa fa-star"></i> Pull Production</a>
                     <a href="/admin/escalations_admin/bbbs" class="pull-right"><i class="fa fa-envelope"></i> Pull BBBs</a>
                 </h4>
@@ -46,18 +46,30 @@
                                 label: 'Records Entered Last Five Dates',
                                 yAxisID: 'records',
                                 data: vm.recordsCreated,
-                                backgroundColor: "rgba(22, 160, 133, 0.5)",
+                                borderColor: "rgba(41, 128, 185,1.0)",
+                                backgroundColor: "rgba(41, 128, 185,1.0)",
+                                fill: false
                             },
                             {
                                 label: 'BBB Records by Date',
                                 yAxisID: 'bbb',
                                 data: vm.bbbRecords,
-                                backgroundColor: "rgba(230, 126, 34, 0.5)",
+                                borderColor: 'rgba(211, 84, 0,1.0)',
+                                backgroundColor: 'rgba(211, 84, 0,1.0)',
+                                fill: false
                             }
                         ]
                         
                     },
                     options: {
+                        title: {
+                            display: true,
+                            text: "Escalations Records and Records Marked as BBB"
+                        },
+                        legend: false,
+                        tooltips: {
+                            intersect: false
+                        },
                         scales: {
                             yAxes: [
                                 {
@@ -68,9 +80,17 @@
                                 {
                                     id: 'bbb',
                                     type: 'linear',
-                                    position: 'right'
+                                    position: 'right',
+                                    gridLines: {
+                                        display: false
+                                    }
                                 }
-                            ]
+                            ],                            
+                            xAxes: [{
+                                gridLines: {
+                                    display: false
+                                }
+                            }]
                         }
                     }
                 });
@@ -86,7 +106,7 @@
                 let vm = this;
 
                 this.records.forEach(function(item, index) {
-                    vm.labels.push(item.insert_date)
+                    vm.labels.push(vm.parseLabel(item.insert_date))
                     vm.recordsCreated.push(item.records);
                     vm.bbbRecords.push(item.bbbRecords);
                 });
@@ -94,6 +114,10 @@
                 this.labels.reverse();
                 this.recordsCreated.reverse();
                 this.bbbRecords.reverse();
+            },
+            parseLabel(date) {
+                date = new Date(date);
+                return String(date.getFullYear() + '-' + date.getMonth() + 1 + '-' + date.getDate());
             }
         },
 
