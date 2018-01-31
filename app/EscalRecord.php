@@ -10,24 +10,18 @@ class EscalRecord extends Model
     protected $fillable = ['tracking', 'escal_client_id', 'is_bbb', 'insert_date'];
 
     protected $dates = ['insert_date'];
+    
     /**
-     * The accessors to append to the model's array form.
+     * records belong to user
      *
-     * @var array
-     */
-    // protected $with = ['escal_client'];
-    // protected $appends = ['client'];
-
-    /**
-     * ==========================================
-     * Relationships
+     * @return User relationship
      */
     public function user()
     {
-        return $this->belongsTo('App\User')
+        return $this->belongsTo(User::class)
             ->select(['name', 'id']);
     }
-
+    
     public function hours()
     {
         return $this
@@ -37,10 +31,15 @@ class EscalRecord extends Model
                     ->on('escal_records.insert_date', '=', 'escalation_hours.date');
             });
     }
-
+    
+    /**
+     * EscalClient Relationship
+     *
+     * @return EscalClient Relationship
+     */
     public function escal_client()
     {
-        return $this->belongsTo('App\EscalClient');
+        return $this->belongsTo(EscalClient::class);
     }
 
     /**
