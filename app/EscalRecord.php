@@ -43,6 +43,11 @@ class EscalRecord extends Model
         return $this->belongsTo('App\EscalClient');
     }
 
+    /**
+     * Create attribute client
+     *
+     * @return void
+     */
     public function getClientAttribute()
     {
         return $this->escal_client;
