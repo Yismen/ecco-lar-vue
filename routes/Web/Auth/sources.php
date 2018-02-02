@@ -1,6 +1,6 @@
 <?php
 
-Route::bind('sources', function($source){
+Route::bind('source', function($source){
     return App\Source::whereSlug($source)
         ->firstOrFail();
 });

@@ -1,12 +1,8 @@
 <?php
 
-/**
- * departments Routes
- * ------------------------------------------------
- */
 Route::get('departments/list', 'DepartmentsController@getList');
 
-Route::bind('departments', function($id){
+Route::bind('department', function($id){
 	return App\Department::whereId($id)
 		->with(['positions'=>function($query) {
                     $query->orderBy('name');

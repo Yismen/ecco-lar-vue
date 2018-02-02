@@ -4,4 +4,4 @@
 //     return App\SocialSecurity::findOrFail($id);
 // });
 
-// Route::resource('social_security', 'SocialSecurityController');
+// Route::resource('social_securitie', 'SocialSecurityController');

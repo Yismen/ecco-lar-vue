@@ -162,6 +162,7 @@ return [
 
         Dainsys\Payrolls\PayrollsServiceProvider::class,  
         Dainsys\Cors\CorsServiceProvider::class,
+        Illuminate\Notifications\NotificationServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -226,6 +227,7 @@ return [
         'Flysystem' => GrahamCampbell\Flysystem\Facades\Flysystem::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Notification' => Illuminate\Support\Facades\Notification::class,
 
     ],
 

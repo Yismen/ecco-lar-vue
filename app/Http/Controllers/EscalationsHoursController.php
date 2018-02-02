@@ -79,9 +79,8 @@ class EscalationsHoursController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(EscalationHour $escalations_hour)
+    public function edit(EscalationHour $escalations_hours)
     {
-        return $escalations_hour;
         $user = User::select('id', 'name')->findOrFail($hours->user_id);
         $client = EscalClient::select('id', 'name')->findOrFail($hours->client_id);
 

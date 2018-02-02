@@ -1,6 +1,6 @@
 <?php
 
-Route::bind('escalations_records', function($id){
+Route::bind('escalations_record', function($id){
     return App\EscalRecord::with('user')
         ->with('escal_client')
         ->findOrFail($id);

@@ -1,5 +1,6 @@
 <?php
-Route::bind('supervisors', function($id){
+
+Route::bind('supervisor', function($id){
 	return App\Supervisor::whereId($id)
         ->with(['employees' => function($query){
             return $query->orderBy('first_name')->with('position.department');

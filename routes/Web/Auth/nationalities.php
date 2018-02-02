@@ -1,6 +1,6 @@
 <?php
 
-Route::bind('nationalities', function($id){
+Route::bind('nationality', function($id){
     return App\Nationality::with('employees.position')->findOrFail($id);
 });
 

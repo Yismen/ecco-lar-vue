@@ -1,11 +1,11 @@
 <?php
 
-Route::get('/payroll-additionals/by-date/{date}', 'PayrollAdditionalsController@byDate')->name('admin.payroll-additionals.by-date');
-Route::get('/payroll-additionals/import', 'PayrollAdditionalsController@import')->name('admin.payroll-additionals.import');
-Route::post('/payroll-additionals/import', 'PayrollAdditionalsController@handleImport')->name('admin.payroll-additionals.handle-import');
-Route::get('/payroll-additionals/date/{date}/employee/{employee_id}', 'PayrollAdditionalsController@details')->name('admin.payroll-additionals.details');
+Route::get('/payroll-additionals/by-date/{date}', 'PayrollAdditionalsController@byDate')->name('payroll-additionals.by-date');
+Route::get('/payroll-additionals/import', 'PayrollAdditionalsController@import')->name('payroll-additionals.import');
+Route::post('/payroll-additionals/import', 'PayrollAdditionalsController@handleImport')->name('payroll-additionals.handle-import');
+Route::get('/payroll-additionals/date/{date}/employee/{employee_id}', 'PayrollAdditionalsController@details')->name('payroll-additionals.details');
 
-Route::bind('payroll-additionals', function($id){
+Route::bind('payroll-additional', function($id){
     return App\PayrollAdditional::whereId($id)
         ->with('employee')
         ->firstOrFail();

@@ -3,9 +3,8 @@ Route::get('escalations_hours/by_date', 'EscalationsHoursController@byDate')->na
 Route::post('escalations_hours/search', 'EscalationsHoursController@search')->name('escalations_hours.search');
 Route::get('escalations_hours/create/{user_id}/{client_id}/{records}', 'EscalationsHoursController@create')->name('escalations_hours.create');
 
-Route::bind('ddd', function($id){
-	return App\EscalationHour::
-        with('user')
+Route::bind('escalations_hour', function($id) {
+	return App\EscalationHour::with('user')
         ->with('client')
         ->findOrFail($id)
     ;

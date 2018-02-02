@@ -1,6 +1,6 @@
 <?php
 
-Route::bind('payroll-incentive-concepts', function($id){
+Route::bind('payroll-incentive-concept', function($id){
     return App\PayrollIncentiveConcept::whereId($id)
         ->firstOrFail();
 });

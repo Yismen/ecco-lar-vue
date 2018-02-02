@@ -73,7 +73,7 @@ Route::post('employees/updateNationality/{employees}',
     ['as' => 'employees.updateNationality', 'uses' => 'EmployeesController@updateNationality']
     )->middleware('authorize:edit_employees');
 
-Route::bind('employees', function ($id) {
+Route::bind('employee', function ($id) {
     return App\Employee::whereId($id)
         ->with('addresses')
         ->with('afp')

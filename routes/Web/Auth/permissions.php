@@ -4,7 +4,7 @@
  * ===========================================================
  * Permissions
  */
-Route::bind('permissions', function($name){	
+Route::bind('permission', function($name){	
 	return App\Permission::
 		whereName($name)
 		->with('roles')

@@ -6,7 +6,7 @@ foreach (File::allFiles(__DIR__ . '/Web/Guest') as $partial) {
 
 Route::group(['as' => 'admin.', 'prefix' => 'admin'], function() {
     // Route::auth();
-    // Auth::routes();
+    Auth::routes();
 
     /**
      * ----------------------------------------------

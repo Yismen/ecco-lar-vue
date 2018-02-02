@@ -1,6 +1,6 @@
 <?php
 
-Route::bind('escalations_clients', function($slug){
+Route::bind('escalations_client', function($slug){
 	return App\EscalClient::whereSlug($slug)
 		// ->with('user')
 		->firstOrFail();

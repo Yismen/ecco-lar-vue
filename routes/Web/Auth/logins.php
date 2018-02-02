@@ -4,7 +4,7 @@
 Route::post('logins/to_excel', 'LoginsController@toExcel');
 
 
-Route::bind('logins', function ($login) {
+Route::bind('login', function ($login) {
     return App\Login::whereId($login)
         ->with('employee')
         ->with('system')

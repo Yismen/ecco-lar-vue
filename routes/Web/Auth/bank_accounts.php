@@ -1,6 +1,6 @@
 <?php
 
-Route::bind('bank_accounts', function($id){
+Route::bind('bank_account', function($id){
     return App\BankAccount::findOrFail($id);
 });
 

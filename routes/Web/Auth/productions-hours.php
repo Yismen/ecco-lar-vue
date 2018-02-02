@@ -1,24 +1,11 @@
 <?php
 
-/**
- * productions Routes
- * ------------------------------------------------
- */
-// Route::get('productions/{productions}/employees/{employees}', function($login, $employee){
-// 	return $employee;
-// });
-
-// Route::get('profiles/{profiles}/articles/{articles}', function($login, $employee){
-// 	return $login;
-// });
-// 
-
 // Route::get('productions-hours', ['as'=>'admin.production-hours.form', 'uses'=>'ProductionsController@getProductionHours']);
 // Route::get('production-hours/query/{date}/supervisor/{supervisor}', ['as'=>'admin.production-hours.date', 'uses'=>'ProductionHoursController@queryByDate']);
 Route::get('production-hours/query', ['as'=>'admin.production-hours.query', 'uses'=>'ProductionHoursController@queryByDate']);
 
 
-Route::bind('production-hours', function($id){
+Route::bind('production-hour', function($id){
 
 	return App\Production::whereId($id)
 		->with('source')

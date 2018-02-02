@@ -1,11 +1,6 @@
 <?php
 
-/**
- * systems Routes
- * ------------------------------------------------
- */
-
-Route::bind('systems', function($id){
+Route::bind('system', function($id){
 	return App\System::whereId($id)
 		// ->with('departments')
 		// ->with('maritals')

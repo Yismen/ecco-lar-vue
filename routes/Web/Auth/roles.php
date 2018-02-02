@@ -4,7 +4,7 @@
  * Roles Routes
  */
 
-Route::bind('roles', function($role){
+Route::bind('role', function($role){
 	return App\Role::whereName($role)
 				->with(['perms' => function($query){
 					$query->orderBy('permissions.display_name');

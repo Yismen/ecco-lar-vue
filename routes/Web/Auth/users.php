@@ -1,10 +1,6 @@
 <?php
 
-/**
- * ===========================================================
- * Users
- */
-Route::bind('users', function($id){	
+Route::bind('user', function($id){	
 	return App\User::whereId($id)
 		->with('roles.perms')
 		->firstOrFail();

@@ -1,11 +1,6 @@
 <?php
 
-/**
- * ===========================================================
- * Task
- */
-
-Route::bind('tasks', function($id){
+Route::bind('task', function($id){
 	return App\Task::whereId($id)
 		->firstOrFail();
 });

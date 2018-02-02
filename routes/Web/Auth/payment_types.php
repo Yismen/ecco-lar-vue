@@ -1,11 +1,6 @@
 <?php
 
-/**
- * Payments Routes
- * ------------------------------------------------
- */
-
-Route::bind('payment_types', function($id){
+Route::bind('payment_type', function($id){
 	return App\PaymentType::whereId($id)
 		->firstOrFail();
 });

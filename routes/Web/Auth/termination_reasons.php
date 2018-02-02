@@ -7,7 +7,7 @@ Route::group([
 	'middleware' => 'authorize:destroy_termination_reasons', ['only'=>['destroy']]
 ], function() {
 
-	Route::bind('termination_reasons', function($id){
+	Route::bind('termination_reason', function($id){
 		return App\TerminationReason::whereId($id)
 			->firstOrFail();
 	});

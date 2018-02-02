@@ -1,11 +1,6 @@
 <?php
 
-/**
- * Payments Routes
- * ------------------------------------------------
- */
-
-Route::bind('payment_frequencies', function($id){
+Route::bind('payment_frequency', function($id){
 	return App\PaymentFrequency::whereId($id)
 		->firstOrFail();
 });

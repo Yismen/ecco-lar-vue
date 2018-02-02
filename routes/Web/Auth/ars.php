@@ -1,6 +1,6 @@
 <?php
 
-Route::bind('ars', function($slug){
+Route::bind('ar', function($slug){
 	return App\Ars::whereSlug($slug)
 		->with(['employees' => function($query) {
             return $query->actives();

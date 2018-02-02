@@ -6,7 +6,7 @@
  * ===========================================================
  * Cards
  */
-Route::bind('cards', function($card){
+Route::bind('card', function($card){
 	return App\Card::whereCard($card)
 		->with('employee')
 		->firstOrFail();

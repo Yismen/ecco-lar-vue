@@ -5,7 +5,7 @@
  * ------------------------------------------------
  */
 
-Route::bind('positions', function($id){
+Route::bind('position', function($id){
 	return App\Position::whereId($id)
 		->with('department')
         ->with('payment_type')

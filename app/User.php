@@ -8,12 +8,13 @@ use App\Http\Traits\Mutators\UserMutators;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 use App\Http\Traits\Accessors\UserAccessors;
 use Illuminate\Contracts\Auth\CanResetPassword;
+use Illuminate\Notifications\Notifiable;
 use App\Http\Traits\Relationships\UserRelationships;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements CanResetPassword
 {
-    use EntrustUserTrait, UserAccessors, UserRelationships, UserMutators;
+    use EntrustUserTrait, UserAccessors, UserRelationships, UserMutators, Notifiable;
     /**
      * The attributes that are mass assignable.
      *

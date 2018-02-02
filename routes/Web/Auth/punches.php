@@ -9,7 +9,7 @@
  * ===========================================================
  * Cards
  */
-Route::bind('punches', function($punches){
+Route::bind('punch', function($punches){
 	return App\Punch::wherePunch($punches)
 		->with('employee')
 		->firstOrFail();

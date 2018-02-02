@@ -1,9 +1,9 @@
 <?php
 
 
-Route::get('/hours/by-date/{date}', 'HoursController@byDate')->name('admin.hours.by-date');
+Route::get('/hours/by-date/{date}', 'HoursController@byDate')->name('hours.by-date');
 
-Route::bind('hours', function($id){
+Route::bind('hour', function($id){
     return App\Hour::whereId($id)
         ->with('employee')
         ->firstOrFail();

@@ -1,18 +1,6 @@
 <?php
 
-/**
- * clients Routes
- * ------------------------------------------------
- */
-// Route::get('clients/{clients}/employees/{employees}', function($login, $employee){
-// 	return $employee;
-// });
-
-// Route::get('profiles/{profiles}/articles/{articles}', function($login, $employee){
-// 	return $login;
-// });
-// 
-Route::bind('clients', function($id){
+Route::bind('client', function($id){
 	return App\Client::whereId($id)
 		->firstOrFail();
 });
