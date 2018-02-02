@@ -97,12 +97,12 @@ class EscalRecord extends Model
      */
     public function getEscalationsClientsAttribute()
     {
-        return EscalClient::lists('name', 'id');
+        return EscalClient::pluck('name', 'id');
     }
 
     public function getEscalationsClientIdAttribute()
     {
-        return $this->escal_client()->lists('id')->toArray();
+        return $this->escal_client()->pluck('id')->toArray();
     }
 
     public static function filterForHours($user, $client, $date)

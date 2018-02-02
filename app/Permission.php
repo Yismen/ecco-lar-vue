@@ -23,7 +23,7 @@ class Permission extends EntrustPermission
 
 	public function getRolesListAttribute()
 	{
-		return $this->roles->lists('id')->toArray();
+		return $this->roles->pluck('id')->toArray();
 	}
 }
 

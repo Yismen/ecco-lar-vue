@@ -105,19 +105,19 @@ $factory->define(App\TerminationType::class, function (Faker\Generator $faker) {
 $factory->define(App\Production::class, function (Faker\Generator $faker) {
     return [
         'insert_date' => Carbon::today(),
-        'employee_id' => $faker->randomElement(array_flatten((array)\App\Employee::lists('id'))),
+        'employee_id' => $faker->randomElement(array_flatten((array)\App\Employee::pluck('id'))),
         'name' => $faker->name,
         'production_hours' => $faker->numberBetween(5, 12),
         'production' => $faker->numberBetween(100, 450),
-        'reason_id' => $faker->randomElement(array_flatten((array)\App\Reason::lists('id'))),
-        'client_id' => $faker->randomElement(array_flatten((array)\App\Client::lists('id'))),
-        'source_id' => $faker->randomElement(array_flatten((array)\App\Source::lists('id'))),
+        'reason_id' => $faker->randomElement(array_flatten((array)\App\Reason::pluck('id'))),
+        'client_id' => $faker->randomElement(array_flatten((array)\App\Client::pluck('id'))),
+        'source_id' => $faker->randomElement(array_flatten((array)\App\Source::pluck('id'))),
     ];
 });
 
 $factory->define(App\Downtime::class, function (Faker\Generator $faker) {
     $carbon = new Carbon;
-    $employee_id = $faker->randomElement(array_flatten((array)\App\Employee::lists('id')));
+    $employee_id = $faker->randomElement(array_flatten((array)\App\Employee::pluck('id')));
     $name = \App\Employee::find($employee_id)->fullName;
     return [
         'insert_date' => Carbon::today(),
@@ -130,7 +130,7 @@ $factory->define(App\Downtime::class, function (Faker\Generator $faker) {
         'to_time' => $carbon->timestamp,
         'break_time' => 60,
         'total_hours' => $faker->randomFloat(2, 5, 10),
-        'reason_id' => $faker->randomElement(array_flatten((array)\App\Reason::lists('id'))),
+        'reason_id' => $faker->randomElement(array_flatten((array)\App\Reason::pluck('id'))),
         'unique_id' => $faker->randomNumber(3),
     ];
 });
@@ -157,9 +157,9 @@ $factory->define(App\Note::class, function (Faker\Generator $faker) {
 $factory->define(App\Comment::class, function (Faker\Generator $faker) {
     return [
         'comment' => $faker->text(150),
-        'work_id' => $faker->randomElement(\App\Work::lists('id')->toArray()),
-        'client_id' => $faker->randomElement(\App\Client::lists('id')->toArray()),
-        'situation_id' => $faker->randomElement(\App\Situation::lists('id')->toArray()),
+        'work_id' => $faker->randomElement(\App\Work::pluck('id')->toArray()),
+        'client_id' => $faker->randomElement(\App\Client::pluck('id')->toArray()),
+        'situation_id' => $faker->randomElement(\App\Situation::pluck('id')->toArray()),
     ];
 });
 

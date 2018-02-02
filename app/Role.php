@@ -56,7 +56,7 @@ class Role extends EntrustRole
 	 */
 	public function getUsersListAttribute()
 	{
-		return $this->users->lists('id')->toArray();
+		return $this->users->pluck('id')->toArray();
 	}
 
 	/**
@@ -66,7 +66,7 @@ class Role extends EntrustRole
 	 */
 	public function getPermissionsListAttribute()
 	{
-		return $this->perms->lists('id')->toArray();
+		return $this->perms->pluck('id')->toArray();
 	}
 
 	/**
@@ -76,7 +76,7 @@ class Role extends EntrustRole
 	 */
 	public function getMenusListAttribute()
 	{
-		return $this->menus->lists('id')->toArray();
+		return $this->menus->pluck('id')->toArray();
 		
 	}
 

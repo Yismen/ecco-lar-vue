@@ -24,7 +24,7 @@ trait EmployeeAccessors
      */
     public function getNationalitiesListAttribute()
     {
-        return Nationality::lists('name', 'id');
+        return Nationality::pluck('name', 'id');
     }
 
     /**
@@ -38,32 +38,32 @@ trait EmployeeAccessors
 
     public function getArsListAttribute()
     {
-        return Ars::lists('name', 'id');
+        return Ars::pluck('name', 'id');
     }
 
     public function getAfpListAttribute()
     {
-        return Afp::lists('name', 'id');
+        return Afp::pluck('name', 'id');
     }
 
     public function getSupervisorsListAttribute()
     {
-        return Supervisor::lists('name', 'id')->toArray();
+        return Supervisor::pluck('name', 'id')->toArray();
     }
 
     public function getBanksListAttribute()
     {
-        return Bank::lists('name', 'id')->toArray();
+        return Bank::pluck('name', 'id')->toArray();
     }
 
     public function getCurrentSupervisorAttribute()
     {
-        return $this->supervisor()->lists('id')->toArray();
+        return $this->supervisor()->pluck('id')->toArray();
     }
 
     public function getSystemsListAttribute()
     {
-        return System::lists('display_name', 'id');
+        return System::pluck('display_name', 'id');
     }
 
     public function getPhotoAttribute($photo)
@@ -151,7 +151,7 @@ trait EmployeeAccessors
 
     public function getTerminationTypeListAttribute()
     {
-        return $this->termination ? $this->termination->terminationType->lists('name', 'id') : TerminationType::lists('name', 'id');
+        return $this->termination ? $this->termination->terminationType->pluck('name', 'id') : TerminationType::pluck('name', 'id');
     }
 
     public function getTerminationReasonIdAttribute()
@@ -161,7 +161,7 @@ trait EmployeeAccessors
 
     public function getTerminationReasonListAttribute()
     {
-        return $this->termination ? $this->termination->terminationReason->lists('reason', 'id') : TerminationReason::lists('reason', 'id');
+        return $this->termination ? $this->termination->terminationReason->pluck('reason', 'id') : TerminationReason::pluck('reason', 'id');
     }
 
     /**
@@ -206,7 +206,7 @@ trait EmployeeAccessors
 
     public function getDepartmentsListAttribute()
     {
-        return Department::orderBy('department')->lists('department', 'id');
+        return Department::orderBy('department')->pluck('department', 'id');
     }
 
     /**
@@ -216,12 +216,12 @@ trait EmployeeAccessors
      */
     public function getGendersListAttribute()
     {
-        return Gender::lists('gender', 'id');
+        return Gender::pluck('gender', 'id');
     }
 
     public function getMaritalsListAttribute()
     {
-        return Marital::lists('name', 'id');
+        return Marital::pluck('name', 'id');
     }
 
     /**

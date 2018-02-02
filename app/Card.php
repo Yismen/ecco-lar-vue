@@ -22,7 +22,7 @@ class Card extends Model {
 
 	public function getEmployeeListAttribute()
 	{
-		$employees = $this->employee()->lists('id');
+		$employees = $this->employee()->pluck('id');
 
 		if ($employees->count() > 0) {
 			return $employees[0];
@@ -37,7 +37,7 @@ class Card extends Model {
 		$employees = \App\Employee::orderBy('first_name')
 			->get();
 
-		return $employees->lists('fullName', 'id');
+		return $employees->pluck('fullName', 'id');
 	}
 	/**
 	 * --------------------------------------------------

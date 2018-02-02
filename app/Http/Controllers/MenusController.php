@@ -43,7 +43,7 @@ class MenusController extends Controller
      */
     public function create(Role $roles)
     {
-        $rolesList = $roles->lists('display_name', 'id');
+        $rolesList = $roles->pluck('display_name', 'id');
 
         return view('menus.create', compact('rolesList'));
     }
@@ -81,7 +81,7 @@ class MenusController extends Controller
      */
     public function edit(Menu $menu, Role $roles)
     {
-        $rolesList = $roles->orderBy('display_name')->lists('display_name', 'id');
+        $rolesList = $roles->orderBy('display_name')->pluck('display_name', 'id');
 
         return view('menus.edit', compact('menu', 'rolesList'));
     }

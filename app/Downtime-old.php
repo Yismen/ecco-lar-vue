@@ -56,13 +56,13 @@ public function scopeThisWeek($query)
 	public function getEmployeesListAttribute()
 	{
 		return\App\Employee::all()
-			->lists('fullName', 'id');
+			->pluck('fullName', 'id');
 	}
 
 	public function getReasonsListAttribute()
 	{
 		return\App\Reason::all()
-			->lists('reason', 'id');
+			->pluck('reason', 'id');
 	}
 
 	public function getInsertDateAttribute($date)

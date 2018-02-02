@@ -45,7 +45,7 @@ class HoursController extends Controller
      */
     public function create()
     {
-        $employees = Employee::actives()->lists('first_name', 'last_name', 'id');
+        $employees = Employee::actives()->pluck('first_name', 'last_name', 'id');
 
         return view('hours.create', compact('employees'));
     }
@@ -80,7 +80,7 @@ class HoursController extends Controller
      */
     public function edit(Hour $hour)
     {
-        // $employees = Employee::actives()->lists('first_name', 'last_name', 'id');
+        // $employees = Employee::actives()->pluck('first_name', 'last_name', 'id');
 
         return view('hours.edit', compact('hour'));
     }

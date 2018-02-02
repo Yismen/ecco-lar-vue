@@ -33,12 +33,12 @@ class Login extends Model {
 	{
 		$employees = Employee::orderBy('first_name')->actives()->get();
 
-		return $employees->lists('fullName', 'id');
+		return $employees->pluck('fullName', 'id');
 	}
 
 	public function getSystemsListAttribute()
 	{
-		return \App\System::lists('name', 'id');
+		return \App\System::pluck('name', 'id');
 	}
 
 	/**

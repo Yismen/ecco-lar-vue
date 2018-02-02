@@ -69,7 +69,7 @@
 
                 <div class="form-group {{ $errors->has('contact_types_id') ? 'has-error' : null }}">
                     {!! Form::label('contact_types_id', 'Message About:', ['class'=>'']) !!}
-                    {!! Form::select('contact_types_id', App\ContactType::lists('contact_type', 'id'), null, ['class'=>'form-control', 'placeholder'=>'Message About']) !!}
+                    {!! Form::select('contact_types_id', App\ContactType::pluck('contact_type', 'id'), null, ['class'=>'form-control', 'placeholder'=>'Message About']) !!}
                 </div>
                 <!-- /. Message About -->
             </div>

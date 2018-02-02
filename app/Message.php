@@ -15,6 +15,6 @@ class Message extends Model
 
     public function getUserListAttribute()
     {
-        return User::orderBy('name')->lists('name', 'id');
+        return User::orderBy('name')->pluck('name', 'id');
     }
 }

@@ -50,7 +50,7 @@ class ArticlesController extends Controller {
 	public function create(Article $article, Tag $tag)
 	{
 	// $article = new $article;
-		$tags = $tag->all()->lists('name', 'id');
+		$tags = $tag->all()->pluck('name', 'id');
 
 		return view('articles.create', compact('article', 'tags'));
 	}
@@ -92,7 +92,7 @@ class ArticlesController extends Controller {
 	 */
 	public function edit(Article $article, Tag $tags)
 	{	
-		$tags = $tags->lists('name', 'id');
+		$tags = $tags->pluck('name', 'id');
 
 		return view('articles.edit', compact('article', 'tags'));
 	}
@@ -301,7 +301,7 @@ class ArticlesController extends Controller {
 	{
 		return $tagsArray;
 
-		$newTags = array_diff($tagsArray, $tags->lists('id')); // get the tags that are missing
+		$newTags = array_diff($tagsArray, $tags->pluck('id')); // get the tags that are missing
 
 		foreach ($newTags as $key => $value) {
 

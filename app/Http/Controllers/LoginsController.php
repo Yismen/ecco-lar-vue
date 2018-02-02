@@ -31,7 +31,7 @@ class LoginsController extends Controller {
 			->orderBy('employee_id')->orderBy('login')
 			->paginate(100);
 
-		$employees = Employee::orderBy('first_name')->actives()->get()->lists('fullName', 'id')->toArray();
+		$employees = Employee::orderBy('first_name')->actives()->get()->pluck('fullName', 'id')->toArray();
 		$employees['%'] = '%*(All)';
 
 		return view('logins.index', compact('logins', 'employees'));

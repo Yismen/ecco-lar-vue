@@ -24,9 +24,9 @@ class RolesController extends Controller {
 		$this->middleware('authorize:create_roles', ['only'=>['create','store']]);
 		$this->middleware('authorize:destroy_roles', ['only'=>['destroy']]);
 		
-		$this->usersList = $user->orderBy('name')->lists('name', 'id');
-		$this->menusList = $menu->orderBy('display_name')->lists('display_name', 'id');
-		$this->permissionsList = $permission->orderBy('display_name')->lists('display_name', 'id');
+		$this->usersList = $user->orderBy('name')->pluck('name', 'id');
+		$this->menusList = $menu->orderBy('display_name')->pluck('display_name', 'id');
+		$this->permissionsList = $permission->orderBy('display_name')->pluck('display_name', 'id');
 	}
 	
 

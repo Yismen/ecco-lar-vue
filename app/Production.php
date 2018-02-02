@@ -70,18 +70,18 @@ class Production extends Model
 	 */
 	public function getClientListAttribute()
 	{
-		return $this->client()->lists('id')->toArray();
-		// return Client::lists('name', 'id');
+		return $this->client()->pluck('id')->toArray();
+		// return Client::pluck('name', 'id');
 	}
 
 	public function getSourceListAttribute()
 	{
-		return $this->source()->lists('id')->toArray();
+		return $this->source()->pluck('id')->toArray();
 	}
 
 	public function getReasonListAttribute()
 	{
-		return $this->reason()->lists('id');
+		return $this->reason()->pluck('id');
 	}
 
 	public function getInsertDateAttribute( $date )

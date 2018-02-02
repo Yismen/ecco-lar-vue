@@ -22,7 +22,7 @@ class Menu extends Model {
 
 	public function getRolesListAttribute()
 	{
-		return $this->roles()->lists('id')->toArray();
+		return $this->roles()->pluck('id')->toArray();
 	}
 
 	public function setNameAttribute($name)

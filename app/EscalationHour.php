@@ -23,7 +23,7 @@ class EscalationHour extends Model
 
     public function getUsersAttribute()
     {
-        return User::lists('name', 'id');
+        return User::pluck('name', 'id');
     }
 
     public function getEntranceAttribute($time)
@@ -43,7 +43,7 @@ class EscalationHour extends Model
 
     public function getClientsAttribute()
     {
-        return EscalClient::lists('name', 'id');
+        return EscalClient::pluck('name', 'id');
     }
 
     public function getProductionHoursAttribute()

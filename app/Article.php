@@ -52,7 +52,7 @@ class Article extends Model implements SluggableInterface
 	 */
 	public function getTagListAttribute()
 	{
-		return $this->tags->lists('id');
+		return $this->tags->pluck('id');
 	}
 
 	/**

@@ -39,7 +39,7 @@ class Supervisor extends Model {
      */
     public function getDepartmentsListAttribute()
     {
-        return Department::lists('department', 'id');
+        return Department::pluck('department', 'id');
     }
     
     /**

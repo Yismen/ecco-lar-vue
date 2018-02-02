@@ -24,7 +24,7 @@ class PermissionsController extends Controller
         $this->middleware('authorize:create_permissions', ['only'=>['create','store']]);
         $this->middleware('authorize:destroy_permissions', ['only'=>['destroy']]);
         
-        $this->rolesArray = $roles->orderBy('display_name')->lists('display_name', 'id');
+        $this->rolesArray = $roles->orderBy('display_name')->pluck('display_name', 'id');
     }
 
     /**

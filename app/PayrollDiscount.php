@@ -26,14 +26,14 @@ class PayrollDiscount extends Model
 
     public function getConceptsListAttribute()
     {
-        return PayrollDiscountConcept::lists('name', 'id');
+        return PayrollDiscountConcept::pluck('name', 'id');
     }
 
     public function getEmployeesListAttribute()
     {
         return Employee::select(
             DB::raw("trim(concat(first_name, ' ',second_first_name, ' ', last_name, ' ', second_last_name)) as name, id")
-        )->orderBy('first_name', 'ASC')->actives()->lists('name', 'id');
+        )->orderBy('first_name', 'ASC')->actives()->pluck('name', 'id');
     }
 
     public function getDateAttribute($date)

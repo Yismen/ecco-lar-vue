@@ -121,14 +121,14 @@ class EscalationsAdminController extends Controller
     public function random()
     {
         $users = User::has('escalationsRecords')
-            ->orderBy('name', 'ASC')->lists('name', 'id');
+            ->orderBy('name', 'ASC')->pluck('name', 'id');
 
         return view('escalations_admin.random', compact('users'));
     }
 
     public function handleRandom()
     {
-        $users = User::has('escalationsRecords')->lists('name', 'id');
+        $users = User::has('escalationsRecords')->pluck('name', 'id');
 
         $this->validate($this->request, [
             'from' => 'required|date',

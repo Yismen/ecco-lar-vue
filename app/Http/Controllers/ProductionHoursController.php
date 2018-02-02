@@ -23,7 +23,7 @@ class ProductionHoursController extends Controller
         $this->middleware('authorize:destroy_production_hours', ['only'=>['destroy']]);
 
         $this->request = $request;  
-        $this->supervisorsList =  Supervisor::lists('name', 'name')->toArray();
+        $this->supervisorsList =  Supervisor::pluck('name', 'name')->toArray();
     }
 
     /**
@@ -125,11 +125,11 @@ class ProductionHoursController extends Controller
      */
     public function edit(Production $production)
     {
-        $clientList = \App\Client::orderBy('name')->lists('name', 'id');
-        $sourceList = \App\Source::orderBy('name')->lists('name', 'id');
-        $reasonsList = \App\Reason::orderBy('reason')->lists('reason', 'id')->toArray();
+        $clientList = \App\Client::orderBy('name')->pluck('name', 'id');
+        $sourceList = \App\Source::orderBy('name')->pluck('name', 'id');
+        $reasonsList = \App\Reason::orderBy('reason')->pluck('reason', 'id')->toArray();
         // $reasonsList[0] = '<-- Please Select -->';
-        // dd($production->client()->lists('name', 'id')->toArray());
+        // dd($production->client()->pluck('name', 'id')->toArray());
 
         return view('production-hours.edit', compact('production', 'clientList', 'sourceList', 'reasonsList'));
     }

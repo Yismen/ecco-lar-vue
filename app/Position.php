@@ -50,12 +50,12 @@ class Position extends Model {
 
 	public function getDepartmenstListAttribute()
 	{
-		return \App\Department::lists('department', 'id');
+		return \App\Department::pluck('department', 'id');
 	}
 
 	public function getPaymentTypesListAttribute()
 	{
-		return PaymentType::lists('name', 'id');
+		return PaymentType::pluck('name', 'id');
 	}
 
 	public function getPayPerHoursAttribute()
@@ -73,7 +73,7 @@ class Position extends Model {
 
 	public function getPaymentFrequenciesListAttribute()
 	{
-		return PaymentFrequency::lists('name', 'id');
+		return PaymentFrequency::pluck('name', 'id');
 	}
 
 	/**
