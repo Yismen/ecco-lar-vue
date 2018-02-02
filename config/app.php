@@ -161,6 +161,7 @@ return [
         // Barryvdh\Debugbar\ServiceProvider::class,
 
         Dainsys\Payrolls\PayrollsServiceProvider::class,  
+        Dainsys\Cors\CorsServiceProvider::class,
 
         /*
          * Application Service Providers...

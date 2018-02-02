@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\EscalClient;
-use App\Http\Requests;
 use App\EscalationHour;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Requests\EscalationsHoursRequest;
 use App\Repositories\Escalations\Production;
+use App\EscalRecord;
 
 class EscalationsHoursController extends Controller
 {
@@ -21,7 +21,6 @@ class EscalationsHoursController extends Controller
         $this->request = $request;
         $this->production = $production;
     }
-
 
     /**
      * Display a listing of the resource.
@@ -42,11 +41,11 @@ class EscalationsHoursController extends Controller
      */
     public function create($user_id, $client_id, $date)
     {
-        $date = new Carbon($date);
-        $user = User::select('id', 'name')->findOrFail($user_id);
-        $client = EscalClient::select('id', 'name')->findOrFail($client_id);
+        $record = EscalRecord::filterForHours($user_id, $client_id, $date);
 
-        return view('escalations_hours.create', compact('user', 'client', 'date'));
+        // TODO: redirect if the there are hours for these chriterias
+
+        return view('escalations_hours.create', compact('record'));
     }
 
     /**
@@ -55,12 +54,12 @@ class EscalationsHoursController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store( EscalationHour $hours, EscalationsHoursRequest $request)
+    public function store(EscalationHour $hours, EscalationsHoursRequest $request)
     {
         $hours = $hours->create($request->all());
 
         return redirect()->route('admin.escalations_hours.edit', $hours->id)
-            ->withSuccess("Hours created.");
+            ->withSuccess('Hours created.');
     }
 
     /**
@@ -82,9 +81,12 @@ class EscalationsHoursController extends Controller
      */
     public function edit(EscalationHour $hours)
     {
+        return $hours;
         $user = User::select('id', 'name')->findOrFail($hours->user_id);
         $client = EscalClient::select('id', 'name')->findOrFail($hours->client_id);
+
         $hours->records = $hours->recordsCount($hours->user_id, $hours->client_id, $hours->date);
+        return $hours;
         $date = $hours->date;
 
         return view('escalations_hours.edit', compact('hours', 'user', 'client', 'date'));
@@ -97,12 +99,12 @@ class EscalationsHoursController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update( EscalationHour $hours, EscalationsHoursRequest $request)
+    public function update(EscalationHour $hours, EscalationsHoursRequest $request)
     {
         $hours->update($request->all());
 
         return redirect()->route('admin.escalations_hours.edit', $hours->id)
-            ->withWarning("Hours updated!");
+            ->withWarning('Hours updated!');
     }
 
     /**

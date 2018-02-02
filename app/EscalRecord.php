@@ -4,13 +4,14 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class EscalRecord extends Model
 {
     protected $fillable = ['tracking', 'escal_client_id', 'is_bbb', 'insert_date'];
 
     protected $dates = ['insert_date'];
-    
+
     /**
      * records belong to user
      *
@@ -21,7 +22,7 @@ class EscalRecord extends Model
         return $this->belongsTo(User::class)
             ->select(['name', 'id']);
     }
-    
+
     public function hours()
     {
         return $this
@@ -31,7 +32,7 @@ class EscalRecord extends Model
                     ->on('escal_records.insert_date', '=', 'escalation_hours.date');
             });
     }
-    
+
     /**
      * EscalClient Relationship
      *
@@ -102,6 +103,17 @@ class EscalRecord extends Model
     public function getEscalationsClientIdAttribute()
     {
         return $this->escal_client()->lists('id')->toArray();
+    }
+
+    public static function filterForHours($user, $client, $date)
+    {
+        return static::whereDate('insert_date', '=', $date)
+            ->where('user_id', $user)
+            ->where('escal_client_id', $client)
+            ->with('hours', 'user', 'escal_client')
+            // ->groupBy(['user_id', 'escal_client_id', 'is_bbb'])
+            ->select(DB::raw("*, count(tracking) as count"))
+            ->first();
     }
 
     /**
