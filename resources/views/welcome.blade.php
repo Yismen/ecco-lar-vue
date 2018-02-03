@@ -8,11 +8,18 @@
             <div class="container-fluid">
                 <div class="col-sm-12 text-center">
                     @include('layouts.partials.logo')
-                    <h1 class="my-main-header">Welcome to {{ $app_name }}, {{ $user->name }}</h1>
+                    <h1 class="my-main-header">Welcome to {{ $app_name }}, {{ $user->name or 'Guest' }}</h1>
                     <p><i class="fa fa-arrow-up"></i> Use the top menu icon <i class="fa fa-bars"></i> to see your application's links. </p>
-                    <a href="/admin/profiles" class="btn btn-default btn-lg">
-                        View your profile! <i class="fa fa-angle-double-right"></i>
-                    </a>
+                    @if ($user)
+                        <a href="/admin/profiles" class="btn btn-default btn-lg">
+                            View your profile! <i class="fa fa-angle-double-right"></i>
+                        </a>
+                    @else
+                        <p>Start using Dainsys</p>
+                        <a href="/admin/login" class="btn btn-default btn-lg">
+                             <i class="fa fa-user"></i> Please Sing In!
+                        </a>
+                    @endif
                 </div>
             </div>
         </div>
@@ -46,13 +53,17 @@
         <div class="jumbotron no-margin text-center">
             <div class="container-fluid">
                 <h1 class="">Roles Based Access</h1>
-                <h3 class="">You have the following roles assigned to you. </h3>
-                <p>Access their end points by using the left side menu.</p>
-                @foreach ($user->roles as $role)
-                    <h4>
-                         <span class="label label-success">{{ $role->display_name }}</span>
-                    </h4>
-                @endforeach
+                @if ($user && $user->roles )
+                    <h3 class="">You have the following roles assigned to you. </h3>
+                    <p>Access their end points by using the left side menu.</p>
+                    @foreach ($user->roles as $role)
+                        <h4>
+                            <span class="label label-success">{{ $role->display_name }}</span>
+                        </h4>
+                    @endforeach
+                @else
+                    <p>Routes are limited by roles and permissions. Please Log In to gain access. </p>
+                @endif
             </div>
         </div>
     </div>

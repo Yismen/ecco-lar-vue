@@ -16,7 +16,7 @@ class Kernel extends HttpKernel
     protected $middleware = [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
     ];
-    
+
     /**
      * The application's route middleware groups.
      *
@@ -26,10 +26,10 @@ class Kernel extends HttpKernel
         'web' => [
             \App\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \Illuminate\Session\Middleware\StartSession::class,
+            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\UsersOnline::class,
             \Dainsys\Cors\Cors::class,
         ],
@@ -48,14 +48,17 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth'           => \App\Http\Middleware\Authenticate::class,
-        'auth.basic'     => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'guest'          => \App\Http\Middleware\RedirectIfAuthenticated::class,
-        'throttle'       => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'authorize'      => \App\Http\Middleware\ACL::class,
-        'role'           => \Zizaco\Entrust\Middleware\EntrustRole::class,
-        'permission'     => \Zizaco\Entrust\Middleware\EntrustPermission::class,
-        'ability'        => \Zizaco\Entrust\Middleware\EntrustAbility::class,
-        'bindings'       => \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        'auth' => \App\Http\Middleware\Authenticate::class,
+        // 'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
+        'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        'can' => \Illuminate\Auth\Middleware\Authorize::class,
+        'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
+        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+
+        'authorize' => \App\Http\Middleware\ACL::class,
+        'role' => \Zizaco\Entrust\Middleware\EntrustRole::class,
+        'permission' => \Zizaco\Entrust\Middleware\EntrustPermission::class,
+        'ability' => \Zizaco\Entrust\Middleware\EntrustAbility::class,
     ];
 }

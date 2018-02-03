@@ -147,6 +147,7 @@ return [
         Illuminate\Auth\Passwords\PasswordResetServiceProvider::class,
         Illuminate\Session\SessionServiceProvider::class,
         Illuminate\Translation\TranslationServiceProvider::class,
+        Illuminate\Notifications\NotificationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         
@@ -158,11 +159,10 @@ return [
         GrahamCampbell\Flysystem\FlysystemServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Arcanedev\LogViewer\LogViewerServiceProvider::class,
-        // Barryvdh\Debugbar\ServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
 
         Dainsys\Payrolls\PayrollsServiceProvider::class,  
         Dainsys\Cors\CorsServiceProvider::class,
-        Illuminate\Notifications\NotificationServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -227,7 +227,7 @@ return [
         'Flysystem' => GrahamCampbell\Flysystem\Facades\Flysystem::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
-        'Notification' => Illuminate\Support\Facades\Notification::class,
+        // 'Notification' => Illuminate\Support\Facades\Notification::class,
 
     ],
 

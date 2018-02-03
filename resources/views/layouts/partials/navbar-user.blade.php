@@ -65,13 +65,20 @@
           </a>
         </div>
         <div class="pull-right">
-          <a href="{{ url('admin/logout') }}">
-            <i class="fa fa-sign-out"></i> Sign out
+          <a href="/" 
+            onclick="event.preventDefault(); 
+              document.getElementById('logout-form').submit();">
+            <i class="fa fa-sign-out"></i> Log out
           </a>
+          <form id="logout-form" action="/admin/logout" method="POST" style="display: none;">
+              {{ csrf_field() }}
+          </form>
         </div>
       </li>
     </ul>
   </li>
+
+  
   <!-- Control Sidebar Toggle Button -->
 
 @endif
