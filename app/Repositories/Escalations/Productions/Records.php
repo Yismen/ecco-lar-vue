@@ -18,9 +18,14 @@ class Records
         $this->date = $date;
     }
 
+    private function filter()
+    {
+        return $this->record->whereIsAdditionalLine(false);
+    }
+
     public function groupedByDate($paginated = false, $pages = 15)
     {
-        $records = $this->record
+        $records = $this->filter()
             ->select(['id', 'insert_date'])
             ->orderBy('insert_date', 'DESC')
             ->groupBy('insert_date')
@@ -134,7 +139,7 @@ class Records
 
     private function query()
     {
-        return $this->record
+        return $this->filter()
             ->select(DB::raw("
                 escal_records.id as escal_records_id, 
                 escal_records.*, 
@@ -170,7 +175,7 @@ class Records
 
     public function randBetween($amount = 10, $user_id, $from, $to)
     {        
-        return $this->record
+        return $this->filter()
             ->whereUserId($user_id)
             ->whereBetween('insert_date', [$from, $to])
             ->inRandomOrder()
@@ -181,7 +186,7 @@ class Records
 
     public function lastManyDays($days = 5)
     {   
-        return $this->record
+        return $this->filter()
             ->select(DB::raw("insert_date, count(tracking) as records, count(CASE WHEN is_bbb = 1 THEN 1 ELSE NULL end) as bbbRecords"))
             ->groupBy(['insert_date'])
             ->orderBy('insert_date','DESC')
@@ -191,7 +196,7 @@ class Records
 
     public function usersDays($days = 5)
     {
-        return $this->record
+        return $this->filter()
             ->select(DB::raw("insert_date, user_id, count(tracking) as records"))
             ->groupBy(['insert_date', 'user_id'])
             ->with('user')
@@ -202,7 +207,7 @@ class Records
 
     public function search(int $tracking)
     {
-        return $this->record
+        return $this->filter()
             ->where('tracking', 'like', "%$tracking%")
             ->with('user')
             ->orderBy('created_at', 'DESC')

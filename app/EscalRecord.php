@@ -8,9 +8,14 @@ use Illuminate\Support\Facades\DB;
 
 class EscalRecord extends Model
 {
-    protected $fillable = ['tracking', 'escal_client_id', 'is_bbb', 'insert_date'];
+    protected $fillable = ['tracking', 'escal_client_id', 'is_bbb', 'insert_date', 'is_additional_line'];
 
     protected $dates = ['insert_date'];
+
+    protected $casts = [
+        'is_bbb' => 'boolean',
+        'is_additional_line' => 'boolean'
+    ];
 
     /**
      * records belong to user
@@ -53,6 +58,10 @@ class EscalRecord extends Model
         return $this->escal_client;
     }
 
+    public function setIsAdditionalLineAttribute($value)
+    {
+        $this->attributes['is_additional_line'] = $value == null ? 0 : 1;
+    }
     /**
      * ========================================
      * Methods

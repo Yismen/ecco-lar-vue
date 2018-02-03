@@ -17,12 +17,12 @@ class Clients
     public function byDate($date)
     {
         return $this->client
-            ->select(['name', 'id'])        
+            ->select(['name', 'id'])
             ->whereHas('escal_records', function($query) use ($date){
-                $query->whereDate('insert_date', '=', $date)->with('user');
+                $query->whereDate('insert_date', '=', $date)->whereIsAdditionalLine(0);
             })
             ->withCount(['escal_records' => function($query) use ($date) {
-                $query->whereDate('insert_date', '=', $date);
+                $query->whereDate('insert_date', '=', $date)->whereIsAdditionalLine(0);
             }]);
     }
 

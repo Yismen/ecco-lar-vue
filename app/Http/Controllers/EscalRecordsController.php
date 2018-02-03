@@ -20,11 +20,10 @@ class EscalRecordsController extends Controller
         $this->middleware('authorize:edit_escalations_records', ['only'=>['edit','update']]);
         $this->middleware('authorize:create_escalations_records', ['only'=>['create','store']]);
         $this->middleware('authorize:destroy_escalations_records', ['only'=>['destroy']]);
-        $this->user = auth()->user();
-
+        
         // $request->flash(); 
     }
-
+    
     /**
      * Display a listing of the resource.
      *
@@ -32,23 +31,16 @@ class EscalRecordsController extends Controller
      */
     public function index(EscalRecord $escalations_records, Request $request)
     {     
-        if (!$request->ajax()) {
-            // comment this line to allow the Vue app take control...
-            return redirect('/admin/escalations_records/create');
-        }
-
-        $escalations_records = $this->user
-            ->escalationsRecords()
-            ->whereDate('created_at', '=', Carbon::today())
-            ->latest()
-            ->with('escal_client')
-            ->paginate(10);
-            // ->get();
-         
         if ($request->ajax()) {
-           return $escalations_records;
+            return $escalations_records = auth()->user()
+                ->escalationsRecords()
+                ->whereDate('created_at', '=', Carbon::today())
+                ->latest()
+                ->with('escal_client')
+                ->paginate(10);
         }
-        return view('escalations_records.index');
+        
+        return redirect('/admin/escalations_records/create');
     }
 
     /**
@@ -58,8 +50,7 @@ class EscalRecordsController extends Controller
      */
     public function create(EscalRecord $escalations_record, Request $request)
     {
-        // return redirect('admin/escalations_records');
-        $escalations_records = $this->user
+        $escalations_records = auth()->user()
             ->escalationsRecords()
             ->whereDate('created_at', '=', Carbon::today())
             ->latest()
@@ -72,7 +63,7 @@ class EscalRecordsController extends Controller
 
         // $request->flashOnly(['escal_client_id']);
 
-        return view('escalations_records.createOld', compact('escalations_record', 'escalations_records'));
+        return view('escalations_records.create', compact('escalations_record', 'escalations_records'));
     }
 
     /**
@@ -86,10 +77,11 @@ class EscalRecordsController extends Controller
         $insert_date = Carbon::today()->format('Y-m-d');
         $this->replaceRequest($request)->validateStore($request, $escalations_record, $insert_date);
 
-        $escalation_record = $this->user->escalationsRecords()->create([
+        $escalation_record = auth()->user()->escalationsRecords()->create([
             'tracking' => $request->tracking, 
             'escal_client_id' => $request->escalations_client_id,
             'insert_date' => $insert_date,
+            'is_additional_line' => $request->is_additional_line,
             'is_bbb' => $request->is_bbb
         ]);
 
@@ -140,6 +132,7 @@ class EscalRecordsController extends Controller
        
         // $escalations_record->tracking = $request->tracking;
         $escalations_record->escal_client_id = $request->escalations_client_id;
+        $escalations_record->is_additional_line = $request->is_additional_line;
         $escalations_record->is_bbb = $request->is_bbb;
         $escalations_record->save();
 
@@ -170,17 +163,16 @@ class EscalRecordsController extends Controller
             ]);
 
 
-        // return redirect('admin/escalations_records');
-        $escalations_record = $this->user->escalationsRecords()->orWhere('tracking', 'like', "%$search%")
+        return redirect('admin/escalations_records');
+        $escalations_record = auth()->user()->escalationsRecords()->orWhere('tracking', 'like', "%$search%")
+        ->with('escal_client')
                 ->get();
 
         if ($request->ajax()) {
             return $escalations_records;
         }
 
-        // $request->flashOnly(['escal_client_id']);
-
-        return view('escalations_records.createOld', compact('escalations_record', 'escalations_records'));
+        return view('escalations_records.create', compact('escalations_record', 'escalations_records'));
     }
 
     public function getClients()
@@ -209,6 +201,7 @@ class EscalRecordsController extends Controller
         $request->replace([
             'tracking' => trim($request->tracking),
             'escalations_client_id' => $request->escalations_client_id,
+            'is_additional_line' => $request->is_additional_line,
             'is_bbb' => $request->is_bbb,
         ]);
 

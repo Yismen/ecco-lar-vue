@@ -1,18 +1,3 @@
-{{-- Display Errors --}}
-{{-- @if( $errors->any() )
-    <div class="col-sm-12">
-        <div class="alert alert-danger">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    </div>
-@endif --}}
-{{-- /. Errors --}}
-<!-- Tracking # -->
 <div class="form-group {{ $errors->has('tracking') ? 'has-error' : null }}">
 	{!! Form::label('tracking', 'Tracking #:', ['class'=>'col-sm-2 control-label']) !!}
 	<div class="col-sm-10">
@@ -32,12 +17,24 @@
 </div>
 <!-- /. Client -->
 <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
+    <div class="col-sm-9 col-sm-offset-2 bg-warning">
+        
         <div class="checkbox">
-            <label for="is_bbb">
-                {!! Form::checkbox('is_bbb', '1', null, ['id' => 'is_bbb']) !!} Is BBB or Attorney General?
+            <label class=" text-warning" style="display: block">
+                {!! Form::checkbox('is_additional_line', '1', null, ['id' => 'is_additional_line']) !!} 
+                Additional Line
             </label>
-            <span class="help-block">Check this box if the CS Agent provides any of the following in their comments: BBB / Better Business Bureau / Attorney General / Threatening a law suit or small claims court / Threatening to cancel service / Asking for VZW corporate contacts</span>
+        </div>
+        
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-9 bg-danger">
+        <div class="checkbox warning">
+            <label for="is_bbb" style="display: block">
+                {!! Form::checkbox('is_bbb', '1', null, ['id' => 'is_bbb']) !!} Is BBB or Attorney General?
+                <span class="help-block">Check this box if the CS Agent provides any of the following in their comments: BBB / Better Business Bureau / Attorney General / Threatening a law suit or small claims court / Threatening to cancel service / Asking for VZW corporate contacts</span>
+            </label>
         </div>
     </div>
 </div>  

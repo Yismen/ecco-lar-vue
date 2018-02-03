@@ -44,7 +44,7 @@ class EscalationsHoursController extends Controller
         $exists = EscalationHour::whereUserId($user_id)->whereClientId($client_id)->whereDate('date', $date)->first();
 
         if ($exists) {
-            return back()->withDanger("Hours exists already. Please chose Edit. Hint: Refresh the page.");
+            return redirect()->route('admin.escalations_hours.edit', $exists->id)->withDanger("Hours exists already. Please chose Edit. Hint: Refresh the page.");
         }
 
         $record = EscalRecord::filterForHours($user_id, $client_id, $date);

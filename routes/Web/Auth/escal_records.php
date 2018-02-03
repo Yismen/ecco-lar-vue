@@ -11,7 +11,7 @@ Route::resource('escalations_records', 'EscalRecordsController', ['except'=>['sh
 
 // Route::post('escalations_records/search', 'EscalRecordsController@search');
 
-Route::bind('api/escalations_records', function($tracking){
+Route::bind('api/escalations_record', function($tracking){
     return App\EscalRecord::whereTracking($tracking)
         ->with('user')
         ->with('escal_client')
@@ -19,6 +19,7 @@ Route::bind('api/escalations_records', function($tracking){
 });
 
 Route::get('api/escalations_records/clients', 'EscalRecordsController@getClients');
+Route::post('escalations_records/search', 'EscalRecordsController@search');
 Route::post('api/escalations_records/search', 'EscalRecordsController@search');
 Route::resource('api/escalations_records', 'EscalRecordsController', ['except'=>['show']]);
 
