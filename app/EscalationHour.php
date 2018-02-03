@@ -16,6 +16,8 @@ class EscalationHour extends Model
 
     protected $table = 'escalation_hours';
 
+    protected $appends = ['production_hours'];
+
     public function user()
     {
         return $this->belongsTo(User::class)->select('id', 'name');

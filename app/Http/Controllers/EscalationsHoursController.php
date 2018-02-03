@@ -41,11 +41,15 @@ class EscalationsHoursController extends Controller
      */
     public function create($user_id, $client_id, $date)
     {
+        $exists = EscalationHour::whereUserId($user_id)->whereClientId($client_id)->whereDate('date', $date)->first();
+
+        if ($exists) {
+            return back()->withDanger("Hours exists already. Please chose Edit. Hint: Refresh the page.");
+        }
+
         $record = EscalRecord::filterForHours($user_id, $client_id, $date);
-
-        // TODO: redirect if the there are hours for these chriterias
-
-        return view('escalations_hours.create', compact('record'));
+        
+        return view('escalations_hours.create', compact('record'));            
     }
 
     /**
@@ -79,16 +83,11 @@ class EscalationsHoursController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(EscalationHour $escalations_hours)
-    {
-        $user = User::select('id', 'name')->findOrFail($hours->user_id);
-        $client = EscalClient::select('id', 'name')->findOrFail($hours->client_id);
+    public function edit(EscalationHour $hour)
+    {        
+        $hour->records = $hour->recordsCount($hour->user_id, $hour->client_id, $hour->date);
 
-        $hours->records = $hours->recordsCount($hours->user_id, $hours->client_id, $hours->date);
-        return $hours;
-        $date = $hours->date;
-
-        return view('escalations_hours.edit', compact('hours', 'user', 'client', 'date'));
+        return view('escalations_hours.edit', compact('hour'));
     }
 
     /**
