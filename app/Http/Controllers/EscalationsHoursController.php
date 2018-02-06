@@ -29,7 +29,7 @@ class EscalationsHoursController extends Controller
      */
     public function index(EscalationHour $hour)
     {
-        $hours = $hour->paginate(40);
+        $hours = $hour->latest()->paginate(40);
 
         return view('escalations_hours.index', compact('hours'));
     }
