@@ -28,6 +28,10 @@
 
         mounted() {
             document.getElementById('search').focus();
+            this.$http.post('/api/notes')
+                .then(response => {
+                    this.notes = response.data;
+                })
         },
 
         components: {

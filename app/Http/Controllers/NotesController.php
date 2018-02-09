@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 // use App\Http\Requests;
 use App\Note;
 use App\Search;
-use Cache;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class NotesController extends Controller
@@ -20,8 +17,7 @@ class NotesController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $notes = Note::orderBy('title')->get();
-            return $notes;
+            return Note::orderBy('title')->get();
         }
 
         return view('notes.index');
@@ -55,7 +51,9 @@ class NotesController extends Controller
                 ->orderBy('title')
                 ->get();
 
-        if ($request->ajax()) return $notes;
+        if ($request->ajax()) {
+            return $notes;
+        }
 
         return view('notes.index', compact('notes'));
     }
