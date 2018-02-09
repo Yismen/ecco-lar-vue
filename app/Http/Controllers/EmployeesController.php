@@ -10,10 +10,10 @@ use App\Department;
 use App\Termination;
 use App\ImageUploader;
 use Illuminate\Http\Request;
-use Yajra\Datatables\Datatables;
 use App\Http\Traits\EmployeesTrait;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Cache;
+use Yajra\Datatables\Facades\Datatables;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class EmployeesController extends Controller
@@ -48,9 +48,9 @@ class EmployeesController extends Controller
 
     public function apiEmployees(Request $request, Employee $employees)
     {
-        $employees = Employee::with('position.department');
+        // $employees = Employee::with('position.department');
         
-        return Datatables::of($employees)
+        return Datatables::eloquent(Employee::query()->with('position.department'))
             ->editColumn('id', function ($query) {
                 return '<a href="' . route('admin.employees.show', $query->id) . '" class="">' . $query->id . '</a>';
             })
