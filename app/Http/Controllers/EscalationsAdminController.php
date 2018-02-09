@@ -9,16 +9,23 @@ use App\EscalRecord;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Repositories\Escalations\Production;
+use App\Repositories\Escalations\Productions\Users;
+use App\Repositories\Escalations\Productions\Clients;
+use App\Repositories\Escalations\Productions\Records;
 
 class EscalationsAdminController extends Controller
 {
+    private $request;
     private $date;
-    private $production;
+    private $users;
+    private $records;
 
-    function __construct(Request $request, Production $production) {
+    function __construct(Request $request, Records $records, Users $users, Clients $clients) {
         $this->request = $request;
         $this->date = $this->request->date;
-        $this->production = $production;
+        $this->records = $records;
+        $this->users = $users;
+        $this->clients = $clients;
     }
 
     public function index()
@@ -29,14 +36,15 @@ class EscalationsAdminController extends Controller
     public function index_ajax()
     {
        $data = [
-            'todayRecordsByUser' => $this->production->users->today()->get(),
-            'todayRecordsByClient' => $this->production->clients->today()->get(),
-            'lastFiveDates' => $this->production->records->lastManyDays(5)->get(),
-            'this_week'     => $this->production->records->thisWeek(),
-            'last_week'     => $this->production->records->lastWeek(),
-            'this_month'     => $this->production->records->thisMonth(),
-            'last_month'     => $this->production->records->lastMonth(),
-            'last_ten_days' => $this->production->records->manyDaysAgo(10),
+            'todayRecordsByUser' =>  $this->users->today()->get(),
+            'todayRecordsByClient' => $this->clients->today()->get(),
+            'lastFiveDates' => $this->records->lastManyDays(5)->get(),
+            'this_week_by_day' => $this->records->thisWeek(),
+            'this_week'     => $this->records->thisWeek(),
+            'last_week'     => $this->records->lastWeek(),
+            'this_month'     => $this->records->thisMonth(),
+            'last_month'     => $this->records->lastMonth(),
+            'last_ten_days' => $this->records->manyDaysAgo(10),
         ];
 
         if ($this->request->ajax()) {
@@ -60,11 +68,11 @@ class EscalationsAdminController extends Controller
             'date'=>'required|date'
         ]);
 
-        $clients = $this->production->clients->byDate($this->request->date)->get();
-        $users   =  $this->production->users->byDate($this->request->date)->get();
-        $summary = $this->production->records->byDate($this->request->date)->get();
+        $clients = $this->clients->byDate($this->request->date)->get();
+        $users   =  $this->users->byDate($this->request->date)->get();
+        $summary = $this->records->byDate($this->request->date)->get();
         if ($this->request->has('detailed')) {
-           $detailed =  $this->production->records->detailedByDate($this->request)->get();
+           $detailed =  $this->records->detailedByDate($this->request)->get();
         }
 
         $this->request->flash();
@@ -80,12 +88,12 @@ class EscalationsAdminController extends Controller
             'to'=>'required|date'
         ]);
 
-        $summary = $this->production->records->between(
+        $summary = $this->records->between(
             (new Carbon)->parse($this->request->from)->format("Y-m-d"),
             (new Carbon)->parse($this->request->to)->format("Y-m-d")
         );
 
-        $detailed =  $this->production->records->detailedByRange($this->request)->get();
+        $detailed =  $this->records->detailedByRange($this->request)->get();
 
         $this->request->flash();
 
@@ -109,7 +117,7 @@ class EscalationsAdminController extends Controller
             'tracking' => 'required|digits_between:3,9'
         ]);
 
-        $records = $this->production->records
+        $records = $this->records
             ->search($this->request->tracking)
             ->get();
 
@@ -137,7 +145,7 @@ class EscalationsAdminController extends Controller
             'user_id' => 'required|exists:users,id',
         ]);
 
-        $records = $this->production->records->randBetween(
+        $records = $this->records->randBetween(
             $this->request->records, $this->request->user_id, $this->request->from, $this->request->to
         )->get(); 
 
@@ -157,7 +165,7 @@ class EscalationsAdminController extends Controller
             'date'=>'required|date'
         ]);
 
-        $records = $this->production->bbbs->byDate($this->request->date)->get();
+        $records = $this->bbbs->byDate($this->request->date)->get();
         // $records = $this->fetchProductionsByBBB($escalRecords);
 
         if ($this->request->ajax()) {
@@ -177,7 +185,7 @@ class EscalationsAdminController extends Controller
             'to'=>'required|date'
         ]);
 
-        $records = $this->production->bbbs->range(
+        $records = $this->bbbs->range(
             $this->request->from, $this->request->to
         )
         ->get();
