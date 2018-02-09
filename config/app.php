@@ -150,7 +150,7 @@ return [
 
         Collective\Html\HtmlServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-        Cviebrock\EloquentSluggable\SluggableServiceProvider::class,
+        Cviebrock\EloquentSluggable\ServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class,
         Yajra\Datatables\DatatablesServiceProvider::class,
         GrahamCampbell\Flysystem\FlysystemServiceProvider::class,
