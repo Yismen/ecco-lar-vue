@@ -2,21 +2,12 @@
 
 namespace App;
 
-use Cviebrock\EloquentSluggable\SluggableInterface;
-use Cviebrock\EloquentSluggable\SluggableTrait;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 
-class Note extends Model implements SluggableInterface
+class Note extends Model
 {
-	use SluggableTrait;
-  // use SoftDeletes;
-
-	protected $sluggable = [
-		'build_from' => 'title',
-		'save_to'    => 'slug',
-    'on_update' => true,
-	];
+    use Sluggable;
 
     /**
      * mass assignable
@@ -35,54 +26,47 @@ class Note extends Model implements SluggableInterface
      */
     protected $dates = ['deleted_at'];
 
-   	/**
-   	 * ==========================================
-   	 * Relationships
-   	 */
-   	
-   	/**
-   	 * ========================================
-   	 * Methods
-   	 */
-   	
-   	/**
-   	 * ==========================================
-   	 * Scopes
-   	 */
-   	
-   	/**
-   	 * ======================================
-   	 * Accessors
-   	 */
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable()
+    {
+        return [
+          'slug' => [
+              'source' => 'title',
+              'onUpdate' => true,
+          ]
+      ];
+    }
+
     public function getTagListAttribute()
     {
-      $tags = explode(',', $this->tags);
+        $tags = explode(',', $this->tags);
 
-      $output = [];
+        $output = [];
 
-      foreach ($tags as $value) {
-        $value = trim($value);
-        $value = ucfirst($value);
-        array_push($output, $value);
-      }
+        foreach ($tags as $value) {
+            $value = trim($value);
+            $value = ucfirst($value);
+            array_push($output, $value);
+        }
 
-      return $this->attributes['tag_list'] = (object)$output;
+        return $this->attributes['tag_list'] = (object)$output;
     }
 
     public function getTitleAttribute($title)
     {
-      return ucwords($title);
+        return ucwords($title);
     }
-   	
-   	/**
-   	 * =======================================
-   	 * Mutators
-   	 */
+
+    /**
+     * =======================================
+     * Mutators
+     */
     public function setTitleAttribute($title)
     {
-      return $this->attributes['title'] = ucwords($title);
+        return $this->attributes['title'] = ucwords($title);
     }
-    
-
-    
 }

@@ -3,17 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Note;
-use App\Http\Requests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
 class NotesAdminController extends Controller
 {
-    function __construct() {
-        $this->middleware('authorize:edit_notes', ['only'=>['edit','update']]);
-        $this->middleware('authorize:create_notes', ['only'=>['create','store']]);
-        $this->middleware('authorize:destroy_notes', ['only'=>['destroy']]);
+    public function __construct()
+    {
+        $this->middleware('authorize:edit_notes', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create_notes', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy_notes', ['only' => ['destroy']]);
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -23,8 +24,10 @@ class NotesAdminController extends Controller
     {
         $notes = Note::get();
 
-        if ($request->ajax()) return $notes;
-        
+        if ($request->ajax()) {
+            return $notes;
+        }
+
         return view('notes.admin.index', compact('notes'));
     }
 
@@ -35,8 +38,10 @@ class NotesAdminController extends Controller
      */
     public function create(Note $note, Request $request)
     {
-        if ($request->ajax()) return $note;
-        
+        if ($request->ajax()) {
+            return $note;
+        }
+
         return view('notes.admin.create', compact('note'));
     }
 
@@ -52,12 +57,13 @@ class NotesAdminController extends Controller
             'title' => 'required|max:80|min:3|unique:notes',
             'body' => 'required|min:3',
         ]);
-
-        $note = $note->create($request->all());
+        $note = $note->create($request->only(['title', 'body']));
 
         Cache::forget('notes');
 
-        if ($request->ajax()) return $note;
+        if ($request->ajax()) {
+            return $note;
+        }
 
         return redirect()->route('admin.notes.index')
             ->withSuccess("Your note $note->name has been created");
@@ -71,12 +77,13 @@ class NotesAdminController extends Controller
      */
     public function show(Note $note, Request $request)
     {
-        if ($request->ajax()) return $note;        
+        if ($request->ajax()) {
+            return $note;
+        }
 
         return view('notes.admin.show', compact('note'));
     }
 
-    
     /**
      * Show the form for editing the specified resource.
      *
@@ -85,7 +92,9 @@ class NotesAdminController extends Controller
      */
     public function edit(Note $note, Request $request)
     {
-        if ($request->ajax()) return $note; 
+        if ($request->ajax()) {
+            return $note;
+        }
 
         return view('notes.admin.edit', compact('note'));
     }
@@ -107,8 +116,10 @@ class NotesAdminController extends Controller
         $note->update($request->all());
 
         Cache::forget('notes');
-        
-        if ($request->ajax()) return $note; 
+
+        if ($request->ajax()) {
+            return $note;
+        }
 
         return redirect()->route('admin.notes.show', $note->slug)
             ->withSuccess("Note type $note->name has been updated!");
@@ -126,8 +137,10 @@ class NotesAdminController extends Controller
 
         Cache::forget('notes');
 
-        if ($request->ajax()) return $note;
-        
+        if ($request->ajax()) {
+            return $note;
+        }
+
         return redirect()->route('admin.notes.index')
             ->withDanger("Note $note->name has been removed!");
     }
