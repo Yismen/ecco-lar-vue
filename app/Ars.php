@@ -3,24 +3,26 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Cviebrock\EloquentSluggable\SluggableInterface;
-use Cviebrock\EloquentSluggable\SluggableTrait;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class Ars extends Model implements SluggableInterface
 {
-    use SluggableTrait;
+    use Sluggable;
 
     protected $table = 'ars';
-    
-    protected $sluggable = [
-        'build_from' => 'name',
-        'save_to'    => 'slug',
-    ];
 
 
     protected $fillable = ['name'];
+    
+    public function sluggable() {
+        return [
+            'slug' => [
+                'source' => ['name'],
+                'onUpdate' => true
+            ]
+        ];
+    }
 
-    // Relationships =============================================
     public function employees()
     {
         return $this->hasMany('App\Employee');

@@ -57,7 +57,7 @@ class NotesAdminController extends Controller
             'title' => 'required|max:80|min:3|unique:notes',
             'body' => 'required|min:3',
         ]);
-        $note = $note->create($request->only(['title', 'body']));
+        $note = $note->create($request->all());
 
         Cache::forget('notes');
 

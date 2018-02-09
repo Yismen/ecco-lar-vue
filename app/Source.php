@@ -1,25 +1,24 @@
 <?php namespace App;
 
-use Cviebrock\EloquentSluggable\SluggableInterface;
-use Cviebrock\EloquentSluggable\SluggableTrait;
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class Source extends Model implements SluggableInterface
 {
-    use SluggableTrait;
+    use Sluggable;
 
     protected $fillable = ['name'];
+    
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'name',
+                'onUpdate' => true
+            ]
+        ];
+    }
 
-    protected $sluggable = [
-        'build_from' => 'name',
-        'save_to'    => 'slug',
-        // 'on_update'   => true,
-    ];
-
-	/**
-     * ==========================================
-     * Relationships
-     */
     public function productions()
     {
         return $this->hasMany('App\Production');

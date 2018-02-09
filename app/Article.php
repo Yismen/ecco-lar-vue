@@ -1,23 +1,15 @@
 <?php namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Cviebrock\EloquentSluggable\SluggableInterface;
-use Cviebrock\EloquentSluggable\SluggableTrait;
-
 use Carbon\Carbon;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class Article extends Model implements SluggableInterface
 {
     /**
      * Sluggable implementation
      */
-    use SluggableTrait;
-
-    protected $sluggable = [
-		'build_from' => 'title',
-		'save_to'    => 'slug',
-		// 'on_update'  => true,
-    ];
+    use Sluggable;
 
     // public $appends = ['next_article', 'previous_article'];
 
@@ -34,6 +26,15 @@ class Article extends Model implements SluggableInterface
 	 * @dates [array]
 	 */
 	protected $dates = ['published_at'];
+
+    public function sluggable() {
+        return [
+            'slug' => [
+                'source' => ['title'],
+                'onUpdate' => true
+            ]
+        ];
+    }
 	
 	/**
 	 * Set the title field to be always in propper case

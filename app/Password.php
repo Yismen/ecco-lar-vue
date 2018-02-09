@@ -3,32 +3,27 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
-use Cviebrock\EloquentSluggable\SluggableInterface;
-use Cviebrock\EloquentSluggable\SluggableTrait;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class Password extends Model
 {
-    use SluggableTrait;
-
-    /**
-     * Sluggable Object
-     */
-    protected $sluggable = [
-        'build_from' => 'title',
-        'save_to'    => 'slug',
-        'on_update' => true,
-    ];
+    use Sluggable;
 
     /**
      * mass assignable
      */
     protected $fillable = ['slug', 'title', 'url', 'username', 'password'];
+    
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'title',
+                'onUpdate' => true
+            ]
+        ];
+    }
 
-    /**
-     * ==========================================
-     * Relationships
-     */
     public function modelName()
     {
         return $this->belongsTo('App\User');
