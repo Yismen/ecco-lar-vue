@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 
-class PaymentType extends Model  implements SluggableInterface
+class PaymentType extends Model
 {
     use Sluggable;
 

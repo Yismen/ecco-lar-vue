@@ -4,7 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use Cviebrock\EloquentSluggable\Sluggable;
 
-class Article extends Model implements SluggableInterface
+class Article extends Model
 {
     /**
      * Sluggable implementation

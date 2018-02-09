@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 
-class Ars extends Model implements SluggableInterface
+class Ars extends Model
 {
     use Sluggable;
 

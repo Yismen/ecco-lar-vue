@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 
-class HoursType extends Model  implements SluggableInterface
+class HoursType extends Model
 {   
     use Sluggable;
 

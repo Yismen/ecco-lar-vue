@@ -3,7 +3,7 @@
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 
-class Source extends Model implements SluggableInterface
+class Source extends Model
 {
     use Sluggable;
 
