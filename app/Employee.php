@@ -34,37 +34,15 @@ class Employee extends Model
 	 */
 	protected $dates = ['hire_date', 'date_of_birth'];
 
-	/**
-	 * attributes appended to each query
-	 * @var object
-	 */
-	protected $appends = [
+	protected $guarded = [];
+
+	protected $appends = [ 
+		'full_name',
 		'active', 
-		'nationality',
-		'afp_list', 
-		'ars_list', 
-		'banks_list',
-		'departments_list',
-		'full_name', 
-		'genders_list', 
-		'has_kids_list', 
-		'maritals_list', 
-		'positions_list', 
-		'nationalities_list', 
 		'status', 
-		'supervisors_list',
-		'systems_list', 
-		'termination_type_list', 
-		'termination_reason_list', 
+		'nationality',
 	];
 
-	protected $guarded = [];
-	
-/**
- * ------------------------------------------------------
- * Scopes
- * -------------------------------------------------------
- */
 	public function scopeActives($query)
 	{
 		return $query->has('termination', false);
@@ -117,14 +95,6 @@ class Employee extends Model
 		return $query->has('card', false);
 	}
 	
-	/**
-	 * Methods
-	 */
-	public function getNationalityAttribute()
-	{
-		return $this->nationalities()->first();
-	}
-	
 	public function computedSalary()
 	{
 		$base_salary = 8310;
@@ -145,14 +115,14 @@ class Employee extends Model
 
 	public function vacationsStarts()
 	{
-		// $yeards_to = 
 		return $this->hire_date->addYears(1);
 	}
 
 	public function vacationsEnds()
 	{
-		$days = $this->vacationsStarts()->diffInYears(Carbon::today()) >= 5 ? 21 : 14;
-		return $this->vacationsStarts()->addWeeks($days);
+		$starts = $this->vacationsStarts();
+		$days = $starts->diffInYears(Carbon::today()) >= 5 ? 21 : 14;
+		return $starts->addDays($days);
 	}
 	
 	public function activesOn($date)
@@ -172,11 +142,6 @@ class Employee extends Model
 			return $query->where('termination_date', '>=', '2012-02-09');
 		}])->get();
 
-	}
-
-	public function name()
-	{
-		
 	}
 
 	public function inactivate(Carbon $carbon)

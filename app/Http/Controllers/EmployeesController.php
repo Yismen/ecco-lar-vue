@@ -46,18 +46,17 @@ class EmployeesController extends Controller
         return view('employees.index-datatables');
     }
 
-    public function apiEmployees(Request $request, Employee $employees)
-    {
-        // $employees = Employee::with('position.department');
-        
-        return Datatables::eloquent(Employee::query()->with('position.department'))
-            ->editColumn('id', function ($query) {
-                return '<a href="' . route('admin.employees.show', $query->id) . '" class="">' . $query->id . '</a>';
-            })
-            ->addColumn('edit', function ($query) {
-                return '<a href="' . route('admin.employees.edit', $query->id) . '" class=""><i class="fa fa-edit"></i> Edit</a>';
-            })
-            ->make(true);
+    public function apiEmployees(Request $request)
+    {        
+        return Datatables::eloquent(
+            Employee::query()->with('position.department', 'position.payment_type')
+        )->editColumn('id', function ($query) {
+            return '<a href="' . route('admin.employees.show', $query->id) . '" class="">' . $query->id . '</a>';
+        })
+        ->addColumn('edit', function ($query) {
+            return '<a href="' . route('admin.employees.edit', $query->id) . '" class=""><i class="fa fa-edit"></i> Edit</a>';
+        })
+        ->make(true);
     }
 
     /**

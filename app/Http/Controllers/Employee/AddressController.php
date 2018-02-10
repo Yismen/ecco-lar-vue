@@ -17,7 +17,6 @@ class AddressController extends Controller
      */
     public function update(Employee $employee, Request $request)
     {
-        return $employee;
         $this->validate($request, [
             'sector' => 'required',
             'street_address' => 'required',

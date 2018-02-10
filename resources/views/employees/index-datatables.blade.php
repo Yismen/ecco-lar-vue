@@ -79,6 +79,11 @@
             let dTable = $('#employees-table').DataTable({
                 "processing": true,
                 "serverSide": true,
+                "scrollY": "600px",
+                "language": {
+                    "processing": "<i class='fa fa-spinner'></i> Loading, Please wait!"
+                },
+                "scrollCollapse": true,
                 "ajax": {
                     'type': 'post',
                     "url": "{{ route('admin.employees.list') }}",

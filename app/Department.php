@@ -30,9 +30,6 @@ class Department extends Model
 		$this->three_years_ago = $this->now->subYears(3)->format("Y-m-d");
 	}
 
-
-
-
 	protected $fillable = [
 		'department'
 	];

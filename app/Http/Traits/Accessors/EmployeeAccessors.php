@@ -26,11 +26,6 @@ trait EmployeeAccessors
     {
         return Nationality::pluck('name', 'id');
     }
-
-    /**
-     * Return the only natioality for the employee
-     * @return [type] [description]
-     */
     public function getNationalityAttribute()
     {
         return $this->nationalities()->first();
@@ -48,17 +43,17 @@ trait EmployeeAccessors
 
     public function getSupervisorsListAttribute()
     {
-        return Supervisor::pluck('name', 'id')->toArray();
+        return Supervisor::pluck('name', 'id');
     }
 
     public function getBanksListAttribute()
     {
-        return Bank::pluck('name', 'id')->toArray();
+        return Bank::pluck('name', 'id');
     }
 
     public function getCurrentSupervisorAttribute()
     {
-        return $this->supervisor()->pluck('id')->toArray();
+        return $this->supervisor()->pluck('id');
     }
 
     public function getSystemsListAttribute()
@@ -77,13 +72,7 @@ trait EmployeeAccessors
      */
     public function getStatusAttribute()
     {
-        $status = 'Active';
-
-        if ($this->termination) {
-            $status = 'Inactive';
-        }
-
-        return $this->status = $status;
+        return $this->termination ? 'Inactive' : 'Active';
     }
 
     /**
@@ -231,6 +220,6 @@ trait EmployeeAccessors
      */
     public function getPositionsListAttribute()
     {
-        return  Position::orderBy('department_id')->get();
+        return  Position::orderBy('department_id')->with('department', 'payment_type', 'payment_frequency')->get();
     }
 }

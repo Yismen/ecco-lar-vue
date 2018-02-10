@@ -4,16 +4,16 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class EscalationsRecordTest extends TestCase
+class NoteTest extends TestCase
 {
     /**
      * A basic test example.
      *
      * @return void
      */
-    public function testExample()
+    public function testHomePage()
     {
-        $this->visit('admin/api/escalations_records/create')
-            ->see("SAVE");
+        $this->visit('/notes')
+             ->see('Filter');
     }
 }

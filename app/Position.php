@@ -10,11 +10,7 @@ class Position extends Model {
 	 protected $fillable = ['name', 'department_id', 'payment_type_id', 'payment_frequency_id', 'salary'];
 
 	 protected $appends = ['name_and_department', 'pay_per_hours'];
-	 /**
-	 * ----------------------------------------------------
-	 * Relationships
-	 */
-	
+	 	
 	public function department()
 	{
 		return $this->belongsTo('App\Department');
@@ -22,12 +18,12 @@ class Position extends Model {
 
 	public function payment_type()
 	{
-		return $this->belongsTo(PaymentType::class, 'payment_type_id');
+		return $this->belongsTo(PaymentType::class);
 	}
 
 	public function payment_frequency()
 	{
-		return $this->belongsTo(PaymentFrequency::class, 'payment_frequency_id');
+		return $this->belongsTo(PaymentFrequency::class);
 	}
 
 	public function employees()
@@ -40,7 +36,7 @@ class Position extends Model {
 	 * Accessors
 	 */
 
-	public function getNameAndDepartmentAttribute($name)
+	public function getNameAndDepartmentAttribute()
 	{
 		$department = $this->department ? $this->department->department : '';
 		return ucwords(trim(

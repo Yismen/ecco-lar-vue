@@ -1,42 +1,21 @@
 <?php namespace App;
 
-use App\Department;
 use Illuminate\Database\Eloquent\Model;
 
 class Supervisor extends Model {
-
-    protected $appends = ['departments_list'];
-
+    
     protected $fillable = ['name', 'department_id'];
 
-	/**
-     * ==========================================
-     * Relationships
-     */
     public function employees()
     {
-        return $this->hasMany('App\Employee');
+        return $this->hasMany(Employee::class);
     }
 
     public function department()
     {
-        return $this->belongsTo('App\Department');
+        return $this->belongsTo(Department::class);
     }
     
-    /**
-     * ========================================
-     * Methods
-     */
-    
-    /**
-     * ==========================================
-     * Scopes
-     */
-    
-    /**
-     * ======================================
-     * Accessors
-     */
     public function getDepartmentsListAttribute()
     {
         return Department::pluck('department', 'id');

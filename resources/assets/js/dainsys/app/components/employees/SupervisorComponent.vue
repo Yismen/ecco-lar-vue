@@ -55,7 +55,7 @@
     },
 
     methods: {
-        handleUpdateSupervisor() {
+        handleUpdateUSupervisor() {
             this.form.post('/admin/employees/updateSupervisor/' + this.employee.id)
                 .then(response => {
                     this.employee.supervisor = response.supervisor;

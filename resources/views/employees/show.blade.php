@@ -12,14 +12,14 @@
 
 						<div class="text-center animated zoomIn">
 							<h3>{{ $employee->full_name }}</h3>
-							@unless ($employee->position->isEmpty)
+							@if ($employee->position)
 								<h5>
 									{{ $employee->position->name }}
 									@if (count($employee->position->department) > 0)
 										, at {{ $employee->position->department->department }}	
 									@endif
 								</h5>
-							@endunless
+							@endif
 							
 							<a href="{{ route('admin.employees.edit', $employee->id) }}" class="btn btn-warning">Edit <i class="fa fa-pencil"></i></a>
 
@@ -46,17 +46,19 @@
 							<li class="list-group-item">
 								<strong>HousePhone Number: </strong>{{ $employee->secondary_number }}
 							</li>
-							<li class="list-group-item {{ $employee->gender->gender == 'Femenine' ? 'text-warning' : 'text-info' }}">
+							<li class="list-group-item {{ $employee->gender && $employee->gender->gender == 'Femenine' ? 'text-warning' : 'text-info' }}">
 								<strong>Gender: </strong>
-								<i class="fa fa-{{ $employee->gender->gender == 'Femenine' ? 'female' : 'male' }}"></i> 
-								{{ $employee->gender->gender }}
+								@if ($employee->gender)
+									<i class="fa fa-{{ $employee->gender && $employee->gender->gender == 'Femenine' ? 'female' : 'male' }}"></i> 
+									{{ $employee->gender->gender or '' }}
+								@endif
 							</li>
 							<li class="list-group-item">
 								<strong>Has Kids?: </strong>{{ $employee->has_kids ? 'Yes' : 'No' }}
 							</li>
 							@if (count($employee->marital) > 0)
 								<li class="list-group-item">
-									<strong>Marital Status: </strong>{{ $employee->marital->name }}
+									<strong>Marital Status: </strong>{{ $employee->marital->name or '' }}
 								</li>
 							@endif
 								

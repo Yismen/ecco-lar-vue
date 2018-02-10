@@ -46,11 +46,11 @@ trait EmployeesTrait
             'first_name' => 'required',
             'last_name' => 'required',
             'hire_date' => 'required|date',
-            'personal_id' => 'required_if:passport,|digits:11|unique:employees,personal_id,'.$employee->id,
-            'passport' => 'required_if:personal_id,|different:personal_id|unique:employees,passport,'.$employee->id,
+            'personal_id' => 'required_if:passport,|nullable|digits:11|unique:employees,personal_id,'.$employee->id,
+            'passport' => 'required_if:personal_id,|nullable|unique:employees,passport,'.$employee->id,
             'date_of_birth' => 'required|date',
             'cellphone_number' => 'required|digits:10|unique:employees,cellphone_number,'.$employee->id,
-            'secondary_phone' => 'digits:10',
+            'secondary_phone' => 'nullable|digits:10',
             'gender_id' => 'required|exists:genders,id',
             'marital_id' => 'required|exists:maritals,id',
             'has_kids' => 'required|boolean',
@@ -242,12 +242,9 @@ trait EmployeesTrait
 
         $nationality = $request->nationality_id;
 
-        return $employee->nationalities()->sync([$request->nationality_id]);
-        return $request->all();
+        $employee->nationalities()->sync([$request->nationality_id]);
 
-        Cache::forget('employees');
-
-        return $employee->load('supervisor');
+        return $employee;
     }
 
     private function handleUpdateSupervisor($employee, $request)

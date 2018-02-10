@@ -14,17 +14,7 @@ class Address extends Model {
 	{
 		return $this->belongsTo('App\Employee', 'employee_id');
 	}
-
-/**
- * -------------------------------------------------------------------
- * Accessors
- */
-
-
-/**
- * -----------------------------------------------------------------------
- * Mutators
- */
+	
 	public function setSectorAttribute($sector)
 	{
 		return $this->attributes['sector'] = ucwords(trim($sector));

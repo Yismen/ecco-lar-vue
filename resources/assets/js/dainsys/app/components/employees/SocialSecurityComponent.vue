@@ -56,7 +56,6 @@
         handleUpdateSocialSecurity() {
             this.form.post('/admin/employees/updateSocialSecurity/' + this.employee.id)
                 .then(response => {
-                    console.log(response)
                     this.employee.social_security = response.social_security;
                     return this.form.fields.number = response.social_security.number
                 })
