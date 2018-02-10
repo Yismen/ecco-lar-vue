@@ -3,16 +3,8 @@
 
 @section('content')
 	<div class="container-fluid">
-		<div class="col-sm-10 col-sm-offset-1">
-			<div class="box box-primary pad">
-
-				<div class="row">
-					
-					<div class="col-sm-12">
-						<employee-index :employee="{{ $employee }}"></employee-index>
-					</div>
-				</div><!-- /. sm 12 -->
-			</div><!-- /. Primary box -->
+		<div class="col-sm-12 col-md-10 col-md-offset-1">
+			<employee-index :employee="{{ $employee }}"></employee-index>
 		</div><!-- /. Main box -->
 	</div>
 @endsection
