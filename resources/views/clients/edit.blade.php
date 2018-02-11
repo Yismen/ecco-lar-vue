@@ -1,24 +1,20 @@
 @inject('layout', 'App\Layout')
-@extends('layouts.'.$layout->app(), ['page_header'=>config('dainsys.app_name'), 'page_description'=>'No Description'])
+@extends('layouts.'.$layout->app(), ['page_header'=>config('dainsys.app_name'), 'page_description'=>'Edit Client '.$client->name])
 
 @section('content')
 	<div class="col-sm-8 col-sm-offset-2">
-		<div class="box box-primary pad">
-			{!! Form::model($client, ['route'=>['admin.clients.update', $client->id], 'method'=>'PUT', 'class'=>'form-horizontal', 'role'=>'form']) !!}	
-				<div class="form-group">
-					<legend>Edit Information for Client {{ $client->name }}</legend>
-				</div>
+		<div class="box box-primary">
+			<div class="box-body">
+				{!! Form::model($client, ['route'=>['admin.clients.update', $client->id], 'method'=>'PUT', 'class'=>'form-horizontal', 'role'=>'form']) !!}	
 			
-				@include('clients._form')
+					@include('clients._form')
 
-				<div class="col-sm-6 col-sm-offset-2">
-					<button type="submit" class="btn btn-primary">Update</button>	
-					<a href="{{ route('admin.clients.index') }}" class="btn btn-default">Cancel</a>				
-				</div>
-			
-			{!! Form::close() !!}
+					<div class="col-sm-6 col-sm-offset-2">
+						<button type="submit" class="btn btn-warning"><i class="fa fa-edit"></i> UPDATE</button>				
+					</div>
 				
-			{{-- {!! delete_button('admin.clients.destroy', $client->id, ['class'=>'btn btn-danger ','label'=>'Delete <i class="fa fa-trash"></i>']) !!}  --}}
+				{!! Form::close() !!}
+			</div>
 				
 		</div>
 	</div>

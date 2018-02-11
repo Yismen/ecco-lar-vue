@@ -1,7 +1,6 @@
 <?php namespace App\Http\Controllers;
 
-// use App\Http\Requests;
-use App\Http\Requests\CreateClientRequests;
+use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
@@ -25,7 +24,7 @@ class ClientsController extends Controller
 	 */
 	public function index(Client $clients)
 	{
-		$clients = $clients->paginate(10);
+		$clients = $clients->with('departments')->with('sources')->paginate(25);
 
 		return view('clients.index', compact('clients'));
 	}
@@ -45,11 +44,22 @@ class ClientsController extends Controller
 	 *
 	 * @return Response
 	 */
-	public function store(Client $client, CreateClientRequests $requests)
+	public function store(Client $client, Request $request)
 	{
-		$client->create($requests->all());
+		$this->validate($request, [
+			'name' => 'required|unique:clients',
+			// 'departments' => 'required',
+			'departments.*' => 'exists:departments,id',
+			// 'sources' => 'required',
+			'sources.*' => 'exists:sources,id'
+		]);
 
-		return redirect()->route('clients.index')
+		$client = $client->create($request->only(['name', 'departments', 'sources']));
+
+		$client->departments()->sync((array)$request->departments);
+		$client->sources()->sync((array)$request->sources);
+
+		return redirect()->route('admin.clients.index')
 			->withSuccess("Client $client->name has been added!");
 	}
 
@@ -81,11 +91,22 @@ class ClientsController extends Controller
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function Update(Client $client, CreateClientRequests $requests)
+	public function Update(Client $client, Request $request)
 	{
-		$client->update($requests->all());
+        $this->validate($request, [
+            'name' => 'required|unique:clients,id,'.$client->id.',id',
+            // 'departments' => 'required',
+            'departments.*' => 'exists:departments,id',
+            // 'sources' => 'required',
+            'sources.*' => 'exists:sources,id'
+        ]);
 
-		return redirect()->route('clients.index')
+		$client->update($request->only('name', 'departments', 'sources'));
+
+        $client->departments()->sync((array)$request->departments);
+        $client->sources()->sync((array)$request->sources);
+
+		return redirect()->route('admin.clients.index')
 			->withSuccess("Client $client->name updated");
 	}
 

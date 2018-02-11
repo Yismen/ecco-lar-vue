@@ -1,28 +1,46 @@
 @inject('layout', 'App\Layout')
-@extends('layouts.'.$layout->app(), ['page_header'=>config('dainsys.app_name'), 'page_description'=>'No Description'])
+@extends('layouts.'.$layout->app(), ['page_header'=>config('dainsys.app_name'), 'page_description'=>'Showing Client '.$client->name.'\'s details'])
 
 @section('content')
 	@if ($client)
 		<div class="col-sm-8 col-sm-offset-2">
-			<div class="box box-primary pad">
-				<table class="table table-condensed table-hover">
-					<tbody>
-						<tr>
-							<th>Client Name: </th>
-							<td>{{ $client->name }}</td>
-						</tr>
-						{{-- /. Name --}}
-						<tr>
-							<th>Production Goal: </th>
-							<td>{{ $client->goal }}</td>
-						</tr>
-						{{-- /. Employee --}}
+			<div class="box box-primary">
+				<div class="box-body">
+					<table class="table table-condensed">
+						<tbody>
+							<tr>
+								<th>Client Name: </th>
+								<td>{{ $client->name }}</td>
+							</tr>
+							{{-- /. Name --}}
+							<tr>
+								<th>Departments: </th>
+								<th>Sources: </th>
+							</tr>
+							<tr>
+								<td>
+									<ul>
+										@foreach ($client->departments as $department)
+											<li>{{ $department->department }}</li>
+										@endforeach
+									</ul>
+								</td>
+								<td>
+									<ul>
+										@foreach ($client->sources as $source)
+											<li>{{ $source->name }}</li>
+										@endforeach
+									</ul>
+								</td>
+							</tr>
+							{{-- /. Employee --}}
 
-					</tbody>
-				</table>
-				<a href="{{ route('admin.clients.edit', $client->id) }}" class="btn btn-warning"> Edit </a>
-				<hr>
-				<a href="{{ route('admin.clients.index') }}" class=""> << Return to Clients List </a>
+						</tbody>
+					</table>
+					<a href="{{ route('admin.clients.edit', $client->id) }}" class="btn btn-warning"><i class="fa fa-pencil"></i> Edit </a>
+					<hr>
+					<a href="{{ route('admin.clients.index') }}" class=""><i class="fa fa-home"></i> Return to Clients List </a>
+				</div>
 			</div>
 		</div>
 		{{-- /. Row --}}

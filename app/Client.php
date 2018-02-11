@@ -4,32 +4,33 @@ use Illuminate\Database\Eloquent\Model;
 
 class Client extends Model {
 
-	protected $fillable = ['name', 'goal'];
+	protected $fillable = ['name'];
 
-/**
- * ----------------------------------------------------------------------
- * Relatioships
- */
-public function productions()
-{
-    return $this->hasMany('App\Production');
-}
+	
+	public function departments()
+	{
+		return $this->belongsToMany(Department::class);
+	}
+	
+	public function sources()
+	{
+		return $this->belongsToMany(Source::class);
+	}
+	
+	public function productions()
+	{
+		return $this->hasMany('App\Production');
+	}
 
-/**
- * ---------------------------------------------------------------------
- * scopes
- */
+	public function getDepartmentsListAttribute()
+	{
+		return Department::select('department', 'id')->get();
+	}
 
-/**
- * ------------------------------------------------------------------
- * Accessors
- */
-
-
-/**
- * ------------------------------------------------------------------
- * Mutators
- */
+	public function getSourcesListAttribute()
+	{
+		return Source::select('name', 'id')->get();
+	}
 
 	public function setNameAttribute($name)
 	{

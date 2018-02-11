@@ -1,36 +1,51 @@
-
-{{-- Display Errors --}}
-@if( $errors->any() )
-	<div class="col-sm-12">
-		<div class="alert alert-danger">
-			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-			<ul>
-				@foreach ($errors->all() as $error)
-					<li>{{ $error }}</li>
-				@endforeach
-			</ul>
-		</div>
-	</div>
-@endif
-{{-- /. Errors --}}
-
-<!-- Client Name -->
 <div class="form-group {{ $errors->has('name') ? 'has-error' : null }}">
-	{!! Form::label('name', 'Client Name:', ['class'=>'col-sm-2 control-label']) !!}
+	<label for="name" class="col-sm-2">Client Name:</label>
 	<div class="col-sm-10">
-		{!! Form::input('text', 'name', null, ['class'=>'form-control', 'placeholder'=>'Client Name']) !!}
+		{!! Form::text('name', null, ['class'=>'form-control', 'id'=>'name', 'placeholder'=>'Client Name']) !!}
+		{!! $errors->first('name', '<span class="text-danger">:message</span>') !!}
 	</div>
 </div>
-<!-- /. Client Name -->
+{{-- /.Client Name --}}
 
-<!-- Production \'s Goal -->
-<div class="form-group {{ $errors->has('goal') ? 'has-error' : null }}">
-	{!! Form::label('goal', 'Production \'s Goal:', ['class'=>'col-sm-2 control-label']) !!}
-	<div class="col-sm-10">
-		{!! Form::input('number', 'goal', null, ['class'=>'form-control', 'placeholder'=>'Production \'s Goal', 'step'=>'0.5']) !!}
+<div class="row">
+	<div class="col-sm-6">
+		<h4>Departments</h4>
+		{!! $errors->first('departments', '<span class="text-danger">:message</span></br>') !!}
+		<span class="help-text">Select the Departments associated to this Client</span>
+		<p>
+			@foreach ($client->departments_list as $department)
+				
+				<div class="checkbox">
+					<label>						
+						{!! Form::checkbox('departments[]', $department->id, null, []) !!}
+						{{ $department->department }}
+					</label>
+				</div>
+				
+			@endforeach
+		</p>
+	</div>
+	{{--  /. Departments  --}}
+	<div class="col-sm-6">
+		<h4>Sources</h4>
+		{!! $errors->first('sources', '<span class="text-danger">:message</span></br>') !!}
+		<span class="help-text">Select the Sources associated to this Client</span>
+		<p>
+			@foreach ($client->sources_list as $source)
+				
+				<div class="checkbox">
+					<label>						
+						{!! Form::checkbox('sources[]', $source->id, null, []) !!}
+						{{ $source->name }}
+					</label>
+				</div>
+				
+			@endforeach
+		</p>
 	</div>
 </div>
-<!-- /. Production \'s Goal -->
+
+
 
 
 
