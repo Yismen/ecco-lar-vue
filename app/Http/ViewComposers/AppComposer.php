@@ -5,80 +5,40 @@ namespace App\Http\ViewComposers;
 use App\User;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cache;
 
 class AppComposer
 {
     private $user;
-    private $layout_color;
-    private $layout;
-    private $sidebar_mini;
-    private $sidebar_collapse;
 
     public function __construct()
     {
         $this->user = $this->user();
-        $this->setVars();
-       
     }
 
     public function compose(View $view)
     {
         return $view->with([
-            'logged' => auth()->check(),  
+            'logged' => auth()->check(),
             'user' => $this->user,
             'app_name' => ucwords(config('dainsys.app_name', 'Dainsys')),
-            'client_name' => ucwords(config('dainsys.client_name', 'Dainsys\' Client')),            
+            'client_name' => ucwords(config('dainsys.client_name', 'Dainsys\' Client')),
             'client_name_mini' => strtoupper(config('dainsys.client_name_mini', 'DAINSYS')),
             'menu' => null,
-            'layout_color' => $this->layout_color,
-            'layout' => $this->layout,
-            'sidebar_mini' => $this->sidebar_mini,
-            'sidebar_collapse' => $this->sidebar_collapse,
-            'layouts' => [
-                "default" => "Default Layout",    
-                "fixed" => "Fixed Layout",    
-                "layout-boxed" => "Boxed Layout",   
-                "layout-top-nav" => "Top Nav Layout",  
-            ],
-            'layout_colors' => [
-                'blue'   => 'Blue Skin',
-                'black'  => 'Black Skin',
-                'purple' => 'Purple Skin',
-                'yellow' => 'Yellow Skin',
-                'red'    => 'Red Skin',
-                'green'  => 'Green Skin',
-            ],
+            'settings' => $this->user->settings ? json_decode($this->user->settings->data) : null
         ]);
     }
 
     public function user()
     {
         if (Auth::check()) {
-            return User::with(['roles'=>function($query){
+            return User::with(['roles' => function ($query) {
                 return $query->orderBy('display_name');
             }])
             ->with('profile')
-            ->with('app_setting')
+            ->with('settings')
             ->find(Auth::id());
-                
         }
-        
-        return null;
-    }
 
-    private function setVars()
-    {
-        if ($this->user && $this->user->app_setting) {
-            $this->layout_color = $this->user->app_setting->skin;
-            $this->layout = $this->user->app_setting->layout;
-            $this->sidebar_mini = $this->user->app_setting->mini ? 'sidebar-mini' : '';
-            $this->sidebar_collapse = $this->user->app_setting->collapse ? 'sidebar-collapse' : '';
-        } else {            
-            $this->layout_color = config('dainsys.layout_color');
-            $this->layout = config('dainsys.layout');
-            $this->sidebar_mini = config('dainsys.sidebar_mini');
-            $this->sidebar_collapse = config('dainsys.sidebar_collapse');
-        }
+        return null;
     }
 }

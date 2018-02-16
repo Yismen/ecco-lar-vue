@@ -37,8 +37,9 @@
 
 <script>
     import Form from '../../../vendor/jorge.form'
-
     import shared from './../../stores/SourcesStore.js'
+    import SourcesForm from './_Form'
+    
     export default {
 
         name: 'EditSource',
@@ -54,7 +55,7 @@
         },
 
         components: {
-            'sources-form': require('./_Form')
+            SourcesForm
         },
 
         methods: {

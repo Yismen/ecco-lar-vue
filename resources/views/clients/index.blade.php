@@ -4,7 +4,7 @@
 @section('content')
 	<div class="container-fluid">
 		<div class="col-sm-8 col-sm-offset-2">
-			<div class="box box-purple">
+			<div class="box box-primary">
 				
 				<div class="table-responsive">
 					<table class="table table-condensed table-bordered">

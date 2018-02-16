@@ -22,7 +22,7 @@ return [
     /**
      * Admin LTE color skins. Set this in your ".env" file.
      */
-    'layout_color' => env('APP_COLOR', 'yellow'), // blue, black, purple, yellow, red, green 
+    'layout_color' => env('APP_COLOR', 'skin-yellow'), // blue, black, purple, yellow, red, green 
 
     /**
      * Admin LTE layouts. Set this in your ".env" file.
@@ -37,5 +37,5 @@ return [
     /**
      * Admin LTE option to hide or show the sidebar by default.
      */
-    'sidebar_collapse' => 'sidebar-collapse', // sidebar-collapse, ''
+    'sidebar_collapse' => '', // sidebar-collapse, ''
 ];

@@ -8,6 +8,7 @@ use App\Profile;
 use App\Setting;
 use App\Password;
 use App\EscalRecord;
+use App\UserSetting;
 
 trait UserRelationships
 {
@@ -33,7 +34,8 @@ trait UserRelationships
 
     public function settings()
     {
-        return $this->hasMany(Setting::class);
+        return $this->hasOne(UserSetting::class);
+
     }
 
     public function app_setting()

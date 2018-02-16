@@ -77,6 +77,9 @@
       </li>
     </ul>
   </li>
+  <li>
+    <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+  </li>
 
   
   <!-- Control Sidebar Toggle Button -->

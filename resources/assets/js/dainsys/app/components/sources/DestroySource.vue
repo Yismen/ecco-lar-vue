@@ -35,6 +35,8 @@
 
 <script>
     import Form from '../../../vendor/jorge.form'
+    import SourcesForm from './_Form'
+    
     export default {
 
         name: 'DeleteSource',
@@ -50,7 +52,7 @@
         },
 
         components: {
-            'sources-form': require('./_Form')
+            SourcesForm
         },
 
         methods: {

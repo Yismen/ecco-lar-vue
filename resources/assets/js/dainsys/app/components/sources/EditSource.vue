@@ -48,6 +48,10 @@
 
 <script>
     import Form from '../../../vendor/jorge.form'
+    import SourcesForm from './_Form'
+    import ConfirmDelete from './../Confirmation'
+    import DainsysModal from 'vue-bootstrap-modal'
+    
     export default {
 
         name: 'EditSource',
@@ -69,9 +73,7 @@
         },
 
         components: {
-            'sources-form': require('./_Form'),
-            'confirm-delete': require('./../Confirmation'),
-            'dainsys-modal': require('vue-bootstrap-modal')
+            SourcesForm, ConfirmDelete, DainsysModal
         },
 
         methods: {

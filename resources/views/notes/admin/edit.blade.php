@@ -8,7 +8,7 @@
                     
                     {!! Form::model($note, ['route'=>['admin.notes.update', $note->slug], 'method'=>'PATCH', 'class'=>'', 'role'=>'form', 'autocomplete'=>"off"]) !!}       
                         <div class="form-group">
-                            <legend>Update Note {{  $note->name }}</legend>
+                            <legend>Update Note {{  $note->name }} @include('notes.admin.partials.link-to-list')</legend>
                         </div>
                     
                         @include('notes.admin._form')
@@ -22,9 +22,6 @@
                     {!! Form::close() !!}
                     
                     {!! deleteForm('admin.notes.destroy', $note->slug) !!}
-                    <div class="form-group">
-                        @include('notes.admin.partials.link-to-list')
-                    </div>
 
                 </div>
             </div>

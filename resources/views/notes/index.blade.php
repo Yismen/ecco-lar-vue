@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-8 col-sm-offset-2">
-                <transition>
+                <transition name="fade">
 
                     <router-view name="notes"></router-view> 
                     <router-view></router-view>

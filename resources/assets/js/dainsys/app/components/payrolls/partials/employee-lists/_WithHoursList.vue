@@ -96,7 +96,8 @@
 </template>
 
 <script>
-    import payrollLineComponent from './../PayrollLine';
+    import PayrollLine from './../PayrollLine';
+    import datepicker from 'vuejs-datepicker';
 
     export default {
 
@@ -168,9 +169,7 @@
         },
 
         components: {
-            'payroll-line': payrollLineComponent,
-
-            datepicker: require('vuejs-datepicker')
+            PayrollLine, datepicker
         },
 
         methods: {  

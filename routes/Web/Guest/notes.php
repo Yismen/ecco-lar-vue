@@ -1,6 +1,6 @@
 <?php
 
-Route::get('notes', ['as' => 'notes.index', 'uses' => 'NotesController@index']);
+Route::get('notes', 'NotesController@index')->name('notes.index');
 
 Route::group(['prefix' => 'api'], function () {
     Route::post('notes/search', 'NotesController@search');

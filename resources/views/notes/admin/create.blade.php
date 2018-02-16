@@ -8,7 +8,7 @@
 					
 					{!! Form::model($note, ['route'=>['admin.notes.store'], 'method'=>'POST', 'class'=>'', 'role'=>'form', 'autocomplete'=>"off"]) !!}		
 						<div class="form-group">
-							<legend>Create a Note</legend>
+							<legend>Create a Note @include('notes.admin.partials.link-to-list')</legend>
 						</div>
 					
 						@include('notes.admin._form')
@@ -16,10 +16,6 @@
 						<div class="form-group">
 							<button class="btn btn-primary" type="submit">Save</button>
 							<button class="btn btn-default" type="reset">Reset</button>
-						</div>
-
-						<div class="form-group">
-							@include('notes.admin.partials.link-to-list')
 						</div>
 					
 					{!! Form::close() !!}

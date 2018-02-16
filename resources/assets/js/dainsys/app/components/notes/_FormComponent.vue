@@ -16,6 +16,7 @@
 </template>
 
 <script>
+    import NotesResults from './NotesResultsComponent';
     export default {
 
         name: 'NotesFormComponent',
@@ -33,7 +34,7 @@
         },
 
         components: {
-            'notes-results': require('./NotesResultsComponent')
+            NotesResults
         },
 
         methods: {

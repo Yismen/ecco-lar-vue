@@ -1,5 +1,5 @@
 <div class="box box-primary danger-bg">
-    <div class="box-header with-border"><h3>Total Employees by Proyect - Positions</h3></div>
+    <div class="box-header with-border"><h3>Total Employees by Project - Positions</h3></div>
 
     
     

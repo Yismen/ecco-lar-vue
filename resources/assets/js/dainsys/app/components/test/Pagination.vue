@@ -33,7 +33,6 @@
         },
 
         components: {
-            // 'pagination': require('laravel-vue-pagination')
         },
 
         created() {

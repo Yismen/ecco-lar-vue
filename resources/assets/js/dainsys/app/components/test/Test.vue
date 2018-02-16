@@ -24,6 +24,8 @@
 
 <script>
     import users from './../stores/users.js';
+    import AddUser from './AddTest';
+        
 
     export default {
 
@@ -36,7 +38,7 @@
         }, 
 
         components: {
-            'add-user': require('./AddTest')
+            AddUser
         },
 
         methods: {

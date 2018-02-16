@@ -4,7 +4,7 @@
 		<tr>
 			<th>Title</th>
 			<th>
-				<a href="{{ route('admin.notes.create') }}" class="text-centered"><i class="fa fa-plus"></i></a>
+				<a href="{{ route('admin.notes.create') }}" class="text-centered"><i class="fa fa-plus"></i> Create</a>
 			</th>
 		</tr>
 	</thead>

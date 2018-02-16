@@ -1,6 +1,5 @@
 <template>
-    <div>
-        
+    <div>        
         <div role="tabpanel" class="nav-tabs-custom">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
@@ -111,7 +110,7 @@
     import EmployeeSupervisor from './SupervisorComponent';
     import EmployeeTermination from './TerminationComponent';
     export default {
-        name: "Index",
+        name: "EmployeeIndex",
         props: ['employee'],
         components: {
             EmployeeAddress, EmployeeAfp, EmployeeArs, EmployeeBankAccount, EmployeeCard, EmployeeEdit, EmployeeLogins, EmployeeNationality, EmployeePhoto, EmployeePunch, EmployeeReactivation, EmployeeSocialSecurity, EmployeeSupervisor, EmployeeTermination

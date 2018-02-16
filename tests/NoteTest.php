@@ -1,8 +1,5 @@
 <?php
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class NoteTest extends TestCase
 {
@@ -13,7 +10,9 @@ class NoteTest extends TestCase
      */
     public function testHomePage()
     {
-        $this->visit('/notes')
-             ->see('Filter');
+        $this->visitRoute('admin.notes.index')
+             ->see('Welcome');
+        // $response = $this->call('GET', '/admin/users')
+        //      ->see('Filter');
     }
 }

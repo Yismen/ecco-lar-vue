@@ -1,6 +1,3 @@
-/**
- * @param  {$} $ jquery Object
- */
 (function($) {
 
     // $.fn.dataTable.ext.errMode = 'none';
@@ -24,7 +21,6 @@
       if(inputType == 'date') {
         $(el).prop('type', "text");
         el.datepicker({
-          // format: 'm/d/yyyy',
           format: 'yyyy-mm-dd',
           todayHighlight: true,
           autoclose: true,

@@ -37,7 +37,7 @@
 		<div style="position: fixed; z-index: 100000; bottom: 25px; right: 25px;" class="container-fluid {{ session('important', 'dismiss') }}">
 			<div class="alert alert-{{ $class }}">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				<strong>{{ $title }} <i class="fa fa-{{ $icon }}"></i> !</strong> {{{ $message }}}
+				<strong>{{ $title }} <i class="fa fa-{{ $icon }}"></i> !</strong> {!! $message !!} 
 			</div>
 		</div>
 	@endif

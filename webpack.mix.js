@@ -23,33 +23,31 @@ mix
     // .sass('resources/assets/sass/app.scss', 'resources/assets/css/bootstrap.css')
     // .copy('node_modules/jorge.form', 'resources/assets/js/dainsys/vendor')
     // .copy('node_modules/dainsys-form', 'resources/assets/js/dainsys/vendor/dainsys-form')
-    .js('resources/assets/js/dainsys/app.js', 'public/js/dainsys')
-    // .version()
     
-   //  .styles([       
-   //      // 'bootstrap.css',
-   //      // nodeModules + '/admin-lte/dist/css/AdminLTE.min.css',
-   //      // nodeModules + '/admin-lte/dist/css/skins/_all-skins.css',
-   //      // nodeModules + '/admin-lte/plugins/daterangepicker/daterangepicker.css',
-   //      // nodeModules + '/animate.css/animate.css',
-   //      // nodeModules + '/bootstrap-datepicker/dist/css/bootstrap-datepicker.css',
-   //      // nodeModules + '/bootstrap-material-design/dist/css/bootstrap-material-design.css',
-   //      // // nodeModules + '/bootstrap-material-design/dist/css/ripples.css',
-   //      // nodeModules + '/datatables.net-bs/css/dataTables.bootstrap.css',
-   //      // nodeModules + '/datatables.net-dt/css/jquery.dataTables.css',
-   //      // nodeModules + '/datatables.net-buttons-dt/css/buttons.dataTables.css',
-   //      // nodeModules + '/dropzone/dist/dropzone.css',
-   //      // nodeModules + '/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css',
-   //      // nodeModules + '/font-awesome/css/font-awesome.css',
-   //      // nodeModules + '/icheck/skins/square/blue.css',
-   //      // nodeModules + '/ionicons/dist/css/ionicons.css',
-   //      // nodeModules + '/select2-bootstrap-theme/dist/select2-bootstrap.css',
-   //      // nodeModules + '/select2/dist/css/select2.css',
-   //      // nodeModules + '/morris.js/morris.css',
-   //      // nodeModules + '/summernote/dist/summernote.css',
-   //      // 'my-css-updates.css',
-   //      // 'btn-raised.css',
-   // ], public/css/all.css)
+    // .styles([       
+    //     'bootstrap.css',
+    //     nodeModules + '/admin-lte/dist/css/AdminLTE.min.css',
+    //     nodeModules + '/admin-lte/dist/css/skins/_all-skins.css',
+    //     nodeModules + '/admin-lte/plugins/daterangepicker/daterangepicker.css',
+    //     nodeModules + '/animate.css/animate.css',
+    //     nodeModules + '/bootstrap-datepicker/dist/css/bootstrap-datepicker.css',
+    //     nodeModules + '/bootstrap-material-design/dist/css/bootstrap-material-design.css',
+    //     // nodeModules + '/bootstrap-material-design/dist/css/ripples.css',
+    //     nodeModules + '/datatables.net-bs/css/dataTables.bootstrap.css',
+    //     nodeModules + '/datatables.net-dt/css/jquery.dataTables.css',
+    //     nodeModules + '/datatables.net-buttons-dt/css/buttons.dataTables.css',
+    //     nodeModules + '/dropzone/dist/dropzone.css',
+    //     nodeModules + '/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css',
+    //     nodeModules + '/font-awesome/css/font-awesome.css',
+    //     nodeModules + '/icheck/skins/square/blue.css',
+    //     nodeModules + '/ionicons/dist/css/ionicons.css',
+    //     nodeModules + '/select2-bootstrap-theme/dist/select2-bootstrap.css',
+    //     nodeModules + '/select2/dist/css/select2.css',
+    //     nodeModules + '/morris.js/morris.css',
+    //     nodeModules + '/summernote/dist/summernote.css',
+    //     'my-css-updates.css',
+    //     // 'btn-raised.css',
+    // ], 'public/css/all.css')
     // .scripts([      
     //     nodeModules + '/jquery/dist/jquery.js',
     //     nodeModules + '/bootstrap/dist/js/bootstrap.js',
@@ -74,28 +72,21 @@ mix
     //     nodeModules + '/js-cookie/src/js.cookie.js',
     //     nodeModules + '/select2/dist/js/select2.js',
     //     nodeModules + '/summernote/dist/summernote.js',
-
+        
     //     'app.js',
     //     'ajaxSetup.js',
     //     'myFormSubmit.js',
     //     'confirmBeforeDestroy.js',
     //     'destroyFlashMessage.js',
-    // ])
-    // .browserify('passwords/app.js', 'public/js/passwords.js')
-    // .browserify('dainsys/app.js')
+    // ], 'public/js/all.js')
+    .js('resources/assets/js/dainsys/app.js', 'public/js/dainsys')
     // .version([
-    //     'js/all.js', 
-    //     'js/app.js',
-    //     'js/dainsys/app.js',
-    //     'css/all.css'
-    // ]);;
-
-// .browserSync({
-//   proxy: 'dainsys.dev',
-//   browser: 'firefox'
-//   // browser: 'Chrome'
-// })
-;
+    //     'public/js/all.js', 
+    //     // 'js/app.js',
+    //     // 'js/dainsys/app.js',
+    //     'public/css/all.css'
+    // ])
+    ;
 
 // Full API
 // mix.js(src, output);

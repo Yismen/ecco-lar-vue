@@ -110,6 +110,8 @@
 
 <script>
     import moment from 'moment'
+    import datepicker from 'vuejs-datepicker'
+    
     export default {
 
         name: 'PayrollsGeneratorForm',
@@ -138,7 +140,7 @@
         },
 
         components: {
-            datepicker: require('vuejs-datepicker')
+            datepicker
         },
 
         methods: {

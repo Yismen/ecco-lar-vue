@@ -61,8 +61,10 @@
 </template>
 
 <script>
-let shared = require('./../stores/EscalationsRecords.js');
+    import shared from './../stores/EscalationsRecords.js';
     import Form from '../../vendor/jorge.form'
+    import CreateRecords from './CreateRecords.vue';
+    import Paginate from './../core/Pagination.vue';
 
 export default {
 
@@ -82,8 +84,7 @@ export default {
   },
 
   components: {
-    'create-record': require('./CreateRecords.vue'),
-    'paginate': require('./../core/Pagination.vue'),
+    CreateRecords, Paginate,
   },
 
   props: {

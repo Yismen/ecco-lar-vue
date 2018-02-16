@@ -5,7 +5,7 @@
         </div>
 
         <div class="box-body">
-            <canvas id="myChart" width="100%" height="100px"></canvas>
+            <canvas id="myChart" height="180px"></canvas>
         </div>
         
     </div>
@@ -33,9 +33,6 @@
 
         methods: {
             setMergedArray() {       
-
-                console.log(this.rotations)    
-
                 for (var i = 0; i < this.rotations.entrances.length; i++) {
                     this.merged_array.push({
                         year: this.rotations.entrances[i].year, 
@@ -67,9 +64,9 @@
                         });
                     }
 
-                    this.merged_array.sort(function(a,b){
-                        return a.month - b.month;
-                    })
+                    // this.merged_array.sort(function(a,b){
+                    //     return a.month - b.month;
+                    // })
                         
                 }
             },
@@ -97,14 +94,14 @@
                     datasets: [{
                         label: 'Entrances By Month',
                         data: vm.entrancesData,
-                        // fill:false, 
+                        fill:false, 
                         borderColor: "rgba(0, 103, 84, 1)",
                         backgroundColor: "rgba(0, 103, 84, 0.4)",
                     },
                     {
                         label: 'Exits By Month',
                         data: vm.exitsData,
-                        // fill:false, 
+                        fill:false, 
                         borderColor: "rgba(153, 69, 12, 1)",
                         backgroundColor: "rgba(153, 69, 12, 0.4)",
                     }]
@@ -119,7 +116,7 @@
                         mode: 'x'
                     },
                     legend: {
-                        display: true,
+                        display: false,
                     }
                 }
             });

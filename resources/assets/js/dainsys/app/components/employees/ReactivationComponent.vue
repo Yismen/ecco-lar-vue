@@ -48,6 +48,7 @@
 <script>
 
     import Form from '../../../vendor/jorge.form'
+    import Datepicker from 'vuejs-datepicker'
 
     export default {
 
@@ -67,7 +68,7 @@
     },
 
     components: {
-        'datepicker': require('vuejs-datepicker')
+        Datepicker
     },
 
     methods: {

@@ -113,6 +113,8 @@
 <script>
 
     import Form from '../../../vendor/jorge.form'
+    import EmployeeReactivation from './ReactivationComponent';
+    import Datepicker from 'vuejs-datepicker';
 
     export default {
 
@@ -155,8 +157,7 @@
     },
 
     components: {
-        'employee-reactivation': require('./ReactivationComponent'),
-        'datepicker': require('vuejs-datepicker')
+        EmployeeReactivation, Datepicker
     },
 };
 </script>

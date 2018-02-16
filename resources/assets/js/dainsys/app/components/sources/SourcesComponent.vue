@@ -39,6 +39,7 @@
 
 <script>
     import shared from './../../stores/SourcesStore.js'
+    import CreateSource from './CreateSource'
     
     export default {
 
@@ -51,7 +52,7 @@
         },
 
         components: {
-            'create-source': require('./CreateSource')
+            CreateSource
         }, 
 
         created() {

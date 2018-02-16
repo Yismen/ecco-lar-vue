@@ -20,6 +20,7 @@ elixir(function(mix) {
         // .copy('node_modules/ionicons/dist/fonts', 'public/build/fonts')
         // .copy('node_modules/font-awesome/fonts', 'public/build/fonts')
         // .copy('node_modules/datatables.net-dt/images', 'public/build/images')
+        // .copy('node_modules/admin-lte/dist/img/boxed-bg.jpg', 'public/build/img/boxed-bg.jpg')
         // .copy('node_modules/summernote/dist/font', 'public/build/css/font')
         // .copy('node_modules/icheck/skins/square/blue.png', 'public/build/css')
         // .copy('node_modules/bootstrap-sass/assets/stylesheets/bootstrap', 'resources/assets/sass/bootstrap-sass')
@@ -28,7 +29,7 @@ elixir(function(mix) {
             'bootstrap.css',
             nodeModules + '/admin-lte/dist/css/AdminLTE.min.css',
             nodeModules + '/admin-lte/dist/css/skins/_all-skins.css',
-            nodeModules + '/admin-lte/plugins/daterangepicker/daterangepicker.css',
+            // nodeModules + '/daterangepicker/daterangepicker.css',
             nodeModules + '/animate.css/animate.css',
             nodeModules + '/bootstrap-datepicker/dist/css/bootstrap-datepicker.css',
             nodeModules + '/bootstrap-timepicker/css/bootstrap-timepicker.css',
@@ -52,10 +53,9 @@ elixir(function(mix) {
         .scripts([		
             nodeModules + '/jquery/dist/jquery.js',
             nodeModules + '/bootstrap/dist/js/bootstrap.js',
-            nodeModules + '/admin-lte/plugins/daterangepicker/moment.js',
-            
-            nodeModules + '/admin-lte/dist/js/app.js',
-            nodeModules + '/admin-lte/plugins/daterangepicker/daterangepicker.js',
+            nodeModules + '/admin-lte/dist/js/adminlte.js',
+            nodeModules + '/moment/moment.js',            
+            // nodeModules + '/daterangepicker/daterangepicker.js',
             nodeModules + '/bootbox/bootbox.js',
             nodeModules + '/bootstrap-datepicker/dist/js/bootstrap-datepicker.js',
             nodeModules + '/bootstrap-timepicker/js/bootstrap-timepicker.js',

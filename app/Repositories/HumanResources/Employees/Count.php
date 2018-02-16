@@ -28,8 +28,9 @@ class Count
     {
         return Employee::select(DB::raw('year(hire_date) as year, monthname(hire_date) as monthname, month(hire_date) as month, COUNT(employees.id) as entrances'))
             ->whereBetween('hire_date',  [$months_ago, $today])
-            ->groupBy('month')
-            ->orderBy('month')
+            ->groupBy('year', 'month')
+            ->orderBy('year', 'ASC')
+            ->orderBy('month', 'ASC')
             ->get();
     }
     
@@ -70,8 +71,9 @@ class Count
     {
         return Termination::select(DB::raw('year(termination_date) as year, monthname(termination_date) as monthname, month(termination_date) as month, COUNT(id) as exits'))
             ->whereBetween('termination_date',  [$months_ago, $today])
-            ->orderBy('month')
-            ->groupBy('month')
+            ->groupBy('year', 'month')
+            ->orderBy('year', 'ASC')
+            ->orderBy('month', 'ASC')
             ->get();
     }
 

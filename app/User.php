@@ -65,4 +65,20 @@ class User extends Authenticatable implements CanResetPassword
         return false;
     }
     
+    public function createQualityScore($request)
+    {
+        $unique_id = $request->employee_id . '-' . $request->client_id . '-' . $request->work_date;
+        $exists = QualityScore::whereUniqueId($unique_id)->first();
+
+        if ($exists) {
+            return back()->withInput()
+                ->withDanger(
+                    'A score with this criterias exists already. Click <a href="/admin/quality_scores/' . $exists->id . '/edit"> Edit</a> to update instead!'
+                );
+        }
+
+        $request->merge(['unique_id' => $unique_id]);
+
+        $score = auth()->user()->scores()->create($request->all());   
+    }
 }

@@ -1,7 +1,7 @@
 {
   "_args": [
     [
-      "https://github.com/Yismen/dainsys-form.git",
+      "git+https://github.com/Yismen/dainsys-form.git",
       "F:\\wamp\\www\\dainsys"
     ]
   ],
@@ -22,8 +22,8 @@
       "type": "github"
     },
     "name": null,
-    "raw": "https://github.com/Yismen/dainsys-form.git",
-    "rawSpec": "https://github.com/Yismen/dainsys-form.git",
+    "raw": "git+https://github.com/Yismen/dainsys-form.git",
+    "rawSpec": "git+https://github.com/Yismen/dainsys-form.git",
     "scope": null,
     "spec": "git+https://github.com/Yismen/dainsys-form.git",
     "type": "hosted"
@@ -31,10 +31,10 @@
   "_requiredBy": [
     "/"
   ],
-  "_resolved": "git+https://github.com/Yismen/dainsys-form.git#1099dbb65ba297d815e9ce19f86313d066d0dd43",
-  "_shasum": "dfa5719be7c7da16469d0c51e9115af4b58a0c97",
+  "_resolved": "git+https://github.com/Yismen/dainsys-form.git#db74380288160a724b5eb6efc228316105069d1e",
+  "_shasum": "6ee626a63abd7ce212742505fb139922b4305caa",
   "_shrinkwrap": null,
-  "_spec": "https://github.com/Yismen/dainsys-form.git",
+  "_spec": "git+https://github.com/Yismen/dainsys-form.git",
   "_where": "F:\\wamp\\www\\dainsys",
   "author": {
     "name": "Yismen Jorge"
@@ -48,7 +48,7 @@
   },
   "description": "Form Class for Vue.js-2",
   "devDependencies": {},
-  "gitHead": "1099dbb65ba297d815e9ce19f86313d066d0dd43",
+  "gitHead": "db74380288160a724b5eb6efc228316105069d1e",
   "homepage": "https://github.com/Yismen/dainsys-form#readme",
   "keywords": [
     "Form"

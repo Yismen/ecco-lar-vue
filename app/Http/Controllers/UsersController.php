@@ -203,7 +203,9 @@ class UsersController extends Controller
 			'layout'       => '', // exists in layouts table
 			'mini'         => 'boolean', 
 			'collapse'     => 'boolean',
-        ]);
+		]);
+		
+		return $request->all();
 
 		$user->settings = [
 			'skin' => $request->skin,

@@ -36,6 +36,18 @@
         margin: auto;
         z-index: 1000;
     }
+    /* Transparent Overlay */
+    .spinner:before {
+        content: '';
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.1);
+    }
+
 
     .inner{
         height: 150px;
@@ -65,11 +77,11 @@
         animation: rotate 7s ease infinite;
     }
     @keyframes rotate{
-        from{-webkit-transform: rotate(0deg);
-            -moz-transform: rotate(0deg);
-            -ms-transform: rotate(0deg);
-            -o-transform: rotate(0deg);
-            transform: rotate(0deg);
+        from{-webkit-transform: rotate(-180deg);
+            -moz-transform: rotate(-180deg);
+            -ms-transform: rotate(-180deg);
+            -o-transform: rotate(-180deg);
+            transform: rotate(-180deg);
         };
         to{-webkit-transform: rotate(360deg);
             -moz-transform: rotate(360deg);

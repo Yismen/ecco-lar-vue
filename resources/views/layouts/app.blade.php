@@ -45,7 +45,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
     |               | sidebar-mini                            |
     |*********************************************************|
     -->
-    <body class="skin-{{ $layout_color }} {{ $layout }} {{ $sidebar_mini }} {{ $sidebar_collapse }}" style="height: auto;">  
+    <body class="{{ $settings->skin or config('dainsys.layout_color', 'skin-yellow') }} 
+        {{ $settings->layout or config('dainsys.layout', 'default') }} 
+        {{ $settings->sidebar_collapse or config('dainsys.sidebar_collapse', '')  }}
+        {{ $settings->sidebar_mini or config('dainsys.sidebar_mini', '') }}" 
+        style="height: auto;">  
         <div class="wrapper" style="height: auto;">
             <!-- Main Header -->
             {{-- @inject('user', 'App\Layout') --}}
@@ -104,12 +108,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         {{ $app_name }}, {{ $client_name }}
                     </a>.
                 </strong> All rights reserved.
+                @if ($user)
+                    @include('layouts.partials.nav-settings')
+                @endif
             </footer>
+            
             <!-- Control Sidebar -->
             <!-- /.control-sidebar -->
             <!-- Add the sidebar's background. This div must be placed
             immediately after the control sidebar -->
-            <div class="control-sidebar-bg"></div>
         </div>
         <!-- ./wrapper -->
         <!-- REQUIRED JS SCRIPTS -->
