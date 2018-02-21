@@ -26,6 +26,16 @@
 					{!! Form::close() !!}
 				</div>
 				{{-- / div.box-body --}}
+				<hr>
+				<div class="box-body">
+					
+					{!! Form::open(['route'=>['admin.positions.destroy', $position->id], 'method'=>'DELETE']) !!}
+						<div class="form-group">
+							<button type="submit" class="btn btn-danger" name="deleteBtn"><i class="fa fa-trash"></i> DELETE</button>
+						</div>					
+					{!! Form::close() !!}
+					
+				</div>
 			</div>
 			{{-- / div."box box-primary pad" --}}
 		</div>

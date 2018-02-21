@@ -38,11 +38,13 @@
 							@foreach ($positions as $position)
 								<tr>
 									<td>
-										<a href="{{ route('admin.positions.show', $position->id) }}">{{ $position->department->department }} - {{ $position->name }}</a>
+										<a href="{{ route('admin.positions.show', $position->id) }}">{{ $position->department->department or '' }} - {{ $position->name }}</a>
 									</td>
 
 									<td>
-										<a href="{{ route('admin.departments.show', $position->department->id) }}">{{ $position->department->department }}</a>
+										@if ($position->department)
+											<a href="{{ route('admin.departments.show', $position->department->id) }}">{{ $position->department->department or '' }}</a>
+										@endif
 									</td>
 									<td>$ {{ number_format($position->salary, 2) }}</td>
 									<td>{{ $position->payment_type ? $position->payment_type->name : '' }}</td>
