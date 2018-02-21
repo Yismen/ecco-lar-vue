@@ -38,7 +38,10 @@
 							@foreach ($positions as $position)
 								<tr>
 									<td>
-										<a href="{{ route('admin.positions.show', $position->id) }}">{{ $position->department->department or '' }} - {{ $position->name }}</a>
+										<a href="{{ route('admin.positions.show', $position->id) }}">
+											{{ $position->department->department or '' }} - {{ $position->name }}
+											<span class="pull-right label {{ $position->employees_count > 0 ? 'bg-green' : 'bg-red'}}">{{ $position->employees_count }}</span>
+										</a>
 									</td>
 
 									<td>

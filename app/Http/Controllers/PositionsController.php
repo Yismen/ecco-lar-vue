@@ -28,6 +28,9 @@ class PositionsController extends Controller
             ->orderBy('department_id')
             ->orderBy('name')
             ->with('department')
+            ->withCount(['employees' => function($query) {
+				return $query->actives();
+			}])
             ->with('payment_type')
             ->with('payment_frequency')
             ->paginate(50);
