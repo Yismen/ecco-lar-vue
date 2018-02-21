@@ -150,13 +150,13 @@
 
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label for="position_id" class="">Position:</label>
-                        <select name="position_id" id="position_id" class="form-control" v-model="form.fields.position_id">
-                            <option v-for="position in employee.positions_list" :key="position.id" :value="position.id">
-                                {{ position.name_and_department }},
-                                ${{ position.salary }}, {{ position.payment_type ? position.payment_type.name : '' }}
-                            </option>
-                        </select>
+                        <label for="position_id" class="">Position2:</label>
+                        <v-select 
+                            name="position_id" id="position_id" 
+                            :options="position.list"
+                            :value="currentPosition" 
+                            @input="positionSelected"
+                            ></v-select>
                         <span class="text-danger" v-if="form.error.has('marital_id')">{{ form.error.get('position_id') }}</span>
                     </div>                 
                 </div> 
@@ -181,6 +181,7 @@
 
     import Form from '../../../vendor/jorge.form'
     import datepicker from 'vuejs-datepicker'
+    import vSelect from 'vue-select'
 
     export default {
 
@@ -203,7 +204,10 @@
                 'marital_id': this.employee ? this.employee.marital_id : '',
                 'has_kids': this.employee ? this.employee.has_kids : '',
                 'position_id': this.employee ? this.employee.position_id : '',
-            }, false)
+            }, false),
+            position: {
+                list: []
+            }
 
         };
     },
@@ -213,53 +217,42 @@
     },
 
     components: {
-        datepicker
+        datepicker, vSelect
     },
 
-    filters: {
+    computed: {
+        currentPosition() {
+            let vm = this;
+            return this.position.list.find(function(element) {
+                return element.value == vm.form.fields.position_id;
+            })
+        }
     },
 
     created() {
-        // console.log(this.employee.positions_list)
-        // this.employee.positions_list = this.sortByProperties(this.employee.positions_list);
-        // console.log(this.employee.positions_list)
+        this.updatePositionsList();
     },
 
     methods: {
-        sortByProperties(obj) {
-      
-        // convert object into array
-        var sortable=[];
-        for(var key in obj)
-            if(obj.hasOwnProperty(key)) {
-                sortable.push([key, obj[key]]); // each item is an array in format [key, value]
-            }
-                
-
-            // sort items by value
-            sortable.sort(function(a, b) {
-                var x=a[1].toLowerCase(),
-                y=b[1].toLowerCase();
-                return x<y ? -1 : x>y ? 1 : 0;
+        updatePositionsList() {
+            this.position.list = [];
+            let vm = this;
+            this.employee.positions_list.forEach(function(element) {
+                return vm.position.list.push({
+                    label: element.name_and_department+', $'+element.salary+', '+element.payment_type.name,
+                    value: element.id
+                })
             });
-
-            let sortedObject = [];
-            for (var i = 0; i < sortable.length; i++) {
-
-                let key = sortable[i][0];
-                let value = sortable[i][1];
-                sortedObject[key] = value;
-            }
-            return sortedObject; // array in format [ [ key1, val1 ], [ key2, val2 ], ... ]
-
         },
-
         handleEdit() {
             this.form.put('/admin/employees/' + this.employee.id)
                 .then(response => {
                     this.employee = response;
                     return this.form.fields = response;
                 })
+        },
+        positionSelected(payload) {
+            this.form.fields.position_id = payload.value ? payload.value : payload;
         }
     }
 };

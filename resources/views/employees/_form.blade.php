@@ -120,7 +120,7 @@
 	<div class="col-sm-6">
 		<div class="form-group {{ $errors->has('position_id') ? 'has-error' : null }}">
 			<label for="position_id" class="">Position:</label>
-			<select name="position_id" id="position_id" class="form-control input-sm">
+			<select name="position_id" id="position_id" class="form-control input-sm select2">
 				@foreach ($employee->positionsList as $position)
 				<option value="{{ $position->id }}" {{ old('position_id') == $position->id ? 'selected' : '' }}>
 					{{ $position->name_and_department }},
