@@ -52,13 +52,13 @@
             </a>
           </div> --}}
           <div class="col-xs-4 text-center pull-right">
-            <a href="/admin/users/reset"><i class="fa fa-key"></i> Reset Password</a>
+            <a href="/admin/users/reset"><i class="fa fa-key"></i> Change Password</a>
           </div>
         </div>
         <!-- /.row -->
       </li>
       <!-- Menu Footer-->
-      <li class="user-footer">
+      <li class="user-footer bg-{{ $color }}">
         <div class="pull-left">
           <a href="{{ route('admin.profiles.index') }}">
             <i class="fa fa-user"></i> Profile

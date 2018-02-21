@@ -50,20 +50,3 @@
 		{!! $errors->first('email', '<span class="text-danger">:message</span>') !!}
 	</div>
 </div>	
-
-<div class="form-group {{ $errors->has('public') ? 'has-error' : null }}">
-		{!! Form::label('public', 'Visibility:', ['class'=>'col-sm-3 control-label']) !!}
-	<div class="col-sm-9">
-		{!! Form::select('public', [0=>'Private', 1=>'Public'], null, ['class'=>'form-control input-sm']) !!}
-		{!! $errors->first('public', '<span class="text-danger">:message</span>') !!}
-	</div>
-</div>
-
-
-<div class="form-group">
-	<div class="col-xs-offset-1">
-		{!! Form::button('Save', ['type'=>'submit', 'class'=>'btn btn-primary']) !!}
-		{!! HTML::linkRoute("contacts.index", "Return to Contacts") !!}
-	</div>
-
-</div>

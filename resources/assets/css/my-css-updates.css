@@ -1,3 +1,7 @@
+section.content {
+  padding-bottom: 0;
+}
+
 .alert-default {
   background-color: #d2d6de;
 }
@@ -122,7 +126,7 @@
 }
 
 .navbar-nav>.user-menu>.dropdown-menu>.user-footer {
-  background-color: #222;
+  /* background-color: #222; */
   color: #ffffff;
 }
 .user-footer a {
@@ -141,7 +145,7 @@
 @media (max-width:991px) {
 
   .navbar-nav>.user-menu>.dropdown-menu>.user-footer {
-    background-color: #222;
+    /* background-color: #222; */
     color: #ffffff;
 }
 

@@ -11,8 +11,6 @@ class NoteTest extends TestCase
     public function testHomePage()
     {
         $this->visitRoute('admin.notes.index')
-             ->see('Welcome');
-        // $response = $this->call('GET', '/admin/users')
-        //      ->see('Filter');
+             ->see('Notes');
     }
 }

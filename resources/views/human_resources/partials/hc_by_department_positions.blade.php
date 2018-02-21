@@ -10,14 +10,14 @@
                 <div class="accordion-group">
                     <div class="accordion-heading">
                         
-                        <a href="/admin/human_resources/employees/by_departments/{{ $department->id }}">
+                        {{--  <a href="/admin/human_resources/employees/by_departments/{{ $department->id }}">  --}}
                             {{ $department->department }} 
-                            <span class="badge">
+                            <span class="label bg-green">
                                 {{ $department->positions->sum(function($position) {
                                     return $position->employees->sum('employees_count');
                                 }) }}
                             </span>                                
-                        </a>
+                        {{--  </a>  --}}
                         <a class="accordion-toggle pull-right" data-toggle="collapse" data-parent="#accordion2" href="#collapseDeparment-{{ $department->id }}">
                             Toggle
                         </a>

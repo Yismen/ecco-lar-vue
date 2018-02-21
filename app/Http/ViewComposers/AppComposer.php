@@ -24,11 +24,12 @@ class AppComposer
             'client_name' => ucwords(config('dainsys.client_name', 'Dainsys\' Client')),
             'client_name_mini' => strtoupper(config('dainsys.client_name_mini', 'DAINSYS')),
             'menu' => null,
-            'settings' => $this->user->settings ? json_decode($this->user->settings->data) : null
+            'settings' => $this->settings(),
+            'color' => $this->color()
         ]);
     }
 
-    public function user()
+    private function user()
     {
         if (Auth::check()) {
             return User::with(['roles' => function ($query) {
@@ -40,5 +41,19 @@ class AppComposer
         }
 
         return null;
+    }
+
+    private function settings()
+    {
+        return $this->user && $this->user->settings ? json_decode($this->user->settings->data) : null;
+    }
+
+    private function color()
+    {
+        if ($settings = $this->settings()) {
+            return explode("-", $settings->skin)[1];
+        }
+
+        return explode("-", config('dainsys.layout_color'))[1];
     }
 }
