@@ -47,11 +47,17 @@ class EmployeesController extends Controller
     }
 
     public function apiEmployees(Request $request)
-    {        
+    {
         return Datatables::eloquent(
             Employee::query()->with('position.department', 'position.payment_type')
         )->editColumn('id', function ($query) {
             return '<a href="' . route('admin.employees.show', $query->id) . '" class="">' . $query->id . '</a>';
+        })
+        ->editColumn('hire_date', function ($query) {
+            return $query->hire_date->format('d/M/Y');
+        })
+        ->editColumn('status', function ($query) {
+            return $query->active ? 'Active' : 'Inactive';
         })
         ->addColumn('edit', function ($query) {
             return '<a href="' . route('admin.employees.edit', $query->id) . '" class=""><i class="fa fa-edit"></i> Edit</a>';

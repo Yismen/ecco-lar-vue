@@ -47,7 +47,7 @@
         
         <div class="box-body">
             <div class="table-responsive">
-                <table class="table table-hover table-condensed" id="employees-table">
+                <table class="table table-hover table-condensed table-bordered" id="employees-table">
                     <thead>
                         <tr>
                             <th>Employee ID:</th>
@@ -55,6 +55,8 @@
                             <th>Second First Name:</th>
                             <th>Last Name:</th>
                             <th>Second Last Name:</th>
+                            <th>Hire Date</th>
+                            <th>Status</th>
                             <th>Position:</th>
                             <th>Personal ID:</th>
                             <th>Passport:</th>
@@ -80,6 +82,11 @@
                 "processing": true,
                 "serverSide": true,
                 "scrollY": "600px",
+                "createdRow": function( row, data, dataIndex){
+                    if(! data.active){
+                        $(row).addClass('danger');
+                    }
+                },
                 "language": {
                     "processing": "<i class='fa fa-spinner'></i> Loading, Please wait!"
                 },
@@ -89,27 +96,29 @@
                     "url": "{{ route('admin.employees.list') }}",
                 },
                 "columns": [
-                {data: 'id', name: 'id'},
-                {data: 'first_name', name: 'first_name', render: function(data, type, full){
-                    let first_name = full.first_name || '';
-                    let second_first_name = full.second_first_name || '';
-                    let last_name = full.last_name || '';
-                    let second_last_name = full.second_last_name  || '';
-                    return (first_name +' '+second_first_name+' '+last_name+' '+second_last_name).trim();
-                }},
-                {data: 'second_first_name', name: 'second_first_name', 'visible': false},
-                {data: 'last_name', name: 'last_name', 'visible': false},
-                {data: 'second_last_name', name: 'second_last_name', 'visible': false},
-                {data: 'position_id', name: 'position_id', render: function(data, type, full){
-                    let position = full.position ? full.position.name : '';
-                    let department = full.position && full.position.department ? ', At ' + full.position.department.department : '';
-                    return position + department;
-                }},
-                {data: 'personal_id', name: 'personal_id'},
-                {data: 'passport', name: 'passport'},
-                {data: 'cellphone_number', name: 'cellphone_number'},
-                {data: 'secondary_phone', name: 'secondary_phone'},
-                {data: 'edit', name: 'edit', searchable: "false", orderable: false},
+                    {data: 'id', name: 'id'},
+                    {data: 'first_name', name: 'first_name', render: function(data, type, full){
+                        let first_name = full.first_name || '';
+                        let second_first_name = full.second_first_name || '';
+                        let last_name = full.last_name || '';
+                        let second_last_name = full.second_last_name  || '';
+                        return (first_name +' '+second_first_name+' '+last_name+' '+second_last_name).trim();
+                    }},
+                    {data: 'second_first_name', name: 'second_first_name', 'visible': false},
+                    {data: 'last_name', name: 'last_name', 'visible': false},
+                    {data: 'second_last_name', name: 'second_last_name', 'visible': false},
+                    {data: 'hire_date', name: 'hire_date'},
+                    {data: 'status', name: 'status', orderable: false, searchable: false},
+                    {data: 'position_id', name: 'position_id', render: function(data, type, full){
+                        let position = full.position ? full.position.name : '';
+                        let department = full.position && full.position.department ? ', At ' + full.position.department.department : '';
+                        return position + department;
+                    }},
+                    {data: 'personal_id', name: 'personal_id'},
+                    {data: 'passport', name: 'passport'},
+                    {data: 'cellphone_number', name: 'cellphone_number'},
+                    {data: 'secondary_phone', name: 'secondary_phone'},
+                    {data: 'edit', name: 'edit', searchable: "false", orderable: false},
                 ],
                 buttons: ['copy', 'excel', 'pdf']
             });
