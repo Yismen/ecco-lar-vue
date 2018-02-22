@@ -81,7 +81,11 @@
             let dTable = $('#employees-table').DataTable({
                 "processing": true,
                 "serverSide": true,
-                "scrollY": "600px",
+                // "scrollY": "600px",                
+                // "scrollCollapse": true,
+                // "pageLength": 10,
+                // "lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"] ],
+                "searching": { "regex": true },
                 "createdRow": function( row, data, dataIndex){
                     if(! data.active){
                         $(row).addClass('danger');
@@ -90,7 +94,6 @@
                 "language": {
                     "processing": "<i class='fa fa-spinner'></i> Loading, Please wait!"
                 },
-                "scrollCollapse": true,
                 "ajax": {
                     'type': 'post',
                     "url": "{{ route('admin.employees.list') }}",
