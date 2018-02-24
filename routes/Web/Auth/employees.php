@@ -9,30 +9,28 @@ Route::bind('employee', function ($id) {
         ->with('socialSecurity')
         ->with('card')
         ->with('gender')
-        ->with('logins.system')
+        ->with('logins')
         ->with('marital')
         ->with('nationalities')
         ->with('punch')
         ->with('position.payment_type', 'position.department', 'position.payment_frequency')
         ->with('termination')
-        ->with('supervisor' )
-        
+        ->with('supervisor')
+
     ->firstOrFail()
     ->append([
-
-		'afp_list', 
-		'ars_list', 
-		'banks_list',
-		'departments_list',
-		'genders_list', 
-		'has_kids_list', 
-		'maritals_list', 
-		'positions_list', 
-		'nationalities_list', 
-		'supervisors_list',
-		'systems_list', 
-		'termination_type_list', 
-		'termination_reason_list'
+        'afp_list',
+        'ars_list',
+        'banks_list',
+        'departments_list',
+        'genders_list',
+        'has_kids_list',
+        'maritals_list',
+        'positions_list',
+        'nationalities_list',
+        'supervisors_list',
+        'termination_type_list',
+        'termination_reason_list'
     ]);
 });
 

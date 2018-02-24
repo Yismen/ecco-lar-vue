@@ -32,15 +32,5 @@
 </div>
 <!-- /. Employee -->
 
-<!-- System -->
-<div class="form-group {{ $errors->has('system_id') ? 'has-error' : null }}">
-	{!! Form::label('system_id', 'System:', ['class'=>'col-sm-2 control-label']) !!}
-	<div class="col-sm-10">
-		{!! Form::select('system_id', $login->systemsList, null, ['class'=>'form-control']) !!}
-	</div>
-	{{-- {!! $errors->first('system_id', '<span class="text-danger">:message</span>') !!} --}}
-</div>
-<!-- /. System -->
-
 
 

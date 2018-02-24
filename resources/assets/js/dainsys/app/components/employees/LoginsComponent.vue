@@ -3,7 +3,7 @@
         <form class="form-horizontal" role="form"
             @submit.prevent="handleCreateLogin"
             autocomplete="off" 
-            @keydown="form.error.clear($event.target.name)"
+            @change="updated"
             >
 
             <div class="box-header with-border">
@@ -12,7 +12,7 @@
     
             <div class="box-body">
                 <div class="row">
-                    <div class="col-sm-5">
+                    <div class="col-sm-10">
                         <div class="form-group">
                             <label for="input" class="col-sm-2 control-label">Login Name:</label>
                             <div class="col-sm-10">
@@ -24,24 +24,7 @@
                             </div>
                         </div> <!-- ./Login Name -->
                     </div>
-
-                    <div class="col-sm-5">
-                        <div class="form-group">
-                            <label for="input" class="col-sm-2 control-label">System:</label>
-                            <div class="col-sm-10">
-                                <select name="system_id" id="system_id"
-                                    class="form-control select2" v-model="form.fields.system_id"
-                                    >
-                                    <option v-for="(item, index) in employee.systems_list"
-                                    :value="index"
-                                    v-text="item"
-                                    ></option>
-                                </select>
-                                <span class="text-danger" v-if="form.error.has('system_id')">{{ form.error.get('system_id') }}</span>
-                            </div>
-                        </div> <!-- ./System -->
-                    </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm-2" v-if="showButton">
                         <div class="form-group">
                             <div class="col-sm-10 col-sm-offset-2">
                                 <button type="submit" class="btn btn-primary">
@@ -60,17 +43,15 @@
                 <thead>                
                     <tr>
                         <th>Login Name</th>
-                        <th>System</th>
                         <th>Edit</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="login in logins">
+                    <tr v-for="login in logins" :key="login.id">  
                         <td>{{ login.login }}</td>
-                        <td>{{ login.system.display_name }}</td>
                         <td>
-                            <a :href="'/admin/logins/' + login.id + '/edit'">
-                                <i class="fa fa-edit"></i>
+                            <a :href="'/admin/logins/' + login.id + '/edit'" target="_new_login">
+                                <i class="fa fa-edit"></i> Edit
                             </a>
                         </td>
                     </tr>
@@ -93,10 +74,9 @@
         data () {
             return {
                 form: new Form({
-                    'login': '',
-                    'system_id': ''
+                    'login': ''
                 }),
-
+                showButton: false,
                 logins: []
 
             };
@@ -113,10 +93,14 @@
         },
 
         methods: {
+            updated(event) {
+                this.showButton = true;
+                this.form.error.clear(event.target.name)
+            },
             handleCreateLogin() {
                 this.form.post('/admin/employees/logins/' + this.employee.id)
                 .then(response => {
-                    console.log(response)
+                    this.showButton = false;
                     return this.logins.unshift(response);
                 })
             }

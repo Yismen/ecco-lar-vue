@@ -31,7 +31,7 @@
                     <a href="#others" aria-controls="others" role="tab" data-toggle="tab">Others</a>
                 </li>
                 <li class="pull-right">
-                    <a href="/admin/employees"title="Back to List"><i class="fa fa-home"></i> Home</a>
+                    <a href="/admin/employees" title="Back to List"><i class="fa fa-home"></i> Home</a>
                 </li>
             </ul>
         
@@ -76,15 +76,19 @@
                     <employee-bank-account :employee="employee"></employee-bank-account>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="others">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <employee-nationality :employee="employee"></employee-nationality>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <employee-nationality :employee="employee"></employee-nationality>
+                            </div>
+                            <div class="col-sm-6">
+                                <employee-social-security :employee="employee"></employee-social-security>
+                            </div>
                         </div>
-                        <div class="col-sm-6">
-                            <employee-social-security :employee="employee"></employee-social-security>
-                        </div>
-                        <div class="col-sm-6">
-                            <employee-supervisor :employee="employee"></employee-supervisor>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <employee-supervisor :employee="employee"></employee-supervisor>
+                            </div>
                         </div>
                     </div>
                 </div>

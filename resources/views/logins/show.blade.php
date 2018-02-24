@@ -12,9 +12,8 @@
 								<th>Login: </th>
 								<td>{{ $login->login }}</td>
 							</tr>
-							{{-- /. Login --}}
 							<tr>
-								<th>Employee's Name: </th>
+								<th>Employee&rsquo;s Name: </th>
 								<td>
 									<a href="{{ route('admin.employees.show', $login->employee->id) }}">{{ ucwords(trim($login->employee->first_name)) }} {{ ucwords(trim($login->employee->last_name)) }}</a>
 									
@@ -22,14 +21,6 @@
 							</tr>
 							{{-- /. Employee --}}
 							<tr>
-								<th>System: </th>
-								<td>
-									@if ($login->system)
-										<a href="{{ route('admin.systems.show', $login->system->id) }}">{{ $login->system->name }}</a>
-									@else
-										System not assigned
-									@endif
-								</td>
 							</tr>
 							{{-- /. Login --}}
 

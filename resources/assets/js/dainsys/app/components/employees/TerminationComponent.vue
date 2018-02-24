@@ -3,7 +3,7 @@
         <form class="" role="form"
             @submit.prevent="submitTermination"
             autocomplete="off" 
-            @keydown="form.error.clear($event.target.name)">
+            @change="updated">
 
             <div class="box-header with-border bg-yellow" :class="{'bg-green': isActive}">
                 <h4>{{ employee.full_name }}' Termination. Current Status is {{ employee.status }}</h4>
@@ -29,7 +29,7 @@
                             <label for="input" class="">Termination Type:</label>
                             <div class="">
                                 <select name="termination_type_id" id="termination_type_id" class="form-control" v-model="form.fields.termination_type_id">
-                                    <option v-for="(termination_type_id, index) in employee.termination_type_list" :value="index">{{ termination_type_id }}</option>
+                                    <option v-for="(termination_type_id, index) in employee.termination_type_list" :value="index" :key="termination_type_id">{{ termination_type_id }}</option>
                                 </select>
                                 <span class="text-danger" v-if="form.error.has('termination_type_id')">{{ form.error.get('termination_type_id') }}</span>
                             </div>
@@ -44,7 +44,7 @@
                             <div class="">
                                 <select name="termination_reason_id" id="termination_reason_id" class="form-control" 
                                     v-model="form.fields.termination_reason_id">
-                                    <option v-for="(termination_reason_id, index) in employee.termination_reason_list" :value="index">{{ termination_reason_id }}</option>
+                                    <option v-for="(termination_reason_id, index) in employee.termination_reason_list" :value="index" :key="termination_reason_id">{{ termination_reason_id }}</option>
                                 </select>
                                 <span class="text-danger" v-if="form.error.has('termination_reason_id')">{{ form.error.get('termination_reason_id') }}</span>
                             </div>
@@ -73,33 +73,34 @@
                 </div>
                 
                 <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col-sm-6">
                         <div class="form-group">
                             <label for="input" class="">Additional Comments:</label>
                             <div class="">
                                 <textarea id="comments" 
                                 name="comments" class="form-control" 
-                                v-model="form.fields.comments" cols="30" rows="10"></textarea>
+                                v-model="form.fields.comments" rows="5"></textarea>
                                 <span class="text-danger" v-if="form.error.has('comments')">{{ form.error.get('comments') }}</span>
                             </div>
                         </div> <!-- ./Additional Comments-->
                     </div>
-                </div>
-
-            </div>
-    
-            <div class="box-footer">
-                
-                <div class="form-group">
-                    <div class=" col-sm-offset-2">
-                        <button type="submit" class="btn btn-danger" v-if="isActive">
-                            TERMINATE
-                        </button>
-                        <button type="submit" class="btn btn-warning" v-else>
-                            UPDATE TERMINATION INFO
-                        </button>
+                    
+                    <div class="col-sm-6" v-if="showButton">
+                        <div class="form-group">
+                            <div class=" col-sm-offset-2">
+                                <button type="submit" class="btn btn-danger" v-if="isActive">
+                                    TERMINATE
+                                </button>
+                                <button type="submit" class="btn btn-warning" v-else>
+                                    UPDATE TERMINATION INFO
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+                
+
             </div>
 
         </form>
@@ -129,9 +130,8 @@
                 'can_be_rehired': this.employee.termination ? this.employee.termination.can_be_rehired : '',
                 'comments': this.employee.termination ? this.employee.termination.comments : '',
             }, false),
-
+            showButton: false,
             isActive: this.employee.termination ? false : true,
-
         };
     },
 
@@ -140,10 +140,15 @@
     },
 
     methods: {
+        updated(event) {
+            this.showButton = true;
+            this.form.error.clear(event.target.name)
+        },
         submitTermination() {
             this.form.post('/admin/employees/terminations/' + this.employee.id)
                 .then(response => {
                     this.isActive = false;
+                    this.showButton = false;
                     this.employee.termination = response.termination;
                     return this.form.fields = response.termination;
                 })

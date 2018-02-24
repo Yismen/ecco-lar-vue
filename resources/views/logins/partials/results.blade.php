@@ -1,11 +1,10 @@
-<table class="table table-condensed table-bordered">
+<table class="table table-condensed table-bordered table-hover">
     <thead>
         <tr>
             <th>ID</th>
             <th>Employee</th>
             <th>Login</th>
-            <th>System</th>
-            <th class="col-xs-3">
+            <th class="col-xs-2">
                 <a href="{{ route('admin.logins.create') }}">
                     <i class="fa fa-plus"></i> Add
                 </a>
@@ -25,11 +24,8 @@
                 <a href="{{ route('admin.logins.show', $login->id) }}">{{ $login->login }}</a>
             </td>
             <td>
-                <a href="{{ route('admin.systems.show', $login->system->id) }}">{{ ucwords(trim($login->system->name)) }}</a>
-            </td>
-            <td>
-                <a href="{{ route('admin.logins.edit', $login->id) }}" class="btn btn-warning">
-                    <i class="fa fa-edit"></i>
+                <a href="{{ route('admin.logins.edit', $login->id) }}" class="text-warning">
+                    <i class="fa fa-edit"></i> Edit
                 </a>
             </td>
         </tr>

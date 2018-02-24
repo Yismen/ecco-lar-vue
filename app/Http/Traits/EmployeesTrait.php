@@ -30,10 +30,9 @@ trait EmployeesTrait
             ->with('positions')
             // ->get();
             ->paginate(10)
-            ->appends(['status'=>$status, 'search'=>$search]);
+            ->appends(['status' => $status, 'search' => $search]);
 
         return $employees;
-            
     }
 
     /**
@@ -46,10 +45,10 @@ trait EmployeesTrait
             'first_name' => 'required',
             'last_name' => 'required',
             'hire_date' => 'required|date',
-            'personal_id' => 'required_if:passport,|nullable|digits:11|unique:employees,personal_id,'.$employee->id,
-            'passport' => 'required_if:personal_id,|nullable|unique:employees,passport,'.$employee->id,
+            'personal_id' => 'required_if:passport,|nullable|digits:11|unique:employees,personal_id,' . $employee->id,
+            'passport' => 'required_if:personal_id,|nullable|unique:employees,passport,' . $employee->id,
             'date_of_birth' => 'required|date',
-            'cellphone_number' => 'required|digits:10|unique:employees,cellphone_number,'.$employee->id,
+            'cellphone_number' => 'required|digits:10|unique:employees,cellphone_number,' . $employee->id,
             'secondary_phone' => 'nullable|digits:10',
             'gender_id' => 'required|exists:genders,id',
             'marital_id' => 'required|exists:maritals,id',
@@ -66,11 +65,11 @@ trait EmployeesTrait
      */
     private function applyScopeStatusToTheQuery($status, $employees)
     {
-        if (!in_array($status, ['actives', 'inactives'])) return $employees;
+        if (!in_array($status, ['actives', 'inactives'])) {
+            return $employees;
+        }
 
-        
         return $employees = $employees->$status();
-        
     }
 
     /**
@@ -81,8 +80,9 @@ trait EmployeesTrait
      */
     private function applySearchScopeToTheQuery($search, $employees)
     {
-
-        if (!$search) return $employees;
+        if (!$search) {
+            return $employees;
+        }
 
         $search = explode(',', $search);
 
@@ -98,24 +98,22 @@ trait EmployeesTrait
                 ->orWhere('secondary_phone', 'like', "%$q%")
                 ->orWhere('id', 'like', $q);
         }
-        
+
         return $employees;
-        
     }
 
     private function appyDatesScopesToTheQuery($search, $employees, $carbon)
     {
-
     }
 
     protected function validateCardRequest($request)
     {
-        $this->validate($request, ['card'=> 'required|numeric|digits:8|']);
+        $this->validate($request, ['card' => 'required|numeric|digits:8|']);
         return $this;
     }
 
     protected function handleInactivation($employee, $request)
-    {  
+    {
         $this->validate($request, [
             'termination_date' => 'required|date',
             'termination_type_id' => 'required|integer|exists:termination_types,id',
@@ -124,7 +122,7 @@ trait EmployeesTrait
         ]);
 
         Termination::whereEmployeeId($employee->id)->delete();
-        
+
         $termination = new Termination($request->only([
             'termination_date', 'termination_type_id', 'termination_reason_id', 'can_be_rehired', 'comments'
         ]));
@@ -135,11 +133,11 @@ trait EmployeesTrait
     }
 
     private function handleReactivation($employee, $request)
-    {        
+    {
         $this->validate($request, [
             'hire_date' => 'required|date',
         ]);
-        
+
         if ($employee->termination) {
             $employee->termination->delete();
         }
@@ -150,10 +148,9 @@ trait EmployeesTrait
     }
 
     private function handleAddLoginsToEmployee($employee, $request)
-    { 
+    {
         $this->validate($request, [
-            'login' => 'required|unique:logins,login,NULL,id,system_id,'.$request->input('system_id'),
-            'system_id' => 'required|exists:systems,id',
+            'login' => 'required|unique:logins,login,NULL,id',
         ]);
 
         $newlogin = $employee->logins()->create($request->all());
@@ -162,11 +159,11 @@ trait EmployeesTrait
 
         Cache::forget('employees');
 
-        return $newlogin->load('system');
+        return $newlogin;
     }
 
     private function handleUpdateArs($employee, $request)
-    { 
+    {
         $this->validate($request, [
             'ars_id' => 'required|exists:ars,id',
         ]);
@@ -180,7 +177,7 @@ trait EmployeesTrait
     }
 
     private function handleUpdateAfp($employee, $request)
-    { 
+    {
         $this->validate($request, [
             'afp_id' => 'required|exists:afps,id',
         ]);
@@ -194,20 +191,20 @@ trait EmployeesTrait
     }
 
     private function handleUpdateBankAccount($employee, $request)
-    { 
+    {
         $hasAccount = $employee->bankAccount()->count() > 0 ? true : false;
         $account_id = $hasAccount ? $employee->bankAccount->id : null;
 
         $this->validate($request, [
             'bank_id' => 'required|exists:banks,id',
-            'account_number' => 'required|min:5|max:100|unique:bank_accounts,account_number,'.$account_id,
+            'account_number' => 'required|min:5|max:100|unique:bank_accounts,account_number,' . $account_id,
         ]);
 
-        if ($hasAccount) {            
+        if ($hasAccount) {
             $employee->bankAccount()->update($request->all());
         } else {
             $employee->bankAccount()->create($request->all());
-        }        
+        }
 
         Cache::forget('employees');
 
@@ -215,19 +212,19 @@ trait EmployeesTrait
     }
 
     private function handleUpdateSocialSecurity($employee, $request)
-    { 
+    {
         $hasSocial = $employee->socialSecurity()->count() > 0 ? true : false;
         $social_id = $hasSocial ? $employee->socialSecurity->id : null;
 
         $this->validate($request, [
-            'number' => 'required|min:5|max:10|unique:social_securities,number,'.$social_id,
+            'number' => 'required|min:5|max:10|unique:social_securities,number,' . $social_id,
         ]);
 
-        if ($hasSocial) {            
+        if ($hasSocial) {
             $employee->socialSecurity()->update($request->all());
         } else {
             $employee->socialSecurity()->create($request->all());
-        }        
+        }
 
         Cache::forget('employees');
 
@@ -235,7 +232,7 @@ trait EmployeesTrait
     }
 
     private function handleUpdateNationality($employee, $request)
-    { 
+    {
         $this->validate($request, [
             'nationality_id' => 'required|exists:nationalities,id',
         ]);
@@ -248,7 +245,7 @@ trait EmployeesTrait
     }
 
     private function handleUpdateSupervisor($employee, $request)
-    { 
+    {
         $this->validate($request, [
             'supervisor_id' => 'required|exists:supervisors,id',
         ]);

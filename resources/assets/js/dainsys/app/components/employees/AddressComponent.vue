@@ -3,7 +3,7 @@
         <form class="form-horizontal" role="form"
             @submit.prevent="submitAddress"
             autocomplete="off" 
-            @keydown="form.error.clear($event.target.name)">
+            @change="updated">
 
             <div class="box-header with-border"><h4>{{ employee.full_name }}' Address:</h4></div>
     
@@ -40,7 +40,7 @@
                     </div>
                 </div> <!-- ./City -->
         
-            <div class="box-footer">
+            <div class="box-footer" v-if="showButton">
                 <div class="form-group">
                     <div class="col-sm-10 col-sm-offset-2">
                         <button type="submit" class="btn btn-primary">
@@ -68,8 +68,8 @@
                 'sector': this.employee.addresses ? this.employee.addresses.sector : '',
                 'street_address': this.employee.addresses ? this.employee.addresses.street_address : '',
                 'city':this.employee.addresses ? this.employee.addresses.city : '',
-            }, false)
-
+            }, false),
+            showButton: false
         };
     },
 
@@ -78,10 +78,15 @@
     },
 
     methods: {
+        updated(event) {
+            this.showButton = true
+            this.form.error.clear(event.target.name)
+        },
         submitAddress() {
             this.form.post('/admin/employees/updateAddress/' + this.employee.id)
                 .then(response => {
                     this.employee.addresses = response.addresses;
+                    this.showButton = false
                     return this.form.fields = response.addresses
                 })
         }

@@ -35,7 +35,7 @@
                                                         <a href="/admin/human_resources/employees/by_positions/{{ $position->id }}">{{ $position->name }}</a>
                                                             @foreach ($position->employees as $employee)
                                                                 <tr>
-                                                                    <td>{{ $employee->gender->gender }}</td>
+                                                                    <td>{{ $employee->gender->gender or '' }}</td>
                                                                     <td class="col-xs-2">{{ $employee->employees_count }}</td>
                                                                 </tr>
                                                             @endforeach

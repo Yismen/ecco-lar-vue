@@ -13,8 +13,8 @@
                     @submit.prevent="submitPhoto(this)"
                     autocomplete="off" 
                     enctype="multipart/form-data"
-                    @change="form.loadFiles($event.target.name, $event.target.files)"
-                    @keydown="form.error.clear($event.target.name)">
+                    @change="loadFiles"
+                    @keydown="blurred">
                     
                     <div class="box-header with-border">
                         <h4>{{ employee.full_name }}' Photo:</h4>
@@ -32,7 +32,7 @@
                         </div> <!-- ./Photo -->
                     </div>
             
-                    <div class="box-footer">
+                    <div class="box-footer" v-if="showButton">
                         <div class="form-group">
                             <div class="col-sm-10 col-sm-offset-2">
                                 <button type="submit" class="btn btn-success">
@@ -60,9 +60,8 @@
         data () {
             return {
                 form: new Form({photo3: ''}, false),
-
                 photo: this.employee.photo,
-
+                showButton: false
             };
         },
 
@@ -71,11 +70,20 @@
         },
 
         methods: {
+            loadFiles(event) {
+                this.showButton = true
+                this.form.loadFiles(event.target.name, event.target.files)
+            },
+            blurred(event) {
+                this.showButton = true
+                this.form.error.clear(event.target.name)
+            },
             submitPhoto () {
                 this.form.post('/admin/employees/updatePhoto/' + this.employee.id)
                 .then(response => {
                     this.photo = response.photo;
                     this.employee.photo = response.photo;
+                    this.showButton = false
                     return this.form.fields = response
                 })
 

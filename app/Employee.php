@@ -171,28 +171,18 @@ class Employee extends Model
 	public function createOrUpdateCard($request)
 	{
 		$newCard = ['card'=>$request->input('card')];
-		
-		if ($this->card) {
-			$this->card()->update($newCard);
-			return $this;
-		}
 
-		$card = new Card($newCard);
-		$this->card()->save($card);
+		$this->card ? $this->card()->update($newCard) : $this->card()->create($newCard);
+
 		return $this;
 	}
 
 	public function createOrUpdatePunch($request)
 	{
 		$newPunch = ['punch'=>$request->input('punch')];
-		
-		if ($this->card) {
-			$this->punch()->update($newPunch);
-			return $this;
-		}
 
-		$card = new Punch($newPunch);
-		$this->punch()->save($card);
+		$this->punch ? $this->punch()->update($newPunch) : $this->punch()->create($newPunch);
+
 		return $this;
 	}
 	/**

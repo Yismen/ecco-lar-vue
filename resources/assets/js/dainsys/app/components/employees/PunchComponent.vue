@@ -1,9 +1,9 @@
 <template>
-    <div class="_Punch">
+    <div class="_Punch well">
         <form class="form-horizontal" role="form"
             @submit.prevent="submitPunch"
             autocomplete="off" 
-            @keydown="form.error.clear($event.target.name)">
+            @keydown="updated">
 
             <div class="box-header with-border">
                 <h4>{{ employee.full_name }}' Punch:</h4>
@@ -21,7 +21,7 @@
                 </div> <!-- ./Punch -->
             </div>
     
-            <div class="box-footer">
+            <div class="box-footer" v-if="showButton">
                 <div class="form-group">
                     <div class="col-sm-10 col-sm-offset-2">
                         <button type="submit" class="btn btn-primary">
@@ -47,8 +47,8 @@
         return {
             form: new Form({
                 'punch': this.employee.punch ? this.employee.punch.punch : '',
-            }, false)
-
+            }, false),
+            showButton: false
         };
     },
 
@@ -57,10 +57,15 @@
     },
 
     methods: {
+        updated(event) {
+            this.showButton = true
+            this.form.error.clear(event.target.name)
+        },
         submitPunch() {
             this.form.post('/admin/employees/updatePunch/' + this.employee.id)
                 .then(response => {
                     this.employee.punch = response.punch;
+                    this.showButton = false;
                     return this.form.fields = response.punch
                 })
         }

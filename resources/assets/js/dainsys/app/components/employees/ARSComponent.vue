@@ -1,9 +1,9 @@
 <template>
-    <div class="_ARS">
+    <div class="_ARS well">
         <form class="form-horizontal" role="form"
             @submit.prevent="handleUpdateArs"
             autocomplete="off" 
-            @keydown="form.error.clear($event.target.name)">
+            @change="updated">
 
             <div class="box-header with-border">
                 <h4>{{ employee.full_name }}' ARS Info:</h4>
@@ -14,14 +14,14 @@
                     <label for="input" class="col-sm-2 control-label">ARS:</label>
                     <div class="col-sm-10">
                         <select name="ars_id" id="ars_id" class="form-control" v-model="form.fields.ars_id">
-                            <option v-for="(ars_id, index) in employee.ars_list" :value="index">{{ ars_id }}</option>
+                            <option v-for="(ars_id, index) in employee.ars_list" :value="index" :key="ars_id">{{ ars_id }}</option>
                         </select>
                         <span class="text-danger" v-if="form.error.has('ars_id')">{{ form.error.get('ars_id') }}</span>
                     </div>
                 </div> <!-- ./ARS-->
             </div>
     
-            <div class="box-footer">
+            <div class="box-footer" v-if="showButton">
                 <div class="form-group">
                     <div class="col-sm-10 col-sm-offset-2">
                         <button type="submit" class="btn btn-primary">
@@ -46,8 +46,8 @@
         return {
             form: new Form({
                 'ars_id': this.employee.ars ? this.employee.ars.id : '',
-            }, false)
-
+            }, false),
+            showButton: false
         };
     },
 
@@ -56,10 +56,15 @@
     },
 
     methods: {
+        updated(event) {
+            this.showButton = true;
+            this.form.error.clear(event.target.name)
+        },
         handleUpdateArs() {
             this.form.post('/admin/employees/updateArs/' + this.employee.id)
                 .then(response => {
                     this.employee.ars = response.ars;
+                    this.showButton = false;
                     return this.form.fields.ars_id = response.ars.id
                 })
         }

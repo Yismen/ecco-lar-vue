@@ -73,7 +73,7 @@ section.content {
  .black-div {background-color: #222d32; color: #ffffff; } 
  .blue-div {background-color: #3c8dbc; color: #ffffff; } 
  .green-div {background-color: #218457; color: #ffffff; }
-// .green-div>h1 { color: #ffffff; }
+  .green-div>h1 { color: #ffffff; }
 .grey-div {background-color: #ccc; color: #000; }
 .purple-div {background-color: #605ca8; color: #ffffff; }
 .yellow-div {background-color: #f39c12; color: #ffffff; }
@@ -142,18 +142,22 @@ section.content {
     filter: alpha(opacity=85);
 }
 
+.well .box-footer {
+  background-color: #f5f5f5;
+}
+
 @media (max-width:991px) {
 
   .navbar-nav>.user-menu>.dropdown-menu>.user-footer {
     /* background-color: #222; */
     color: #ffffff;
-}
+  }
 
-.user-footer a {
-    color: #ffffff;
-}
-.user-footer a:hover {
-    background-color: #222;
-    color: #bab3b2;
-}
+  .user-footer a {
+      color: #ffffff;
+  }
+  .user-footer a:hover {
+      background-color: #222;
+      color: #bab3b2;
+  }
 }

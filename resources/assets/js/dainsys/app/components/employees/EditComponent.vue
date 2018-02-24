@@ -3,7 +3,7 @@
         <form role="form"
             @submit.prevent="handleEdit"
             autocomplete="off" 
-            @keydown="form.error.clear($event.target.name)"
+            @change="form.error.clear($event.target.name)"
             @input="fieldUpdated">
 
             <div class="box-header with-border">
@@ -145,7 +145,7 @@
                                 {{ has_kids }}
                             </option>
                         </select>
-                        <span class="text-danger" v-if="form.error.has('marital_id')">{{ form.error.get('has_kids') }}</span>
+                        <span class="text-danger" v-if="form.error.has('has_kids')">{{ form.error.get('has_kids') }}</span>
                     </div>                 
                 </div> <!-- ./Has Kids-->   
 
@@ -158,7 +158,7 @@
                             :value="currentPosition" 
                             @input="positionSelected"
                             ></v-select>
-                        <span class="text-danger" v-if="form.error.has('marital_id')">{{ form.error.get('position_id') }}</span>
+                        <span class="text-danger" v-if="form.error.has('position_id')">{{ form.error.get('position_id') }}</span>
                     </div>                 
                 </div> 
                 <!-- ./Position-->
@@ -239,15 +239,15 @@
 
     methods: {
         fieldUpdated(event) {
-            this.showButton = true
-            console.log(event.target)
+            this.showButton = true;
         },
         updatePositionsList() {
             this.positions_list = [];
             let vm = this;
             this.employee.positions_list.forEach(function(element) {
+                let payment = element.payment_type.name ? element.payment_type.name : '';
                 return vm.positions_list.push({
-                    label: element.name_and_department+', $'+element.salary+', '+element.payment_type.name,
+                    label: element.name_and_department+', $'+element.salary+', '+payment,
                     value: element.id
                 })
             });
@@ -256,10 +256,12 @@
             this.form.put('/admin/employees/' + this.employee.id)
                 .then(response => {
                     this.employee = response;
+                    this.showButton = false;
                     return this.form.fields = response;
                 })
         },
         positionSelected(payload) {
+            this.showButton = true;
             this.form.fields.position_id = payload && payload.value ? payload.value : payload;
         }
     }
