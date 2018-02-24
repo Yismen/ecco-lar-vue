@@ -245,7 +245,7 @@
             this.positions_list = [];
             let vm = this;
             this.employee.positions_list.forEach(function(element) {
-                let payment = element.payment_type.name ? element.payment_type.name : '';
+                let payment = element.payment_type && element.payment_type.name ? element.payment_type.name : '';
                 return vm.positions_list.push({
                     label: element.name_and_department+', $'+element.salary+', '+payment,
                     value: element.id
