@@ -3,7 +3,8 @@
         <form role="form"
             @submit.prevent="handleEdit"
             autocomplete="off" 
-            @keydown="form.error.clear($event.target.name)">
+            @keydown="form.error.clear($event.target.name)"
+            @input="fieldUpdated">
 
             <div class="box-header with-border">
                 <h4>Edit {{ employee.full_name }}' General Information</h4>
@@ -150,10 +151,10 @@
 
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label for="position_id" class="">Position2:</label>
+                        <label for="position_id" class="">Position:</label>
                         <v-select 
                             name="position_id" id="position_id" 
-                            :options="position.list"
+                            :options="positions_list"
                             :value="currentPosition" 
                             @input="positionSelected"
                             ></v-select>
@@ -163,7 +164,7 @@
                 <!-- ./Position-->
             </div>
     
-            <div class="box-footer">
+            <div class="box-footer" v-if="showButton">
                 <div class="form-group">
                     <div class="col-sm-10 col-sm-offset-2">
                         <button type="submit" class="btn btn-success">
@@ -205,9 +206,8 @@
                 'has_kids': this.employee ? this.employee.has_kids : '',
                 'position_id': this.employee ? this.employee.position_id : '',
             }, false),
-            position: {
-                list: []
-            }
+            positions_list: [],
+            showButton: false
 
         };
     },
@@ -220,10 +220,14 @@
         datepicker, vSelect
     },
 
+    watch: {
+        
+    },
+
     computed: {
         currentPosition() {
             let vm = this;
-            return this.position.list.find(function(element) {
+            return this.positions_list.find(function(element) {
                 return element.value == vm.form.fields.position_id;
             })
         }
@@ -234,11 +238,15 @@
     },
 
     methods: {
+        fieldUpdated(event) {
+            this.showButton = true
+            console.log(event.target)
+        },
         updatePositionsList() {
-            this.position.list = [];
+            this.positions_list = [];
             let vm = this;
             this.employee.positions_list.forEach(function(element) {
-                return vm.position.list.push({
+                return vm.positions_list.push({
                     label: element.name_and_department+', $'+element.salary+', '+element.payment_type.name,
                     value: element.id
                 })
@@ -252,7 +260,7 @@
                 })
         },
         positionSelected(payload) {
-            this.form.fields.position_id = payload.value ? payload.value : payload;
+            this.form.fields.position_id = payload && payload.value ? payload.value : payload;
         }
     }
 };
