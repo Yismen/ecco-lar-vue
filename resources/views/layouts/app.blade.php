@@ -115,7 +115,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             
             <!-- Control Sidebar -->
             <!-- /.control-sidebar -->
-            <!-- Add the sidebar's background. This div must be placed
+            <!-- Add the sidebars background. This div must be placed
             immediately after the control sidebar -->
         </div>
         <!-- ./wrapper -->
@@ -128,7 +128,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
         <!-- 
         |************************************|
-        | All scripts will bi placed here
+        | All scripts will be placed here
         |************************************|
          -->
          @yield('scripts')

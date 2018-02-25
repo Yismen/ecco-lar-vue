@@ -73,7 +73,8 @@ elixir(function(mix) {
             nodeModules + '/js-cookie/src/js.cookie.js',
             nodeModules + '/select2/dist/js/select2.js',
             nodeModules + '/summernote/dist/summernote.js',
-
+            nodeModules + '/jquery-slimscroll/jquery.slimscroll.js', 
+            
             'app.js',
             'ajaxSetup.js',
             'myFormSubmit.js',
