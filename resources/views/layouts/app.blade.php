@@ -108,12 +108,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         {{ $app_name }}, {{ $client_name }}
                     </a>.
                 </strong> All rights reserved.
-                @if ($user)
-                    @include('layouts.partials.nav-settings')
-                @endif
             </footer>
             
             <!-- Control Sidebar -->
+                @if ($user)
+                    @include('layouts.partials.nav-settings')
+                @endif
             <!-- /.control-sidebar -->
             <!-- Add the sidebars background. This div must be placed
             immediately after the control sidebar -->
