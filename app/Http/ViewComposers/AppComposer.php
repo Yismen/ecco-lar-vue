@@ -50,10 +50,14 @@ class AppComposer
 
     private function color()
     {
-        if ($settings = $this->settings()) {
-            return explode("-", $settings->skin)[1];
-        }
+        $settings = $this->settings();
 
-        return explode("-", config('dainsys.layout_color'))[1];
+        $skin = $settings && $settings->skin ?
+            explode('-', $settings->skin) :
+            explode('-', config('dainsys.layout_color'));
+
+        return count($skin) > 1 ?
+            $skin[1] :
+            $skin;
     }
 }
