@@ -49,11 +49,14 @@ class LoginsController extends Controller
      *
      * @return Response
      */
-    public function store(Login $login, Request $requests)
+    public function store(Login $login, Request $request)
     {
-        $this->validateRequest($requests);
+        $this->validate($request, [
+            'login' => 'required|unique:logins',
+            'employee_id' => 'required|exists:employees,id',
+        ]);
 
-        $login->create($requests->all());
+        $login->create($request->all());
 
         return redirect()->route('admin.logins.index')
             ->withSuccess("Login $login->login has been created!");
@@ -87,9 +90,14 @@ class LoginsController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(Login $login, Request $requests)
+    public function update(Login $login, Request $request)
     {
-        $login->update($requests->all());
+        $this->validate($request, [
+            'login' => 'required|unique:logins,login,' . $login->id,
+            'employee_id' => 'required|exists:employees,id',
+        ]);
+
+        $login->update($request->all());
 
         return redirect()->route('admin.logins.index')
             ->withSuccess("Login $login->login has been updated!");
@@ -107,14 +115,6 @@ class LoginsController extends Controller
 
         return redirect()->route('admin.logins.index')
             ->withDanger("Login $login->login has been removed.");
-    }
-
-    private function validateRequest($request)
-    {
-        return $this->validate($request, [
-            'login' => 'required',
-            'employee_id' => 'required|exists:employees,id',
-        ]);
     }
 
     public function toExcel(Request $request)

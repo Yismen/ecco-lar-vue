@@ -1,5 +1,10 @@
-section.content {
-  padding-bottom: 0;
+
+section {
+  padding: 48px 0;
+}
+
+.covered {
+  background-color: rgba(0,0,0,.2)
 }
 
 .alert-default {
