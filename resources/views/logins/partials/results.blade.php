@@ -12,23 +12,25 @@
         </tr>
     </thead>
     <tbody>
-        @foreach ($logins as $login)
-        <tr>
-            <td>{{ $login->employee->id }}</td>
-            <td>
-                <a href="{{ route('admin.employees.show', $login->employee->id) }}">
-                    {{ $login->employee->full_name }} 
-                </a>
-            </td>
-            <td>
-                <a href="{{ route('admin.logins.show', $login->id) }}">{{ $login->login }}</a>
-            </td>
-            <td>
-                <a href="{{ route('admin.logins.edit', $login->id) }}" class="text-warning">
-                    <i class="fa fa-edit"></i> Edit
-                </a>
-            </td>
-        </tr>
+        @foreach ($employees as $employee)
+            @foreach ($employee->logins as $login)  
+                <tr>
+                    <td>{{ $employee->id }}</td>
+                    <td>
+                        <a href="{{ route('admin.employees.show', $employee->id) }}">
+                            {{ $employee->full_name }} 
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ route('admin.logins.show', $login->id) }}">{{ $login->login }}</a>
+                    </td>
+                    <td>
+                        <a href="{{ route('admin.logins.edit', $login->id) }}" class="text-warning">
+                            <i class="fa fa-edit"></i> Edit
+                        </a>
+                    </td>
+                </tr>
+            @endforeach
         @endforeach
     </tbody>
 </table>

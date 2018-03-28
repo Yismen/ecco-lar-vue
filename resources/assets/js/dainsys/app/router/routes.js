@@ -12,7 +12,8 @@ export default [
             sources: require('./../components/sources/SourcesComponent.vue').default,
             notes: require('./../components/notes/IndexComponent').default,
             escalations_admin: require('./../components/escalations_admin/IndexComponent').default,
-            payrolls: require('./../components/payrolls/Index').default
+            payrolls: require('./../components/payrolls/Index').default,
+            'blackhawk-cs-management': require('./../components/blackhawk-cs/management/Index').default
         }
     },
     {path: '/notes', name: 'notes.index', component: require('./../components/notes/DetailsComponent').default},

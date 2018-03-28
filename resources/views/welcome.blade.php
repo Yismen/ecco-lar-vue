@@ -2,30 +2,29 @@
 @extends('layouts.'.$layout->app(), ['page_header'=>'Welcome', 'page_description'=>'Welcome page!'])
 
 @section('content')
-    <div class=" bg-{{ $color or 'yellow'}}">        
-        <section class=" no-margin parallax-remove intro-header-remove covered">
+    <div class="">
+
+        <div class="jumbotron no-margin bg-{{ $color or 'yellow'}} parallax-remove intro-header-remove covered">
             <div class="container-fluid">
                 <div class="col-sm-12 text-center">
                     @include('layouts.partials.logo')
                     <h1 class="my-main-header">Welcome to {{ $app_name }} {{ $user->name or '' }}</h1>
-                    <p><i class="fa fa-arrow-up"></i> Click on the top menu icon <i class="fa fa-bars"></i> to see your applications links.</p>
+                    <p><i class="fa fa-arrow-up"></i> Use the top menu icon <i class="fa fa-bars"></i> to see your applications links. </p>
                     @if ($user)
-                    <a href="/admin/profiles" class="btn btn-default btn-lg">
-                        View your profile! <i class="fa fa-angle-double-right"></i>
-                    </a>
+                        <a href="/admin/profiles" class="btn btn-default btn-lg">
+                            View your profile! <i class="fa fa-angle-double-right"></i>
+                        </a>
                     @else
-                    <p>Start using Dainsys</p>
-                    <a href="/admin/login" class="btn btn-default btn-lg">
-                        <i class="fa fa-user"></i> Please Sing In!
-                    </a>
+                        <p>Start using Dainsys</p>
+                        <a href="/admin/login" class="btn btn-default btn-lg">
+                             <i class="fa fa-user"></i> Please Sing In!
+                        </a>
                     @endif
                 </div>
             </div>
-        </section>
-    </div>
-    
-    <div class="">
-        <section class="no-margin text-center">
+        </div>
+
+        <div class="jumbotron no-margin text-center">
             <div class="container-fluid">
                 <h1 class="">Services</h1>
                 
@@ -42,20 +41,16 @@
                     {{ $app_name }} allows to monitor performance for users under your groups or just for yourself.
                 </div>
             </div>
-        </section>
-    </div>
+        </div>
 
-    <div class="bg-{{ $color or 'yelow' }}">
-        <section class=" no-margin text-center covered">
+        <div class="jumbotron no-margin text-center bg-{{ $color or 'yelow' }} disabled color-palette">
             <div class="container-fluid">
                 <h1 class="">{{ $app_name }}</h1>
                 <p>Process documentation? Collect data? Customize reports? Just ask for it. Get in contact with the System Administrator and together create what you need. Please log in to gain access to Dainsys!</p>
             </div>
-        </section>
-    </div>
+        </div>
 
-    <div>
-        <section class="no-margin text-center">
+        <div class="jumbotron no-margin text-center">
             <div class="container-fluid">
                 <h1 class="">Roles Based Access</h1>
                 @if ($user && $user->roles )
@@ -70,6 +65,6 @@
                     <p>Routes are limited by roles and permissions. Please Log In to gain access. </p>
                 @endif
             </div>
-        </section>
+        </div>
     </div>
 @endsection

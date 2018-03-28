@@ -7,12 +7,14 @@
         </tr>
     </thead>
     <tbody>
-        @foreach ($logins as $login)
-        <tr>
-            <td>{{ $login->employee->id }}</td>
-            <td>{{ $login->employee->full_name }}</td>
-            <td>{{ $login->login }}</td>
-        </tr>
+        @foreach ($employees as $employee)
+            @foreach ($employee->logins as $login)
+                <tr>
+                    <td>{{ $login->employee->id }}</td>
+                    <td>{{ $login->employee->full_name }}</td>
+                    <td>{{ $login->login }}</td>
+                </tr>
+            @endforeach
         @endforeach
     </tbody>
 </table>

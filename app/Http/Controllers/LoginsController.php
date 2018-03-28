@@ -24,12 +24,12 @@ class LoginsController extends Controller
      */
     public function index()
     {
-        $logins = Login::with('employee')
-            ->orderBy('employee_id')->orderBy('login')
-            ->paginate(100);
+        // $logins = Login::with('employee')
+        //     ->orderBy('employee_id')->orderBy('login')
+        //     ->paginate(100);
 
-        $employees = Employee::orderBy('first_name')->actives()->get()->pluck('fullName', 'id')->toArray();
-        $employees['%'] = '%*(All)';
+        $employees = Employee::select('id', 'first_name', 'second_first_name', 'last_name', 'second_last_name')
+            ->orderBy('first_name')->with('logins')->has('logins')->paginate(20);
 
         return view('logins.index', compact('logins', 'employees'));
     }
@@ -119,16 +119,12 @@ class LoginsController extends Controller
 
     public function toExcel(Request $request)
     {
-        $logins = Login::with('employee')
-            ->whereHas('employee', function ($query) use ($request) {
-                return $query->where('employee_id', 'like', $request->employee_id);
-            })
-            ->orderBy('employee_id')->orderBy('login')
-            ->get();
+        $employees = Employee::select('id', 'first_name', 'second_first_name', 'last_name', 'second_last_name')
+            ->orderBy('first_name')->with('logins')->has('logins')->get();
 
-        Excel::create('Logins', function ($excel) use ($logins) {
-            $excel->sheet('Logins', function ($sheet) use ($logins) {
-                $sheet->loadView('logins.partials.results-to-excel', compact('logins'));
+        Excel::create('Logins', function ($excel) use ($employees) {
+            $excel->sheet('Logins', function ($sheet) use ($employees) {
+                $sheet->loadView('logins.partials.results-to-excel', compact('employees'));
             });
         })->download();
     }

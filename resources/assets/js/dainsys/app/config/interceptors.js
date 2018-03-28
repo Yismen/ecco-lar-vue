@@ -8,10 +8,27 @@ export default {
     },
     response: function (response) {
         LoadingStore.commit('hide');
-    	switch (response.status){
-    		case 401:
-    			// User is no authorized.
-    			break;
+        switch (response.status) {
+            case 401:
+                // Internal server error.errors, most likely token error.errors
+                bootbox.confirm({
+                    message: "Either your session has expired or your request is unauthorized!",
+                    buttons: {
+                        confirm: {
+                            label: '<i class="fa fa-refresh"></i> Reload Window',
+                            className: 'btn-primary'
+                        },
+                        cancel: {
+                            label: 'Cancel',
+                            className: 'btn-default'
+                        }
+                    },
+                    callback: function (result) {
+                        if (result) {
+                            window.location.reload();
+                        }
+                    }
+                });
 
     		case 404:
                 // Route not found

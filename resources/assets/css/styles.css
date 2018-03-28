@@ -166,3 +166,8 @@ section {
       color: #bab3b2;
   }
 }
+
+.import-forms .box {
+    height: 290px;
+    overflow: overlay;
+}

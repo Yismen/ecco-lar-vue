@@ -47,7 +47,7 @@ elixir(function(mix) {
             nodeModules + '/select2/dist/css/select2.css',
             // nodeModules + '/morris.js/morris.css',
             nodeModules + '/summernote/dist/summernote.css',
-            'my-css-updates.css',
+            'styles.css',
         // 'btn-raised.css',
 	   ])
         .scripts([		

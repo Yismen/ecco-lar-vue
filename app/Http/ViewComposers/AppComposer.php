@@ -56,7 +56,7 @@ class AppComposer
             explode('-', $settings->skin) :
             explode('-', config('dainsys.layout_color'));
 
-        return count($skin) > 1 ?
+        return is_array($skin) && count($skin) > 1 ?
             $skin[1] :
             $skin;
     }

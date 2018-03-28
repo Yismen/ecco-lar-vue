@@ -23,7 +23,7 @@ class Login extends Model
      */
     public function getEmployeesListAttribute()
     {
-        $employees = Employee::orderBy('first_name')->actives()->get();
+        $employees = Employee::orderBy('first_name')->get();
 
         return $employees->pluck('fullName', 'id');
     }

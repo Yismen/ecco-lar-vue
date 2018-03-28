@@ -16,7 +16,7 @@ class RemoveSystemIdFromLoginsTable extends Migration
         if (Schema::hasColumn('logins', 'system_id')) {
             Schema::disableForeignKeyConstraints();
             Schema::table('logins', function (Blueprint $table) {
-                $table->dropForeign('logins_ibfk_2');
+                // $table->dropForeign('logins_ibfk_2');
                 $table->dropColumn('system_id');
             });
 
