@@ -86,7 +86,7 @@
                                 {
                                     position: 'right',  
                                     id: 'passing',
-                                    stacked: true ,
+                                    stacked: false ,
                                     gridLines: {
                                         display: false
                                     }                                 
