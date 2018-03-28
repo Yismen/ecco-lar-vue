@@ -18,7 +18,16 @@
 
                                         <div class="col-sm-3">
                                             <div class="form-group">
-                                                <button class="btn btn-primary" type="submit"><i class="fa fa-download"></i> Download</button>
+                                                <!-- Single button -->
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="fa fa-download"></i> Download <span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><button type="submit" class="btn btn-link form-control"> All</button></li>
+                                                    </ul>
+                                                </div>
+                                                
                                             </div>
                                         </div>
 
