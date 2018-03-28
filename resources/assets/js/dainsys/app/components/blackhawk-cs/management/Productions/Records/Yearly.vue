@@ -83,7 +83,7 @@
 
                 this.years.forEach(function(elem) {
                     vm.labels.push(elem.year);
-                    vm.records.push(elem.records.toFixed(0));
+                    vm.records.push(Number(elem.records.toFixed(0)));
                 });
 
                 return this.render();

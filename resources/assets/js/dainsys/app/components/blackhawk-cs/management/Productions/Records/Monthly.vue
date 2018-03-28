@@ -83,7 +83,7 @@
 
                 this.months.forEach(function(elem) {
                     vm.labels.push(elem.year + "-" + elem.month.substr(0, 3));
-                    vm.records.push(elem.records.toFixed(0));
+                    vm.records.push(Number(elem.records.toFixed(0)));
                 });
 
                 return this.render();

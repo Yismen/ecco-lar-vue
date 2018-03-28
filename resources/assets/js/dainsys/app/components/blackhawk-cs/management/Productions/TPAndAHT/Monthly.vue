@@ -28,14 +28,14 @@
                 let throughput = hours > 0 ? 
                     records / hours :
                     0;
-                return throughput.toFixed(2);
+                return Number(throughput.toFixed(2));
             },
 
             getATH(records, hours) {
                 let throughput = records > 0 ? 
                     hours * 60 / records :
                     0;
-                return throughput.toFixed(2);
+                return Number(throughput.toFixed(2));
             },
             render() {
                 if (typeof this.chart == 'object') {
