@@ -1,20 +1,21 @@
 <template>
     <div>
-        <div class="box box-success">
+        <div class="box box-warning">
             <div class="box-header with-border">
-                Yearly Utilization and Efficiency
+                Weekly Utilization and Efficiency
             </div>
             <div class="box-body">
-                <canvas id="utilizationAndEfficiencyYearlyChart"></canvas>
+                <canvas id="ussageWeeklyChart"></canvas>
             </div>
         </div>
     </div>    
 </template>
 
 <script>
+    import Ussage from './Ussage' 
     export default {
-        name: "BlackhawkCsManagementUtilizationAndEfficiency_Yearly",
-        props: ['years'],
+        name: "BlackhawkCsManagementUssage_Weekly",
+        props: ['weeks'],
         data() {
             return {
                 chart: '',
@@ -45,7 +46,7 @@
                 this.utilization.reverse()
                 this.efficiency.reverse()
 
-                let ctx = document.getElementById('utilizationAndEfficiencyYearlyChart').getContext('2d');
+                let ctx = document.getElementById('ussageWeeklyChart').getContext('2d');
                 let vm = this;
                 this.chart = new Chart(ctx, {
                     type: 'line',
@@ -54,18 +55,18 @@
                         labels: vm.labels,
                         datasets: [
                             {
-                                label: "Yearly Utilization",
+                                label: "Weekly Utilization",
                                 yAxisID: 'utilization',
-                                borderColor: 'rgba(46, 204, 113,.5)',
-                                backgroundColor: 'rgba(46, 204, 113,.5)',
+                                borderColor: 'rgba(211, 84, 0,.5)',
+                                backgroundColor: 'rgba(211, 84, 0,.5)',
                                 data: vm.utilization,
                                 fill: false
                             },
                             {
-                                label: "Yearly Efficiency",
+                                label: "Weekly Efficiency",
                                 yAxisID: 'efficiency',
-                                borderColor: 'rgba(46, 204, 113, 1.0)',
-                                backgroundColor: 'rgba(46, 204, 113, 1.0)',
+                                borderColor: 'rgba(211, 84, 0, 1.0)',
+                                backgroundColor: 'rgba(211, 84, 0, 1.0)',
                                 data: vm.efficiency,
                                 fill: false
                             }
@@ -78,7 +79,7 @@
                             display: false
                         },
                         tooltips: {
-                            intersect: false,
+                            intersect: true,
                              mode: 'index'
                         },
                         scales: {
@@ -108,17 +109,17 @@
             }
         },
         watch: {
-            years() {
+            weeks() {
                 this.labels = [];
                 this.utilization = [];
 
-                this.years.forEach(function(elem) {
-                    this.labels.push(elem.year);
+                this.weeks.forEach(function(elem) {
+                    this.labels.push(elem.year + "-" + elem.week);
                     this.utilization.push(
-                        this.getUtilization(elem)
+                        Ussage.utilization(elem.time_online, elem.time_in_chats, elem.email_sessions)
                     );
                     this.efficiency.push(
-                        this.getEfficiency(elem)
+                        Ussage.efficiency(elem.time_logged_in, elem.time_online)
                     )
                 }, this);
 
@@ -129,5 +130,8 @@
 </script>
 
 <style lang="css" scoped>
-
+    #ussageYearlyChart {
+        min-height: 200px;
+        max-height: 280px;
+    }
 </style>

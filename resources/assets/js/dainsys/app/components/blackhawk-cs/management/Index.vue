@@ -43,15 +43,15 @@
             </div>
 
             <div class="col-lg-4 col-sm-6">
-                <utilization-and-efficiency-weekly :weeks="production.weekly"></utilization-and-efficiency-weekly>
+                <ussage-weekly :weeks="production.weekly"></ussage-weekly>
             </div>
 
             <div class="col-lg-4 col-sm-6">
-                <utilization-and-efficiency-monthly :months="production.monthly"></utilization-and-efficiency-monthly>
+                <ussage-monthly :months="production.monthly"></ussage-monthly>
             </div>
 
             <div class="col-lg-4 col-sm-6">
-                <utilization-and-efficiency-yearly :years="production.yearly"></utilization-and-efficiency-yearly>
+                <ussage-yearly :years="production.yearly"></ussage-yearly>
             </div>
 
             <div class="col-lg-4 col-sm-6">
@@ -63,22 +63,12 @@
             <div class="col-lg-4 col-sm-6">
                 <qa-yearly :years="quality.yearly"></qa-yearly>
             </div>
-            <div class="col-lg-4 col-sm-6">
-                <errors-this-month :this_month="errors.this_month"></errors-this-month>
+            <div class="col-sm-6">
+                <errors-weekly :errors="errors.weekly"></errors-weekly>
             </div>
-            <div class="col-lg-4 col-sm-6">
-                <errors-last-month :last_month="errors.last_month"></errors-last-month>
+            <div class="col-sm-6">
+                <errors-monthly :errors="errors.monthly"></errors-monthly>
             </div>
-            <div class="col-lg-4 col-sm-6">
-                <errors-two-months-ago :two_months_ago="errors.two_months_ago"></errors-two-months-ago>
-            </div>
-            
-            Transactions (monthly, weekly, yearly) 
-            AHT  (line, monthly, weekly, yearly)
-            
-            Thruput (line, monthly, weekly, yearly)
-            
-            Utilization and Efficiency (line, monthly, weekly, yearly)
         </div>
     </div>    
 </template>
@@ -87,18 +77,17 @@
     import QaMonthly from './QA/Monthly'
     import QaWeekly from './QA/Weekly'
     import QaYearly from './QA/Yearly'
-    import ErrorsThisMonth from './Errors/ThisMonth'
-    import ErrorsLastMonth from './Errors/LastMonth'
-    import ErrorsTwoMonthsAgo from './Errors/TwoMonthsAgo'
+    import ErrorsWeekly from './Errors/Weekly'
+    import ErrorsMonthly from './Errors/Monthly'
     import RecordsMonthly from './Productions/Records/Monthly'
     import RecordsWeekly from './Productions/Records/Weekly'
     import RecordsYearly from './Productions/Records/Yearly'
     import TPAndAHTWeekly from './Productions/TPAndAHT/Weekly'
     import TPAndAHTMonthly from './Productions/TPAndAHT/Monthly'
     import TPAndAHTYearly from './Productions/TPAndAHT/Yearly'
-    import UtilizationAndEfficiencyWeekly from './Productions/UtilizationAndEfficiency/Weekly'
-    import UtilizationAndEfficiencyMonthly from './Productions/UtilizationAndEfficiency/Monthly'
-    import UtilizationAndEfficiencyYearly from './Productions/UtilizationAndEfficiency/Yearly'
+    import UssageWeekly from './Productions/Ussage/Weekly'
+    import UssageMonthly from './Productions/Ussage/Monthly'
+    import UssageYearly from './Productions/Ussage/Yearly'
 
     export default {
         name: "BlackHawkCsManagement_Index",
@@ -113,16 +102,16 @@
         components: {
             RecordsMonthly, RecordsWeekly, RecordsYearly, 
             TPAndAHTWeekly, TPAndAHTMonthly, TPAndAHTYearly, 
-            UtilizationAndEfficiencyWeekly, UtilizationAndEfficiencyMonthly, UtilizationAndEfficiencyYearly,
+            UssageWeekly, UssageMonthly, UssageYearly,
             QaMonthly, QaWeekly, QaYearly, 
-            ErrorsThisMonth, ErrorsLastMonth, ErrorsTwoMonthsAgo
+            ErrorsMonthly, ErrorsWeekly
         },
         created() {
             this.getData()
         },
         methods: {
             getData() {
-                this.$http.get('/admin/blackhawk-cs/api/management/dashboard?queue='+this.queue)
+                this.$http.get('/admin/blackhawk_cs_management/api/dashboard?queue='+this.queue)
                     .then(response => {
                         this.production = response.data.production;
                         this.quality = response.data.quality;

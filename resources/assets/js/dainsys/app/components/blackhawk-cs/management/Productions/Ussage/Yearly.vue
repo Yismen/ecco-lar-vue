@@ -1,20 +1,21 @@
 <template>
     <div>
-        <div class="box box-primary">
+        <div class="box box-success">
             <div class="box-header with-border">
-                Monthly Utilization and Efficiency
+                Yearly Utilization and Efficiency
             </div>
             <div class="box-body">
-                <canvas id="utilizationAndEfficiencyMonthlyChart"></canvas>
+                <canvas id="ussageYearlyChart"></canvas>
             </div>
         </div>
     </div>    
 </template>
 
 <script>
+    import Ussage from './Ussage' 
     export default {
-        name: "BlackhawkCsManagementUtilizationAndEfficiency_Monthly",
-        props: ['months'],
+        name: "BlackhawkCsManagementUssage_Yearly",
+        props: ['years'],
         data() {
             return {
                 chart: '',
@@ -45,7 +46,7 @@
                 this.utilization.reverse()
                 this.efficiency.reverse()
 
-                let ctx = document.getElementById('utilizationAndEfficiencyMonthlyChart').getContext('2d');
+                let ctx = document.getElementById('ussageYearlyChart').getContext('2d');
                 let vm = this;
                 this.chart = new Chart(ctx, {
                     type: 'line',
@@ -54,18 +55,18 @@
                         labels: vm.labels,
                         datasets: [
                             {
-                                label: "Monthly Utilization",
+                                label: "Yearly Utilization",
                                 yAxisID: 'utilization',
-                                borderColor: 'rgba(41, 128, 185,.5)',
-                                backgroundColor: 'rgba(41, 128, 185,.5)',
+                                borderColor: 'rgba(46, 204, 113,.5)',
+                                backgroundColor: 'rgba(46, 204, 113,.5)',
                                 data: vm.utilization,
                                 fill: false
                             },
                             {
-                                label: "Monthly Efficiency",
+                                label: "Yearly Efficiency",
                                 yAxisID: 'efficiency',
-                                borderColor: 'rgba(41, 128, 185, 1.0)',
-                                backgroundColor: 'rgba(41, 128, 185, 1.0)',
+                                borderColor: 'rgba(46, 204, 113, 1.0)',
+                                backgroundColor: 'rgba(46, 204, 113, 1.0)',
                                 data: vm.efficiency,
                                 fill: false
                             }
@@ -78,7 +79,7 @@
                             display: false
                         },
                         tooltips: {
-                            intersect: false,
+                            intersect: true,
                              mode: 'index'
                         },
                         scales: {
@@ -108,17 +109,17 @@
             }
         },
         watch: {
-            months() {
+            years() {
                 this.labels = [];
                 this.utilization = [];
 
-                this.months.forEach(function(elem) {
-                    this.labels.push(elem.year + "-" + elem.month.substr(0, 3));
+                this.years.forEach(function(elem) {
+                    this.labels.push(elem.year);
                     this.utilization.push(
-                        this.getUtilization(elem)
+                        Ussage.utilization(elem.time_online, elem.time_in_chats, elem.email_sessions)
                     );
                     this.efficiency.push(
-                        this.getEfficiency(elem)
+                        Ussage.efficiency(elem.time_logged_in, elem.time_online)
                     )
                 }, this);
 
@@ -129,5 +130,8 @@
 </script>
 
 <style lang="css" scoped>
-
+    #ussageYearlyChart {
+        min-height: 200px;
+        max-height: 280px;
+    }
 </style>

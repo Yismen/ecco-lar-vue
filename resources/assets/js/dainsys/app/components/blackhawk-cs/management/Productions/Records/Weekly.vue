@@ -54,7 +54,7 @@
                             display: false
                         },
                         tooltips: {
-                            intersect: false,
+                            intersect: true,
                              mode: 'index'
                         },
                         scales: {
@@ -83,7 +83,7 @@
 
                 this.weeks.forEach(function(elem) {
                     vm.labels.push(elem.year + "-" + elem.week);
-                    vm.records.push(Number(elem.records.toFixed(0)));
+                    vm.records.push(Number(elem.records));
                 });
 
                 return this.render();
@@ -93,5 +93,8 @@
 </script>
 
 <style lang="css" scoped>
-
+    #productionWeeklyChart {
+        min-height: 200px;
+        max-height: 280px;
+    }
 </style>

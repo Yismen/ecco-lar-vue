@@ -12,6 +12,7 @@
 </template>
 
 <script>
+    import TPandAHT from './TPandAHT'
     export default {
         name: "BlackhawkCsManagementTPAndAHT_Weekly",
         props: ['weeks'],
@@ -24,19 +25,6 @@
             }
         },
         methods: {
-            getThroughput(records, hours) {
-                let throughput = hours > 0 ? 
-                    records / hours :
-                    0;
-                return Number(throughput.toFixed(2));
-            },
-
-            getATH(records, hours) {
-                let throughput = records > 0 ? 
-                    hours * 60 / records :
-                    0;
-                return Number(throughput.toFixed(2));
-            },
             render() {
                 if (typeof this.chart == 'object') {
                     this.chart.destroy();                    
@@ -78,7 +66,7 @@
                             display: false
                         },
                         tooltips: {
-                            intersect: false,
+                            intersect: true,
                              mode: 'index'
                         },
                         scales: {
@@ -115,10 +103,10 @@
                 this.weeks.forEach(function(elem) {
                     this.labels.push(elem.year + "-" + elem.week);
                     this.throughput.push(
-                        this.getThroughput(elem.records, elem.time_logged_in)
+                        TPandAHT.tp(elem.records, elem.time_logged_in)
                     );
                     this.aht.push(
-                        this.getATH(elem.records, elem.production_time));
+                        TPandAHT.aht(elem.records, elem.production_time));
                 }, this);
 
                 return this.render();
@@ -128,5 +116,8 @@
 </script>
 
 <style lang="css" scoped>
-
+    #throughputAndAhtWeeklyChart {
+        min-height: 200px;
+        max-height: 280px;
+    }
 </style>

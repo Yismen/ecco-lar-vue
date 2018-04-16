@@ -9,6 +9,7 @@ use App\BlackhawkQascore;
 use App\BlackhawkQaErrors;
 use App\BlackhawkLobSummary;
 use App\BlackhawkPerformanceSummary;
+use App\Repositories\BlackHawk_CS\Statistic;
 
 class ImportController extends Controller
 {
@@ -22,9 +23,9 @@ class ImportController extends Controller
         $this->request = $request;
     }
 
-    public function index()
+    public function index(Statistic $statistic)
     {
-        return view('blackhawk-cs.imports.index');
+        return view('blackhawk-cs.imports.index', compact('statistic'));
     }
 
     public function qa(Request $request)

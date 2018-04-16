@@ -5,7 +5,7 @@
                 Weekly QA Scores
             </div>
             <div class="box-body">
-                <canvas id="weeklyChart"></canvas>
+                <canvas id="qaWeeklyChart"></canvas>
             </div>
         </div>
     </div>    
@@ -32,7 +32,7 @@
                 this.labels.reverse()
                 this.scores.reverse()
                 this.passing.reverse()
-                let ctx = document.getElementById('weeklyChart').getContext('2d');
+                let ctx = document.getElementById('qaWeeklyChart').getContext('2d');
                 let vm = this;
                 this.chart = new Chart(ctx, {
                     type: 'line',
@@ -71,7 +71,7 @@
                     options: {
                         legend: false,
                         tooltips: {
-                            intersect: false,
+                            intersect: true,
                              mode: 'index'
                         },
                         scales: {
@@ -122,5 +122,8 @@
 </script>
 
 <style lang="css" scoped>
-
+    #qaWeeklyChart {
+        min-height: 200px;
+        max-height: 280px;
+    }
 </style>

@@ -20,6 +20,11 @@
         </div>
         
     {!! Form::close() !!}   
-    
+        
+    <div class="box-body">
+        
+        @include('blackhawk-cs.imports.dates-table', ['route' => '/admin/blackhawk-cs/qa/delete', 'resource' => $statistic->qa_dates])
+        
+    </div>
     
 </div>

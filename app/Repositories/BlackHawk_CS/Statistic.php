@@ -22,23 +22,31 @@ class Statistic
         $this->performance_dates = $this->performanceDates();
     }
 
+    private function query($model)
+    {
+        return $model->selectRaw('date, count(date) as count')
+            ->groupBy('date')
+            ->latest('date')
+            ->paginate(10);
+    }
+
     public function qaDates()
     {
-        return BlackhawkQascore::select('date')->groupBy('date')->latest('date')->take(10)->get();
+        return $this->query(new BlackhawkQascore());
     }
 
     public function qaErrorDates()
     {
-        return BlackhawkQaErrors::select('date')->groupBy('date')->latest('date')->take(10)->get();
+        return $this->query(new BlackhawkQaErrors());
     }
 
     public function lobDates()
     {
-        return BlackhawkLobSummary::select('date')->groupBy('date')->latest('date')->take(10)->get();
+        return $this->query(new BlackhawkLobSummary());
     }
 
     public function performanceDates()
     {
-        return BlackhawkPerformanceSummary::select('date')->groupBy('date')->latest('date')->take(10)->get();
+        return $this->query(new BlackhawkPerformanceSummary());
     }
 }

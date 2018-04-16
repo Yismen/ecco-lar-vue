@@ -1,11 +1,10 @@
 <?php
 
-Route::get('blackhawk-cs/statistic', 'BlackHawkCS\StatisticController@index');
-Route::get('blackhawk-cs/management', 'BlackHawkCS\ManagementController@index');
-Route::get('blackhawk-cs/api/management/dashboard', 'BlackHawkCS\ManagementController@dashboard');
+Route::get('blackhawk_cs_management', 'BlackHawkCS\ManagementController@index');
+Route::get('blackhawk_cs_management/api/dashboard', 'BlackHawkCS\ManagementController@dashboard');
 
-Route::get('blackhawk-cs/import', 'BlackHawkCS\ImportController@index');
-Route::post('blackhawk-cs/import/qa', 'BlackHawkCS\ImportController@qa')->name('import-qa');
-Route::post('blackhawk-cs/import/qa-errors', 'BlackHawkCS\ImportController@qaErrors')->name('import-qa-errors');
-Route::post('blackhawk-cs/import/lob', 'BlackHawkCS\ImportController@lob')->name('import-lob-summary');
-Route::post('blackhawk-cs/import/performance', 'BlackHawkCS\ImportController@performance')->name('import-performance');
+Route::get('import_blackhawk_cs_data', 'BlackHawkCS\ImportController@index');
+Route::post('import_blackhawk_cs_data/qa', 'BlackHawkCS\ImportController@qa')->name('import-qa');
+Route::post('import_blackhawk_cs_data/qa-errors', 'BlackHawkCS\ImportController@qaErrors')->name('import-qa-errors');
+Route::post('import_blackhawk_cs_data/lob', 'BlackHawkCS\ImportController@lob')->name('import-lob-summary');
+Route::post('import_blackhawk_cs_data/performance', 'BlackHawkCS\ImportController@performance')->name('import-performance');

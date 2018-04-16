@@ -5,7 +5,7 @@
                 Monthly QA Scores
             </div>
             <div class="box-body">
-                <canvas id="monthlyChart"></canvas>
+                <canvas id="qaMonthlyChart"></canvas>
             </div>
         </div>
     </div>    
@@ -32,7 +32,7 @@
                 this.labels.reverse()
                 this.scores.reverse()
                 this.passing.reverse()
-                let ctx = document.getElementById('monthlyChart').getContext('2d');
+                let ctx = document.getElementById('qaMonthlyChart').getContext('2d');
                 let vm = this;
                 this.chart = new Chart(ctx, {
                     type: 'line',
@@ -73,7 +73,7 @@
                             display: false
                         },
                         tooltips: {
-                            intersect: false,
+                            intersect: true,
                              mode: 'index'
                         },
                         scales: {
@@ -124,5 +124,8 @@
 </script>
 
 <style lang="css" scoped>
-
+    #qaMonthlyChart {
+        min-height: 200px;
+        max-height: 280px;
+    }
 </style>

@@ -21,5 +21,11 @@
 
         
         {!! Form::close() !!}
+        
+    <div class="box-body">
+        
+        @include('blackhawk-cs.imports.dates-table', ['route' => '/admin/blackhawk-cs/lob/delete', 'resource' => $statistic->lob_dates])
+        
+    </div>
     
 </div>
