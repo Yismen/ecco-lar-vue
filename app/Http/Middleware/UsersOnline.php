@@ -16,10 +16,7 @@ class UsersOnline
      * @return mixed
      */
     public function handle($request, Closure $next)
-    {        
-        Log::error(['server' => $_SERVER]);
-        
-        
+    {
         if (auth()->check()) {
             Cache::put('online-user-' . auth()->user()->id, true, 10);
         }
