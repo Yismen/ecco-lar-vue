@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 
 class UsersOnline
 {
@@ -15,9 +16,12 @@ class UsersOnline
      * @return mixed
      */
     public function handle($request, Closure $next)
-    {
+    {        
+        Log::error(['server' => $_SERVER]);
+        
+        
         if (auth()->check()) {
-           Cache::put('online-user-'.auth()->user()->id, true, 10);
+            Cache::put('online-user-' . auth()->user()->id, true, 10);
         }
         return $next($request);
     }
