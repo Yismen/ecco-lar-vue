@@ -2,51 +2,38 @@
     <div>
         <div class="box box-success">
             <div class="box-header with-border">
-                Yearly Utilization and Efficiency
+                Daily TP and AHT
             </div>
             <div class="box-body">
-                <canvas id="ussageYearlyChart"></canvas>
+                <canvas id="throughputAndAhtDailyChart"></canvas>
             </div>
         </div>
     </div>    
 </template>
 
 <script>
-    import Ussage from './Ussage' 
+    import TPandAHT from './TPandAHT'
     export default {
-        name: "BlackhawkCsManagementUssage_Yearly",
-        props: ['years'],
+        name: "BlackhawkCsManagementTPAndAHT_Daily",
+        props: ['days'],
         data() {
             return {
                 chart: '',
                 labels: [],
-                utilization: [],
-                efficiency: [],
+                throughput: [],
+                aht: [],
             }
         },
         methods: {
-            getUtilization(data) {
-                let utilization = data.time_online > 0 ? 
-                    ((data.email_sessions * 6 / 60) + data.time_in_chats) / data.time_online * 100 :
-                    0;
-                return utilization.toFixed(2);
-            },
-
-            getEfficiency(data) {
-                let efficiency = data.time_logged_in > 0 ? 
-                    data.time_online / data.time_logged_in * 100 :
-                    0;
-                return efficiency.toFixed(2);
-            },
             render() {
                 if (typeof this.chart == 'object') {
                     this.chart.destroy();                    
                 }
                 this.labels.reverse()
-                this.utilization.reverse()
-                this.efficiency.reverse()
+                this.throughput.reverse()
+                this.aht.reverse()
 
-                let ctx = document.getElementById('ussageYearlyChart').getContext('2d');
+                let ctx = document.getElementById('throughputAndAhtDailyChart').getContext('2d');
                 let vm = this;
                 this.chart = new Chart(ctx, {
                     type: 'line',
@@ -55,19 +42,19 @@
                         labels: vm.labels,
                         datasets: [
                             {
-                                label: "Yearly Utilization",
-                                yAxisID: 'utilization',
-                                borderColor: 'rgba(46, 204, 113,.5)',
-                                backgroundColor: 'rgba(46, 204, 113,.5)',
-                                data: vm.utilization,
+                                label: "Daily TP",
+                                yAxisID: 'throughput',
+                                borderColor: 'rgba(39, 174, 96,.5)',
+                                backgroundColor: 'rgba(39, 174, 96,.5)',
+                                data: vm.throughput,
                                 fill: false
                             },
                             {
-                                label: "Yearly Efficiency",
-                                yAxisID: 'efficiency',
-                                borderColor: 'rgba(46, 204, 113, 1.0)',
-                                backgroundColor: 'rgba(46, 204, 113, 1.0)',
-                                data: vm.efficiency,
+                                label: "Daily AHT",
+                                yAxisID: 'aht',
+                                borderColor: 'rgba(39, 174, 96, 1.0)',
+                                backgroundColor: 'rgba(39, 174, 96, 1.0)',
+                                data: vm.aht,
                                 fill: false
                             }
                         ]
@@ -86,13 +73,13 @@
                             yAxes: [
                                 {
                                     position: 'left',
-                                    id: 'utilization',
+                                    id: 'throughput',
                                     stacked: false
                                 },                                
                                 {
                                     position: 'right',
-                                    id: 'efficiency',
-                                    stacked: true,
+                                    id: 'aht',
+                                    stacked: false,
                                     gridLines: {
                                         display: false
                                     }  
@@ -109,18 +96,17 @@
             }
         },
         watch: {
-            years() {
+            days() {
                 this.labels = [];
-                this.utilization = [];
+                this.throughput = [];
 
-                this.years.forEach(function(elem) {
-                    this.labels.push(elem.year);
-                    this.utilization.push(
-                        Ussage.utilization(elem.time_online, elem.time_in_chats, elem.email_sessions)
+                this.days.forEach(function(elem) {
+                    this.labels.push(elem.date);
+                    this.throughput.push(
+                        TPandAHT.tp(elem.records, elem.time_logged_in)
                     );
-                    this.efficiency.push(
-                        Ussage.efficiency(elem.time_logged_in, elem.time_online)
-                    )
+                    this.aht.push(
+                        TPandAHT.aht(elem.records, elem.production_time));
                 }, this);
 
                 return this.render();
@@ -130,7 +116,7 @@
 </script>
 
 <style lang="css" scoped>
-    #ussageYearlyChart {
+    #throughputAndAhtDailyChart {
         min-height: 200px;
         max-height: 280px;
     }

@@ -8,13 +8,20 @@
     </thead>
     <tbody>
         @foreach ($employees as $employee)
-            @foreach ($employee->logins as $login)
+            @if ($employee->logins->isEmpty()))            
                 <tr>
-                    <td>{{ $login->employee->id }}</td>
-                    <td>{{ $login->employee->full_name }}</td>
-                    <td>{{ $login->login }}</td>
+                    <td>{{ $employee->id }}</td>
+                    <td>{{ $employee->full_name }}</td>
                 </tr>
-            @endforeach
+            @else
+                @foreach ($employee->logins as $login)
+                    <tr>
+                        <td>{{ $login->employee->id }}</td>
+                        <td>{{ $login->employee->full_name }}</td>
+                        <td>{{ $login->login }}</td>
+                    </tr>
+                @endforeach
+            @endif
         @endforeach
     </tbody>
 </table>

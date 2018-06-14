@@ -18,51 +18,52 @@
 
             <br>
 
+            <!-- Records -->
+            <div class="col-lg-4 col-sm-6">
+                <records-daily :days="production.daily"></records-daily>
+            </div>
             <div class="col-lg-4 col-sm-6">
                 <records-weekly :weeks="production.weekly"></records-weekly>
             </div>
-
             <div class="col-lg-4 col-sm-6">
                 <records-monthly :months="production.monthly"></records-monthly>
             </div>
 
+            <!-- TP and AHT -->
             <div class="col-lg-4 col-sm-6">
-                <records-yearly :years="production.yearly"></records-yearly>
-            </div>            
-
+                <t-p-and-a-h-t-daily :days="production.daily"></t-p-and-a-h-t-daily>
+            </div>   
             <div class="col-lg-4 col-sm-6">
                 <t-p-and-a-h-t-weekly :weeks="production.weekly"></t-p-and-a-h-t-weekly>
-            </div>      
-
+            </div>     
             <div class="col-lg-4 col-sm-6">
                 <t-p-and-a-h-t-monthly :months="production.monthly"></t-p-and-a-h-t-monthly>
             </div>
 
+            <!-- Ussage -->
             <div class="col-lg-4 col-sm-6">
-                <t-p-and-a-h-t-yearly :years="production.yearly"></t-p-and-a-h-t-yearly>
-            </div>
-
-            <div class="col-lg-4 col-sm-6">
+                <ussage-daily :days="production.daily"></ussage-daily>
+            </div><div class="col-lg-4 col-sm-6">
                 <ussage-weekly :weeks="production.weekly"></ussage-weekly>
             </div>
-
             <div class="col-lg-4 col-sm-6">
                 <ussage-monthly :months="production.monthly"></ussage-monthly>
             </div>
 
+            <!-- QA Scores -->
             <div class="col-lg-4 col-sm-6">
-                <ussage-yearly :years="production.yearly"></ussage-yearly>
+                <qa-daily :days="quality.daily"></qa-daily>
             </div>
-
             <div class="col-lg-4 col-sm-6">
                 <qa-weekly :weeks="quality.weekly"></qa-weekly>
             </div>
             <div class="col-lg-4 col-sm-6">
                 <qa-monthly :months="quality.monthly"></qa-monthly>
             </div>
-            <div class="col-lg-4 col-sm-6">
-                <qa-yearly :years="quality.yearly"></qa-yearly>
-            </div>
+            <!-- QA Errors -->
+            <!-- <div class="col-sm-6">
+                <errors-daily :errors="errors.daily"></errors-daily>
+            </div> -->
             <div class="col-sm-6">
                 <errors-weekly :errors="errors.weekly"></errors-weekly>
             </div>
@@ -76,18 +77,18 @@
 <script>
     import QaMonthly from './QA/Monthly'
     import QaWeekly from './QA/Weekly'
-    import QaYearly from './QA/Yearly'
+    import QaDaily from './QA/Daily'
     import ErrorsWeekly from './Errors/Weekly'
     import ErrorsMonthly from './Errors/Monthly'
     import RecordsMonthly from './Productions/Records/Monthly'
     import RecordsWeekly from './Productions/Records/Weekly'
-    import RecordsYearly from './Productions/Records/Yearly'
+    import RecordsDaily from './Productions/Records/Daily'
     import TPAndAHTWeekly from './Productions/TPAndAHT/Weekly'
     import TPAndAHTMonthly from './Productions/TPAndAHT/Monthly'
-    import TPAndAHTYearly from './Productions/TPAndAHT/Yearly'
+    import TPAndAHTDaily from './Productions/TPAndAHT/Daily'
     import UssageWeekly from './Productions/Ussage/Weekly'
     import UssageMonthly from './Productions/Ussage/Monthly'
-    import UssageYearly from './Productions/Ussage/Yearly'
+    import UssageDaily from './Productions/Ussage/Daily'
 
     export default {
         name: "BlackHawkCsManagement_Index",
@@ -100,10 +101,10 @@
             }
         },
         components: {
-            RecordsMonthly, RecordsWeekly, RecordsYearly, 
-            TPAndAHTWeekly, TPAndAHTMonthly, TPAndAHTYearly, 
-            UssageWeekly, UssageMonthly, UssageYearly,
-            QaMonthly, QaWeekly, QaYearly, 
+            RecordsMonthly, RecordsWeekly, RecordsDaily, 
+            TPAndAHTWeekly, TPAndAHTMonthly, TPAndAHTDaily, 
+            UssageWeekly, UssageMonthly, UssageDaily,
+            QaMonthly, QaWeekly, QaDaily, 
             ErrorsMonthly, ErrorsWeekly
         },
         created() {
@@ -111,7 +112,7 @@
         },
         methods: {
             getData() {
-                this.$http.get('/admin/blackhawk_cs_management/api/dashboard?queue='+this.queue)
+                this.$http.get('/admin/blackhawk_cs/api/dashboard/management?queue='+this.queue)
                     .then(response => {
                         this.production = response.data.production;
                         this.quality = response.data.quality;

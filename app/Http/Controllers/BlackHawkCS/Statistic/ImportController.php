@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\BlackHawkCS;
+namespace App\Http\Controllers\BlackHawkCS\Statistic;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -19,6 +19,8 @@ class ImportController extends Controller
 
     public function __construct(Excel $excel, Request $request)
     {
+        $this->middleware('authorize:import-blackhawk-cs-data');
+        
         $this->excel = $excel;
         $this->request = $request;
     }

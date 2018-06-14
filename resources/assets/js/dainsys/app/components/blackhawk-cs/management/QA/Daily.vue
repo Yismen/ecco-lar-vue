@@ -2,10 +2,10 @@
     <div>
         <div class="box box-success">
             <div class="box-header with-border">
-                Yearly QA Scores
+                Daily QA Scores
             </div>
             <div class="box-body">
-                <canvas id="qaYearlyChart"></canvas>
+                <canvas id="qaDailyChart"></canvas>
             </div>
         </div>
     </div>    
@@ -13,8 +13,8 @@
 
 <script>
     export default {
-        name: "BlackhawkCsManagementQa_Yearly",
-        props: ['years'],
+        name: "BlackhawkCsManagementQa_Daily",
+        props: ['days'],
         data() {
             return {
                 chart: '',
@@ -32,7 +32,7 @@
                 this.labels.reverse()
                 this.scores.reverse()
                 this.passing.reverse()
-                let ctx = document.getElementById('qaYearlyChart').getContext('2d');
+                let ctx = document.getElementById('qaDailyChart').getContext('2d');
                 let vm = this;
                 this.chart = new Chart(ctx, {
                     type: 'line',
@@ -49,7 +49,7 @@
                                 data: vm.goals
                             },
                             {
-                                label: "Yearly Scores",
+                                label: "Daily Scores",
                                 yAxisID: 'scores',
                                 backgroundColor: 'rgba(39, 174, 96,1.0)',
                                 borderColor: 'rgba(39, 174, 96,1.0)',
@@ -57,7 +57,7 @@
                                 fill: false
                             },
                             {
-                                label: "Yearly Passing",
+                                label: "Daily Passing",
                                 yAxisID: 'passing',
                                 backgroundColor: 'rgba(46, 204, 113, .8)',
                                 borderColor: 'rgba(46, 204, 113, .8)',
@@ -101,15 +101,15 @@
             }
         },
         watch: {
-            years() {
+            days() {
                 this.labels = [];
                 this.scores = [];
                 this.goals = [];
                 this.passing = [];
                 let vm = this;     
 
-                this.years.forEach(function(elem) {
-                    vm.labels.push(elem.year);
+                this.days.forEach(function(elem) {
+                    vm.labels.push(elem.date);
                     vm.scores.push(elem.score);
                     vm.goals.push(93);
                     vm.passing.push(elem.passing * 100);
@@ -122,7 +122,7 @@
 </script>
 
 <style lang="css" scoped>
-    #qaYearlyChart {
+    #qaDailyChart {
         min-height: 200px;
         max-height: 280px;
     }

@@ -9,7 +9,7 @@ class Scores
 {
     public $monthly;
     public $weekly;
-    public $yearly;
+    public $daily;
     
     private $request;
     private $take;
@@ -20,14 +20,14 @@ class Scores
         $this->take = $take;
         $this->monthly = $this->monthly();
         $this->weekly = $this->weekly();
-        $this->yearly = $this->yearly();
+        $this->daily = $this->daily();
     }
 
     private function query()
     {
         $query = BlackhawkQascore::orderBy('date', 'DESC')
             ->take($this->take)            
-            ->selectRaw('year(date) as year, avg(qa_score) as score, avg(passing) as passing');
+            ->selectRaw('year(date) as year, date, avg(qa_score) as score, avg(passing) as passing');
 
         if ($this->request->queue) {
             $query->where('queue', 'like', "%{$this->request->queue}%");
@@ -52,10 +52,10 @@ class Scores
             ->get();
     }
 
-    private function yearly()
+    private function daily()
     {
         return $this->query()
-            ->groupBy('year')
+            ->groupBy('date')
             ->get();
     }
 }

@@ -10,11 +10,10 @@ class Production
 {
     public $monthly;
     public $weekly;
-    public $yearly;
     public $daily;
-    public $weekdays;
-    public $weekdays2;
-    public $weekdays_previous_week;
+    // public $weekdays;
+    // public $weekdays2;
+    // public $weekdays_previous_week;
     
     private $request;
     private $take;
@@ -25,11 +24,7 @@ class Production
         $this->take = $take;
         $this->monthly = $this->monthly();
         $this->weekly = $this->weekly();
-        $this->yearly = $this->yearly();
         $this->daily = $this->daily();
-        $this->weekdays = $this->weekDays();
-        $this->weekdays_previous_week = $this->weekDaysPreviousWeek();
-        $this->weekdays2 = array_merge($this->weekDaysPreviousWeek()->toArray(), $this->weekDays()->toArray()) ;
     }
 
     private function query()
@@ -39,8 +34,7 @@ class Production
         ->selectRaw('
             year(date) as year, 
             sum(time_logged_in) as time_logged_in,
-            sum(time_online) as time_online,
-            (sum(chat_sessions) + sum(email_sessions)) as records,
+            sum(time_online) as time_online,            
             (sum(time_in_chats) + sum(time_in_emails)) as production_time,
             sum(chat_sessions) as chat_sessions,
             sum(email_sessions) as email_sessions,
@@ -48,6 +42,14 @@ class Production
             sum(time_in_emails) as time_in_emails,
             sum(chat_wrap_up_time) as chat_wrap_up_time
         ');
+        
+        if ($this->request->queue && $this->request->queue == 'chat') {
+            $query->selectRaw('(sum(chat_sessions) ) as records');
+        } else if ($this->request->queue && $this->request->queue == 'email') {
+            $query->selectRaw('(sum(email_sessions)) as records');
+        } else {
+            $query->selectRaw('(sum(chat_sessions) + sum(email_sessions)) as records');
+        }
 
         return $query;
     }
@@ -65,13 +67,6 @@ class Production
         return $this->query()
             ->selectRaw('weekofyear(date) as week')
             ->groupBy('year', 'week')
-            ->get();
-    }
-
-    private function yearly()
-    {
-        return $this->query()
-            ->groupBy('year')
             ->get();
     }
 
@@ -102,6 +97,4 @@ class Production
             ->whereRaw('WEEKOFYEAR(date) = '.$week)
             ->get();
     }
-
-
 }

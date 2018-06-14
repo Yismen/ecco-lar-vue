@@ -2,10 +2,10 @@
     <div>
         <div class="box box-success">
             <div class="box-header with-border">
-                Yearly Records
+                Daily Records
             </div>
             <div class="box-body">
-                <canvas id="productionYearlyChart"></canvas>
+                <canvas id="productionDailyChart"></canvas>
             </div>
         </div>
     </div>    
@@ -13,8 +13,8 @@
 
 <script>
     export default {
-        name: "BlackhawkCsManagementRecords_Yearly",
-        props: ['years'],
+        name: "BlackhawkCsManagementRecords_Daily",
+        props: ['days'],
         data() {
             return {
                 chart: '',
@@ -29,7 +29,7 @@
                 }
                 this.labels.reverse()
                 this.records.reverse()
-                let ctx = document.getElementById('productionYearlyChart').getContext('2d');
+                let ctx = document.getElementById('productionDailyChart').getContext('2d');
                 let vm = this;
                 this.chart = new Chart(ctx, {
                     type: 'line',
@@ -38,7 +38,7 @@
                         labels: vm.labels,
                         datasets: [
                             {
-                                label: "Yearly Records",
+                                label: "Daily Records",
                                 yAxisID: 'records',
                                 backgroundColor: 'rgba(39, 174, 96, .25)',
                                 borderColor: 'rgba(39, 174, 96, 1)',
@@ -76,13 +76,13 @@
             }
         },
         watch: {
-            years() {
+            days() {
                 this.labels = [];
                 this.records = [];
                 let vm = this;     
 
-                this.years.forEach(function(elem) {
-                    vm.labels.push(elem.year);
+                this.days.forEach(function(elem) {
+                    vm.labels.push(elem.date);
                     vm.records.push(Number(elem.records));
                 });
 
@@ -93,7 +93,7 @@
 </script>
 
 <style lang="css" scoped>
-    #productionYearlyChart {
+    #productionDailyChart {
         min-height: 200px;
         max-height: 280px;
     }

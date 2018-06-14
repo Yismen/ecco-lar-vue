@@ -130,7 +130,7 @@
 </script>
 
 <style lang="css" scoped>
-    #ussageYearlyChart {
+    #ussageWeeklyChart {
         min-height: 200px;
         max-height: 280px;
     }

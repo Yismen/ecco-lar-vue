@@ -120,8 +120,8 @@ class LoginsController extends Controller
     public function toExcel(Request $request)
     {
         $employees = Employee::select('id', 'first_name', 'second_first_name', 'last_name', 'second_last_name')
-            ->orderBy('first_name')->with('logins')->has('logins')->get();
-
+            ->orderBy('first_name')->with('logins')->get();
+            
         Excel::create('Logins', function ($excel) use ($employees) {
             $excel->sheet('Logins', function ($sheet) use ($employees) {
                 $sheet->loadView('logins.partials.results-to-excel', compact('employees'));
