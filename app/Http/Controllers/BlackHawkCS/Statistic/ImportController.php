@@ -39,7 +39,7 @@ class ImportController extends Controller
 
         $data = $this->handleImport($request->file('qa_files'), new BlackhawkQascore, 'qa_summary');
 
-        return redirect('/admin/blackhawk-cs/import')
+        return redirect('/admin/bhcs_statistic')
             ->withData($data)
             ->withErrors($this->errors);
     }
@@ -53,7 +53,7 @@ class ImportController extends Controller
 
         $data = $this->handleImport($request->file('qa_errors_files'), new BlackhawkQaErrors, 'qa_errors');
 
-        return redirect('/admin/blackhawk-cs/import')
+        return redirect('/admin/bhcs_statistic')
             ->withData($data)
             ->withErrors($this->errors);
     }
@@ -67,7 +67,7 @@ class ImportController extends Controller
 
         $data = $this->handleImport($this->request->file('lob_files'), new BlackhawkLobSummary, 'LOB_summary');
 
-        return redirect('/admin/blackhawk-cs/import')
+        return redirect('/admin/bhcs_statistic')
             ->withData($data)
             ->withErrors($this->errors);
     }
@@ -80,7 +80,7 @@ class ImportController extends Controller
         ]);
         $data = $this->handleImport($this->request->file('performance_files'), new BlackhawkPerformanceSummary, 'performance_summary');
 
-        return redirect('/admin/blackhawk-cs/import')
+        return redirect('/admin/bhcs_statistic')
             ->withData($data)
             ->withErrors($this->errors);
     }
