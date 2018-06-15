@@ -11,12 +11,11 @@ class Weekly
     public $this_week;
     public $last_week;
     public $two_weeks_ago;
-
     private $request;
 
-    public function __construct()
+    public function __construct(Request $request)
     {
-        $this->request = new Request;
+        $this->request = $request->all();
         $this->this_week = $this->thisWeek();
         $this->last_week = $this->lastWeek();
         $this->two_weeks_ago = $this->twoWeeksAgo();
@@ -29,8 +28,8 @@ class Weekly
             ->whereBetween('date', [$from, $to])
             ->groupBy('error_field', 'week');
 
-        if ($this->request->queue) {
-            $query->where('queue', 'like', "%{$this->request->queue}%");
+        if (isset($this->request['queue'])) {
+            $query->where('queue', 'like', "%{$this->request['queue']}%");
         }
 
         return $query;

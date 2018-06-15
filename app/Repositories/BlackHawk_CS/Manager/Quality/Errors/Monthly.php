@@ -11,12 +11,11 @@ class Monthly
     public $this_month;
     public $last_month;
     public $two_months_ago;
-
     private $request;
 
-    public function __construct()
+    public function __construct(Request $request)
     {
-        $this->request = new Request;
+        $this->request = $request->all();
         $this->this_month = $this->thisMonth();
         $this->last_month = $this->lastMonth();
         $this->two_months_ago = $this->twoMonthsAgo();
@@ -30,8 +29,8 @@ class Monthly
             ->whereMonth('date', $month)
             ->groupBy('error_field', 'year', 'month');
 
-        if ($this->request->queue) {
-            $query->where('queue', 'like', "%{$this->request->queue}%");
+        if (isset($this->request['queue'])) {
+            $query->where('queue', 'like', "%{$this->request['queue']}%");
         }
 
         return $query;
