@@ -17,12 +17,9 @@ class CreateLoginsTable extends Migration {
 			$table->increments('id');
 			$table->string('login');
 			$table->integer('employee_id')->unsigned()->index();
-			$table->integer('system_id')->unsigned()->index();
 			$table->timestamps();
 
 			$table->foreign('employee_id')->references('id')->on('employees')
-				->onDelete('cascade')->onUpdate('cascade');
-			$table->foreign('system_id')->references('id')->on('systems')
 				->onDelete('cascade')->onUpdate('cascade');
 		});
 	}

@@ -5,13 +5,13 @@ export class Container {
     }
 
     has(name) {
-        return this.box.[name] ? true : false;
+        return this.box[name] ? true : false;
     }
 
     resolve(name, def) {
         if (this.has(name)) {
-            return this.box.filter(function(elem) {
-                elem.name == name
+            returnthis.box.filter(function(elem) {
+                elem.name == name;
             }
         }
         return def;
