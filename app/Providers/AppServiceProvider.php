@@ -14,7 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Validator::extend('phone', function($attribute, $value, $parameters, $validator) {
+        Validator::extend('phone', function ($attribute, $value, $parameters, $validator) {
             if (!empty($value)) {
                 $remove = [' ', '_', '-', '(', ')', '.', '+'];
                 $digits = str_replace($remove, '', $value);
@@ -23,7 +23,7 @@ class AppServiceProvider extends ServiceProvider
                         return true;
                     }
                 }
-                if (strlen($digits) ==10 || strlen($digits) == 11) {
+                if (strlen($digits) == 10 || strlen($digits) == 11) {
                     return true;
                 }
             }
@@ -42,7 +42,7 @@ class AppServiceProvider extends ServiceProvider
          * Local providers here.
          */
         if ($this->app->environment() == 'local') {
-            $this->app->register('Laracasts\Generators\GeneratorsServiceProvider');
+            // $this->app->register('Laracasts\Generators\GeneratorsServiceProvider');
         }
     }
 }

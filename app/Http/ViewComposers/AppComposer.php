@@ -36,7 +36,7 @@ class AppComposer
                 return $query->orderBy('display_name');
             }])
             ->with('profile')
-            ->with('settings')
+            // ->with('settings')
             ->find(Auth::id());
         }
 
@@ -52,7 +52,7 @@ class AppComposer
     {
         $settings = $this->settings();
 
-        $skin = $settings && $settings->skin ?
+        $skin = $settings && isset($settings->skin) ?
             explode('-', $settings->skin) :
             explode('-', config('dainsys.layout_color'));
 

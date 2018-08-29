@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
 <html style="height: auto;">
     <head>
         <meta charset="utf-8">
@@ -12,10 +8,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <title>Ecco | {{ $page_header or 'Admin Header' }}</title>
 
-        <link rel="stylesheet" type="text/css" href="{{ elixir('css/all.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ mix('css/app.css') }}">
         <!-- Site Favicon -->
         <link rel="shortcut icon" href="{{ asset('images/favicon/favicon.ico') }}">
-        {{-- <meta name="msvalidate.01" content="FF0D79C53170EBEB62609685F3D5A21C" /> --}}
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -45,10 +40,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
     |               | sidebar-mini                            |
     |*********************************************************|
     -->
-    <body class="{{ $settings->skin or config('dainsys.layout_color', 'skin-yellow') }} 
-        {{ $settings->layout or config('dainsys.layout', 'default') }} 
-        {{ $settings->sidebar_collapse or config('dainsys.sidebar_collapse', '')  }}
-        {{ $settings->sidebar_mini or config('dainsys.sidebar_mini', '') }}" 
+    <body class="{{{ $settings->skin or config('dainsys.layout_color', 'skin-yellow') }}} 
+        
+        {{{ $settings->layout or config('dainsys.layout', 'default') }}} 
+        {{{ $settings->sidebar_collapse or config('dainsys.sidebar_collapse', '')  }}}
+        {{{ $settings->sidebar_mini or config('dainsys.sidebar_mini', '') }}}" 
         style="height: auto;">  
         <div class="wrapper" style="height: auto;">
             <!-- Main Header -->
@@ -120,7 +116,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
         <!-- ./wrapper -->
         <!-- REQUIRED JS SCRIPTS -->
-        <script src="{{ elixir('js/all.js') }}"></script>
+        <script src="{{ mix('js/app.js') }}"></script>
         <!-- Optionally, you can add Slimscroll and FastClick plugins.
         Both of these plugins are recommended to enhance the
         user experience. Slimscroll is required when using the

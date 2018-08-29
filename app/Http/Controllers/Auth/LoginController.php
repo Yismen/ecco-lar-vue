@@ -42,23 +42,6 @@ class LoginController extends Controller
         $this->middleware('guest', ['except' => 'logout']);
     }
 
-    /**
-     * Override Redirect to user to path.
-     *
-     * @return void
-     */
-    // public function redirectTo()
-    // {
-    //     if ((auth()->user()->settings) {
-    //         try {
-    //             redirect()->url(auth()->user()->settings()->route);
-    //         } catch(\Exeption $e) {
-    //             throw $e;
-    //         }
-    //     }
-    //     dd(auth()->user());
-    // }
-
     public function logout(Request $request)
     {
         $this->guard()->logout();

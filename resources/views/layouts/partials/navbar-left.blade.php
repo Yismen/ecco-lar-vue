@@ -58,8 +58,6 @@
                 
             </li>
             
-            
-            
             <!-- <li class="treeview">
                 <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span> 
                     <i class="fa fa-angle-left pull-right"></i></a>
@@ -78,18 +76,20 @@
                             <i class="fa fa-angle-left pull-right"></i></a>
                             <ul class="treeview-menu">
                                 @foreach ($role->menus as $menu)
-                                <li>
-                                    <a href="{{ url('admin/'.$menu->name) }}">
-                                        <i class="{{ $menu->icon or 'fa fa-circle-o' }}">
-                                            
-                                        </i> {{ $menu->display_name }}
-                                    </a>
-                                </li>
+                                    <li>
+                                        <a href="{{ url('admin/'.$menu->name) }}">
+                                            <i class="{{ $menu->icon or 'fa fa-circle-o' }}">
+                                                
+                                            </i> {{ $menu->display_name }}
+                                        </a>
+                                    </li>
                                 @endforeach
                             </ul>
-                        </li>
-                    @endforeach
-                @endif
+                        </a>
+                    </li>
+
+                @endforeach
+            @endif
                 
         </ul>
         <!-- /.sidebar-menu -->

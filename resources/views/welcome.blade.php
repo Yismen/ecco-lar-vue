@@ -4,12 +4,12 @@
 @section('content')
     <div class="">
 
-        <div class="jumbotron no-margin bg-{{ $color or 'yellow'}} parallax-remove intro-header-remove covered">
+        <div class="jumbotron no-margin bg-{{ $color or 'yellow'}}  slanted-right">
             <div class="container-fluid">
                 <div class="col-sm-12 text-center">
                     @include('layouts.partials.logo')
                     <h1 class="my-main-header">Welcome to {{ $app_name }} {{ $user->name or '' }}</h1>
-                    <p><i class="fa fa-arrow-up"></i> Use the top menu icon <i class="fa fa-bars"></i> to see your applications links. </p>
+                    <p><i class="fa fa-arrow-up"></i> Click top menu icon <i class="fa fa-bars"></i> to see your applications links. </p>
                     @if ($user)
                         <a href="/admin/profiles" class="btn btn-default btn-lg">
                             View your profile! <i class="fa fa-angle-double-right"></i>

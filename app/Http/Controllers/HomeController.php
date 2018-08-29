@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use GrahamCampbell\Flysystem\Facades\Flysystem;
 
 class HomeController extends Controller
 {
@@ -14,7 +15,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth')->only();
     }
 
     /**
@@ -22,8 +23,14 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Flysystem $flysystem)
     {
-        return view('home');
+    	// return $flysystem->get('menu-items.txt');
+        $user = auth()->user();
+        if ($user && !$user->profile) {
+            return redirect()->route('admin.profiles.create');
+        }
+
+        return view('welcome');
     }
 }

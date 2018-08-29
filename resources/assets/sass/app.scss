@@ -1,57 +1,209 @@
-/*!
- * Bootstrap v3.3.7 (http://getbootstrap.com)
- * Copyright 2011-2016 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap-sass/_blob/master/LICENSE)
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+
+// Variables
+@import "variables";
+
+// Bootstrap
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+@import '~admin-lte/dist/css/AdminLTE';
+@import '~admin-lte/dist/css/skins/_all-skins';
+@import '~font-awesome/scss/font-awesome';
+@import '~animate.css/animate';
+
+section {
+  padding: 48px 0;
+}
+
+.covered {
+  background-color: rgba(0,0,0,.2)
+}
+
+.alert-default {
+  background-color: #d2d6de;
+}
+.blur {
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
+}
+.parallax { 
+    position: relative;
+    opacity: 0.70;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* The image used */
+    background-image: url("../img/dainsys-logo2.png");
+
+    /* Set a specific height */
+    /* height: 500px;  */
+
+    /* Create the parallax scrolling effect */
+}
+.vertical-center {  
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+}
+.main-spinner {
+    /*background-color: rgba(0, 0, 0, .2);*/
+    border-top: 10px solid rgb(66,139,202);
+    border-right: 10px solid rgb(66,139,202);
+    border-bottom: 10px solid rgb(66,139,202);
+    /*border-left: 10px solid rgba(66,139,202,.2);*/
+    border-left: 10px solid rgba(66,139,202,0);
+    transform: translateZ(0);
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-duration: .8s;
+    animation-name: spinner-loading;
+
+    width: 100px;
+    height: 100px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -32px;
+    margin-left: -32px;
+    border-radius: 50%;
+    z-index: 2;
+}
+@keyframes spinner-loading{
+  0% {
+      transform: rotate(0deg)
+      } to {
+          transform: rotate(1turn)
+      }
+  }
+/**
+ * Remove extra paddings created by Admin-LTE
  */
+ .content {padding-left: 0px; padding-right: 0px; }
 
-// Core variables and mixins
-@import "bootstrap-sass/_variables";
-@import "bootstrap-sass/_mixins";
+/**
+ * Color Divs
+ */
+ .black-div {background-color: #222d32; color: #ffffff; } 
+ .blue-div {background-color: #3c8dbc; color: #ffffff; } 
+ .green-div {background-color: #218457; color: #ffffff; }
+  .green-div>h1 { color: #ffffff; }
+.grey-div {background-color: #ccc; color: #000; }
+.purple-div {background-color: #605ca8; color: #ffffff; }
+.yellow-div {background-color: #f39c12; color: #ffffff; }
+.red-div {background-color: #dd4b39; color: #ffffff; }
 
-// Reset and dependencies
-@import "bootstrap-sass/_normalize";
-@import "bootstrap-sass/_print";
-@import "bootstrap-sass/_glyphicons";
+/**
+ * Headers
+ */
+ .my-main-header {font-family: fantasy; font-size: 76px; }
+ .intro-header {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    text-align: center;
+    color: #f8f8f8;
+    /* background-image: url('../images/backgrounds/main-header.jpg'); */
+    background-size: cover;
+}
+/**
+ * Margins
+ */
+ .no-margin{margin:0px; }
 
-// Core CSS
-@import "bootstrap-sass/_scaffolding";
-@import "bootstrap-sass/_type";
-@import "bootstrap-sass/_code";
-@import "bootstrap-sass/_grid";
-@import "bootstrap-sass/_tables";
-@import "bootstrap-sass/_forms";
-@import "bootstrap-sass/_buttons";
+/**
+ * Paddings
+ */
+ .no-padding {padding: 0px; }
 
-// Components
-@import "bootstrap-sass/_component-animations";
-@import "bootstrap-sass/_dropdowns";
-@import "bootstrap-sass/_button-groups";
-@import "bootstrap-sass/_input-groups";
-@import "bootstrap-sass/_navs";
-@import "bootstrap-sass/_navbar";
-@import "bootstrap-sass/_breadcrumbs";
-@import "bootstrap-sass/_pagination";
-@import "bootstrap-sass/_pager";
-@import "bootstrap-sass/_labels";
-@import "bootstrap-sass/_badges";
-@import "bootstrap-sass/_jumbotron";
-@import "bootstrap-sass/_thumbnails";
-@import "bootstrap-sass/_alerts";
-@import "bootstrap-sass/_progress-bars";
-@import "bootstrap-sass/_media";
-@import "bootstrap-sass/_list-group";
-@import "bootstrap-sass/_panels";
-@import "bootstrap-sass/_responsive-embed";
-@import "bootstrap-sass/_wells";
-@import "bootstrap-sass/_close";
+/**
+ * Loader: Any element with the class of loader will get affected
+ */
+ .loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  background-color: #fff;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
 
-// Components w/ JavaScript
-@import "bootstrap-sass/_modals";
-@import "bootstrap-sass/_tooltip";
-@import "bootstrap-sass/_popovers";
-@import "bootstrap-sass/_carousel";
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
 
-// Utility classes
-@import "bootstrap-sass/_utilities";
-@import "bootstrap-sass/_responsive-utilities";
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.navbar-nav>.user-menu>.dropdown-menu>.user-footer {
+  /* background-color: #222; */
+  color: #ffffff;
+}
+.user-footer a {
+  color: #fff;
+}
+.user-footer a:hover {
+  color: #bab3b2;
+}
+
+
+.bg-disabled {
+    opacity: .85;
+    filter: alpha(opacity=85);
+}
+
+.well .box-footer {
+  background-color: #f5f5f5;
+}
+
+@media (max-width:991px) {
+
+  .navbar-nav>.user-menu>.dropdown-menu>.user-footer {
+    /* background-color: #222; */
+    color: #ffffff;
+  }
+
+  .user-footer a {
+      color: #ffffff;
+  }
+  .user-footer a:hover {
+      background-color: #222;
+      color: #bab3b2;
+  }
+}
+
+.import-forms .box {
+    height: 580px;
+    overflow: overlay;
+}
+
+.slanted-right {
+  background: inherit;
+  position: relative;
+  width: inherit;
+  height: inherit;
+}
+
+.slanted-right:before {
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 100%;
+  background: inherit;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  transform-origin: top left;
+  transform: skewY(4deg);
+}
 

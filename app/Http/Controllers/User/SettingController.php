@@ -17,6 +17,10 @@ class SettingController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        if (!$request->has('sidebar_collapse')) {
+            $request['sidebar_collapse'] = '';
+        }
+        
         $settings = [
             'data' => json_encode($request->only('route', 'layout', 'skin', 'sidebar_collapse', 'sidebar_mini'))
         ];
@@ -26,7 +30,7 @@ class SettingController extends Controller
         } else {
             $user->settings()->update($settings);
         }
-        
+
         return back();
     }
 }

@@ -18,15 +18,14 @@ class CreateProfilesTable extends Migration
             $table->enum('gender', ['male', 'female']);
             $table->string('bio', 4000)->nullable();
             $table->string('phone', 300)->nullable();
-            $table->string('education', 800);
-            $table->string('skills', 500);
-            $table->string('work', 150);
-            $table->string('location', 500);
+            $table->string('education', 800)->nullable();
+            $table->string('skills', 500)->nullable();
+            $table->string('work', 150)->nullable();
+            $table->string('location', 500)->nullable();
             $table->string('photo', 500)->nullable();
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')
-                ->onUpdate("cascade");
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

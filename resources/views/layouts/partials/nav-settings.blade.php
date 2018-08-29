@@ -25,16 +25,16 @@
                     <div class="form-group">
                         <label>Layouts</label>
                         <div class="btn-group btn-group-xs" data-toggle="buttons">
-                            <label class="btn btn-primary {{ $settings && $settings->layout == 'default' ? 'active' : '' }}">       
+                            <label class="btn btn-primary {{ $settings && isset($settings->layout) == 'default' ? 'active' : '' }}">       
                                 {!! Form::radio('layout', 'default', null, ['id'=>'default']) !!} Default 
                             </label>
-                            <label class="btn btn-primary {{ $settings && $settings->layout == 'fixed' ? 'active' : '' }}">
+                            <label class="btn btn-primary {{ $settings && isset($settings->layout) == 'fixed' ? 'active' : '' }}">
                                 {!! Form::radio('layout', 'fixed', null, ['id'=>'fixed']) !!} Fixed
                             </label>
-                            <label class="btn btn-primary {{ $settings && $settings->layout == 'layout-boxed' ? 'active' : '' }}">
+                            <label class="btn btn-primary {{ $settings && isset($settings->layout) == 'layout-boxed' ? 'active' : '' }}">
                                 {!! Form::radio('layout', 'layout-boxed', null, ['id'=>'layout-boxed']) !!} Boxed 
                             </label>
-                            <label class="btn btn-primary {{ $settings && $settings->layout == 'layout-top-nav' ? 'active' : '' }}">
+                            <label class="btn btn-primary {{ $settings && isset($settings->layout) == 'layout-top-nav' ? 'active' : '' }}">
                                 {!! Form::radio('layout', 'layout-top-nav', null, ['id'=>'layout-top-nav']) !!} Top Nav 
                             </label>
                         </div>
@@ -62,52 +62,52 @@
                     <div class="form-group">
                         <label>Skins</label>
                         <div class="btn-group btn-group-xs" data-toggle="buttons">                            
-                            <label class="btn btn-primary {{ $settings &&  $settings->skin == 'skin-blue' ? 'active' : '' }}">       
+                            <label class="btn btn-primary {{ $settings &&  isset($settings->skin) && $settings->skin == 'skin-blue' ? 'active' : '' }}">       
                                 {!! Form::radio('skin', 'skin-blue', null, ['id'=>'default']) !!}                              
                                 <span class="bg-blue"> Blue</span>                              
                             </label>
-                            <label class="btn btn-primary {{ $settings && $settings->skin == 'skin-green' ? 'active' : '' }}">  
+                            <label class="btn btn-primary {{ $settings && isset($settings->skin) && $settings->skin == 'skin-green' ? 'active' : '' }}">  
                                 {!! Form::radio('skin', 'skin-green', null, ['id'=>'default']) !!}                             
                                 <span class="bg-green"> Green</span>                                  
                             </label>
-                            <label class="btn btn-primary {{ $settings && $settings->skin == 'skin-black' ? 'active' : '' }}">       
+                            <label class="btn btn-primary {{ $settings && isset($settings->skin) && $settings->skin == 'skin-black' ? 'active' : '' }}">       
                                 {!! Form::radio('skin', 'skin-black', null, ['id'=>'default']) !!}                            
                                 <span class="bg-black"> Black</span>                                  
                             </label>
-                            <label class="btn btn-primary {{ $settings && $settings->skin == 'skin-purple' ? 'active' : '' }}">       
+                            <label class="btn btn-primary {{ $settings && isset($settings->skin) && $settings->skin == 'skin-purple' ? 'active' : '' }}">       
                                 {!! Form::radio('skin', 'skin-purple', null, ['id'=>'default']) !!}                              
                                 <span class="bg-purple"> Purple</span>                                  
                             </label>
-                            <label class="btn btn-primary {{ $settings && $settings->skin == 'skin-yellow' ? 'active' : '' }}">       
+                            <label class="btn btn-primary {{ $settings && isset($settings->skin) && $settings->skin == 'skin-yellow' ? 'active' : '' }}">       
                                 {!! Form::radio('skin', 'skin-yellow', null, ['id'=>'default']) !!}                             
                                 <span class="bg-yellow"> Yellow</span>                                  
                             </label>
-                            <label class="btn btn-primary {{ $settings && $settings->skin == 'skin-red' ? 'active' : '' }}">       
+                            <label class="btn btn-primary {{ $settings && isset($settings->skin) && $settings->skin == 'skin-red' ? 'active' : '' }}">       
                                 {!! Form::radio('skin', 'skin-red', null, ['id'=>'default']) !!}                              
                                 <span class="bg-red"> Red</span>                                  
                             </label>      
                             
-                            <label class="btn btn-primary {{ $settings && $settings->skin == 'skin-blue-light' ? 'active' : '' }}">       
+                            <label class="btn btn-primary {{ $settings && isset($settings->skin) && $settings->skin == 'skin-blue-light' ? 'active' : '' }}">       
                                 {!! Form::radio('skin', 'skin-blue-light', null, ['id'=>'default']) !!}                            
                                 <span class="bg-blue"> Blue Light</span>                                  
                             </label>
-                            <label class="btn btn-primary {{ $settings && $settings->skin == 'skin-green-light' ? 'active' : '' }}">       
+                            <label class="btn btn-primary {{ $settings && isset($settings->skin) && $settings->skin == 'skin-green-light' ? 'active' : '' }}">       
                                 {!! Form::radio('skin', 'skin-green-light', null, ['id'=>'default']) !!}                            
                                 <span class="bg-green"> Green Light</span>                                  
                             </label>
-                            <label class="btn btn-primary {{ $settings && $settings->skin == 'skin-black-light' ? 'active' : '' }}">       
+                            <label class="btn btn-primary {{ $settings && isset($settings->skin) && $settings->skin == 'skin-black-light' ? 'active' : '' }}">       
                                 {!! Form::radio('skin', 'skin-black-light', null, ['id'=>'default']) !!}                           
                                 <span class="bg-black"> Black Light</span>                                  
                             </label>
-                            <label class="btn btn-primary {{ $settings && $settings->skin == 'skin-purple-light' ? 'active' : '' }}">       
+                            <label class="btn btn-primary {{ $settings && isset($settings->skin) && $settings->skin == 'skin-purple-light' ? 'active' : '' }}">       
                                 {!! Form::radio('skin', 'skin-purple-light', null, ['id'=>'default']) !!}                          
                                 <span class="bg-purple"> Purple Light</span>                                  
                             </label>
-                            <label class="btn btn-primary {{ $settings && $settings->skin == 'skin-yellow-light' ? 'active' : '' }}">       
+                            <label class="btn btn-primary {{ $settings && isset($settings->skin) && $settings->skin == 'skin-yellow-light' ? 'active' : '' }}">       
                                 {!! Form::radio('skin', 'skin-yellow-light', null, ['id'=>'default']) !!}                          
                                 <span class="bg-yellow"> Yellow Light</span>                                  
                             </label>
-                            <label class="btn btn-primary {{ $settings && $settings->skin == 'skin-red-light' ? 'active' : '' }}">       
+                            <label class="btn btn-primary {{ $settings && isset($settings->skin) && $settings->skin == 'skin-red-light' ? 'active' : '' }}">       
                                 {!! Form::radio('skin', 'skin-red-light', null, ['id'=>'default']) !!}                        
                                 <span class="bg-red"> Red Light</span>                                  
                             </label>

@@ -37,3 +37,7 @@ Vue.$ioc.register('Event', require('../vendor/dainsys-event').default)
 //   register: binds
 // });
 
+require('jquery');
+require('bootstrap');
+require('admin-lte');
+

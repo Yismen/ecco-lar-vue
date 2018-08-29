@@ -156,10 +156,7 @@ return [
         GrahamCampbell\Flysystem\FlysystemServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Arcanedev\LogViewer\LogViewerServiceProvider::class,
-        Barryvdh\Debugbar\ServiceProvider::class,
-
-        Dainsys\Payrolls\PayrollsServiceProvider::class,
-        Dainsys\Cors\CorsServiceProvider::class,
+        // Barryvdh\Debugbar\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -222,6 +219,6 @@ return [
         'Flysystem' => GrahamCampbell\Flysystem\Facades\Flysystem::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
-        // 'Notification' => Illuminate\Support\Facades\Notification::class,
+        'Notification' => Illuminate\Support\Facades\Notification::class,
     ],
 ];

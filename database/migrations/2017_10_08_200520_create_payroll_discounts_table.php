@@ -16,12 +16,13 @@ class CreatePayrollDiscountsTable extends Migration
             $table->increments('id');
             $table->date('date');
             $table->integer('employee_id')->unsigned();
-            $table->foreign('employee_id')->references('id')->on('employees');
             $table->string('name', 300)->nullable();
             $table->double('discount_amount', 15, 8);
             $table->integer('concept_id')->unsigned();
-            $table->foreign('concept_id')->references('id')->on('payroll_discount_concepts');
             $table->string('comment', 200)->nullable();
+
+            $table->foreign('employee_id')->references('id')->on('employees');
+            $table->foreign('concept_id')->references('id')->on('payroll_discount_concepts');
             $table->timestamps();
         });
     }

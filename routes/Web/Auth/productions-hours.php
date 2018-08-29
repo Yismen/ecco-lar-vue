@@ -2,17 +2,17 @@
 
 // Route::get('productions-hours', ['as'=>'admin.production-hours.form', 'uses'=>'ProductionsController@getProductionHours']);
 // Route::get('production-hours/query/{date}/supervisor/{supervisor}', ['as'=>'admin.production-hours.date', 'uses'=>'ProductionHoursController@queryByDate']);
-Route::get('production-hours/query', ['as'=>'admin.production-hours.query', 'uses'=>'ProductionHoursController@queryByDate']);
+// Route::get('production-hours/query', ['as'=>'admin.production-hours.query', 'uses'=>'ProductionHoursController@queryByDate']);
 
 
-Route::bind('production-hour', function($id){
+// Route::bind('production-hour', function($id){
 
-	return App\Production::whereId($id)
-		->with('source')
-		->firstOrFail();
-});
+// 	return App\Production::whereId($id)
+// 		->with('source')
+// 		->firstOrFail();
+// });
 
-Route::resource('production-hours', 'ProductionHoursController', ['except'=>['create', 'store','destroy']]);
+// Route::resource('production-hours', 'ProductionHoursController', ['except'=>['create', 'store','destroy']]);
 /**
  * productions index route
  */

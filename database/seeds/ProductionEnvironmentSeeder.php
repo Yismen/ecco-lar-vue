@@ -2,6 +2,7 @@
 
 use App\Role;
 use App\User;
+use App\Profile;
 use App\Gender;
 use App\Marital;
 use Illuminate\Database\Seeder;
@@ -18,26 +19,30 @@ class ProductionEnvironmentSeeder extends Seeder
     {
         Model::unguard();
         //disable foreign key check for this connection before running seeders
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        // DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
         $this->seedUsersTable()
-            ->seedGendersTable()
-            ->seedMaritalsTable() 
             ->seedRolesTable()
             ;
 
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        // DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         Model::reguard();   
     }
 
     protected function seedUsersTable()
     {
-        User::truncate();
+        // User::truncate();
+        $user = User::where('email', 'yismen.jorge@gmail.com')->first();
+
+        if ($user) {
+            $user->delete();
+        }
         factory(App\User::class)->create([
+            'id' => 1,
             'name' => 'Yismen Jorge', // $faker->name,
             'email' => 'yismen.jorge@gmail.com', // $faker->email,
             'username' => 'yjorge', // $faker->name,
-            'password' => bcrypt('password'), // bcrypt(str_random(10)),
+            'password' => bcrypt('secret'), // bcrypt(str_random(10)),
             'remember_token' => str_random(10),
             'is_active' => 1,
             'is_admin' => 1,
@@ -48,7 +53,14 @@ class ProductionEnvironmentSeeder extends Seeder
 
     protected function seedRolesTable()
     {
-        Role::truncate();
+        // Role::truncate();
+
+        if ($role1 = Role::find(1)) {
+            $role1->delete();
+        }
+        if ($role2 = Role::find(2)) {
+            $role2->delete();
+        }
 
         Role::create([
             'id' => 1,
@@ -63,31 +75,10 @@ class ProductionEnvironmentSeeder extends Seeder
             'description' => 'Application owner. Little restriction. Just to differentiate from the system admin.'
         ]);
 
-        $user = User::find(1);
+        $user = User::where('email', 'yismen.jorge@gmail.com')->first();
 
         $user->roles()->sync([1,2]);
 
         return $this;
-    }
-
-    protected function seedMaritalsTable()
-    {
-        Marital::truncate();        
-
-        Marital::create(['id'=>1,'name'=>'Married']);
-        Marital::create(['id'=>2,'name'=>'Single']);
-        Marital::create(['id'=>3,'name'=>'Common Law']);
-
-        return $this;   
-    }
-
-    protected function seedGendersTable()
-    {
-        Gender::truncate();        
-        
-        Gender::create(['id'=>1,'gender'=>'Male']);
-        Gender::create(['id'=>2,'gender'=>'Female']);
-
-        return $this;   
     }
 }

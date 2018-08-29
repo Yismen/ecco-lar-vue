@@ -1,96 +1,22 @@
-(function($) {
 
-    // $.fn.dataTable.ext.errMode = 'none';
-    
-    $('.main-spinner').hide();
+/**
+ * First we will load all of this project's JavaScript dependencies which
+ * includes Vue and other libraries. It is a great starting point when
+ * building robust, powerful web applications using Vue and Laravel.
+ */
 
-  
-  /**
-   * Focus the cursor on the first input
-   * @type {[type]}
-   */
+require('./bootstrap');
 
-	$.each($('select,input,textarea'), function(index, val) {
-      var el = $(val);
-      var elType = $(el).prop('localName');
-      var inputType = $(el).prop('type');
+window.Vue = require('vue');
 
-      /**
-       * Apply datepicker plugin to all the input with the type of date in the app
-       */
-      if(inputType == 'date') {
-        $(el).prop('type', "text");
-        el.datepicker({
-          format: 'yyyy-mm-dd',
-          todayHighlight: true,
-          autoclose: true,
-          clearBtn: true,
-          todayBtn: true,
-        });
-      }
+/**
+ * Next, we will create a fresh Vue application instance and attach it to
+ * the page. Then, you may begin adding components to this application
+ * or customize the JavaScript scaffolding to fit your unique needs.
+ */
 
-     if(inputType == 'time') {
-        $(el).prop('type', "text");
-        el.timepicker({
-            showMeridian: false,
-            format: 'HH:mm:ss'
-        });
-      }
+Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
-      /**
-       * Apply datetimepicker plugin to all the input with the type of date in the app
-       */
-      if(inputType == 'date_time') {
-        $(el).prop('type', "text");
-        el.datetimepicker({
-          format: 'YYYY-MM-DD HH:mm:ss',
-        });
-      }
-
-      /**
-       * Apply select2 plugin to all the selects in the app
-       */
-      if(elType == 'select' && $(el).is("[multiple]")) {
-        // console.log(inputType, elType, el, $(el).is("[multiple]"), $(el).attr("multiple"));
-        el.select2({
-          theme: "bootstrap",
-          placeholder: 'Select an option',
-          closeOnSelect: false,
-          width: '100%'
-        });
-      }
-
-      if(elType == 'select' && $(el).hasClass("select2")) {
-        // console.log(inputType, elType, el, $(el).is("[multiple]"), $(el).attr("multiple"));
-        el.select2({
-          theme: "bootstrap",
-          placeholder: 'Select an option',
-          closeOnSelect: true,
-          width: '100%'
-        });
-      }
-
-      /**
-       * Apply iCheck plugin to all the inputs in the app.
-       * The plugin will only pick checkboxes and radios
-       */
-      // if(elType == 'input') {
-      //   el.iCheck({
-      //     checkboxClass: 'icheckbox_square icheckbox_square-blue',
-      //     radioClass: 'iradio_square-blue'
-      //   });
-      // }
-
-      /**
-       * Apply summernote plugin to all the textareas in the app
-       */
-      if(elType == 'textarea') {
-        if (el.hasClass('editor')) {
-          el.summernote();
-        }
-      }
-            
-  });
-
-  $('section.content').first().find(':input').filter(':visible:first').focus();
-})(jQuery);
+const app = new Vue({
+    el: '#app'
+});

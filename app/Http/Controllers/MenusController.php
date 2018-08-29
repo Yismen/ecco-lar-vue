@@ -55,9 +55,14 @@ class MenusController extends Controller
      */
     public function store(Menu $menu, Request $request, Permission $permission)
     {
-        $this->validateRequest($request, $menu)
-            ->createMenu($menu, $request, $permission);
+        $this->validate($request, [
+            'name' => 'required|unique:menus,name',
+            'display_name' => 'required|unique:menus,display_name',
+            'roles_list' => 'required'
+        ]);
 
+        $this->createMenu($menu, $request, $permission);
+        
         return redirect()->route('admin.menus.index')
             ->withSuccess("Menu $menu->display_name has bee created.");
     }
@@ -94,8 +99,13 @@ class MenusController extends Controller
      */
     public function update(Menu $menu, Request $request)
     {
-        $this->validateRequest($request, $menu)
-            ->updateMenu($menu, $request);
+        $this->validate($request, [
+            'name' => 'required|unique:menus,name,' . $menu->id . ',id',
+            'display_name' => 'required|unique:menus,display_name,' . $menu->id . ',id',
+            'roles_list' => 'required'
+        ]);
+
+        $this->updateMenu($menu, $request);
 
         return redirect()->route('admin.menus.show', $menu->name)
             ->withSuccess("Menu $menu->display_name has been updated.");
