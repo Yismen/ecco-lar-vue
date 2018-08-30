@@ -1,5 +1,5 @@
 <?php
 
-Route::get('/home', function(){
-    return Auth::user()->rolesList;
-});
+// Route::get('/home', function(){
+//     return Auth::user()->rolesList;
+// });
