@@ -3,14 +3,15 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta id="_token" name="_token" content="{{ csrf_token() }}">  <!-- Laravel token -->
+        <!-- <meta id="_token" name="_token" content="{{ csrf_token() }}">  Laravel 5.3 token -->
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <title>Ecco | {{ $page_header or 'Admin Header' }}</title>
 
         <link rel="stylesheet" type="text/css" href="{{ mix('css/app.css') }}">
         <!-- Site Favicon -->
-        <link rel="shortcut icon" href="{{ asset('images/favicon/favicon.ico') }}">
+        <link rel="shortcut icon" href="{{ asset('images/logo.png') }}" type="image/x-icon">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -74,7 +75,7 @@
 
                 <!-- Main content -->
                 <section class="content" id="app">
-                    <loading-spinner></loading-spinner>
+                    <loading-component></loading-component>
                     <!-- Your Page Content Here -->
                     <!-- 
                     |************************************|

@@ -1,17 +1,19 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 // use App\Http\Request;
 use App\Position;
 use App\Department;
 use Illuminate\Http\Request;
 use App\Rules\PositionUnique;
+use App\Http\Controllers\Controller;
 
 class PositionsController extends Controller
 {
     public function __construct()
     {
+        $this->middleware('role:system-administrator');
         $this->middleware('authorize:view_positions|edit_positions|create_positions', ['only' => ['index', 'show']]);
         $this->middleware('authorize:edit_positions', ['only' => ['edit', 'update']]);
         $this->middleware('authorize:create_positions', ['only' => ['create', 'store']]);
@@ -25,7 +27,7 @@ class PositionsController extends Controller
      */
     public function index(Position $positions)
     {
-        $positions = $positions
+        return $positions
             ->orderBy('department_id')
             ->orderBy('name')
             ->with('department')
@@ -35,8 +37,6 @@ class PositionsController extends Controller
             ->with('payment_type')
             ->with('payment_frequency')
             ->paginate(50);
-
-        return view('positions.index', compact('positions'));
     }
 
     /**

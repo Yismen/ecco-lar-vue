@@ -2,11 +2,10 @@
 @extends('layouts.'.$layout->app(), ['page_header'=>'Positions', 'page_description'=>'Positions list!'])
 
 @section('content')
-	<div class="container-fluid">
+<div class="container-fluid">
 		<div class="col-sm-10 col-sm-offset-1">
 			<div class="box box-primary pad">
-			
-				<h3 class="page-header">
+				<h3 class="page-header">		
 					Positions Items List 
 				 	<a href="{{ route('admin.positions.create') }}">
 				 		<i class="fa fa-plus"></i>

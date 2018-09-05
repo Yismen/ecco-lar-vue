@@ -79,7 +79,6 @@ class Position extends Model {
 
 	public function setNameAttribute($name)
 	{
-		// $this->attributes['name'] = $this->department->department;
-		$this->attributes['name'] = ucwords(trim($name));
+		$this->attributes['name'] = ucwords(strtolower(trim($name)));
 	}
 }

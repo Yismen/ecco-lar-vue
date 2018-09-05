@@ -95,7 +95,7 @@ class DainsysAuthorization
      */
     private function isOwnerOrAdmin()
     {
-        return $this->user->hasRole('admapplication-ownerin')
+        return $this->user->hasRole('admin')
             || $this->user->hasRole('application-owner');
     }
 

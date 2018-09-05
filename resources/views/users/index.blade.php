@@ -1,4 +1,5 @@
-@inject('layout', 'App\Layout') @extends('layouts.'.$layout->app(), ['page_header'=>'Users', 'page_description'=>'Handle
+@inject('layout', 'App\Layout') 
+@extends('layouts.'.$layout->app(), ['page_header'=>'Users', 'page_description'=>'Handle
 the users configurations and setting.']) @section('content')
 <div class="container-fluid">
 

@@ -17,8 +17,8 @@ class CreatePositionsTable extends Migration {
 			$table->increments('id');
 			$table->string('name', 100);
 			$table->integer('department_id')->unsigned()->index();
-			$table->integer('payment_type_id')->unsigned()->nullable()->after('name');
-			$table->integer('payment_frequency_id')->unsigned()->nullable()->after('name');
+			$table->integer('payment_type_id')->unsigned()->nullable();
+			$table->integer('payment_frequency_id')->unsigned()->nullable();
 			$table->double('salary', 15, 2);
 			$table->timestamps();
 			

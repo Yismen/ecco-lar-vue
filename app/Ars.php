@@ -9,7 +9,7 @@ class Ars extends Model
 {
     use Sluggable;
 
-    protected $table = 'ars';
+    protected $table = 'arss';
 
 
     protected $fillable = ['name'];

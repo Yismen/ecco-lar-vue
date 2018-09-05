@@ -23,6 +23,11 @@ try {
 
 window.axios = require('axios');
 
+/**
+ * Here we will load Vue store with it modulations. This implements
+ * an API to have centralized states and mutations.
+ */
+
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /**

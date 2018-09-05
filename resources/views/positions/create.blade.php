@@ -32,5 +32,12 @@
 @stop
 
 @section('scripts')
-
+	<script>
+		console.log("here")
+		// $("#createDepartment").on('click', function(e){
+		// 	e.preventDefault();
+		// 	$.get('/api/positions')
+		// 		.then(response => console.log(response))
+		// })
+	</script>
 @stop

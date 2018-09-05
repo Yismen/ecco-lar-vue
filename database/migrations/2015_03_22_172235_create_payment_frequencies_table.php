@@ -35,12 +35,6 @@ class CreatePaymentFrequenciesTable extends Migration
 
     public function seedPaymentFrequency()
     {
-
-        PaymentFrequency::create([
-            'name' => 'Weekly',
-            'slug' => 'weekly',
-        ]);
-
         PaymentFrequency::create([
             'name' => 'Bi Weekly',
             'slug' => 'bi-weekly',
@@ -55,5 +49,11 @@ class CreatePaymentFrequenciesTable extends Migration
             'name' => 'Daily',
             'slug' => 'daily',
         ]);
+
+        PaymentFrequency::create([
+            'name' => 'Weekly',
+            'slug' => 'weekly',
+        ]);
+
     }
 }

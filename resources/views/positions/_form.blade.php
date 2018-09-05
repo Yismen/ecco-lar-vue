@@ -18,11 +18,20 @@
 	<div class="col-sm-6">
 		<!-- Department -->
 		<div class="form-group {{ $errors->has('department_id') ? 'has-error' : null }}">
-			{!! Form::label('department_id', 'Department:', ['class'=>'col-sm-2 control-label']) !!}
-			<div class="col-sm-10">
-				{!! Form::select('department_id', $position->departmenstList, null, ['class'=>'form-control', 'id'=>'department_id']) !!}
+			{!! Form::label('department_id', 'Department:', ['class'=>'col-sm-3 control-label']) !!}
+			<div class="col-sm-9">
+				<div class="input-group">
+					{!! Form::select('department_id', $position->departmenstList, null, ['class'=>'form-control', 'id'=>'department_id']) !!}
+					<div class="input-group-btn">
+						<button class="btn btn-primary" type="button" data-toggle="modal" data-target="#myModal">
+							<i class="fa fa-plus"></i>
+						</button>
+					</div>					
+				</div>
 				{!! $errors->first('department_id', '<span class="text-danger">:message</span>') !!}
 			</div>
+			
+			
 		</div>
 		<!-- /. Department -->
 
@@ -40,8 +49,8 @@
 	<div class="col-sm-6">
 		<!-- Payment Frequency -->
 		<div class="form-group {{ $errors->has('payment_frequency_id') ? 'has-error' : null }}">
-			{!! Form::label('payment_frequency_id', 'Payment Frequency:', ['class'=>'col-sm-2 control-label']) !!}
-			<div class="col-sm-10">
+			{!! Form::label('payment_frequency_id', 'Payment Frequency:', ['class'=>'col-sm-3 control-label']) !!}
+			<div class="col-sm-9">
 				{!! Form::select('payment_frequency_id', $position->paymentFrequenciesList, null, ['class'=>'form-control', 'id'=>'payment_frequency_id']) !!}
 				{!! $errors->first('payment_frequency_id', '<span class="text-danger">:message</span>') !!}
 			</div>
@@ -59,4 +68,23 @@
 		<!-- /. Salary -->
 	</div>
 </div>
+
+
+<div class="modal fade in" tabindex="-1" role="dialog" id="myModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Modal title</h4> -->
+      </div>
+      <div class="modal-body">
+        @include('departments._form')
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="createDepartment">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
