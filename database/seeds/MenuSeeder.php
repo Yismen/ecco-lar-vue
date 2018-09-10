@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Menu;
+use App\Role;
 
 class MenuSeeder extends Seeder
 {

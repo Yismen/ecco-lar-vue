@@ -7,8 +7,6 @@ Route::bind('client', function($id){
 });
 
 
-Route::resource('clients', 'ClientsController', [
-	
-]);
+Route::resource('clients', 'ClientsController');
 
 

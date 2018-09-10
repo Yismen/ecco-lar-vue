@@ -23,20 +23,23 @@ class PositionsController extends Controller
      *
      * @return Response
      */
-    public function index(Position $positions)
+    public function index(Position $positions, Request $request)
     {
-        $positions = $positions
-            ->orderBy('department_id')
-            ->orderBy('name')
-            ->with('department')
-            ->withCount(['employees' => function($query) {
-				return $query->actives();
-			}])
-            ->with('payment_type')
-            ->with('payment_frequency')
-            ->paginate(50);
+        if ($request->ajax()) {
+            $positions = $positions
+                ->orderBy('department_id')
+                ->orderBy('name')
+                ->with('department')
+                ->withCount(['employees' => function ($query) {
+                    return $query->actives();
+                }])
+                ->with('payment_type')
+                ->with('payment_frequency')
+                ->paginate(50);
 
-        return view('positions.index', compact('positions'));
+            return $positions;
+        }
+        return view('positions.vue');
     }
 
     /**
@@ -44,8 +47,16 @@ class PositionsController extends Controller
      *
      * @return Response
      */
-    public function create(Position $position)
+    public function create(Position $position, Request $request)
     {
+        if ($request->ajax()) {
+            return $position->append([
+                    'departments_list',
+                    'payment_types_list',
+                    'payment_frequencies_list',
+                ]);
+        }
+
         return view('positions.create', compact('position'));
     }
 
@@ -60,6 +71,10 @@ class PositionsController extends Controller
 
         $position = $this->createPosition($position, $request);
 
+        if ($request->ajax()) {
+            return $position;
+        }
+
         return redirect()->route('admin.positions.index')
             ->withSuccess("Position $position->name has been created!");
     }
@@ -70,8 +85,12 @@ class PositionsController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function show(Position $position)
+    public function show(Position $position, Request $request)
     {
+        if ($request->ajax()) {
+            return $position;
+        }
+
         return view('positions.show', compact('position'));
     }
 
@@ -81,8 +100,12 @@ class PositionsController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function edit(Position $position)
+    public function edit(Position $position, Request $request)
     {
+        if ($request->ajax()) {
+            return $position;
+        }
+
         return view('positions.edit', compact('position'));
     }
 
@@ -95,8 +118,12 @@ class PositionsController extends Controller
     public function update(Position $position, Request $request)
     {
         $this->validateRequest($request, $position);
+        
+        $position->update($request->only(['name', 'department_id', 'payment_frequency_id', 'payment_type_id', 'salary']));
 
-        $position->update($request->all());
+        if ($request->ajax()) {
+            return $position->load('department', 'payment_frequency', 'payment_type');
+        }
 
         return redirect()->route('admin.positions.index')
             ->withSuccess("Position $position->name updated!");
@@ -115,6 +142,10 @@ class PositionsController extends Controller
     {
         $position->delete();
 
+        if ($request->ajax()) {
+            return $position;
+        }
+
         return redirect()->route('admin.positions.index')
             ->withWarning("Position $position->name has been removed!");
     }
@@ -130,7 +161,7 @@ class PositionsController extends Controller
             'department_id' => 'required|exists:departments,id',
             'payment_type_id' => 'required|exists:payment_types,id',
             'payment_frequency_id' => 'required|exists:payment_frequencies,id',
-            'salary' => 'required|numeric|min:0|max:500000',
+            'salary' => 'required|numeric|min:45|max:500000',
         ]);
 
         return $this;

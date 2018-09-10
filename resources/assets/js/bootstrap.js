@@ -13,6 +13,7 @@ try {
 
     require('bootstrap');
     require('admin-lte');
+    require('datatables.net-bs');
 } catch (e) { }
 
 /**
@@ -43,6 +44,7 @@ if (token) {
 } else {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
+require('./utilities/interceptors')
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

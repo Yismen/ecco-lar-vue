@@ -14,5 +14,7 @@
 Route::middleware('auth:api')->group(function () {
     Route::get('/user', 'Api\UserController@index');
     Route::resource('employee', 'Api\EmployeeController')->except(['create', 'edit']);
-    Route::resource('positions', 'Api\PositionsController')->except(['create', 'edit']);
+    Route::resource('positions', 'PositionsController');
+    Route::resource('departments', 'DepartmentsController');
+    Route::resource('payment_frequencies', 'PaymentFrequenciesController');
 });

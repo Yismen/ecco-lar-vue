@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 use App\Http\Traits\EmployeesTrait;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Cache;
-use Yajra\Datatables\Facades\Datatables;
+use Yajra\DataTables\Facades\Datatables;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class EmployeesController extends Controller
@@ -43,32 +43,18 @@ class EmployeesController extends Controller
      */
     public function index()
     {
-        return view('employees.index-datatables');
-    }
+        if (! request()->ajax()) {
+            return view('employees.index');
+        }
 
-    public function apiEmployees(Request $request)
-    {
-        return Datatables::eloquent(
-            Employee::query()->with('position.department', 'position.payment_type')
-        )->editColumn('id', function ($query) {
-            return '<a href="' . route('admin.employees.show', $query->id) . '" class="">' . $query->id . '</a>';
-        })
-        ->editColumn('hire_date', function ($query) {
-            return $query->hire_date->format('d/M/Y');
-        })
-        ->editColumn('status', function ($query) {
-            return $query->active ? 'Active' : 'Inactive';
-        })
-        ->addColumn('edit', function ($query) {
-            return '<a href="' . route('admin.employees.edit', $query->id) . '" class=""><i class="fa fa-edit"></i> Edit</a>';
-        })
-        ->make(true);
+        return Cache::rememberForever('employees', function () {
+            return $this->getDatatables();
+        });
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @Get("employees/create")
      * @return Response
      */
     public function create(Employee $employee, Department $departments)
@@ -391,5 +377,27 @@ class EmployeesController extends Controller
                     ->loadView('employees.excel.employees', compact('employees'));
             })->download('xlsx');
         });
+    }
+
+    public function getDatatables()
+    {
+        return datatables()->eloquent(
+            Employee::query()->with('position.department', 'position.payment_type')
+        )
+        // ->editColumn('id', function ($query) {
+        //     return route('admin.employees.show', $query->id);
+        //     // return '<a href="' . route('admin.employees.show', $query->id) . '" class="">' . $query->id . '</a>';
+        // })
+        ->editColumn('hire_date', function ($query) {
+            return $query->hire_date->format('d/M/Y');
+        })
+        ->editColumn('status', function ($query) {
+            return $query->active ? 'Active' : 'Inactive';
+        })
+        ->addColumn('edit', function ($query) {
+            return route('admin.employees.edit', $query->id);
+            // return '<a href="' . route('admin.employees.edit', $query->id) . '" class=""><i class="fa fa-edit"></i> Edit</a>';
+        })
+        ->toJson(true);
     }
 }

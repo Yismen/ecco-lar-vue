@@ -10,6 +10,6 @@
 @endsection
 
 @section('scripts')
-	<script src="/js/dainsys/app.js"></script>
+
 @stop
 

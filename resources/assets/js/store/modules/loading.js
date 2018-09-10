@@ -24,11 +24,11 @@ const actions = {
 
 // mutations
 const mutations = {
-    setSpinnerToShow(state, { id }) {
-        state.show = true
+    setSpinnerToShow(state) {
+        state.showSpinner = true
     },
     setSpinnerToHide(state) {
-        state.show = false
+        state.showSpinner = false
     }
 }
 

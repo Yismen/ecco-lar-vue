@@ -1,0 +1,1 @@
+<a href="{{ route('admin.employees.show',$query->id) }}" class=""> {{ $query->id }} </a>

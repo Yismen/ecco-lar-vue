@@ -1,40 +1,7 @@
 <?php
 
-Route::bind('employee', function ($id) {
-    return App\Employee::whereId($id)
-        ->with('addresses')
-        ->with('afp')
-        ->with('ars')
-        ->with('bankAccount')
-        ->with('socialSecurity')
-        ->with('card')
-        ->with('gender')
-        ->with('logins')
-        ->with('marital')
-        ->with('nationalities')
-        ->with('punch')
-        ->with('position.payment_type', 'position.department', 'position.payment_frequency')
-        ->with('termination')
-        ->with('supervisor')
 
-    ->firstOrFail()
-    ->append([
-        'afp_list',
-        'ars_list',
-        'banks_list',
-        'departments_list',
-        'genders_list',
-        'has_kids_list',
-        'maritals_list',
-        'positions_list',
-        'nationalities_list',
-        'supervisors_list',
-        'termination_type_list',
-        'termination_reason_list'
-    ]);
-});
-
-Route::post('employees/list', ['as' => 'employees.list', 'uses' => 'EmployeesController@apiEmployees']);
+Route::get('api/employees', 'EmployeesController@index')->name('employees.list');
 
 Route::get('employees/export_to_excel/{status}',
     ['as' => 'employees.export_to_excel', 'uses' => 'EmployeesController@toExcel']
@@ -107,4 +74,38 @@ Route::post('employees/updateNationality/{employee}',
     ['as' => 'employees.updateNationality', 'uses' => 'EmployeesController@updateNationality']
     )->middleware('authorize:edit_employees');
 
+Route::bind('employee', function ($id) {
+    return App\Employee::whereId($id)
+    ->with('addresses')
+    ->with('afp')
+    ->with('ars')
+    ->with('bankAccount')
+    ->with('socialSecurity')
+    ->with('card')
+    ->with('gender')
+    ->with('logins')
+    ->with('marital')
+    ->with('nationalities')
+        ->with('punch')
+        ->with('position.payment_type', 'position.department', 'position.payment_frequency')
+        ->with('termination')
+        ->with('supervisor')
+        
+        ->firstOrFail()
+        ->append([
+            'afp_list',
+            'ars_list',
+            'banks_list',
+            'departments_list',
+            'genders_list',
+            'has_kids_list',
+            'maritals_list',
+            'positions_list',
+            'nationalities_list',
+            'supervisors_list',
+            'termination_type_list',
+            'termination_reason_list'
+            ]);
+        });
+        
 Route::resource('employees', 'EmployeesController');

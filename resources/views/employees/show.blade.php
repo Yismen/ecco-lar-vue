@@ -15,7 +15,7 @@
 							@if ($employee->position)
 								<h5>
 									{{ $employee->position->name }}
-									@if (count($employee->position->department) > 0)
+									@if ($employee->position->department->count)
 										, at {{ $employee->position->department->department }}	
 									@endif
 								</h5>
@@ -50,15 +50,15 @@
 								<strong>Gender: </strong>
 								@if ($employee->gender)
 									<i class="fa fa-{{ $employee->gender && $employee->gender->gender == 'Femenine' ? 'female' : 'male' }}"></i> 
-									{{ $employee->gender->gender or '' }}
+									{{ $employee->gender->gender ?? '' }}
 								@endif
 							</li>
 							<li class="list-group-item">
 								<strong>Has Kids?: </strong>{{ $employee->has_kids ? 'Yes' : 'No' }}
 							</li>
-							@if (count($employee->marital) > 0)
+							@if ($employee->marital->count > 0)
 								<li class="list-group-item">
-									<strong>Marital Status: </strong>{{ $employee->marital->name or '' }}
+									<strong>Marital Status: </strong>{{ $employee->marital->name ?? '' }}
 								</li>
 							@endif
 								
@@ -69,34 +69,32 @@
 						 
 							<li class="list-group-item">
 								<strong>Supervisor: </strong>
-								@if (count($employee->supervisor) > 0)
-									{{ $employee->supervisor->name }}
-								@endif									
+								{{ $employee->supervisor->name ?? '' }}									
 							</li>	
 						 
 							<li class="list-group-item">
-								<strong>Ars: </strong> {{ $employee->ars->name or '' }} <br>
-								<strong>Afp: </strong> {{ $employee->afp->name or '' }}								
+								<strong>Ars: </strong> {{ $employee->ars->name ?? '' }} <br>
+								<strong>Afp: </strong> {{ $employee->afp->name ?? '' }}								
 							</li>	
 						 
 							<li class="list-group-item">
 								<strong>Position: </strong>
-								{{ $employee->position->name or '' }}, At {{ $employee->position->department->department or '' }}					
+								{{ $employee->position->name ?? '' }}, At {{ $employee->position->department->department ?? '' }}					
 							</li>	
 
 							<li class="list-group-item">
 								<strong>Salary: </strong>
-								@if (count($employee->position) > 0)
+								@if ($employee->position)
 									${{ number_format($employee->position->salary, 2) }}, 
-									{!! $employee->position->payment_type->name or '<span class="text-danger">Missing Payment Type in his position. Please fix!</span>' !!}, 
-									{!! $employee->position->payment_frequency->name or '<span class="text-danger">Missing Payment Frequency in his position. Please fix!</span>' !!} 
+									{!! $employee->position->payment_type->name ?? '<span class="text-danger">Missing Payment Type in his position. Please fix!</span>' !!}, 
+									{!! $employee->position->payment_frequency->name ?? '<span class="text-danger">Missing Payment Frequency in his position. Please fix!</span>' !!} 
 									<a href="{{ route('admin.positions.edit', $employee->position->id) }}"><i class="fa fa-pencil"></i></a>
 								@endif
 							</li>
 						
 							<li class="list-group-item">
 								<strong>Address: </strong>
-								@if (count($employee->addresses) > 0)
+								@if ($employee->addresses)
 									{{ $employee->addresses->street_address }}, {{ $employee->addresses->sector }}. {{ $employee->addresses->city }}
 								@endif
 							</li>

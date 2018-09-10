@@ -3,6 +3,7 @@
 namespace App\Http\Traits\Accessors;
 
 use App\Role;
+use Cache;
 
 trait UserAccessors
 {
@@ -10,7 +11,8 @@ trait UserAccessors
     public function getRolesListAttribute()
     {   
         // $roles = \Auth::user()->is_admin ? $roles : $this->roles();
-        return \Auth::user()->is_admin
+        return Cache::rememberForever('menues_for_user_' . auth()->user()->id, function () {
+            return \Auth::user()->is_admin
             ? Role::orderBy('display_name')
                 ->with(['menus'=>function($query){
                     return $query->orderBy('display_name');
@@ -22,6 +24,8 @@ trait UserAccessors
                     return $query->orderBy('display_name');
                 }])
                 ->get();
+    
+        });
     }
 
     public function getActiveListAttribute()

@@ -58,7 +58,7 @@
                             <th>Hire Date</th>
                             <th>Status</th>
                             <th>Position:</th>
-                            <th>Personal ID:</th>
+                            <th>Personal ID / Passport:</th>
                             <th>Passport:</th>
                             <th>Cell Phone:</th>
                             <th>Other Phone:</th>
@@ -78,6 +78,7 @@
 <script>
     (function($){
         $(document).ready(function($) {
+
             let dTable = $('#employees-table').DataTable({
                 "processing": true,
                 "serverSide": true,
@@ -95,11 +96,13 @@
                     "processing": "<i class='fa fa-spinner'></i> Loading, Please wait!"
                 },
                 "ajax": {
-                    'type': 'post',
+                    'type': 'get',
                     "url": "{{ route('admin.employees.list') }}",
                 },
                 "columns": [
-                    {data: 'id', name: 'id'},
+                    {data: 'id', name: 'id', render: function(data, type, full) {
+                        return '<a href="/admin/employees/'+data+'">'+ data +'</a>'
+                    }},
                     {data: 'first_name', name: 'first_name', render: function(data, type, full){
                         let first_name = full.first_name || '';
                         let second_first_name = full.second_first_name || '';
@@ -117,11 +120,15 @@
                         let department = full.position && full.position.department ? ', At ' + full.position.department.department : '';
                         return position + department;
                     }},
-                    {data: 'personal_id', name: 'personal_id'},
-                    {data: 'passport', name: 'passport'},
+                    {data: 'personal_id', name: 'personal_id', render: function(data, type, full) {
+                        return data ? data : full.passport
+                    }},
+                    {data: 'passport', name: 'passport', visible: false},
                     {data: 'cellphone_number', name: 'cellphone_number'},
                     {data: 'secondary_phone', name: 'secondary_phone'},
-                    {data: 'edit', name: 'edit', searchable: "false", orderable: false},
+                    {data: 'edit', name: 'edit', searchable: "false", orderable: false, render: function(data, type, full) {
+                        return '<a href="'+data+'"><i class="fa fa-pencil"></i> Edit</a>'
+                    }},
                 ],
                 buttons: ['copy', 'excel', 'pdf']
             });

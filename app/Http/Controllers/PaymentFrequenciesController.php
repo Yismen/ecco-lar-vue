@@ -27,6 +27,10 @@ class PaymentFrequenciesController extends Controller {
 		$payment_frequencies = $payment_frequencies
 			->paginate(10);
 
+		if ($request->ajax()) {
+			return $payment_frequencies;
+		}
+
 		return view('payment_frequencies.index', compact('payment_frequencies'));
 	}
 
@@ -37,6 +41,10 @@ class PaymentFrequenciesController extends Controller {
 	 */
 	public function create(PaymentFrequency $payment_frequency)
 	{
+        if ($request->ajax()) {
+            return $payment_frequency;
+        }
+
 		return view('payment_frequencies.create', compact('payment_frequency'));
 	}
 
@@ -60,6 +68,10 @@ class PaymentFrequenciesController extends Controller {
 
 		$payment_frequency = $payment_frequency->create($request->only(['name']));
 
+        if ($request->ajax()) {
+            return $payment_frequency;
+        }
+
 		return redirect()->route('admin.payment_frequencies.index')
 			->withSuccess("PaymentFrequency $payment_frequency->name has been created!");
 	}
@@ -79,6 +91,10 @@ class PaymentFrequenciesController extends Controller {
 	 */
 	public function edit(PaymentFrequency $payment_frequency)
 	{
+        if ($request->ajax()) {
+            return $payment_frequency;
+        }
+
 		return view('payment_frequencies.edit', compact('payment_frequency'));
 	}
 
@@ -93,6 +109,10 @@ class PaymentFrequenciesController extends Controller {
 		$this->validateRequest($payment_frequency, $request);
 
 		$payment_frequency->update($request->only(['name']));
+
+        if ($request->ajax()) {
+            return $payment_frequency;
+        }
 		
 		return redirect()->route('admin.payment_frequencies.show', $payment_frequency->id)
 			->withSuccess("payment $payment_frequency->name has been ubdated!!");
@@ -108,6 +128,10 @@ class PaymentFrequenciesController extends Controller {
 	{
 		$payment_frequency->delete();
 
+        if ($request->ajax()) {
+            return $payment_frequency;
+        }
+
 		return redirect()->route('admin.payment_frequencies.index')
 			->withWarning("payment $payment_frequency->name has been removed!");
 	}
@@ -120,8 +144,10 @@ class PaymentFrequenciesController extends Controller {
 	 */
 	private function validateRequest($payment_frequency, $request)
 	{
+		$id = $payment_frequency->id ?? 0;
+		
 		return $this->validate($request, [
-			'name' => "required|unique:payment_frequencies,name,$payment_frequency->id,id"
+			'name' => "required|unique:payment_frequencies,name,$id,id"
 		]);
 	}
 

@@ -41,14 +41,15 @@ trait EmployeesTrait
      */
     private function validateRequest($request, $employee)
     {
+        $id = $employee->id ?? 0;
         return $this->validate($request, [
             'first_name' => 'required',
             'last_name' => 'required',
             'hire_date' => 'required|date',
-            'personal_id' => 'required_if:passport,|nullable|digits:11|unique:employees,personal_id,' . $employee->id,
-            'passport' => 'required_if:personal_id,|nullable|unique:employees,passport,' . $employee->id,
+            'personal_id' => 'required_if:passport,|nullable|digits:11|unique:employees,personal_id,' . $id .'|size:11',
+            'passport' => 'required_if:personal_id,|nullable|unique:employees,passport,' . $id .'|size:10',
             'date_of_birth' => 'required|date',
-            'cellphone_number' => 'required|digits:10|unique:employees,cellphone_number,' . $employee->id,
+            'cellphone_number' => 'required|digits:10|unique:employees,cellphone_number,' . $id,
             'secondary_phone' => 'nullable|digits:10',
             'gender_id' => 'required|exists:genders,id',
             'marital_id' => 'required|exists:maritals,id',

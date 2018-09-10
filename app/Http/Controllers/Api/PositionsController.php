@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 // use App\Http\Request;
 use App\Position;
 use App\Department;
+use App\PaymentType;
+use App\PaymentFrequency;
 use Illuminate\Http\Request;
 use App\Rules\PositionUnique;
 use App\Http\Controllers\Controller;
@@ -25,15 +27,15 @@ class PositionsController extends Controller
      *
      * @return Response
      */
-    public function index(Position $positions)
+    public function index(Position $positions, Request $request)
     {
         return $positions
             ->orderBy('department_id')
             ->orderBy('name')
             ->with('department')
-            ->withCount(['employees' => function($query) {
-				return $query->actives();
-			}])
+            ->withCount(['employees' => function ($query) {
+                return $query->actives();
+            }])
             ->with('payment_type')
             ->with('payment_frequency')
             ->paginate(50);
@@ -44,9 +46,13 @@ class PositionsController extends Controller
      *
      * @return Response
      */
-    public function create(Position $position)
+    public function create()
     {
-        return view('positions.create', compact('position'));
+        return response([
+            'departments' => Department::all(),
+            'payment_types' => PaymentType::all(),
+            'payment_frequencies' => PaymentFrequency::all()
+        ]);
     }
 
     /**

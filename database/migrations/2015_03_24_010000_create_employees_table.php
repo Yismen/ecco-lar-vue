@@ -23,7 +23,7 @@ class CreateEmployeesTable extends Migration
             $table->string('passport', 100)->unique()->nullable()->index();
             $table->dateTime('date_of_birth');
             $table->string('cellphone_number', 25);
-            $table->string('secondary_phone', 25);
+            $table->string('secondary_phone', 25)->nullable();
             
             $table->integer('position_id')->unsigned()->nullable()->index();
             $table->integer('supervisor_id')->unsigned()->nullable()->index();
@@ -32,7 +32,7 @@ class CreateEmployeesTable extends Migration
             $table->integer('ars_id')->unsigned()->nullable();
             $table->integer('afp_id')->unsigned()->nullable();
             $table->boolean('has_kids', 10)->default(0);
-            $table->string('photo', 80);
+            $table->string('photo', 80)->nullable();
 
             $table->foreign('position_id')->references('id')->on('positions');
             $table->foreign('supervisor_id')->references('id')->on('supervisors');
@@ -47,11 +47,11 @@ class CreateEmployeesTable extends Migration
         /**
          * set the initial value for the autoincrement field
          */
-        if (config('DB_CONNECTION') == 'mysql') {
+        if (config('database.default') == 'mysql') {
             DB::statement('ALTER TABLE `employees` AUTO_INCREMENT = 50001');
         }
-        if (config('DB_CONNECTION') == 'pgsql') {
-            DB::statement('ALTER SEQUENCE employees_id_seq RESTART = 50001');
+        if (config('database.default') == 'pgsql') {
+            DB::statement('ALTER SEQUENCE employees_id_seq RESTART WITH 50001');
         }
     }
 

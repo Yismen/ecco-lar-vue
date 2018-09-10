@@ -4,6 +4,7 @@ namespace App\Http\Traits;
 use App\Menu;
 use App\Role;
 use App\Permission;
+use Cache;
 
 trait MenusTrait
 {
@@ -26,7 +27,9 @@ trait MenusTrait
      */
     private function createMenu($menu, $requests, $permission)
     {
-        $menu = $menu->create($requests->all());        
+        $menu = $menu->create($requests->all());    
+        
+        Cache::forget('menues_for_user_' . auth()->user()->id);
 
         $this->createPermissions($menu, $permission);
 
@@ -43,6 +46,8 @@ trait MenusTrait
     private function updateMenu($menu, $requests)
     {
         $menu->update($requests->all());
+
+        Cache::forget('menues_for_user_' . auth()->user()->id);
 
         return $this->syncRoles($menu, $requests->get('roles_list'));
     }

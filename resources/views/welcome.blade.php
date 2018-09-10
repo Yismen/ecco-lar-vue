@@ -4,11 +4,11 @@
 @section('content')
     <div class="">
 
-        <div class="jumbotron no-margin bg-{{ $color or 'yellow'}}  slanted-right">
+        <div class="jumbotron no-margin bg-{{ $color ?? 'yellow'}}  slanted-right">
             <div class="container-fluid">
                 <div class="col-sm-12 text-center">
                     @include('layouts.partials.logo')
-                    <h1 class="my-main-header">Welcome to {{ $app_name }} {{ $user->name or '' }}</h1>
+                    <h1 class="my-main-header">Welcome to {{ $app_name }} {{ $user->name ?? '' }}</h1>
                     <p><i class="fa fa-arrow-up"></i> Click top menu icon <i class="fa fa-bars"></i> to see your applications links. </p>
                     @if ($user)
                         <a href="/admin/profiles" class="btn btn-default btn-lg">
@@ -38,12 +38,12 @@
                 </div>
                 <div class="col-sm-4">
                     <h3><i class="fa fa-4x fa-user"></i></h3>
-                    {{ $app_name }} allows to monitor performance for users under your groups or just for yourself.
+                    {{ $app_name }} allows to monitor performance for users under your groups ?? just for yourself.
                 </div>
             </div>
         </div>
 
-        <div class="jumbotron no-margin text-center bg-{{ $color or 'yelow' }} disabled color-palette">
+        <div class="jumbotron no-margin text-center bg-{{ $color ?? 'yelow' }} disabled color-palette">
             <div class="container-fluid">
                 <h1 class="">{{ $app_name }}</h1>
                 <p>Process documentation? Collect data? Customize reports? Just ask for it. Get in contact with the System Administrator and together create what you need. Please log in to gain access to Dainsys!</p>

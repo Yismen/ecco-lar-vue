@@ -25,6 +25,11 @@ class DepartmentsController extends Controller
     public function index(Department $departments, Request $request)
     {
         $departments = $departments->orderBy('department')->paginate(15);
+        
+
+        if ($request->ajax()) {
+            return $departments;
+        }
 
         return view('departments.index', compact('departments'));
     }
@@ -34,9 +39,13 @@ class DepartmentsController extends Controller
      *
      * @return Response
      */
-    public function create(Department $department)
+    public function create(Department $department, Request $request)
     {
-        $department = $department->orderBy('department')->paginate(10);
+
+        if ($request->ajax()) {
+            return $department;
+        }
+
 
         return view('departments.create', compact('department'));
     }
@@ -52,7 +61,11 @@ class DepartmentsController extends Controller
             'department' => 'required|unique:departments,department'
         ]);
         
-        $department->create($request->only('department'));
+        $department = $department->create($request->only('department'));
+
+        if ($request->ajax()) { 
+            return $department;
+        }
 
         return redirect()->route('admin.departments.index')
             ->withSuccess("Department $department->department has been added!");
@@ -64,8 +77,12 @@ class DepartmentsController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function show(Department $department)
+    public function show(Department $department, Request $request)
     {
+        if ($request->ajax()) {
+            return $department;
+        }
+
         return view('departments.show', compact('department'));
     }
 
@@ -75,9 +92,14 @@ class DepartmentsController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function edit(Department $departments)
+    public function edit(Department $department, Request $request)
     {
-        return view('departments.edit', compact('departments'));
+
+        if ($request->ajax()) {
+            return $department;
+        }
+
+        return view('departments.edit', compact('department'));
     }
 
     /**
@@ -88,9 +110,16 @@ class DepartmentsController extends Controller
      */
     public function update(Request $request, Department $department)
     {
-        $this->validateRequest($department, $request);
+       $this->validate($request, [
+            'department' => "required|unique:departments,department,$department->id,id"
+        ]);
+
 
         $department->update($request->all());
+
+        if ($request->ajax()) {
+            return $department;
+        }
 
         return redirect()->route('admin.departments.edit', $department->id)->withSuccess("HH RR Department $department->department has been updated");
     }
@@ -105,15 +134,12 @@ class DepartmentsController extends Controller
     {
         $department->destroy($department->id);
 
+        if ($request->ajax()) {
+            return $department;
+        }
+
         return redirect()
             ->route('admin.departments.index')
             ->withWarning("HH RR Department $department->department has been removed");
-    }
-
-    protected function validateRequest($department, $request)
-    {
-        return $this->validate($request, [
-            'department' => "required|unique:departments,department,$department->id,id"
-        ]);
     }
 }

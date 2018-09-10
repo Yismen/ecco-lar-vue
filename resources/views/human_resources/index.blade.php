@@ -33,7 +33,6 @@
 @stop
 
 @section('scripts')
-	<script src="/js/dainsys/app.js"></script>
 	<script>
 		$(function () {
 			setTimeout(function() {
