@@ -1,6 +1,16 @@
 <?php
-
 return [
+    /*
+    |--------------------------------------------------------------------------
+    | Application Name
+    |--------------------------------------------------------------------------
+    |
+    | This value is the name of your application. This value is used when the
+    | framework needs to place the application's name in a notification or
+    | any other location as required by the application or its packages.
+    |
+    */
+    'name' => env('APP_NAME', 'Laravel'),
     /*
     |--------------------------------------------------------------------------
     | Application Environment
@@ -8,12 +18,10 @@ return [
     |
     | This value determines the "environment" your application is currently
     | running in. This may determine how you prefer to configure various
-    | services your application utilizes. Set this in your ".env" file.
+    | services the application utilizes. Set this in your ".env" file.
     |
     */
-
     'env' => env('APP_ENV', 'production'),
-
     /*
     |--------------------------------------------------------------------------
     | Application Debug Mode
@@ -24,9 +32,7 @@ return [
     | application. If disabled, a simple generic error page is shown.
     |
     */
-
     'debug' => env('APP_DEBUG', false),
-
     /*
     |--------------------------------------------------------------------------
     | Application URL
@@ -37,9 +43,7 @@ return [
     | your application so that it is used when running Artisan tasks.
     |
     */
-
     'url' => env('APP_URL', 'http://localhost'),
-
     /*
     |--------------------------------------------------------------------------
     | Application Timezone

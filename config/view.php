@@ -14,7 +14,7 @@ return [
     */
 
     'paths' => [
-        realpath(base_path('resources/views')),
+        resource_path('views'),
     ],
 
     /*
@@ -27,7 +27,6 @@ return [
     | directory. However, as usual, you are free to change this value.
     |
     */
-
     'compiled' => realpath(storage_path('framework/views')),
 
 ];
