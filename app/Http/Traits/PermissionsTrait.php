@@ -7,23 +7,6 @@ use App\Permission;
 trait PermissionsTrait
 {
     /**
-     * validate the request
-     * @param  object $request    contaiains all the user's imputs
-     * @param  object $permission is the current permission being updated.
-     * @return instance             of the class.
-     */
-    public function validateRequest($request, $permission)
-    {
-        $this->validate($request, [
-            'name'         => 'required|unique:permissions,name,'.$permission->id.',id',
-            'display_name' => 'required',
-            'roles_list'   => 'required|array|exists:roles,id',
-        ]);
-
-        return $this;
-    }
-
-    /**
      * handle the process of creating the menu item
      * 
      * @param  [object] $permission     [description]
@@ -32,9 +15,38 @@ trait PermissionsTrait
      */
     private function createPermission($permission, $request)
     {
-        $this->permission = $permission->create($request->all());
+        $methods = [
+            'view' => 'Permission to view ',
+            'edit' => 'Permission to edit ',
+            'create' => 'Permission to create ',
+            'destroy' => 'Permission to destroy '
+        ];
+        $selected = [];
 
-        return $this->syncRoles($this->permission, $request->get('roles_list'));
+        if (in_array('all', $request->permission)) {
+            $selected = $methods;
+        } else {
+            foreach ($request->permission as $value) {
+                $selected[$value] = $methods[$value];
+            }
+        }
+
+        foreach ($selected as  $key => $value) {
+            $plural_resource = str_plural($request->resource);
+            $name = $key . '_' . $plural_resource;
+            if ($exists = $permission->where('name', $name)->first()) {
+                $permission = $exists;
+            } else {
+                $permission = new Permission;
+                $permission->name = $name;
+                $permission->display_name = trim(ucwords($plural_resource . ': ' . $value));
+                $permission->description = $methods[$key] . $plural_resource;
+            }
+            // dd($permission, $selected);
+            $permission->save();
+        }
+
+        return $this->syncRoles($permission, $request->roles_list);
     }
 
     /**
@@ -46,9 +58,7 @@ trait PermissionsTrait
      */
     private function updatePermission($permission, $request)
     {
-        $permission->update($request->all());
-
-        return $this->syncRoles($permission, $request->get('roles_list'));
+        return $this->createPermission($permission, $request);
     }
 
     /**
@@ -58,9 +68,9 @@ trait PermissionsTrait
      * @param  Array  $roles [description]
      * @return [type]        [description]
      */
-    private function syncRoles(Permission $permission, Array $roles = null)
+    private function syncRoles(Permission $permission, array $roles = null)
     {
         return $permission->roles()
-            ->sync((array) $roles);  
+            ->sync((array) $roles);
     }
 }

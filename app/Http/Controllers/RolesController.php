@@ -175,6 +175,8 @@ class RolesController extends Controller {
 		$role->update($request->all());
 
 		Cache::forget('user-navbar');
+		Cache::flush();
+		Cache::forget('menus');
 
 		return $this->syncRelations($role,  $request);
 	}

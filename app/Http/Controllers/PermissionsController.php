@@ -1,29 +1,28 @@
-<?php namespace App\Http\Controllers;
+<?php
+
+namespace App\Http\Controllers;
 
 // use App\Http\Requests;
-use App\Http\Controllers\Controller;
 use App\Http\Traits\PermissionsTrait;
-
 use Illuminate\Http\Request;
 // use App\Http\Requests\Request;
 use App\Permission;
 use App\Role;
 
-class PermissionsController extends Controller 
+class PermissionsController extends Controller
 {
     use PermissionsTrait;
     private $rolesArray;
 
     private $permission;
 
-
     public function __construct(Role $roles)
     {
-        $this->middleware('authorize:view_permissions', ['only'=>['index','show']]);
-        $this->middleware('authorize:edit_permissions', ['only'=>['edit','update']]);
-        $this->middleware('authorize:create_permissions', ['only'=>['create','store']]);
-        $this->middleware('authorize:destroy_permissions', ['only'=>['destroy']]);
-        
+        $this->middleware('authorize:view_permissions', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit_permissions', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create_permissions', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy_permissions', ['only' => ['destroy']]);
+
         $this->rolesArray = $roles->orderBy('display_name')->pluck('display_name', 'id');
     }
 
@@ -57,11 +56,16 @@ class PermissionsController extends Controller
      */
     public function store(Permission $permission, Request $request)
     {
-        $this->validateRequest($request, $permission)
-            ->createPermission($permission, $request);
+        $this->validate($request, [
+            'resource' => 'required',
+            'permission' => 'required|array',
+            'roles_list' => 'required|array|exists:roles,id',
+        ]);
+
+        $this->createPermission($permission, $request);
 
         return redirect()->route('admin.permissions.index')
-            ->withSuccess("Permission ".$this->permission->display_name." has been created.");
+            ->withSuccess('Permissionscreated.');
     }
 
     /**
@@ -83,6 +87,7 @@ class PermissionsController extends Controller
      */
     public function edit(Permission $permission)
     {
+        return $permission->resource = $permission->name;
         $roles = $this->rolesArray;
         return view('permissions.edit', compact('permission', 'roles'));
     }
@@ -115,6 +120,4 @@ class PermissionsController extends Controller
         return redirect()->route('admin.permissions.index')
             ->withWarning("Permission [$permission->display_name] has been removed!");
     }
-
-
 }

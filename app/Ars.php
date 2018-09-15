@@ -28,13 +28,6 @@ class Ars extends Model
         return $this->hasMany('App\Employee');
     }
     
-    // Methods ===================================================
-    
-    // Scopes ====================================================
-    
-    // Accessors =================================================
-    
-    // Mutators ==================================================
     public function setNameAttribute($name)
     {
         $this->attributes['name'] = trim(ucwords($name));

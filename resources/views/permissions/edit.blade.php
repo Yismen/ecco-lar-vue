@@ -13,30 +13,16 @@
 							<i class="fa fa-list"></i>
 						</a>
 					</div>
-						{!! Form::model($permission, ['route'=>['admin.permissions.update', $permission->name], 'method'=>'PUT', 'class'=>'form-horizontal', 'role'=>'form']) !!}	
-							@include('permissions._form')
+					{{-- {!! Form::model($permission, ['route'=>['admin.permissions.update', $permission->name], 'method'=>'PUT', 'class'=>'form-horizontal', 'role'=>'form']) !!}	
+						@include('permissions._form')
 
-							<div class="col-sm-8 col-sm-offset-2 clear-fix">
-								<div class="form-group">
-									<button type="submit" class="btn btn-primary">Update</button>
-									<a href="{{ route('admin.permissions.index') }}"><i class="fa fa-angle-double-left"></i> Return to Permissions List</a>
-								</div>
-							</div>	
-						{!! Form::close() !!}
-
+						<div class="col-sm-8 col-sm-offset-2 clear-fix">
 							<div class="form-group">
-						<div class="col-sm-10 col-sm-offset-1">
-								<form action="{{ url('/admin/permissions', $permission->name) }}" method="POST" class="" style="display: inline-block;">
-								    {!! csrf_field() !!}
-								    {!! method_field('DELETE') !!}
-								
-								    <button type="submit" id="delete-permission" class="btn btn-danger"  name="deleteBtn">
-								        <i class="fa fa-btn fa-trash"></i> Remove Permission
-								    </button>
-								</form>
+								<button type="submit" class="btn btn-primary">Update</button>
+								<a href="{{ route('admin.permissions.index') }}"><i class="fa fa-angle-double-left"></i> Return to Permissions List</a>
 							</div>
-						</div>
-
+						</div>	
+					{!! Form::close() !!} --}}
 				</div>
 			</div>
 		</div>

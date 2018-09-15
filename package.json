@@ -16,6 +16,7 @@
     "bootbox": "^4.4.0",
     "bootstrap": "^4.0",
     "bootstrap-sass": "^3.3.7",
+    "chart.js": "^2.7.2",
     "cross-env": "^5.1",
     "font-awesome": "^4.7.0",
     "jquery": "^3.2",
@@ -24,6 +25,7 @@
     "popper.js": "^1.12",
     "uiv": "^0.26.2",
     "vue": "^2.5.7",
+    "vue-chartjs": "^3.4.0",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
   },

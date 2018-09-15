@@ -37,10 +37,22 @@
 									{{ $permission->description }}
 								</td>
 								<td>
-									<a href="{{ route('admin.permissions.edit', $permission->name) }}" class="">
-										<i class="fa fa-pencil"></i>
-									</a>
-									{{-- {!! delete_button('admin.permissions.destroy', $permission->name, ['class'=>'btn btn-danger','label'=>'<i class="fa fa-trash"></i>']) !!} --}}
+									<div class="form-group">
+										<div class="col-sm-10 col-sm-offset-1">
+											<form 
+												action="{{ url('/admin/permissions', $permission->name) }}" 
+												method="POST" class="" 
+												id="delete-form-{{ $permission->id }}"
+												onsubmit="submitForm(event, {{ $permission->id }})"
+											>
+												{!! csrf_field() !!} {!! method_field('DELETE') !!}
+									
+												<button type="submit" id="delete-permission" class="btn btn-danger btn-xs" name="deleteBtn">
+													<i class="fa fa-btn fa-trash"></i> Remove
+												</button>
+											</form>
+										</div>
+									</div>
 								</td>
 							</tr>
 						@endforeach
@@ -52,6 +64,13 @@
 @stop
 
 @section('scripts')
-	
+	<script>
+		function submitForm(event, id) {
+			event.preventDefault();
+			if(confirm("are you sure?")) {
+				event.target.submit();
+			}
+		}
+	</script>
 @stop
 
