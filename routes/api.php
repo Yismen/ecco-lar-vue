@@ -17,4 +17,6 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('positions', 'PositionsController');
     Route::resource('departments', 'DepartmentsController');
     Route::resource('payment_frequencies', 'PaymentFrequenciesController');
+
+    Route::get('/blackhawk/de/management', 'Blackhawk\DE\ManagementController@dashboardData');
 });
