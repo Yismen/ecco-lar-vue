@@ -22,7 +22,7 @@ class NationalitiesController extends Controller
             ->with('employees')
             ->paginate(50);
 
-       return view('nationalities.index', compact('nationalities'));
+        return view('nationalities.index', compact('nationalities'));
     }
 
     /**

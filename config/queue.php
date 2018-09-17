@@ -58,7 +58,7 @@ return [
             'region' => env('SQS_REGION', 'us-east-1'),
         ],
 
-        'redis' => [           
+        'redis' => [
             'driver' => 'redis',
             'connection' => 'default',
             'queue' => 'default',

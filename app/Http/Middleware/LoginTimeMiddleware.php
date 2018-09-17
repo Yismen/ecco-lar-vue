@@ -17,9 +17,9 @@ class LoginTimeMiddleware
     {
         // is authenticated?
         // is logged in?
-        // request has disposition, 
-            // log out previous session
-            // log in with the new disposition
+        // request has disposition,
+        // log out previous session
+        // log in with the new disposition
         return $next($request);
     }
 }

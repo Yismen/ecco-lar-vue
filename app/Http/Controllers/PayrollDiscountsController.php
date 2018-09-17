@@ -13,7 +13,8 @@ use App\Http\Requests\PayrollDiscountRequest;
 class PayrollDiscountsController extends Controller
 {
     use PayrollDiscountsTrait;
-    function __construct() {
+    public function __construct()
+    {
         $this->middleware('authorize:view_payroll-discounts', ['only'=>['index','show']]);
         $this->middleware('authorize:edit_payroll-discounts', ['only'=>['edit','update']]);
         $this->middleware('authorize:create_payroll-discounts', ['only'=>['create','store']]);
@@ -136,7 +137,7 @@ class PayrollDiscountsController extends Controller
         ->load($request->file('discounts-file'));
         
         if ($loader->hasErrors()) {
-            $request->session()->flash('file_errors', ['errors'=>$loader->errors()]); 
+            $request->session()->flash('file_errors', ['errors'=>$loader->errors()]);
             return redirect()->route('admin.payroll-discounts.import')
                 ->withDanger('The file contains errors');
         }

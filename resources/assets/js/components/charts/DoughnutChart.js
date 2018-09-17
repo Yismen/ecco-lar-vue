@@ -13,15 +13,22 @@
                 colors: []
             }
         },
+        watch: {
+            datasets: () => {           
+                this.render()
+            }
+        },
         mounted() {
-            this.renderChart({
-                labels: this.labels,
-                datasets: this.datasets
-            }, this.defaultOptions());
         },
         methods: {
             defaultOptions() {
                 return Object.assign({ responsive: true, maintainAspectRatio: false }, this.options)
+            },
+            render() {
+                this.renderChart({
+                    labels: this.labels,
+                    datasets: this.datasets
+                }, this.defaultOptions());
             }
         }
     }

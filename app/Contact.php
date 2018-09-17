@@ -3,13 +3,13 @@
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 
-class Contact extends Model {	
+class Contact extends Model
+{
+    protected $table = 'contacts';
 
-	protected $table = 'contacts';
+    protected $fillable = ['username','name', 'main_phone', 'works_at', 'position', 'secondary_phone', 'email'];
 
-	protected $fillable = ['username','name', 'main_phone', 'works_at', 'position', 'secondary_phone', 'email'];
-
-	/**
+    /**
      * The "booting" method of the model.
      *
      * @return void
@@ -17,57 +17,56 @@ class Contact extends Model {
     protected static function boot()
     {
         parent::boot();
-		/**
-		 * Global scope applied to all methods
-		 */
-        static::addGlobalScope('user', function(Builder $builder) {
-			if (auth()->check()) {
-				$builder->whereUserId(auth()->user()->id);
-			}
+        /**
+         * Global scope applied to all methods
+         */
+        static::addGlobalScope('user', function (Builder $builder) {
+            if (auth()->check()) {
+                $builder->whereUserId(auth()->user()->id);
+            }
         });
-	}
+    }
 
-	/**
-	 * A contact belongs to a user
-	 *
-	 * @return relationship
-	 */
-	public function user()
-	{
-		return $this->belongsTo(User::class);
-	}
+    /**
+     * A contact belongs to a user
+     *
+     * @return relationship
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
-	/**
-	 * Accesor: morph the attribute before it is retrieved.
-	 *
-	 * @param string $work
-	 * @return mutated
-	 */	
-	public function getWorksAtAttribute($work)
-	{
-		return ucwords(trim($work));
-	}
+    /**
+     * Accesor: morph the attribute before it is retrieved.
+     *
+     * @param string $work
+     * @return mutated
+     */
+    public function getWorksAtAttribute($work)
+    {
+        return ucwords(trim($work));
+    }
 
-	/**
-	 * mutate the position attribute after it is retrieved
-	 *
-	 * @param string $position
-	 * @return mutated
-	 */
-	public function getPositionAttribute($position)
-	{
-		return ucwords(trim($position));
-	}
+    /**
+     * mutate the position attribute after it is retrieved
+     *
+     * @param string $position
+     * @return mutated
+     */
+    public function getPositionAttribute($position)
+    {
+        return ucwords(trim($position));
+    }
 
-	/**
-	 * Mutate the name attribute before it is inserted.
-	 *
-	 * @param string $name
-	 * @return mutated attribute
-	 */
-	public function setNameAttribute($name)
-	{
-		$this->attributes['name'] = ucwords(trim($name));
-	}
-
+    /**
+     * Mutate the name attribute before it is inserted.
+     *
+     * @param string $name
+     * @return mutated attribute
+     */
+    public function setNameAttribute($name)
+    {
+        $this->attributes['name'] = ucwords(trim($name));
+    }
 }

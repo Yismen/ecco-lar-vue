@@ -49,7 +49,7 @@ class EscalationsHoursController extends Controller
 
         $record = EscalRecord::filterForHours($user_id, $client_id, $date);
         
-        return view('escalations_hours.create', compact('record'));            
+        return view('escalations_hours.create', compact('record'));
     }
 
     /**
@@ -84,7 +84,7 @@ class EscalationsHoursController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(EscalationHour $hour)
-    {        
+    {
         $hour->records = $hour->recordsCount($hour->user_id, $hour->client_id, $hour->date);
 
         return view('escalations_hours.edit', compact('hour'));

@@ -4,11 +4,11 @@
  * ===========================================================
  * Permissions
  */
-Route::bind('permission', function($name){	
-	return App\Permission::
-		whereName($name)
-		->with('roles')
-		->firstOrFail();
+Route::bind('permission', function ($name) {
+    return App\Permission::
+        whereName($name)
+        ->with('roles')
+        ->firstOrFail();
 });
 Route::resource('permissions', 'PermissionsController');
 
@@ -98,5 +98,3 @@ Route::resource('permissions', 'PermissionsController');
 // 	// 'roles'=>['administrator'],
 // 	'permissions'=>['permissions_editor'],
 // ]);
-
-

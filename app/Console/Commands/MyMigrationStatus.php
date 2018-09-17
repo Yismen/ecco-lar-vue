@@ -54,19 +54,17 @@ class MyMigrationStatus extends Command
      */
     private function setMigrationsArray()
     {
-        foreach ($this->getMigrationFiles($this->option('dirname')) as $partial) 
-        {
+        foreach ($this->getMigrationFiles($this->option('dirname')) as $partial) {
             $partial = pathinfo($partial);
             $name = $partial["filename"];
-            $migrated = $this->getMigration($name); 
+            $migrated = $this->getMigration($name);
 
             $array = [
                 'name'=>$name,
                 'batch'=>"Pending",
             ];
 
-            if($migrated) 
-            {
+            if ($migrated) {
                 $array = array_merge($array, [
                     'name'=>$migrated['migration'],
                     'batch'=>$migrated['batch'],

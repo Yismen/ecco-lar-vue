@@ -20,7 +20,7 @@ class Birthdays
 
     public static function onDate($date = null)
     {
-        $date = $date ? Carbon::parse($date) : Carbon::today(); 
+        $date = $date ? Carbon::parse($date) : Carbon::today();
 
         return static::byMonth($date->month)
             ->whereDay('date_of_birth', '=', $date->day)
@@ -42,4 +42,3 @@ class Birthdays
         return static::byMonth(Carbon::now()->addMonth()->month);
     }
 }
-

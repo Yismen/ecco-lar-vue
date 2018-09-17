@@ -10,24 +10,24 @@
  */
 function deleteForm($route, $resource, $options = null)
 {
-	$defaults = [
-		'btn-type' => 'btn-danger',
-		'btn-text' => ' Delete'
-	];
+    $defaults = [
+        'btn-type' => 'btn-danger',
+        'btn-text' => ' Delete'
+    ];
 
-	if ($options) {
-		$defaults = array_merge($defaults, $options);
-	}
+    if ($options) {
+        $defaults = array_merge($defaults, $options);
+    }
 
-	$form = '<form action="'. route($route, $resource).'" method="POST" class="" style="">';
+    $form = '<form action="'. route($route, $resource).'" method="POST" class="" style="">';
 
-		$form .= csrf_field();
-		$form .= method_field('DELETE');
-		$form .= '<button type="submit" id="" class="btn '.$defaults['btn-type'].'" style="" name="deleteBtn">';
-			$form .= '<i class="fa fa-btn fa-trash"></i>'.$defaults['btn-text'];
-		$form .= '</button>';
+    $form .= csrf_field();
+    $form .= method_field('DELETE');
+    $form .= '<button type="submit" id="" class="btn '.$defaults['btn-type'].'" style="" name="deleteBtn">';
+    $form .= '<i class="fa fa-btn fa-trash"></i>'.$defaults['btn-text'];
+    $form .= '</button>';
 
-	return $form .= '</form>';
+    return $form .= '</form>';
 }
 
 /**
@@ -39,23 +39,23 @@ function deleteForm($route, $resource, $options = null)
  */
 function deleteFormLink($route, $resource, $options = null)
 {
-	$defaults = [
-		'btn-type' => 'btn-link',
-		'btn-text' => ''
-	];
+    $defaults = [
+        'btn-type' => 'btn-link',
+        'btn-text' => ''
+    ];
 
-	if ($options) {
-		$defaults = array_merge($defaults, $options);
-	}
+    if ($options) {
+        $defaults = array_merge($defaults, $options);
+    }
 
-	$form = '<form action="'. route($route, $resource).'" method="POST" class="" style="display: inline-block;">';
+    $form = '<form action="'. route($route, $resource).'" method="POST" class="" style="display: inline-block;">';
 
-		$form .= csrf_field();
-		$form .= method_field('DELETE');
-		$form .= '<button type="submit" id="" class="btn '.$defaults['btn-type'].'" style="" name="deleteBtn">';		
-			$form .= '<span class="text-danger">';
-				$form .= '<i class="fa fa-btn fa-remove"></i>'.$defaults['btn-text'];
-			$form .= '</span>';
-		$form .= '</button>';
-	return $form .= '</form>';
+    $form .= csrf_field();
+    $form .= method_field('DELETE');
+    $form .= '<button type="submit" id="" class="btn '.$defaults['btn-type'].'" style="" name="deleteBtn">';
+    $form .= '<span class="text-danger">';
+    $form .= '<i class="fa fa-btn fa-remove"></i>'.$defaults['btn-text'];
+    $form .= '</span>';
+    $form .= '</button>';
+    return $form .= '</form>';
 }

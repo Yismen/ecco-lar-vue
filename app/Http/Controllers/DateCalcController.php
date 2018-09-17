@@ -8,11 +8,10 @@ use Illuminate\Http\Request;
 
 class DateCalcController extends Controller
 {
-
     protected $result;
 
     public function index()
-    {        
+    {
         return view('date_calc.index');
     }
 
@@ -23,7 +22,7 @@ class DateCalcController extends Controller
             'base_date'=> 'required|date'
         ]);
 
-       $result = $this->calcDiffFromToday($request, $carbon);
+        $result = $this->calcDiffFromToday($request, $carbon);
 
         if ($request->ajax()) {
             return view('date_calc._results', compact('result'));
@@ -54,7 +53,8 @@ class DateCalcController extends Controller
      * @param  [object] $carbon  Carbon instance
      * @return [int]          The number of days between today and the given date.
      */
-    private function calcDiffFromToday($request, $carbon) {
+    private function calcDiffFromToday($request, $carbon)
+    {
         $today = $carbon->now();
         $date = $carbon->createFromFormat("Y-m-d", $request->input('base_date'));
 
@@ -67,7 +67,8 @@ class DateCalcController extends Controller
      * @param  [class] $carbon  Carbon instance
      * @return [int]          The number of days between the given dates
      */
-    private function calcDiffFromRange($request, $carbon) {
+    private function calcDiffFromRange($request, $carbon)
+    {
         $from_date = $carbon->createFromFormat("Y-m-d", $request->input('from_date'));
         $to_date = $carbon->createFromFormat("Y-m-d", $request->input('to_date'));
 

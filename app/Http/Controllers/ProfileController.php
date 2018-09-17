@@ -21,7 +21,7 @@ class ProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Profiles $profiles)
-    {   
+    {
         if (!auth()->user()->profile) {
             return redirect()->route('admin.profiles.create')
                 ->withInfo("You have not created a profile, please create one now.");
@@ -83,14 +83,14 @@ class ProfileController extends Controller
 
         Cache::forget('user-navbar');
 
-        if($photoPath) {
+        if ($photoPath) {
             $user->profile->photo = $photoPath;
             $user->profile->save();
         }
 
         if ($request->ajax()) {
             return response()->json([
-                'success' => 1, 
+                'success' => 1,
                 'data' => $user
             ]);
         }
@@ -166,7 +166,7 @@ class ProfileController extends Controller
 
         if ($request->ajax()) {
             return response()->json([
-                'success' => 1, 
+                'success' => 1,
                 'data' => $user
             ]);
         }
@@ -190,16 +190,16 @@ class ProfileController extends Controller
      * Methods
      */
     public function saveImage(Request $request, User $user)
-    {   
+    {
         /**
          * If not photo file passed, first we check if
-         * the user is created already. If so we 
+         * the user is created already. If so we
          * return the actual photo, otherwise
          * we return null;
          */
         if (!$request->hasFile('photo')) {
             if ($user->profile) {
-               return $user->profile->photo;
+                return $user->profile->photo;
             }
             return null;
         };
@@ -222,7 +222,7 @@ class ProfileController extends Controller
         $img = Image::make($request->file('photo'));
 
         // resize only the width of the image
-        $img->resize(null, 150, function($constraint){
+        $img->resize(null, 150, function ($constraint) {
             $constraint->aspectRatio();
         });
 
@@ -231,6 +231,6 @@ class ProfileController extends Controller
 
         $img->save($extendedName, 85);
 
-        return $extendedName; 
+        return $extendedName;
     }
 }

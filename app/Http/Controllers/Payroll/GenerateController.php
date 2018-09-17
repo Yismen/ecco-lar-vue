@@ -20,9 +20,8 @@ class GenerateController extends Controller
     }
 
 
-    function __construc()
+    public function __construc()
     {
-        
     }
     public function generate()
     {
@@ -39,7 +38,7 @@ class GenerateController extends Controller
         return [
             'employees_with_hours' => $this->payrolls->employeesWithHours($request),
             'actives_without_hours' => $this->payrolls->activesWithoutHours($request),
-        ];   
+        ];
     }
 
     public function prepare()
@@ -74,5 +73,4 @@ class GenerateController extends Controller
         }
         return response()->json("success", 200);
     }
-
 }

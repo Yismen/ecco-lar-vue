@@ -2,17 +2,16 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class System extends Model {
+class System extends Model
+{
+    protected $fillable = ['name', 'display_name', 'description', 'url'];
 
-	protected  $fillable = ['name', 'display_name', 'description', 'url'];
-
-	/**
-	 * ------------------------------------------
-	 * Relationships
-	 */
-	public function logins()
-	{
-		return $this->hasMany('App\Login');
-	}
-
+    /**
+     * ------------------------------------------
+     * Relationships
+     */
+    public function logins()
+    {
+        return $this->hasMany('App\Login');
+    }
 }

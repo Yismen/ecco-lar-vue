@@ -10,17 +10,17 @@ use Illuminate\Support\Facades\DB;
 
 trait EscalationsAdminTrait
 {
-    private  $date = null;
+    private $date = null;
 
     private function fetchClientsProductionByDate($escalClient)
     {
         $date = $this->date;
 
-        return $escalClient->select(['name', 'id'])        
-            ->whereHas('escal_records', function($query) use ($date){
+        return $escalClient->select(['name', 'id'])
+            ->whereHas('escal_records', function ($query) use ($date) {
                 $query->whereDate('created_at', '=', $date)->with('user');
             })
-            ->withCount(['escal_records' => function($query) use ($date) {
+            ->withCount(['escal_records' => function ($query) use ($date) {
                 $query->whereDate('created_at', '=', $date);
             }])
             ->get();
@@ -31,10 +31,10 @@ trait EscalationsAdminTrait
         $date = $this->date;
 
         return $user->select(['name', 'id'])
-            ->whereHas('escalationsRecords', function($query) use ($date){
+            ->whereHas('escalationsRecords', function ($query) use ($date) {
                 $query->whereDate('created_at', '=', $date);
             })
-            ->withCount(['escalationsRecords' => function($query) use ($date) {
+            ->withCount(['escalationsRecords' => function ($query) use ($date) {
                 $query->whereDate('created_at', '=', $date);
             }])
             ->get();
@@ -48,7 +48,6 @@ trait EscalationsAdminTrait
             ->orderBy('escal_client_id')
             ->whereDate('created_at', '=', $this->date)
             ->get();
-        
     }
 
     private function fetchRandomRecordsByRange($escalRecords, $amount, $user_id, $from, $to)
@@ -60,7 +59,6 @@ trait EscalationsAdminTrait
             ->take($amount)
             ->with('user')
             ->get();
-        
     }
 
     private function fetchProductionsByDate($escalRecords, $escalClient, $user)
@@ -82,7 +80,7 @@ trait EscalationsAdminTrait
 
         return $escalRecords->whereDate('created_at', '=', $date)
             ->where('is_bbb', true)
-            ->with(['user' => function($query) {
+            ->with(['user' => function ($query) {
                 return $query->orderBy('name');
             }])
             ->orderBy('escal_client_id')
@@ -95,10 +93,10 @@ trait EscalationsAdminTrait
 
         return EscalRecord::whereDate('created_at', '=', $date->today())
             ->where('is_bbb', true)
-            ->with(['user' => function($query) {
+            ->with(['user' => function ($query) {
                 return $query->orderBy('name');
             }])
-            ->with(['escal_client' => function($query) {
+            ->with(['escal_client' => function ($query) {
                 return $query->orderBy('name');
             }])
             ->orderBy('escal_client_id')
@@ -110,7 +108,7 @@ trait EscalationsAdminTrait
         return EscalRecord::select(DB::raw("insert_date, count(tracking) as records"))
             ->groupBy(['insert_date'])
             ->where('is_bbb', true)
-            ->orderBy('insert_date','DESC')
+            ->orderBy('insert_date', 'DESC')
             ->take($dates)
             ->get();
     }
@@ -129,7 +127,7 @@ trait EscalationsAdminTrait
     // }
 
     // private function lastFiveDatesByUser()
-    // {        
+    // {
     //     return EscalRecord::select(DB::raw("insert_date, user_id, count(tracking) as records"))
     //         ->groupBy(['insert_date', 'user_id'])
     //         ->with('user')
@@ -155,9 +153,8 @@ trait EscalationsAdminTrait
     {
         return EscalRecord::select(DB::raw("insert_date, count(tracking) as records, count(CASE WHEN is_bbb = 1 THEN 1 ELSE NULL end) as bbbRecords"))
             ->groupBy(['insert_date'])
-            ->orderBy('insert_date','DESC')
+            ->orderBy('insert_date', 'DESC')
             ->take(5)
             ->get();
     }
-
 }

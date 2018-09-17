@@ -2,9 +2,10 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class TerminationReason extends Model {
+class TerminationReason extends Model
+{
 
-	/**
+    /**
      * mass assignable
      */
     protected $fillable = ['reason', 'description'];
@@ -13,5 +14,4 @@ class TerminationReason extends Model {
     {
         return $this->attributes['reason'] = ucwords(trim($reason));
     }
-
 }

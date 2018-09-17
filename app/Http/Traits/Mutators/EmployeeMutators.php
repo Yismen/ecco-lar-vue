@@ -37,7 +37,7 @@ trait EmployeeMutators
 
     /**
      * make sure date of birth is saved as an instance of carbon
-     * 
+     *
      * @param [type] $date_of_birth [description]
      */
     public function setHireDateAttribute($hire_date)
@@ -47,7 +47,7 @@ trait EmployeeMutators
 
     /**
      * make sure date of birth is saved as an instance of carbon
-     * 
+     *
      * @param [type] $date_of_birth [description]
      */
     public function setDateOfBirthAttribute($date_of_birth)

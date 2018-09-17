@@ -8,7 +8,7 @@ trait PermissionsTrait
 {
     /**
      * handle the process of creating the menu item
-     * 
+     *
      * @param  [object] $permission     [description]
      * @param  [object] $request [description]
      * @return [process]           [the action of syncing the menu-roles]
@@ -51,7 +51,7 @@ trait PermissionsTrait
 
     /**
      * handle the process of creating the menu item
-     * 
+     *
      * @param  [object] $permission     [description]
      * @param  [object] $request [description]
      * @return [process]           [the action of syncing the menu-roles]
@@ -63,7 +63,7 @@ trait PermissionsTrait
 
     /**
      * sync the roles model with the array selected by the user
-     * 
+     *
      * @param  Menu   $permission  [description]
      * @param  Array  $roles [description]
      * @return [type]        [description]

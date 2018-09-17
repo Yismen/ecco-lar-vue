@@ -54,6 +54,5 @@ class CreatePaymentFrequenciesTable extends Migration
             'name' => 'Weekly',
             'slug' => 'weekly',
         ]);
-
     }
 }

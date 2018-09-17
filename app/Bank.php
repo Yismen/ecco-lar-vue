@@ -24,5 +24,4 @@ class Bank extends Model
     {
         return $this->attributes['name'] = ucwords(trim($name));
     }
-    
 }

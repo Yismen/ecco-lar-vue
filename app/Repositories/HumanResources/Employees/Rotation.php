@@ -19,7 +19,6 @@ class Rotation
 
     public function render(int $months = 5)
     {
-
         $this->entrances_by_month = $this->entrancesByMonth();
         $this->outages_by_month = $this->outagesByMonth();
     }
@@ -32,5 +31,4 @@ class Rotation
             ->orderBy('month')
             ->get();
     }
-    
 }

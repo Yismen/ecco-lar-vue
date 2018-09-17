@@ -2,19 +2,18 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class Gender extends Model {
+class Gender extends Model
+{
+    protected $fillable = ['gender'];
 
-	protected $fillable = ['gender'];
+    /**
+     * ---------------------------------------------------
+     * Relationships
+     * ------------------------------------------------
+     */
 
-/**
- * ---------------------------------------------------
- * Relationships
- * ------------------------------------------------
- */
-
-	public function employees()
-	{
-		return $this->belongsTo('App\Employee', 'gender_id');
-	}
-
+    public function employees()
+    {
+        return $this->belongsTo('App\Employee', 'gender_id');
+    }
 }

@@ -21,6 +21,5 @@ class Aging
     }
     public function zeroToThreeMonths()
     {
-        
     }
 }

@@ -49,7 +49,7 @@ class User extends Authenticatable implements CanResetPassword
     }
 
     public function userHasProfileOrCreate()
-    {       
+    {
         if (Auth::check()) {
             if (Auth::user()->has('profile')) {
                 return $this->profile;
@@ -80,6 +80,6 @@ class User extends Authenticatable implements CanResetPassword
 
         $request->merge(['unique_id' => $unique_id]);
 
-        $score = auth()->user()->scores()->create($request->all());   
+        $score = auth()->user()->scores()->create($request->all());
     }
 }

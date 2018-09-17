@@ -26,7 +26,7 @@ trait EmployeeRelationships
 
     public function department()
     {
-        return $this->hasManyThrough('App\Department', 'App\Position');
+        return $this->hasManyThrough('App\Department', 'App\Position', 'department_id', 'position_id');
     }
     
     public function gender()

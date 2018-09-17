@@ -14,7 +14,7 @@ class Profile extends Model
      */
     public function user()
     {
-    	return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class);
     }
     
     /**
@@ -24,9 +24,7 @@ class Profile extends Model
         
     public function getSkillsArrayAttribute()
     {
-
         return explode(",", $this->skills);
-        
     }
     
     public function getSkillsObjectAttribute()
@@ -39,7 +37,6 @@ class Profile extends Model
         }
 
         return (object)$returned;
-        
     }
     
     /**

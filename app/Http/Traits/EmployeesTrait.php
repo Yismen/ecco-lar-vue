@@ -10,7 +10,7 @@ trait EmployeesTrait
 {
     /**
      * Return a list of employees
-     * @param  instance of Employee $employees 
+     * @param  instance of Employee $employees
      * @param  intance of Request. $request   [description]
      * @param  instance of Carbon. $carbon    [description]
      * @return Object of employees            [description]

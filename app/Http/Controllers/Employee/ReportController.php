@@ -12,6 +12,4 @@ class ReportController extends Controller
     // bank accounts
         // only actives
         // missing account
-
-        
 }

@@ -3,24 +3,24 @@
 	<a href="#" class="list-group-item">Downtime Hours</a>
 	<a href="{{ route('admin.production-hours.index') }}" class="list-group-item">Production Hours</a>
 </div>
-<?php 
-	$field_options = [
-		''=>'--Please Select--',
-		'employee'=>'Employe\'s Name',
-		'supervisor'=>'Supervisor',
-	];
+<?php
+    $field_options = [
+        ''=>'--Please Select--',
+        'employee'=>'Employe\'s Name',
+        'supervisor'=>'Supervisor',
+    ];
 
-	$date_options = [
-		''=>'--Please Select--',
-		'today'=>'Today',
-		'yesterday'=>'Yesterday',
-		'this_week'=>'This Week',
-		'last_week'=>'Last Week',
-		'this_month'=>'This Month',
-		'last_month'=>'Last Month',
-		'this_year'=>'This Year',
-		'last_year'=>'Last Year',
-	];
+    $date_options = [
+        ''=>'--Please Select--',
+        'today'=>'Today',
+        'yesterday'=>'Yesterday',
+        'this_week'=>'This Week',
+        'last_week'=>'Last Week',
+        'this_month'=>'This Month',
+        'last_month'=>'Last Month',
+        'this_year'=>'This Year',
+        'last_year'=>'Last Year',
+    ];
  ?>
 
 <div class="box-primary box pad">

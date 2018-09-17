@@ -9,8 +9,8 @@ use App\EscalClient;
 
 class EscalClientsController extends Controller
 {
-
-    function __construct() {
+    public function __construct()
+    {
         $this->middleware('authorize:view_escalations_clients|edit_escalations_clients|create_escalations_clients', ['only'=>['index','show']]);
         $this->middleware('authorize:edit_escalations_clients', ['only'=>['edit','update']]);
         $this->middleware('authorize:create_escalations_clients', ['only'=>['create','store']]);
@@ -64,7 +64,7 @@ class EscalClientsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(EscalClient $escalclient)
-    {        
+    {
         return view('escalclients.show', compact('escalclient'));
     }
 
@@ -95,7 +95,6 @@ class EscalClientsController extends Controller
 
         return redirect()->route('admin.escalations_clients.index')
             ->withWarning("Escalations Client $escalclient->name have been updated!");
-
     }
 
     /**

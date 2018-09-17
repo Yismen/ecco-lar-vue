@@ -18,10 +18,10 @@ class Bbbs
     {
         return $this->record
             ->where('is_bbb', true)
-            ->with(['user' => function($query) {
+            ->with(['user' => function ($query) {
                 return $query->orderBy('name');
             }])
-            ->with(['escal_client' => function($query) {
+            ->with(['escal_client' => function ($query) {
                 return $query->orderBy('name');
             }])
             ->orderBy('created_at', 'DESC')
@@ -49,8 +49,7 @@ class Bbbs
             ->select(DB::raw("insert_date, user_id, count(tracking) as records"))
             ->groupBy(['insert_date'])
             ->with('user')
-            ->orderBy('insert_date','DESC')
+            ->orderBy('insert_date', 'DESC')
             ->take($days);
     }
-    
 }

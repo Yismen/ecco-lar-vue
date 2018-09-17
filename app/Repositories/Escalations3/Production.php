@@ -5,8 +5,9 @@ namespace App\Repositories\Escalations3;
 use App\EscalRecord;
 use Illuminate\Support\Facades\DB;
 
-class Production {
-    static public function render()
+class Production
+{
+    public static function render()
     {
         return EscalRecord::whereIsAdditionalLine(false)
             ->select(DB::raw('

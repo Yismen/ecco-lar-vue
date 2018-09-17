@@ -25,7 +25,7 @@ class HomeController extends Controller
      */
     public function index(Flysystem $flysystem)
     {
-    	// return $flysystem->get('menu-items.txt');
+        // return $flysystem->get('menu-items.txt');
         $user = auth()->user();
         if ($user && !$user->profile) {
             return redirect()->route('admin.profiles.create');

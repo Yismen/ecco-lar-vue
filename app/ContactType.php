@@ -2,13 +2,12 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class ContactType extends Model {
+class ContactType extends Model
+{
+    protected $fillable = ['contact_type','description'];
 
-	protected $fillable = ['contact_type','description'];
-
-	public function sitemessages()
-	{
-		return $this->hasMany('App\SiteMessage', 'id');
-	}
-
+    public function sitemessages()
+    {
+        return $this->hasMany('App\SiteMessage', 'id');
+    }
 }

@@ -2,21 +2,20 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class Marital extends Model {
+class Marital extends Model
+{
+    protected $fillable = ['name'];
 
-	protected $fillable = ['name'];
 
 
+    /**
+     * ---------------------------------------------------
+     * Relationships
+     * ------------------------------------------------
+     */
 
-/**
- * ---------------------------------------------------
- * Relationships
- * ------------------------------------------------
- */
-
-	public function employees()
-	{
-		return $this->hasMany('App\Employee');
-	}
-
+    public function employees()
+    {
+        return $this->hasMany('App\Employee');
+    }
 }

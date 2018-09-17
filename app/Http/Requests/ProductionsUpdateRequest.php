@@ -13,7 +13,7 @@ class ProductionsUpdateRequest extends Request
      */
     public function authorize()
     {
-        return auth()->user()->hasRole(['owner', 'admin']) || 
+        return auth()->user()->hasRole(['owner', 'admin']) ||
             auth()->user()->can(['update_production']);
     }
 

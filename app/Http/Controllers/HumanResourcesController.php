@@ -35,7 +35,15 @@ class HumanResourcesController extends Controller
         $rotationByMonth = Count::rotationbyMonths(5);
 
         return view('human_resources.index', compact(
-            'issues', 'birthdays', 'by_status', 'by_department_positions', 'inByMonth', 'outByMonth', 'rotationByMonth', 'hc_by_department', 'hc_by_department_and_aging'
+            'issues',
+            'birthdays',
+            'by_status',
+            'by_department_positions',
+            'inByMonth',
+            'outByMonth',
+            'rotationByMonth',
+            'hc_by_department',
+            'hc_by_department_and_aging'
         ));
     }
 
@@ -90,7 +98,7 @@ class HumanResourcesController extends Controller
 
     public function getBirthdays()
     {
-       return [
+        return [
             'today' => Birthdays::onDate()->get(),
             'last_month' => Birthdays::lastMonth()->count(),
             'this_month' => Birthdays::currentMonth()->count(),

@@ -49,7 +49,7 @@ class EscalationHour extends Model
     }
 
     public function getProductionHoursAttribute()
-    { 
+    {
         $dtEntrance = Carbon::parse($this->entrance);
         $dtOut = Carbon::parse($this->out);
 
@@ -79,6 +79,4 @@ class EscalationHour extends Model
     {
         return $this->recordsCount() / $this->productionHours();
     }
-
-
 }

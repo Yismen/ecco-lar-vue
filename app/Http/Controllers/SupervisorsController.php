@@ -15,8 +15,8 @@ class SupervisorsController extends Controller
      */
     public function index(Supervisor $supervisors)
     {
-        $supervisors = $supervisors  
-            ->with(['department' => function($query){
+        $supervisors = $supervisors
+            ->with(['department' => function ($query) {
                 return $query->orderBy('department');
             }])
             ->orderBy('department_id')
@@ -44,7 +44,7 @@ class SupervisorsController extends Controller
      */
     public function store(Request $request, Supervisor $supervisor)
     {
-        $this->validateRequest($request, $supervisor); 
+        $this->validateRequest($request, $supervisor);
 
         $supervisor->create($request->only(['name', 'department_id']));
 
@@ -59,7 +59,7 @@ class SupervisorsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Supervisor $supervisor)
-    {        
+    {
         return view('supervisors.show', compact('supervisor'));
     }
 
@@ -83,7 +83,7 @@ class SupervisorsController extends Controller
      */
     public function update(Request $request, Supervisor $supervisor)
     {
-        $this->validateRequest($request, $supervisor); 
+        $this->validateRequest($request, $supervisor);
 
         $supervisor->update($request->only(['name', 'department_id']));
 

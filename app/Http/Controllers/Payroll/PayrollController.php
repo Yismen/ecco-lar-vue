@@ -9,8 +9,7 @@ use App\Http\Controllers\Controller;
 
 class PayrollController extends Controller
 {
-
-    function __construc()
+    public function __construc()
     {
         $this->middleware('authorize:view_payrolls', ['only'=>['index','show']]);
         $this->middleware('authorize:edit_payrolls', ['only'=>['edit','update']]);

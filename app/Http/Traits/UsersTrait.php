@@ -23,7 +23,7 @@ trait UsersTrait
     private function sendEmail($user, $notify, $email_view, $subject = 'Welcome to Dainsys')
     {
         if ($notify) {
-            Mail::later(5, 'emails.'.$email_view, ['user'=>$user, 'password' => $this->random_password], function($email) use ($user, $notify, $subject){
+            Mail::later(5, 'emails.'.$email_view, ['user'=>$user, 'password' => $this->random_password], function ($email) use ($user, $notify, $subject) {
                 $email->to('yismen.jorge@ecco.com.do', 'Yismen Jorge')->subject($subject);
                 if ($notify && config('app.env') == 'production') {
                     $email->cc($user->email, $user->name);
@@ -71,16 +71,16 @@ trait UsersTrait
 
     /**
      * sync the roles model with the array selected by the user
-     * 
+     *
      * @param  Menu   $menu  [description]
      * @param  Array  $roles [description]
      * @return [type]        [description]
      */
-    public function syncRoles(User $user, Array $roles = null)
+    public function syncRoles(User $user, array $roles = null)
     {
         $user->roles()->sync((array) $roles);
 
-        return $this;   
+        return $this;
     }
 
     private function updatePassword($user)

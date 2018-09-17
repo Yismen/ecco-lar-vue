@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 
 class ArsController extends Controller
 {
-    function __construct() {
+    public function __construct()
+    {
         $this->middleware('authorize:view_ars|edit_ars|create_ars', ['only'=>['index','show']]);
         $this->middleware('authorize:edit_ars', ['only'=>['edit','update']]);
         $this->middleware('authorize:create_ars', ['only'=>['create','store']]);
@@ -23,7 +24,7 @@ class ArsController extends Controller
     public function index(Ars $arss)
     {
         $arss = $arss
-            ->with(['employees' => function($query) {
+            ->with(['employees' => function ($query) {
                 return $query->actives();
             }])->orderBy('name')->get();
 

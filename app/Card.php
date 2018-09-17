@@ -2,49 +2,49 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class Card extends Model {
+class Card extends Model
+{
+    protected $fillable = ['employee_id', 'card'];
 
-	protected $fillable = ['employee_id', 'card'];
+    /**
+     * -----------------------------------------------------------
+     * Relationships
+     */
+    public function employee()
+    {
+        return $this->belongsTo('App\Employee');
+    }
+    
+    /**
+     * ---------------------------------------------------
+     * Accessors
+     */
 
-/**
- * -----------------------------------------------------------
- * Relationships
- */
-	public function employee()
-	{
-		return $this->belongsTo('App\Employee');
-	}
-	
-/**
- * ---------------------------------------------------
- * Accessors
- */
+    public function getEmployeeListAttribute()
+    {
+        $employees = $this->employee()->pluck('id');
 
-	public function getEmployeeListAttribute()
-	{
-		$employees = $this->employee()->pluck('id');
+        if ($employees->count() > 0) {
+            return $employees[0];
+        }
+    }
+    /**
+     * get employees with no cards added
+     * @return [type] [description]
+     */
+    public function getEmployeesListAttribute()
+    {
+        $employees = \App\Employee::orderBy('first_name')
+            ->get();
 
-		if ($employees->count() > 0) {
-			return $employees[0];
-		}
-	}
-/**
- * get employees with no cards added
- * @return [type] [description]
- */
-	public function getEmployeesListAttribute()
-	{
-		$employees = \App\Employee::orderBy('first_name')
-			->get();
-
-		return $employees->pluck('fullName', 'id');
-	}
-	/**
-	 * --------------------------------------------------
-	 * Scopes
-	 */
-	public function scopeUnassigned($query)
-	{
-		return $query->has('employee', false);
-	}
+        return $employees->pluck('fullName', 'id');
+    }
+    /**
+     * --------------------------------------------------
+     * Scopes
+     */
+    public function scopeUnassigned($query)
+    {
+        return $query->has('employee', false);
+    }
 }

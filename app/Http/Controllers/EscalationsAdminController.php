@@ -20,7 +20,8 @@ class EscalationsAdminController extends Controller
     private $users;
     private $records;
 
-    function __construct(Request $request, Records $records, Users $users, Clients $clients) {
+    public function __construct(Request $request, Records $records, Users $users, Clients $clients)
+    {
         $this->request = $request;
         $this->date = $this->request->date;
         $this->records = $records;
@@ -30,12 +31,12 @@ class EscalationsAdminController extends Controller
 
     public function index()
     {
-         return view('escalations_admin.index-chartjs');
+        return view('escalations_admin.index-chartjs');
     }
 
     public function index_ajax()
     {
-       $data = [
+        $data = [
             'todayRecordsByUser' =>  $this->users->today()->get(),
             'todayRecordsByClient' => $this->clients->today()->get(),
             'lastFiveDates' => $this->records->lastManyDays(5)->get(),
@@ -63,7 +64,7 @@ class EscalationsAdminController extends Controller
     }
 
     public function postByDate()
-    {     
+    {
         $this->validate($this->request, [
             'date'=>'required|date'
         ]);
@@ -72,17 +73,16 @@ class EscalationsAdminController extends Controller
         $users   =  $this->users->byDate($this->request->date)->get();
         $summary = $this->records->byDate($this->request->date)->get();
         if ($this->request->has('detailed')) {
-           $detailed =  $this->records->detailedByDate($this->request)->get();
+            $detailed =  $this->records->detailedByDate($this->request)->get();
         }
 
         $this->request->flash();
 
         return view('escalations_admin.by_date', compact('clients', 'users', 'detailed', 'summary'));
-
     }
 
     public function postByRange()
-    {     
+    {
         $this->validate($this->request, [
             'from'=>'required|date',
             'to'=>'required|date'
@@ -98,7 +98,6 @@ class EscalationsAdminController extends Controller
         $this->request->flash();
 
         return view('escalations_admin.by_date', compact('detailed', 'summary'));
-
     }
 
     public function search()
@@ -146,8 +145,11 @@ class EscalationsAdminController extends Controller
         ]);
 
         $records = $this->records->randBetween(
-            $this->request->records, $this->request->user_id, $this->request->from, $this->request->to
-        )->get(); 
+            $this->request->records,
+            $this->request->user_id,
+            $this->request->from,
+            $this->request->to
+        )->get();
 
         $this->request->flash();
 
@@ -175,7 +177,6 @@ class EscalationsAdminController extends Controller
         $this->request->flash();
 
         return view('escalations_admin.bbbs', compact('records'));
-
     }
 
     public function handleBBBsRange()
@@ -186,7 +187,8 @@ class EscalationsAdminController extends Controller
         ]);
 
         $records = $this->bbbs->range(
-            $this->request->from, $this->request->to
+            $this->request->from,
+            $this->request->to
         )
         ->get();
 
@@ -197,6 +199,5 @@ class EscalationsAdminController extends Controller
         $this->request->flash();
 
         return view('escalations_admin.bbbs', compact('records'));
-
     }
 }

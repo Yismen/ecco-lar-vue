@@ -30,7 +30,7 @@ class Production
     private function query()
     {
         $query = BlackhawkPerformanceSummary::orderBy('date', 'DESC')
-        ->take($this->take)        
+        ->take($this->take)
         ->selectRaw('
             year(date) as year, 
             sum(time_logged_in) as time_logged_in,
@@ -45,7 +45,7 @@ class Production
         
         if ($this->request->queue && $this->request->queue == 'chat') {
             $query->selectRaw('(sum(chat_sessions) ) as records');
-        } else if ($this->request->queue && $this->request->queue == 'email') {
+        } elseif ($this->request->queue && $this->request->queue == 'email') {
             $query->selectRaw('(sum(email_sessions)) as records');
         } else {
             $query->selectRaw('(sum(chat_sessions) + sum(email_sessions)) as records');

@@ -14,7 +14,8 @@ class PayrollAdditionalsController extends Controller
 {
     use PayrollAdditionalsTrait;
 
-    function __construct() {
+    public function __construct()
+    {
         $this->middleware('authorize:view_payroll-additionals', ['only'=>['index','show']]);
         $this->middleware('authorize:edit_payroll-additionals', ['only'=>['edit','update']]);
         $this->middleware('authorize:create_payroll-additionals', ['only'=>['create','store']]);
@@ -137,7 +138,7 @@ class PayrollAdditionalsController extends Controller
         ->load($request->file('additionals-file'));
         
         if ($loader->hasErrors()) {
-            $request->session()->flash('file_errors', ['errors'=>$loader->errors()]); 
+            $request->session()->flash('file_errors', ['errors'=>$loader->errors()]);
             return redirect()->route('admin.payroll-additionals.import')
                 ->withDanger('The file contains errors');
         }
@@ -157,5 +158,4 @@ class PayrollAdditionalsController extends Controller
 
         return view('payroll-additionals.details', compact('additionals', 'date'));
     }
-
 }

@@ -1,15 +1,11 @@
 <?php
 
-Route::bind('ar', function($slug){
-	return App\Ars::whereSlug($slug)
-		->with(['employees' => function($query) {
+Route::bind('ar', function ($slug) {
+    return App\Ars::whereSlug($slug)
+        ->with(['employees' => function ($query) {
             return $query->actives();
         }])
-		->firstOrFail();
+        ->firstOrFail();
 });
 
 Route::resource('ars', 'ArsController');
-
-
-
-

@@ -35,7 +35,7 @@ class HoursController extends Controller
             ->orderBy('date', 'DESC')->groupBy('date')->paginate(20);
 
         return view('hours.index')
-            ->with(['dates' => $dates]);  
+            ->with(['dates' => $dates]);
     }
 
     /**
@@ -124,8 +124,8 @@ class HoursController extends Controller
 
     public function byDate($date)
     {
-       $hours = $this->hours->whereDate('date', '=', $date)->with('employee.position.department')->paginate(50);
+        $hours = $this->hours->whereDate('date', '=', $date)->with('employee.position.department')->paginate(50);
 
-       return view('hours.by-date', compact('date', 'hours'));
+        return view('hours.by-date', compact('date', 'hours'));
     }
 }

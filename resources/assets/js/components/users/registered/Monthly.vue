@@ -3,8 +3,7 @@
         <doughnut-chart :labels="labels" :datasets="datasets" :options="options" :height="200"></doughnut-chart>
     </div>
 </template>
-<script>
-    
+<script>    
     import DoughnutChart from './../../charts/DoughnutChart'
     export default {
         data() {

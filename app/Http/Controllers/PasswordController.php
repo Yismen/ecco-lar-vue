@@ -22,7 +22,7 @@ class PasswordController extends Controller
      * @return [type] [description]
      */
     public function home(Password $passwords)
-    {       
+    {
         // $passwords = $passwords->forCurrenUser()->get();
         // return view('passwords.index', compact('passwords'));
         return view('passwords.index');

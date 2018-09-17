@@ -1,6 +1,7 @@
-<?php 
+<?php
 
 namespace App\Http\Traits;
+
 use App\Menu;
 use App\Role;
 use App\Permission;
@@ -20,14 +21,14 @@ trait MenusTrait
     }
     /**
      * handle the process of creating the menu item
-     * 
+     *
      * @param  [object] $menu     [description]
      * @param  [object] $requests [description]
      * @return [process]           [the action of syncing the menu-roles]
      */
     private function createMenu($menu, $requests, $permission)
     {
-        $menu = $menu->create($requests->all());    
+        $menu = $menu->create($requests->all());
         
         Cache::forget('menues_for_user_' . auth()->user()->id);
 
@@ -38,7 +39,7 @@ trait MenusTrait
 
     /**
      * handle the process of creating the menu item
-     * 
+     *
      * @param  [object] $menu     [description]
      * @param  [object] $requests [description]
      * @return [process]           [the action of syncing the menu-roles]
@@ -54,14 +55,14 @@ trait MenusTrait
 
     /**
      * sync the roles model with the array selected by the user
-     * 
+     *
      * @param  Menu   $menu  [description]
      * @param  Array  $roles [description]
      * @return [type]        [description]
      */
-    private function syncRoles(Menu $menu, Array $roles = null)
+    private function syncRoles(Menu $menu, array $roles = null)
     {
-        return $menu->roles()->sync((array) $roles);    
+        return $menu->roles()->sync((array) $roles);
     }
 
     private function createPermissions($menu, Permission $permission)
@@ -83,7 +84,7 @@ trait MenusTrait
             'view' => ' Viewer',
             'edit' => ' Editor',
             'destroy' => ' Remover',
-        ];  
+        ];
 
         $menu_name = str_replace(['_', '-', '.'], ' ', $menu_name);
 
@@ -128,6 +129,5 @@ trait MenusTrait
         if ($destroyer) {
             $destroyer->delete();
         }
-
     }
 }

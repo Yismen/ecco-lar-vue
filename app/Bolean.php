@@ -2,8 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class Bolean extends Model {
-
-	protected $fillable = ['bolean'];
-
+class Bolean extends Model
+{
+    protected $fillable = ['bolean'];
 }

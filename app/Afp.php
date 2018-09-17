@@ -11,7 +11,8 @@ class Afp extends Model
 
     protected $fillable = ['name'];
     
-    public function sluggable() {
+    public function sluggable()
+    {
         return [
             'slug' => [
                 'source' => ['name'],
@@ -29,5 +30,4 @@ class Afp extends Model
     {
         $this->attributes['name'] = trim(ucwords($name));
     }
-    
 }

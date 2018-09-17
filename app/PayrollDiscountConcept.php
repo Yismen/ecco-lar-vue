@@ -10,6 +10,6 @@ class PayrollDiscountConcept extends Model
 
     public function setNameAttribute($name)
     {
-       return $this->attributes['name'] = ucwords(trim($name));
+        return $this->attributes['name'] = ucwords(trim($name));
     }
 }

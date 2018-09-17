@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Repositories\HumanResources;
 
@@ -6,10 +6,8 @@ use App\Employee;
 
 class Lists
 {
-
     public static function render()
     {
-
     }
 
     private static function scope()

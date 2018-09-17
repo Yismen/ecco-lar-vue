@@ -2,8 +2,8 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class TerminationType extends Model {
+class TerminationType extends Model
+{
 
-	//
-
+    //
 }

@@ -23,8 +23,8 @@ class TerminationReasonRequest extends Request
      */
     public function rules()
     {
-        $id = array_has(Request::route()->parameters(), 'termination_reasons') ? 
-            Request::route()->parameters()['termination_reasons']->id : 
+        $id = array_has(Request::route()->parameters(), 'termination_reasons') ?
+            Request::route()->parameters()['termination_reasons']->id :
             null;
 
         return [

@@ -6,14 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 
 class HoursType extends Model
-{   
+{
     use Sluggable;
 
     protected $sluggable = [
         'build_from' => 'name',
         'save_to'    => 'slug',
     ];
-   protected $fillable = ['name'];
+    protected $fillable = ['name'];
     
     public function sluggable()
     {
@@ -25,19 +25,16 @@ class HoursType extends Model
         ];
     }
 
-   public function employee()
-   {
-       return $this->belongsTo('App\Employee');
-   }
+    public function employee()
+    {
+        return $this->belongsTo('App\Employee');
+    }
    
-   // Methods ===================================================
+    // Methods ===================================================
    
    // Scopes ====================================================
    
    // Accessors =================================================
    
    // Mutators ==================================================
-   
-
-
 }

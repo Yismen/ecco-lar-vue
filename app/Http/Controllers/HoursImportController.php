@@ -12,7 +12,8 @@ class HoursImportController extends Controller
 {
     use HoursImportTrait;
 
-    function __construct() {
+    public function __construct()
+    {
         $this->middleware('authorize:manage-hours-import');
     }
     /**
@@ -25,7 +26,7 @@ class HoursImportController extends Controller
             ->orderBy('date', 'DESC')->groupBy('date')->paginate(20);
 
         return view('hours-import.index')
-            ->with(['dates' => $dates]);        
+            ->with(['dates' => $dates]);
     }
 
 
@@ -51,7 +52,7 @@ class HoursImportController extends Controller
         ->load($request->file('file_name'));
 
         if ($loader->hasErrors()) {
-            $request->session()->flash('file_errors', ['errors'=>$loader->errors()]); 
+            $request->session()->flash('file_errors', ['errors'=>$loader->errors()]);
             return redirect('admin/hours-import')
                 ->withDanger('The file contains errors');
         }

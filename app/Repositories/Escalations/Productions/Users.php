@@ -18,10 +18,10 @@ class Users
     private function fetch($date)
     {
         return $this->user->select(['name', 'id'])
-            ->whereHas('escalationsRecords', function($query) use ($date){
+            ->whereHas('escalationsRecords', function ($query) use ($date) {
                 $query->whereDate('insert_date', '=', $date)->whereIsAdditionalLine(false);
             })
-            ->withCount(['escalationsRecords' => function($query) use ($date) {
+            ->withCount(['escalationsRecords' => function ($query) use ($date) {
                 $query->whereDate('insert_date', '=', $date)->whereIsAdditionalLine(false);
             }]);
     }

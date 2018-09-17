@@ -74,7 +74,7 @@
 
 
 // // Route::resource('productions', 'productionsController', [
-	
+    
 // // ]);
 
 // /**
@@ -120,5 +120,3 @@
 // 	// 'roles'=>['administrator'],
 // 	'permissions'=>['productions_editor'],
 // ]);
-
-

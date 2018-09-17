@@ -8,8 +8,8 @@ use Illuminate\Http\Request;
 
 class AfpsController extends Controller
 {
-
-    public function __construct() {
+    public function __construct()
+    {
         $this->middleware('authorize:view_afps|edit_afps|create_afps', ['only'=>['index','show']]);
         $this->middleware('authorize:edit_afps', ['only'=>['edit','update']]);
         $this->middleware('authorize:create_afps', ['only'=>['create','store']]);
@@ -22,7 +22,7 @@ class AfpsController extends Controller
      */
     public function index()
     {
-        $afps = Afp::with(['employees' => function($query) {
+        $afps = Afp::with(['employees' => function ($query) {
             return $query->actives();
         }])->orderBy('name')->get();
 

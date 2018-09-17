@@ -1,13 +1,13 @@
 <?php
 
-Route::bind('system', function($id){
-	return App\System::whereId($id)
-		// ->with('departments')
-		// ->with('maritals')
-		// ->with('positions')
-		// ->with('genders')
-		// ->with('addresses')
-		->firstOrFail();
+Route::bind('system', function ($id) {
+    return App\System::whereId($id)
+        // ->with('departments')
+        // ->with('maritals')
+        // ->with('positions')
+        // ->with('genders')
+        // ->with('addresses')
+        ->firstOrFail();
 });
 
 Route::resource('systems', 'SystemsController');
@@ -74,7 +74,7 @@ Route::resource('systems', 'SystemsController');
 
 
 // // Route::resource('systems', 'systemsController', [
-	
+    
 // // ]);
 
 // /**
@@ -120,5 +120,3 @@ Route::resource('systems', 'SystemsController');
 // // 	// 'roles'=>['administrator'],
 // // 	'permissions'=>['systems_editor'],
 // // ]);
-
-

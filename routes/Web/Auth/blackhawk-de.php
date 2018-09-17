@@ -1,6 +1,6 @@
 <?php
 
-Route::get('/blackhawk/de/management/dashboard', 'Blackhawk\DE\ManagementController@dashboard');
+Route::get('/blackhawk/de/management', 'Blackhawk\DE\ManagementController@dashboard');
 
 // Route::get('bhcs_manager', 'BlackHawkCS\ManagementController@index');
 // Route::get('blackhawk_cs/api/dashboard/management', 'BlackHawkCS\ManagementController@dashboard');

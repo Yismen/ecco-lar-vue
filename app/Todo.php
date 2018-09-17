@@ -2,8 +2,8 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class Todo extends Model {
+class Todo extends Model
+{
 
-	//
-
+    //
 }

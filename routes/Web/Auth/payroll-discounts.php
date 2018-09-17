@@ -5,7 +5,7 @@ Route::get('/payroll-discounts/import', 'PayrollDiscountsController@import')->na
 Route::post('/payroll-discounts/import', 'PayrollDiscountsController@handleImport')->name('payroll-discounts.handle-import');
 Route::get('/payroll-discounts/date/{date}/employee/{employee_id}', 'PayrollDiscountsController@details')->name('payroll-discounts.details');
 
-Route::bind('payroll-discount', function($id){
+Route::bind('payroll-discount', function ($id) {
     return App\PayrollDiscount::whereId($id)
         ->with('employee')
         ->firstOrFail();

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Repositories\Escalations\Productions;
+
 use App\EscalationHour;
 use Illuminate\Support\Facades\DB;
 
@@ -14,14 +15,14 @@ class Hours
     }
 
     public function detailedByDate($date)
-    {        
+    {
         return $this->hour
             ->with('user')
             ->with('escal_client')
             ->orderBy('escal_client_id')
             ->whereDate('created_at', '=', $date)
             ;
-    }    
+    }
 
     public function byDate($date)
     {
@@ -41,7 +42,7 @@ class Hours
     }
 
     public function randBetween($amount = 10, $user_id, $from, $to)
-    {        
+    {
         return $this->hour
             ->whereUserId($user_id)
             ->whereBetween('insert_date', [$from, $to])
@@ -52,11 +53,11 @@ class Hours
     }
 
     public function lastManyDays($days = 5)
-    {   
+    {
         return $this->hour
             ->select(DB::raw("insert_date, count(tracking) as records, count(CASE WHEN is_bbb = 1 THEN 1 ELSE NULL end) as bbbRecords"))
             ->groupBy(['insert_date'])
-            ->orderBy('insert_date','DESC')
+            ->orderBy('insert_date', 'DESC')
             ->take($days)
             ;
     }
@@ -67,7 +68,7 @@ class Hours
             ->select(DB::raw("insert_date, user_id, count(tracking) as records"))
             ->groupBy(['insert_date', 'user_id'])
             ->with('user')
-            ->orderBy('insert_date','DESC')
+            ->orderBy('insert_date', 'DESC')
             ->take($days)
             ;
     }

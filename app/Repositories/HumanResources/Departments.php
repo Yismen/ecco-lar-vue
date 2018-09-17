@@ -2,10 +2,8 @@
 
 namespace App\Repositories\HumanResources\Employees;
 
-class Departments 
+class Departments
 {
-
-
     private $carbon;
     private $now;
     private $today;

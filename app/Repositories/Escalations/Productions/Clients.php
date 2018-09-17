@@ -18,10 +18,10 @@ class Clients
     {
         return $this->client
             ->select(['name', 'id'])
-            ->whereHas('escal_records', function($query) use ($date){
+            ->whereHas('escal_records', function ($query) use ($date) {
                 $query->whereDate('insert_date', '=', $date)->whereIsAdditionalLine(0);
             })
-            ->withCount(['escal_records' => function($query) use ($date) {
+            ->withCount(['escal_records' => function ($query) use ($date) {
                 $query->whereDate('insert_date', '=', $date)->whereIsAdditionalLine(0);
             }]);
     }
@@ -31,7 +31,4 @@ class Clients
         $date = (new Carbon)->today()->format("Y-m-d");
         return $this->byDate($date);
     }
-
-
-    
 }

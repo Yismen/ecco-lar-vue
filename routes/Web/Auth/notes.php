@@ -1,6 +1,6 @@
 <?php
 
-Route::bind('note', function($slug) {
+Route::bind('note', function ($slug) {
     return App\Note::whereSlug($slug)->firstOrFail();
 });
 

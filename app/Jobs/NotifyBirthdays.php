@@ -31,7 +31,7 @@ class NotifyBirthdays extends Job implements ShouldQueue
      */
     public function handle(Schedule $schedule)
     {
-        $schedule->call(function() {
+        $schedule->call(function () {
             Log::success('Birthdays Jobs');
             return Log::info('Queue Job');
         })->everyMinute();

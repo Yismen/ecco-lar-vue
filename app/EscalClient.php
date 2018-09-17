@@ -14,7 +14,8 @@ class EscalClient extends Model
      */
     protected $fillable = ['name'];
     
-    public function sluggable() {
+    public function sluggable()
+    {
         return [
             'slug' => [
                 'source' => ['name'],

@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 class SocialSecurity extends Model
-{    
+{
     protected $fillable = ['number'];
 
     // Relationships =============================================
@@ -13,5 +13,4 @@ class SocialSecurity extends Model
     {
         return $this->belongsTo('App\Employee');
     }
-
 }

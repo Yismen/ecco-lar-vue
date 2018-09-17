@@ -42,7 +42,7 @@ class Issues
     protected static function missingPhotoCount()
     {
         return Employee::where('photo', '=', '')->actives()->count();
-    } 
+    }
 
     protected static function missingArsCount()
     {
@@ -63,5 +63,4 @@ class Issues
     {
         return Employee::has('bankAccount', false)->actives()->count();
     }
-
 }

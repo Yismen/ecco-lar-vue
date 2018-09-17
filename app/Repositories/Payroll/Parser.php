@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Payroll;
 
-class Parser 
+class Parser
 {
     private $nightly;
     private $holiday;
@@ -20,7 +20,7 @@ class Parser
 
     public function parse($payrolls)
     {
-        return array_map(function($payroll) {
+        return array_map(function ($payroll) {
             return [
                 'id' => $payroll['id'],
                 'name' => trim($payroll['full_name']),

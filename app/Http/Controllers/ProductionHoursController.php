@@ -22,7 +22,7 @@ class ProductionHoursController extends Controller
         $this->middleware('authorize:create_production_hours', ['only'=>['create','store']]);
         $this->middleware('authorize:destroy_production_hours', ['only'=>['destroy']]);
 
-        $this->request = $request;  
+        $this->request = $request;
         $this->supervisorsList =  Supervisor::pluck('name', 'name')->toArray();
     }
 
@@ -33,7 +33,7 @@ class ProductionHoursController extends Controller
      */
     public function index()
     {
-        $supervisorsList = $this->supervisorsList;    
+        $supervisorsList = $this->supervisorsList;
 
         return view('production-hours.index', compact('supervisorsList'));
     }
@@ -68,13 +68,13 @@ class ProductionHoursController extends Controller
      */
     private function getEmployeesWithProduction($date, $supervisor)
     {
-        return Employee::whereHas('productions', function($query)use($date){
+        return Employee::whereHas('productions', function ($query) use ($date) {
             return $query->where('insert_date', '=', $date);
         })
-        ->whereHas('supervisor', function($query)use($supervisor){
+        ->whereHas('supervisor', function ($query) use ($supervisor) {
             return $query->where('name', '=', $supervisor);
         })
-        ->with(['productions' => function($query)use($date){
+        ->with(['productions' => function ($query) use ($date) {
             return $query->with('source')
                 ->orderBy('name', 'ASC')
                 ->with('client')

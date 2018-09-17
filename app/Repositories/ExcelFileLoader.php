@@ -47,13 +47,12 @@ class ExcelFileLoader
         }
 
         return $this;
-            
     }
 
     private function handleLoad($file)
     {
-        Excel::load($file, function($reader) {
-            foreach($reader->toArray() as $index => $data){
+        Excel::load($file, function ($reader) {
+            foreach ($reader->toArray() as $index => $data) {
                 $this->handleRow($reader, $data, $index);
             }
         });

@@ -2,11 +2,10 @@
 
 namespace App\Http\Traits;
 
-trait TestTrait {
-
-    function testTrait()
+trait TestTrait
+{
+    public function testTrait()
     {
         return ['trait'=>'Trait'];
     }
-
 }

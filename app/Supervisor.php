@@ -2,8 +2,8 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class Supervisor extends Model {
-    
+class Supervisor extends Model
+{
     protected $fillable = ['name', 'department_id'];
 
     public function employees()
@@ -29,5 +29,4 @@ class Supervisor extends Model {
     {
         return $this->attributes['name'] = ucwords(trim($name));
     }
-
 }

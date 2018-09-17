@@ -19,7 +19,7 @@ class MessageCreaed extends Event
      * @return void
      */
     public function __construct($sender, $recipient)
-    {        
+    {
         $this->sender = $sender;
         $this->recipient = $recipient;
     }

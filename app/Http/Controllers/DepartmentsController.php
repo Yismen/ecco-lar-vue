@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Http\Controllers;
 
@@ -41,7 +41,6 @@ class DepartmentsController extends Controller
      */
     public function create(Department $department, Request $request)
     {
-
         if ($request->ajax()) {
             return $department;
         }
@@ -63,7 +62,7 @@ class DepartmentsController extends Controller
         
         $department = $department->create($request->only('department'));
 
-        if ($request->ajax()) { 
+        if ($request->ajax()) {
             return $department;
         }
 
@@ -94,7 +93,6 @@ class DepartmentsController extends Controller
      */
     public function edit(Department $department, Request $request)
     {
-
         if ($request->ajax()) {
             return $department;
         }
@@ -110,7 +108,7 @@ class DepartmentsController extends Controller
      */
     public function update(Request $request, Department $department)
     {
-       $this->validate($request, [
+        $this->validate($request, [
             'department' => "required|unique:departments,department,$department->id,id"
         ]);
 

@@ -8,8 +8,8 @@ return [
     'app_name' => env('APP_NAME', 'Dainsys'),
 
     /**
-     * The name of the company using the app. This name will 
-     * be used a the top of the page, as well as at the 
+     * The name of the company using the app. This name will
+     * be used a the top of the page, as well as at the
      * bottom. Set this in your ".env" file.
      */
     'client_name' => env('CLIENT_NAME', 'Dainsys \' Client Name'),

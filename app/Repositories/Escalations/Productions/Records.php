@@ -43,7 +43,7 @@ class Records
             ->groupBy(['escal_records.user_id', 'escal_records.escal_client_id', 'escal_records.insert_date'])
             ->orderBy('escal_records.insert_date')
             ->orderBy('escal_records.escal_client_id')
-            ->leftJoin('escalation_hours', function($join) {
+            ->leftJoin('escalation_hours', function ($join) {
                 return $join
                     ->on('escal_records.user_id', '=', 'escalation_hours.user_id')
                     ->on('escal_records.escal_client_id', '=', 'escalation_hours.client_id')
@@ -88,19 +88,19 @@ class Records
     }
 
     public function detailedByDate($request)
-    {        
+    {
         return $this->detailed()
             ->whereDate('insert_date', '=', $request->date)
             ;
-    } 
+    }
 
     public function detailedByRange($request)
-    {        
+    {
         return $this->detailed()
             ->orderBy('insert_date', 'asc')
             ->whereBetween('insert_date', [$request->from, $request->to])
             ;
-    }    
+    }
 
     public function byDate($date)
     {
@@ -179,7 +179,7 @@ class Records
     }
 
     public function randBetween($amount = 10, $user_id, $from, $to)
-    {        
+    {
         return $this->filter()
             ->whereUserId($user_id)
             ->whereBetween('insert_date', [$from, $to])
@@ -190,11 +190,11 @@ class Records
     }
 
     public function lastManyDays($days = 5)
-    {   
+    {
         return $this->filter()
             ->select(DB::raw("insert_date, count(tracking) as records, count(CASE WHEN is_bbb = 1 THEN 1 ELSE NULL end) as bbbRecords"))
             ->groupBy(['insert_date'])
-            ->orderBy('insert_date','DESC')
+            ->orderBy('insert_date', 'DESC')
             ->take($days)
             ;
     }
@@ -205,7 +205,7 @@ class Records
             ->select(DB::raw("insert_date, user_id, count(tracking) as records"))
             ->groupBy(['insert_date', 'user_id'])
             ->with('user')
-            ->orderBy('insert_date','DESC')
+            ->orderBy('insert_date', 'DESC')
             ->take($days)
             ;
     }

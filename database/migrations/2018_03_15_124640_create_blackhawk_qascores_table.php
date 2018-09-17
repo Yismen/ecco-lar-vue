@@ -21,8 +21,8 @@ class CreateBlackhawkQascoresTable extends Migration
             $table->date('date');
             $table->integer('employee_id');
             $table->string('name', 100)->nullable();
-            $table->string('status', 100)->nullable();        
-            $table->double('qa_score', 15, 8);            
+            $table->string('status', 100)->nullable();
+            $table->double('qa_score', 15, 8);
             $table->boolean('passing')->nullable()->default(false);
             $table->timestamps();
         });

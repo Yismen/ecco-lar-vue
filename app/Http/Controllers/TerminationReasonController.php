@@ -44,7 +44,7 @@ class TerminationReasonController extends Controller
         );
 
         return redirect()->route('admin.termination_reasons.index')
-                    ->withSuccess("Termination Reason $termination_reason->reason created!");        
+                    ->withSuccess("Termination Reason $termination_reason->reason created!");
     }
 
     /**

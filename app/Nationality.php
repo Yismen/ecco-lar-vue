@@ -26,5 +26,4 @@ class Nationality extends Model
             )
         );
     }
-
 }

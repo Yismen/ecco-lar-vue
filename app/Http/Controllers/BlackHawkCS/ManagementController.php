@@ -9,7 +9,8 @@ use App\Repositories\BlackHawk_CS\Manager\Performance\Production;
 
 class ManagementController extends Controller
 {
-    public function __construct() {
+    public function __construct()
+    {
         $this->middleware('authorize:view-blackhawk-cs-management-dashboard');
         // $this->middleware('permission:view-user')->only(['index', 'show']);
         // $this->middleware('permission:create-user')->only(['create', 'store']);

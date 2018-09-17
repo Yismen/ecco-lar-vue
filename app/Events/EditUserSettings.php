@@ -18,7 +18,7 @@ class EditUserSettings extends Event
      * @return void
      */
     public function __construct($user)
-    {        
+    {
         $this->user = $user;
     }
 

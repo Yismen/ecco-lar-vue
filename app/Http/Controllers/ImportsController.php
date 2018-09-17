@@ -18,7 +18,7 @@ class ImportsController extends Controller
 
     public function employees()
     {
-        return view('imports.employees');        
+        return view('imports.employees');
     }
 
     public function handleImportEmployees(Request $request, Employee $employee)
@@ -28,7 +28,6 @@ class ImportsController extends Controller
         return $data  = $this->importDataFromExcel($request->file('excel_file'));
 
         foreach ($data as $row) {
-           
             $employee = $this->deleteIfExists($row);
 
             $employee->id                = $row->id;
@@ -65,16 +64,15 @@ class ImportsController extends Controller
     }
 
     protected function importDataFromExcel($file)
-    {        
+    {
         return $data = Excel::load($file, 'UTF-8')->toObject();
-        
     }
 
     protected function deleteIfExists($row)
     {
         $employee = Employee::whereId($row->id)->first();
 
-       if($employee) {
+        if ($employee) {
             $employee->delete();
         }
 

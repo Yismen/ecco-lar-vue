@@ -3,7 +3,8 @@
 
 Route::get('api/employees', 'EmployeesController@index')->name('employees.list');
 
-Route::get('employees/export_to_excel/{status}',
+Route::get(
+    'employees/export_to_excel/{status}',
     ['as' => 'employees.export_to_excel', 'uses' => 'EmployeesController@toExcel']
 )->middleware('authorize:employees_to_excel');
 
@@ -12,11 +13,13 @@ Route::get(
     ['as' => 'employees.export_all_to_excel', 'uses' => 'EmployeesController@toExcelAll']
 )->middleware('authorize:employees_all_to_excel');
 
-Route::post('employees/logins/{employee}',
+Route::post(
+    'employees/logins/{employee}',
     ['as' => 'employees.login.create', 'uses' => 'EmployeesController@createLogin']
 )->middleware('authorize:create_logins');
 
-Route::post('employees/logins/{employee}/update',
+Route::post(
+    'employees/logins/{employee}/update',
     ['as' => 'employees.login.update', 'uses' => 'EmployeesController@updateLogin']
 )->middleware('authorize:update_logins');
 
@@ -26,51 +29,63 @@ Route::bind('login', function ($id) {
 
 Route::resource('employees/logins', 'Employee\LoginNameController');
 
-Route::post('employees/reactivate/{employee}',
+Route::post(
+    'employees/reactivate/{employee}',
     ['as' => 'employees.reactivate', 'uses' => 'EmployeesController@reactivate']
     )->middleware('authorize:edit_employees');
 
-Route::post('employees/terminations/{employee}',
+Route::post(
+    'employees/terminations/{employee}',
     ['as' => 'employees.termination', 'uses' => 'EmployeesController@updateTermination']
     )->middleware('authorize:edit_employees');
 
-Route::post('employees/updateAddress/{employee}',
+Route::post(
+    'employees/updateAddress/{employee}',
     ['as' => 'employees.updateAddress', 'uses' => 'Employee\AddressController@update']
     )->middleware('authorize:edit_employees');
 
-Route::post('employees/updateCard/{employee}',
+Route::post(
+    'employees/updateCard/{employee}',
     ['as' => 'employees.updateCard', 'uses' => 'EmployeesController@updateCard']
     )->middleware('authorize:edit_employees');
 
-Route::post('employees/updatePunch/{employee}',
+Route::post(
+    'employees/updatePunch/{employee}',
     ['as' => 'employees.updatePunch', 'uses' => 'EmployeesController@updatePunch']
     )->middleware('authorize:edit_employees');
 
-Route::post('employees/updatePhoto/{employee}',
+Route::post(
+    'employees/updatePhoto/{employee}',
     ['as' => 'employees.updatePhoto', 'uses' => 'EmployeesController@updatePhoto']
 )->middleware('authorize:edit_employees');
 
-Route::post('employees/updateArs/{employee}',
+Route::post(
+    'employees/updateArs/{employee}',
     ['as' => 'employees.updateArs', 'uses' => 'EmployeesController@updateArs']
     )->middleware('authorize:edit_employees');
 
-Route::post('employees/updateAfp/{employee}',
+Route::post(
+    'employees/updateAfp/{employee}',
     ['as' => 'employees.updateAfp', 'uses' => 'EmployeesController@updateAfp']
     )->middleware('authorize:edit_employees');
 
-Route::post('employees/updateBankAccount/{employee}',
+Route::post(
+    'employees/updateBankAccount/{employee}',
     ['as' => 'employees.updateBankAccount', 'uses' => 'EmployeesController@updateBankAccount']
     )->middleware('authorize:edit_employees');
 
-Route::post('employees/updateSocialSecurity/{employee}',
+Route::post(
+    'employees/updateSocialSecurity/{employee}',
     ['as' => 'employees.updateSocialSecurity', 'uses' => 'EmployeesController@updateSocialSecurity']
     )->middleware('authorize:edit_employees');
 
-Route::post('employees/updateSupervisor/{employee}',
+Route::post(
+    'employees/updateSupervisor/{employee}',
     ['as' => 'employees.updateSupervisor', 'uses' => 'EmployeesController@updateSupervisor']
     )->middleware('authorize:edit_employees');
 
-Route::post('employees/updateNationality/{employee}',
+Route::post(
+    'employees/updateNationality/{employee}',
     ['as' => 'employees.updateNationality', 'uses' => 'EmployeesController@updateNationality']
     )->middleware('authorize:edit_employees');
 
@@ -106,6 +121,6 @@ Route::bind('employee', function ($id) {
             'termination_type_list',
             'termination_reason_list'
             ]);
-        });
+});
         
 Route::resource('employees', 'EmployeesController');

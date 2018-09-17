@@ -10,8 +10,8 @@ use App\Role;
 use App\Permission;
 use App\Http\Traits\MenusTrait;
 
-class MenusController extends Controller 
-{ 
+class MenusController extends Controller
+{
     use MenusTrait;
 
     protected $permission;
@@ -126,5 +126,4 @@ class MenusController extends Controller
         return redirect()->route('admin.menus.index')
             ->withWarning("Menu collection [$menu->display_name] has been removed!");
     }
-
 }

@@ -16,6 +16,5 @@ class ComposerserviceProvider extends ServiceProvider
 
     public function register()
     {
-        
     }
 }

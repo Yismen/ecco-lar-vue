@@ -47,5 +47,4 @@ class Source extends Model
     {
         $this->attributes['name'] = ucwords(trim($name));
     }
-
 }

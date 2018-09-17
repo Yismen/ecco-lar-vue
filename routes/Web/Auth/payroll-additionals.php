@@ -5,7 +5,7 @@ Route::get('/payroll-additionals/import', 'PayrollAdditionalsController@import')
 Route::post('/payroll-additionals/import', 'PayrollAdditionalsController@handleImport')->name('payroll-additionals.handle-import');
 Route::get('/payroll-additionals/date/{date}/employee/{employee_id}', 'PayrollAdditionalsController@details')->name('payroll-additionals.details');
 
-Route::bind('payroll-additional', function($id){
+Route::bind('payroll-additional', function ($id) {
     return App\PayrollAdditional::whereId($id)
         ->with('employee')
         ->firstOrFail();

@@ -26,7 +26,7 @@ class ProductionEnvironmentSeeder extends Seeder
             ;
 
         // DB::statement('SET FOREIGN_KEY_CHECKS=1;');
-        Model::reguard();   
+        Model::reguard();
     }
 
     protected function seedUsersTable()
@@ -62,13 +62,13 @@ class ProductionEnvironmentSeeder extends Seeder
         }
 
         $roleAdmin = Role::create([
-            'name' => 'admin', 
-            'display_name' => 'System Administrator', 
+            'name' => 'admin',
+            'display_name' => 'System Administrator',
             'description' => 'Application super user. Users with this role has no restriction.'
         ]);
         $roleOwner = Role::create([
-            'name' => 'owner', 
-            'display_name' => 'Application Owner', 
+            'name' => 'owner',
+            'display_name' => 'Application Owner',
             'description' => 'Application owner. Little restriction. Just to differentiate from the system admin.'
         ]);
 

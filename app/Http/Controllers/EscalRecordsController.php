@@ -21,7 +21,7 @@ class EscalRecordsController extends Controller
         $this->middleware('authorize:create_escalations_records', ['only'=>['create','store']]);
         $this->middleware('authorize:destroy_escalations_records', ['only'=>['destroy']]);
         
-        // $request->flash(); 
+        // $request->flash();
     }
     
     /**
@@ -30,7 +30,7 @@ class EscalRecordsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(EscalRecord $escalations_records, Request $request)
-    {     
+    {
         if ($request->ajax()) {
             return $escalations_records = auth()->user()
                 ->escalationsRecords()
@@ -78,7 +78,7 @@ class EscalRecordsController extends Controller
         $this->replaceRequest($request)->validateStore($request, $escalations_record, $insert_date);
 
         $escalation_record = auth()->user()->escalationsRecords()->create([
-            'tracking' => $request->tracking, 
+            'tracking' => $request->tracking,
             'escal_client_id' => $request->escalations_client_id,
             'insert_date' => $insert_date,
             'is_additional_line' => $request->is_additional_line,
@@ -104,7 +104,7 @@ class EscalRecordsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(EscalRecord $escalations_record)
-    {        
+    {
         return view('escalations_records.show', compact('escalations_record'));
     }
 
@@ -197,7 +197,7 @@ class EscalRecordsController extends Controller
     }
 
     public function replaceRequest($request)
-    {        
+    {
         $request->replace([
             'tracking' => trim($request->tracking),
             'escalations_client_id' => $request->escalations_client_id,

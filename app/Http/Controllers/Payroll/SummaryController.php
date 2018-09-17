@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Http\Controllers\Payroll;
 
@@ -17,7 +17,8 @@ class SummaryController extends Controller
     private $data = [];
     private $file_errors = [];
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->middleware('authorize:view_payrolls_summary|edit_payrolss_temp|create_payrolls_summary', ['only'=>['index','show']]);
         $this->middleware('authorize:edit_payrolls_summary', ['only'=>['edit','update']]);
         $this->middleware('authorize:create_payrolls_summary', ['only'=>['create','store']]);
@@ -76,8 +77,8 @@ class SummaryController extends Controller
                 'other_discounts' => 'required|numeric|min:0',
         ]))->load($request->file('payroll_file'));
 
-        if ($loader->hasErrors()) {  
-            $request->session()->flash('file_errors', ['errors' => $loader->errors()]);    
+        if ($loader->hasErrors()) {
+            $request->session()->flash('file_errors', ['errors' => $loader->errors()]);
             return redirect('admin/payrolls_summary')
                 ->withDanger('The file contains errors');
         }
@@ -86,7 +87,6 @@ class SummaryController extends Controller
 
         return redirect('admin/payrolls_summary')
             ->withSuccess('The data was imported!');
-
     }
 
     /**

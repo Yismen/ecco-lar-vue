@@ -14,7 +14,8 @@ class PayrollIncentivesController extends Controller
 {
     use PayrollIncentivesTrait;
 
-    function __construct() {
+    public function __construct()
+    {
         $this->middleware('authorize:view_payroll-incentives', ['only'=>['index','show']]);
         $this->middleware('authorize:edit_payroll-incentives', ['only'=>['edit','update']]);
         $this->middleware('authorize:create_payroll-incentives', ['only'=>['create','store']]);
@@ -137,7 +138,7 @@ class PayrollIncentivesController extends Controller
         ->load($request->file('incentives-file'));
         
         if ($loader->hasErrors()) {
-            $request->session()->flash('file_errors', ['errors'=>$loader->errors()]); 
+            $request->session()->flash('file_errors', ['errors'=>$loader->errors()]);
             return redirect()->route('admin.payroll-incentives.import')
                 ->withDanger('The file contains errors');
         }
@@ -157,5 +158,4 @@ class PayrollIncentivesController extends Controller
 
         return view('payroll-incentives.details', compact('incentives', 'date'));
     }
-
 }

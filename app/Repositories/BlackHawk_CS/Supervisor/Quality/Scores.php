@@ -26,7 +26,7 @@ class Scores
     private function query()
     {
         $query = BlackhawkQascore::orderBy('date', 'DESC')
-            ->take($this->take)            
+            ->take($this->take)
             ->selectRaw('year(date) as year, date, avg(qa_score) as score, avg(passing) as passing');
 
         if ($this->request->queue) {
