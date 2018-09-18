@@ -10,7 +10,7 @@ class PaymentType extends Model
     use Sluggable;
 
     protected $fillable = ['name', 'slug'];
-    
+
     public function sluggable()
     {
         return [

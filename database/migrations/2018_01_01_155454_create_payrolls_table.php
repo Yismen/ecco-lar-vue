@@ -14,7 +14,7 @@ class CreatePayrollsTable extends Migration
     {
         Schema::create('payrolls', function (Blueprint $table) {
             $table->increments('id');
-            
+
             $table->text('payroll_id')->nullable();
             $table->string('unique_id')->index();
             $table->date('from_date');

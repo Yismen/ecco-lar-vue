@@ -1,4 +1,6 @@
-<?php namespace App;
+<?php
+
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
@@ -7,7 +9,7 @@ class Contact extends Model
 {
     protected $table = 'contacts';
 
-    protected $fillable = ['username','name', 'main_phone', 'works_at', 'position', 'secondary_phone', 'email'];
+    protected $fillable = ['username', 'name', 'main_phone', 'works_at', 'position', 'secondary_phone', 'email'];
 
     /**
      * The "booting" method of the model.

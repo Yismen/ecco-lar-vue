@@ -11,7 +11,7 @@ class LayoutServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    
+
     protected $site = 'site';
     protected $app = 'app';
 

@@ -20,7 +20,7 @@ class SettingController extends Controller
         if (!$request->has('sidebar_collapse')) {
             $request['sidebar_collapse'] = '';
         }
-        
+
         $settings = [
             'data' => json_encode($request->only('route', 'layout', 'skin', 'sidebar_collapse', 'sidebar_mini'))
         ];

@@ -8,7 +8,6 @@ use Carbon\Carbon;
 use App\Department;
 use App\PaymentType;
 use App\PaymentFrequency;
-use App\payment_frequency;
 use Illuminate\Http\Request;
 use App\Repositories\Payroll\Parser;
 
@@ -20,7 +19,7 @@ class Payrolls
     public $payment_type;
     private $payment_frequency;
     private $carbon;
-    
+
     public function __construct(Employee $employees, Department $department, Position $position, PaymentType $payment_type, PaymentFrequency $payment_frequency, Carbon $carbon)
     {
         $this->employees = $employees;
@@ -86,17 +85,15 @@ class Payrolls
                 ->whereHas('hours', function ($query) use ($request, $from, $to) {
                     return $query
                         ->whereDate('date', '>=', $from)
-                        ->whereDate('date', '<=', $to)
-                        ;
+                        ->whereDate('date', '<=', $to);
                 })
                 ->get(),
             ];
-            
+
         return $this->filter($request)
             ->whereHas('hours', function ($query) use ($request) {
                 return $query
-                    ->whereBetween('date', [$request->from, $request->to])
-                    ;
+                    ->whereBetween('date', [$request->from, $request->to]);
             })
             ->get();
 
@@ -119,8 +116,7 @@ class Payrolls
             ->whereDoesntHave('hours', function ($query) use ($request, $from, $to) {
                 return $query
                     ->whereDate('date', '>=', $from)
-                    ->whereDate('date', '<=', $to)
-                    ;
+                    ->whereDate('date', '<=', $to);
             })
             ->get();
     }

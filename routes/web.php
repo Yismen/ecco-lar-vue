@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * Guest routes here
  */

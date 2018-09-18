@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Supervisor;
-use App\Http\Requests;
 use Illuminate\Http\Request;
 
 class SupervisorsController extends Controller
@@ -105,7 +104,7 @@ class SupervisorsController extends Controller
     protected function validateRequest($request, $supervisor)
     {
         return $this->validate($request, [
-            'name' => 'required|min:5|unique:supervisors,name,'.$supervisor->id.',id',
+            'name' => 'required|min:5|unique:supervisors,name,' . $supervisor->id . ',id',
             'department_id' => 'required|exists:departments,id'
         ]);
     }

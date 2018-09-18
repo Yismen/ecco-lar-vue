@@ -15,5 +15,5 @@ Route::bind('payrolls_summary', function ($id) {
 });
 
 Route::resource('payrolls_summary', 'Payroll\SummaryController', [
-    'except'=>['edit', 'create']
+    'except' => ['edit', 'create']
 ]);

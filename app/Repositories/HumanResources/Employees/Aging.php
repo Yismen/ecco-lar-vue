@@ -19,6 +19,7 @@ class Aging
         return $this->employee
             ->select(DB::raw('select count(id) '));
     }
+
     public function zeroToThreeMonths()
     {
     }

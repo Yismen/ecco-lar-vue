@@ -6,6 +6,6 @@ trait TestTrait
 {
     public function testTrait()
     {
-        return ['trait'=>'Trait'];
+        return ['trait' => 'Trait'];
     }
 }

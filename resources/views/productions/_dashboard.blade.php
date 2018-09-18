@@ -5,21 +5,21 @@
 </div>
 <?php
     $field_options = [
-        ''=>'--Please Select--',
-        'employee'=>'Employe\'s Name',
-        'supervisor'=>'Supervisor',
+        '' => '--Please Select--',
+        'employee' => 'Employe\'s Name',
+        'supervisor' => 'Supervisor',
     ];
 
     $date_options = [
-        ''=>'--Please Select--',
-        'today'=>'Today',
-        'yesterday'=>'Yesterday',
-        'this_week'=>'This Week',
-        'last_week'=>'Last Week',
-        'this_month'=>'This Month',
-        'last_month'=>'Last Month',
-        'this_year'=>'This Year',
-        'last_year'=>'Last Year',
+        '' => '--Please Select--',
+        'today' => 'Today',
+        'yesterday' => 'Yesterday',
+        'this_week' => 'This Week',
+        'last_week' => 'Last Week',
+        'this_month' => 'This Month',
+        'last_month' => 'Last Month',
+        'this_year' => 'This Year',
+        'last_year' => 'Last Year',
     ];
  ?>
 

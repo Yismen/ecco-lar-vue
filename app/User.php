@@ -42,7 +42,7 @@ class User extends Authenticatable implements CanResetPassword
     //         $builder->where('is_active', '=', 1);
     //     });
     // }
-    
+
     public function owns($model)
     {
         return $this->id == $model->user_id;
@@ -60,12 +60,12 @@ class User extends Authenticatable implements CanResetPassword
 
     public function isOnline()
     {
-        if (Cache::has('online-user-'.$this->id)) {
+        if (Cache::has('online-user-' . $this->id)) {
             return true;
         }
         return false;
     }
-    
+
     public function createQualityScore($request)
     {
         $unique_id = $request->employee_id . '-' . $request->client_id . '-' . $request->work_date;

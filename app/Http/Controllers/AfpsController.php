@@ -3,18 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Afp;
-use App\Http\Requests;
 use Illuminate\Http\Request;
 
 class AfpsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('authorize:view_afps|edit_afps|create_afps', ['only'=>['index','show']]);
-        $this->middleware('authorize:edit_afps', ['only'=>['edit','update']]);
-        $this->middleware('authorize:create_afps', ['only'=>['create','store']]);
-        $this->middleware('authorize:destroy_afps', ['only'=>['destroy']]);
+        $this->middleware('authorize:view_afps|edit_afps|create_afps', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit_afps', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create_afps', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy_afps', ['only' => ['destroy']]);
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -52,7 +52,7 @@ class AfpsController extends Controller
         ]);
 
         $afp = Afp::create($request->all());
-        
+
         return redirect()->route('admin.afps.index')
             ->withSuccess("AFP $afp->name created!");
     }
@@ -89,11 +89,11 @@ class AfpsController extends Controller
     public function update(Request $request, Afp $afp)
     {
         $this->validate($request, [
-            'name' => 'required|min:3|unique:afps,name,'.$afp->id
+            'name' => 'required|min:3|unique:afps,name,' . $afp->id
         ]);
 
         $afp->update($request->only(['name']));
-        
+
         return redirect()->route('admin.afps.index')
             ->withSuccess("AFP $afp->name Updated!");
     }

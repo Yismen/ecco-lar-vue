@@ -2,9 +2,6 @@
 
 namespace App;
 
-use App\Menu;
-use App\User;
-use App\Permission;
 use Zizaco\Entrust\EntrustRole;
 
 class Role extends EntrustRole
@@ -15,6 +12,7 @@ class Role extends EntrustRole
      *
      * @return [type] [description]
      */
+
     /**
      * ==========================================
      * Relationships
@@ -33,21 +31,22 @@ class Role extends EntrustRole
     {
         return $this->belongsToMany(Permission::class);
     }
-    
+
     /**
      * ========================================
      * Methods
      */
-    
+
     /**
      * ==========================================
      * Scopes
      */
-    
+
     /**
      * ======================================
      * Accessors
      */
+
     /**
      * Get a list of the users associated with this role.
      *
@@ -84,7 +83,7 @@ class Role extends EntrustRole
      */
     public function setDisplayNameAttribute($display_name)
     {
-        $this->attributes['display_name'] = ucwords(str_replace(['.','_','-','/'], ' ', $display_name));
-        $this->attributes['name'] = str_slug($display_name, $separator = "-");
+        $this->attributes['display_name'] = ucwords(str_replace(['.', '_', '-', '/'], ' ', $display_name));
+        $this->attributes['name'] = str_slug($display_name, $separator = '-');
     }
 }

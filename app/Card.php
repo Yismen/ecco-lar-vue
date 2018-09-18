@@ -1,4 +1,6 @@
-<?php namespace App;
+<?php
+
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,12 +16,11 @@ class Card extends Model
     {
         return $this->belongsTo('App\Employee');
     }
-    
+
     /**
      * ---------------------------------------------------
      * Accessors
      */
-
     public function getEmployeeListAttribute()
     {
         $employees = $this->employee()->pluck('id');
@@ -28,6 +29,7 @@ class Card extends Model
             return $employees[0];
         }
     }
+
     /**
      * get employees with no cards added
      * @return [type] [description]
@@ -39,6 +41,7 @@ class Card extends Model
 
         return $employees->pluck('fullName', 'id');
     }
+
     /**
      * --------------------------------------------------
      * Scopes

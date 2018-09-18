@@ -1,4 +1,6 @@
-<?php namespace App;
+<?php
+
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,12 +17,12 @@ class Supervisor extends Model
     {
         return $this->belongsTo(Department::class);
     }
-    
+
     public function getDepartmentsListAttribute()
     {
         return Department::pluck('department', 'id');
     }
-    
+
     /**
      * =======================================
      * Mutators

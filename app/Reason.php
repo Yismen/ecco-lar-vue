@@ -1,6 +1,7 @@
-<?php namespace App;
+<?php
 
-use App\Production;
+namespace App;
+
 use Illuminate\Database\Eloquent\Model;
 
 class Reason extends Model

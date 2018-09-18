@@ -26,6 +26,7 @@ trait EmployeeAccessors
     {
         return Nationality::pluck('name', 'id');
     }
+
     public function getNationalityAttribute()
     {
         return $this->nationalities()->first();

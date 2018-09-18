@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\User;
 use App\EscalClient;
 use App\EscalationHour;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Requests\EscalationsHoursRequest;
 use App\Repositories\Escalations\Production;
@@ -44,11 +43,11 @@ class EscalationsHoursController extends Controller
         $exists = EscalationHour::whereUserId($user_id)->whereClientId($client_id)->whereDate('date', $date)->first();
 
         if ($exists) {
-            return redirect()->route('admin.escalations_hours.edit', $exists->id)->withDanger("Hours exists already. Please chose Edit. Hint: Refresh the page.");
+            return redirect()->route('admin.escalations_hours.edit', $exists->id)->withDanger('Hours exists already. Please chose Edit. Hint: Refresh the page.');
         }
 
         $record = EscalRecord::filterForHours($user_id, $client_id, $date);
-        
+
         return view('escalations_hours.create', compact('record'));
     }
 

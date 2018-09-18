@@ -41,14 +41,12 @@ class ImageUploader extends Model
      */
     private $FIELDNAME;
 
-    public function __construct($PATH ='images/', $RANDOM_NAME = null, $SQUARED = true)
+    public function __construct($PATH = 'images/', $RANDOM_NAME = null, $SQUARED = true)
     {
         $this->PATH = $PATH;
         $this->RANDOM_NAME = $RANDOM_NAME;
         $this->SQUARED = $SQUARED;
     }
-
-
 
     /**
      * Save an copy of a image to a given
@@ -63,11 +61,11 @@ class ImageUploader extends Model
         $extendedName = $this->PATH . $filename . $this->EXTENSION;
 
         $file = Image::make($fileField);
-            
+
         $file = $this->resizeImage($file);
 
         $file = $this->wantsSquaredImage($file);
-        
+
         $file = $file->save($extendedName)->orientate();
 
         return $extendedName;
@@ -96,7 +94,7 @@ class ImageUploader extends Model
         $file = $file->resize($this->DESIRED_SIZE, null, function ($constraint) {
             $constraint->aspectRatio();
         });
-            
+
         $file = $file->resize(null, $this->DESIRED_SIZE, function ($constraint) {
             $constraint->aspectRatio();
         });

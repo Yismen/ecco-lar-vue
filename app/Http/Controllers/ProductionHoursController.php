@@ -6,7 +6,6 @@ use App\Employee;
 use Carbon\Carbon;
 use App\Production;
 use App\Supervisor;
-use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductionsUpdateRequest;
 
@@ -17,13 +16,13 @@ class ProductionHoursController extends Controller
 
     public function __construct(Request $request)
     {
-        $this->middleware('authorize:view_production_hours|edit_production_hours|create_production_hours', ['only'=>['index','show']]);
-        $this->middleware('authorize:edit_production_hours', ['only'=>['edit','update']]);
-        $this->middleware('authorize:create_production_hours', ['only'=>['create','store']]);
-        $this->middleware('authorize:destroy_production_hours', ['only'=>['destroy']]);
+        $this->middleware('authorize:view_production_hours|edit_production_hours|create_production_hours', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit_production_hours', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create_production_hours', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy_production_hours', ['only' => ['destroy']]);
 
         $this->request = $request;
-        $this->supervisorsList =  Supervisor::pluck('name', 'name')->toArray();
+        $this->supervisorsList = Supervisor::pluck('name', 'name')->toArray();
     }
 
     /**
@@ -42,7 +41,7 @@ class ProductionHoursController extends Controller
     {
         $this->validate($this->request, [
             'date' => 'required|date',
-            'supervisor'=>'required|exists:supervisors,name'
+            'supervisor' => 'required|exists:supervisors,name'
         ]);
 
         $date = Carbon::createFromFormat('Y-m-d', $this->request->input('date'))->format('Y-m-d');
@@ -56,7 +55,7 @@ class ProductionHoursController extends Controller
         if ($this->request->ajax()) {
             return view('production-hours._results', compact('employees', 'supervisorsList'));
         }
-        
+
         return view('production-hours.index', compact('employees', 'supervisorsList'));
     }
 
@@ -82,7 +81,7 @@ class ProductionHoursController extends Controller
                 ->get();
         }])
         ->orderBy('first_name')
-        ->paginate(25)->appends(['date'=>$date, 'supervisor'=>$supervisor]);
+        ->paginate(25)->appends(['date' => $date, 'supervisor' => $supervisor]);
     }
 
     /**
@@ -92,7 +91,7 @@ class ProductionHoursController extends Controller
      */
     public function create()
     {
-        return "Create method will not be needed";
+        return 'Create method will not be needed';
     }
 
     /**
@@ -103,7 +102,7 @@ class ProductionHoursController extends Controller
      */
     public function store(Request $request)
     {
-        return "Store method will not be needed";
+        return 'Store method will not be needed';
     }
 
     /**
@@ -114,7 +113,7 @@ class ProductionHoursController extends Controller
      */
     public function show($id)
     {
-        return "Show method will not be needed";
+        return 'Show method will not be needed';
     }
 
     /**
@@ -142,8 +141,8 @@ class ProductionHoursController extends Controller
      */
     public function update(Production $production, ProductionsUpdateRequest $request)
     {
-        return $request->only(['in_time','production_hours', 'break_time', 'downtime', 'out_time']);
-        $production->update($request->only(['in_time','production_hours', 'break_time', 'downtime', 'out_time']));
+        return $request->only(['in_time', 'production_hours', 'break_time', 'downtime', 'out_time']);
+        $production->update($request->only(['in_time', 'production_hours', 'break_time', 'downtime', 'out_time']));
 
         return redirect()->route('admin.production-hours.edit', $production->id)
             ->withSuccess("Production $production->id has been updated");

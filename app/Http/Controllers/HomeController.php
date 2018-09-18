@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests;
-use Illuminate\Http\Request;
 use GrahamCampbell\Flysystem\Facades\Flysystem;
 
 class HomeController extends Controller

@@ -1,20 +1,18 @@
-<?php namespace App\Http\Controllers;
+<?php
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Client;
 
 class ClientsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('authorize:view_clients|edit_clients|create_clients', ['only'=>['index','show']]);
-        $this->middleware('authorize:edit_clients', ['only'=>['edit','update']]);
-        $this->middleware('authorize:create_clients', ['only'=>['create','store']]);
-        $this->middleware('authorize:destroy_clients', ['only'=>['destroy']]);
+        $this->middleware('authorize:view_clients|edit_clients|create_clients', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit_clients', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create_clients', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy_clients', ['only' => ['destroy']]);
     }
 
     /**
@@ -94,7 +92,7 @@ class ClientsController extends Controller
     public function Update(Client $client, Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|unique:clients,id,'.$client->id.',id',
+            'name' => 'required|unique:clients,id,' . $client->id . ',id',
             // 'departments' => 'required',
             'departments.*' => 'exists:departments,id',
             // 'sources' => 'required',

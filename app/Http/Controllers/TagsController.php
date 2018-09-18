@@ -1,9 +1,6 @@
-<?php namespace App\Http\Controllers;
+<?php
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
-
-use Illuminate\Http\Request;
+namespace App\Http\Controllers;
 
 use App\Tag;
 
@@ -11,12 +8,11 @@ class TagsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('authorize:view_tags|edit_tags|create_tags', ['only'=>['index','show']]);
-        $this->middleware('authorize:edit_tags', ['only'=>['edit','update']]);
-        $this->middleware('authorize:create_tags', ['only'=>['create','store']]);
-        $this->middleware('authorize:destroy_tags', ['only'=>['destroy']]);
+        $this->middleware('authorize:view_tags|edit_tags|create_tags', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit_tags', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create_tags', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy_tags', ['only' => ['destroy']]);
     }
-    
 
     /**
      * Display a listing of the resource.

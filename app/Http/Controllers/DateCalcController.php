@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use App\Http\Requests;
 use Illuminate\Http\Request;
 
 class DateCalcController extends Controller
@@ -15,11 +14,10 @@ class DateCalcController extends Controller
         return view('date_calc.index');
     }
 
-
     public function diffFromToday(Request $request, Carbon $carbon)
     {
         $this->validate($request, [
-            'base_date'=> 'required|date'
+            'base_date' => 'required|date'
         ]);
 
         $result = $this->calcDiffFromToday($request, $carbon);
@@ -56,7 +54,7 @@ class DateCalcController extends Controller
     private function calcDiffFromToday($request, $carbon)
     {
         $today = $carbon->now();
-        $date = $carbon->createFromFormat("Y-m-d", $request->input('base_date'));
+        $date = $carbon->createFromFormat('Y-m-d', $request->input('base_date'));
 
         return $date->diffInDays($today, false);
     }
@@ -69,8 +67,8 @@ class DateCalcController extends Controller
      */
     private function calcDiffFromRange($request, $carbon)
     {
-        $from_date = $carbon->createFromFormat("Y-m-d", $request->input('from_date'));
-        $to_date = $carbon->createFromFormat("Y-m-d", $request->input('to_date'));
+        $from_date = $carbon->createFromFormat('Y-m-d', $request->input('from_date'));
+        $to_date = $carbon->createFromFormat('Y-m-d', $request->input('to_date'));
 
         return $from_date->diffInDays($to_date, false);
     }

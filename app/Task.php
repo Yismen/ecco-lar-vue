@@ -1,4 +1,6 @@
-<?php namespace App;
+<?php
+
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -19,6 +21,7 @@ class Task extends Model
     {
         return $this->belongsTo('App\User');
     }
+
     /**
      * -------------------------------------------------
      * Scopes
@@ -33,7 +36,7 @@ class Task extends Model
      */
     public function scopeSorted($query)
     {
-        $query->orderBy("completed")->orderBy("created_at");
+        $query->orderBy('completed')->orderBy('created_at');
     }
 
     /**
@@ -68,6 +71,7 @@ class Task extends Model
      * Mutators
      * -------------------------------------------------------------
      */
+
     /**
      * Make sure task_name is always saved as ucfirst
      * @param [type] $task_name [description]

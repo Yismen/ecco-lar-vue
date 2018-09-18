@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 // use App\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\PaymentType;
 
@@ -11,10 +10,10 @@ class PaymentTypesController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('authorize:view_payment_types|edit_payment_types|create_payment_types', ['only'=>['index','show']]);
-        $this->middleware('authorize:edit_payment_types', ['only'=>['edit','update']]);
-        $this->middleware('authorize:create_payment_types', ['only'=>['create','store']]);
-        $this->middleware('authorize:destroy_payment_types', ['only'=>['destroy']]);
+        $this->middleware('authorize:view_payment_types|edit_payment_types|create_payment_types', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit_payment_types', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create_payment_types', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy_payment_types', ['only' => ['destroy']]);
     }
 
     /**
@@ -45,7 +44,7 @@ class PaymentTypesController extends Controller
         if ($request->ajax()) {
             return $payment_type;
         }
-        
+
         return view('payment_types.show', compact('payment_type'));
     }
 
@@ -93,7 +92,7 @@ class PaymentTypesController extends Controller
         $this->validateRequest($payment_type, $request);
 
         $payment_type->update($request->only(['name']));
-        
+
         return redirect()->route('admin.payment_types.show', $payment_type->id)
             ->withSuccess("payment $payment_type->name has been ubdated!!");
     }

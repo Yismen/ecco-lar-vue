@@ -1,7 +1,8 @@
-<?php namespace App;
+<?php
+
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
 
 class Downtime extends Model
 {
@@ -17,6 +18,7 @@ class Downtime extends Model
     {
         return $this->belongsTo('App\Reason');
     }
+
     // Methods ===================================================
 
 // Scopes ====================================================

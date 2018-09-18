@@ -28,7 +28,7 @@ class Clients
 
     public function today()
     {
-        $date = (new Carbon)->today()->format("Y-m-d");
+        $date = (new Carbon)->today()->format('Y-m-d');
         return $this->byDate($date);
     }
 }

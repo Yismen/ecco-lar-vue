@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests;
 use DB;
 use App\PayrollAdditional;
 use Illuminate\Http\Request;
@@ -16,12 +15,13 @@ class PayrollAdditionalsController extends Controller
 
     public function __construct()
     {
-        $this->middleware('authorize:view_payroll-additionals', ['only'=>['index','show']]);
-        $this->middleware('authorize:edit_payroll-additionals', ['only'=>['edit','update']]);
-        $this->middleware('authorize:create_payroll-additionals', ['only'=>['create','store']]);
-        $this->middleware('authorize:destroy_payroll-additionals', ['only'=>['destroy']]);
-        $this->middleware('authorize:import_payrolls-additionals', ['only'=>['import', 'handleImport']]);
+        $this->middleware('authorize:view_payroll-additionals', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit_payroll-additionals', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create_payroll-additionals', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy_payroll-additionals', ['only' => ['destroy']]);
+        $this->middleware('authorize:import_payrolls-additionals', ['only' => ['import', 'handleImport']]);
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -55,7 +55,7 @@ class PayrollAdditionalsController extends Controller
         $additional = $additional->create($request->only(['date', 'employee_id', 'additional_amount', 'concept_id', 'comment']));
 
         return redirect()->route('admin.payroll-additionals.index')
-            ->withSuccess("Additional created!");
+            ->withSuccess('Additional created!');
     }
 
     /**
@@ -92,7 +92,7 @@ class PayrollAdditionalsController extends Controller
         $additional->update($request->only(['date', 'employee_id', 'additional_amount', 'concept_id', 'comment']));
 
         return redirect()->route('admin.payroll-additionals.edit', $additional->id)
-            ->withSuccess("Additional Income Updated!");
+            ->withSuccess('Additional Income Updated!');
     }
 
     /**
@@ -108,7 +108,7 @@ class PayrollAdditionalsController extends Controller
 
     public function byDate($date, PayrollAdditional $additional)
     {
-        $additionals =  $additional->whereDate('date', '=', $date)
+        $additionals = $additional->whereDate('date', '=', $date)
             ->select('*', DB::raw('sum(additional_amount) as additional_amount_sum'))
             ->groupBy('employee_id')
             ->orderBy('employee_id', 'ASC')
@@ -136,9 +136,9 @@ class PayrollAdditionalsController extends Controller
             'comment' => 'max:250',
         ]))
         ->load($request->file('additionals-file'));
-        
+
         if ($loader->hasErrors()) {
-            $request->session()->flash('file_errors', ['errors'=>$loader->errors()]);
+            $request->session()->flash('file_errors', ['errors' => $loader->errors()]);
             return redirect()->route('admin.payroll-additionals.import')
                 ->withDanger('The file contains errors');
         }
@@ -151,7 +151,7 @@ class PayrollAdditionalsController extends Controller
 
     public function details($date, $employee_id, PayrollAdditional $additional)
     {
-        $additionals =  $additional->whereDate('date', '=', $date)
+        $additionals = $additional->whereDate('date', '=', $date)
             ->where('employee_id', '=', $employee_id)
             ->orderBy('employee_id', 'ASC')
             ->with('employee.position.department')->paginate(50);

@@ -18,14 +18,13 @@ class Departments
         $this->carbon = new Carbon;
         $this->now = $this->carbon->now();
 
-        $this->today = $this->now->format("Y-m-d");
-        $this->three_months_ago = $this->now->subMonths(3)->format("Y-m-d");
-        $this->six_months_ago = $this->now->subMonths(6)->format("Y-m-d");
-        $this->nine_months_ago = $this->now->subMonths(9)->format("Y-m-d");
-        $this->a_year_ago = $this->now->subYear()->format("Y-m-d");
-        $this->three_years_ago = $this->now->subYears(3)->format("Y-m-d");
+        $this->today = $this->now->format('Y-m-d');
+        $this->three_months_ago = $this->now->subMonths(3)->format('Y-m-d');
+        $this->six_months_ago = $this->now->subMonths(6)->format('Y-m-d');
+        $this->nine_months_ago = $this->now->subMonths(9)->format('Y-m-d');
+        $this->a_year_ago = $this->now->subYear()->format('Y-m-d');
+        $this->three_years_ago = $this->now->subYears(3)->format('Y-m-d');
     }
-
 
     /**
      * many to many relationship with the employee model

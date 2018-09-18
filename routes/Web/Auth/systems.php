@@ -28,7 +28,6 @@ Route::resource('systems', 'SystemsController');
 // 	'permissions'=>['systems_editor'],
 // ]);
 
-
 // /**
 //  * systems index route
 //  */
@@ -72,9 +71,8 @@ Route::resource('systems', 'SystemsController');
 // 		->firstOrFail();
 // });
 
-
 // // Route::resource('systems', 'systemsController', [
-    
+
 // // ]);
 
 // /**

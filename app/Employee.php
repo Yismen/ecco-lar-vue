@@ -1,4 +1,6 @@
-<?php namespace App;
+<?php
+
+namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -83,7 +85,7 @@ class Employee extends Model
                     });
             });
     }
-    
+
     public function scopeInactives($query)
     {
         return $query->has('termination');
@@ -93,7 +95,7 @@ class Employee extends Model
     {
         return $query->has('card', false);
     }
-    
+
     public function computedSalary()
     {
         $base_salary = 8310;
@@ -123,20 +125,21 @@ class Employee extends Model
         $days = $starts->diffInYears(Carbon::today()) >= 5 ? 21 : 14;
         return $starts->addDays($days);
     }
-    
+
     public function activesOn($date)
     {
-        $date = Carbon::parse($date)->format("Y-m-d");
+        $date = Carbon::parse($date)->format('Y-m-d');
 
-        return $this->where('hire_date', "<=", $date)
-            ->with(['termination'=>function ($query) {
+        return $this->where('hire_date', '<=', $date)
+            ->with(['termination' => function ($query) {
                 return $query->where('termination_date', '>=', $date);
             }])
             ->get();
     }
+
     public function activesOnYear($year)
     {
-        return $this->whereYear('hire_date', "<=", $year)->with(['termination'=>function ($query) {
+        return $this->whereYear('hire_date', '<=', $year)->with(['termination' => function ($query) {
             return $query->where('termination_date', '>=', '2012-02-09');
         }])->get();
     }
@@ -145,17 +148,17 @@ class Employee extends Model
     {
         ///// under construction
         return $this->termination()->save([
-            'termination_date'=>$carbon->now(),
-            'termination_type_id'=>$carbon->now(),
-            'termination_reason_id'=>$carbon->now(),
-            'can_be_rehired'=>$carbon->now(),
+            'termination_date' => $carbon->now(),
+            'termination_type_id' => $carbon->now(),
+            'termination_reason_id' => $carbon->now(),
+            'can_be_rehired' => $carbon->now(),
             ]);
     }
 
     public function createOrUpdateAddress($request)
     {
         $request = $request->only(['sector', 'street_address', 'city']);
-        
+
         if ($this->addresses) {
             $this->addresses->update($request);
             return $this;
@@ -167,7 +170,7 @@ class Employee extends Model
 
     public function createOrUpdateCard($request)
     {
-        $newCard = ['card'=>$request->input('card')];
+        $newCard = ['card' => $request->input('card')];
 
         $this->card ? $this->card()->update($newCard) : $this->card()->create($newCard);
 
@@ -176,12 +179,13 @@ class Employee extends Model
 
     public function createOrUpdatePunch($request)
     {
-        $newPunch = ['punch'=>$request->input('punch')];
+        $newPunch = ['punch' => $request->input('punch')];
 
         $this->punch ? $this->punch()->update($newPunch) : $this->punch()->create($newPunch);
 
         return $this;
     }
+
     /**
      * cheks if the current employeed
      * @return string or null 'Masculine'

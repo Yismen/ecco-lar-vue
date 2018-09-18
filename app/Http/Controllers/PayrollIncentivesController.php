@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests;
 use DB;
 use App\PayrollIncentive;
 use Illuminate\Http\Request;
@@ -16,12 +15,13 @@ class PayrollIncentivesController extends Controller
 
     public function __construct()
     {
-        $this->middleware('authorize:view_payroll-incentives', ['only'=>['index','show']]);
-        $this->middleware('authorize:edit_payroll-incentives', ['only'=>['edit','update']]);
-        $this->middleware('authorize:create_payroll-incentives', ['only'=>['create','store']]);
-        $this->middleware('authorize:destroy_payroll-incentives', ['only'=>['destroy']]);
-        $this->middleware('authorize:import_payrolls-incentives', ['only'=>['import', 'handleImport']]);
+        $this->middleware('authorize:view_payroll-incentives', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit_payroll-incentives', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create_payroll-incentives', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy_payroll-incentives', ['only' => ['destroy']]);
+        $this->middleware('authorize:import_payrolls-incentives', ['only' => ['import', 'handleImport']]);
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -55,7 +55,7 @@ class PayrollIncentivesController extends Controller
         $incentive = $incentive->create($request->only(['date', 'employee_id', 'incentive_amount', 'concept_id', 'comment']));
 
         return redirect()->route('admin.payroll-incentives.index')
-            ->withSuccess("Incentive created!");
+            ->withSuccess('Incentive created!');
     }
 
     /**
@@ -92,7 +92,7 @@ class PayrollIncentivesController extends Controller
         $incentive->update($request->only(['date', 'employee_id', 'incentive_amount', 'concept_id', 'comment']));
 
         return redirect()->route('admin.payroll-incentives.edit', $incentive->id)
-            ->withSuccess("Incentive Income Updated!");
+            ->withSuccess('Incentive Income Updated!');
     }
 
     /**
@@ -108,7 +108,7 @@ class PayrollIncentivesController extends Controller
 
     public function byDate($date, PayrollIncentive $incentive)
     {
-        $incentives =  $incentive->whereDate('date', '=', $date)
+        $incentives = $incentive->whereDate('date', '=', $date)
             ->select('*', DB::raw('sum(incentive_amount) as incentive_amount_sum'))
             ->groupBy('employee_id')
             ->orderBy('employee_id', 'ASC')
@@ -136,9 +136,9 @@ class PayrollIncentivesController extends Controller
             'comment' => 'max:250',
         ]))
         ->load($request->file('incentives-file'));
-        
+
         if ($loader->hasErrors()) {
-            $request->session()->flash('file_errors', ['errors'=>$loader->errors()]);
+            $request->session()->flash('file_errors', ['errors' => $loader->errors()]);
             return redirect()->route('admin.payroll-incentives.import')
                 ->withDanger('The file contains errors');
         }
@@ -151,7 +151,7 @@ class PayrollIncentivesController extends Controller
 
     public function details($date, $employee_id, PayrollIncentive $incentive)
     {
-        $incentives =  $incentive->whereDate('date', '=', $date)
+        $incentives = $incentive->whereDate('date', '=', $date)
             ->where('employee_id', '=', $employee_id)
             ->orderBy('employee_id', 'ASC')
             ->with('employee.position.department')->paginate(50);

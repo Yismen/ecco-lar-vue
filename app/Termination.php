@@ -1,4 +1,6 @@
-<?php namespace App;
+<?php
+
+namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -32,7 +34,7 @@ class Termination extends Model
      * ======================================================================================
      * Accessors
      */
-    
+
     // public function getTerminationDateAttribute($date)
     // {
     // 	return Carbon::parse($this->attributes['termination_date'] = ])->format('Y-m-d');

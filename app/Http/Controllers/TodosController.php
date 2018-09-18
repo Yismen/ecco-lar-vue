@@ -1,13 +1,9 @@
-<?php namespace App\Http\Controllers;
+<?php
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
-
-use Illuminate\Http\Request;
+namespace App\Http\Controllers;
 
 class TodosController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *

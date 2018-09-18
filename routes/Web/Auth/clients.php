@@ -6,5 +6,4 @@ Route::bind('client', function ($id) {
         ->append(['department_list', 'sources_list']);
 });
 
-
 Route::resource('clients', 'ClientsController');

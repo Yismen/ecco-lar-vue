@@ -62,6 +62,7 @@ class EscalRecord extends Model
     {
         $this->attributes['is_additional_line'] = $value == null ? 0 : 1;
     }
+
     /**
      * ========================================
      * Methods
@@ -121,7 +122,7 @@ class EscalRecord extends Model
             ->where('escal_client_id', $client)
             ->with('hours', 'user', 'escal_client')
             // ->groupBy(['user_id', 'escal_client_id', 'is_bbb'])
-            ->select(DB::raw("*, count(tracking) as count"))
+            ->select(DB::raw('*, count(tracking) as count'))
             ->first();
     }
 

@@ -7,7 +7,6 @@ use App\Role;
 use App\User;
 use App\Permission;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
 
 class RolesController extends Controller
@@ -16,19 +15,17 @@ class RolesController extends Controller
     private $menusList;
     private $permissionsList;
 
-
     public function __construct(User $user, Menu $menu, Permission $permission)
     {
-        $this->middleware('authorize:view_roles|edit_roles|create_roles', ['only'=>['index','show']]);
-        $this->middleware('authorize:edit_roles', ['only'=>['edit','update']]);
-        $this->middleware('authorize:create_roles', ['only'=>['create','store']]);
-        $this->middleware('authorize:destroy_roles', ['only'=>['destroy']]);
-        
+        $this->middleware('authorize:view_roles|edit_roles|create_roles', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit_roles', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create_roles', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy_roles', ['only' => ['destroy']]);
+
         $this->usersList = $user->orderBy('name')->pluck('name', 'id');
         $this->menusList = $menu->orderBy('display_name')->pluck('display_name', 'id');
         $this->permissionsList = $permission->orderBy('display_name')->pluck('display_name', 'id');
     }
-    
 
     /**
      * Display a listing of the resource.
@@ -63,7 +60,7 @@ class RolesController extends Controller
         $usersList = $this->usersList;
         $permissionsList = $this->permissionsList;
         $menusList = $this->menusList;
-        
+
         return view('roles.create', compact('role', 'usersList', 'permissionsList', 'menusList'));
     }
 
@@ -108,7 +105,7 @@ class RolesController extends Controller
         $usersList = $this->usersList;
         $permissionsList = $this->permissionsList;
         $menusList = $this->menusList;
-        
+
         return view('roles.edit', compact('role', 'usersList', 'permissionsList', 'menusList'));
     }
 
@@ -162,7 +159,6 @@ class RolesController extends Controller
         return $this->syncRelations($role, $request);
     }
 
-
     /**
      * handle the process of creating the menu item
      *
@@ -180,6 +176,7 @@ class RolesController extends Controller
 
         return $this->syncRelations($role, $request);
     }
+
     /**
      * sync the roles model with the array selected by the user
      *

@@ -13,13 +13,13 @@ trait UserAccessors
         return Cache::rememberForever('menues_for_user_' . auth()->user()->id, function () {
             return \Auth::user()->is_admin
             ? Role::orderBy('display_name')
-                ->with(['menus'=>function ($query) {
+                ->with(['menus' => function ($query) {
                     return $query->orderBy('display_name');
                 }])
                 ->get()
             : $this->roles()
                 ->orderBy('display_name')
-                ->with(['menus'=>function ($query) {
+                ->with(['menus' => function ($query) {
                     return $query->orderBy('display_name');
                 }])
                 ->get();
@@ -28,7 +28,7 @@ trait UserAccessors
 
     public function getActiveListAttribute()
     {
-        return ['1'=>'Active User','0' => 'Inactive'];
+        return ['1' => 'Active User', '0' => 'Inactive'];
     }
 
     public function getIsActiveAttribute()
@@ -38,7 +38,7 @@ trait UserAccessors
 
     public function getAdminListAttribute()
     {
-        return ['0' => 'Not Admin', '1'=>'Admin User'];
+        return ['0' => 'Not Admin', '1' => 'Admin User'];
     }
 
     public function getLayoutAttribute()

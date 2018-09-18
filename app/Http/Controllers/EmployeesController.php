@@ -7,14 +7,12 @@ use App\Login;
 use App\Employee;
 use Carbon\Carbon;
 use App\Department;
-use App\Termination;
 use App\ImageUploader;
 use Illuminate\Http\Request;
 use App\Http\Traits\EmployeesTrait;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Cache;
 use Yajra\DataTables\Facades\Datatables;
-use Intervention\Image\ImageManagerStatic as Image;
 
 class EmployeesController extends Controller
 {
@@ -43,7 +41,7 @@ class EmployeesController extends Controller
      */
     public function index()
     {
-        if (! request()->ajax()) {
+        if (!request()->ajax()) {
             return view('employees.index');
         }
 

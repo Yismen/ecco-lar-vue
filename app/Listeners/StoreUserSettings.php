@@ -5,12 +5,11 @@ namespace App\Listeners;
 use App\AppSetting;
 use Illuminate\Http\Request;
 use App\Events\CreateUserSettings;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class StoreUserSettings
 {
     protected $request;
+
     /**
      * Create the event listener.
      *

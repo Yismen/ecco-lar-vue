@@ -5,7 +5,6 @@ namespace App\Repositories\Escalations\Productions;
 use Carbon\Carbon;
 use App\EscalRecord;
 use Illuminate\Support\Facades\DB;
-use App\Repositories\Escalations\Productions\Hours;
 
 class Records
 {
@@ -21,7 +20,7 @@ class Records
     private function query()
     {
         return $this->filter()
-            ->select(DB::raw("
+            ->select(DB::raw('
                 escal_records.id as escal_records_id, 
                 escal_records.*, 
                 count(escal_records.id) as records, 
@@ -39,7 +38,7 @@ class Records
                 (
                     (TIMESTAMPDIFF(MINUTE, escalation_hours.entrance, escalation_hours.out) - escalation_hours.break) / 60
                 ) as escalation_hours_production_hours
-            "))
+            '))
             ->groupBy(['escal_records.user_id', 'escal_records.escal_client_id', 'escal_records.insert_date'])
             ->orderBy('escal_records.insert_date')
             ->orderBy('escal_records.escal_client_id')
@@ -47,8 +46,7 @@ class Records
                 return $join
                     ->on('escal_records.user_id', '=', 'escalation_hours.user_id')
                     ->on('escal_records.escal_client_id', '=', 'escalation_hours.client_id')
-                    ->on('escal_records.insert_date', '=', 'escalation_hours.date')
-                    ;
+                    ->on('escal_records.insert_date', '=', 'escalation_hours.date');
             })
             ->with('user')
             ->with('escal_client');
@@ -69,8 +67,7 @@ class Records
         $records = $this->filter()
             ->select(['id', 'insert_date'])
             ->orderBy('insert_date', 'DESC')
-            ->groupBy('insert_date')
-        ;
+            ->groupBy('insert_date');
 
         if ($paginated) {
             return $records->paginate($pages);
@@ -90,16 +87,14 @@ class Records
     public function detailedByDate($request)
     {
         return $this->detailed()
-            ->whereDate('insert_date', '=', $request->date)
-            ;
+            ->whereDate('insert_date', '=', $request->date);
     }
 
     public function detailedByRange($request)
     {
         return $this->detailed()
             ->orderBy('insert_date', 'asc')
-            ->whereBetween('insert_date', [$request->from, $request->to])
-            ;
+            ->whereBetween('insert_date', [$request->from, $request->to]);
     }
 
     public function byDate($date)
@@ -125,8 +120,8 @@ class Records
 
     public function manyDaysAgo($days = 10)
     {
-        $from = (new Carbon)->subDays($days)->format("Y-m-d");
-        $to = (new Carbon)->format("Y-m-d");
+        $from = (new Carbon)->subDays($days)->format('Y-m-d');
+        $to = (new Carbon)->format('Y-m-d');
 
         return $this->query()
             ->where(DB::raw('date(escal_records.insert_date)'), '>=', $from)
@@ -185,29 +180,26 @@ class Records
             ->whereBetween('insert_date', [$from, $to])
             ->inRandomOrder()
             ->take($amount)
-            ->with('user')
-            ;
+            ->with('user');
     }
 
     public function lastManyDays($days = 5)
     {
         return $this->filter()
-            ->select(DB::raw("insert_date, count(tracking) as records, count(CASE WHEN is_bbb = 1 THEN 1 ELSE NULL end) as bbbRecords"))
+            ->select(DB::raw('insert_date, count(tracking) as records, count(CASE WHEN is_bbb = 1 THEN 1 ELSE NULL end) as bbbRecords'))
             ->groupBy(['insert_date'])
             ->orderBy('insert_date', 'DESC')
-            ->take($days)
-            ;
+            ->take($days);
     }
 
     public function usersDays($days = 5)
     {
         return $this->filter()
-            ->select(DB::raw("insert_date, user_id, count(tracking) as records"))
+            ->select(DB::raw('insert_date, user_id, count(tracking) as records'))
             ->groupBy(['insert_date', 'user_id'])
             ->with('user')
             ->orderBy('insert_date', 'DESC')
-            ->take($days)
-            ;
+            ->take($days);
     }
 
     public function search(int $tracking)
@@ -215,7 +207,6 @@ class Records
         return $this->filter()
             ->where('tracking', 'like', "%$tracking%")
             ->with('user')
-            ->orderBy('created_at', 'DESC')
-            ;
+            ->orderBy('created_at', 'DESC');
     }
 }

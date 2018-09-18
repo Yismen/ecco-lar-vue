@@ -5,7 +5,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreatePositionsTable extends Migration
 {
-
     /**
      * Run the migrations.
      *
@@ -21,7 +20,7 @@ class CreatePositionsTable extends Migration
             $table->integer('payment_frequency_id')->unsigned()->nullable();
             $table->double('salary', 15, 2);
             $table->timestamps();
-            
+
             $table->foreign('department_id')->references('id')->on('departments');
             $table->foreign('payment_type_id')->references('id')->on('payment_types');
             $table->foreign('payment_frequency_id')->references('id')->on('payment_frequencies');

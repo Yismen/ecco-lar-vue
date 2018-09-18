@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Hour;
-use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Http\Traits\HoursImportTrait;
 use App\Repositories\ExcelFileLoader;
@@ -16,6 +15,7 @@ class HoursImportController extends Controller
     {
         $this->middleware('authorize:manage-hours-import');
     }
+
     /**
      * Shows the dashboard to import hours
      * @return [type] [description]
@@ -28,7 +28,6 @@ class HoursImportController extends Controller
         return view('hours-import.index')
             ->with(['dates' => $dates]);
     }
-
 
     public function import(Request $request)
     {
@@ -52,7 +51,7 @@ class HoursImportController extends Controller
         ->load($request->file('file_name'));
 
         if ($loader->hasErrors()) {
-            $request->session()->flash('file_errors', ['errors'=>$loader->errors()]);
+            $request->session()->flash('file_errors', ['errors' => $loader->errors()]);
             return redirect('admin/hours-import')
                 ->withDanger('The file contains errors');
         }

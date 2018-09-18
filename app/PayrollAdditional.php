@@ -2,9 +2,7 @@
 
 namespace App;
 
-use App\Employee;
 use Carbon\Carbon;
-use App\PayrollDiscountConcept;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 
@@ -39,6 +37,6 @@ class PayrollAdditional extends Model
     public function getDateAttribute($date)
     {
         $date = Carbon::parse($date);
-        return $date->format("Y-m-d");
+        return $date->format('Y-m-d');
     }
 }

@@ -1,18 +1,18 @@
-<?php namespace App\Http\Controllers;
+<?php
+
+namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateTerminationsRequest;
-use App\Http\Controllers\Controller;
-
 use App\Termination;
 
 class TerminationsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('authorize:view_terminations|edit_terminations|create_terminations', ['only'=>['index','show']]);
-        $this->middleware('authorize:edit_terminations', ['only'=>['edit','update']]);
-        $this->middleware('authorize:create_terminations', ['only'=>['create','store']]);
-        $this->middleware('authorize:destroy_terminations', ['only'=>['destroy']]);
+        $this->middleware('authorize:view_terminations|edit_terminations|create_terminations', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit_terminations', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create_terminations', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy_terminations', ['only' => ['destroy']]);
     }
 
     /**

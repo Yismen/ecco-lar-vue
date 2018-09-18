@@ -5,10 +5,8 @@ namespace App\Repositories\HumanResources\Employees;
 use App\Employee;
 use Carbon\Carbon;
 use App\Department;
-use App\EscalRecord;
 use App\Termination;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Cache;
 
 class Count
 {
@@ -22,7 +20,7 @@ class Count
             'exits' => self::outByMonths($months, $today, $months_ago),
         ]);
     }
-    
+
     private static function inByMonths($months, $today, $months_ago)
     {
         return Employee::select(DB::raw('year(hire_date) as year, monthname(hire_date) as monthname, month(hire_date) as month, COUNT(employees.id) as entrances'))
@@ -32,7 +30,7 @@ class Count
             ->orderBy('month', 'ASC')
             ->get();
     }
-    
+
     public static function byDepartmentAndAging()
     {
         return Department::
@@ -86,12 +84,13 @@ class Count
                 return $query
                     ->actives();
             }])
-            ->orderBy('employees_count', "Desc")
+            ->orderBy('employees_count', 'Desc')
             ->whereHas('employees', function ($query) {
                 return $query->actives();
             })
             ->get();
     }
+
     /**
      * [byDepartmentPositionGender description]
      * @return [type] [description]
@@ -109,8 +108,7 @@ class Count
                             ->select(DB::raw('position_id, count(id) as employees_count, gender_id'))
                             ->with('gender')
                             ->groupBy(['position_id', 'gender_id'])
-                            ->orderBy('position_id', 'ASC', 'gender_id', 'ASC')
-                            ;
+                            ->orderBy('position_id', 'ASC', 'gender_id', 'ASC');
                     }]);
             }])
             ->whereHas('positions', function ($query) {

@@ -1,4 +1,6 @@
-<?php namespace App;
+<?php
+
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
@@ -36,7 +38,7 @@ class Article extends Model
             ]
         ];
     }
-    
+
     /**
      * Set the title field to be always in propper case
      *
@@ -127,7 +129,6 @@ class Article extends Model
     {
         $query->where('published_at', '<=', Carbon::now());
     }
-
 
     /**
      * Defines a scope to filter the ithems with a published at date after current date

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Nationality;
-use App\Http\Requests;
 use Illuminate\Http\Request;
 
 class NationalitiesController extends Controller
@@ -11,6 +10,7 @@ class NationalitiesController extends Controller
     public function __construct()
     {
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -99,13 +99,13 @@ class NationalitiesController extends Controller
     public function destroy(Nationality $nationality)
     {
         return redirect()->route('admin.nationalities.index')
-            ->withDanger("Deleting a nationality is not allowed at this moment. You can re-use them by changing the name. If you still requires to delete a Nationality consult with the administrator!");
+            ->withDanger('Deleting a nationality is not allowed at this moment. You can re-use them by changing the name. If you still requires to delete a Nationality consult with the administrator!');
     }
 
     protected function validateRequest(Request $request, Nationality $nationality)
     {
         $this->validate($request, [
-            'name' => 'required|min:3|unique:nationalities,name,'.$nationality->id
+            'name' => 'required|min:3|unique:nationalities,name,' . $nationality->id
         ]);
     }
 }

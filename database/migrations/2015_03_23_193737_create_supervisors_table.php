@@ -5,7 +5,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateSupervisorsTable extends Migration
 {
-
     /**
      * Run the migrations.
      *

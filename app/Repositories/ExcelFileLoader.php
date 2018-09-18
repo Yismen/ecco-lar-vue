@@ -86,10 +86,10 @@ class ExcelFileLoader
             $data = $validator->getData();
 
             $this->errors[
-                explode(".", $reader->file->getClientOriginalName())[0]
+                explode('.', $reader->file->getClientOriginalName())[0]
             ][] = [
                 'data' => $data,
-                'row_error' =>  $index + 2,
+                'row_error' => $index + 2,
                 'failed_field' => $field_with_error,
                 'error_messages' => $messages,
             ];

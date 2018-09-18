@@ -66,7 +66,7 @@ trait UserRelationships
     {
         return $this->hasMany(Message::class);
     }
-    
+
     /**
      * A user has many contacts
      *

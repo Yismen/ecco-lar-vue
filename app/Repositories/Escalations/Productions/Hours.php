@@ -20,8 +20,7 @@ class Hours
             ->with('user')
             ->with('escal_client')
             ->orderBy('escal_client_id')
-            ->whereDate('created_at', '=', $date)
-            ;
+            ->whereDate('created_at', '=', $date);
     }
 
     public function byDate($date)
@@ -33,7 +32,7 @@ class Hours
             ->with('user')
             ->with('client')
             // ->with('records')
-            ;
+;
     }
 
     public function forRecordsInDate()
@@ -48,29 +47,26 @@ class Hours
             ->whereBetween('insert_date', [$from, $to])
             ->inRandomOrder()
             ->take($amount)
-            ->with('user')
-            ;
+            ->with('user');
     }
 
     public function lastManyDays($days = 5)
     {
         return $this->hour
-            ->select(DB::raw("insert_date, count(tracking) as records, count(CASE WHEN is_bbb = 1 THEN 1 ELSE NULL end) as bbbRecords"))
+            ->select(DB::raw('insert_date, count(tracking) as records, count(CASE WHEN is_bbb = 1 THEN 1 ELSE NULL end) as bbbRecords'))
             ->groupBy(['insert_date'])
             ->orderBy('insert_date', 'DESC')
-            ->take($days)
-            ;
+            ->take($days);
     }
 
     public function usersDays($days = 5)
     {
         return $this->hour
-            ->select(DB::raw("insert_date, user_id, count(tracking) as records"))
+            ->select(DB::raw('insert_date, user_id, count(tracking) as records'))
             ->groupBy(['insert_date', 'user_id'])
             ->with('user')
             ->orderBy('insert_date', 'DESC')
-            ->take($days)
-            ;
+            ->take($days);
     }
 
     public function search(int $tracking)
@@ -78,7 +74,6 @@ class Hours
         return $this->hour
             ->where('tracking', 'like', "%$tracking%")
             ->with('user')
-            ->orderBy('created_at', 'DESC')
-            ;
+            ->orderBy('created_at', 'DESC');
     }
 }

@@ -35,7 +35,7 @@ class ScoreController extends Controller
            'work_date' => 'required|date',
            'score' => 'required|numeric|min:0|max:100',
         ]);
-        
+
         // Extract to user
         $score = auth()->user()->createQualityScore($request);
 

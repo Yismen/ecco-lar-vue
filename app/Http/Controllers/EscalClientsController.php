@@ -3,19 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\EscalClient;
 
 class EscalClientsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('authorize:view_escalations_clients|edit_escalations_clients|create_escalations_clients', ['only'=>['index','show']]);
-        $this->middleware('authorize:edit_escalations_clients', ['only'=>['edit','update']]);
-        $this->middleware('authorize:create_escalations_clients', ['only'=>['create','store']]);
-        $this->middleware('authorize:destroy_escalations_clients', ['only'=>['destroy']]);
+        $this->middleware('authorize:view_escalations_clients|edit_escalations_clients|create_escalations_clients', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit_escalations_clients', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create_escalations_clients', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy_escalations_clients', ['only' => ['destroy']]);
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -26,7 +25,7 @@ class EscalClientsController extends Controller
         $escalclients = $escalclients
             ->orderBy('name')
             ->paginate(10);
-        
+
         return view('escalclients.index', compact('escalclients'));
     }
 

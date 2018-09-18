@@ -1,15 +1,12 @@
-<?php namespace App\Http\Controllers;
+<?php
+
+namespace App\Http\Controllers;
 
 use App\Http\Requests\ArticlesRequest;
 use App\Http\Requests\SaveImageFromURLRequest;
 use App\Http\Requests\SaveImageFromLocalFileRequest;
-use App\Http\Controllers\Controller;
-
 use Illuminate\Support\Facades\Cache;
-use Intervention\Image\ImageManager;
-
 use Illuminate\Http\Request;
-
 use App\Article;
 use App\Tag;
 
@@ -19,9 +16,9 @@ class ArticlesController extends Controller
     {
         // $this->middleware('authorize', ['except'=>['index', 'show', 'unpublished', 'search']]);
         // $this->middleware('authorize:view_articles|edit_articles|create_articles', ['only'=>['index','show']]);
-        $this->middleware('authorize:edit_articles', ['only'=>['edit','update']]);
-        $this->middleware('authorize:create_articles', ['only'=>['create','store']]);
-        $this->middleware('authorize:destroy_articles', ['only'=>['destroy']]);
+        $this->middleware('authorize:edit_articles', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create_articles', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy_articles', ['only' => ['destroy']]);
     }
 
     /**
@@ -31,7 +28,7 @@ class ArticlesController extends Controller
      */
     public function index(Article $article)
     {
-        $articles = Cache::remember('articles', 60*3, function () {
+        $articles = Cache::remember('articles', 60 * 3, function () {
             return Article::with('user')
                 ->latest('published_at')
                 ->published()
@@ -62,11 +59,11 @@ class ArticlesController extends Controller
     public function store(Article $article, ArticlesRequest $request, Tag $tag)
     {
         // dd($request->all());
-         
+
         // $article = new $article($request->all());
 
         // \Auth::user()->articles()->save($article);
-        
+
         $this->createArticle($article, $request, $tag);
 
         return \Redirect::route('articles.index')->withSuccess("$request->title has been created successfully!");
@@ -105,8 +102,8 @@ class ArticlesController extends Controller
     public function update(Article $article, ArticlesRequest $request)
     {
         $this->updateArticle($article, $request);
-        
-        return \Redirect::route('articles.show', $article->slug)->withSuccess("Edited successfully...!");
+
+        return \Redirect::route('articles.show', $article->slug)->withSuccess('Edited successfully...!');
     }
 
     /**
@@ -131,7 +128,7 @@ class ArticlesController extends Controller
     public function getUnpublished(Article $articles)
     {
         $articles = $articles->with('user')->orderedDesc()->unpublished()->paginate(10);
-        
+
         return view('articles.index', compact('articles'));
     }
 
@@ -198,7 +195,7 @@ class ArticlesController extends Controller
         if ($requests->ajax()) {
             return view('articles._results', compact('articles'));
         }
-        
+
         return view('articles.index', compact('articles'));
     }
 
@@ -228,7 +225,7 @@ class ArticlesController extends Controller
             $article->main_image = $extendedName;
             $article->update();
         } else {
-            # code...
+            // code...
         }
 
         if ($request->ajax()) {
@@ -238,8 +235,7 @@ class ArticlesController extends Controller
             ]);
         }
 
-
-        return response()->json(['status'=>1, 'data'=>$request->file()]);
+        return response()->json(['status' => 1, 'data' => $request->file()]);
     }
 
     /**
@@ -278,8 +274,7 @@ class ArticlesController extends Controller
             ]);
         }
 
-
-        return response()->json(['status'=>1, 'data'=>$request->file()]);
+        return response()->json(['status' => 1, 'data' => $request->file()]);
     }
 
     /**
@@ -297,7 +292,7 @@ class ArticlesController extends Controller
         $newTags = array_diff($tagsArray, $tags->pluck('id')); // get the tags that are missing
 
         foreach ($newTags as $key => $value) {
-            if (! $tags->find($value)) {
+            if (!$tags->find($value)) {
                 if (isset($tagsArray[$key])) {
                     unset($tagsArray[$key]);
                 }

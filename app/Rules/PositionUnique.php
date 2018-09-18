@@ -18,6 +18,7 @@ class PositionUnique implements Rule
      *
      */
     protected $request;
+
     /**
      * Create a new rule instance.
      *
@@ -41,7 +42,7 @@ class PositionUnique implements Rule
         $value = ucfirst(strtolower(trim($value)));
 
         $exists = $this->position->where($attribute, '=', $value)
-            ->where("department_id", '=', $this->request->department_id)
+            ->where('department_id', '=', $this->request->department_id)
             ->first();
 
         if (!$exists || optional($this->position)->id == $exists->id) {

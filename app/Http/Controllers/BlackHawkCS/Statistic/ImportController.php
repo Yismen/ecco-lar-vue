@@ -20,7 +20,7 @@ class ImportController extends Controller
     public function __construct(Excel $excel, Request $request)
     {
         $this->middleware('authorize:import-blackhawk-cs-data');
-        
+
         $this->excel = $excel;
         $this->request = $request;
     }

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Payroll;
 
 use Carbon\Carbon;
-use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Repositories\Payrolls;
 use App\Http\Controllers\Controller;
@@ -19,10 +18,10 @@ class GenerateController extends Controller
         $this->payrolls = $payrolls;
     }
 
-
     public function __construc()
     {
     }
+
     public function generate()
     {
         return view('payrolls.generate');
@@ -69,8 +68,8 @@ class GenerateController extends Controller
         $closer = $closer->render($request);
 
         if ($closer->has_errors) {
-            return response()->json("Errors", 401);
+            return response()->json('Errors', 401);
         }
-        return response()->json("success", 200);
+        return response()->json('success', 200);
     }
 }

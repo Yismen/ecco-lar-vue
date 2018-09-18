@@ -12,7 +12,6 @@ Route::bind('permission', function ($name) {
 });
 Route::resource('permissions', 'PermissionsController');
 
-
 // /**
 //  * permissions index route
 //  */
@@ -45,7 +44,6 @@ Route::resource('permissions', 'PermissionsController');
 // 	// 'roles'=>['administrator'],
 // 	'permissions'=>['permissions_editor'],
 // ]);
-
 
 // Route::bind('permissions', function($name){
 // 	return App\Permission::whereName($name)->with('roles')->firstOrFail();

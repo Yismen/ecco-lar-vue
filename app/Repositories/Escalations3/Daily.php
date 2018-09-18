@@ -2,7 +2,6 @@
 
 namespace App\Repositories\Escalations3;
 
-use App\Repositories\Escalations3\Production;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
@@ -26,7 +25,7 @@ class Daily extends Production
             ->where(DB::raw('YEAR(escal_records.insert_date)'), '=', $date->year)
             ->where(DB::raw('DATE(escal_records.insert_date)'), '=', $date->format('Y-m-d'));
     }
-    
+
     private static function query($year, $is)
     {
         return static::render();

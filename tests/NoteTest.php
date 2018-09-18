@@ -1,6 +1,5 @@
 <?php
 
-
 class NoteTest extends TestCase
 {
     /**

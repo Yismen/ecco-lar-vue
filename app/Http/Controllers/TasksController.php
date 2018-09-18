@@ -1,20 +1,18 @@
-<?php namespace App\Http\Controllers;
+<?php
+
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-
 // use App\Http\Requests\Request;
 use App\Task;
 
 class TasksController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
      * @return Response
      */
-    
     public function __construct()
     {
         $this->middleware('auth');
@@ -32,7 +30,7 @@ class TasksController extends Controller
         if ($request->ajax()) {
             return $tasks;
         }
-        
+
         return view('tasks.index');
     }
 
@@ -107,7 +105,7 @@ class TasksController extends Controller
             return $task;
         }
 
-        return redirect()->back()->withError("Only ajax allowed...");
+        return redirect()->back()->withError('Only ajax allowed...');
     }
 
     /**
@@ -143,9 +141,9 @@ class TasksController extends Controller
             return $tasks;
         }
 
-        return redirect()->back()->withError("Only ajax allowed...");
+        return redirect()->back()->withError('Only ajax allowed...');
     }
-    
+
     public function getAjaxRemoveCompleted()
     {
         if (\Input::has('removeAll')) {

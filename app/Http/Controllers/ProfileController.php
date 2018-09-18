@@ -2,19 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Gate;
 use Image;
 use App\User;
 use App\Profile;
-use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Repositories\Profiles;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
 
 class ProfileController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -24,7 +20,7 @@ class ProfileController extends Controller
     {
         if (!auth()->user()->profile) {
             return redirect()->route('admin.profiles.create')
-                ->withInfo("You have not created a profile, please create one now.");
+                ->withInfo('You have not created a profile, please create one now.');
         }
 
         $profile = auth()->user()->profile;
@@ -45,7 +41,7 @@ class ProfileController extends Controller
 
         if (auth()->user()->profile) {
             return redirect()->route('admin.profiles.index')
-                ->withWarning("You have a profile already. What are you trying to do?");
+                ->withWarning('You have a profile already. What are you trying to do?');
         }
         $profile->name = $user->name;
 
@@ -61,15 +57,15 @@ class ProfileController extends Controller
     public function store(Request $request, User $user, Image $img)
     {
         $this->validate($request, [
-            'photo'     => 'image|max:4000',
-            'gender'    => 'required',
-            'name'      => 'required|max:70',
-            'bio'       => 'max:4500',
-            'phone'     => 'max:50',
+            'photo' => 'image|max:4000',
+            'gender' => 'required',
+            'name' => 'required|max:70',
+            'bio' => 'max:4500',
+            'phone' => 'max:50',
             'education' => 'max:1500',
-            'skills'    => 'max:300',
-            'work'      => 'max:1000',
-            'location'  => 'max:100',
+            'skills' => 'max:300',
+            'work' => 'max:1000',
+            'location' => 'max:100',
         ]);
 
         $user = auth()->user();
@@ -96,7 +92,7 @@ class ProfileController extends Controller
         }
 
         return redirect()->route('admin.profiles.index')
-            ->withSuccess("Your profile has been created...");
+            ->withSuccess('Your profile has been created...');
     }
 
     /**
@@ -107,7 +103,7 @@ class ProfileController extends Controller
     public function show(Profile $profile, Profiles $profiles)
     {
         $profiles = $profiles->all();
-        
+
         return view('profiles.show', compact('profile', 'profiles'));
     }
 
@@ -121,7 +117,7 @@ class ProfileController extends Controller
     {
         if (!auth()->user()->owns($profile)) {
             return redirect()->route('admin.profiles.index')
-                ->withWarning("Forbidden. You can only update your own profile!?");
+                ->withWarning('Forbidden. You can only update your own profile!?');
         }
 
         $profile->name = $profile->user->name;
@@ -139,22 +135,22 @@ class ProfileController extends Controller
     public function update(Request $request, Profile $profile, Image $img)
     {
         $this->validate($request, [
-            'photo'     => 'image|max:4000',
-            'gender'    => 'required',
-            'name'      => 'required|max:70',
-            'bio'       => 'max:4500',
-            'phone'     => 'max:50',
+            'photo' => 'image|max:4000',
+            'gender' => 'required',
+            'name' => 'required|max:70',
+            'bio' => 'max:4500',
+            'phone' => 'max:50',
             'education' => 'max:1500',
-            'skills'    => 'max:300',
-            'work'      => 'max:1000',
-            'location'  => 'max:100',
+            'skills' => 'max:300',
+            'work' => 'max:1000',
+            'location' => 'max:100',
         ]);
 
         $user = $profile->user;
 
         $user->name = $request->input('name');
         $user->save();
-        
+
         $photoPath = $this->saveImage($request, $user);
 
         $profile->update($request->all());
@@ -172,7 +168,7 @@ class ProfileController extends Controller
         }
 
         return redirect()->route('admin.profiles.index')
-            ->withSuccess("Your profile has been updated...");
+            ->withSuccess('Your profile has been updated...');
     }
 
     /**
@@ -205,7 +201,7 @@ class ProfileController extends Controller
         };
 
         $this->validate($request, [
-            'photo'=>'image|file|max:200'
+            'photo' => 'image|file|max:200'
         ]);
 
         /**
@@ -215,7 +211,7 @@ class ProfileController extends Controller
         $localPath = 'images/profiles/'; // local folder where the image will be loaded to
         // $localPath = storage_path('app/public/images/profiles/'); // local folder where the image will be loaded to
         $fileName = sha1($user->id . $user->name); // $fileName = str_random(40); //username sha1ed, so it is unique
-        $extension = "." . $file->getClientOriginalExtension(); // $fileName = str_random(40); //username sha1ed, so it is unique
+        $extension = '.' . $file->getClientOriginalExtension(); // $fileName = str_random(40); //username sha1ed, so it is unique
         $extendedName = $localPath . $fileName . $extension;
 
         // create instance

@@ -9,10 +9,10 @@ Route::bind('role', function ($role) {
                 ->with(['perms' => function ($query) {
                     $query->orderBy('permissions.display_name');
                 }])
-                ->with(['users'=>function ($query) {
+                ->with(['users' => function ($query) {
                     $query->orderBy('users.name');
                 }])
-                ->with(['menus'=>function ($query) {
+                ->with(['menus' => function ($query) {
                     $query->orderBy('menus.display_name');
                 }])
 

@@ -1,6 +1,5 @@
 <?php
 
-
 Route::get('api/employees', 'EmployeesController@index')->name('employees.list');
 
 Route::get(
@@ -105,7 +104,7 @@ Route::bind('employee', function ($id) {
         ->with('position.payment_type', 'position.department', 'position.payment_frequency')
         ->with('termination')
         ->with('supervisor')
-        
+
         ->firstOrFail()
         ->append([
             'afp_list',
@@ -122,5 +121,5 @@ Route::bind('employee', function ($id) {
             'termination_reason_list'
             ]);
 });
-        
+
 Route::resource('employees', 'EmployeesController');

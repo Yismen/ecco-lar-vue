@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Request;
-
 class GeneratePayrollsRequest extends Request
 {
     /**
@@ -24,10 +22,10 @@ class GeneratePayrollsRequest extends Request
     public function rules()
     {
         return [
-            'from'   => 'required|date',
-            'to'   => 'required|date',
-            'department'   => 'required',
-            'position'     => 'required',
+            'from' => 'required|date',
+            'to' => 'required|date',
+            'department' => 'required',
+            'position' => 'required',
             'payment_type' => 'required'
         ];
     }

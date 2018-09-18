@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Employee;
 
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 class BankAccountController extends Controller
 {
     // add a method to import from excel file
+
     /**
      * Display a listing of the resource.
      *

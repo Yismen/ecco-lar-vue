@@ -1,14 +1,13 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Role;
 use App\User;
-use App\AppSetting;
 use Illuminate\Http\Request;
 use App\Http\Traits\UsersTrait;
 use App\Events\EditUserSettings;
 use App\Events\CreateUserSettings;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Cache;
 
@@ -21,18 +20,18 @@ class UsersController extends Controller
 
     private $random_password;
 
-
     public function __construct(Request $request, Role $role)
     {
-        $this->middleware('authorize:view_users|edit_users|create_users', ['only'=>['index','show']]);
-        $this->middleware('authorize:edit_users', ['only'=>['edit','update', 'force_reset', 'force_change']]);
-        $this->middleware('authorize:create_users', ['only'=>['create','store']]);
-        $this->middleware('authorize:destroy_users', ['only'=>['destroy']]);
-        
+        $this->middleware('authorize:view_users|edit_users|create_users', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit_users', ['only' => ['edit', 'update', 'force_reset', 'force_change']]);
+        $this->middleware('authorize:create_users', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy_users', ['only' => ['destroy']]);
+
         $this->request = $request;
         $this->rolesList = $role->all();
         $this->random_password = str_random(15);
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -42,7 +41,7 @@ class UsersController extends Controller
     {
         // return \Session::all();
         $users = $users
-            ->with(['roles'=> function ($query) {
+            ->with(['roles' => function ($query) {
                 $query->orderBy('display_name');
             }])
             ->orderBy('name')
@@ -63,7 +62,7 @@ class UsersController extends Controller
         if ($this->request->ajax()) {
             return $user;
         }
-        
+
         return view('users.create', compact('user', 'rolesList'));
     }
 
@@ -133,12 +132,12 @@ class UsersController extends Controller
     {
         if ($user->id == auth()->user()->id) {
             return redirect()->route('admin.users.edit', $user->id)
-                ->withDanger("It is not allowed to remove your own user.");
+                ->withDanger('It is not allowed to remove your own user.');
         }
 
         if ($user->is_admin) {
             return redirect()->route('admin.users.edit', $user->id)
-                ->withDanger("Super users can not be removed.");
+                ->withDanger('Super users can not be removed.');
         }
 
         $user->delete();
@@ -159,7 +158,7 @@ class UsersController extends Controller
             'new_password' => 'required|confirmed',
             'new_password_confirmation' => 'same:new_password',
         ]);
-        
+
         $user = User::whereEmail(
             auth()->user()->email
             )
@@ -168,7 +167,7 @@ class UsersController extends Controller
         if (Hash::check($request->old_password, $user->password)) {
             $user->password = Hash::make($request->new_password);
             $user->save();
-            
+
             return redirect('admin')
                 ->withSuccess('Your password has been changed');
         }
@@ -184,7 +183,7 @@ class UsersController extends Controller
     public function force_change(User $user, Request $request)
     {
         if ($user->id === auth()->user()->id) {
-            return redirect()->back()->withErrors(['error'=>'You are not allowed to change your own password here!']);
+            return redirect()->back()->withErrors(['error' => 'You are not allowed to change your own password here!']);
         }
 
         $this->updatePassword($user);
@@ -199,11 +198,11 @@ class UsersController extends Controller
     {
         $this->validate($request, [
             'skin' => '', // exits in skins table
-            'layout'       => '', // exists in layouts table
-            'mini'         => 'boolean',
-            'collapse'     => 'boolean',
+            'layout' => '', // exists in layouts table
+            'mini' => 'boolean',
+            'collapse' => 'boolean',
         ]);
-        
+
         return $request->all();
 
         $user->settings = [

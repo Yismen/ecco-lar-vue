@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 // use App\Http\Request;
 use App\Position;
-use App\Department;
 use Illuminate\Http\Request;
 use App\Rules\PositionUnique;
 
@@ -118,7 +117,7 @@ class PositionsController extends Controller
     public function update(Position $position, Request $request)
     {
         $this->validateRequest($request, $position);
-        
+
         $position->update($request->only(['name', 'department_id', 'payment_frequency_id', 'payment_type_id', 'salary']));
 
         if ($request->ajax()) {

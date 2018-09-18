@@ -1,4 +1,6 @@
-<?php namespace App\Http\Controllers\User;
+<?php
+
+namespace App\Http\Controllers\User;
 
 // use App\Http\Requests\SaveContactsRequest;
 use App\Http\Controllers\Controller;
@@ -43,7 +45,7 @@ class ContactsController extends Controller
         ]);
         $contact = auth()->user()->contacts()->create($request->only(['name', 'main_phone', 'works_at', 'position', 'secondary_phone', 'email']));
 
-        return redirect()->route("admin.contacts.index")
+        return redirect()->route('admin.contacts.index')
             ->withSuccess("Your contact $contact->name has been crated!");
     }
 
@@ -74,7 +76,7 @@ class ContactsController extends Controller
 
         $contact->update($request->only(['name', 'main_phone', 'works_at', 'position', 'secondary_phone', 'email']));
 
-        return \Redirect::route("admin.contacts.index")
+        return \Redirect::route('admin.contacts.index')
             ->withSuccess("Your contact $contact->name has been updated succesffully!");
     }
 
@@ -88,7 +90,7 @@ class ContactsController extends Controller
     {
         $contact->delete();
 
-        return redirect()->route("admin.contacts.index")
+        return redirect()->route('admin.contacts.index')
             ->withDanger("Your contact $contact->name has been remvoved!");
     }
 }

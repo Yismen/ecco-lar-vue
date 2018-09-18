@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 // use App\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\PaymentFrequency;
 
@@ -11,10 +10,10 @@ class PaymentFrequenciesController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('authorize:view_payment_frequencies|edit_payment_frequencies|create_payment_frequencies', ['only'=>['index','show']]);
-        $this->middleware('authorize:edit_payment_frequencies', ['only'=>['edit','update']]);
-        $this->middleware('authorize:create_payment_frequencies', ['only'=>['create','store']]);
-        $this->middleware('authorize:destroy_payment_frequencies', ['only'=>['destroy']]);
+        $this->middleware('authorize:view_payment_frequencies|edit_payment_frequencies|create_payment_frequencies', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit_payment_frequencies', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create_payment_frequencies', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy_payment_frequencies', ['only' => ['destroy']]);
     }
 
     /**
@@ -53,7 +52,7 @@ class PaymentFrequenciesController extends Controller
         if ($request->ajax()) {
             return $payment_frequency;
         }
-        
+
         return view('payment_frequencies.show', compact('payment_frequency'));
     }
 
@@ -113,7 +112,7 @@ class PaymentFrequenciesController extends Controller
         if ($request->ajax()) {
             return $payment_frequency;
         }
-        
+
         return redirect()->route('admin.payment_frequencies.show', $payment_frequency->id)
             ->withSuccess("payment $payment_frequency->name has been ubdated!!");
     }
@@ -145,7 +144,7 @@ class PaymentFrequenciesController extends Controller
     private function validateRequest($payment_frequency, $request)
     {
         $id = $payment_frequency->id ?? 0;
-        
+
         return $this->validate($request, [
             'name' => "required|unique:payment_frequencies,name,$id,id"
         ]);

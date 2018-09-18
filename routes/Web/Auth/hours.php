@@ -1,6 +1,5 @@
 <?php
 
-
 Route::get('/hours/by-date/{date}', 'HoursController@byDate')->name('hours.by-date');
 
 Route::bind('hour', function ($id) {

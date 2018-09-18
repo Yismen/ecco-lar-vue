@@ -1,8 +1,7 @@
-<?php namespace App;
+<?php
 
-use App\Employee;
-use App\Position;
-use Carbon\Carbon;
+namespace App;
+
 use Illuminate\Database\Eloquent\Model;
 
 class Department extends Model

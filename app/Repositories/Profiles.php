@@ -14,6 +14,7 @@ class Profiles
     {
         $this->profile = $profile;
     }
+
     public function all()
     {
         return $this->profiles = $this->profile

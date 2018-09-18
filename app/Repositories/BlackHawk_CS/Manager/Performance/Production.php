@@ -14,7 +14,7 @@ class Production
     // public $weekdays;
     // public $weekdays2;
     // public $weekdays_previous_week;
-    
+
     private $request;
     private $take;
 
@@ -42,7 +42,7 @@ class Production
             sum(time_in_emails) as time_in_emails,
             sum(chat_wrap_up_time) as chat_wrap_up_time
         ');
-        
+
         if ($this->request->queue && $this->request->queue == 'chat') {
             $query->selectRaw('(sum(chat_sessions) ) as records');
         } elseif ($this->request->queue && $this->request->queue == 'email') {
@@ -84,17 +84,17 @@ class Production
         return $this->query(7)
         ->selectRaw('dayname(date) as dayname, WEEKOFYEAR(date) as week')
         ->groupBy('week', 'dayname')
-        ->whereRaw('WEEKOFYEAR(date) = '.$week)
+        ->whereRaw('WEEKOFYEAR(date) = ' . $week)
         ->get();
     }
-    
+
     private function weekDaysPreviousWeek()
     {
         $week = Carbon::now()->subWeek()->weekOfYear;
         return $this->query(7)
             ->selectRaw('dayname(date) as dayname, WEEKOFYEAR(date) as week')
             ->groupBy('week', 'dayname')
-            ->whereRaw('WEEKOFYEAR(date) = '.$week)
+            ->whereRaw('WEEKOFYEAR(date) = ' . $week)
             ->get();
     }
 }

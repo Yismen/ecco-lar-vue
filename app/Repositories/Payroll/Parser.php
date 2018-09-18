@@ -17,7 +17,6 @@ class Parser
         $this->training = $training;
     }
 
-
     public function parse($payrolls)
     {
         return array_map(function ($payroll) {
@@ -33,7 +32,6 @@ class Parser
                 'overtime_incomes' => $payroll['position']['pay_per_hours'],
                 'holiday_incomes' => $payroll['position']['pay_per_hours'],
                 'training_incomes' => $payroll['position']['pay_per_hours'],
-
             ];
         }, $payrolls->toArray());
     }

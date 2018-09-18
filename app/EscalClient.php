@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\EscalRecord;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 
@@ -13,7 +12,7 @@ class EscalClient extends Model
      * mass assignable
      */
     protected $fillable = ['name'];
-    
+
     public function sluggable()
     {
         return [
@@ -37,7 +36,7 @@ class EscalClient extends Model
     {
         return ucwords($name);
     }
-    
+
     /**
      * =======================================
      * Mutators

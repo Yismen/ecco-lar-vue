@@ -7,7 +7,7 @@ use App\Position;
 
 class Count
 {
-    public static function getCount($department = "%")
+    public static function getCount($department = '%')
     {
         return Employee::actives()
             ->whereHas('position', function ($query) use ($department) {
@@ -17,7 +17,7 @@ class Count
             })->count();
     }
 
-    public static function byPositions($department = "%")
+    public static function byPositions($department = '%')
     {
         return Position::withCount('employees')->whereHas('department', function ($query) use ($department) {
             return $query->where('department', $department);

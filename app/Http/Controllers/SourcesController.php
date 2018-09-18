@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Source;
-use App\Http\Requests;
 use Illuminate\Http\Request;
 
 class SourcesController extends Controller
@@ -17,6 +16,7 @@ class SourcesController extends Controller
     {
         return view('sources.index');
     }
+
     public function index()
     {
         return Source::get();
@@ -43,7 +43,7 @@ class SourcesController extends Controller
         $this->validate($request, [
             'name' => 'required|min:5'
         ]);
-        
+
         return $source->create($request->only(['name']));
 
         return $source;
@@ -83,7 +83,7 @@ class SourcesController extends Controller
         $this->validate($request, [
             'name' => 'required|min:5'
         ]);
-        
+
         $source->update($request->only(['name']));
 
         return $source;
@@ -98,7 +98,7 @@ class SourcesController extends Controller
     public function destroy(Source $source)
     {
         $source->delete();
-        
+
         return $source;
     }
 }

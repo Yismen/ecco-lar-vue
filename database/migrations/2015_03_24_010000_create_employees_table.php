@@ -24,7 +24,7 @@ class CreateEmployeesTable extends Migration
             $table->dateTime('date_of_birth');
             $table->string('cellphone_number', 25);
             $table->string('secondary_phone', 25)->nullable();
-            
+
             $table->integer('position_id')->unsigned()->nullable()->index();
             $table->integer('supervisor_id')->unsigned()->nullable()->index();
             $table->integer('gender_id')->unsigned()->index();

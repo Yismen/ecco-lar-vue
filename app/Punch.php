@@ -1,4 +1,6 @@
-<?php namespace App;
+<?php
+
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,12 +16,11 @@ class Punch extends Model
     {
         return $this->belongsTo('App\Employee');
     }
-    
+
     /**
      * ---------------------------------------------------
      * Accessors
      */
-
     public function getEmployeeListAttribute()
     {
         $employees = $this->employee()->pluck('id');

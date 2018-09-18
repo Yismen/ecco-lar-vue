@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Blackhawk\DE;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Blackhawk\DE\Management\Dashboard;
 

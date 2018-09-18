@@ -12,13 +12,14 @@ trait MenusTrait
     public function validateRequest($request, $menu)
     {
         $this->validate($request, [
-            'name'         => 'required|unique:menus,name,'.$menu->id.',id',
-            'display_name' => 'required|unique:menus,display_name,'.$menu->id.',id',
-            'roles_list'   => 'required'
+            'name' => 'required|unique:menus,name,' . $menu->id . ',id',
+            'display_name' => 'required|unique:menus,display_name,' . $menu->id . ',id',
+            'roles_list' => 'required'
         ]);
 
         return $this;
     }
+
     /**
      * handle the process of creating the menu item
      *
@@ -29,7 +30,7 @@ trait MenusTrait
     private function createMenu($menu, $requests, $permission)
     {
         $menu = $menu->create($requests->all());
-        
+
         Cache::forget('menues_for_user_' . auth()->user()->id);
 
         $this->createPermissions($menu, $permission);
@@ -89,9 +90,9 @@ trait MenusTrait
         $menu_name = str_replace(['_', '-', '.'], ' ', $menu_name);
 
         $permission = [
-            'name' => str_slug($name.' '.$menu_name, $separator = "_"),
+            'name' => str_slug($name . ' ' . $menu_name, $separator = '_'),
             'display_name' => ucwords($menu_name . $names[$name]),
-            'description' => ucwords('Can '.$name.' '.$menu_name . '\'s items'),
+            'description' => ucwords('Can ' . $name . ' ' . $menu_name . '\'s items'),
         ];
 
         return $this->permission->create($permission);
@@ -111,7 +112,7 @@ trait MenusTrait
         /**
          * Editor Role
          */
-        
+
         $viewer = $permission->whereName('view_' . $menu->name)->first();
 
         if ($viewer) {

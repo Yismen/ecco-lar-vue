@@ -2,10 +2,7 @@
 
 namespace App;
 
-use DateTime;
-use App\User;
 use Carbon\Carbon;
-use App\EscalClient;
 use Illuminate\Database\Eloquent\Model;
 
 class EscalationHour extends Model
@@ -30,12 +27,12 @@ class EscalationHour extends Model
 
     public function getEntranceAttribute($time)
     {
-        return Carbon::parse($time)->format("H:i");
+        return Carbon::parse($time)->format('H:i');
     }
 
     public function getOutAttribute($time)
     {
-        return Carbon::parse($time)->format("H:i");
+        return Carbon::parse($time)->format('H:i');
     }
 
     public function client()
@@ -61,11 +58,9 @@ class EscalationHour extends Model
         return $this->production_hours;
     }
 
-
-
     public function recordsCount($user_id, $client_id, $date)
     {
-        $date = (new Carbon($date))->format("Y-m-d");
+        $date = (new Carbon($date))->format('Y-m-d');
 
         // dd($user_id, $client_id, $date);
         return EscalRecord::

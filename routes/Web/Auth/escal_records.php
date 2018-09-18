@@ -6,8 +6,7 @@ Route::bind('escalations_record', function ($id) {
         ->findOrFail($id);
 });
 
-Route::resource('escalations_records', 'EscalRecordsController', ['except'=>['show']]);
-
+Route::resource('escalations_records', 'EscalRecordsController', ['except' => ['show']]);
 
 // Route::post('escalations_records/search', 'EscalRecordsController@search');
 
@@ -21,4 +20,4 @@ Route::bind('api/escalations_record', function ($tracking) {
 Route::get('api/escalations_records/clients', 'EscalRecordsController@getClients');
 Route::post('escalations_records/search', 'EscalRecordsController@search');
 Route::post('api/escalations_records/search', 'EscalRecordsController@search');
-Route::resource('api/escalations_records', 'EscalRecordsController', ['except'=>['show']]);
+Route::resource('api/escalations_records', 'EscalRecordsController', ['except' => ['show']]);

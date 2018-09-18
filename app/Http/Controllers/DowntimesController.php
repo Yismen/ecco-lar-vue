@@ -1,10 +1,8 @@
-<?php namespace App\Http\Controllers;
+<?php
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Downtime;
 
 class DowntimesController extends Controller
@@ -13,14 +11,13 @@ class DowntimesController extends Controller
 
     public function __construct(Request $request)
     {
-        $this->middleware('authorize:view_downtimes|edit_downtimes|create_downtimes', ['only'=>['index','show']]);
-        $this->middleware('authorize:edit_downtimes', ['only'=>['edit','update']]);
-        $this->middleware('authorize:create_downtimes', ['only'=>['create','store']]);
-        $this->middleware('authorize:destroy_downtimes', ['only'=>['destroy']]);
-        
+        $this->middleware('authorize:view_downtimes|edit_downtimes|create_downtimes', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit_downtimes', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create_downtimes', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy_downtimes', ['only' => ['destroy']]);
+
         $this->request = $request;
     }
-
 
     /**
      * Display a listing of the resource.
@@ -42,6 +39,7 @@ class DowntimesController extends Controller
 
         // return view('downtimes.index', compact('downtimes'));
     }
+
     /**
      * apply filter to the query based on the value of the date field
      * [today, yesterday, 2 days ago, this many days ago, this week, last week, this many weeks ago,
@@ -54,6 +52,7 @@ class DowntimesController extends Controller
     public function filterDowntime()
     {
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -110,7 +109,7 @@ class DowntimesController extends Controller
         $this->request->reason_id = str_random(10);
 
         $downtime->update($requests->all());
-        
+
         return redirect()->route('admin.downtimes.index')
             ->withSuccess("Added downtime for user employee $downtime->employee_id has been updated");
     }
@@ -138,7 +137,6 @@ class DowntimesController extends Controller
     {
         return $request->all();
     }
-
 
     public function importByDate(Downtime $downtime)
     {

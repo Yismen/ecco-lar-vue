@@ -11,10 +11,10 @@ class HoursType extends Model
 
     protected $sluggable = [
         'build_from' => 'name',
-        'save_to'    => 'slug',
+        'save_to' => 'slug',
     ];
     protected $fillable = ['name'];
-    
+
     public function sluggable()
     {
         return [
@@ -29,12 +29,12 @@ class HoursType extends Model
     {
         return $this->belongsTo('App\Employee');
     }
-   
+
     // Methods ===================================================
-   
+
    // Scopes ====================================================
-   
+
    // Accessors =================================================
-   
+
    // Mutators ==================================================
 }

@@ -3,12 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use Carbon\Carbon;
 use App\EscalClient;
 use App\EscalRecord;
-use App\Http\Requests;
-use Validator;
 
 class EscalRecordsController extends Controller
 {
@@ -16,14 +13,14 @@ class EscalRecordsController extends Controller
 
     public function __construct(Request $request)
     {
-        $this->middleware('authorize:view_escalations_records|edit_escalations_records|create_escalations_records', ['only'=>['index','show']]);
-        $this->middleware('authorize:edit_escalations_records', ['only'=>['edit','update']]);
-        $this->middleware('authorize:create_escalations_records', ['only'=>['create','store']]);
-        $this->middleware('authorize:destroy_escalations_records', ['only'=>['destroy']]);
-        
+        $this->middleware('authorize:view_escalations_records|edit_escalations_records|create_escalations_records', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit_escalations_records', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create_escalations_records', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy_escalations_records', ['only' => ['destroy']]);
+
         // $request->flash();
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -39,7 +36,7 @@ class EscalRecordsController extends Controller
                 ->with('escal_client')
                 ->paginate(10);
         }
-        
+
         return redirect('/admin/escalations_records/create');
     }
 
@@ -129,7 +126,7 @@ class EscalRecordsController extends Controller
     public function update(Request $request, EscalRecord $escalations_record)
     {
         $this->replaceRequest($request)->validateUpdate($request, $escalations_record);
-       
+
         // $escalations_record->tracking = $request->tracking;
         $escalations_record->escal_client_id = $request->escalations_client_id;
         $escalations_record->is_additional_line = $request->is_additional_line;
@@ -162,7 +159,6 @@ class EscalRecordsController extends Controller
             'search' => 'required|int|exists:escal_records,tracking'
             ]);
 
-
         return redirect('admin/escalations_records');
         $escalations_record = auth()->user()->escalationsRecords()->orWhere('tracking', 'like', "%$search%")
         ->with('escal_client')
@@ -184,15 +180,15 @@ class EscalRecordsController extends Controller
     {
         return $this->validate($request, [
             'tracking' => "required|int|digits:9|unique:escal_records,tracking,id,$escalations_record->id,insert_date,$insert_date",
-            'escalations_client_id' => "required|int|exists:escal_clients,id",
+            'escalations_client_id' => 'required|int|exists:escal_clients,id',
         ]);
     }
 
     private function validateUpdate($request, $escalations_record)
     {
         return $this->validate($request, [
-            'tracking' => "required|int|digits:9",
-            'escalations_client_id' => "required|int|exists:escal_clients,id",
+            'tracking' => 'required|int|digits:9',
+            'escalations_client_id' => 'required|int|exists:escal_clients,id',
         ]);
     }
 

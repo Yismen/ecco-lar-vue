@@ -13,8 +13,8 @@ class Birthdays
     public static function byMonth($month)
     {
         return Employee::actives()
-            ->orderBy(DB::raw("MONTH(`date_of_birth`)"))
-            ->orderBy(DB::raw("DAY(`date_of_birth`)"))
+            ->orderBy(DB::raw('MONTH(`date_of_birth`)'))
+            ->orderBy(DB::raw('DAY(`date_of_birth`)'))
             ->whereMonth('date_of_birth', '=', $month);
     }
 

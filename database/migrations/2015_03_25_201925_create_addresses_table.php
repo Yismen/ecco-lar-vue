@@ -5,7 +5,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateAddressesTable extends Migration
 {
-
     /**
      * Run the migrations.
      *

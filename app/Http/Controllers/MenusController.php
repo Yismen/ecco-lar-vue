@@ -1,7 +1,6 @@
-<?php namespace App\Http\Controllers;
+<?php
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 // use App\Http\Requests\Request;
@@ -18,10 +17,10 @@ class MenusController extends Controller
 
     public function __construct()
     {
-        $this->middleware('authorize:view_menus|edit_menus|create_menus', ['only'=>['index','show']]);
-        $this->middleware('authorize:edit_menus', ['only'=>['edit','update']]);
-        $this->middleware('authorize:create_menus', ['only'=>['create','store']]);
-        $this->middleware('authorize:destroy_menus', ['only'=>['destroy']]);
+        $this->middleware('authorize:view_menus|edit_menus|create_menus', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit_menus', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create_menus', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy_menus', ['only' => ['destroy']]);
     }
 
     /**
@@ -62,7 +61,7 @@ class MenusController extends Controller
         ]);
 
         $this->createMenu($menu, $request, $permission);
-        
+
         return redirect()->route('admin.menus.index')
             ->withSuccess("Menu $menu->display_name has bee created.");
     }

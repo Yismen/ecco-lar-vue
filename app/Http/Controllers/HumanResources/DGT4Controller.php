@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\HumanResources;
 
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Repositories\HumanResources\Employees\Reports;
 use Maatwebsite\Excel\Facades\Excel;

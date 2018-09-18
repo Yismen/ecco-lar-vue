@@ -3,19 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Ars;
-use App\Http\Requests;
 use Illuminate\Http\Request;
 
 class ArsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('authorize:view_ars|edit_ars|create_ars', ['only'=>['index','show']]);
-        $this->middleware('authorize:edit_ars', ['only'=>['edit','update']]);
-        $this->middleware('authorize:create_ars', ['only'=>['create','store']]);
-        $this->middleware('authorize:destroy_ars', ['only'=>['destroy']]);
+        $this->middleware('authorize:view_ars|edit_ars|create_ars', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit_ars', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create_ars', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy_ars', ['only' => ['destroy']]);
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -54,7 +53,7 @@ class ArsController extends Controller
         ]);
 
         $ars = $ars->create($request->all());
-        
+
         return redirect()->route('admin.ars.index')
             ->withSuccess("AFP $ars->name created!");
     }
@@ -91,11 +90,11 @@ class ArsController extends Controller
     public function update(Request $request, Ars $ars)
     {
         $this->validate($request, [
-            'name' => 'required|min:3|unique:ars,name,'.$ars->id
+            'name' => 'required|min:3|unique:ars,name,' . $ars->id
         ]);
 
         $ars->update($request->only(['name']));
-        
+
         return redirect()->route('admin.ars.index')
             ->withSuccess("AFP $ars->name Updated!");
     }

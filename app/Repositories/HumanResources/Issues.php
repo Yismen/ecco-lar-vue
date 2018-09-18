@@ -9,13 +9,13 @@ class Issues
     public static function render()
     {
         return [
-            'missing_address'         => self::missingAddressCount(),
-            'missing_punch'           => self::missingPunchCount(),
-            'missing_photo'           => self::missingPhotoCount(),
-            'missing_ars'             => self::missingArsCount(),
-            'missing_afp'             => self::missingAfpCount(),
+            'missing_address' => self::missingAddressCount(),
+            'missing_punch' => self::missingPunchCount(),
+            'missing_photo' => self::missingPhotoCount(),
+            'missing_ars' => self::missingArsCount(),
+            'missing_afp' => self::missingAfpCount(),
             'missing_social_security' => self::missingSocialSecurityCount(),
-            'missing_bank_account'    => self::missingBankAccountCount(),
+            'missing_bank_account' => self::missingBankAccountCount(),
         ];
     }
 
@@ -53,12 +53,12 @@ class Issues
     {
         return Employee::has('afp', false)->actives()->count();
     }
-    
+
     protected static function missingSocialSecurityCount()
     {
         return Employee::has('socialSecurity', false)->actives()->count();
     }
-    
+
     protected static function missingBankAccountCount()
     {
         return Employee::has('bankAccount', false)->actives()->count();

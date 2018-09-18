@@ -5,7 +5,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateMaritalsTable extends Migration
 {
-
     /**
      * Run the migrations.
      *
@@ -19,10 +18,10 @@ class CreateMaritalsTable extends Migration
             $table->timestamps();
         });
 
-        factory(App\Marital::class)->create(['id'=>1,'name'=>'Married']);
-        factory(App\Marital::class)->create(['id'=>2,'name'=>'Single']);
-        factory(App\Marital::class)->create(['id'=>3,'name'=>'Common Law']);
-        factory(App\Marital::class)->create(['id'=>4,'name'=>'Divorced']);
+        factory(App\Marital::class)->create(['id' => 1, 'name' => 'Married']);
+        factory(App\Marital::class)->create(['id' => 2, 'name' => 'Single']);
+        factory(App\Marital::class)->create(['id' => 3, 'name' => 'Common Law']);
+        factory(App\Marital::class)->create(['id' => 4, 'name' => 'Divorced']);
     }
 
     /**

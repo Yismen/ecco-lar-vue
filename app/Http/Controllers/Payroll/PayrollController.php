@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Payroll;
 
 use App\Payroll;
-use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -11,11 +10,12 @@ class PayrollController extends Controller
 {
     public function __construc()
     {
-        $this->middleware('authorize:view_payrolls', ['only'=>['index','show']]);
-        $this->middleware('authorize:edit_payrolls', ['only'=>['edit','update']]);
-        $this->middleware('authorize:create_payrolls', ['only'=>['create','store']]);
-        $this->middleware('authorize:destroy_payrolls', ['only'=>['destroy']]);
+        $this->middleware('authorize:view_payrolls', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit_payrolls', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create_payrolls', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy_payrolls', ['only' => ['destroy']]);
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -24,7 +24,7 @@ class PayrollController extends Controller
     public function index()
     {
         $dates = Payroll::groupBy('payroll_id')
-            ->orderBy('payment_date', "DESC")
+            ->orderBy('payment_date', 'DESC')
             ->paginate(45);
 
         return view('payrolls.index', compact('dates'));

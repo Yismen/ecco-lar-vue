@@ -5,7 +5,7 @@ Route::post('escalations_admin/api', 'EscalationsAdminController@index_ajax');
 
 Route::get('escalations_admin/by_date', 'EscalationsAdminController@getByDate');
 Route::get('escalations_admin/by_range', 'EscalationsAdminController@getByRange');
- 
+
 Route::post('escalations_admin/by_date', 'EscalationsAdminController@postByDate');
 Route::post('escalations_admin/by_range', 'EscalationsAdminController@postByRange');
 

@@ -2,7 +2,6 @@
 
 namespace App\Http\Traits;
 
-use App\Ars;
 use App\Termination;
 use Illuminate\Support\Facades\Cache;
 
@@ -46,8 +45,8 @@ trait EmployeesTrait
             'first_name' => 'required',
             'last_name' => 'required',
             'hire_date' => 'required|date',
-            'personal_id' => 'required_if:passport,|nullable|digits:11|unique:employees,personal_id,' . $id .'|size:11',
-            'passport' => 'required_if:personal_id,|nullable|unique:employees,passport,' . $id .'|size:10',
+            'personal_id' => 'required_if:passport,|nullable|digits:11|unique:employees,personal_id,' . $id . '|size:11',
+            'passport' => 'required_if:personal_id,|nullable|unique:employees,passport,' . $id . '|size:10',
             'date_of_birth' => 'required|date',
             'cellphone_number' => 'required|digits:10|unique:employees,cellphone_number,' . $id,
             'secondary_phone' => 'nullable|digits:10',

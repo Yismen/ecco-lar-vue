@@ -5,7 +5,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateMenuRoleTable extends Migration
 {
-
     /**
      * Run the migrations.
      *
@@ -21,7 +20,7 @@ class CreateMenuRoleTable extends Migration
             $table->integer('role_id')->unsigned()->index();
             $table->foreign('role_id')->references('id')->on('roles')
                 ->onUpdate('cascade')->onDelete('cascade');
-                
+
             $table->timestamps();
         });
     }

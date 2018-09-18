@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\PayrollDiscountConcept;
 
@@ -10,11 +9,12 @@ class PayrollDiscountConceptsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('authorize:view_payroll_discount_concepts', ['only'=>['index','show']]);
-        $this->middleware('authorize:edit_payroll_discount_concepts', ['only'=>['edit','update']]);
-        $this->middleware('authorize:create_payroll_discount_concepts', ['only'=>['create','store']]);
-        $this->middleware('authorize:destroy_payroll_discount_concepts', ['only'=>['destroy']]);
+        $this->middleware('authorize:view_payroll_discount_concepts', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit_payroll_discount_concepts', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create_payroll_discount_concepts', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy_payroll_discount_concepts', ['only' => ['destroy']]);
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -86,7 +86,7 @@ class PayrollDiscountConceptsController extends Controller
     public function update(Request $request, PayrollDiscountConcept $concept)
     {
         $this->validate($request, [
-            'name' => 'required|unique:payroll_discount_concepts,name,'.$concept->id.',id'
+            'name' => 'required|unique:payroll_discount_concepts,name,' . $concept->id . ',id'
         ]);
 
         $concept->update($request->only('name'));

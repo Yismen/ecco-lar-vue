@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /**
      * What attributes do we use to build the slug?
      * This can be a single field, like "name" which will build a slug from:
@@ -118,5 +117,4 @@ return [
      */
 
     'reserved' => null,
-
 ];

@@ -2,9 +2,6 @@
 
 use App\Role;
 use App\User;
-use App\Profile;
-use App\Gender;
-use App\Marital;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,8 +19,7 @@ class ProductionEnvironmentSeeder extends Seeder
         // DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
         $this->seedUsersTable()
-            ->seedRolesTable()
-            ;
+            ->seedRolesTable();
 
         // DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         Model::reguard();

@@ -1,4 +1,6 @@
-<?php namespace App;
+<?php
+
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
@@ -8,7 +10,7 @@ class Source extends Model
     use Sluggable;
 
     protected $fillable = ['name'];
-    
+
     public function sluggable()
     {
         return [
@@ -23,22 +25,22 @@ class Source extends Model
     {
         return $this->hasMany('App\Production');
     }
-    
+
     /**
      * ========================================
      * Methods
      */
-    
+
     /**
      * ==========================================
      * Scopes
      */
-    
+
     /**
      * ======================================
      * Accessors
      */
-    
+
     /**
      * =======================================
      * Mutators

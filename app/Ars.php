@@ -11,9 +11,8 @@ class Ars extends Model
 
     protected $table = 'arss';
 
-
     protected $fillable = ['name'];
-    
+
     public function sluggable()
     {
         return [
@@ -28,7 +27,7 @@ class Ars extends Model
     {
         return $this->hasMany('App\Employee');
     }
-    
+
     public function setNameAttribute($name)
     {
         $this->attributes['name'] = trim(ucwords($name));

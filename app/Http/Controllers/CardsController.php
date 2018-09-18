@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
 use App\Card;
 
 // use Illuminate\Http\Request;
@@ -14,10 +12,10 @@ class CardsController extends Controller
     public function __construct()
     {
         // $this->niddleware = ['authorize:'];
-        $this->middleware('authorize:view_cards|edit_cards|create_cards', ['only'=>['index','show']]);
-        $this->middleware('authorize:edit_cards', ['only'=>['edit','update']]);
-        $this->middleware('authorize:create_cards', ['only'=>['create','store']]);
-        $this->middleware('authorize:destroy_cards', ['only'=>['destroy']]);
+        $this->middleware('authorize:view_cards|edit_cards|create_cards', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit_cards', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create_cards', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy_cards', ['only' => ['destroy']]);
     }
 
     /**
@@ -96,7 +94,7 @@ class CardsController extends Controller
         $card->card = $request->card;
         $card->employee_id = $request->employee_list;
         $card->save();
-        
+
         return redirect()->route('admin.cards.index')
             ->withSuccess("Card $card->card has been updated");
     }

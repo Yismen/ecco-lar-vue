@@ -18,7 +18,7 @@ class CreateBankAccountsTable extends Migration
             $table->integer('bank_id')->unsigned();
             $table->string('account_number', 200)->nullable()->unique();
             $table->timestamps();
-            
+
             $table->foreign('employee_id')->references('id')->on('employees');
             $table->foreign('bank_id')->references('id')->on('banks');
         });

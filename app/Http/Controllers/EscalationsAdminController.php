@@ -4,11 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Carbon\Carbon;
-use App\EscalClient;
-use App\EscalRecord;
-use App\Http\Requests;
 use Illuminate\Http\Request;
-use App\Repositories\Escalations\Production;
 use App\Repositories\Escalations\Productions\Users;
 use App\Repositories\Escalations\Productions\Clients;
 use App\Repositories\Escalations\Productions\Records;
@@ -37,14 +33,14 @@ class EscalationsAdminController extends Controller
     public function index_ajax()
     {
         $data = [
-            'todayRecordsByUser' =>  $this->users->today()->get(),
+            'todayRecordsByUser' => $this->users->today()->get(),
             'todayRecordsByClient' => $this->clients->today()->get(),
             'lastFiveDates' => $this->records->lastManyDays(5)->get(),
             'this_week_by_day' => $this->records->thisWeek(),
-            'this_week'     => $this->records->thisWeek(),
-            'last_week'     => $this->records->lastWeek(),
-            'this_month'     => $this->records->thisMonth(),
-            'last_month'     => $this->records->lastMonth(),
+            'this_week' => $this->records->thisWeek(),
+            'last_week' => $this->records->lastWeek(),
+            'this_month' => $this->records->thisMonth(),
+            'last_month' => $this->records->lastMonth(),
             'last_ten_days' => $this->records->manyDaysAgo(10),
         ];
 
@@ -66,14 +62,14 @@ class EscalationsAdminController extends Controller
     public function postByDate()
     {
         $this->validate($this->request, [
-            'date'=>'required|date'
+            'date' => 'required|date'
         ]);
 
         $clients = $this->clients->byDate($this->request->date)->get();
-        $users   =  $this->users->byDate($this->request->date)->get();
+        $users = $this->users->byDate($this->request->date)->get();
         $summary = $this->records->byDate($this->request->date)->get();
         if ($this->request->has('detailed')) {
-            $detailed =  $this->records->detailedByDate($this->request)->get();
+            $detailed = $this->records->detailedByDate($this->request)->get();
         }
 
         $this->request->flash();
@@ -84,16 +80,16 @@ class EscalationsAdminController extends Controller
     public function postByRange()
     {
         $this->validate($this->request, [
-            'from'=>'required|date',
-            'to'=>'required|date'
+            'from' => 'required|date',
+            'to' => 'required|date'
         ]);
 
         $summary = $this->records->between(
-            (new Carbon)->parse($this->request->from)->format("Y-m-d"),
-            (new Carbon)->parse($this->request->to)->format("Y-m-d")
+            (new Carbon)->parse($this->request->from)->format('Y-m-d'),
+            (new Carbon)->parse($this->request->to)->format('Y-m-d')
         );
 
-        $detailed =  $this->records->detailedByRange($this->request)->get();
+        $detailed = $this->records->detailedByRange($this->request)->get();
 
         $this->request->flash();
 
@@ -164,7 +160,7 @@ class EscalationsAdminController extends Controller
     public function handleBBBs()
     {
         $this->validate($this->request, [
-            'date'=>'required|date'
+            'date' => 'required|date'
         ]);
 
         $records = $this->bbbs->byDate($this->request->date)->get();
@@ -182,8 +178,8 @@ class EscalationsAdminController extends Controller
     public function handleBBBsRange()
     {
         $this->validate($this->request, [
-            'from'=>'required|date',
-            'to'=>'required|date'
+            'from' => 'required|date',
+            'to' => 'required|date'
         ]);
 
         $records = $this->bbbs->range(

@@ -39,7 +39,7 @@ class ReportEmployeesHired extends Command
      */
     public function handle()
     {
-        File::put(storage_path('files/employees'.Carbon::now()->format('H-i-s').'.txt'), 'Employees');
+        File::put(storage_path('files/employees' . Carbon::now()->format('H-i-s') . '.txt'), 'Employees');
         $this->info('Email sent to the users');
     }
 }

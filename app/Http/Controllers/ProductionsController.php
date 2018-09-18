@@ -1,4 +1,6 @@
-<?php namespace App\Http\Controllers;
+<?php
+
+namespace App\Http\Controllers;
 
 use Storage;
 use App\Employee;
@@ -6,19 +8,17 @@ use Carbon\Carbon;
 use App\Production;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Support\Facades\Input;
 use App\Http\Requests\ProductionsUpdateRequest;
 
 class ProductionsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('authorize:view_productions|edit_productions|create_productions', ['only'=>['index','show']]);
-        $this->middleware('authorize:edit_productions', ['only'=>['edit','update']]);
-        $this->middleware('authorize:create_productions', ['only'=>['create','store']]);
-        $this->middleware('authorize:destroy_productions', ['only'=>['destroy']]);
+        $this->middleware('authorize:view_productions|edit_productions|create_productions', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit_productions', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create_productions', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy_productions', ['only' => ['destroy']]);
     }
 
     /**
@@ -52,10 +52,10 @@ class ProductionsController extends Controller
             ->groupBy('source_id')
             ->groupBy('client_id')
             ->orderby('insert_date', 'DESC')
-            ->with(['source'=>function ($query) {
+            ->with(['source' => function ($query) {
                 return $query->orderBy('name');
             }])
-            ->with(['client'=>function ($query) {
+            ->with(['client' => function ($query) {
                 return $query->orderby('name');
             }])
             ->select(DB::raw('
@@ -80,7 +80,7 @@ class ProductionsController extends Controller
     {
         return view('productions.create', compact('production'));
     }
-    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -96,8 +96,8 @@ class ProductionsController extends Controller
             if (!$this->checkFileName($file->getClientOriginalName(), $request)) {
                 if ($request->ajax()) {
                     return response()->json([
-                    'type'=>'error',
-                    'message'=>'Seems like the wrong file was selected. Make sure you pick a \'production_data\' file!'
+                    'type' => 'error',
+                    'message' => 'Seems like the wrong file was selected. Make sure you pick a \'production_data\' file!'
                 ]);
                 }
 
@@ -107,11 +107,10 @@ class ProductionsController extends Controller
 
             $this->loadDataToDB($production, $file);
         }
-        
-        return redirect()->route('admin.productions.index')
-            ->withSuccess("Production data loaded to the production table.");
-    }
 
+        return redirect()->route('admin.productions.index')
+            ->withSuccess('Production data loaded to the production table.');
+    }
 
     /**
      * Display the specified resource.
@@ -157,7 +156,7 @@ class ProductionsController extends Controller
     public function update(Production $production, ProductionsUpdateRequest $request)
     {
         // return $request->only(['in_time','production_hours', 'break_time', 'downtime', 'out_time']);
-        $production->update($request->only(['in_time','production_hours', 'break_time', 'downtime', 'out_time']));
+        $production->update($request->only(['in_time', 'production_hours', 'break_time', 'downtime', 'out_time']));
 
         return redirect()->route('admin.productions.edit', $production->id)
             ->withSuccess("Production $production->id has been updated");
@@ -178,7 +177,7 @@ class ProductionsController extends Controller
     {
         // return $date = $carbon->parse('2016-09-27');
         // return ($date->subWeeks(3));
-        $productions =  $production
+        $productions = $production
             ->whereInsertDate($date)
             ->orderBy('name')
             ->with('reason')
@@ -202,7 +201,7 @@ class ProductionsController extends Controller
 
         foreach ($data as $row) {
             //validate if the fields passed are in the allowed fields array
-            foreach ($row as $field=>$value) {
+            foreach ($row as $field => $value) {
                 if (!$this->validField($field)) {
                     return redirect()->route('admin.productions.create')
                         // ->withResponse(302)
@@ -217,7 +216,7 @@ class ProductionsController extends Controller
             // $row['year']  = str_random(4);
             // $row['month'] = str_random(2);
             // $row['week']  = str_random(2);
-            $row['unique_id']  = str_random(20);
+            $row['unique_id'] = str_random(20);
             $production = $production->create($row);
         }
 
@@ -261,14 +260,14 @@ class ProductionsController extends Controller
         $date = Carbon::createFromFormat('Y-m-d', $date)->format('Y-m-d');
 
         $employees = Employee::has('productions')
-            ->with(['productions'=>function ($query) use ($date) {
+            ->with(['productions' => function ($query) use ($date) {
                 return $query->with('source')
                     ->with('client')
                     ->where('insert_date', $date)
                     ->get();
             }])
             ->paginate(10);
-        
+
         return view('productions.hours.index', compact('employees'));
     }
 

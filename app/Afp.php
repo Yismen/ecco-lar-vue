@@ -10,7 +10,7 @@ class Afp extends Model
     use Sluggable;
 
     protected $fillable = ['name'];
-    
+
     public function sluggable()
     {
         return [
@@ -25,7 +25,7 @@ class Afp extends Model
     {
         return $this->hasMany('App\Employee');
     }
-    
+
     public function setNameAttribute($name)
     {
         $this->attributes['name'] = trim(ucwords($name));

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Exceptions;
 
 use Exception;
@@ -20,6 +21,7 @@ class Handler extends ExceptionHandler
         \Illuminate\Session\TokenMismatchException::class,
         \Illuminate\Validation\ValidationException::class,
     ];
+
     /**
      * Report or log an exception.
      *
@@ -32,6 +34,7 @@ class Handler extends ExceptionHandler
     {
         parent::report($exception);
     }
+
     /**
      * Render an exception into an HTTP response.
      *
@@ -42,11 +45,12 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         if ($exception instanceof \Illuminate\Session\TokenMismatchException) {
-            return redirect()->back()->withInput()->withDanger("Token does not match. Perhaps you need to refresh the page.");
+            return redirect()->back()->withInput()->withDanger('Token does not match. Perhaps you need to refresh the page.');
         }
 
         return parent::render($request, $exception);
     }
+
     /**
      * Convert an authentication exception into an unauthenticated response.
      *

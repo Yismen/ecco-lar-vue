@@ -25,7 +25,6 @@ class DepartmentsController extends Controller
     public function index(Department $departments, Request $request)
     {
         $departments = $departments->orderBy('department')->paginate(15);
-        
 
         if ($request->ajax()) {
             return $departments;
@@ -45,7 +44,6 @@ class DepartmentsController extends Controller
             return $department;
         }
 
-
         return view('departments.create', compact('department'));
     }
 
@@ -59,7 +57,7 @@ class DepartmentsController extends Controller
         $this->validate($request, [
             'department' => 'required|unique:departments,department'
         ]);
-        
+
         $department = $department->create($request->only('department'));
 
         if ($request->ajax()) {
@@ -111,7 +109,6 @@ class DepartmentsController extends Controller
         $this->validate($request, [
             'department' => "required|unique:departments,department,$department->id,id"
         ]);
-
 
         $department->update($request->all());
 

@@ -4,7 +4,6 @@
 // Route::get('production-hours/query/{date}/supervisor/{supervisor}', ['as'=>'admin.production-hours.date', 'uses'=>'ProductionHoursController@queryByDate']);
 // Route::get('production-hours/query', ['as'=>'admin.production-hours.query', 'uses'=>'ProductionHoursController@queryByDate']);
 
-
 // Route::bind('production-hour', function($id){
 
 // 	return App\Production::whereId($id)
@@ -16,9 +15,6 @@
 /**
  * productions index route
  */
-
-
-
 
 // Route::get('productions', [
 // 	'as'=>'productions.index',
@@ -72,9 +68,8 @@
 // 		->firstOrFail();
 // });
 
-
 // // Route::resource('productions', 'productionsController', [
-    
+
 // // ]);
 
 // /**

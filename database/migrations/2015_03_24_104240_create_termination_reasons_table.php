@@ -5,7 +5,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateTerminationReasonsTable extends Migration
 {
-
     /**
      * Run the migrations.
      *
@@ -21,19 +20,19 @@ class CreateTerminationReasonsTable extends Migration
         });
 
         factory(App\TerminationReason::class)->create([
-            'reason'=>'Found Better Job',
+            'reason' => 'Found Better Job',
         ]);
         factory(App\TerminationReason::class)->create([
-            'reason'=>'Not enough salary',
+            'reason' => 'Not enough salary',
         ]);
         factory(App\TerminationReason::class)->create([
-            'reason'=>'High Absentism',
+            'reason' => 'High Absentism',
         ]);
         factory(App\TerminationReason::class)->create([
-            'reason'=>'Low Performanc',
+            'reason' => 'Low Performanc',
         ]);
         factory(App\TerminationReason::class)->create([
-            'reason'=>'Other',
+            'reason' => 'Other',
         ]);
     }
 

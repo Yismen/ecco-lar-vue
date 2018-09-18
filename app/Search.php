@@ -2,8 +2,6 @@
 
 namespace App;
 
-use App\Http\Requests\Request;
-
 class Search
 {
     private $TABLE; //the table to be searched
@@ -22,17 +20,17 @@ class Search
      * @param  [string] $input      string
      * @return collection             collection of items meeting the chriteria
      */
-    public function find($modelTable, $fields, $input='search')
+    public function find($modelTable, $fields, $input = 'search')
     {
         foreach ($fields as $field) {
-            $modelTable = $modelTable->orWhere($field, 'like', "%".\Request::input($input)."%");
+            $modelTable = $modelTable->orWhere($field, 'like', '%' . \Request::input($input) . '%');
         }
 
         return $modelTable->get();
-            
+
         if (\Request::input($input)) {
             foreach ($fields as $field) {
-                $modelTable = $modelTable->orWhere($field, 'like', "%".\Request::input($input)."%");
+                $modelTable = $modelTable->orWhere($field, 'like', '%' . \Request::input($input) . '%');
             }
 
             return $modelTable->get();

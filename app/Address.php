@@ -1,4 +1,6 @@
-<?php namespace App;
+<?php
+
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,7 +16,7 @@ class Address extends Model
     {
         return $this->belongsTo('App\Employee', 'employee_id');
     }
-    
+
     public function setSectorAttribute($sector)
     {
         return $this->attributes['sector'] = ucwords(trim($sector));

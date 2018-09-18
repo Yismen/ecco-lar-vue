@@ -29,7 +29,7 @@
     <div class="col-sm-5 form-group {{ $errors->has('supervisor') ? 'has-error' : null }}">
       {!! Form::label('supervisor', 'Supervisor:', ['class'=>'col-sm-5 control-label']) !!}
       <div class="col-sm-7">
-        <?php $supervisorsList = array_merge(['w'=>'-- Please Select One--'], $supervisorsList) ?>
+        <?php $supervisorsList = array_merge(['w' => '-- Please Select One--'], $supervisorsList) ?>
         {!! Form::select('supervisor', $supervisorsList, null, ['class'=>'form-control input-sm']) !!}
         {!! $errors->first('supervisor', '<span class="text-danger">:message</span>') !!}
       </div>

@@ -14,7 +14,6 @@ class Users
         $this->user = $user;
     }
 
-
     private function fetch($date)
     {
         return $this->user->select(['name', 'id'])
@@ -30,12 +29,12 @@ class Users
     {
         return $this->fetch($date)
             // ->with('hours')
-            ;
+;
     }
 
     public function today()
     {
-        $date = (new Carbon)->today()->format("Y-m-d");
+        $date = (new Carbon)->today()->format('Y-m-d');
         return $this->byDate($date);
     }
 }

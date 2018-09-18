@@ -4,8 +4,6 @@ namespace App\Listeners;
 
 use Illuminate\Http\Request;
 use App\Events\EditUserSettings;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class UpdateUserSettings
 {

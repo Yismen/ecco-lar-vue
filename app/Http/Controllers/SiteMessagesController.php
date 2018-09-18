@@ -1,15 +1,14 @@
-<?php namespace App\Http\Controllers;
+<?php
+
+namespace App\Http\Controllers;
 
 use App\Http\Requests\SiteMessagesRequests;
-use App\Http\Controllers\Controller;
-
 // use Illuminate\Http\Request;
 
 use App\SiteMessage;
 
 class SiteMessagesController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -40,9 +39,9 @@ class SiteMessagesController extends Controller
     public function store(SiteMessage $sitemessages, SiteMessagesRequests $requests)
     {
         $sitemessages = $sitemessages->create($requests->all());
-        
+
         return redirect()->route('contactus')
-            ->withSuccess("Your message has been sent. Personnel from Dainsys will contact you!");
+            ->withSuccess('Your message has been sent. Personnel from Dainsys will contact you!');
     }
 
     /**

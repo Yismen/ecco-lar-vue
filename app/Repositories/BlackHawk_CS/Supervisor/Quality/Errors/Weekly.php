@@ -42,7 +42,7 @@ class Weekly
             Carbon::now()->endOfWeek()
         )->get();
     }
-    
+
     private function lastWeek()
     {
         return $this->query(

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Profile extends Model
 {
     protected $fillable = ['gender', 'bio', 'photo', 'phone', 'education', 'skills', 'work', 'location'];
-      
+
     /**
      * ==========================================
      * Relationships
@@ -16,21 +16,20 @@ class Profile extends Model
     {
         return $this->belongsTo(User::class);
     }
-    
+
     /**
      * ======================================
      * Accessors
      */
-        
     public function getSkillsArrayAttribute()
     {
-        return explode(",", $this->skills);
+        return explode(',', $this->skills);
     }
-    
+
     public function getSkillsObjectAttribute()
     {
         $returned = [];
-        $skills =  explode(",", $this->skills);
+        $skills = explode(',', $this->skills);
 
         foreach ($skills as $skill) {
             array_push($returned, ucwords(trim($skill)));
@@ -38,22 +37,21 @@ class Profile extends Model
 
         return (object)$returned;
     }
-    
+
     /**
      * ========================================
      * Methods
      */
-    
+
     /**
      * ==========================================
      * Scopes
      */
-    
     public function scopeNotCurrent($query)
     {
         return $query->where('id', '<>', $this->id);
     }
-       
+
     /**
      * =======================================
      * Mutators

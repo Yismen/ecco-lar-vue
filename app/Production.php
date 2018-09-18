@@ -2,9 +2,6 @@
 
 namespace App;
 
-use App\Client;
-use App\Reason;
-use App\Employee;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -28,10 +25,10 @@ class Production extends Model
 
     protected $casts = [
         'employee_id' => 'integer',
-        'year'        => 'integer',
-        'month'       => 'integer',
-        'week'        => 'integer',
-        'production'  => 'integer',
+        'year' => 'integer',
+        'month' => 'integer',
+        'week' => 'integer',
+        'production' => 'integer',
     ];
 
     /**
@@ -62,7 +59,7 @@ class Production extends Model
      * =============================================================
      * Scopes
      */
-    
+
     /**
      * ============================================================
      * Accessors
@@ -107,21 +104,20 @@ class Production extends Model
      * ==========================================================
      * Mutators
      */
-    
     public function seNameAttribute($name)
     {
-        $employee  = Employee::find($this->employee_id);
+        $employee = Employee::find($this->employee_id);
         if ($employee) {
-            return $this->attributes['name'] = $employee->first_name . " " . $employee->last_name;
+            return $this->attributes['name'] = $employee->first_name . ' ' . $employee->last_name;
         }
         return $this->attributes['name'] = $name;
     }
-    
+
     public function setInTimeAttribute($intime)
     {
         return $this->attributes['in_time'] = Carbon::parse($intime);
     }
-    
+
     public function setOutTimeAttribute($date)
     {
         $in = Carbon::parse($this->attributes['in_time']);
@@ -131,32 +127,31 @@ class Production extends Model
             ->addHours($this->attributes['downtime'])
             ->addMinutes($this->attributes['break_time']);
     }
-    
+
     // public function setYearAttribute($date)
     // {
     // 	$this->attributes['year'] = Carbon::parse($this->attributes['insert_date'])->year;
     // }
-    
+
     // public function setMonthAttribute($date)
     // {
     // 	$this->attributes['month'] = Carbon::parse($this->attributes['insert_date'])->month;
     // }
-    
+
     // public function setWeekAttribute($date)
     // {
     // 	$this->attributes['week'] = Carbon::parse($this->attribute['insert_date'])->weekOfYear;
     // }
-    
+
     public function setUniqueIdAttribute($unique_id)
     {
-        return $this->attributes['unique_id'] = $this->attributes['insert_date'].'-'.$this->attributes['employee_id'].'-'.$this->attributes['client_id'].'-'.$this->attributes['source_id'];
+        return $this->attributes['unique_id'] = $this->attributes['insert_date'] . '-' . $this->attributes['employee_id'] . '-' . $this->attributes['client_id'] . '-' . $this->attributes['source_id'];
     }
-    
+
     /**
      * ===========================================================
      * Methods
      */
-    
     public function exists()
     {
     }

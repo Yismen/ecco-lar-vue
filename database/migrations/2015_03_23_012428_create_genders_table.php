@@ -6,7 +6,6 @@ use App\Gender;
 
 class CreateGendersTable extends Migration
 {
-
     /**
      * Run the migrations.
      *
@@ -21,12 +20,12 @@ class CreateGendersTable extends Migration
         });
 
         factory(Gender::class)->create([
-            'id'=>1,
-            'gender'=>'Male'
+            'id' => 1,
+            'gender' => 'Male'
         ]);
         factory(Gender::class)->create([
-            'id'=>2,
-            'gender'=>'Female'
+            'id' => 2,
+            'gender' => 'Female'
         ]);
     }
 

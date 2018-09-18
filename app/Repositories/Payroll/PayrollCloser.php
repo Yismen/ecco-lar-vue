@@ -35,16 +35,16 @@ class PayrollCloser
             // return $employee;
             $employee = collect($employee['data']);
 
-            $this->payroll_id = $this->carbon->parse($this->payment_date)->format("Ymd");
+            $this->payroll_id = $this->carbon->parse($this->payment_date)->format('Ymd');
             $this->employee_id = $employee['identity']['id'];
-            $this->unique_id = $this->payroll_id."-".$this->employee_id;
+            $this->unique_id = $this->payroll_id . '-' . $this->employee_id;
             $this->deleteIfExists();
 
             Payroll::create([
-                'payroll_id'   => $this->payroll_id,
-                'unique_id'    => $this->unique_id,
-                'from_date'    => $this->from_date,
-                'to_date'      => $this->to_date,
+                'payroll_id' => $this->payroll_id,
+                'unique_id' => $this->unique_id,
+                'from_date' => $this->from_date,
+                'to_date' => $this->to_date,
                 'payment_date' => $this->payment_date,
 
                 'employee_id' => $this->employee_id,

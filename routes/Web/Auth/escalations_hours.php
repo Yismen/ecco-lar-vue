@@ -6,8 +6,7 @@ Route::get('escalations_hours/create/{user_id}/{client_id}/{records}', 'Escalati
 Route::bind('escalations_hour', function ($id) {
     return App\EscalationHour::with('user')
         ->with('client')
-        ->findOrFail($id)
-    ;
+        ->findOrFail($id);
 });
 
 Route::resource('escalations_hours', 'EscalationsHoursController', ['except' => 'create']);

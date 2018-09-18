@@ -13,12 +13,13 @@ class Bank extends Model
     {
         return hasMany('App\BankAccount');
     }
+
     // Methods ===================================================
-    
+
     // Scopes ====================================================
-    
+
     // Accessors =================================================
-    
+
     // Mutators ==================================================
     public function setNameAttribute($name)
     {

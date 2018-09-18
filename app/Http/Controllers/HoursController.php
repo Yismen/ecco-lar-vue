@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Hour;
 use App\Employee;
-use App\Http\Requests;
 use Illuminate\Http\Request;
 
 class HoursController extends Controller
@@ -17,11 +16,11 @@ class HoursController extends Controller
         $this->request = $request;
         $this->hours = $hours;
 
-        $this->middleware('authorize:view_hours|edit_hours|create_hours', ['only'=>['index','show']]);
-        $this->middleware('authorize:edit_hours', ['only'=>['edit','update']]);
-        $this->middleware('authorize:create_hours', ['only'=>['create','store']]);
-        $this->middleware('authorize:destroy_hours', ['only'=>['destroy']]);
-        $this->middleware('authorize:view_by_date', ['only'=>['byDate']]);
+        $this->middleware('authorize:view_hours|edit_hours|create_hours', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit_hours', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create_hours', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy_hours', ['only' => ['destroy']]);
+        $this->middleware('authorize:view_by_date', ['only' => ['byDate']]);
     }
 
     /**
@@ -96,7 +95,7 @@ class HoursController extends Controller
     {
         $this->validate($request, [
             'regulars' => 'required|numeric|min:0|max:21',
-            'nightly' => 'required|numeric|min:0|max:'.$request->regulars,
+            'nightly' => 'required|numeric|min:0|max:' . $request->regulars,
             'holidays' => 'required|numeric|min:0|max:21',
             'training' => 'required|numeric|min:0|max:21',
             'overtime' => 'required|numeric|min:0|max:21',
@@ -105,7 +104,7 @@ class HoursController extends Controller
         $hour->update($request->only(['regulars', 'nightly', 'holidays', 'training', 'overtime']));
 
         return redirect()->route('admin.hours.edit', $hour->id)
-            ->withSuccess("Hours Updated");
+            ->withSuccess('Hours Updated');
     }
 
     /**
@@ -119,7 +118,7 @@ class HoursController extends Controller
         $hour->delete();
 
         return redirect()->route('admin.hours.index')
-            ->withDanger("Removed hours for date ".$hour->date->format("M/d/Y").", for employee ".$hour->employee->full_name);
+            ->withDanger('Removed hours for date ' . $hour->date->format('M/d/Y') . ', for employee ' . $hour->employee->full_name);
     }
 
     public function byDate($date)

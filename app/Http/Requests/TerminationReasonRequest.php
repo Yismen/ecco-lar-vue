@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Request;
-
 class TerminationReasonRequest extends Request
 {
     /**
@@ -28,7 +26,7 @@ class TerminationReasonRequest extends Request
             null;
 
         return [
-            'reason' => 'required|unique:termination_reasons,reason,'.$id,
+            'reason' => 'required|unique:termination_reasons,reason,' . $id,
             'description' => 'min:5',
         ];
     }

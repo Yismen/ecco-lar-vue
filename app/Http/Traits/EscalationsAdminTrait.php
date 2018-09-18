@@ -65,7 +65,7 @@ trait EscalationsAdminTrait
     {
         $date = $this->date;
 
-        return $escalRecords->select(DB::raw("user_id, escal_client_id, count(tracking) as records, insert_date"))
+        return $escalRecords->select(DB::raw('user_id, escal_client_id, count(tracking) as records, insert_date'))
             ->groupBy(['user_id', 'escal_client_id'])
             ->orderBy('escal_client_id')
             ->whereDate('created_at', '=', $date)
@@ -105,7 +105,7 @@ trait EscalationsAdminTrait
 
     private function fetchsBBBRecords($dates)
     {
-        return EscalRecord::select(DB::raw("insert_date, count(tracking) as records"))
+        return EscalRecord::select(DB::raw('insert_date, count(tracking) as records'))
             ->groupBy(['insert_date'])
             ->where('is_bbb', true)
             ->orderBy('insert_date', 'DESC')
@@ -151,7 +151,7 @@ trait EscalationsAdminTrait
 
     private function fetchLastFiveDatesProduction()
     {
-        return EscalRecord::select(DB::raw("insert_date, count(tracking) as records, count(CASE WHEN is_bbb = 1 THEN 1 ELSE NULL end) as bbbRecords"))
+        return EscalRecord::select(DB::raw('insert_date, count(tracking) as records, count(CASE WHEN is_bbb = 1 THEN 1 ELSE NULL end) as bbbRecords'))
             ->groupBy(['insert_date'])
             ->orderBy('insert_date', 'DESC')
             ->take(5)

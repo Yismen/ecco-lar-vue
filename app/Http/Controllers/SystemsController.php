@@ -1,8 +1,8 @@
-<?php namespace App\Http\Controllers;
+<?php
 
-use App\Http\Controllers\Controller;
+namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
-
 use App\System;
 
 // use Illuminate\Http\Request;
@@ -11,10 +11,10 @@ class SystemsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('authorize:view_systems|edit_systems|create_systems', ['only'=>['index','show']]);
-        $this->middleware('authorize:edit_systems', ['only'=>['edit','update']]);
-        $this->middleware('authorize:create_systems', ['only'=>['create','store']]);
-        $this->middleware('authorize:destroy_systems', ['only'=>['destroy']]);
+        $this->middleware('authorize:view_systems|edit_systems|create_systems', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit_systems', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create_systems', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy_systems', ['only' => ['destroy']]);
     }
 
     /**
@@ -24,7 +24,7 @@ class SystemsController extends Controller
      */
     public function index(System $systems)
     {
-        $systems =  $systems->paginate(10);
+        $systems = $systems->paginate(10);
 
         return view('systems.index', compact('systems'));
     }

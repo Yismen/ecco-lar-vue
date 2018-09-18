@@ -13,7 +13,7 @@ class Password extends Model
      * mass assignable
      */
     protected $fillable = ['slug', 'title', 'url', 'username', 'password'];
-    
+
     public function sluggable()
     {
         return [
@@ -28,27 +28,26 @@ class Password extends Model
     {
         return $this->belongsTo('App\User');
     }
-    
+
     /**
      * ========================================
      * Methods
      */
-    
+
     /**
      * ==========================================
      * Scopes
      */
-    
     public function ScopeForCurrentUser($query)
     {
         return $query->where('user_id', \Auth::user()->id);
     }
-    
+
     /**
      * ======================================
      * Accessors
      */
-    
+
     /**
      * =======================================
      * Mutators

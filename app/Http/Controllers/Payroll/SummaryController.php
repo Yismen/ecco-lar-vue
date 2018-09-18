@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers\Payroll;
 
-use Validator;
-use App\Http\Requests;
 use App\Payroll;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
-use Maatwebsite\Excel\Facades\Excel;
 use App\Repositories\ExcelFileLoader;
 use App\Http\Requests\PayrollImportFromExcelRequest;
 
@@ -19,10 +15,10 @@ class SummaryController extends Controller
 
     public function __construct()
     {
-        $this->middleware('authorize:view_payrolls_summary|edit_payrolss_temp|create_payrolls_summary', ['only'=>['index','show']]);
-        $this->middleware('authorize:edit_payrolls_summary', ['only'=>['edit','update']]);
-        $this->middleware('authorize:create_payrolls_summary', ['only'=>['create','store']]);
-        $this->middleware('authorize:destroy_payrolls_summary', ['only'=>['destroy']]);
+        $this->middleware('authorize:view_payrolls_summary|edit_payrolss_temp|create_payrolls_summary', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit_payrolls_summary', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create_payrolls_summary', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy_payrolls_summary', ['only' => ['destroy']]);
     }
 
     /**
@@ -33,7 +29,7 @@ class SummaryController extends Controller
     public function index()
     {
         $dates = Payroll::groupBy('payroll_id')
-            ->orderBy('payment_date', "DESC")
+            ->orderBy('payment_date', 'DESC')
             ->paginate(45);
 
         return view('payrolls_summary.index', compact('dates'));
@@ -71,7 +67,7 @@ class SummaryController extends Controller
                 'gross_incomes' => 'required|numeric|min:0',
                 'net_incomes' => 'required|numeric|min:0',
                 'payment_incomes' => 'required|numeric|min:0',
-                
+
                 'ars_discounts' => 'required|numeric|min:0',
                 'afp_discounts' => 'required|numeric|min:0',
                 'other_discounts' => 'required|numeric|min:0',
@@ -122,7 +118,6 @@ class SummaryController extends Controller
     {
         return 'Here';
     }
-
 
     public function byPayrollID($payroll_id)
     {

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Employee;
-use Illuminate\Http\Request;
 use App\Repositories\Employees;
 use App\Repositories\HumanResources\Lists;
 use App\Repositories\HumanResources\Issues;

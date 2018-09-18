@@ -1,11 +1,12 @@
-<?php namespace App;
+<?php
 
-use App\Role;
+namespace App;
+
 use Illuminate\Database\Eloquent\Model;
 
 class Menu extends Model
 {
-    protected $fillable = ['name','display_name', 'description', 'icon'];
+    protected $fillable = ['name', 'display_name', 'description', 'icon'];
 
     protected $guarded = [];
 
@@ -19,7 +20,6 @@ class Menu extends Model
         return $this->belongsToMany(Role::class);
     }
 
-
     public function getRolesListAttribute()
     {
         return $this->roles()->pluck('id')->toArray();
@@ -27,7 +27,7 @@ class Menu extends Model
 
     public function setNameAttribute($name)
     {
-        return $this->attributes['name'] = str_slug($name, "_");
+        return $this->attributes['name'] = str_slug($name, '_');
     }
 
     public function setDisplayNameAttribute($display_name)

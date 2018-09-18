@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\User;
 use App\Migration;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
@@ -56,18 +55,18 @@ class MyMigrationStatus extends Command
     {
         foreach ($this->getMigrationFiles($this->option('dirname')) as $partial) {
             $partial = pathinfo($partial);
-            $name = $partial["filename"];
+            $name = $partial['filename'];
             $migrated = $this->getMigration($name);
 
             $array = [
-                'name'=>$name,
-                'batch'=>"Pending",
+                'name' => $name,
+                'batch' => 'Pending',
             ];
 
             if ($migrated) {
                 $array = array_merge($array, [
-                    'name'=>$migrated['migration'],
-                    'batch'=>$migrated['batch'],
+                    'name' => $migrated['migration'],
+                    'batch' => $migrated['batch'],
                 ]);
             }
             array_push($this->migration_array, $array);
@@ -100,6 +99,6 @@ class MyMigrationStatus extends Command
      */
     private function getMigrationFiles($dir)
     {
-        return File::files(database_path()."/{$dir}");
+        return File::files(database_path() . "/{$dir}");
     }
 }

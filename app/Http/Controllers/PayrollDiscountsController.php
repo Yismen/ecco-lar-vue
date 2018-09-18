@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests;
 use App\PayrollDiscount;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -13,14 +12,16 @@ use App\Http\Requests\PayrollDiscountRequest;
 class PayrollDiscountsController extends Controller
 {
     use PayrollDiscountsTrait;
+
     public function __construct()
     {
-        $this->middleware('authorize:view_payroll-discounts', ['only'=>['index','show']]);
-        $this->middleware('authorize:edit_payroll-discounts', ['only'=>['edit','update']]);
-        $this->middleware('authorize:create_payroll-discounts', ['only'=>['create','store']]);
-        $this->middleware('authorize:destroy_payroll-discounts', ['only'=>['destroy']]);
-        $this->middleware('authorize:import_payrolls-discounts', ['only'=>['import', 'handleImport']]);
+        $this->middleware('authorize:view_payroll-discounts', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit_payroll-discounts', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create_payroll-discounts', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy_payroll-discounts', ['only' => ['destroy']]);
+        $this->middleware('authorize:import_payrolls-discounts', ['only' => ['import', 'handleImport']]);
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -54,7 +55,7 @@ class PayrollDiscountsController extends Controller
         $discount = $discount->create($request->only(['date', 'employee_id', 'discount_amount', 'concept_id', 'comment']));
 
         return redirect()->route('admin.payroll-discounts.index')
-            ->withSuccess("Discount created!");
+            ->withSuccess('Discount created!');
     }
 
     /**
@@ -91,7 +92,7 @@ class PayrollDiscountsController extends Controller
         $discount->update($request->only(['date', 'employee_id', 'discount_amount', 'concept_id', 'comment']));
 
         return redirect()->route('admin.payroll-discounts.edit', $discount->id)
-            ->withSuccess("Discount Updated!");
+            ->withSuccess('Discount Updated!');
     }
 
     /**
@@ -107,7 +108,7 @@ class PayrollDiscountsController extends Controller
 
     public function byDate($date, PayrollDiscount $discount)
     {
-        $discounts =  $discount->whereDate('date', '=', $date)
+        $discounts = $discount->whereDate('date', '=', $date)
             ->select('*', DB::raw('sum(discount_amount) as discount_amount_sum'))
             ->groupBy('employee_id')
             ->orderBy('employee_id', 'ASC')
@@ -135,9 +136,9 @@ class PayrollDiscountsController extends Controller
             'comment' => 'max:250',
         ]))
         ->load($request->file('discounts-file'));
-        
+
         if ($loader->hasErrors()) {
-            $request->session()->flash('file_errors', ['errors'=>$loader->errors()]);
+            $request->session()->flash('file_errors', ['errors' => $loader->errors()]);
             return redirect()->route('admin.payroll-discounts.import')
                 ->withDanger('The file contains errors');
         }
@@ -150,7 +151,7 @@ class PayrollDiscountsController extends Controller
 
     public function details($date, $employee_id, PayrollDiscount $discount)
     {
-        $discounts =  $discount->whereDate('date', '=', $date)
+        $discounts = $discount->whereDate('date', '=', $date)
             ->where('employee_id', '=', $employee_id)
             ->orderBy('employee_id', 'ASC')
             ->with('employee.position.department')->paginate(50);

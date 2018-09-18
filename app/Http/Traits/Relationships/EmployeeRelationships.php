@@ -28,32 +28,32 @@ trait EmployeeRelationships
     {
         return $this->hasManyThrough('App\Department', 'App\Position', 'department_id', 'position_id');
     }
-    
+
     public function gender()
     {
         return $this->belongsTo('App\Gender', 'gender_id');
     }
-    
+
     public function nationalities()
     {
         return $this->belongsToMany('App\Nationality');
     }
-    
+
     public function position()
     {
         return $this->belongsTo('App\Position');
     }
-    
+
     public function marital()
     {
         return $this->belongsTo('App\Marital', 'marital_id');
     }
-    
+
     public function address()
     {
         return $this->hasOne('App\Address', 'employee_id');
     }
-    
+
     public function addresses()
     {
         return $this->hasOne('App\Address', 'employee_id');

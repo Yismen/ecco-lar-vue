@@ -10,7 +10,7 @@ class Scores
     public $monthly;
     public $weekly;
     public $daily;
-    
+
     private $request;
     private $take;
 

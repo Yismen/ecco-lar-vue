@@ -14,15 +14,14 @@ class Nationality extends Model
             ->select([
                 'id', 'first_name', 'second_first_name', 'last_name', 'second_last_name', 'photo', 'position_id'
             ])
-            ->actives()
-            ;
+            ->actives();
     }
 
     public function setNameAttribute($name)
     {
         return $this->attributes['name'] = ucwords(
             strtolower(
-                trim($name, " ")
+                trim($name, ' ')
             )
         );
     }

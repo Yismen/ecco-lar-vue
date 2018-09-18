@@ -31,7 +31,7 @@ class PayrollSummary extends Model
         'gross_incomes',
         'net_incomes',
         'payment_incomes',
-        
+
         'ars_discounts',
         'afp_discounts',
         'other_discounts',

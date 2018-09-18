@@ -25,28 +25,25 @@ class Bbbs
                 return $query->orderBy('name');
             }])
             ->orderBy('created_at', 'DESC')
-            ->orderBy('escal_client_id')
-            ;
+            ->orderBy('escal_client_id');
     }
 
     public function byDate($date)
     {
         return $this->fetch()
-            ->whereDate('created_at', '=', $date)
-            ;
+            ->whereDate('created_at', '=', $date);
     }
 
     public function range($from, $to)
     {
         return $this->fetch()
-            ->whereBetween('insert_date', [$from, $to])
-            ;
+            ->whereBetween('insert_date', [$from, $to]);
     }
 
     public function days($days = 5)
     {
         return $this->record
-            ->select(DB::raw("insert_date, user_id, count(tracking) as records"))
+            ->select(DB::raw('insert_date, user_id, count(tracking) as records'))
             ->groupBy(['insert_date'])
             ->with('user')
             ->orderBy('insert_date', 'DESC')
