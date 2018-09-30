@@ -14,8 +14,9 @@
             }
         },
         watch: {
-            datasets: () => {           
-                this.render()
+            datasets: (val) => { 
+                console.log(this.a.methods.render(), val)
+                this.a.methods.render()      
             }
         },
         mounted() {

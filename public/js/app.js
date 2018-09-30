@@ -1812,7 +1812,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 });
                 vm.datasets = [{ label: "Users Activities", data: data, backgroundColor: colors }];
 
-                console.log(vm.datasets, vm.labels);
+                // console.log(vm.datasets, vm.labels)
             });
         }
     },
@@ -107516,8 +107516,9 @@ var _this = this;
     },
 
     watch: {
-        datasets: function datasets() {
-            _this.render();
+        datasets: function datasets(val) {
+            console.log(_this.a.methods.render(), val);
+            _this.a.methods.render();
         }
     },
     mounted: function mounted() {},

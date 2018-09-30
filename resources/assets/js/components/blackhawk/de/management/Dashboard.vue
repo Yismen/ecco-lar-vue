@@ -23,7 +23,7 @@
 </template>
 
 <script>
-    import DoughnutChart from './../../../charts/DoughnutChart'
+    import DoughnutChart from '../../../charts/DoughnutChart'
     import {API} from '../../../../utilities/config'
     export default {
         name: "Dashboard",
@@ -75,7 +75,7 @@
                         })
                         vm.datasets = [{ label: "Users Activities", data: data, backgroundColor: colors }]
                         
-                        console.log(vm.datasets, vm.labels)
+                        // console.log(vm.datasets, vm.labels)
                     })
             }
         },
