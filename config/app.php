@@ -155,11 +155,12 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Cviebrock\EloquentSluggable\ServiceProvider::class,
-        Zizaco\Entrust\EntrustServiceProvider::class,
+        // Zizaco\Entrust\EntrustServiceProvider::class,
         Yajra\Datatables\DatatablesServiceProvider::class,
         GrahamCampbell\Flysystem\FlysystemServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Arcanedev\LogViewer\LogViewerServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
         // Barryvdh\Debugbar\ServiceProvider::class,
 
         /*

@@ -1,8 +1,7 @@
 <?php
 
 namespace App;
-
-use Zizaco\Entrust\EntrustPermission;
+use Spatie\Permission\Models\Permission;
 
 class Permission extends EntrustPermission
 {

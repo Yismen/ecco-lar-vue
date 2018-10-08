@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Zizaco\Entrust\EntrustRole;
+use Spatie\Permission\Models\Role;
 
 class Role extends EntrustRole
 {

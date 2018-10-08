@@ -27,6 +27,7 @@
         "laravelcollective/html": "^5.7",
         "maatwebsite/excel": "*",
         "spatie/flysystem-dropbox": "^1.0",
+        "spatie/laravel-permission": "^2.21",
         "yajra/laravel-datatables-oracle": "^8.0",
         "zizaco/entrust": "5.2.x-dev"
     },

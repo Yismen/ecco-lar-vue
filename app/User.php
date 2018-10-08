@@ -2,20 +2,20 @@
 
 namespace App;
 
+use Laravel\Passport\HasApiTokens;
 use Illuminate\Support\Facades\Cache;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Builder;
 use App\Http\Traits\Mutators\UserMutators;
-use Zizaco\Entrust\Traits\EntrustUserTrait;
 use App\Http\Traits\Accessors\UserAccessors;
 use Illuminate\Contracts\Auth\CanResetPassword;
-use Illuminate\Notifications\Notifiable;
 use App\Http\Traits\Relationships\UserRelationships;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable implements CanResetPassword
 {
-    use HasApiTokens, EntrustUserTrait, UserAccessors, UserRelationships, UserMutators, Notifiable;
+    use HasApiTokens, HasRoles,  UserAccessors, UserRelationships, UserMutators, Notifiable;
     /**
      * The attributes that are mass assignable.
      *
