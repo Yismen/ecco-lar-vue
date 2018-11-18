@@ -58,7 +58,7 @@
                     <p>Access their end points by using the left side menu.</p>
                     @foreach ($user->roles as $role)
                         <h4>
-                            <span class="label label-success">{{ $role }}</span>
+                            <span class="label label-success">{{ personName($role->name) }}</span>
                         </h4>
                     @endforeach
                 @else

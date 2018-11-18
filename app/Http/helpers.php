@@ -1,5 +1,14 @@
 <?php
 
+function personName($name)
+{
+    return ucwords(
+        trim(
+            str_replace(['-', '_'], ' ', $name)
+        )
+    );
+}
+
 /**
  * allows to create a delete button
  * @param  $route    route name where point to

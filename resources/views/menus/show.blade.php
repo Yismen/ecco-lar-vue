@@ -8,7 +8,7 @@
 				<div class="box box-info">
 					<div class="box-header">
 						<h4>
-							Menu Details [{{ $menu->name }}]
+							Menu Details [{{ personName($menu->name) }}]
 							<a href="{{ route('admin.menus.index') }}" class="pull-right">
 								<i class="fa fa-list"></i> 
 								Menus List
