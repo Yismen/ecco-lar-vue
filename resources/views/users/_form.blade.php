@@ -24,39 +24,39 @@
 </div>
 <!-- /. Name -->
 
-<!-- User email -->
+<!-- Email -->
 <div class="form-group {{ $errors->has('email') ? 'has-error' : null }}">
-	{!! Form::label('email', 'User email:', ['class'=>'col-sm-2 control-label']) !!}
+	{!! Form::label('email', 'Email:', ['class'=>'col-sm-2 control-label']) !!}
 	<div class="col-sm-10">
-		{!! Form::input('email', 'email', null, ['class'=>'form-control', 'placeholder'=>'User email']) !!}
+		{!! Form::input('email', 'email', null, ['class'=>'form-control', 'placeholder'=>'Email']) !!}
 	</div>
 	{{-- {!! $errors->first('email', '<span class="text-danger">:message</span>') !!} --}}
 </div>
-<!-- /. User email -->
+<!-- /. Email -->
 
-<!-- User Username -->
+<!-- Username -->
 <div class="form-group {{ $errors->has('username') ? 'has-error' : null }}">
-	{!! Form::label('username', 'User Username:', ['class'=>'col-sm-2 control-label']) !!}
+	{!! Form::label('username', 'Username:', ['class'=>'col-sm-2 control-label']) !!}
 	<div class="col-sm-10">
-		{!! Form::input('text', 'username', null, ['class'=>'form-control', 'placeholder'=>'User Username']) !!}
+		{!! Form::input('text', 'username', null, ['class'=>'form-control', 'placeholder'=>'Username']) !!}
 	</div>
 	{{-- {!! $errors->first('username', '<span class="text-danger">:message</span>') !!} --}}
 </div>
-<!-- /. User Username -->
+<!-- /. Username -->
 
-<!-- User Is Active -->
+<!-- Is Active -->
 <div class="form-group {{ $errors->has('is_active') ? 'has-error' : null }}">
-	{!! Form::label('is_active', 'User Is Active:', ['class'=>'col-sm-2 control-label']) !!}
+	{!! Form::label('is_active', 'Is Active:', ['class'=>'col-sm-2 control-label']) !!}
 	<div class="col-sm-10">
 		{!! Form::select('is_active', $user->activeList, null, ['class'=>'form-control', 'id'=>'is_active'])!!}
 	</div>
 	{{-- {!! $errors->first('roles', '<span class="text-danger">:message</span>') !!} --}}
 </div>
-<!-- /. User Is Active -->
+<!-- /. Is Active -->
 
-<!-- User Is Admin -->
+<!-- Is Admin -->
 <div class="form-group {{ $errors->has('is_admin') ? 'has-error' : null }}">
-	{!! Form::label('is_admin', 'User Is Admin:', ['class'=>'col-sm-2 control-label']) !!}
+	{!! Form::label('is_admin', 'Is Admin:', ['class'=>'col-sm-2 control-label']) !!}
 	<div class="col-sm-10">
 		{!! Form::select('is_admin', $user->adminList, null, ['class'=>'form-control', 'id'=>'is_admin'])!!}
 		<span class="help-block text-danger">Very dangerous. If you make the user admin it will 
@@ -64,7 +64,7 @@
 	</div>
 	{{-- {!! $errors->first('roles', '<span class="text-danger">:message</span>') !!} --}}
 </div>
-<!-- /. User Is Admin -->
+<!-- /. Is Admin -->
 
 <!-- Roles -->
 {{-- {{ dd($rolesList) }} --}}

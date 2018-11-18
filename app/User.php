@@ -83,7 +83,6 @@ class User extends Authenticatable implements CanResetPassword
             'is_active' => $request->is_active,
             'is_admin' => $request->is_admin
         ]);
-
         
         $user->roles()->sync((array) $request->input('roles'));
 
@@ -107,11 +106,7 @@ class User extends Authenticatable implements CanResetPassword
 
         $this->update($request->all());
 
-        $this->roles()->sync((array) $request->input('roles'));        
-
-        if ($request->notify) {            
-            Mail::send(new UpdatedPassword($user));
-        }
+        $this->roles()->sync((array) $request->input('roles'));
     }
 
     public function forceChangePassword($request)

@@ -1,22 +1,21 @@
 @component('mail::message')
-# Introduction
+# Welcome to {{ config('app.name') }}, {{ $user->name }}
 
-<h3>
-    Welcome to Dainsys, {{ $user->name }}.
-</h3>
+Your are a new user to this awesome app. These are your credentials:
 
-Please click the following link and provide the credentials given in this email. Please chage your password as soon as you log in.
+<strong>Username:</strong> {{ $user->email }} <br>
+<strong>Password:</strong> {{ $password }}
 
-    
-<hr>
-These are your credentials: <br>
-<strong>Username:</strong> {{ $user->email }}<br>
-<strong>Password:</strong> {{ $password }}<br>
+Please click the following link to login:
 
-@component('mail::button', ['url' => '/admin/login'])
-Login
+@component('mail::button', ['url' => route('admin.login')])
+Log In
 @endcomponent
 
-Thanks,<br>
+<p style="color: #ff8f35">
+    Please update this password as soon as you log in!
+</p>
+
+Thanks,
 {{ config('app.name') }}
 @endcomponent

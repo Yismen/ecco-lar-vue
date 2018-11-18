@@ -24,7 +24,7 @@ class UpdatedPassword extends Mailable
     public function __construct(User $user, $password)
     {
         $this->user = $user;
-        $this->password;
+        $this->password = $password;
     }
 
     /**
@@ -34,6 +34,6 @@ class UpdatedPassword extends Mailable
      */
     public function build()
     {
-        return $this->to($this->user->email)->markdown('emails.updated-password');
+        return $this->to($this->user->email)->markdown('emails.force-reset-password');
     }
 }
