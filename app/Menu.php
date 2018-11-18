@@ -70,6 +70,23 @@ class Menu extends Model
         return $this;
     }
 
+    public function removeMenu()
+    {
+        $this->delete();
+
+        Cache::forget('menues_for_user_' . auth()->user()->id);
+
+        $name = starts_with($this->name, 'admin/') ?
+            str_slug(explode('admin/', $this->name, 2)[1]) :
+            $this->name;
+
+        $permissions = Permission::where('resource', $name)->get();
+
+        foreach($permissions as $permission) {
+            $permission->delete();
+        }
+    }
+
     private function parseName($request)
     {
         $name = str_slug($request->name);

@@ -106,11 +106,9 @@ class MenusController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function destroy(Menu $menu, Permission $permission)
+    public function destroy(Menu $menu)
     {
-        $menu->delete();
-
-        $this->destroyPermissions($menu, $permission);
+        $menu->removeMenu();
 
         return redirect()->route('admin.menus.index')
             ->withWarning("Menu collection [$menu->display_name] has been removed!");
