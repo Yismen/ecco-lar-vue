@@ -88,7 +88,7 @@ the users configurations and setting.']) @section('content')
                                         <span class="info-box-number">41,410</span> --}} @if (count($user->roles) > 0)
                                         <strong>Roles:</strong>
                                         @foreach ($user->roles as $role)
-                                        <span class="label label-primary">{{ $role->display_name }}</span>
+                                        <span class="label label-primary">{{ ucwords($role->name) }}</span>
                                         @endforeach @endif
                                     </div>
                                     <!-- /.info-box-content -->

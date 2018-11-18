@@ -3,6 +3,8 @@
 namespace App;
 
 use Laravel\Passport\HasApiTokens;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Cache;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
@@ -12,6 +14,8 @@ use App\Http\Traits\Accessors\UserAccessors;
 use Illuminate\Contracts\Auth\CanResetPassword;
 use App\Http\Traits\Relationships\UserRelationships;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Mail\UpdatedPassword;
+use App\Mail\NewUserCreated;
 
 class User extends Authenticatable implements CanResetPassword
 {
@@ -64,6 +68,71 @@ class User extends Authenticatable implements CanResetPassword
             return true;
         }
         return false;
+    }
+
+    public function createUser($request)
+    {
+        
+        $new_password = str_random(15);
+
+        $user = $this->create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'username' => $request->username,
+            'password' => Hash::make($new_password),
+            'is_active' => $request->is_active,
+            'is_admin' => $request->is_admin
+        ]);
+
+        
+        $user->roles()->sync((array) $request->input('roles'));
+
+        if ($request->notify) {
+            Mail::send(new NewUserCreated ($user, $new_password));
+        }
+
+        return $new_password;
+    }
+
+    public function updateUser($request)
+    {
+                
+        if ($this->id == auth()->user()->id && $request->is_active == 0) {
+            abort(401, 'You cant inactivate Your self. No changes made.');
+        }
+
+        if ($this->id == auth()->user()->id && $this->is_admin == 0 && $request->is_admin == 1) {
+            abort(401, 'You cant set your self as Admin. No changes made.');
+        }
+
+        $this->update($request->all());
+
+        $this->roles()->sync((array) $request->input('roles'));        
+
+        if ($request->notify) {            
+            Mail::send(new UpdatedPassword($user));
+        }
+    }
+
+    public function forceChangePassword($request)
+    {                
+        if ($this->id == auth()->user()->id && $request->is_active == 0) {
+            abort(401, 'You cant inactivate Your self. No changes made.');
+        }
+
+        if ($this->id == auth()->user()->id && $this->is_admin == 0 && $request->is_admin == 1) {
+            abort(401, 'You cant set your self as Admin. No changes made.');
+        }
+
+        $new_password = str_random(15);
+
+        $this->update(['password' => Hash::make($new_password)]) ;   
+
+        if ($request->notify) {            
+            Mail::send(new UpdatedPassword($this, $new_password));
+        }
+
+        return $new_password;
     }
 
     public function createQualityScore($request)

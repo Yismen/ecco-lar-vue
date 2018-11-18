@@ -9,20 +9,15 @@ trait UserAccessors
 {
     public function getRolesListAttribute()
     {
-        // $roles = \Auth::user()->is_admin ? $roles : $this->roles();
         return Cache::rememberForever('menues_for_user_' . auth()->user()->id, function () {
             return \Auth::user()->is_admin
-            ? Role::orderBy('display_name')
-                ->with(['menus' => function ($query) {
-                    return $query->orderBy('display_name');
-                }])
-                ->get()
+            ? Role::with(['menus' => function ($query) {
+                return $query;
+            }])->get()
             : $this->roles()
-                ->orderBy('display_name')
                 ->with(['menus' => function ($query) {
-                    return $query->orderBy('display_name');
-                }])
-                ->get();
+                    return $query;
+                }])->get();
         });
     }
 

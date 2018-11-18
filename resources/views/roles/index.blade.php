@@ -3,15 +3,14 @@
 
 @section('content')
 	<div class="container-fluid">
-    	<div class="row">
-			<div class="col-sm--10 col-sm-offset-1">
+		<div class="row">
+			<div class="col-sm-10 col-sm-offset-1">
 				<div class="box box-primary pad">
-					<h3 class="page-header">
+					<h3 class="page-header"> 
 						Roles List 
-					 	<a href="{{ route('admin.roles.create') }}">
-					 		<i class="fa fa-plus"></i>
-					 	</a>
-
+						<a href="{{ route('admin.roles.create') }}" class="pull-right">
+							<i class="fa fa-plus"></i> Add Role
+						</a>
 					</h3>
 					@if ($roles->isEmpty())
 						<div class="bs-callout bs-callout-warning">
@@ -21,12 +20,10 @@
 						<table class="table table-condensed table-hover">
 							<thead>
 								<tr>
-									<th>Role Item</th>
-									<th>Description</th>
+									<th>Name</th>
+									<th>Guard</th>
 									<th class="col-xs-2">
-										<a href="{{ route('admin.roles.create') }}">
-									 		Add <i class="fa fa-plus"></i>
-									 	</a>
+										Actions
 									</th>
 								</tr>
 							</thead>
@@ -34,17 +31,17 @@
 								@foreach ($roles as $role)
 									<tr>
 										<td>
-											<a href="{{ route('admin.roles.show', $role->name) }}">{{ $role->display_name }}</a>
+											<a href="{{ route('admin.roles.show', $role->name) }}">{{ ucwords(trim(str_replace(['-', '_'], ' ', $role->name))) }}</a>
 										</td>
 										<td>
-											{{ $role->description }}
+											{{ $role->guard_name }}
 										</td>
 										<td>
-											<a href="{{ route('admin.roles.edit', $role->name) }}" class="">
-												<i class="fa fa-pencil"></i>
+											<a href="{{ route('admin.roles.edit', $role->name) }}" class="text-warning">
+												<i class="fa fa-pencil"></i> Edit
 											</a>
 											{{-- {!! delete_button('roles.destroy', $role->name, ['class'=>'btn btn-danger','label'=>'<i class="fa fa-trash"></i>']) !!}
-											 --}}
+												--}}
 
 										</td>
 									</tr>

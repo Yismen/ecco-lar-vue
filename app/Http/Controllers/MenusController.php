@@ -3,16 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-// use App\Http\Requests\Request;
 use App\Menu;
-use App\Role;
-use App\Permission;
-use App\Http\Traits\MenusTrait;
 
 class MenusController extends Controller
 {
-    use MenusTrait;
-
     protected $permission;
 
     public function __construct()
@@ -40,11 +34,9 @@ class MenusController extends Controller
      *
      * @return Response
      */
-    public function create(Role $roles)
+    public function create(Menu $menu)
     {
-        $rolesList = $roles->pluck('display_name', 'id');
-
-        return view('menus.create', compact('rolesList'));
+        return view('menus.create', compact('menu'));
     }
 
     /**
@@ -52,15 +44,15 @@ class MenusController extends Controller
      *
      * @return Response
      */
-    public function store(Menu $menu, Request $request, Permission $permission)
+    public function store(Menu $menu, Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|unique:menus,name',
+            'name' => 'required|unique:menus',
             'display_name' => 'required|unique:menus,display_name',
-            'roles_list' => 'required'
+            'roles' => 'required|array'
         ]);
 
-        $this->createMenu($menu, $request, $permission);
+        $menu = $menu->addMenu($request);
 
         return redirect()->route('admin.menus.index')
             ->withSuccess("Menu $menu->display_name has bee created.");
@@ -83,11 +75,9 @@ class MenusController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function edit(Menu $menu, Role $roles)
+    public function edit(Menu $menu)
     {
-        $rolesList = $roles->orderBy('display_name')->pluck('display_name', 'id');
-
-        return view('menus.edit', compact('menu', 'rolesList'));
+        return view('menus.edit', compact('menu'));
     }
 
     /**
@@ -99,14 +89,14 @@ class MenusController extends Controller
     public function update(Menu $menu, Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|unique:menus,name,' . $menu->id . ',id',
+            'name' => 'required|unique:menus,name,' . $menu->id,
             'display_name' => 'required|unique:menus,display_name,' . $menu->id . ',id',
-            'roles_list' => 'required'
+            'roles' => 'required|array'
         ]);
 
-        $this->updateMenu($menu, $request);
+        $menu->updateMenu($request);
 
-        return redirect()->route('admin.menus.show', $menu->name)
+        return redirect()->route('admin.menus.show', $menu->id)
             ->withSuccess("Menu $menu->display_name has been updated.");
     }
 

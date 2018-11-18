@@ -43,11 +43,13 @@
     |*********************************************************|
     -->
 
-<body class="{{{ $settings ? $settings->skin : config('dainsys.layout_color', 'skin-yellow') }}} 
-        
-        {{{ $settings ? $settings->layout : config('dainsys.layout', 'default') }}} 
-        {{{ $settings ? $settings->sidebar_collapse : config('dainsys.sidebar_collapse', '')  }}}
-        {{{ $settings ? $settings->sidebar_mini : config('dainsys.sidebar_mini', '') }}}"
+<body class="{{{ isset($settings->skin) ? $settings->skin : config('dainsys.layout_color', 'skin-yellow') }}} 
+
+        {{ isset($settings) && isset($settings->layout) ? $settings->layout : config('dainsys.layout', 'default')  }}
+        {{ isset($settings) && isset($settings->sidebar_collapse) ? $settings->sidebar_collapse : config('dainsys.sidebar_collapse', '')  }}
+        {{ isset($settings) && isset($settings->sidebar_mini) ? $settings->sidebar_mini : config('dainsys.sidebar_mini', '')  }}
+
+
     style="height: auto;">
     <div class="wrapper" style="height: auto;">
         <!-- Main Header -->

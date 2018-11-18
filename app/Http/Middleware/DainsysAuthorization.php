@@ -28,7 +28,7 @@ class DainsysAuthorization
     /**
      * Permissions object parsed from the string given by the request.
      */
-    private $perms;
+    private $permissions;
 
     /**
      * Handle an incoming request.
@@ -37,11 +37,11 @@ class DainsysAuthorization
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next, $perms = null)
+    public function handle($request, Closure $next, $permissions = null)
     {
         $this->request = $request;
         $this->next = $next;
-        $this->perms = $perms;
+        $this->permissions = $permissions;
         $this->user = Auth::user();
 
         $this->handleAuthenthication();
@@ -49,11 +49,11 @@ class DainsysAuthorization
         if (
             // config('app.env') == 'production' &&
             $this->isOwnerOrAdmin()
-            ) {
+        ) {
             return $next($request);
         }
 
-        $this->parsePerms()
+        $this->parsePermissions()
             ->handlePermsissions();
 
         if ($this->reject) {
@@ -96,17 +96,17 @@ class DainsysAuthorization
     private function isOwnerOrAdmin()
     {
         return $this->user->hasRole('admin')
-            || $this->user->hasRole('application-owner');
+            || $this->user->hasRole('owner');
     }
 
     private function handlePermsissions()
     {
-        $perms = $this->perms;
-        if (!$perms) {
+        $permissions = $this->permissions;
+        if (!$permissions) {
             return $this;
         }
 
-        foreach ($perms as $permission) {
+        foreach ($permissions as $permission) {
             if ($this->user->can($permission)) {
                 return $this;
             }
@@ -125,25 +125,25 @@ class DainsysAuthorization
     }
 
     /**
-     * Convert the perms into an array of items.
-     * @param   string $perms  The list of roles passed by the users
+     * Convert the permissions into an array of items.
+     * @param   string $permissions  The list of roles passed by the users
      * @return [type]         [description]
      */
-    private function parsePerms()
+    private function parsePermissions()
     {
-        $perms = $this->perms;
+        $permissions = $this->permissions;
 
-        if (!$perms) {
+        if (!$permissions) {
             return;
         }
 
-        $perms = explode('|', $this->perms);
+        $permissions = explode('|', $this->permissions);
 
-        $perms = array_map(function ($value) {
+        $permissions = array_map(function ($value) {
             return trim($value);
-        }, $perms);
+        }, $permissions);
 
-        $this->perms = $perms;
+        $this->permissions = $permissions;
 
         return $this;
     }

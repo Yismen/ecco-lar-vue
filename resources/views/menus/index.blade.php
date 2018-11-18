@@ -12,7 +12,7 @@
 								Menu Items
 								<a href="{{ route('admin.menus.create') }}" class="pull-right">
 							 		<i class="fa fa-plus"></i> 
-							 		 Add New
+							 		 Add Menu Item
 							 	</a>
 							</h3>
 						</div>
@@ -20,19 +20,21 @@
 							<table class="table table-bordered table-condensed table-striped">
 								<thead>
 									<tr>
-										<th>Item - Route</th>
+										<th>Name</th>
+										<th>Route</th>
 										<th>Description</th>
-										<th>Edit</th>
+										<th>Actions</th>
 									</tr>
 								</thead>
 								<tbody>
 									@foreach ($menus as $menu)
 										<tr>
-											<td><a href="{{ route('admin.menus.show', $menu->name) }}">{{ $menu->display_name }}</a></td>
+											<td><a href="{{ route('admin.menus.show', $menu->id) }}">{{ $menu->display_name }}</a></td>
+											<td>{{ $menu->name }}</td>
 											<td>{{ $menu->description }}</td>
 											<td>
-												<a href="{{ route('admin.menus.edit', $menu->name) }}" class="" rel="tooltip" title="Edit" data-placement="left">
-													<i class="fa fa-pencil"></i>
+												<a href="{{ route('admin.menus.edit', $menu->id) }}" class="text-warning">
+													<i class="fa fa-pencil"></i> Edit
 												</a>
 											</td>
 										</tr>

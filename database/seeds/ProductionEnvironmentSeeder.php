@@ -57,21 +57,26 @@ class ProductionEnvironmentSeeder extends Seeder
             $role2->delete();
         }
 
-        $roleAdmin = Role::create([
-            'name' => 'admin',
-            'display_name' => 'System Administrator',
-            'description' => 'Application super user. Users with this role has no restriction.'
-        ]);
-        $roleOwner = Role::create([
-            'name' => 'owner',
-            'display_name' => 'Application Owner',
-            'description' => 'Application owner. Little restriction. Just to differentiate from the system admin.'
-        ]);
+        $roleAdmin = Role::create([ 'name' => 'admin', ]);
+        $roleOwner = Role::create([ 'name' => 'owner', ]);
+        $hhrrRole = Role::create(['name' => 'human_resource']);
 
         $user = User::where('email', 'yismen.jorge@gmail.com')->first();
 
-        $user->roles()->sync([$roleAdmin->id, $roleOwner->id]);
+        $user->roles()->sync([$roleAdmin->id, $roleOwner->id, $hhrrRole->id]);
 
-        return $this;
+        $usersMenu = Menu::create(['name' => 'admin/users', 'display_name' => 'Users', 'description' => '']);
+        $rolesMenu = Menu::create(['name' => 'admin/oles', 'display_name' => 'Roles', 'description' => '']);
+        $permissionsMenu = Menu::create(['name' => 'admin/permissions', 'display_name' => 'Permissions', 'description' => '']);
+        $menusMenu = Menu::create(['name' => 'admin/menus', 'display_name' => 'Menus', 'description' => '']);
+        $telescope = Menu::create(['name' => 'telescope', 'display_name' => 'Telescope', 'description' => '']);
+
+        $role = Role::where('name', 'admin')->first()->menus()->sync([
+            $usersMenu->id,
+            $rolesMenu->id,
+            $permissionsMenu->id,
+            $menusMenu->id,
+            $telescope->id,
+        ]);
     }
 }

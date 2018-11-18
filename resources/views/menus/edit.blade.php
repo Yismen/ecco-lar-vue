@@ -13,13 +13,13 @@
 								<div class="panel-heading">
 									<h3 class="panel-title">Edit Menu {{ $menu->display_name }}
 										<a href="{{ route('admin.menus.index') }}" class="pull-right">
-											<i class="fa fa-angle-double-left"></i>
-											 Back
+											<i class="fa fa-home"></i>
+                                        	Return to List
 										</a>
 									</h3>
 								</div>
 								<div class="panel-body">
-									{!! Form::model($menu, ['route'=>['admin.menus.update', $menu->name], 'method'=>'PUT', 'class'=>'form-horizontal', 'role'=>'form']) !!}
+									{!! Form::model($menu, ['route'=>['admin.menus.update', $menu->id], 'method'=>'PUT', 'class'=>'form-horizontal', 'role'=>'form']) !!}
 									
 										@include('menus._form')
 

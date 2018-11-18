@@ -7,7 +7,6 @@ use App\Role;
 use App\User;
 use App\Permission;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 
 class RolesController extends Controller
 {
@@ -23,8 +22,8 @@ class RolesController extends Controller
         $this->middleware('authorize:destroy_roles', ['only' => ['destroy']]);
 
         $this->usersList = $user->orderBy('name')->pluck('name', 'id');
-        $this->menusList = $menu->orderBy('display_name')->pluck('display_name', 'id');
-        $this->permissionsList = $permission->orderBy('display_name')->pluck('display_name', 'id');
+        $this->menusList = $menu->orderBy('name')->pluck('name', 'id');
+        $this->permissionsList = $permission->orderBy('name')->pluck('name', 'id');
     }
 
     /**
@@ -34,18 +33,7 @@ class RolesController extends Controller
      */
     public function index(Role $roles)
     {
-        $roles = $roles
-            ->orderBy('display_name')
-            // ->with(['perms' => function($query){
-            // 	$query->orderBy('permissions.display_name');
-            // }])
-            // ->with(['users'=>function($query){
-            // 	$query->orderBy('users.name');
-            // }])
-            // ->with(['menus'=>function($query){
-            // 	$query->orderBy('roles.display_name');
-            // }])
-            ->paginate(10);
+        $roles = $roles->orderBy('name')->paginate(10);
 
         return view('roles.index', compact('roles'));
     }
@@ -72,12 +60,11 @@ class RolesController extends Controller
     public function store(Role $role, Request $request)
     {
         $this->validate($request, [
-            // 'name' => 'required',
-            'display_name' => 'required',
+            'name' => 'required|unique:roles,name',
             'users_list' => 'required',
         ]);
 
-        $this->createRole($role, $request);
+        $role = $role->createRole($request);
 
         return redirect()->route('admin.roles.index')
             ->withSuccess("Role $role->display_name has bee created.");
@@ -118,12 +105,11 @@ class RolesController extends Controller
     public function update(Role $role, Request $request)
     {
         $this->validate($request, [
-            // 'name' => 'required',
-            'display_name' => 'required',
+            'name' => 'required',
             'users_list' => 'required',
         ]);
 
-        $this->updateRole($role, $request);
+        $role->updateRole($request);
 
         return redirect()->route('admin.roles.show', $role->name)
             ->withSuccess("Role $role->display_name has bee update.");
@@ -141,55 +127,5 @@ class RolesController extends Controller
 
         return redirect()->route('admin.roles.index')
             ->withWarning("Role $role->name has been removed!!!");
-    }
-
-    /**
-     * handle the process of creating the menu item
-     *
-     * @param  [object] $menu     [description]
-     * @param  [object] $request [description]
-     * @return [process]           [the action of syncing the menu-roles]
-     */
-    protected function createRole($role, $request)
-    {
-        $role = $role->create($request->all());
-
-        Cache::forget('user-navbar');
-
-        return $this->syncRelations($role, $request);
-    }
-
-    /**
-     * handle the process of creating the menu item
-     *
-     * @param  [object] $menu     [description]
-     * @param  [object] $request [description]
-     * @return [process]           [the action of syncing the menu-roles]
-     */
-    protected function updateRole($role, $request)
-    {
-        $role->update($request->all());
-
-        Cache::forget('user-navbar');
-        Cache::flush();
-        Cache::forget('menus');
-
-        return $this->syncRelations($role, $request);
-    }
-
-    /**
-     * sync the roles model with the array selected by the user
-     *
-     * @param  Menu   $menu  [description]
-     * @param  Array  $roles [description]
-     * @return [type]        [description]
-     */
-    protected function syncRelations(Role $role, $request)
-    {
-        $role->users()->sync((array) $request->input('users_list'));
-        $role->perms()->sync((array) $request->input('permissions_list'));
-        $role->menus()->sync((array) $request->input('menus_list'));
-
-        return $role;
     }
 }

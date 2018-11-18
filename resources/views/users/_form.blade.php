@@ -14,15 +14,15 @@
 @endif
 {{-- /. Errors --}}
 
-<!-- User Name -->
+<!-- Name -->
 <div class="form-group {{ $errors->has('name') ? 'has-error' : null }}">
-	{!! Form::label('name', 'User Name:', ['class'=>'col-sm-2 control-label']) !!}
+	{!! Form::label('name', 'Name:', ['class'=>'col-sm-2 control-label']) !!}
 	<div class="col-sm-10">
-		{!! Form::input('text', 'name', null, ['class'=>'form-control', 'placeholder'=>'User Name']) !!}
+		{!! Form::input('text', 'name', null, ['class'=>'form-control', 'placeholder'=>'Name']) !!}
 	</div>
 	{{-- {!! $errors->first('name', '<span class="text-danger">:message</span>') !!} --}}
 </div>
-<!-- /. User Name -->
+<!-- /. Name -->
 
 <!-- User email -->
 <div class="form-group {{ $errors->has('email') ? 'has-error' : null }}">
@@ -71,11 +71,11 @@
 <div class="form-group {{ $errors->has('roles') ? 'has-error' : null }}">	
 	{!! Form::label('roles', 'Roles:', ['class'=>'col-sm-2 control-label']) !!}
 	<div class="col-sm-10">
-		@foreach ($rolesList as $role)			
+		@foreach ($user->rolesList as $role)			
 			<div class="checkbox">
 				<label>
 					{!! Form::checkbox('roles[]', $role->id, null, []) !!}
-					{{ $role->display_name }}
+					{{ $role->name }}
 				</label>
 			</div>
 		@endforeach

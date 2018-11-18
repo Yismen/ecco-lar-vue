@@ -7,7 +7,7 @@
          <div class="col-sm-6 col-sm-offset-3">
             <div class="box box-primary">
                 <div class="box-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/admin/login') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ route('admin.login') }}">
                         {!! csrf_field() !!}
 
                         <div class="col-sm-12">

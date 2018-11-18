@@ -9,6 +9,7 @@
 
         <!-- Sidebar user panel (optional) -->
         @if($user)
+
         <div class="user-panel">
             <div class="pull-left image">
                 @include('layouts.partials.user-photo', ['user'=>$user])
@@ -71,25 +72,29 @@
 
             <li class="header">APP</li>
             @if ($user)
-            @foreach ($user->rolesList as $role)
-            <li class="treeview">
-                <a href="#"><i class="fa fa-link"></i> <span>{{ $role->display_name }}</span>
-                    <i class="fa fa-angle-left pull-right"></i></a>
-                <ul class="treeview-menu">
-                    @foreach ($role->menus as $menu)
-                    <li>
-                        <a href="{{ url('admin/'.$menu->name) }}">
-                            <i class="{{ $menu->icon ?? 'fa fa-circle-o' }}">
+                @foreach ($user->rolesList as $role)
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-link"></i> 
+                            <span>{{ ucwords($role->name) }}</span>
+                            <i class="fa fa-angle-left pull-right"></i></a>
+                            <ul class="treeview-menu">
 
-                            </i> {{ $menu->display_name }}
+                                @foreach ($role->menus as $menu)
+                                    <li>
+                                        <a href="{{ url($menu->name) }}">
+                                            <i class="{{ $menu->icon ?? 'fa fa-circle-o' }}">
+
+                                            </i> {{ $menu->display_name }}
+                                        </a>
+                                    </li>
+                                @endforeach
+                                
+                            </ul>
                         </a>
                     </li>
-                    @endforeach
-                </ul>
-                </a>
-            </li>
 
-            @endforeach
+                @endforeach
             @endif
 
         </ul>

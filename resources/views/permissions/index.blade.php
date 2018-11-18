@@ -3,45 +3,51 @@
 
 @section('content')
 	<div class="container-fluid">
-		<div class="box box-primary pad">
-				<h3 class="page-header">
-					Permissions Items List
-				 	<a href="{{ route('admin.permissions.create') }}" class="pull-right">
-				 		<i class="fa fa-plus"></i>
-				 	</a>
-				</h3>
-			@if ($permissions->isEmpty())
-				<div class="bs-callout bs-callout-warning">
-					<h1>No permissions has been added yet, please add one</h1>
-				</div>
-			@else
-				<table class="table table-condensed table-hover table-striped">
-					<thead>
-						<tr>
-							<th>Permission Item</th>
-							<th>Description</th>
-							<th class="col-xs-3">
-								<a href="{{ route('admin.permissions.create') }}">
-							 		<i class="fa fa-plus"></i> Add
-							 	</a>
-							</th>
-						</tr>
-					</thead>
-					<tbody>
-						@foreach ($permissions as $permission)
-							<tr>
-								<td>
-									<a href="{{ route('admin.permissions.show', $permission->name) }}">{{ $permission->display_name }}</a>
-								</td>
-								<td>
-									{{ $permission->description }}
-								</td>
-								<td>
-									<div class="form-group">
-										<div class="col-sm-10 col-sm-offset-1">
+		<div class="row">
+			<div class="col-sm-10 col-sm-offset-1">
+				<div class="box box-primary pad">
+					<h3 class="page-header">
+						Permissions Items List
+						<a href="{{ route('admin.permissions.create') }}" class="pull-right">
+							<i class="fa fa-plus"></i> 
+							New Permission
+						</a>
+					</h3>
+					@if ($permissions->isEmpty())
+						<div class="bs-callout bs-callout-warning">
+							<h1>No permissions has been added yet, please add one</h1>
+						</div>
+					@else
+						<table class="table table-condensed table-hover table-striped">
+							<thead>
+								<tr>
+									<th>Resource</th>
+									<th>Name</th>
+									<th>Guard</th>
+									<th class="col-xs-3">Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach ($permissions as $permission)
+									<tr>
+										<td>{{ ucwords( str_replace(['_', '-'], ' ', $permission->resource) ) }}</td>
+										<td>
+											<a href="{{ route('admin.permissions.show', $permission->name) }}">
+												{{ ucwords( str_replace(['_', '-'], ' ', $permission->name) ) }}
+											</a>
+										</td>
+										<td>
+											{{ $permission->guard_name }}
+										</td>
+										<td>
+											<a href="{{ route('admin.permissions.edit', $permission->name) }}" class="btn btn-warning btn-xs">
+												<i class="fa fa-pencil"></i> 
+												Edit
+											</a>
 											<form 
 												action="{{ url('/admin/permissions', $permission->name) }}" 
-												method="POST" class="" 
+												method="POST" 
+												style="display:inline-block;" 
 												id="delete-form-{{ $permission->id }}"
 												onsubmit="submitForm(event, {{ $permission->id }})"
 											>
@@ -51,15 +57,16 @@
 													<i class="fa fa-btn fa-trash"></i> Remove
 												</button>
 											</form>
-										</div>
-									</div>
-								</td>
-							</tr>
-						@endforeach
-					</tbody>
-				</table>
-			@endif
+										</td>
+									</tr>
+								@endforeach
+							</tbody>
+						</table>
+					@endif
+				</div>
+			</div>
 		</div>
+		
 	</div>
 @stop
 

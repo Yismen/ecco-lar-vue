@@ -2,50 +2,28 @@
 
 namespace App;
 
-use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Role as EmpatieRole;
+use Illuminate\Support\Facades\Cache;
 
-class Role extends EntrustRole
+class Role extends EmpatieRole
 {
-    protected $fillable = ['name', 'display_name', 'description'];
+    protected $fillable = ['name', 'guard_name'];
     /**
      * Each role belongs to many menus
      *
      * @return [type] [description]
      */
 
-    /**
-     * ==========================================
-     * Relationships
-     */
     public function menus()
     {
         return $this->belongsToMany(Menu::class);
     }
 
-    public function users()
+
+    public function setNameAttribute($name)
     {
-        return $this->belongsToMany(User::class);
+        $this->attributes['name'] = strtolower(trim(str_slug($name)));
     }
-
-    public function perms()
-    {
-        return $this->belongsToMany(Permission::class);
-    }
-
-    /**
-     * ========================================
-     * Methods
-     */
-
-    /**
-     * ==========================================
-     * Scopes
-     */
-
-    /**
-     * ======================================
-     * Accessors
-     */
 
     /**
      * Get a list of the users associated with this role.
@@ -64,7 +42,7 @@ class Role extends EntrustRole
      */
     public function getPermissionsListAttribute()
     {
-        return $this->perms->pluck('id')->toArray();
+        return $this->permissions->pluck('id')->toArray();
     }
 
     /**
@@ -77,13 +55,48 @@ class Role extends EntrustRole
         return $this->menus->pluck('id')->toArray();
     }
 
-    /**
-     * =======================================
-     * Mutators
-     */
-    public function setDisplayNameAttribute($display_name)
+    public function createRole($request)
     {
-        $this->attributes['display_name'] = ucwords(str_replace(['.', '_', '-', '/'], ' ', $display_name));
-        $this->attributes['name'] = str_slug($display_name, $separator = '-');
+        $role = $this->create($request->only('name'));
+
+        Cache::forget('roles');
+        Cache::forget('menues_for_user_'.auth()->user()->id);
+
+        $this->syncRelations($role, $request);
+
+        return $role;
+    }
+
+    /**
+     * handle the process of creating the menu item
+     *
+     * @param  [object] $menu     [description]
+     * @param  [object] $request [description]
+     * @return [process]           [the action of syncing the menu-roles]
+     */
+    public function updateRole($request)
+    {
+        $this->update($request->all());
+
+        Cache::forget('roles');
+        Cache::forget('menues_for_user_'.auth()->user()->id);
+
+        return $this->syncRelations($this, $request);
+    }
+
+    /**
+     * sync the roles model with the array selected by the user
+     *
+     * @param  Menu   $menu  [description]
+     * @param  Array  $roles [description]
+     * @return [type]        [description]
+     */
+    protected function syncRelations($role, $request)
+    {
+        $role->users()->sync((array) $request->users_list);
+        $role->permissions()->sync((array) $request->input('permissions_list'));
+        $role->menus()->sync((array) $request->input('menus_list'));
+
+        return $role;
     }
 }

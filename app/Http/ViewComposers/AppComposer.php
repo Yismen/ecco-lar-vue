@@ -33,7 +33,8 @@ class AppComposer
     {
         if (Auth::check()) {
             return User::with(['roles' => function ($query) {
-                return $query->orderBy('display_name');
+                return $query;
+                // return $query->orderBy('display_name');
             }])
             ->with('profile')
             // ->with('settings')

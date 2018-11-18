@@ -8,7 +8,15 @@
                 <div class="box box-primary">
                     {!! Form::open(['route'=>['admin.menus.store'], 'method'=>'POST', 'class'=>'form-horizontal', 'role'=>'form']) !!}
 
-                        <div class="box-header with-border"><h4>New Menu Item</h4></div>            
+                        <div class="box-header with-border">
+                            <h4>
+                                New Menu Item                                
+                                <a href="{{ route('admin.menus.index') }}" class="pull-right">
+                                    <i class="fa fa-home"></i>
+                                        Return to List
+                                </a>
+                            </h4>
+                        </div>            
                         
                         <div class="box-body">
                             @include('menus._form')
@@ -21,13 +29,6 @@
                                     <br>
                                 </div>
                             </div>
-
-                            <div class="form-group">
-                                <div class="col-sm-12">
-                                    <a href="{{ route('admin.menus.index') }}"><i class="fa fa-angle-double-left"></i> Return to Menus List</a>
-                                </div>
-                            </div>
-                        </div>
 
                     {!! Form::close() !!}
                     

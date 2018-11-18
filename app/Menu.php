@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Cache;
 
 class Menu extends Model
 {
@@ -22,16 +23,85 @@ class Menu extends Model
 
     public function getRolesListAttribute()
     {
-        return $this->roles()->pluck('id')->toArray();
+        return $roles =  Role::pluck('name', 'id')->toArray();
     }
 
-    public function setNameAttribute($name)
-    {
-        return $this->attributes['name'] = str_slug($name, '_');
-    }
+    // public function setNameAttribute($name)
+    // {
+    //     return $this->attributes['name'] = str_slug($name, '-');
+    // }
 
     public function setDisplayNameAttribute($display_name)
     {
         return $this->attributes['display_name'] = ucwords($display_name);
+    }
+
+    public function addMenu($request)
+    {        
+        $name = $this->parseName($request);
+
+        if ($exists = $this->where('name', $request->name)->get()) {
+            foreach ($exists as $model) {
+                $model->delete();
+            }
+        }
+
+        $menu = $this->create($request->only(['name', 'display_name', 'description', 'icon']));
+
+        $this->createPermissions($name);
+
+        Cache::forget('menues_for_user_' . auth()->user()->id);
+
+        $menu->roles()->sync((array) $request->roles);
+
+        return $menu;
+    }
+
+    public function updateMenu($request)
+    {
+        $name = $this->parseName($request);
+
+        $this->update($request->only(['name', 'display_name', 'description', 'icon']));
+
+        Cache::forget('menues_for_user_' . auth()->user()->id);
+
+        $this->roles()->sync((array) $request->roles);
+
+        return $this;
+    }
+
+    private function parseName($request)
+    {
+        $name = str_slug($request->name);
+
+
+        if (starts_with($request->name, 'admin')) {
+            $name = str_slug(explode('admin', $name, 2)[1]);
+        }
+        
+        $request->merge(['name' => $name]);
+        if ($request->is_admin) {
+            $request->merge(['name' => 'admin/'. $request->name]);
+        }
+
+        // dd($request->all(), $name);
+
+        return $name;
+    }
+
+    private function createPermissions($name)
+    {        
+        $names = ['create', 'view', 'edit', 'destroy'];
+
+        foreach ($names as $key => $value) {
+            $new_name = $value.'-'.$name;
+
+            if (! Permission::where('name', $new_name)->first()) {
+                Permission::create([
+                    'name' => $new_name, 
+                    'resource' => $name
+                ]);
+            }
+        }
     }
 }

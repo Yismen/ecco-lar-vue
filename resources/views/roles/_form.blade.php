@@ -1,32 +1,12 @@
-<!-- Role Name -->
-{{-- <div class="form-group {{ $errors->has('name') ? 'has-error' : null }}">
-	{!! Form::label('name', 'Role Name:', ['class'=>'col-sm-2 control-label']) !!}
+<!-- Name -->
+<div class="form-group {{ $errors->has('name') ? 'has-error' : null }}">
+	{!! Form::label('name', ' Name:', ['class'=>'col-sm-2 control-label']) !!}
 	<div class="col-sm-10">
-		{!! Form::input('text', 'name', null, ['class'=>'form-control', 'placeholder'=>'Role Name']) !!}
+		{!! Form::input('text', 'name', null, ['class'=>'form-control', 'placeholder'=>'Name']) !!}
 		{!! $errors->first('name', '<span class="text-danger">:message</span>') !!}
 	</div>
-</div> --}}
-<!-- /. Role Name -->
-
-<!-- Display Name -->
-<div class="form-group {{ $errors->has('display_name') ? 'has-error' : null }}">
-	{!! Form::label('display_name', 'Display Name:', ['class'=>'col-sm-2 control-label']) !!}
-	<div class="col-sm-10">
-		{!! Form::input('text', 'display_name', null, ['class'=>'form-control', 'placeholder'=>'Display Name']) !!}
-		{!! $errors->first('display_name', '<span class="text-danger">:message</span>') !!}
-	</div>
 </div>
-<!-- /. Display Name -->
-
-<!-- Description -->
-<div class="form-group {{ $errors->has('description') ? 'has-error' : null }}">
-	{!! Form::label('description', 'Description:', ['class'=>'col-sm-2 control-label']) !!}
-	<div class="col-sm-10">
-		{!! Form::input('text', 'description', null, ['class'=>'form-control', 'placeholder'=>'Description']) !!}
-		{!! $errors->first('description', '<span class="text-danger">:message</span>') !!}
-	</div>
-</div>
-<!-- /. Description -->
+<!-- /. Name -->
 
 <!-- Users -->
 <div class="form-group {{ $errors->has('users_list') ? 'has-error' : null }}">

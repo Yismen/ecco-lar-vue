@@ -1,7 +1,6 @@
 <?php
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
-
 return [
     /*
     |--------------------------------------------------------------------------
@@ -31,7 +30,7 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['single'],
+            'channels' => ['daily'],
         ],
         'single' => [
             'driver' => 'single',
@@ -42,7 +41,7 @@ return [
             'driver' => 'daily',
             'path' => storage_path('logs/laravel.log'),
             'level' => 'debug',
-            'days' => 7,
+            'days' => 14,
         ],
         'slack' => [
             'driver' => 'slack',
@@ -52,7 +51,7 @@ return [
             'level' => 'critical',
         ],
         'papertrail' => [
-            'driver' => 'monolog',
+            'driver'  => 'monolog',
             'level' => 'debug',
             'handler' => SyslogUdpHandler::class,
             'handler_with' => [

@@ -77,7 +77,6 @@ $factory->define(App\Reason::class, function (Faker\Generator $faker) {
 $factory->define(App\Role::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->word,
-        'display_name' => $faker->word,
         'description' => $faker->sentence,
     ];
 });

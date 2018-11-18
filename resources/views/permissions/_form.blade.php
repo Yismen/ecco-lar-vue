@@ -8,129 +8,57 @@
 </div>
 <!-- /. Resource -->
 
-<!-- Permissions -->
-<div class="form-group {{ $errors->has('permission') ? 'has-error' : null }}">
-	{!! Form::label('permission', 'Permissions To:', ['class'=>'col-sm-2 control-label']) !!}
+<!-- Actions -->
+<div class="form-group {{ $errors->has('actions') ? 'has-error' : null }}">
+	{!! Form::label('actions', 'Actions:', ['class'=>'col-sm-2 control-label']) !!}
 	<div class="col-sm-10">
 		
 		<div class="btn-group" >
-			<label>				
-				{!! Form::checkbox('permission[]', 'all', null, []) !!}
+			<label class="text-primary" style="padding: 0 2.5em 0 0;">				
+				{!! Form::checkbox('actions[]', 'all', null, []) !!}
 				All
-			</label>
-			<label>				
-				{!! Form::checkbox('permission[]', 'view', null, []) !!}
-				View
-			</label>
-			<label>
-				{!! Form::checkbox('permission[]', 'create', null, []) !!}
-				Create
-			</label>
-			<label>
-				{!! Form::checkbox('permission[]', 'edit', null, []) !!}
-				Edit
-			</label>
-			<label>
-				{!! Form::checkbox('permission[]', 'destroy', null, []) !!}
-				Destroy
-			</label>
+			</label class="text-info">
+			<span style="border: gray solid 1px; padding: .25em; border-radius: .25em;">
+				<label>				
+					{!! Form::checkbox('actions[]', 'view', null, []) !!}
+					View
+				</label>
+				<label class="text-default">
+					{!! Form::checkbox('actions[]', 'create', null, []) !!}
+					Create
+				</label>
+				<label class="text-warning">
+					{!! Form::checkbox('actions[]', 'edit', null, []) !!}
+					Edit
+				</label>
+				<label class="text-danger">
+					{!! Form::checkbox('actions[]', 'destroy', null, []) !!}
+					Destroy
+				</label>
+			</span>
 		</div>
-		{!! $errors->first('permission', '<span class="text-danger">:message</span>') !!}
+		{!! $errors->first('actions', '<span class="text-danger">:message</span>') !!}
 	</div>
 		
 </div>
-<!-- /. Permissions -->
+<!-- /. Actions -->
 
 <!-- Roles -->
-<div class="form-group {{ $errors->has('roles_list') ? 'has-error' : null }}">
-	{!! Form::label('roles_list', 'Roles:', ['class'=>'col-sm-2 control-label']) !!}
+<div class="form-group {{ $errors->has('roles') ? 'has-error' : null }}">
+	{!! Form::label('roles', 'Roles:', ['class'=>'col-sm-2 control-label']) !!}
 	<div class="col-sm-10">
-		{!! Form::select('roles_list[]', $roles, null, ['class'=>'form-control', 'multiple'=>"multiple", 'id'=>'roles_list']) !!}
-		<span class="help-block">!! Select the roles that will be served with this Permission item:</span>
-		{!! $errors->first('roles_list', '<span class="text-danger">:message</span>') !!}
+		<div class="row">
+			@foreach ($permission->roles_list as $id => $role)								
+				<div class="col-sm-4">
+					<div class="checkbox">
+						<label>
+							{!! Form::checkbox('roles[]', $id, null, []) !!} 
+							{{ $role }}
+						</label>
+					</div>
+				</div>	
+			@endforeach
+		</div>									
 	</div>
 </div>
 <!-- /. Roles -->
-
-<!-- Permission Name -->
-<div class="form-group {{ $errors->has('name') ? 'has-error' : null }}">
-	{!! Form::label('name', 'Permission Name:', ['class'=>'col-sm-2 control-label']) !!}
-	<div class="col-sm-10">
-		{!! Form::input('text', 'name', null, ['class'=>'form-control', 'placeholder'=>'Permission Name']) !!}
-		{!! $errors->first('name', '<span class="text-danger">:message</span>') !!}
-	</div>
-</div>
-<!-- /. Permission Name -->
-
-<!-- Display Name -->
-<div class="form-group {{ $errors->has('display_name') ? 'has-error' : null }}">
-	{!! Form::label('display_name', 'Display Name:', ['class'=>'col-sm-2 control-label']) !!}
-	<div class="col-sm-10">
-		{!! Form::input('text', 'display_name', null, ['class'=>'form-control', 'placeholder'=>'Display Name']) !!}
-		{!! $errors->first('display_name', '<span class="text-danger">:message</span>') !!}
-	</div>
-</div>
-<!-- /. Display Name -->
-
-<!-- Description -->
-<div class="form-group {{ $errors->has('description') ? 'has-error' : null }}">
-	{!! Form::label('description', 'Description:', ['class'=>'col-sm-2 control-label']) !!}
-	<div class="col-sm-10">
-		{!! Form::input('text', 'description', null, ['class'=>'form-control', 'placeholder'=>'Description']) !!}
-		{!! $errors->first('description', '<span class="text-danger">:message</span>') !!}
-	</div>
-</div>
-<!-- /. Description -->
-
-<!-- Roles -->
-<div class="form-group {{ $errors->has('roles_list') ? 'has-error' : null }}">
-	{!! Form::label('roles_list', 'Roles:', ['class'=>'col-sm-2 control-label']) !!}
-	<div class="col-sm-10">
-		{!! Form::select('roles_list[]', $roles, null, ['class'=>'form-control', 'multiple'=>"multiple", 'id'=>'roles_list']) !!}
-		<span class="help-block">!! Select the roles that will be served with this Permission item:</span>
-		{!! $errors->first('roles_list', '<span class="text-danger">:message</span>') !!}
-	</div>
-</div>
-<!-- /. Roles -->
-
-{{--
-<!-- Permission Name -->
-<div class="form-group {{ $errors->has('name') ? 'has-error' : null }}">
-	{!! Form::label('name', 'Permission Name:', ['class'=>'col-sm-2 control-label']) !!}
-	<div class="col-sm-10">
-		{!! Form::input('text', 'name', null, ['class'=>'form-control', 'placeholder'=>'Permission Name']) !!} {!! $errors->first('name',
-		'<span class="text-danger">:message</span>') !!}
-	</div>
-</div>
-<!-- /. Permission Name -->
-
-<!-- Display Name -->
-<div class="form-group {{ $errors->has('display_name') ? 'has-error' : null }}">
-	{!! Form::label('display_name', 'Display Name:', ['class'=>'col-sm-2 control-label']) !!}
-	<div class="col-sm-10">
-		{!! Form::input('text', 'display_name', null, ['class'=>'form-control', 'placeholder'=>'Display Name']) !!} {!! $errors->first('display_name',
-		'<span class="text-danger">:message</span>') !!}
-	</div>
-</div>
-<!-- /. Display Name -->
-
-<!-- Description -->
-<div class="form-group {{ $errors->has('description') ? 'has-error' : null }}">
-	{!! Form::label('description', 'Description:', ['class'=>'col-sm-2 control-label']) !!}
-	<div class="col-sm-10">
-		{!! Form::input('text', 'description', null, ['class'=>'form-control', 'placeholder'=>'Description']) !!} {!! $errors->first('description',
-		'<span class="text-danger">:message</span>') !!}
-	</div>
-</div>
-<!-- /. Description -->
-
-<!-- Roles -->
-<div class="form-group {{ $errors->has('roles_list') ? 'has-error' : null }}">
-	{!! Form::label('roles_list', 'Roles:', ['class'=>'col-sm-2 control-label']) !!}
-	<div class="col-sm-10">
-		{!! Form::select('roles_list[]', $roles, null, ['class'=>'form-control', 'multiple'=>"multiple", 'id'=>'roles_list']) !!}
-		<span class="help-block">!! Select the roles that will be served with this Permission item:</span> {!! $errors->first('roles_list',
-		'<span class="text-danger">:message</span>') !!}
-	</div>
-</div>
-<!-- /. Roles -->--}}
