@@ -29,5 +29,8 @@
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "ajv": "^6.5.5",
+    "imagemin": "^5.3.1"
+  }
 }
