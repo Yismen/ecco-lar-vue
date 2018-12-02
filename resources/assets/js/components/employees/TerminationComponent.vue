@@ -11,15 +11,15 @@
 
         <form class="" role="form"
             @submit.prevent="terminate"
-            autocomplete="off" 
+            autocomplete="off"
             @change="updated">
-    
+
             <div class="box-body">
                 <div class="row">
-                    <div class="col-sm-6">                        
+                    <div class="col-sm-6">
                         <div class="form-group" :class="{'has-error': form.error.has('termination_date')}">
                             <label for="input" class="">Date:</label>
-                            <date-picker input-class="form-control input-sm" 
+                            <date-picker input-class="form-control input-sm"
                                 v-model="form.fields.termination_date"
                                 @updated="terminationDateUpdated"
                             ></date-picker>
@@ -35,7 +35,7 @@
                                 </select>
                                 <span class="text-danger" v-if="form.error.has('termination_type_id')">{{ form.error.get('termination_type_id') }}</span>
                             </div>
-                        </div> 
+                        </div>
                     </div>
                     <!-- ./Termination Type-->
                 </div>
@@ -45,7 +45,7 @@
                         <div class="form-group" :class="{'has-error': form.error.has('termination_reason_id')}">
                             <label for="input" class="">Termination Reason:</label>
                             <div class="">
-                                <select name="termination_reason_id" id="termination_reason_id" class="form-control input-sm" 
+                                <select name="termination_reason_id" id="termination_reason_id" class="form-control input-sm"
                                     v-model="form.fields.termination_reason_id">
                                     <option v-for="(termination_reason_id, index) in employee.termination_reason_list" :value="index" :key="termination_reason_id">{{ termination_reason_id }}</option>
                                 </select>
@@ -72,19 +72,22 @@
                                 </div>
                                 <span class="text-danger" v-if="form.error.has('can_be_rehired')">{{ form.error.get('can_be_rehired') }}</span>
                             </div>
-                        </div> 
+                        </div>
                     </div>
                     <!-- ./Can be Re-hired?-->
                 </div>
-                
+
                 <div class="row">
                     <div class="col-sm-6" :class="{'has-error': form.error.has('comments')}">
                         <div class="form-group" v-if="reasonIsOther">
                             <label for="input" class="">Comments:</label>
                             <div class="">
-                                <textarea id="comments" 
-                                name="comments" class="form-control input-sm" 
-                                v-model="form.fields.comments" rows="5"></textarea>
+                                <textarea
+                                    id="comments"
+                                    name="comments" class="form-control input-sm"
+                                    v-model="form.fields.comments" rows="5"
+                                    :required="reasonIsOther"
+                                ></textarea>
                                 <span class="text-danger" v-if="form.error.has('comments')">{{ form.error.get('comments') }}</span>
                             </div>
                         </div> <!-- ./Comments-->
@@ -97,7 +100,7 @@
                                     TERMINATE
                                 </button>
                                 <button type="submit" class="btn btn-warning" v-else>
-                                    UPDATE TERMINATION INFO 
+                                    UPDATE TERMINATION INFO
                                 </button>
                             </div>
                         </div>
@@ -160,7 +163,7 @@
                     this.employee.termination = response.data.termination;
                     this.form.fields = response.data.termination;
                 })
-        }, 
+        },
 
         reactivate(response) {
             this.isActive = true;
