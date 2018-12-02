@@ -57,21 +57,21 @@
     }
     .spinner>.one{
         border: 6px solid transparent;
-        border-top-color: rgba(0,0,0,0.35);
-        border-bottom-color: rgba(0,0,0,0.35);
+        border-top-color: rgba(0,0,0,.75);
+        border-bottom-color: rgba(0,0,0,.75);
         animation: rotate 2s ease infinite;
     }
     .spinner>.two{
-        border: 9px solid transparent;
-        border-top-color: rgba(0,0,0,0.35);
-        border-bottom-color: rgba(0,0,0,0.35);
-        animation: rotate 4s ease infinite;
+        border: 12px solid transparent;
+        border-top-color: rgba(0,0,0,.75);
+        border-bottom-color: rgba(0,0,0,.75);
+        animation: rotate 5s ease infinite;
     }
     .spinner>.three{
-        border: 12px solid transparent;
-        border-top-color: rgba(0,0,0,0.35);
-        border-bottom-color: rgba(0,0,0,0.35);
-        animation: rotate 7s ease infinite;
+        border: 9px solid transparent;
+        border-top-color: rgba(0,0,0,.75);
+        border-bottom-color: rgba(0,0,0,.75);
+        animation: rotate 4s ease infinite;
     }
     @keyframes rotate{
         from{-webkit-transform: rotate(-180deg);
