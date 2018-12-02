@@ -32,7 +32,7 @@ Route::post('employees/{employee}/punch', 'Employee\PunchController@update')
 Route::post('employees/{employee}/photo', 'Employee\PhotoController@update')
     ->name('employees.update-photo');
 
-Route::post('employees/{employee}/ars', 'Employee\ArsController@update')
+Route::put('employees/{employee}/ars', 'Employee\ArsController@update')
     ->name('employees.update-ars');
 
 Route::post('employees/{employee}/afp', 'Employee\AfpController@update')
@@ -70,7 +70,6 @@ Route::bind('employee', function ($id) {
         ->firstOrFail()
         ->append([
             'afp_list',
-            'ars_list',
             'banks_list',
             'departments_list',
             'genders_list',

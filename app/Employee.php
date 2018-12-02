@@ -23,11 +23,13 @@ class Employee extends Model
         'date_of_birth',
         'cellphone_number',
         'secondary_phone',
-        'gender_id',
-        'marital_id',
-        'has_kids',
         'position_id',
         'supervisor_id',
+        'gender_id',
+        'marital_id',
+        'ars_id',
+        'afp_id',
+        'has_kids',
         'photo',
     ];
     /**

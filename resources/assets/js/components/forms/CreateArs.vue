@@ -1,6 +1,6 @@
 <template>
     <div class="_create_positions">
-        <modal name="create-ars">
+        <modal name="create-ars" @opened="modalOpened">
              <form role="form" class="form-horizonal"
                 @submit.prevent="createNew"
                 autocomplete="off"
@@ -16,7 +16,7 @@
                             <label for="name" class="col-sm-2 control-label">Name:</label>
                                 <div class="col-sm-10">
                                     <div class="input-group">
-                                        <input type="text" id="name"
+                                        <input type="text" id="create-ars-name"
                                             name="name" class="form-control"
                                             v-model="form.fields.name"
                                         >
@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="box-footer">
-                    <button type="submit" class="btn btn-info">CREATE</button>
+                    <button type="submit" class="btn btn-primary">CREATE</button>
                 </div>
 
             </form>
@@ -55,10 +55,16 @@ export default {
             this.$modal.show('create-ars');
         },
 
+        modalOpened(e) {
+            e.ref.getElementsByTagName("input")[0].focus()
+        },
+
         createNew() {
             this.form.post('/api/arss', {})
                 .then(response => {
                     this.$emit('ars-created', response.data)
+                    this.form.fields.name = '';
+                    this.$swal('Nice!', 'The Ars '+response.data.name + ' was added!', 'success')
                     this.$modal.hide('create-ars');
                 })
         }

@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Ars;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class ArsController extends Controller
 {
@@ -19,12 +20,13 @@ class ArsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Ars $arss, Request $request)
+    public function index(Request $request)
     {
-        $arss = $arss
-            ->with(['employees' => function ($query) {
+        $arss = Cache::rememberForever('arss', function() {
+            return Ars::with(['employees' => function ($query) {
                 return $query->actives();
             }])->orderBy('name')->get();
+        });
 
         if ($request->ajax()) {
             return $arss;
@@ -52,13 +54,20 @@ class ArsController extends Controller
     public function store(Request $request, Ars $ars)
     {
         $this->validate($request, [
-            'name' => 'required|min:3|unique:ars,name'
+            'name' => 'required|min:3|unique:arss'
         ]);
 
         $ars = $ars->create($request->all());
 
+        Cache::forget('employees');
+        Cache::forget('arss');
+
+        if ($request->ajax()) {
+            return $ars;
+        }
+
         return redirect()->route('admin.ars.index')
-            ->withSuccess("AFP $ars->name created!");
+            ->withSuccess("ARS $ars->name created!");
     }
 
     /**
@@ -93,13 +102,13 @@ class ArsController extends Controller
     public function update(Request $request, Ars $ars)
     {
         $this->validate($request, [
-            'name' => 'required|min:3|unique:ars,name,' . $ars->id
+            'name' => 'required|min:3|unique:arss,name,' . $ars->id
         ]);
 
         $ars->update($request->only(['name']));
 
         return redirect()->route('admin.ars.index')
-            ->withSuccess("AFP $ars->name Updated!");
+            ->withSuccess("ARS $ars->name Updated!");
     }
 
     /**
@@ -113,6 +122,6 @@ class ArsController extends Controller
         $ars->delete();
 
         return redirect()->route('admin.ars.index')
-            ->withDanger("AFP $ars->name have been eliminated!");
+            ->withDanger("ARS $ars->name have been eliminated!");
     }
 }

@@ -16,9 +16,9 @@
                     <div class="col-sm-10">
                         <div class="input-group">
                             <select name="ars_id" id="ars_id" class="form-control" v-model="form.fields.ars_id">
-                                <option v-for="(ars_id, index) in employee.ars_list" :value="index" :key="ars_id">{{ ars_id }}</option>
+                                <option v-for="(ars, index) in ars_list" :value="ars.id" :key="ars.id">{{ ars.name }}</option>
                             </select>
-                            <a href="#" @click.prevent="$modal.show('create-ars')" class="imput-group-addon">
+                            <a href="#" @click.prevent="$modal.show('create-ars')" class="input-group-addon">
                                 <i class="fa fa-plus"></i> Add
                             </a>
                         </div>
@@ -37,7 +37,7 @@
                 </div>
             </div>
         </form>
-        <create-ars-form></create-ars-form>
+        <create-ars-form @ars-created="arsCreated"></create-ars-form>
         <!-- ./ Modal -->
     </div>
 </template>
@@ -50,6 +50,7 @@ name: 'ARSComponent',
 
 data () {
     return {
+        ars_list: [],
         form: new (this.$ioc.resolve('Form')) ({
             'ars_id': this.employee.ars ? this.employee.ars.id : '',
         }, false)
@@ -60,6 +61,11 @@ props: {
     employee: {}
 },
 
+mounted() {
+    axios.get('/api/arss')
+        .then(response => this.ars_list = response.data)
+},
+
 components: {CreateArsForm },
 
 methods: {
@@ -67,11 +73,14 @@ methods: {
         this.form.error.clear(event.target.name)
     },
     handleUpdateArs() {
-        this.form.post('/admin/employees/' +this.employee.id+ '/ars')
+        this.form.put('/admin/employees/' + this.employee.id + '/ars')
             .then(response => {
                 this.employee.ars = response.data.ars;
                 return this.form.fields.ars_id = response.data.ars.id
             })
+    },
+    arsCreated(data) {
+        return this.ars_list.unshift(data)
     }
 }
 };

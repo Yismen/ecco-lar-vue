@@ -1935,6 +1935,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     data: function data() {
         return {
+            ars_list: [],
             form: new (this.$ioc.resolve('Form'))({
                 'ars_id': this.employee.ars ? this.employee.ars.id : ''
             }, false)
@@ -1946,6 +1947,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         employee: {}
     },
 
+    mounted: function mounted() {
+        var _this = this;
+
+        axios.get('/api/arss').then(function (response) {
+            return _this.ars_list = response.data;
+        });
+    },
+
+
     components: { CreateArsForm: __WEBPACK_IMPORTED_MODULE_0__forms_CreateArs___default.a },
 
     methods: {
@@ -1953,12 +1963,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.form.error.clear(event.target.name);
         },
         handleUpdateArs: function handleUpdateArs() {
-            var _this = this;
+            var _this2 = this;
 
-            this.form.post('/admin/employees/' + this.employee.id + '/ars').then(function (response) {
-                _this.employee.ars = response.data.ars;
-                return _this.form.fields.ars_id = response.data.ars.id;
+            this.form.put('/admin/employees/' + this.employee.id + '/ars').then(function (response) {
+                _this2.employee.ars = response.data.ars;
+                return _this2.form.fields.ars_id = response.data.ars.id;
             });
+        },
+        arsCreated: function arsCreated(data) {
+            return this.ars_list.unshift(data);
         }
     }
 });
@@ -3641,11 +3654,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         showModal: function showModal() {
             this.$modal.show('create-ars');
         },
+        modalOpened: function modalOpened(e) {
+            e.ref.getElementsByTagName("input")[0].focus();
+        },
         createNew: function createNew() {
             var _this = this;
 
             this.form.post('/api/arss', {}).then(function (response) {
                 _this.$emit('ars-created', response.data);
+                _this.form.fields.name = '';
+                _this.$swal('Nice!', 'The Ars ' + response.data.name + ' was added!', 'success');
                 _this.$modal.hide('create-ars');
             });
         }
@@ -8639,7 +8657,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -8654,7 +8672,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -57019,96 +57037,104 @@ var render = function() {
     "div",
     { staticClass: "_create_positions" },
     [
-      _c("modal", { attrs: { name: "create-ars" } }, [
-        _c(
-          "form",
-          {
-            staticClass: "form-horizonal",
-            attrs: { role: "form", autocomplete: "off" },
-            on: {
-              submit: function($event) {
-                $event.preventDefault()
-                return _vm.createNew($event)
+      _c(
+        "modal",
+        { attrs: { name: "create-ars" }, on: { opened: _vm.modalOpened } },
+        [
+          _c(
+            "form",
+            {
+              staticClass: "form-horizonal",
+              attrs: { role: "form", autocomplete: "off" },
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.createNew($event)
+                }
               }
-            }
-          },
-          [
-            _c("div", { staticClass: "box-header with-border" }, [
-              _c("h4", [_vm._v("Create Ars")])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "box-body" }, [
-              _c(
-                "div",
-                {
-                  staticClass: "form-group",
-                  class: { "has-error": _vm.form.error.has("name") }
-                },
-                [
-                  _c("div", {}, [
-                    _c(
-                      "label",
-                      {
-                        staticClass: "col-sm-2 control-label",
-                        attrs: { for: "name" }
-                      },
-                      [_vm._v("Name:")]
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-sm-10" }, [
-                      _c("div", { staticClass: "input-group" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.fields.name,
-                              expression: "form.fields.name"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "text", id: "name", name: "name" },
-                          domProps: { value: _vm.form.fields.name },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.form.fields,
-                                "name",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "input-group-addon" }, [
-                          _c("i", { staticClass: "fa fa-flag" })
-                        ])
-                      ]),
+            },
+            [
+              _c("div", { staticClass: "box-header with-border" }, [
+                _c("h4", [_vm._v("Create Ars")])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "box-body" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "form-group",
+                    class: { "has-error": _vm.form.error.has("name") }
+                  },
+                  [
+                    _c("div", {}, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-sm-2 control-label",
+                          attrs: { for: "name" }
+                        },
+                        [_vm._v("Name:")]
+                      ),
                       _vm._v(" "),
-                      _vm.form.error.has("name")
-                        ? _c("span", { staticClass: "text-danger" }, [
-                            _vm._v(_vm._s(_vm.form.error.get("name")))
+                      _c("div", { staticClass: "col-sm-10" }, [
+                        _c("div", { staticClass: "input-group" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.fields.name,
+                                expression: "form.fields.name"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              id: "create-ars-name",
+                              name: "name"
+                            },
+                            domProps: { value: _vm.form.fields.name },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form.fields,
+                                  "name",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "input-group-addon" }, [
+                            _c("i", { staticClass: "fa fa-flag" })
                           ])
-                        : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _vm.form.error.has("name")
+                          ? _c("span", { staticClass: "text-danger" }, [
+                              _vm._v(_vm._s(_vm.form.error.get("name")))
+                            ])
+                          : _vm._e()
+                      ])
                     ])
-                  ])
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "box-footer" }, [
-              _c(
-                "button",
-                { staticClass: "btn btn-info", attrs: { type: "submit" } },
-                [_vm._v("CREATE")]
-              )
-            ])
-          ]
-        )
-      ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "box-footer" }, [
+                _c(
+                  "button",
+                  { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+                  [_vm._v("CREATE")]
+                )
+              ])
+            ]
+          )
+        ]
+      )
     ],
     1
   )
@@ -57206,11 +57232,11 @@ var render = function() {
                           }
                         }
                       },
-                      _vm._l(_vm.employee.ars_list, function(ars_id, index) {
+                      _vm._l(_vm.ars_list, function(ars, index) {
                         return _c(
                           "option",
-                          { key: ars_id, domProps: { value: index } },
-                          [_vm._v(_vm._s(ars_id))]
+                          { key: ars.id, domProps: { value: ars.id } },
+                          [_vm._v(_vm._s(ars.name))]
                         )
                       })
                     ),
@@ -57218,7 +57244,7 @@ var render = function() {
                     _c(
                       "a",
                       {
-                        staticClass: "imput-group-addon",
+                        staticClass: "input-group-addon",
                         attrs: { href: "#" },
                         on: {
                           click: function($event) {
@@ -57248,7 +57274,7 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _c("create-ars-form")
+      _c("create-ars-form", { on: { "ars-created": _vm.arsCreated } })
     ],
     1
   )
