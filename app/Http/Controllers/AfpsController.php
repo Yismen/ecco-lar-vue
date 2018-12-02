@@ -121,9 +121,16 @@ class AfpsController extends Controller
      * @param  int  Afp $afp
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Afp $afp)
+    public function destroy(Afp $afp, Request $request)
     {
+        Cache::forget('employees');
+        Cache::forget('afps');
+
         $afp->delete();
+
+        if ($request->ajax()) {
+            return $afp;
+        }
 
         return redirect()->route('admin.afps.index')
             ->withDanger("AFP $afp->name have been eliminated!");

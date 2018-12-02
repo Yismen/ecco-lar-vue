@@ -28,14 +28,10 @@
 	        {!! Form::close() !!}
 
 	        <div class="box-footer">
-	        	<form action="{{ url('/admin/afps', $afp->slug) }}" method="POST" class="" style="display: inline-block;">
-		            {!! csrf_field() !!}
-		            {!! method_field('DELETE') !!}
-
-		            <button type="submit" id="delete-afp" class="btn btn-danger"  name="deleteBtn">
-		                <i class="fa fa-btn fa-trash"></i> Delete
-		            </button>
-		        </form>
+	        	<delete-request-button
+	        		url="{{ route('admin.afps.destroy', $afp->slug) }}"
+	        		redirect-url="{{ route('admin.afps.index') }}"
+	        	></delete-request-button>
 	        </div>
 
 		</div>
