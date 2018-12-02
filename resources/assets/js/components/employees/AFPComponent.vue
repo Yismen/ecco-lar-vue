@@ -18,9 +18,7 @@
                             <select name="afp_id" id="afp_id" class="form-control" v-model="form.fields.afp_id">
                                 <option v-for="(afp, index) in afp_list" :value="afp.id" :key="afp.id">{{ afp.name }}</option>
                             </select>
-                            <a href="#" @click.prevent="$modal.show('create-afp')" class="input-group-addon">
-                                <i class="fa fa-plus"></i> Add
-                            </a>
+                            <add-button class="input-group-addon" modal-name="create-afp"></add-button>
                         </div>
                         <span class="text-danger" v-if="form.error.has('afp_id')">{{ form.error.get('afp_id') }}</span>
                     </div>

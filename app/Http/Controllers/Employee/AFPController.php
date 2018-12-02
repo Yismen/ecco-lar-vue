@@ -22,10 +22,10 @@ class AFPController extends Controller
             'afp_id' => 'required|exists:afps,id',
         ]);
 
-        $employee->update($request->only('afp_id'));
-
         Cache::forget('employees');
         Cache::forget('afps');
+
+        $employee->update($request->only('afp_id'));
 
         return $employee->load('afp');
     }
