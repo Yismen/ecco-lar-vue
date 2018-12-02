@@ -86,6 +86,7 @@ Vue.component( 'passport-authorized-clients', require('./components/passport/Aut
 Vue.component( 'passport-personal-access-tokens', require('./components/passport/PersonalAccessTokens.vue') );
 Vue.component('create-position', require('./components/employees/positions/Create'))
 Vue.component('add-button', require('./components/links/AddButton'))
+Vue.component('delete-request-button', require('./components/DeleteRequest'))
 Vue.component('create-afp-form', require('./components/forms/CreateAfp'))
 Vue.component('flash-message', require('./components/FlashMessage'))
 Vue.component('employee-edit', require('./components/employees/Edit'));
