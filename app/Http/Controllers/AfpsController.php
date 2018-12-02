@@ -126,6 +126,14 @@ class AfpsController extends Controller
         Cache::forget('employees');
         Cache::forget('afps');
 
+        if ($afp->employees->count()) {
+            if ($request->ajax()) {
+                return abort(403, "AFP $afp->name has employees therefore it can't be deleted!");
+            }
+            return redirect()->back()
+                ->withDanger("AFP $afp->name has employees therefore it can't be deleted!");
+        }
+
         $afp->delete();
 
         if ($request->ajax()) {

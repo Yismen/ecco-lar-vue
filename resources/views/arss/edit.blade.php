@@ -29,14 +29,10 @@
             {!! Form::close() !!}
 
             <div class="box-footer">
-                <form action="{{  route('admin.arss.destroy', $ars->slug) }}" method="POST" class="" style="display: inline-block;">
-                    {!! csrf_field() !!}
-                    {!! method_field('DELETE') !!}
-
-                    <button type="submit" id="delete-ars" class="btn btn-danger"  name="deleteBtn">
-                        <i class="fa fa-btn fa-trash"></i> Delete
-                    </button>
-                </form>
+                <delete-request-button
+                    url="{{ route('admin.arss.destroy', $ars->slug) }}"
+                    redirect-url="{{ route('admin.arss.index') }}"
+                ></delete-request-button>
             </div>
 
         </div>

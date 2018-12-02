@@ -12,6 +12,7 @@ Vue.use(Vuec);
 Vue.$ioc.register('Form', require('./vendor/dainsys-form').default);
 import Datepicker from 'vuejs-datepicker'
 Vue.$ioc.register('Datepicker', Datepicker);
+Vue.$ioc.register('bootbox', require('bootbox'));
 
 /**
  * Register Sweet Alert (sweetalert) globally.

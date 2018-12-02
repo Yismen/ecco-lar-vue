@@ -120,17 +120,24 @@ class ArsController extends Controller
      * @param  int  Ars $ars
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Ars $ars)
+    public function destroy(Ars $ars, Request $request)
     {
         Cache::forget('employees');
         Cache::forget('arss');
 
         if ($ars->employees->count()) {
+            if ($request->ajax()) {
+                return abort(403, "ARS $ars->name has employees therefore it can't be deleted!");
+            }
             return redirect()->back()
                 ->withDanger("ARS $ars->name has employees therefore it can't be deleted!");
         }
 
         $ars->delete();
+
+        if ($request->ajax()) {
+            return response($ars);
+        }
 
         return redirect()->route('admin.arss.index')
             ->withWarning("ARS $ars->name have been eliminated!");

@@ -21,6 +21,17 @@ axios.interceptors.response.use(function (response) {
     return response;
 }, function (error) {
     // Do something with response error
+    let response = error.response;
+    if(response.status == 403) {
+        Vue.swal({
+            type: 'error',
+            title: 'Rejected',
+            text: response.data.message
+        })
+    }
+    if(response.status == 405) {
+        return window.location.assign(response.responseURL)
+    }
     Store.dispatch("loading/hideLoadingSpinner");
     return Promise.reject(error);
 });
