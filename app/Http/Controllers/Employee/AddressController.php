@@ -1,6 +1,6 @@
 <?php
 
-namespace Http\Controllers\Employee;
+namespace App\Http\Controllers\Employee;
 
 use App\Employee;
 use Illuminate\Http\Request;
@@ -18,14 +18,14 @@ class AddressController extends Controller
      */
     public function update(Employee $employee, Request $request)
     {
-    $this->validate($request, [
+        $this->validate($request, [
             'sector' => 'required|min:3',
             'street_address' => 'required|min:3',
             'city' => 'required|min:3',
         ]);
 
         $employee->address()->updateOrCreate($request->only(['sector', 'street_address', 'city']));
-        
+
         Cache::forget('employees');
         Cache::forget('addresses');
 
