@@ -19,26 +19,26 @@
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
 </template>
 
 <script>
     import DoughnutChart from '../../../charts/DoughnutChart'
-    import {API} from '../../../../utilities/config'
+    import {API} from '../../../../config/config'
     export default {
         name: "Dashboard",
         data() {
             return {
                 employees: 0,
                 datasets: [ { label: "Users Activities", data: [8, 15], backgroundColor: [
-                        "rgba(150, 45, 25, 1)", 
+                        "rgba(150, 45, 25, 1)",
                         "rgba(30, 200, 90, 1)",
                         "rgba(200, 35, 150, 1)",
-                    ] }], 
+                    ] }],
                 labels: ["Label1", "label2"],
                 options: {legend: {display: false}},
                 colors:  [
-                        "rgba(150, 45, 25, 1)", 
+                        "rgba(150, 45, 25, 1)",
                         "rgba(30, 200, 90, 1)",
                         "rgba(200, 35, 150, 1)",
                         "rgba(200, 35, 150, 1)",
@@ -74,7 +74,7 @@
                             colors.push(vm.colors[index])
                         })
                         vm.datasets = [{ label: "Users Activities", data: data, backgroundColor: colors }]
-                        
+
                         // console.log(vm.datasets, vm.labels)
                     })
             }
