@@ -1,5 +1,6 @@
 <template>
     <div class="_create_positions">
+
         <modal name="create-afp" @opened="modalOpened">
              <form role="form" class="form-horizonal"
                 @submit.prevent="createNew"

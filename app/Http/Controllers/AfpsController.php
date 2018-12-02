@@ -33,7 +33,7 @@ class AfpsController extends Controller
             return $afps;
         }
 
-        return view('afp.index', compact('afps'));
+        return view('afps.index', compact('afps'));
     }
 
     /**
@@ -43,7 +43,7 @@ class AfpsController extends Controller
      */
     public function create()
     {
-        //
+        return view('afps.create');
     }
 
     /**
@@ -58,8 +58,8 @@ class AfpsController extends Controller
             'name' => 'required|min:3|unique:afps,name'
         ]);
 
-        // Cache:forget('employees');
-        // Cache:forget('afps');
+        Cache::forget('employees');
+        Cache::forget('afps');
 
         $afp = Afp::create($request->only('name'));
 
@@ -79,7 +79,7 @@ class AfpsController extends Controller
      */
     public function show(Afp $afp)
     {
-        return view('afp.show', compact('afp'));
+        return view('afps.show', compact('afp'));
     }
 
     /**
@@ -90,7 +90,7 @@ class AfpsController extends Controller
      */
     public function edit(Afp $afp)
     {
-        return view('afp.edit', compact('afp'));
+        return view('afps.edit', compact('afp'));
     }
 
     /**
@@ -105,6 +105,9 @@ class AfpsController extends Controller
         $this->validate($request, [
             'name' => 'required|min:3|unique:afps,name,' . $afp->id
         ]);
+
+        Cache::forget('employees');
+        Cache::forget('afps');
 
         $afp->update($request->only(['name']));
 

@@ -8,9 +8,9 @@
                 <div class="box box-primary pad">
                     <div class="box-header with-boarder">Details for AFP {{ $afp->name }} </div>
                     <div class="box-body">
-                        
+
                         <div class="info-box">
-                            <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
+                            <span class="info-box-icon bg-yellow"><i class="fa fa-star"></i></span>
 
                             <div class="info-box-content">
                                 <span class="info-box-text">
