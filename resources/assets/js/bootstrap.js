@@ -2,12 +2,12 @@ window.Vue = require('vue');
 window._ = require('lodash');
 window.Popper = require('popper.js').default;
 
-/** 
+/**
 * Dependencies Management with vue-comtainer
 * Usage: Vue.$ioc.register('Axios', Axios); to Register or this.$ioc.resolve('Axios'); to resolve de dependency
 * Documentation: Vue.$ioc.register('Axios', Axios);
 */
-import Vuec from 'vue-container'; 
+import Vuec from 'vue-container';
 Vue.use(Vuec);
 Vue.$ioc.register('Form', require('./vendor/dainsys-form').default);
 import Datepicker from 'vuejs-datepicker'
@@ -38,7 +38,7 @@ try {
  * Usage: <modal name="hello-world">hello, world!</modal>
  * Documentation: https://www.npmjs.com/package/vue-js-modal
  */
-import VModal from 'vue-js-modal' 
+import VModal from 'vue-js-modal'
 Vue.use(VModal)
 
 
@@ -69,7 +69,7 @@ if (token) {
 } else {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
-require('./utilities/interceptors')
+require('./config/interceptors')
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
@@ -77,7 +77,7 @@ require('./utilities/interceptors')
  * allows your team to easily build robust real-time web applications.
  */
 
-/** 
+/**
 * Here global components are registered
 */
 Vue.component('loading-component', require('./components/LoadingComponent.vue'));

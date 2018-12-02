@@ -8609,7 +8609,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.spinner[data-v-0254f0d8]{\n    height: 150px;\n    width: 150px;\n    position: fixed;\n    top: 0;\n    bottom: 0;\n    left: 0;\n    right: 0;\n    margin: auto;\n    z-index: 1000;\n}\n/* Transparent Overlay */\n.spinner[data-v-0254f0d8]:before {\n    content: '';\n    display: block;\n    position: fixed;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0,0,0,0.1);\n}\n.inner[data-v-0254f0d8]{\n    height: 150px;\n    width: 150px;\n    display: block;\n    position: absolute;\n    border-radius: 100%;\n    opacity: 0.7;\n    -webkit-box-sizing: border-box;\n            box-sizing: border-box;\n}\n.spinner>.one[data-v-0254f0d8]{\n    border: 6px solid transparent;\n    border-top-color: #27ae60;\n    border-bottom-color: #27ae60;\n    -webkit-animation: rotate-data-v-0254f0d8 2s ease infinite;\n            animation: rotate-data-v-0254f0d8 2s ease infinite;\n}\n.spinner>.two[data-v-0254f0d8]{\n    border: 9px solid transparent;\n    border-top-color: #d35400;\n    border-bottom-color: #d35400;\n    -webkit-animation: rotate-data-v-0254f0d8 4s ease infinite;\n            animation: rotate-data-v-0254f0d8 4s ease infinite;\n}\n.spinner>.three[data-v-0254f0d8]{\n    border: 12px solid transparent;\n    border-top-color: #8e44ad;\n    border-bottom-color: #8e44ad;\n    -webkit-animation: rotate-data-v-0254f0d8 7s ease infinite;\n            animation: rotate-data-v-0254f0d8 7s ease infinite;\n}\n@-webkit-keyframes rotate-data-v-0254f0d8{\nfrom{-webkit-transform: rotate(-180deg);\n        transform: rotate(-180deg);\n};\nto{-webkit-transform: rotate(360deg);\n        transform: rotate(360deg);\n}\n}\n@keyframes rotate-data-v-0254f0d8{\nfrom{-webkit-transform: rotate(-180deg);\n        transform: rotate(-180deg);\n};\nto{-webkit-transform: rotate(360deg);\n        transform: rotate(360deg);\n}\n}\n", ""]);
+exports.push([module.i, "\n.spinner[data-v-0254f0d8]{\n    height: 150px;\n    width: 150px;\n    position: fixed;\n    top: 0;\n    bottom: 0;\n    left: 0;\n    right: 0;\n    margin: auto;\n    z-index: 1000;\n}\n/* Transparent Overlay */\n.spinner[data-v-0254f0d8]:before {\n    content: '';\n    display: block;\n    position: fixed;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0,0,0,0.1);\n}\n.inner[data-v-0254f0d8]{\n    height: 150px;\n    width: 150px;\n    display: block;\n    position: absolute;\n    border-radius: 100%;\n    opacity: 0.7;\n    -webkit-box-sizing: border-box;\n            box-sizing: border-box;\n}\n.spinner>.one[data-v-0254f0d8]{\n    border: 6px solid transparent;\n    border-top-color: rgba(0,0,0,0.35);\n    border-bottom-color: rgba(0,0,0,0.35);\n    -webkit-animation: rotate-data-v-0254f0d8 2s ease infinite;\n            animation: rotate-data-v-0254f0d8 2s ease infinite;\n}\n.spinner>.two[data-v-0254f0d8]{\n    border: 9px solid transparent;\n    border-top-color: rgba(0,0,0,0.35);\n    border-bottom-color: rgba(0,0,0,0.35);\n    -webkit-animation: rotate-data-v-0254f0d8 4s ease infinite;\n            animation: rotate-data-v-0254f0d8 4s ease infinite;\n}\n.spinner>.three[data-v-0254f0d8]{\n    border: 12px solid transparent;\n    border-top-color: rgba(0,0,0,0.35);\n    border-bottom-color: rgba(0,0,0,0.35);\n    -webkit-animation: rotate-data-v-0254f0d8 7s ease infinite;\n            animation: rotate-data-v-0254f0d8 7s ease infinite;\n}\n@-webkit-keyframes rotate-data-v-0254f0d8{\nfrom{-webkit-transform: rotate(-180deg);\n        transform: rotate(-180deg);\n};\nto{-webkit-transform: rotate(360deg);\n        transform: rotate(360deg);\n}\n}\n@keyframes rotate-data-v-0254f0d8{\nfrom{-webkit-transform: rotate(-180deg);\n        transform: rotate(-180deg);\n};\nto{-webkit-transform: rotate(360deg);\n        transform: rotate(360deg);\n}\n}\n", ""]);
 
 // exports
 
@@ -57172,7 +57172,7 @@ var render = function() {
                 ),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-sm-10" }, [
-                  _c("div", { staticClass: "imput-group" }, [
+                  _c("div", { staticClass: "input-group" }, [
                     _c(
                       "select",
                       {
@@ -57218,6 +57218,7 @@ var render = function() {
                     _c(
                       "a",
                       {
+                        staticClass: "imput-group-addon",
                         attrs: { href: "#" },
                         on: {
                           click: function($event) {
@@ -76072,7 +76073,7 @@ window.Vue = __webpack_require__("./node_modules/vue/dist/vue.common.js");
 window._ = __webpack_require__("./node_modules/lodash/lodash.js");
 window.Popper = __webpack_require__("./node_modules/popper.js/dist/esm/popper.js").default;
 
-/** 
+/**
 * Dependencies Management with vue-comtainer
 * Usage: Vue.$ioc.register('Axios', Axios); to Register or this.$ioc.resolve('Axios'); to resolve de dependency
 * Documentation: Vue.$ioc.register('Axios', Axios);
@@ -76138,7 +76139,7 @@ if (token) {
 } else {
   console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
-__webpack_require__("./resources/assets/js/utilities/interceptors.js");
+__webpack_require__("./resources/assets/js/config/interceptors.js");
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
@@ -76146,7 +76147,7 @@ __webpack_require__("./resources/assets/js/utilities/interceptors.js");
  * allows your team to easily build robust real-time web applications.
  */
 
-/** 
+/**
 * Here global components are registered
 */
 Vue.component('loading-component', __webpack_require__("./resources/assets/js/components/LoadingComponent.vue"));
@@ -77522,6 +77523,41 @@ module.exports = Component.exports
 
 /***/ }),
 
+/***/ "./resources/assets/js/config/interceptors.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__("./resources/assets/js/store/index.js");
+
+// import bootbox from 'bootbox';
+
+axios.interceptors.request.use(function (config) {
+    /**
+     * Shodo the The Spinner
+     */
+    __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */].dispatch("loading/showLoadingSpinner");
+    /**
+     * Continue with the request
+     */
+    return config;
+}, function (error) {
+    __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */].dispatch("loading/hideLoadingSpinner");
+    // Do something with request error
+    return Promise.reject(error);
+});
+
+axios.interceptors.response.use(function (response) {
+    __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */].dispatch("loading/hideLoadingSpinner");
+    return response;
+}, function (error) {
+    // Do something with response error
+    __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */].dispatch("loading/hideLoadingSpinner");
+    return Promise.reject(error);
+});
+
+/***/ }),
+
 /***/ "./resources/assets/js/store/index.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -77710,41 +77746,6 @@ var mutations = {
     getters: getters,
     actions: actions,
     mutations: mutations
-});
-
-/***/ }),
-
-/***/ "./resources/assets/js/utilities/interceptors.js":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__("./resources/assets/js/store/index.js");
-
-// import bootbox from 'bootbox';
-
-axios.interceptors.request.use(function (config) {
-    /**
-     * Shodo the The Spinner
-     */
-    __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */].dispatch("loading/showLoadingSpinner");
-    /**
-     * Continue with the request
-     */
-    return config;
-}, function (error) {
-    __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */].dispatch("loading/hideLoadingSpinner");
-    // Do something with request error
-    return Promise.reject(error);
-});
-
-axios.interceptors.response.use(function (response) {
-    __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */].dispatch("loading/hideLoadingSpinner");
-    return response;
-}, function (error) {
-    // Do something with response error
-    __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */].dispatch("loading/hideLoadingSpinner");
-    return Promise.reject(error);
 });
 
 /***/ }),

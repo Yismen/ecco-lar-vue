@@ -1,12 +1,12 @@
 <template>
     <div>
 
-        <modal :show="createDepartmentModal" 
+        <modal :show="createDepartmentModal"
             @modal-hidden="createDepartmentModal = false"
             @modal-submitted="createDepartment()"
         >
             <h4 slot="modal-title">Create Department</h4>
-            
+
             <div class="form-group">
                 <label for="inputdepartment" class="col-sm-2 control-label">Department:</label>
                 <div class="col-sm-10">
@@ -14,15 +14,15 @@
                     <span class="help-text text-danger" v-if="errors['department']">{{ errors['department'][0] }}</span>
                 </div>
             </div>
-            
+
         </modal>
 
-        <modal :show="createPFrequencyModal" 
+        <modal :show="createPFrequencyModal"
             @modal-hidden="createPFrequencyModal = false"
             @modal-submitted="createPFrequency()"
         >
             <h4 slot="modal-title">Create Paymen Frequency</h4>
-            
+
             <div class="form-group">
                 <label for="inputfrequency" class="col-sm-2 control-label">Frequency:</label>
                 <div class="col-sm-10">
@@ -32,14 +32,14 @@
             </div>
         </modal>
 
-        <modal :show="createPTypeModal" 
+        <modal :show="createPTypeModal"
             @modal-hidden="createPTypeModal = false"
             @modal-submitted="createPType()"
         >
             <h3>Create Type</h3>
         </modal>
-        
-        
+
+
         <form action=""  class="form-horizontal" role="form" @submit.prevent="submitForm">
             <div class="row">
                 <div class="col-sm-6">
@@ -64,8 +64,8 @@
                                         <i class="fa fa-plus"></i>
                                     </button>
                                 </div>
-                            </div>	
-                            <span class="help-text text-danger" v-if="errors['department_id']">{{ errors['department_id'][0] }}</span>                            
+                            </div>
+                            <span class="help-text text-danger" v-if="errors['department_id']">{{ errors['department_id'][0] }}</span>
                         </div>
                     </div>
                 </div>
@@ -85,7 +85,7 @@
                                 </span>
                             </div>
                             <span class="help-text text-danger" v-if="errors['payment_frequency_id']">{{ errors['payment_frequency_id'][0] }}</span>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -97,11 +97,11 @@
                             <div class="input-group">
                                 <select class="form-control" required v-model="form.payment_type_id">
                                     <option v-for="(type, index) in payment_types" :key="index" :value="type.id">{{ type.name }}</option>
-                                </select>                                
+                                </select>
                                 <span class="input-group-btn">
                                     <button type="button" class="btn btn-primary" @click="createPTypeModal = true" title="Add Payment Type">
                                         <i class="fa fa-plus"></i>
-                                    </button>                         
+                                    </button>
                                 </span>
                             </div>
                             <span class="help-text text-danger" v-if="errors['payment_type_id']">{{ errors['payment_type_id'][0] }}</span>
@@ -126,13 +126,13 @@
                 </div>
             </div>
         </form>
-        
-        
-    </div>    
+
+
+    </div>
 </template>
 
 <script>
-    import {API} from '../../utilities/config'
+    import {API} from '../../config/config'
     import Modal from '../Modal'
     export default {
         name: "Create",
@@ -179,7 +179,7 @@
                     payment_frequency_id: '',
                     payment_type_id: '',
                     salary: ''
-                }, 
+                },
                 this.errors = []
             },
             submitForm() {

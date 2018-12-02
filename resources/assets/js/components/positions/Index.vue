@@ -4,20 +4,20 @@
             <div slot="title">
                 <h3>Edit Position {{ current.name_and_department }}</h3>
             </div>
-            
-            
+
+
             <form method="POST" role="form">
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input 
+                            <input
                                 type="text" class="form-control" id="name" name="name"
                                 v-model="editForm.name" required
                             >
                             <span class="help-text text-danger" v-if="formErrors['name']" v-text="formErrors['name'][0]" ></span>
                         </div>
-                    </div> 
+                    </div>
                     <!-- /..Name -->
                     <div class="col-sm-6">
                         <div class="form-group">
@@ -29,14 +29,14 @@
                             </select>
                             <span class="help-text text-danger" v-if="formErrors['department_id']" v-text="formErrors['department_id'][0]" ></span>
                         </div>
-                    </div> 
+                    </div>
                     <!-- /..Department -->
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="department">Payment Frequency:</label>
                             <select class="form-control" id="payment_frequency" name="payment_frequency" v-model="editForm.payment_frequency_id" required>
                                 <option :value="payment_frequency.id"
-                                    v-for="payment_frequency in current.payment_frequencies_list" 
+                                    v-for="payment_frequency in current.payment_frequencies_list"
                                     :key="payment_frequency.id"
                                 >
                                     {{ payment_frequency.name }}
@@ -44,7 +44,7 @@
                             </select>
                             <span class="help-text text-danger" v-if="formErrors['payment_frequency_id']" v-text="formErrors['payment_frequency_id'][0]" ></span>
                         </div>
-                    </div> 
+                    </div>
                     <!-- /..Payment Frequency: -->
                     <div class="col-sm-6">
                         <div class="form-group">
@@ -54,22 +54,22 @@
                             </select>
                             <span class="help-text text-danger" v-if="formErrors['payment_type_id']" v-text="formErrors['payment_type_id'][0]" ></span>
                         </div>
-                    </div> 
+                    </div>
                     <!-- /..Payment Type: -->
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="salary">Salary $:</label>
-                            <input 
+                            <input
                                 type="number" min="0" class="form-control" id="salary" name="salary"
                                 v-model="editForm.salary" required
                             >
                             <span class="help-text text-danger" v-if="formErrors['salary']" v-text="formErrors['salary'][0]" ></span>
                         </div>
-                    </div> 
+                    </div>
                     <!-- /..Salary $: -->
-                </div>    
+                </div>
             </form>
-            
+
             <div slot="footer">
                 <btn @click="editMode=false">Cancel</btn>
                 <btn type="warning" @click="updatePosition(current)">Edit Position</btn>
@@ -103,12 +103,12 @@
             </tbody>
         </table>
         <pagination v-model="paginate.current" :total-page="paginate.totalPages" :boundary-links="true" @change="getData(paginate.current)"></pagination>
-    </div>    
+    </div>
 </template>
 
 <script>
     import {Modal, Btn, Notification, Pagination} from 'uiv'
-    import {API} from './../../utilities/config'
+    import {API} from './../../config/config'
     export default {
         name: "PositionsIndex",
         data() {
@@ -134,7 +134,7 @@
             Modal, Btn, Pagination
         },
         created() {
-            this.getData() 
+            this.getData()
         },
         methods: {
             getData(page = 1) {
@@ -163,11 +163,11 @@
             updatePosition(position) {
                 this.editMode = false
                 axios.put(API + '/positions/' + position.id, this.editForm)
-                    .then(response => {                        
+                    .then(response => {
                         let index = this.positions.findIndex(function(item) {
                             return item.id == position.id
                         })
-                        this.positions[index] = Object.assign(this.positions[index], response.data)   
+                        this.positions[index] = Object.assign(this.positions[index], response.data)
                         Notification.notify({
                             type: 'success',
                             placement: 'bottom-right',

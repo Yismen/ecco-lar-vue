@@ -14,11 +14,11 @@
                 <div class="form-group">
                     <label for="input" class="col-sm-2 control-label">ARS:</label>
                     <div class="col-sm-10">
-                        <div class="imput-group">
+                        <div class="input-group">
                             <select name="ars_id" id="ars_id" class="form-control" v-model="form.fields.ars_id">
                                 <option v-for="(ars_id, index) in employee.ars_list" :value="index" :key="ars_id">{{ ars_id }}</option>
                             </select>
-                            <a href="#" @click.prevent="$modal.show('create-ars')">
+                            <a href="#" @click.prevent="$modal.show('create-ars')" class="imput-group-addon">
                                 <i class="fa fa-plus"></i> Add
                             </a>
                         </div>
