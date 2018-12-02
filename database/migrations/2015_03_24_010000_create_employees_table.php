@@ -32,7 +32,7 @@ class CreateEmployeesTable extends Migration
             $table->integer('ars_id')->unsigned()->nullable();
             $table->integer('afp_id')->unsigned()->nullable();
             $table->boolean('has_kids', 10)->default(0);
-            $table->string('photo', 80)->nullable();
+            $table->string('photo', 800)->nullable();
 
             $table->foreign('position_id')->references('id')->on('positions');
             $table->foreign('supervisor_id')->references('id')->on('supervisors');

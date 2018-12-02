@@ -12,6 +12,7 @@
 							<i class="fa fa-plus"></i> Add Role
 						</a>
 					</h3>
+					
 					@if ($roles->isEmpty())
 						<div class="bs-callout bs-callout-warning">
 							<h1>No Roles has been added yet, please add one</h1>

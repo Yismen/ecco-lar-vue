@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Employee;
+namespace Http\Controllers\Employee;
 
+use App\Employee;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Employee;
+use Illuminate\Support\Facades\Cache;
 
 class AddressController extends Controller
 {
@@ -17,19 +18,17 @@ class AddressController extends Controller
      */
     public function update(Employee $employee, Request $request)
     {
-        $this->validate($request, [
-            'sector' => 'required',
-            'street_address' => 'required',
-            'city' => 'required',
+    $this->validate($request, [
+            'sector' => 'required|min:3',
+            'street_address' => 'required|min:3',
+            'city' => 'required|min:3',
         ]);
 
-        $employee = $employee->createOrUpdateAddress($request);
+        $employee->address()->updateOrCreate($request->only(['sector', 'street_address', 'city']));
+        
+        Cache::forget('employees');
+        Cache::forget('addresses');
 
-        if ($request->ajax()) {
-            return $employee->load('addresses');
-        }
-
-        return redirect()->route('admin.employees.show', $employee->id)
-            ->withSuccess("$employee->first_name's address updated!");
+        return $employee->load('address');
     }
 }

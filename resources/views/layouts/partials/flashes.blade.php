@@ -1,4 +1,11 @@
-		<!-- Global Messages to be Printed -->
+{{--  @if(Session::has('alert'))
+    <flash-message 
+        type="{{ $class }}"
+        heading="{{ $title }}"
+        message="{{ $message }}"
+    ></flash-message>
+@endif  --}}
+    <!-- Global Messages to be Printed -->
 	<?php
         $class = null;
         $message = null;
@@ -21,7 +28,8 @@
             $message = Session::get('success');
             $icon = 'check-circle';
         } elseif (Session::has('danger')) {
-            $class = 'danger';
+            $class = 'error';
+            // $class = 'danger';
             $title = 'Oops';
             $message = Session::get('danger');
             $icon = 'exclamation-triangle';
@@ -30,15 +38,22 @@
             $title = 'Warning';
             $message = Session::get('warning');
             $icon = 'exclamation-circle';
+        }elseif (Session::has('question')) {
+            $class = 'question';
+            $title = '??';
+            $message = Session::get('question');
+            $icon = 'exclamation-circle';
         }
     ?>	
 
 	@if($class)
-		<div style="position: fixed; z-index: 100000; bottom: 25px; right: 25px;" class="container-fluid {{ session('important', 'dismiss') }}">
+
+        <flash-message type="{{ $class }}" title="{{ $title }}" text="{{ $message }}"></flash-message>
+		{{--  <div style="position: fixed; z-index: 100000; bottom: 25px; right: 25px;" class="container-fluid {{ session('important', 'dismiss') }}">
 			<div class="alert alert-{{ $class }}">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 				<strong>{{ $title }} <i class="fa fa-{{ $icon }}"></i> !</strong> {!! $message !!} 
 			</div>
-		</div>
+		</div>  --}}
 	@endif
 	<!-- /. Warning Messages -->

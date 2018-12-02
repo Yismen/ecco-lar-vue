@@ -100,16 +100,16 @@
 							</li>
 
 							<li class="list-group-item">
-								<strong>Logins: </strong>
-								@if (count($employee->logins) > 0)
+								<strong>Login Names: </strong>
+								@if ($employee->loginNames->count() > 0)
 									<ul>
-										@foreach ($employee->logins as $login)
+										@foreach ($employee->loginNames as $login)
 											<li>{{ $login->login }}</li>
 										@endforeach
-									</ul>
-								@endif
-									
+									</ul>	
+								@endif	
 							</li>
+
 						</ul>
 					</div>
 				</div>

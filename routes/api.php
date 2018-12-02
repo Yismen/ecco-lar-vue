@@ -15,7 +15,9 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/user', 'Api\UserController@index');
     Route::resource('employee', 'Api\EmployeeController')->except(['create', 'edit']);
     Route::resource('positions', 'PositionsController');
+    Route::resource('arss', 'ARSController');
     Route::resource('departments', 'DepartmentsController');
+    Route::resource('nationalities', 'NationalitiesController');
     Route::resource('payment_frequencies', 'PaymentFrequenciesController');
 
     Route::get('/blackhawk/de/management', 'Blackhawk\DE\ManagementController@dashboardData');

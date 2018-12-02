@@ -1,0 +1,53 @@
+{
+  "_from": "git+https://github.com/Yismen/dainsys-form.git",
+  "_id": "dainsys-form@2.0.0",
+  "_inBundle": false,
+  "_integrity": "",
+  "_location": "/dainsys-form",
+  "_phantomChildren": {
+    "follow-redirects": "1.5.7",
+    "is-buffer": "1.1.6"
+  },
+  "_requested": {
+    "type": "git",
+    "raw": "git+https://github.com/Yismen/dainsys-form.git",
+    "rawSpec": "git+https://github.com/Yismen/dainsys-form.git",
+    "saveSpec": "git+https://github.com/Yismen/dainsys-form.git",
+    "fetchSpec": "https://github.com/Yismen/dainsys-form.git",
+    "gitCommittish": null
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "git+https://github.com/Yismen/dainsys-form.git#cb3afc0c30dee8462161346fdae19a8fd9d9649c",
+  "_spec": "git+https://github.com/Yismen/dainsys-form.git",
+  "_where": "F:\\code\\projects\\dainsys",
+  "author": {
+    "name": "Yismen Jorge"
+  },
+  "bugs": {
+    "url": "https://github.com/Yismen/dainsys-form/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "axios": "^0.16.1"
+  },
+  "deprecated": false,
+  "description": "Form Class for Vue.js-2",
+  "homepage": "https://github.com/Yismen/dainsys-form#readme",
+  "keywords": [
+    "Form"
+  ],
+  "license": "ISC",
+  "main": "Form.js",
+  "name": "dainsys-form",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yismen/dainsys-form.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "2.0.0"
+}

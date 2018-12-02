@@ -9,18 +9,17 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <title>Ecco | {{ $page_header ?? 'Admin Header' }}</title>
-
     <link rel="stylesheet" type="text/css" href="{{ mix('css/app.css') }}">
     <!-- Site Favicon -->
-    <link rel="shortcut icon" href="{{ asset('images/logo.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('storage/images/logo.png') }}" type="image/x-icon">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!-- WARNING: Respond.js doesnt work if you view the page via file:// -->
+    
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
-
 </head>
 <!--
     BODY TAG OPTIONS:
@@ -43,14 +42,14 @@
     |*********************************************************|
     -->
 
-<body class="{{{ isset($settings->skin) ? $settings->skin : config('dainsys.layout_color', 'skin-yellow') }}} 
-
-        {{ isset($settings) && isset($settings->layout) ? $settings->layout : config('dainsys.layout', 'default')  }}
-        {{ isset($settings) && isset($settings->sidebar_collapse) ? $settings->sidebar_collapse : config('dainsys.sidebar_collapse', '')  }}
-        {{ isset($settings) && isset($settings->sidebar_mini) ? $settings->sidebar_mini : config('dainsys.sidebar_mini', '')  }}
-
-
-    style="height: auto;">
+<body 
+    class="
+        {{ $settings->skin ?? config('dainsys.layout_color', 'skin-yellow') }} 
+        {{ $settings->layout ?? config('dainsys.layout', 'default')  }} 
+        {{ $settings->sidebar_collapse ?? config('dainsys.sidebar_collapse', '')  }} 
+        {{ $settings->sidebar_mini ?? config('dainsys.sidebar_mini', '')  }} 
+    "
+>
     <div class="wrapper" style="height: auto;">
         <!-- Main Header -->
         {{-- @inject('user', 'App\Layout') --}}
@@ -113,7 +112,7 @@
 
         <!-- Control Sidebar -->
         @if ($user)
-        @include('layouts.partials.nav-settings')
+            @include('layouts.partials.nav-settings')
         @endif
         <!-- /.control-sidebar -->
         <!-- Add the sidebars background. This div must be placed

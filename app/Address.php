@@ -8,13 +8,15 @@ class Address extends Model
 {
     protected $fillable = ['sector', 'street_address', 'city'];
 
+    protected $table = 'addresses';
+
     /**
      * -------------------------------------------------------------------
      * Relatioships
      */
     public function employees()
     {
-        return $this->belongsTo('App\Employee', 'employee_id');
+        return $this->belongsTo(Employee);
     }
 
     public function setSectorAttribute($sector)

@@ -18,15 +18,15 @@
                                 <div class="form-group">
                                     <label for="input" class="col-sm-4 control-label">Reactivation Date:</label>
                                     <div class="col-sm-8">
-                                        <datepicker input-class="form-control input-sm" 
-                                            v-model="form.fields.hire_date" 
-                                            name="hire_date" 
-                                            format="MM/dd/yyyy" 
-                                        ></datepicker>
+                                    <date-picker input-class="form-control input-sm" 
+                                        v-model="form.fields.hire_date"
+                                        @updated="hireDateUpdated"
+                                    ></date-picker>
                                         <span class="text-danger" v-if="form.error.has('hire_date')">{{ form.error.get('hire_date') }}</span>
                                     </div>
-                                </div> <!-- ./Reactivation Date-->
+                                </div> 
                             </div>
+                            <!-- ./Reactivation Date-->
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <div class="col-sm-10 col-sm-offset-2">
@@ -46,9 +46,7 @@
 </template>
 
 <script>
-
-    import Form from '../../../vendor/jorge.form'
-    import Datepicker from 'vuejs-datepicker'
+    import DatePicker from './../DatePicker'
 
     export default {
 
@@ -56,7 +54,7 @@
 
       data () {
         return {
-            form: new Form({                               
+            form: new (this.$ioc.resolve('Form')) ({                               
                 'hire_date': new Date(),
             })
 
@@ -68,16 +66,18 @@
     },
 
     components: {
-        Datepicker
+        DatePicker
     },
 
     methods: {
+        hireDateUpdated(date) {
+            return this.form.fields.hire_date = date
+        },
         handleReactivation() {
-            this.form.post('/admin/employees/reactivate/' + this.employee.id)
+            this.form.post('/admin/employees/' + this.employee.id + '/reactivate/')
                 .then(response => {
-                    this.employee.termination = response.termination;
+                    this.employee.termination = response.data.termination;
                     this.$emit('employee-reactivated', this.employee)
-                    // return this.form.fields = response.termination;
                 })
         }
     }

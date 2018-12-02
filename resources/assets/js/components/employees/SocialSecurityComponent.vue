@@ -8,7 +8,7 @@
             <div class="box-header with-border"><h4>{{ employee.full_name }}' Social Security Info:</h4></div>
 
             <div class="box-body">
-                <div class="form-group">
+                <div class="form-group" :class="{'has-error': form.error.has('number')}">
                     <label for="number" class="">Social Sec. Number:</label>      
                     <input type="text" class="form-control" 
                     id="number" name="number"
@@ -17,7 +17,7 @@
                 </div> <!-- ./Social Sec. Number-->
             </div>
 
-            <div class="box-footer" v-if="showButton">
+            <div class="box-footer">
                 <div class="form-group">
                     <div class="col-sm-10 col-sm-offset-2">
                         <button type="submit" class="btn btn-primary">
@@ -33,18 +33,15 @@
 
 <script>
 
-    import Form from '../../../vendor/jorge.form'
-
     export default {
 
       name: 'SocialSecurityComponent',
 
       data () {
         return {
-            form: new Form({
+            form: new (this.$ioc.resolve('Form')) ({
                 'number': this.employee.social_security ? this.employee.social_security.number : '',
             }, false),
-            showButton: false
         };
     },
 
@@ -54,15 +51,13 @@
 
     methods: {
         updated(event) {
-            this.showButton = true;
             this.form.error.clear(event.target.name)
         },
         handleUpdateSocialSecurity() {
-            this.form.post('/admin/employees/updateSocialSecurity/' + this.employee.id)
+            this.form.post('/admin/employees/' + this.employee.id + '/social-security')
                 .then(response => {
-                    this.employee.social_security = response.social_security;
-                    this.showButton = false;
-                    return this.form.fields.number = response.social_security.number
+                    this.employee.social_security = response.data.social_security;
+                    return this.form.fields.number = response.data.social_security.number
                 })
         }
     }

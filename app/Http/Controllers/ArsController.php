@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Ars;
@@ -20,12 +19,16 @@ class ArsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Ars $arss)
+    public function index(Ars $arss, Request $request)
     {
         $arss = $arss
             ->with(['employees' => function ($query) {
                 return $query->actives();
             }])->orderBy('name')->get();
+
+        if ($request->ajax()) {
+            return $arss;
+        }
 
         return view('ars.index', compact('arss'));
     }

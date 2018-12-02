@@ -2,102 +2,64 @@
 
 Route::get('api/employees', 'EmployeesController@index')->name('employees.list');
 
-Route::get(
-    'employees/export_to_excel/{status}',
-    ['as' => 'employees.export_to_excel', 'uses' => 'EmployeesController@toExcel']
-)->middleware('authorize:employees_to_excel');
+Route::get('employees/export_to_excel/{status}', 'Employee\ExportController@toExcel')
+    ->name('employees.export_to_excel');
+Route::get('employees/export_all_to_excel', 'Employee\ExportController@toExcelAll')
+    ->name('employees.export_all_to_excel');
 
-Route::get(
-    'employees/export_all_to_excel',
-    ['as' => 'employees.export_all_to_excel', 'uses' => 'EmployeesController@toExcelAll']
-)->middleware('authorize:employees_all_to_excel');
+Route::post('employees/{employee}/login-names/create', 'Employee\LoginNameController@create')
+    ->name('employees.login.create');
+Route::post('employees/{employee}/login-names/update', 'Employee\LoginNameController@update')
+    ->name('employees.login.update');
 
-Route::post(
-    'employees/logins/{employee}',
-    ['as' => 'employees.login.create', 'uses' => 'EmployeesController@createLogin']
-)->middleware('authorize:create_logins');
+/**
+ * Terminations
+ */
+Route::post('employees/{employee}/reactivate', 'Employee\TerminationController@reactivate')
+    ->name('employees.reactivate');
+Route::post('employees/{employee}/terminate', 'Employee\TerminationController@terminate')
+    ->name('employees.terminate');
 
-Route::post(
-    'employees/logins/{employee}/update',
-    ['as' => 'employees.login.update', 'uses' => 'EmployeesController@updateLogin']
-)->middleware('authorize:update_logins');
+Route::post('employees/{employee}/address', 'Employee\AddressController@update')
+    ->name('employees.update-address');
 
-Route::bind('login', function ($id) {
-    return App\Login::whereId($id)->firstOrFail();
-});
+Route::post('employees/{employee}/card', 'Employee\CardController@update')
+    ->name('employees.update-card');
 
-Route::resource('employees/logins', 'Employee\LoginNameController');
+Route::post('employees/{employee}/punch', 'Employee\PunchController@update')
+    ->name('employees.update-punch');
 
-Route::post(
-    'employees/reactivate/{employee}',
-    ['as' => 'employees.reactivate', 'uses' => 'EmployeesController@reactivate']
-    )->middleware('authorize:edit_employees');
+Route::post('employees/{employee}/photo', 'Employee\PhotoController@update')
+    ->name('employees.update-photo');
 
-Route::post(
-    'employees/terminations/{employee}',
-    ['as' => 'employees.termination', 'uses' => 'EmployeesController@updateTermination']
-    )->middleware('authorize:edit_employees');
+Route::post('employees/{employee}/ars', 'Employee\ArsController@update')
+    ->name('employees.update-ars');
 
-Route::post(
-    'employees/updateAddress/{employee}',
-    ['as' => 'employees.updateAddress', 'uses' => 'Employee\AddressController@update']
-    )->middleware('authorize:edit_employees');
+Route::post('employees/{employee}/afp', 'Employee\AfpController@update')
+    ->name('employees.update-afp');
 
-Route::post(
-    'employees/updateCard/{employee}',
-    ['as' => 'employees.updateCard', 'uses' => 'EmployeesController@updateCard']
-    )->middleware('authorize:edit_employees');
+Route::post('employees/{employee}/bank-account', 'Employee\BankAccountController@update')
+    ->name('employees.update-bank-account');
 
-Route::post(
-    'employees/updatePunch/{employee}',
-    ['as' => 'employees.updatePunch', 'uses' => 'EmployeesController@updatePunch']
-    )->middleware('authorize:edit_employees');
+Route::post('employees/{employee}/social-security', 'Employee\SocialSecurityController@update')
+    ->name('employees.update-social-security');
 
-Route::post(
-    'employees/updatePhoto/{employee}',
-    ['as' => 'employees.updatePhoto', 'uses' => 'EmployeesController@updatePhoto']
-)->middleware('authorize:edit_employees');
+Route::post('employees/{employee}/supervisor', 'Employee\SupervisorController@update')
+    ->name('employees.update-supervisor');
 
-Route::post(
-    'employees/updateArs/{employee}',
-    ['as' => 'employees.updateArs', 'uses' => 'EmployeesController@updateArs']
-    )->middleware('authorize:edit_employees');
-
-Route::post(
-    'employees/updateAfp/{employee}',
-    ['as' => 'employees.updateAfp', 'uses' => 'EmployeesController@updateAfp']
-    )->middleware('authorize:edit_employees');
-
-Route::post(
-    'employees/updateBankAccount/{employee}',
-    ['as' => 'employees.updateBankAccount', 'uses' => 'EmployeesController@updateBankAccount']
-    )->middleware('authorize:edit_employees');
-
-Route::post(
-    'employees/updateSocialSecurity/{employee}',
-    ['as' => 'employees.updateSocialSecurity', 'uses' => 'EmployeesController@updateSocialSecurity']
-    )->middleware('authorize:edit_employees');
-
-Route::post(
-    'employees/updateSupervisor/{employee}',
-    ['as' => 'employees.updateSupervisor', 'uses' => 'EmployeesController@updateSupervisor']
-    )->middleware('authorize:edit_employees');
-
-Route::post(
-    'employees/updateNationality/{employee}',
-    ['as' => 'employees.updateNationality', 'uses' => 'EmployeesController@updateNationality']
-    )->middleware('authorize:edit_employees');
+Route::post('employees/{employee}/nationality', 'Employee\NationalityController@update')
+    ->name('employees.update-nationality');
 
 Route::bind('employee', function ($id) {
     return App\Employee::whereId($id)
-    ->with('addresses')
+    ->with('address')
     ->with('afp')
     ->with('ars')
     ->with('bankAccount')
     ->with('socialSecurity')
     ->with('card')
     ->with('gender')
-    ->with('logins')
+    ->with('loginNames')
     ->with('marital')
     ->with('nationalities')
         ->with('punch')

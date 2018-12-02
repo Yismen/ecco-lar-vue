@@ -59,8 +59,8 @@ class Role extends EmpatieRole
     {
         $role = $this->create($request->only('name'));
 
+        Cache::forget('menus');
         Cache::forget('roles');
-        Cache::forget('menues_for_user_'.auth()->user()->id);
 
         $this->syncRelations($role, $request);
 
@@ -79,7 +79,7 @@ class Role extends EmpatieRole
         $this->update($request->all());
 
         Cache::forget('roles');
-        Cache::forget('menues_for_user_'.auth()->user()->id);
+        Cache::forget('menus');
 
         return $this->syncRelations($this, $request);
     }

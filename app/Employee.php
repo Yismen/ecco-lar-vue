@@ -155,37 +155,6 @@ class Employee extends Model
             ]);
     }
 
-    public function createOrUpdateAddress($request)
-    {
-        $request = $request->only(['sector', 'street_address', 'city']);
-
-        if ($this->addresses) {
-            $this->addresses->update($request);
-            return $this;
-        }
-
-        $this->addresses()->create($request);
-        return $this;
-    }
-
-    public function createOrUpdateCard($request)
-    {
-        $newCard = ['card' => $request->input('card')];
-
-        $this->card ? $this->card()->update($newCard) : $this->card()->create($newCard);
-
-        return $this;
-    }
-
-    public function createOrUpdatePunch($request)
-    {
-        $newPunch = ['punch' => $request->input('punch')];
-
-        $this->punch ? $this->punch()->update($newPunch) : $this->punch()->create($newPunch);
-
-        return $this;
-    }
-
     /**
      * cheks if the current employeed
      * @return string or null 'Masculine'

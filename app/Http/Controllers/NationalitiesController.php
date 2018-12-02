@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Nationality;
 use Illuminate\Http\Request;
+use Cache;
 
 class NationalitiesController extends Controller
 {
@@ -16,11 +17,19 @@ class NationalitiesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $nationalities = Nationality::orderBy('name', 'ASC')
-            ->with('employees')
-            ->paginate(50);
+        if ($request->ajax()) {
+            return Cache::rememberForever('nationalities', function() {
+                return Nationality::orderBy('name', 'ASC')
+                ->with('employees')->select('id', 'name')->get();
+            });
+        }
+
+        $nationalities = Cache::rememberForever('nationalities', function() {
+            return Nationality::orderBy('name', 'ASC')
+                ->with('employees')->paginate(50);
+        });    
 
         return view('nationalities.index', compact('nationalities'));
     }
@@ -43,9 +52,19 @@ class NationalitiesController extends Controller
      */
     public function store(Request $request, Nationality $nationality)
     {
-        $this->validateRequest($request, $nationality);
+        $this->validate($request, [
+            'name' => 'required|min:3|unique:nationalities'
+        ]);
 
-        $nationality = $nationality->create($request->all());
+        $nationality = $nationality->create($request->only(['name']));
+
+        
+        Cache::forget('nationalities');
+        
+
+        if ($request->ajax()) {
+            return $nationality;
+        }
 
         return redirect()->route('admin.nationalities.index')
             ->withSuccess("Nationality {$nationality->name} created");

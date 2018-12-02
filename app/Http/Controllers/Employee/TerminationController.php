@@ -2,84 +2,52 @@
 
 namespace App\Http\Controllers\Employee;
 
-use Illuminate\Http\Request;
+use App\Employee;
+use App\Events\EmployeeReactivated;
+use App\Events\EmployeeTerminated;
 use App\Http\Controllers\Controller;
+use App\Termination;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class TerminationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function terminate(Request $request, Employee $employee)
     {
-        //
+        $this->validate($request, [
+            'termination_date' => 'required|date',
+            'termination_type_id' => 'required|integer|exists:termination_types,id',
+            'termination_reason_id' => 'required|integer|exists:termination_reasons,id',
+            'can_be_rehired' => 'required|boolean',
+        ]);
+
+        $employee->termination()->delete();
+
+        $employee->termination()->create($request->only([
+            'termination_date', 'termination_type_id', 'termination_reason_id', 'can_be_rehired', 'comments'
+        ]));
+
+        Cache::forget('empleados');
+        Cache::forget('terminations');
+
+        event(new EmployeeTerminated());
+
+        return $employee->load('termination');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function reactivate(Request $request, Employee $employee)
     {
-        //
-    }
+        $this->validate($request, [
+            'hire_date' => 'required|date',
+        ]);
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        $employee->termination->delete();
+        $employee->update($request->only(['hire_date']));
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        Cache::forget('employees');
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+        event(new EmployeeReactivated());
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return $employee->load('termination');
     }
 }

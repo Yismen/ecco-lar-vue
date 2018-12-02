@@ -3,14 +3,14 @@
         <form class="form-horizontal" role="form"
             @submit.prevent="submitPunch"
             autocomplete="off" 
-            @keydown="updated">
+            @change="updated">
 
             <div class="box-header with-border">
                 <h4>{{ employee.full_name }}' Punch:</h4>
             </div>
     
             <div class="box-body">
-                <div class="form-group">
+                <div class="form-group" :class="{'has-error': form.error.has('punch')}">
                     <label for="input" class="col-sm-2 control-label">Punch:</label>
                     <div class="col-sm-10">
                         <input type="text" id="punch" 
@@ -21,7 +21,7 @@
                 </div> <!-- ./Punch -->
             </div>
     
-            <div class="box-footer" v-if="showButton">
+            <div class="box-footer">
                 <div class="form-group">
                     <div class="col-sm-10 col-sm-offset-2">
                         <button type="submit" class="btn btn-primary">
@@ -37,19 +37,16 @@
 
 <script>
 
-    import Form from '../../../vendor/jorge.form'
-
     export default {
 
       name: 'PunchComponent',
 
       data () {
         return {
-            form: new Form({
+            form: new (this.$ioc.resolve('Form')) ({
                 'punch': this.employee.punch ? this.employee.punch.punch : '',
             }, false),
-            showButton: false
-        };
+        }
     },
 
     props: {
@@ -58,15 +55,13 @@
 
     methods: {
         updated(event) {
-            this.showButton = true
             this.form.error.clear(event.target.name)
         },
         submitPunch() {
-            this.form.post('/admin/employees/updatePunch/' + this.employee.id)
+            this.form.post('/admin/employees/' + this.employee.id + '/punch')
                 .then(response => {
-                    this.employee.punch = response.punch;
-                    this.showButton = false;
-                    return this.form.fields = response.punch
+                    this.employee.punch = response.data.punch;
+                    return this.form.fields = response.data.punch
                 })
         }
     }

@@ -10,7 +10,7 @@
             </div>
     
             <div class="box-body">
-                <div class="form-group">
+                <div class="form-group" :class="{'has-error': form.error.has('supervisor_id')}">
                     <label for="supervisor_id" class="">Supervisor:</label>
                     <select name="supervisor_id" id="supervisor_id" class="form-control" v-model="form.fields.supervisor_id">
                         <option v-for="(supervisor_id, index) in employee.supervisors_list" :value="index" :key="supervisor_id">{{ supervisor_id }}</option>
@@ -19,7 +19,7 @@
                 </div> <!-- ./ARS-->
             </div>
     
-            <div class="box-footer" v-if="showButton">
+            <div class="box-footer">
                 <div class="form-group">
                     <div class="col-sm-10 col-sm-offset-2">
                         <button type="submit" class="btn btn-primary">
@@ -35,18 +35,15 @@
 
 <script>
 
-    import Form from '../../../vendor/jorge.form'
-
     export default {
 
       name: 'SupervisorsComponent',
 
       data () {
         return {
-            form: new Form({
+            form: new (this.$ioc.resolve('Form')) ({
                 'supervisor_id': this.employee.supervisor ? this.employee.supervisor.id : '',
             }, false),
-            showButton: false
         };
     },
 
@@ -56,15 +53,13 @@
 
     methods: {
         updated(event) {
-            this.showButton = true;
             this.form.error.clear(event.target.name);
         },
         handleUpdateUSupervisor() {
-            this.form.post('/admin/employees/updateSupervisor/' + this.employee.id)
+            this.form.post('/admin/employees/' + this.employee.id + '/supervisor')
                 .then(response => {
-                    this.employee.supervisor = response.supervisor;
-                    this.showButton = false;
-                    return this.form.fields.supervisor_id = response.supervisor.id
+                    this.employee.supervisor = response.data.supervisor;
+                    return this.form.fields.supervisor_id = response.data.supervisor.id
                 })
         }
     }

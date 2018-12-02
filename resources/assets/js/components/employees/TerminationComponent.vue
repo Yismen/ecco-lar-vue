@@ -1,121 +1,117 @@
 <template>
     <div class="_Termination" >
+
+        <div class="box-header with-border bg-yellow" :class="{'bg-green': isActive}">
+            <h4>{{ employee.full_name }}' Termination. Current Status is {{ employee.status }}</h4>
+        </div>
+
+        <div class="row with-border" v-if="! isActive">
+            <employee-reactivation :employee="employee" @employee-reactivated="reactivate"></employee-reactivation>
+        </div>
+
         <form class="" role="form"
-            @submit.prevent="submitTermination"
+            @submit.prevent="terminate"
             autocomplete="off" 
             @change="updated">
-
-            <div class="box-header with-border bg-yellow" :class="{'bg-green': isActive}">
-                <h4>{{ employee.full_name }}' Termination. Current Status is {{ employee.status }}</h4>
-            </div>
     
             <div class="box-body">
                 <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="input" class="">Termination Date:</label>
-                            <div class="">
-                                <datepicker input-class="form-control input-sm" 
-                                    v-model="form.fields.termination_date" 
-                                    name="termination_date" 
-                                    format="MM/dd/yyyy" 
-                                ></datepicker>
-                                <span class="text-danger" v-if="form.error.has('termination_date')">{{ form.error.get('termination_date') }}</span>
-                            </div>
-                        </div> <!-- ./Termination Date-->
+                    <div class="col-sm-6">                        
+                        <div class="form-group" :class="{'has-error': form.error.has('termination_date')}">
+                            <label for="input" class="">Date:</label>
+                            <date-picker input-class="form-control input-sm" 
+                                v-model="form.fields.termination_date"
+                                @updated="terminationDateUpdated"
+                            ></date-picker>
+                            <span class="text-danger" v-if="form.error.has('termination_date')">{{ form.error.get('termination_date') }}</span>
+                        </div>
                     </div>
                     <div class="col-sm-6">
-                        <div class="form-group">
+                        <div class="form-group" :class="{'has-error': form.error.has('termination_type_id')}">
                             <label for="input" class="">Termination Type:</label>
                             <div class="">
-                                <select name="termination_type_id" id="termination_type_id" class="form-control" v-model="form.fields.termination_type_id">
+                                <select name="termination_type_id" id="termination_type_id" class="form-control input-sm" v-model="form.fields.termination_type_id">
                                     <option v-for="(termination_type_id, index) in employee.termination_type_list" :value="index" :key="termination_type_id">{{ termination_type_id }}</option>
                                 </select>
                                 <span class="text-danger" v-if="form.error.has('termination_type_id')">{{ form.error.get('termination_type_id') }}</span>
                             </div>
-                        </div> <!-- ./Termination Type-->
+                        </div> 
                     </div>
+                    <!-- ./Termination Type-->
                 </div>
 
                 <div class="row">
                     <div class="col-sm-6">
-                        <div class="form-group">
+                        <div class="form-group" :class="{'has-error': form.error.has('termination_reason_id')}">
                             <label for="input" class="">Termination Reason:</label>
                             <div class="">
-                                <select name="termination_reason_id" id="termination_reason_id" class="form-control" 
+                                <select name="termination_reason_id" id="termination_reason_id" class="form-control input-sm" 
                                     v-model="form.fields.termination_reason_id">
                                     <option v-for="(termination_reason_id, index) in employee.termination_reason_list" :value="index" :key="termination_reason_id">{{ termination_reason_id }}</option>
                                 </select>
                                 <span class="text-danger" v-if="form.error.has('termination_reason_id')">{{ form.error.get('termination_reason_id') }}</span>
                             </div>
-                        </div> <!-- ./Termination Reason-->
+                        </div>
                     </div>
-
+                    <!-- ./Termination Reason-->
                     <div class="col-sm-6">
-                        <div class="form-group">
+                        <div class="form-group" :class="{'has-error': form.error.has('can_be_rehired')}">
                             <label for="input" class="">Can be Re-hired?:</label>
-                            <div class="">
+                            <div class="pad"
+                                 :class="[! form.fields.can_be_rehired ? 'bg-warning' :'bg-success']"
+                            >
                                 <div class="radio">
                                     <label class="text-success">
-                                        <input type="radio" name="can_be_rehired" id="can_be_rehired_1" v-bind:value="1" v-model="form.fields.can_be_rehired">
+                                        <input type="radio" name="can_be_rehired" :value="true" v-model="form.fields.can_be_rehired">
                                         Yes, for sure.
                                     </label>
                                     <label class="text-warning">
-                                        <input type="radio" name="can_be_rehired" id="can_be_rehired_2" v-bind:value="0" v-model="form.fields.can_be_rehired">
+                                        <input type="radio" name="can_be_rehired" :value="false" v-model="form.fields.can_be_rehired">
                                         No, don't do it.
                                     </label>
                                 </div>
                                 <span class="text-danger" v-if="form.error.has('can_be_rehired')">{{ form.error.get('can_be_rehired') }}</span>
                             </div>
                         </div> 
-                        <!-- ./Can be Re-hired?-->
                     </div>
+                    <!-- ./Can be Re-hired?-->
                 </div>
                 
                 <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="input" class="">Additional Comments:</label>
+                    <div class="col-sm-6" :class="{'has-error': form.error.has('comments')}">
+                        <div class="form-group" v-if="reasonIsOther">
+                            <label for="input" class="">Comments:</label>
                             <div class="">
                                 <textarea id="comments" 
-                                name="comments" class="form-control" 
+                                name="comments" class="form-control input-sm" 
                                 v-model="form.fields.comments" rows="5"></textarea>
                                 <span class="text-danger" v-if="form.error.has('comments')">{{ form.error.get('comments') }}</span>
                             </div>
-                        </div> <!-- ./Additional Comments-->
+                        </div> <!-- ./Comments-->
                     </div>
-                    
-                    <div class="col-sm-6" v-if="showButton">
+
+                    <div class="col-sm-6">
                         <div class="form-group">
                             <div class=" col-sm-offset-2">
                                 <button type="submit" class="btn btn-danger" v-if="isActive">
                                     TERMINATE
                                 </button>
                                 <button type="submit" class="btn btn-warning" v-else>
-                                    UPDATE TERMINATION INFO
+                                    UPDATE TERMINATION INFO 
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                
-
             </div>
 
         </form>
-
-        <div class="row with-border" v-if="! isActive">
-            <employee-reactivation :employee="employee" @employee-reactivated="reactivateEmployee"></employee-reactivation>
-        </div>
     </div>
 </template>
 
 <script>
-
-    import Form from '../../../vendor/jorge.form'
     import EmployeeReactivation from './ReactivationComponent';
-    import Datepicker from 'vuejs-datepicker';
+    import DatePicker from './../DatePicker'
 
     export default {
 
@@ -123,15 +119,14 @@
 
       data () {
         return {
-            form: new Form({
-                'termination_date': this.employee.termination ? this.employee.termination.termination_date : '',
+            form: new (this.$ioc.resolve('Form')) ({
+                'termination_date': this.employee.termination ? this.employee.termination.termination_date : new Date(),
                 'termination_type_id': this.employee.termination ? this.employee.termination.termination_type_id : '',
                 'termination_reason_id': this.employee.termination ? this.employee.termination.termination_reason_id : '',
-                'can_be_rehired': this.employee.termination ? this.employee.termination.can_be_rehired : '',
+                'can_be_rehired': this.employee.termination ? this.employee.termination.can_be_rehired : true,
                 'comments': this.employee.termination ? this.employee.termination.comments : '',
             }, false),
-            showButton: false,
-            isActive: this.employee.termination ? false : true,
+            isActive: this.employee.termination ? false : true
         };
     },
 
@@ -139,30 +134,44 @@
         employee: {}
     },
 
+    computed: {
+        reasonIsOther() {
+            if(this.employee.termination_reason_list[this.form.fields.termination_reason_id] == "Other") {
+                return true;
+            }
+            return this.form.fields.comments = ""
+        },
+        currentTerminationDate() {
+            return this.form.fields.termination_date
+        }
+    },
+
     methods: {
+        terminationDateUpdated(date) {
+            this.form.fields.termination_date = date
+        },
         updated(event) {
-            this.showButton = true;
             this.form.error.clear(event.target.name)
         },
-        submitTermination() {
-            this.form.post('/admin/employees/terminations/' + this.employee.id)
+        terminate() {
+            this.form.post('/admin/employees/' + this.employee.id + '/terminate/')
                 .then(response => {
                     this.isActive = false;
-                    this.showButton = false;
-                    this.employee.termination = response.termination;
-                    return this.form.fields = response.termination;
+                    this.employee.termination = response.data.termination;
+                    this.form.fields = response.data.termination;
                 })
         }, 
 
-        reactivateEmployee(response) {
+        reactivate(response) {
             this.isActive = true;
             this.employee.termination = response.termination;
-            return this.form.reset();
+            this.form.reset();
+            this.form.fields.termination_date = new Date()
         }
     },
 
     components: {
-        EmployeeReactivation, Datepicker
+        EmployeeReactivation, DatePicker
     },
 };
 </script>

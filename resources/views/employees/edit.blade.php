@@ -4,7 +4,7 @@
 @section('content')
 	<div class="container-fluid">
 		<div class="col-sm-12 col-md-10 col-md-offset-1">
-			<employee-index :employee="{{ $employee }}"></employee-index>
+			<employee-edit :employee="{{ $employee }}"></employee-edit>
 		</div><!-- /. Main box -->
 	</div>
 @endsection

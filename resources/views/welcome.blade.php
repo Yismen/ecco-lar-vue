@@ -1,7 +1,7 @@
 @inject('layout', 'App\Layout')
 @extends('layouts.'.$layout->app(), ['page_header'=>'Welcome', 'page_description'=>'Welcome page!'])
 
-@section('content')
+@section('content') 
     <div class="">
 
         <div class="jumbotron no-margin bg-{{ $color ?? 'yellow'}}  slanted-right">

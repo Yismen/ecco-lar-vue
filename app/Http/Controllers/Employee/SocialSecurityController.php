@@ -2,84 +2,24 @@
 
 namespace App\Http\Controllers\Employee;
 
+use Cache;
+use App\Employee;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class SocialSecurityController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function update(Employee $employee, Request $request)
     {
-        //
-    }
+        $this->validate($request, [
+            'number' => 'required|min:5|max:10|unique:social_securities,number,' . $employee->id.',employee_id',
+        ]);
+        
+        $employee->socialSecurity()->updateOrCreate($request->only('number'));
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+        Cache::forget('employees');
+        Cache::forget('social-securities');
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return $employee->load('socialSecurity');
     }
 }

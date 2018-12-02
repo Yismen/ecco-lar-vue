@@ -10,7 +10,7 @@
             <div class="box-body">
     
             
-                <div class="form-group">
+                <div class="form-group" :class="{'has-error': form.error.has('sector')}">
                     <label for="input" class="col-sm-2 control-label">Sector:</label>
                     <div class="col-sm-10">
                         <input type="text" id="sector" 
@@ -20,7 +20,7 @@
                     </div>
                 </div> <!-- ./Sector -->
 
-                <div class="form-group">
+                <div class="form-group" :class="{'has-error': form.error.has('street_address')}">
                     <label for="input" class="col-sm-2 control-label">Street Address:</label>
                     <div class="col-sm-10">
                         <input type="text" id="street_address" 
@@ -30,7 +30,7 @@
                     </div>
                 </div> <!-- ./Street Address -->
 
-                <div class="form-group">
+                <div class="form-group" :class="{'has-error': form.error.has('city')}">
                     <label for="input" class="col-sm-2 control-label">City:</label>
                     <div class="col-sm-10">
                         <input type="text" id="city" 
@@ -40,7 +40,7 @@
                     </div>
                 </div> <!-- ./City -->
         
-            <div class="box-footer" v-if="showButton">
+            <div class="box-footer">
                 <div class="form-group">
                     <div class="col-sm-10 col-sm-offset-2">
                         <button type="submit" class="btn btn-primary">
@@ -56,20 +56,17 @@
 
 <script>
 
-    import Form from '../../../vendor/jorge.form'
-
     export default {
 
       name: 'AddressComponent',
 
       data () {
         return {
-            form: new Form({
-                'sector': this.employee.addresses ? this.employee.addresses.sector : '',
-                'street_address': this.employee.addresses ? this.employee.addresses.street_address : '',
-                'city':this.employee.addresses ? this.employee.addresses.city : '',
+            form: new (this.$ioc.resolve('Form')) ({
+                'sector': this.employee.address ? this.employee.address.sector : '',
+                'street_address': this.employee.address ? this.employee.address.street_address : '',
+                'city':this.employee.address ? this.employee.address.city : '',
             }, false),
-            showButton: false
         };
     },
 
@@ -79,15 +76,13 @@
 
     methods: {
         updated(event) {
-            this.showButton = true
             this.form.error.clear(event.target.name)
         },
         submitAddress() {
-            this.form.post('/admin/employees/updateAddress/' + this.employee.id)
+            this.form.post('/admin/employees/'+this.employee.id+'/address')
                 .then(response => {
-                    this.employee.addresses = response.addresses;
-                    this.showButton = false
-                    return this.form.fields = response.addresses
+                    this.employee.address = response.data.address;
+                    this.form.fields = response.data.address
                 })
         }
     }

@@ -2,7 +2,6 @@
 
 namespace App\Http\Traits;
 
-use App\Termination;
 use Illuminate\Support\Facades\Cache;
 
 trait EmployeesTrait
@@ -32,29 +31,6 @@ trait EmployeesTrait
             ->appends(['status' => $status, 'search' => $search]);
 
         return $employees;
-    }
-
-    /**
-     * validates employees request against a set of rules. Prevent continues if validation fails
-     * @return boolean validation passed|failed
-     */
-    private function validateRequest($request, $employee)
-    {
-        $id = $employee->id ?? 0;
-        return $this->validate($request, [
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'hire_date' => 'required|date',
-            'personal_id' => 'required_if:passport,|nullable|digits:11|unique:employees,personal_id,' . $id . '|size:11',
-            'passport' => 'required_if:personal_id,|nullable|unique:employees,passport,' . $id . '|size:10',
-            'date_of_birth' => 'required|date',
-            'cellphone_number' => 'required|digits:10|unique:employees,cellphone_number,' . $id,
-            'secondary_phone' => 'nullable|digits:10',
-            'gender_id' => 'required|exists:genders,id',
-            'marital_id' => 'required|exists:maritals,id',
-            'has_kids' => 'required|boolean',
-            'position_id' => 'required|exists:positions,id',
-        ]);
     }
 
     /**
@@ -106,47 +82,6 @@ trait EmployeesTrait
     {
     }
 
-    protected function validateCardRequest($request)
-    {
-        $this->validate($request, ['card' => 'required|numeric|digits:8|']);
-        return $this;
-    }
-
-    protected function handleInactivation($employee, $request)
-    {
-        $this->validate($request, [
-            'termination_date' => 'required|date',
-            'termination_type_id' => 'required|integer|exists:termination_types,id',
-            'termination_reason_id' => 'required|integer|exists:termination_reasons,id',
-            'can_be_rehired' => 'required|boolean',
-        ]);
-
-        Termination::whereEmployeeId($employee->id)->delete();
-
-        $termination = new Termination($request->only([
-            'termination_date', 'termination_type_id', 'termination_reason_id', 'can_be_rehired', 'comments'
-        ]));
-
-        $employee->termination()->save($termination);
-
-        return $employee->load('termination');
-    }
-
-    private function handleReactivation($employee, $request)
-    {
-        $this->validate($request, [
-            'hire_date' => 'required|date',
-        ]);
-
-        if ($employee->termination) {
-            $employee->termination->delete();
-        }
-
-        $employee->update($request->only(['hire_date']));
-
-        return $employee->load('termination');
-    }
-
     private function handleAddLoginsToEmployee($employee, $request)
     {
         $this->validate($request, [
@@ -160,101 +95,5 @@ trait EmployeesTrait
         Cache::forget('employees');
 
         return $newlogin;
-    }
-
-    private function handleUpdateArs($employee, $request)
-    {
-        $this->validate($request, [
-            'ars_id' => 'required|exists:ars,id',
-        ]);
-
-        $employee->ars_id = $request->ars_id;
-        $employee->save();
-
-        Cache::forget('employees');
-
-        return $employee->load('ars');
-    }
-
-    private function handleUpdateAfp($employee, $request)
-    {
-        $this->validate($request, [
-            'afp_id' => 'required|exists:afps,id',
-        ]);
-
-        $employee->afp_id = $request->afp_id;
-        $employee->save();
-
-        Cache::forget('employees');
-
-        return $employee->load('afp');
-    }
-
-    private function handleUpdateBankAccount($employee, $request)
-    {
-        $hasAccount = $employee->bankAccount()->count() > 0 ? true : false;
-        $account_id = $hasAccount ? $employee->bankAccount->id : null;
-
-        $this->validate($request, [
-            'bank_id' => 'required|exists:banks,id',
-            'account_number' => 'required|min:5|max:100|unique:bank_accounts,account_number,' . $account_id,
-        ]);
-
-        if ($hasAccount) {
-            $employee->bankAccount()->update($request->all());
-        } else {
-            $employee->bankAccount()->create($request->all());
-        }
-
-        Cache::forget('employees');
-
-        return $employee;
-    }
-
-    private function handleUpdateSocialSecurity($employee, $request)
-    {
-        $hasSocial = $employee->socialSecurity()->count() > 0 ? true : false;
-        $social_id = $hasSocial ? $employee->socialSecurity->id : null;
-
-        $this->validate($request, [
-            'number' => 'required|min:5|max:10|unique:social_securities,number,' . $social_id,
-        ]);
-
-        if ($hasSocial) {
-            $employee->socialSecurity()->update($request->all());
-        } else {
-            $employee->socialSecurity()->create($request->all());
-        }
-
-        Cache::forget('employees');
-
-        return $employee;
-    }
-
-    private function handleUpdateNationality($employee, $request)
-    {
-        $this->validate($request, [
-            'nationality_id' => 'required|exists:nationalities,id',
-        ]);
-
-        $nationality = $request->nationality_id;
-
-        $employee->nationalities()->sync([$request->nationality_id]);
-
-        return $employee;
-    }
-
-    private function handleUpdateSupervisor($employee, $request)
-    {
-        $this->validate($request, [
-            'supervisor_id' => 'required|exists:supervisors,id',
-        ]);
-
-        $employee->supervisor_id = $request->supervisor_id;
-        $employee->save();
-
-        Cache::forget('employees');
-
-        return $employee->load('supervisor');
     }
 }

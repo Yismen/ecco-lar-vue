@@ -10,7 +10,7 @@
             </div>
     
             <div class="box-body">
-                <div class="form-group">
+                <div class="form-group" :class="{'has-error': form.error.has('card')}">
                     <label for="input" class="col-sm-2 control-label">Card:</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" 
@@ -21,7 +21,7 @@
                 </div> <!-- ./Card -->
             </div>
     
-            <div class="box-footer" v-if="showButton">
+            <div class="box-footer">
                 <div class="form-group">
                     <div class="col-sm-10 col-sm-offset-2">
                         <button type="submit" class="btn btn-primary">
@@ -37,18 +37,15 @@
 
 <script>
 
-    import Form from '../../../vendor/jorge.form'
-
     export default {
 
       name: 'CardComponent',
 
       data () {
         return {
-            form: new Form({
+            form: new (this.$ioc.resolve('Form')) ({
                 'card': this.employee.card ? this.employee.card.card : '',
             }, false),
-            showButton: false
 
         };
     },
@@ -59,15 +56,13 @@
 
     methods: {
         updated(event) {
-            this.showButton = true
             this.form.error.clear(event.target.name)
         },
         submitCard() {
-            this.form.post('/admin/employees/updateCard/' + this.employee.id)
+            this.form.post('/admin/employees/'+ this.employee.id +'/card')
                 .then(response => {
-                    this.employee.card = response.card;
-                    this.showButton = false
-                    return this.form.fields = response.card
+                    this.employee.card = response.data.card;
+                    return this.form.fields = response.data.card
                 })
         }
     }

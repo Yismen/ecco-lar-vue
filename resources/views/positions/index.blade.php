@@ -25,11 +25,12 @@
 								<th>Salary</th>
 								<th>Payment Type</th>
 								<th>Payment Frequency</th>
-								<th>								 
-									<a href="{{ route('admin.positions.create') }}">
+								<th>	
+									<create-position></create-position>							 
+									{{-- <a href="{{ route('admin.positions.create') }}">
 										Add 
 								 		<i class="fa fa-plus"></i>
-								 	</a>
+								 	</a> --}}
 								</th>
 							</tr>
 						</thead>
@@ -68,5 +69,4 @@
 @stop
 
 @section('scripts')
-	
 @stop

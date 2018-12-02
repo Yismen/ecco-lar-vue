@@ -1,6 +1,6 @@
 <template>
     <div class="_Nationality well">
-        <form class="form-horizontalS" role="form"
+        <form class="form-horizontal" role="form"
             @submit.prevent="handleForm"
             autocomplete="off" 
             @change="updated">
@@ -10,16 +10,14 @@
             </div>
     
             <div class="box-body">
-                <div class="form-group">
+                <div class="form-group" :class="{'has-error': form.error.has('nationality_id')}">
                     <label for="nationality_id" class="">Nationality:</label>
-                    <select name="nationality_id" id="nationality_id" class="form-control" v-model="form.fields.nationality_id">
-                        <option v-for="(nationality_id, index) in employee.nationalities_list" :value="index" :key="nationality_id">{{ nationality_id }}</option>
-                    </select>
+                    <nationality-select :current="employee.nationality.id" @changed="nationalityUpdated" v-model="form.fields.nationality_id"></nationality-select>
                     <span class="text-danger" v-if="form.error.has('nationality_id')">{{ form.error.get('nationality_id') }}</span>
-                </div> <!-- ./ARS-->
+                </div> 
             </div>
-    
-            <div class="box-footer" v-if="showButton">
+             <!-- ./Nationality-->
+            <div class="box-footer">
                 <div class="form-group">
                     <div class="col-sm-10 col-sm-offset-2">
                         <button type="submit" class="btn btn-primary">
@@ -35,7 +33,7 @@
 
 <script>
 
-    import Form from '../../../vendor/jorge.form'
+    import NationalitySelect from '../nationalities/SelectList'
 
     export default {
 
@@ -43,10 +41,9 @@
 
       data () {
         return {
-            form: new Form({
+            form: new (this.$ioc.resolve('Form')) ({
                 'nationality_id': this.employee.nationality ? this.employee.nationality.id : '',
             }, false),
-            showButton: false
         };
     },
 
@@ -54,18 +51,23 @@
         employee: {}
     },
 
+    components: {
+        NationalitySelect
+    },
+
     methods: {
         updated(event) {
-            this.showButton = true;
             this.form.error.clear(event.target.name)
         },
         handleForm() {
-            this.form.post('/admin/employees/updateNationality/' + this.employee.id)
+            this.form.post('/admin/employees/' + this.employee.id + '/nationality')
                 .then(response => {
-                    this.employee.nationality = response.nationality;
-                    this.showButton = false;
-                    return this.form.fields.nationality_id = response.nationality.id
+                    this.employee.nationality = response.data.nationality;
+                    return this.form.fields.nationality_id = response.data.nationality.id
                 })
+        },
+        nationalityUpdated(id) {
+            return this.form.fields.nationality_id = id
         }
     }
 };

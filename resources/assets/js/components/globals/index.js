@@ -1,10 +1,8 @@
-import LoadingSpinner from './../layouts/LoadingComponent';
-import DainsysModal from 'vue-bootstrap-modal';
-import EmployeeIndex from '../employees/Index';
-import HhrrInOutByMonths from '../human_resources/CountByMonthComponent';
-import SupervisorsIndex from '../supervisors/IndexComponent';
+//import LoadingSpinner from './../layouts/LoadingComponent';
+// import DainsysModal from 'vue-bootstrap-modal';
 
 
 export default {
-    LoadingSpinner, DainsysModal, EmployeeIndex, HhrrInOutByMonths, SupervisorsIndex
+    //LoadingSpinner, 
+    // DainsysModal, 
 }

@@ -11,10 +11,10 @@ class Termination extends Model
 
     protected $dates = ['termination_date'];
 
-    /**
-     * ----------------------------------------------------------------------------------
-     * Relationships
-     */
+    protected $casts = [
+        'can_be_rehired' => 'boolean',
+    ];
+    
     public function employee()
     {
         return $this->belongsTo('App\Employee');
@@ -28,20 +28,6 @@ class Termination extends Model
     public function terminationReason()
     {
         return $this->belongsTo('App\TerminationReason');
-    }
-
-    /**
-     * ======================================================================================
-     * Accessors
-     */
-
-    // public function getTerminationDateAttribute($date)
-    // {
-    // 	return Carbon::parse($this->attributes['termination_date'] = ])->format('Y-m-d');
-    // }
-
-    public function terminateEmployee($employee, $request)
-    {
     }
 
     public function setTerminationDateAttribute($date)

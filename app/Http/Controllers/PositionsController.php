@@ -24,8 +24,7 @@ class PositionsController extends Controller
      */
     public function index(Position $positions, Request $request)
     {
-        if ($request->ajax()) {
-            $positions = $positions
+        $positions = $positions
                 ->orderBy('department_id')
                 ->orderBy('name')
                 ->with('department')
@@ -36,9 +35,10 @@ class PositionsController extends Controller
                 ->with('payment_frequency')
                 ->paginate(50);
 
+        if ($request->ajax()) {
             return $positions;
         }
-        return view('positions.vue');
+        return view('positions.index', compact('positions'));
     }
 
     /**

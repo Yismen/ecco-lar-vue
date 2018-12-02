@@ -15,6 +15,12 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\EmployeeDeactivated' => [
             'App\Listeners\SemdEmailToHumanResources',
         ],
+        'App\Events\EmployeeTerminated' => [
+            'App\Listeners\EmployeeTerminated',
+        ],
+        'App\Events\EmployeeReactivate' => [
+            'App\Listeners\EmployeeReactivate',
+        ],
         'App\Events\EmployeeCreated' => [
             'App\Listeners\SemdEmailToHumanResources',
         ],

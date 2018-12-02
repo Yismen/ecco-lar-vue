@@ -13,7 +13,7 @@
             <div class="box-body">
                 <div class="row">
                     <div class="col-sm-10">
-                        <div class="form-group">
+                        <div class="form-group" :class="{'has-error': form.error.has('login')}">
                             <label for="input" class="col-sm-2 control-label">Login Name:</label>
                             <div class="col-sm-10">
                                 <input type="text" id="login" 
@@ -24,7 +24,7 @@
                             </div>
                         </div> <!-- ./Login Name -->
                     </div>
-                    <div class="col-sm-2" v-if="showButton">
+                    <div class="col-sm-2">
                         <div class="form-group">
                             <div class="col-sm-10 col-sm-offset-2">
                                 <button type="submit" class="btn btn-primary">
@@ -65,18 +65,15 @@
 
 <script>
 
-    import Form from '../../../vendor/jorge.form'
-
     export default {
 
-        name: 'LoginsComponent',
+        name: 'LoginNames',
 
         data () {
             return {
-                form: new Form({
+                form: new (this.$ioc.resolve('Form')) ({
                     'login': ''
                 }),
-                showButton: false,
                 logins: []
 
             };
@@ -94,13 +91,11 @@
 
         methods: {
             updated(event) {
-                this.showButton = true;
                 this.form.error.clear(event.target.name)
             },
             handleCreateLogin() {
-                this.form.post('/admin/employees/logins/' + this.employee.id)
+                this.form.post('/admin/employees/' + this.employee.id + '/login-names/create')
                 .then(response => {
-                    this.showButton = false;
                     return this.logins.unshift(response);
                 })
             }

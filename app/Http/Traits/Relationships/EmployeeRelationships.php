@@ -50,13 +50,8 @@ trait EmployeeRelationships
     }
 
     public function address()
-    {
-        return $this->hasOne('App\Address', 'employee_id');
-    }
-
-    public function addresses()
-    {
-        return $this->hasOne('App\Address', 'employee_id');
+    {        
+        return $this->hasOne('App\Address');
     }
 
     public function productions()
@@ -69,9 +64,9 @@ trait EmployeeRelationships
         return $this->hasMany('App\Hour');
     }
 
-    public function logins()
+    public function loginNames()
     {
-        return $this->hasMany('App\Login');
+        return $this->hasMany('App\LoginName');
     }
 
     public function card()

@@ -10,7 +10,7 @@
                     <h4>{{ employee.full_name }}' AFP Info:</h4>
                 </div> <!-- /Box Header -->
 
-                 <div class="form-group">
+                 <div class="form-group" :class="{'has-error': form.error.has('afp_id')}">
                     <label for="input" class="col-sm-2 control-label">AFP:</label>
                     <div class="col-sm-10">
                         <select name="afp_id" id="afp_id" class="form-control" v-model="form.fields.afp_id">
@@ -20,7 +20,7 @@
                     </div>
                 </div> <!-- ./AFP-->
 
-                <div class="box-footer with-border" v-if="showButton">
+                <div class="box-footer with-border">
                     <div class="form-group">
                         <div class="col-sm-10 col-sm-offset-2">
                             <button type="submit" class="btn btn-primary">
@@ -35,8 +35,8 @@
 </template>
 
 <script>
+    import NationalitySelect from '../nationalities/SelectList'
 
-    import Form from '../../../vendor/jorge.form'
 
     export default {
 
@@ -44,10 +44,9 @@
 
       data () {
         return {
-            form: new Form({
+            form: new (this.$ioc.resolve('Form')) ({
                 'afp_id': this.employee.afp ? this.employee.afp.id : '',
             }, false),
-            showButton: false
         };
     },
 
@@ -55,17 +54,19 @@
         employee: {}
     },
 
+    components: {
+        NationalitySelect
+    },
+
     methods: {
         updated(event) {
-            this.showButton = true;
             this.form.error.clear(event.target.name)
         },
         handleUpdateAfp() {
-            this.form.post('/admin/employees/updateAfp/' + this.employee.id)
+            this.form.post('/admin/employees/' + this.employee.id + '/afp')
                 .then(response => {
-                    this.employee.afp = response.afp;
-                    this.showButton = false;
-                    return this.form.fields.afp_id = response.afp.id
+                    this.employee.afp = response.data.afp;
+                    return this.form.fields.afp_id = response.data.afp.id
                 })
         }
     }

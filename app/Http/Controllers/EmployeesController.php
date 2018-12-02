@@ -55,7 +55,7 @@ class EmployeesController extends Controller
      *
      * @return Response
      */
-    public function create(Employee $employee, Department $departments)
+    public function create(Employee $employee)
     {
         return view('employees.create', compact('employee'));
     }
@@ -67,7 +67,20 @@ class EmployeesController extends Controller
      */
     public function store(Employee $employee, Request $request)
     {
-        $this->validateRequest($request, $employee);
+        $this->validate($request, [
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'hire_date' => 'required|date',
+            'personal_id' => 'required_if:passport,|nullable|digits:11|unique:employees,personal_id|size:11',
+            'passport' => 'required_if:personal_id,|nullable|unique:employees,passport|size:10',
+            'date_of_birth' => 'required|date',
+            'cellphone_number' => 'required|digits:10|unique:employees,cellphone_number',
+            'secondary_phone' => 'nullable|digits:10',
+            'gender_id' => 'required|exists:genders,id',
+            'marital_id' => 'required|exists:maritals,id',
+            'has_kids' => 'required|boolean',
+            'position_id' => 'required|exists:positions,id',
+        ]);
 
         $employee = $employee->create($request->all());
 
@@ -78,7 +91,7 @@ class EmployeesController extends Controller
         }
 
         return \Redirect::route('admin.employees.edit', $employee->id)
-            ->withSuccess("Succesfully added employee [$request->first_name $request->last_name];");
+            ->withSuccess("Succesfully added employee [$employee->first_name $employee->last_name];");
     }
 
     /**
@@ -111,7 +124,20 @@ class EmployeesController extends Controller
      */
     public function update(Employee $employee, Request $request)
     {
-        $this->validateRequest($request, $employee);
+        $this->validate($request, [
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'hire_date' => 'required|date',
+            'personal_id' => 'required_if:passport,|nullable|digits:11|unique:employees,personal_id,' . $employee->id,
+            'passport' => 'required_if:personal_id,|nullable|size:10|unique:employees,passport,' . $employee->id,
+            'date_of_birth' => 'required|date',
+            'cellphone_number' => 'required|digits:10|unique:employees,cellphone_number,' . $employee->id,
+            'secondary_phone' => 'nullable|digits:10',
+            'gender_id' => 'required|exists:genders,id',
+            'marital_id' => 'required|exists:maritals,id',
+            'has_kids' => 'required|boolean',
+            'position_id' => 'required|exists:positions,id',
+        ]);
 
         $employee->update($request->all());
 
@@ -125,50 +151,6 @@ class EmployeesController extends Controller
             ->withSuccess("Succesfully updated employee [$request->first_name $request->last_name]");
     }
 
-    /**
-     * Update card id attribute
-     *
-     * @param Employee $employee
-     * @param Request $request
-     * @return void
-     */
-    public function updateCard(Employee $employee, Request $request)
-    {
-        $this->validateCardRequest($request);
-
-        $employee->createOrUpdateCard($request);
-
-        if ($request->ajax()) {
-            return $employee->load('card');
-        }
-
-        return redirect()->route('admin.employees.show', $employee->id)
-            ->withSuccess('Card Number Updated');
-    }
-
-    /**
-     * Create or update pun id attribute
-     *
-     * @param Employee Model
-     * @param Request $request
-     * @return void
-     */
-    public function updatePunch(Employee $employee, Request $request)
-    {
-        $this->validate($request, [
-            'punch' => 'required|numeric|digits:5',
-        ]);
-
-        $employee->createOrUpdatePunch($request);
-
-        if ($request->ajax()) {
-            return $employee->load('punch');
-        }
-
-        return redirect()->route('admin.employees.show', $employee->id)
-            ->withSuccess('Punch ID Updated');
-    }
-
     public function createLogin(Employee $employee, Login $login, Request $request)
     {
         $newLogin = $this->handleAddLoginsToEmployee($employee, $request);
@@ -179,33 +161,6 @@ class EmployeesController extends Controller
 
         return redirect()->route('admin.employees.edit', $employee->id)
             ->withSuccess("Succesfully created [$request->login]");
-    }
-
-    public function updateArs(Employee $employee, Request $request)
-    {
-        $employee = $this->handleUpdateArs($employee, $request);
-
-        if ($request->ajax()) {
-            return $employee;
-        }
-    }
-
-    public function updateAfp(Employee $employee, Request $request)
-    {
-        $employee = $this->handleUpdateAfp($employee, $request);
-
-        if ($request->ajax()) {
-            return $employee;
-        }
-    }
-
-    public function updateBankAccount(Employee $employee, Request $request)
-    {
-        $employee = $this->handleUpdateBankAccount($employee, $request);
-
-        if ($request->ajax()) {
-            return $employee;
-        }
     }
 
     public function updateSocialSecurity(Employee $employee, Request $request)
@@ -269,30 +224,6 @@ class EmployeesController extends Controller
     {
         Cache::forget('employees');
         return $employee;
-    }
-
-    public function updatePhoto(Employee $employee, Request $request)
-    {
-        $this->validate($request, [
-            'photo' => 'required|image|max:3000',
-        ]);
-
-        $image = new ImageUploader('images/employees/');
-
-        $image = $image->saveImage($employee->id, $request->file('photo'));
-
-        if ($image) {
-            $now = Carbon::now()->timestamp;
-            $employee->photo = '/' . $image . '?' . $now;
-            $employee->save();
-        }
-
-        if ($request->ajax()) {
-            return $employee;
-        }
-
-        return redirect()->route('admin.employees.edit', $employee->id)
-            ->withSuccess("$employee->first_name's photo has been updated!");
     }
 
     public function updateTermination(Request $request, $employee)
@@ -377,7 +308,7 @@ class EmployeesController extends Controller
         });
     }
 
-    public function getDatatables()
+    protected function getDatatables()
     {
         return datatables()->eloquent(
             Employee::query()->with('position.department', 'position.payment_type')

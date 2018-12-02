@@ -9,7 +9,7 @@ trait UserAccessors
 {
     public function getRolesListAttribute()
     {
-        return Cache::rememberForever('menues_for_user_' . auth()->user()->id, function () {
+        return Cache::rememberForever('menus', function () {
             return \Auth::user()->is_admin
             ? Role::with(['menus' => function ($query) {
                 return $query;

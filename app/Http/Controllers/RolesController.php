@@ -7,6 +7,7 @@ use App\Role;
 use App\User;
 use App\Permission;
 use Illuminate\Http\Request;
+use Cache;
 
 class RolesController extends Controller
 {
@@ -124,6 +125,9 @@ class RolesController extends Controller
     public function destroy(Role $role)
     {
         $role->delete();
+        
+        Cache::forget('menus');
+        Cache::forget('roles');        
 
         return redirect()->route('admin.roles.index')
             ->withWarning("Role $role->name has been removed!!!");

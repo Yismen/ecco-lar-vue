@@ -50,7 +50,7 @@ class Menu extends Model
 
         $this->createPermissions($name);
 
-        Cache::forget('menues_for_user_' . auth()->user()->id);
+        Cache::forget('menus');
 
         $menu->roles()->sync((array) $request->roles);
 
@@ -63,7 +63,7 @@ class Menu extends Model
 
         $this->update($request->only(['name', 'display_name', 'description', 'icon']));
 
-        Cache::forget('menues_for_user_' . auth()->user()->id);
+        Cache::forget('menus');
 
         $this->roles()->sync((array) $request->roles);
 
@@ -74,7 +74,7 @@ class Menu extends Model
     {
         $this->delete();
 
-        Cache::forget('menues_for_user_' . auth()->user()->id);
+        Cache::forget('menus');
 
         $name = starts_with($this->name, 'admin/') ?
             str_slug(explode('admin/', $this->name, 2)[1]) :
@@ -100,8 +100,6 @@ class Menu extends Model
         if ($request->is_admin) {
             $request->merge(['name' => 'admin/'. $request->name]);
         }
-
-        // dd($request->all(), $name);
 
         return $name;
     }

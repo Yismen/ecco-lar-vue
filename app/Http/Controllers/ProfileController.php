@@ -8,6 +8,8 @@ use App\Profile;
 use Illuminate\Http\Request;
 use App\Repositories\Profiles;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
+use App\Repositories\ImageMaker;
 
 class ProfileController extends Controller
 {
@@ -16,7 +18,7 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Profiles $profiles)
+    public function index()
     {
         if (!auth()->user()->profile) {
             return redirect()->route('admin.profiles.create')
@@ -25,7 +27,7 @@ class ProfileController extends Controller
 
         $profile = auth()->user()->profile;
 
-        $profiles = $profiles->all();
+        $profiles = Profiles::all();
 
         return view('profiles.show', compact('profile', 'profiles'));
     }
@@ -78,6 +80,7 @@ class ProfileController extends Controller
         $user->profile()->create($request->all());
 
         Cache::forget('user-navbar');
+        Cache::forget('profiles');
 
         if ($photoPath) {
             $user->profile->photo = $photoPath;
@@ -156,6 +159,7 @@ class ProfileController extends Controller
         $profile->update($request->all());
 
         Cache::forget('user-navbar');
+        Cache::forget('profiles');
 
         $profile->photo = $photoPath;
         $profile->save();
@@ -201,32 +205,13 @@ class ProfileController extends Controller
         };
 
         $this->validate($request, [
-            'photo' => 'image|file|max:200'
+            'photo' => 'file|image|max:4000'
         ]);
 
-        /**
-         * Copy the photo
-         */
-        $file = $request->file('photo');
-        $localPath = 'images/profiles/'; // local folder where the image will be loaded to
-        // $localPath = storage_path('app/public/images/profiles/'); // local folder where the image will be loaded to
-        $fileName = sha1($user->id . $user->name); // $fileName = str_random(40); //username sha1ed, so it is unique
-        $extension = '.' . $file->getClientOriginalExtension(); // $fileName = str_random(40); //username sha1ed, so it is unique
-        $extendedName = $localPath . $fileName . $extension;
+        $path = "images/profiles/{$user->id}.png";
+        
+        Storage::drive('public')->put($path, ImageMaker::make($request->photo));     
 
-        // create instance
-        $img = Image::make($request->file('photo'));
-
-        // resize only the width of the image
-        $img->resize(null, 150, function ($constraint) {
-            $constraint->aspectRatio();
-        });
-
-        // Make the image squared
-        $img->crop(150, 150);
-
-        $img->save($extendedName, 85);
-
-        return $extendedName;
+        return "storage/{$path}";
     }
 }

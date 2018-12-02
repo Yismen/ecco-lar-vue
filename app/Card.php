@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Card extends Model
 {
-    protected $fillable = ['employee_id', 'card'];
+    protected $fillable = ['card'];
 
     /**
      * -----------------------------------------------------------

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Positions Routes
- * ------------------------------------------------
- */
-
 Route::bind('position', function ($id) {
     return App\Position::whereId($id)
         ->with('department')
