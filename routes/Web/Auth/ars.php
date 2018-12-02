@@ -1,11 +1,11 @@
 <?php
 
-Route::bind('ar', function ($slug) {
+Route::bind('arss', function ($slug) {
     return App\Ars::whereSlug($slug)
         ->with(['employees' => function ($query) {
-            return $query->actives();
+            return $query->orderBy('first_name')->actives();
         }])
         ->firstOrFail();
 });
 
-Route::resource('ars', 'ArsController');
+Route::resource('arss', 'ArsController');

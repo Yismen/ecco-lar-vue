@@ -32,7 +32,7 @@ class ArsController extends Controller
             return $arss;
         }
 
-        return view('ars.index', compact('arss'));
+        return view('arss.index', compact('arss'));
     }
 
     /**
@@ -42,7 +42,7 @@ class ArsController extends Controller
      */
     public function create()
     {
-        //
+        return view('arss.create');
     }
 
     /**
@@ -57,16 +57,16 @@ class ArsController extends Controller
             'name' => 'required|min:3|unique:arss'
         ]);
 
-        $ars = $ars->create($request->all());
-
         Cache::forget('employees');
         Cache::forget('arss');
+
+        $ars = $ars->create($request->all());
 
         if ($request->ajax()) {
             return $ars;
         }
 
-        return redirect()->route('admin.ars.index')
+        return redirect()->route('admin.arss.index')
             ->withSuccess("ARS $ars->name created!");
     }
 
@@ -78,7 +78,7 @@ class ArsController extends Controller
      */
     public function show(Ars $ars)
     {
-        return view('ars.show', compact('ars'));
+        return view('arss.show', compact('ars'));
     }
 
     /**
@@ -89,7 +89,7 @@ class ArsController extends Controller
      */
     public function edit(Ars $ars)
     {
-        return view('ars.edit', compact('ars'));
+        return view('arss.edit', compact('ars'));
     }
 
     /**
@@ -105,9 +105,12 @@ class ArsController extends Controller
             'name' => 'required|min:3|unique:arss,name,' . $ars->id
         ]);
 
+        Cache::forget('employees');
+        Cache::forget('arss');
+
         $ars->update($request->only(['name']));
 
-        return redirect()->route('admin.ars.index')
+        return redirect()->route('admin.arss.index')
             ->withSuccess("ARS $ars->name Updated!");
     }
 
@@ -119,9 +122,17 @@ class ArsController extends Controller
      */
     public function destroy(Ars $ars)
     {
+        Cache::forget('employees');
+        Cache::forget('arss');
+
+        if ($ars->employees->count()) {
+            return redirect()->back()
+                ->withDanger("ARS $ars->name has employees therefore it can't be deleted!");
+        }
+
         $ars->delete();
 
-        return redirect()->route('admin.ars.index')
-            ->withDanger("ARS $ars->name have been eliminated!");
+        return redirect()->route('admin.arss.index')
+            ->withWarning("ARS $ars->name have been eliminated!");
     }
 }

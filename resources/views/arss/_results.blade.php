@@ -2,27 +2,27 @@
     <table class="table table-condensed table-bordered">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>ARS</th>
                 <th class="col-xs-2">Employees</th>
-                <th class="col-xs-2">Edit</th>
+                <th class="col-xs-2">Actions</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($arss as $ars)
                 <tr>
-                    <td>{{ $ars->id }} </td>
                     <td>
-                        <a href="/admin/ars/{{ $ars->slug }}">{{ $ars->name }}</a>
+                        <a href="{{ route('admin.arss.show', $ars->slug) }}">{{ $ars->name }}</a>
                     </td>
 
                     <td>
-                        <strong>{{ count($ars->employees) }}</strong>
+                        <span class="label {{ count($ars->employees) ? 'label-info' : 'label-default' }}">
+                            {{ count($ars->employees) }}
+                        </span>
                     </td>
 
                     <td>
-                        <a href="/admin/ars/{{ $ars->slug }}/edit" title="Edit ARS">
-                            <i class="fa fa-pencil"></i>
+                        <a href="{{ route('admin.arss.edit', $ars->slug) }}" title="Edit ARS">
+                            <i class="fa fa-pencil"></i> Edit
                         </a>
                     </td>
                 </tr>

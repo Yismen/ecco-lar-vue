@@ -6,19 +6,19 @@
         <div class="row">
             <div class="col-sm-8 col-sm-offset-2">
                 <div class="box box-primary">
-                    
+
                     <div class="box-header with-border">
-                        ARS
-                        <a href="/admin/ars/create" class="pull-right">
+                        ARS List
+                        <a href="{{ route('admin.arss.create') }}" class="pull-right">
                             <i class="fa fa-plus"></i> Add
                         </a>
                     </div>
-                        
-                    @include('ars.create')
-                    
-                    @include('ars._results')
-                </div> {{-- /. Box --}}
-            </div> {{-- /. Column --}}
+
+                    @include('arss._results')
+                </div>
+                {{-- /. Box --}}
+            </div>
+            {{-- /. Column --}}
         </div>
     </div>
 @endsection
