@@ -1797,8 +1797,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__nationalities_SelectList__ = __webpack_require__("./resources/assets/js/components/nationalities/SelectList.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__nationalities_SelectList___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__nationalities_SelectList__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__forms_CreateAfp__ = __webpack_require__("./resources/assets/js/components/forms/CreateAfp.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__forms_CreateAfp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__forms_CreateAfp__);
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -1839,11 +1847,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-
     name: 'AFPComponent',
 
     data: function data() {
         return {
+            afp_list: [],
             form: new (this.$ioc.resolve('Form'))({
                 'afp_id': this.employee.afp ? this.employee.afp.id : ''
             }, false)
@@ -1855,21 +1863,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         employee: {}
     },
 
-    components: {
-        NationalitySelect: __WEBPACK_IMPORTED_MODULE_0__nationalities_SelectList___default.a
+    mounted: function mounted() {
+        var _this = this;
+
+        axios.get('/api/afps').then(function (response) {
+            return _this.afp_list = response.data;
+        });
     },
+
+
+    components: { CreateAfpForm: __WEBPACK_IMPORTED_MODULE_0__forms_CreateAfp___default.a },
 
     methods: {
         updated: function updated(event) {
             this.form.error.clear(event.target.name);
         },
         handleUpdateAfp: function handleUpdateAfp() {
-            var _this = this;
+            var _this2 = this;
 
-            this.form.post('/admin/employees/' + this.employee.id + '/afp').then(function (response) {
-                _this.employee.afp = response.data.afp;
-                return _this.form.fields.afp_id = response.data.afp.id;
+            this.form.put('/admin/employees/' + this.employee.id + '/afp').then(function (response) {
+                _this2.employee.afp = response.data.afp;
+                return _this2.form.fields.afp_id = response.data.afp.id;
             });
+        },
+        afpCreated: function afpCreated(data) {
+            return this.afp_list.unshift(data);
         }
     }
 });
@@ -3587,6 +3605,86 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 'position': ""
             })
         };
+    }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/forms/CreateAfp.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: "CreateAfpComponent",
+    data: function data() {
+        return {
+            form: new (this.$ioc.resolve('Form'))({
+                'name': ''
+            })
+        };
+    },
+
+
+    methods: {
+        showModal: function showModal() {
+            this.$modal.show('create-afp');
+        },
+        modalOpened: function modalOpened(e) {
+            e.ref.getElementsByTagName("input")[0].focus();
+        },
+        createNew: function createNew() {
+            var _this = this;
+
+            this.form.post('/api/afps', {}).then(function (response) {
+                _this.$emit('afp-created', response.data);
+                _this.form.fields.name = '';
+                _this.$swal('Nice!', 'The Afp ' + response.data.name + ' was added!', 'success');
+                _this.$modal.hide('create-afp');
+            });
+        }
     }
 });
 
@@ -8754,6 +8852,21 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-343497f0\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/forms/CreateAfp.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-34c484ed\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/employees/BankAccountComponent.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8792,7 +8905,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -57871,6 +57984,131 @@ if (false) {
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-343497f0\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/forms/CreateAfp.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "_create_positions" },
+    [
+      _c(
+        "modal",
+        { attrs: { name: "create-afp" }, on: { opened: _vm.modalOpened } },
+        [
+          _c(
+            "form",
+            {
+              staticClass: "form-horizonal",
+              attrs: { role: "form", autocomplete: "off" },
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.createNew($event)
+                }
+              }
+            },
+            [
+              _c("div", { staticClass: "box-header with-border" }, [
+                _c("h4", [_vm._v("Create Afp")])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "box-body" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "form-group",
+                    class: { "has-error": _vm.form.error.has("name") }
+                  },
+                  [
+                    _c("div", {}, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-sm-2 control-label",
+                          attrs: { for: "name" }
+                        },
+                        [_vm._v("Name:")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-10" }, [
+                        _c("div", { staticClass: "input-group" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.fields.name,
+                                expression: "form.fields.name"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              id: "create-afp-name",
+                              name: "name"
+                            },
+                            domProps: { value: _vm.form.fields.name },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form.fields,
+                                  "name",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "input-group-addon" }, [
+                            _c("i", { staticClass: "fa fa-flag" })
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _vm.form.error.has("name")
+                          ? _c("span", { staticClass: "text-danger" }, [
+                              _vm._v(_vm._s(_vm.form.error.get("name")))
+                            ])
+                          : _vm._e()
+                      ])
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "box-footer" }, [
+                _c(
+                  "button",
+                  { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+                  [_vm._v("CREATE")]
+                )
+              ])
+            ]
+          )
+        ]
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-343497f0", module.exports)
+  }
+}
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-34c484ed\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/employees/BankAccountComponent.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -58130,22 +58368,24 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "_AFP well" }, [
-    _c(
-      "form",
-      {
-        staticClass: "form-horizontal",
-        attrs: { role: "form", autocomplete: "off" },
-        on: {
-          submit: function($event) {
-            $event.preventDefault()
-            return _vm.handleUpdateAfp($event)
-          },
-          change: _vm.updated
-        }
-      },
-      [
-        _c("div", { staticClass: "box-body" }, [
+  return _c(
+    "div",
+    { staticClass: "_AFP well" },
+    [
+      _c(
+        "form",
+        {
+          staticClass: "form-horizontal",
+          attrs: { role: "form", autocomplete: "off" },
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.handleUpdateAfp($event)
+            },
+            change: _vm.updated
+          }
+        },
+        [
           _c("div", { staticClass: "box-header with-border" }, [
             _c("h4", [_vm._v(_vm._s(_vm.employee.full_name) + "' AFP Info:")])
           ]),
@@ -58153,93 +58393,114 @@ var render = function() {
           _c(
             "div",
             {
-              staticClass: "form-group",
+              staticClass: "box-body",
               class: { "has-error": _vm.form.error.has("afp_id") }
             },
             [
-              _c(
-                "label",
-                {
-                  staticClass: "col-sm-2 control-label",
-                  attrs: { for: "input" }
-                },
-                [_vm._v("AFP:")]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-sm-10" }, [
+              _c("div", { staticClass: "form-group" }, [
                 _c(
-                  "select",
+                  "label",
                   {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.form.fields.afp_id,
-                        expression: "form.fields.afp_id"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { name: "afp_id", id: "afp_id" },
-                    on: {
-                      change: function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.$set(
-                          _vm.form.fields,
-                          "afp_id",
-                          $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        )
-                      }
-                    }
+                    staticClass: "col-sm-2 control-label",
+                    attrs: { for: "input" }
                   },
-                  _vm._l(_vm.employee.afp_list, function(afp_id, index) {
-                    return _c(
-                      "option",
-                      { key: afp_id, domProps: { value: index } },
-                      [_vm._v(_vm._s(afp_id))]
-                    )
-                  })
+                  [_vm._v("AFP:")]
                 ),
                 _vm._v(" "),
-                _vm.form.error.has("afp_id")
-                  ? _c("span", { staticClass: "text-danger" }, [
-                      _vm._v(_vm._s(_vm.form.error.get("afp_id")))
-                    ])
-                  : _vm._e()
+                _c("div", { staticClass: "col-sm-10" }, [
+                  _c("div", { staticClass: "input-group" }, [
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.fields.afp_id,
+                            expression: "form.fields.afp_id"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { name: "afp_id", id: "afp_id" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.form.fields,
+                              "afp_id",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      _vm._l(_vm.afp_list, function(afp, index) {
+                        return _c(
+                          "option",
+                          { key: afp.id, domProps: { value: afp.id } },
+                          [_vm._v(_vm._s(afp.name))]
+                        )
+                      })
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      {
+                        staticClass: "input-group-addon",
+                        attrs: { href: "#" },
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            _vm.$modal.show("create-afp")
+                          }
+                        }
+                      },
+                      [
+                        _c("i", { staticClass: "fa fa-plus" }),
+                        _vm._v(" Add\n                        ")
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _vm.form.error.has("afp_id")
+                    ? _c("span", { staticClass: "text-danger" }, [
+                        _vm._v(_vm._s(_vm.form.error.get("afp_id")))
+                      ])
+                    : _vm._e()
+                ])
               ])
             ]
           ),
           _vm._v(" "),
           _vm._m(0)
-        ])
-      ]
-    )
-  ])
+        ]
+      ),
+      _vm._v(" "),
+      _c("create-afp-form", { on: { "afp-created": _vm.afpCreated } })
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "box-footer with-border" }, [
+    return _c("div", { staticClass: "box-footer" }, [
       _c("div", { staticClass: "form-group" }, [
         _c("div", { staticClass: "col-sm-10 col-sm-offset-2" }, [
           _c(
             "button",
             { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-            [
-              _vm._v(
-                "\n                            Save AFP\n                        "
-              )
-            ]
+            [_vm._v("\n                        Save AFP\n                    ")]
           )
         ])
       ])
@@ -61838,6 +62099,33 @@ if(false) {
  if(!content.locals) {
    module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-32b045f0\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./PunchComponent.vue", function() {
      var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-32b045f0\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./PunchComponent.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-343497f0\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/forms/CreateAfp.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-343497f0\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/forms/CreateAfp.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("40766ece", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-343497f0\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./CreateAfp.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-343497f0\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./CreateAfp.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -77226,6 +77514,58 @@ if (false) {(function () {
     hotAPI.createRecord("data-v-7bbaf94d", Component.options)
   } else {
     hotAPI.reload("data-v-7bbaf94d", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/forms/CreateAfp.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-343497f0\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/forms/CreateAfp.vue")
+}
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/forms/CreateAfp.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-343497f0\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/forms/CreateAfp.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/forms/CreateAfp.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-343497f0", Component.options)
+  } else {
+    hotAPI.reload("data-v-343497f0", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true

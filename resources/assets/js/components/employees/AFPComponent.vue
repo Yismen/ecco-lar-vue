@@ -1,75 +1,88 @@
 <template>
     <div class="_AFP well">
         <form class="form-horizontal" role="form"
+            autocomplete="off"
             @submit.prevent="handleUpdateAfp"
-            autocomplete="off" 
-            @change="updated">
+            @change="updated"
+        >
 
-            <div class="box-body">
-                <div class="box-header with-border">
-                    <h4>{{ employee.full_name }}' AFP Info:</h4>
-                </div> <!-- /Box Header -->
+            <div class="box-header with-border">
+                <h4>{{ employee.full_name }}' AFP Info:</h4>
+            </div>
 
-                 <div class="form-group" :class="{'has-error': form.error.has('afp_id')}">
+            <div class="box-body" :class="{'has-error': form.error.has('afp_id')}">
+                <div class="form-group">
                     <label for="input" class="col-sm-2 control-label">AFP:</label>
                     <div class="col-sm-10">
-                        <select name="afp_id" id="afp_id" class="form-control" v-model="form.fields.afp_id">
-                            <option v-for="(afp_id, index) in employee.afp_list" :value="index" :key="afp_id">{{ afp_id }}</option>
-                        </select>
+                        <div class="input-group">
+                            <select name="afp_id" id="afp_id" class="form-control" v-model="form.fields.afp_id">
+                                <option v-for="(afp, index) in afp_list" :value="afp.id" :key="afp.id">{{ afp.name }}</option>
+                            </select>
+                            <a href="#" @click.prevent="$modal.show('create-afp')" class="input-group-addon">
+                                <i class="fa fa-plus"></i> Add
+                            </a>
+                        </div>
                         <span class="text-danger" v-if="form.error.has('afp_id')">{{ form.error.get('afp_id') }}</span>
                     </div>
                 </div> <!-- ./AFP-->
+            </div>
 
-                <div class="box-footer with-border">
-                    <div class="form-group">
-                        <div class="col-sm-10 col-sm-offset-2">
-                            <button type="submit" class="btn btn-primary">
-                                Save AFP
-                            </button>
-                        </div>
+            <div class="box-footer">
+                <div class="form-group">
+                    <div class="col-sm-10 col-sm-offset-2">
+                        <button type="submit" class="btn btn-primary">
+                            Save AFP
+                        </button>
                     </div>
-                </div> <!-- /Box Footer -->
-            </div>  <!-- /Box Body -->              
+                </div>
+            </div>
         </form>
+        <create-afp-form @afp-created="afpCreated"></create-afp-form>
+        <!-- ./ Modal -->
     </div>
 </template>
 
 <script>
-    import NationalitySelect from '../nationalities/SelectList'
+import CreateAfpForm from '../forms/CreateAfp'
 
+export default {
+name: 'AFPComponent',
 
-    export default {
+data () {
+    return {
+        afp_list: [],
+        form: new (this.$ioc.resolve('Form')) ({
+            'afp_id': this.employee.afp ? this.employee.afp.id : '',
+        }, false)
+    };
+},
 
-      name: 'AFPComponent',
+props: {
+    employee: {}
+},
 
-      data () {
-        return {
-            form: new (this.$ioc.resolve('Form')) ({
-                'afp_id': this.employee.afp ? this.employee.afp.id : '',
-            }, false),
-        };
+mounted() {
+    axios.get('/api/afps')
+        .then(response => this.afp_list = response.data)
+},
+
+components: {CreateAfpForm },
+
+methods: {
+    updated(event) {
+        this.form.error.clear(event.target.name)
     },
-
-    props: {
-        employee: {}
+    handleUpdateAfp() {
+        this.form.put('/admin/employees/' + this.employee.id + '/afp')
+            .then(response => {
+                this.employee.afp = response.data.afp;
+                return this.form.fields.afp_id = response.data.afp.id
+            })
     },
-
-    components: {
-        NationalitySelect
-    },
-
-    methods: {
-        updated(event) {
-            this.form.error.clear(event.target.name)
-        },
-        handleUpdateAfp() {
-            this.form.post('/admin/employees/' + this.employee.id + '/afp')
-                .then(response => {
-                    this.employee.afp = response.data.afp;
-                    return this.form.fields.afp_id = response.data.afp.id
-                })
-        }
+    afpCreated(data) {
+        return this.afp_list.unshift(data)
     }
+}
 };
 </script>
 

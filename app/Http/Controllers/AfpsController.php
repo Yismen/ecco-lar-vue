@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Afp;
 use Illuminate\Http\Request;
+use Cache;
 
 class AfpsController extends Controller
 {
@@ -20,11 +21,17 @@ class AfpsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $afps = Afp::with(['employees' => function ($query) {
-            return $query->actives();
-        }])->orderBy('name')->get();
+        $afps = Cache::rememberForever('afps', function() {
+            return Afp::with(['employees' => function ($query) {
+                return $query->actives();
+            }])->orderBy('name')->get();
+        });
+
+        if ($request->ajax()) {
+            return $afps;
+        }
 
         return view('afp.index', compact('afps'));
     }
@@ -51,7 +58,14 @@ class AfpsController extends Controller
             'name' => 'required|min:3|unique:afps,name'
         ]);
 
-        $afp = Afp::create($request->all());
+        // Cache:forget('employees');
+        // Cache:forget('afps');
+
+        $afp = Afp::create($request->only('name'));
+
+        if ($request->ajax()) {
+            return $afp;
+        }
 
         return redirect()->route('admin.afps.index')
             ->withSuccess("AFP $afp->name created!");
