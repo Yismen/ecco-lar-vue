@@ -10,7 +10,7 @@
 
 <script>
     import { mapState, mapActions } from 'vuex'
-    
+
     export default {
 
         name: 'LoadingComponent',
@@ -57,20 +57,20 @@
     }
     .spinner>.one{
         border: 6px solid transparent;
-        border-top-color: #27ae60;
-        border-bottom-color: #27ae60;
+        border-top-color: rgba(0,0,0,0.35);
+        border-bottom-color: rgba(0,0,0,0.35);
         animation: rotate 2s ease infinite;
     }
     .spinner>.two{
         border: 9px solid transparent;
-        border-top-color: #d35400;
-        border-bottom-color: #d35400;
+        border-top-color: rgba(0,0,0,0.35);
+        border-bottom-color: rgba(0,0,0,0.35);
         animation: rotate 4s ease infinite;
     }
     .spinner>.three{
         border: 12px solid transparent;
-        border-top-color: #8e44ad;
-        border-bottom-color: #8e44ad;
+        border-top-color: rgba(0,0,0,0.35);
+        border-bottom-color: rgba(0,0,0,0.35);
         animation: rotate 7s ease infinite;
     }
     @keyframes rotate{
