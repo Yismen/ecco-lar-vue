@@ -41,7 +41,7 @@
                     <employee-edit :employee="employee"></employee-edit>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="termination">
-                    <employee-termination :employee="employee"></employee-termination>
+                    <employee-termination :employee="employee" @employee-reactivated="updateHireDate"></employee-termination>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="address">
                     <employee-address :employee="employee"></employee-address>
@@ -126,6 +126,10 @@
         methods: {
             setTab(e) {
                 this.selectedTab = e.target.hash
+            },
+
+            updateHireDate(employee) {
+                return this.employee.hire_date = employee.hire_date
             }
         }
     }

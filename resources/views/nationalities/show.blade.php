@@ -15,37 +15,39 @@
                 </div>
 
                 <div class="box-body">
-                    <table class="table table-condensed table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Position</th>
-                                <th>Photo</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($nationality->employees as $employee)
+                    @if($nationality->employees->count())
+                        <table class="table table-condensed table-bordered">
+                            <thead>
                                 <tr>
-                                    <td>
-                                        <a href="{{ route('admin.employees.show', $employee->id) }}">
-                                            {{ $employee->full_name }}
-                                        </a>
-                                    </td>
-                                    <td>{{ $employee->position ? $employee->position->name_and_department : '' }}</td>
-                                    <td class="col-xs-1">
-                                        <a href="{{ $employee->photo }}" target="_photo">
-                                            <img src="{{ $employee->photo }}" class="img-responsive img-circle" alt="Image">
-                                        </a>
-
-                                    </td>
+                                    <th>Nationality</th>
+                                    <th>Name</th>
+                                    <th>Position</th>
+                                    <th>Photo</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach ($nationality->employees as $employee)
+                                    <tr>
+                                        <td>{{ $nationality->name }}</td>
+                                        <td>
+                                            <a href="{{ route('admin.employees.show', $employee->id) }}">
+                                                {{ $employee->full_name }}
+                                            </a>
+                                        </td>
+                                        <td>{{ $employee->position ? $employee->position->name_and_department : '' }}</td>
+                                        <td class="col-xs-1">
+                                            <a href="{{ $employee->photo }}" target="_photo">
+                                                <img src="{{ asset($employee->photo) }}" class="img-circle" height="30px" alt="Image">
+                                            </a>
+
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @endif
                 </div>
 
-                <div class="box-footer"></div>
-                
             </div>
         </div>
     </div>

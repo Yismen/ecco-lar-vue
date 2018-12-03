@@ -1,12 +1,12 @@
 <template>
     <div class="_create_positions">
-        <modal name="create-ars" height="auto" :scrollable="true" @opened="modalOpened">
+        <modal name="create-bank" height="auto" :scrollable="true" @opened="modalOpened">
              <form role="form" class="form-horizonal"
                 @submit.prevent="createNew"
                 autocomplete="off"
             >
                 <div class="box-header with-border">
-                    <h4>Create Ars</h4>
+                    <h4>Create Bank</h4>
                 </div>
 
                 <div class="box-body">
@@ -16,7 +16,7 @@
                             <label for="name" class="col-sm-2 control-label">Name:</label>
                                 <div class="col-sm-10">
                                     <div class="input-group">
-                                        <input type="text" id="create-ars-name"
+                                        <input type="text" id="create-bank-name"
                                             name="name" class="form-control"
                                             v-model="form.fields.name"
                                         >
@@ -41,7 +41,7 @@
 <script>
 
 export default {
-    name: "CreateArsComponent",
+    name: "CreateBankComponent",
     data() {
         return {
             form: new (this.$ioc.resolve('Form')) ({
@@ -56,16 +56,15 @@ export default {
             if (inputs.length > 0) {
                 inputs[0].focus()
             }
-
         },
 
         createNew() {
-            this.form.post('/api/arss', {})
+            this.form.post('/api/banks', {})
                 .then(response => {
-                    this.$emit('ars-created', response.data)
+                    this.$emit('bank-created', response.data)
                     this.form.fields.name = '';
-                    this.$swal('Nice!', 'The Ars '+response.data.name + ' was added!', 'success')
-                    this.$modal.hide('create-ars');
+                    this.$swal('Nice!', 'The Bank '+response.data.name + ' was added!', 'success')
+                    this.$modal.hide('create-bank');
                 })
         }
     }

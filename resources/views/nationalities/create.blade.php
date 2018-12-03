@@ -8,25 +8,25 @@
                 <div class="box box-primary">
 
 
-                    {!! Form::open(['route'=>['admin.nationalities.store'], 'class'=>'form-horizontal', 'role'=>'form', 'autocomplete'=>"off",  'enctype'=>"multipart/form-data"]) !!}       
+                    {!! Form::open(['route'=>['admin.nationalities.store'], 'class'=>'form-horizontal', 'role'=>'form', 'autocomplete'=>"off",  'enctype'=>"multipart/form-data"]) !!}
                         <div class="box-header with-border">
                             <h4>
-                                Add a New Nationality 
+                                Add a New Nationality
                                 <a href="{{ route('admin.nationalities.index') }}" class="pull-right" title="Back to Main Page"><i class="fa fa-list"></i></a>
                             </h4>
                         </div>
                         {{-- /. .box-header --}}
                         <div class="box-body">
-                            @include('nationalities._form')                        
+                            @include('nationalities._form')
                         </div>
                         {{-- /. .box-body --}}
                         <div class="box-footer">
-                            <button type="reset" class="btn btn-default">CANCEL</button>
                             <button type="submit" class="btn btn-primary">SUBMIT</button>
+                            <button type="reset" class="btn btn-default">CANCEL</button>
                         </div>
-                    
+
                     {!! Form::close() !!}
-                    
+
                 </div>
             </div>
         </div>

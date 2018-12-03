@@ -17,6 +17,7 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('positions', 'PositionsController');
     Route::resource('arss', 'ArsController')->only(['index', 'store']);
     Route::resource('afps', 'AfpsController')->only(['index', 'store']);
+    Route::resource('banks', 'BanksController')->only(['index', 'store']);
     Route::resource('departments', 'DepartmentsController');
     Route::resource('nationalities', 'NationalitiesController');
     Route::resource('payment_frequencies', 'PaymentFrequenciesController');

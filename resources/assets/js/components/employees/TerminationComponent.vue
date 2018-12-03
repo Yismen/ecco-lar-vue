@@ -6,7 +6,7 @@
         </div>
 
         <div class="row with-border" v-if="! isActive">
-            <employee-reactivation :employee="employee" @employee-reactivated="reactivate"></employee-reactivation>
+            <employee-reactivation :employee="employee" @employee-reactivated="reactivated"></employee-reactivation>
         </div>
 
         <form class="" role="form"
@@ -165,9 +165,10 @@
                 })
         },
 
-        reactivate(response) {
+        reactivated(employee) {
             this.isActive = true;
-            this.employee.termination = response.termination;
+            this.$emit('employee-reactivated', employee)
+            this.employee.termination = employee.termination;
             this.form.reset();
             this.form.fields.termination_date = new Date()
         }

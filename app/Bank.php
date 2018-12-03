@@ -11,16 +11,9 @@ class Bank extends Model
     // Relationships =============================================
     public function accounts()
     {
-        return hasMany('App\BankAccount');
+        return $this->hasMany('App\BankAccount');
     }
 
-    // Methods ===================================================
-
-    // Scopes ====================================================
-
-    // Accessors =================================================
-
-    // Mutators ==================================================
     public function setNameAttribute($name)
     {
         return $this->attributes['name'] = ucwords(trim($name));

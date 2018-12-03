@@ -4,4 +4,4 @@ Route::bind('bank', function ($id) {
     return App\Bank::findOrFail($id);
 });
 
-Route::resource('banks', 'BanksController', ['only' => ['index', 'store', 'edit', 'update', 'destroy']]);
+Route::resource('banks', 'BanksController')->except(['show', 'create']);

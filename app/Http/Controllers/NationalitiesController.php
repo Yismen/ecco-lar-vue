@@ -10,6 +10,10 @@ class NationalitiesController extends Controller
 {
     public function __construct()
     {
+        $this->middleware('authorize:view_nationalities|edit_nationalities|create_nationalities', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit_nationalities', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create_nationalities', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy_nationalities', ['only' => ['destroy']]);
     }
 
     /**
@@ -19,17 +23,14 @@ class NationalitiesController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->ajax()) {
-            return Cache::rememberForever('nationalities', function() {
+        $nationalities = Cache::rememberForever('nationalities', function() {
                 return Nationality::orderBy('name', 'ASC')
                 ->with('employees')->select('id', 'name')->get();
             });
-        }
 
-        $nationalities = Cache::rememberForever('nationalities', function() {
-            return Nationality::orderBy('name', 'ASC')
-                ->with('employees')->paginate(50);
-        });    
+        if ($request->ajax()) {
+            return $nationalities;
+        }
 
         return view('nationalities.index', compact('nationalities'));
     }
@@ -58,9 +59,8 @@ class NationalitiesController extends Controller
 
         $nationality = $nationality->create($request->only(['name']));
 
-        
         Cache::forget('nationalities');
-        
+        Cache::forget('employees');
 
         if ($request->ajax()) {
             return $nationality;
@@ -104,6 +104,9 @@ class NationalitiesController extends Controller
         $this->validateRequest($request, $nationality);
 
         $nationality->update($request->all());
+
+        Cache::forget('nationalities');
+        Cache::forget('employees');
 
         return redirect()->route('admin.nationalities.index')
             ->withWarning("Record {$nationality->name} updated");

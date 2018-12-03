@@ -25,18 +25,31 @@ export default {
 
     methods: {
         sendRequest() {
-            axios.delete(this.url, this.payload)
-                .then(response => {
-                    if (this.redirectUrl) {
-                        return window.location.assign(this.redirectUrl)
-                    }
-                    this.redirectUrl = null
-                    this.$emit('delete-request-completed', response.data)
-                })
-                .catch(errors => {
-                    console.log(errors.data)
-                    console.log(errors)
-                })
+            this.$swal({
+                title: 'Are you sure?',
+                text: "This action can not be reverted. It will be gone forever. ",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.value) {
+                    axios.delete(this.url, this.payload)
+                        .then(response => {
+                            if (this.redirectUrl) {
+                                return window.location.assign(this.redirectUrl)
+                            }
+                            this.redirectUrl = null
+                            this.$emit('delete-request-completed', response.data)
+                        })
+                        .catch(errors => {
+                            console.log(errors.data)
+                            console.log(errors)
+                        })
+
+                }
+            })
         }
     }
 

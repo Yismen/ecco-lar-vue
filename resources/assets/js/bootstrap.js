@@ -12,7 +12,6 @@ Vue.use(Vuec);
 Vue.$ioc.register('Form', require('./vendor/dainsys-form').default);
 import Datepicker from 'vuejs-datepicker'
 Vue.$ioc.register('Datepicker', Datepicker);
-Vue.$ioc.register('bootbox', require('bootbox'));
 
 /**
  * Register Sweet Alert (sweetalert) globally.
@@ -41,7 +40,6 @@ try {
  */
 import VModal from 'vue-js-modal'
 Vue.use(VModal)
-
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -86,6 +84,7 @@ Vue.component( 'passport-clients', require('./components/passport/Clients.vue') 
 Vue.component( 'passport-authorized-clients', require('./components/passport/AuthorizedClients.vue') );
 Vue.component( 'passport-personal-access-tokens', require('./components/passport/PersonalAccessTokens.vue') );
 Vue.component('create-position', require('./components/employees/positions/Create'))
+// Vue.component('modal', require('./components/Modal'))
 Vue.component('add-button', require('./components/links/AddButton'))
 Vue.component('delete-request-button', require('./components/DeleteRequest'))
 Vue.component('create-afp-form', require('./components/forms/CreateAfp'))

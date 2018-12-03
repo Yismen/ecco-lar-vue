@@ -27,9 +27,13 @@
                                         <td>
                                             <a href="/admin/nationalities/{{ $nationality->id }}">{{ $nationality->name }}</a>
                                         </td>
-                                        <td>{{ $nationality->employees()->count() }}</td>
                                         <td>
-                                            <a href="/admin/nationalities/{{ $nationality->id }}/edit" class="btn btn-warning btn-xs">
+                                            <span class="label {{ $nationality->employees->count() ? 'label-info' : 'label-default' }}">
+                                                {{ $nationality->employees->count() }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <a href="/admin/nationalities/{{ $nationality->id }}/edit" class="">
                                                 <i class="fa fa-edit"></i> Edit
                                             </a>
                                         </td>
@@ -39,10 +43,6 @@
                         </table>
                     </div>
 
-                    <div class="box-footer">
-                        {{ $nationalities->render() }}
-                    </div>
-                    
                 </div>
             </div>
         </div>

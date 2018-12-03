@@ -1,7 +1,7 @@
 <template>
     <div class="_create_positions">
 
-        <modal name="create-afp" @opened="modalOpened">
+        <modal name="create-afp" height="auto" :scrollable="true" @opened="modalOpened">
              <form role="form" class="form-horizonal"
                 @submit.prevent="createNew"
                 autocomplete="off"
@@ -11,7 +11,6 @@
                 </div>
 
                 <div class="box-body">
-
                     <div class="form-group" :class="{'has-error': form.error.has('name')}">
                         <div class="">
                             <label for="name" class="col-sm-2 control-label">Name:</label>
@@ -52,12 +51,11 @@ export default {
     },
 
     methods: {
-        showModal() {
-            this.$modal.show('create-afp');
-        },
-
         modalOpened(e) {
-            e.ref.getElementsByTagName("input")[0].focus()
+            let inputs = e.ref.getElementsByTagName("input")
+            if (inputs.length > 0) {
+                inputs[0].focus()
+            }
         },
 
         createNew() {

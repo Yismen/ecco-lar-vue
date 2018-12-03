@@ -50,7 +50,7 @@ trait EmployeeRelationships
     }
 
     public function address()
-    {        
+    {
         return $this->hasOne('App\Address');
     }
 

@@ -38,7 +38,7 @@ Route::put('employees/{employee}/ars', 'Employee\ArsController@update')
 Route::put('employees/{employee}/afp', 'Employee\AfpController@update')
     ->name('employees.update-afp');
 
-Route::post('employees/{employee}/bank-account', 'Employee\BankAccountController@update')
+Route::put('employees/{employee}/bank-account', 'Employee\BankAccountController@update')
     ->name('employees.update-bank-account');
 
 Route::post('employees/{employee}/social-security', 'Employee\SocialSecurityController@update')
@@ -69,7 +69,6 @@ Route::bind('employee', function ($id) {
 
         ->firstOrFail()
         ->append([
-            'banks_list',
             'departments_list',
             'genders_list',
             'has_kids_list',
