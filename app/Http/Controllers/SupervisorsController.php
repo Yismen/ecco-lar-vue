@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Supervisor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class SupervisorsController extends Controller
 {
@@ -12,15 +13,16 @@ class SupervisorsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Supervisor $supervisors)
+    public function index()
     {
-        $supervisors = $supervisors
-            ->with(['department' => function ($query) {
+        $supervisors = Cache::rememberForever('supervisors', function() {
+            return Supervisor::with(['department' => function ($query) {
                 return $query->orderBy('department');
             }])
             ->orderBy('department_id')
             ->orderBy('name')
             ->paginate(25);
+        });
 
         return view('supervisors.index', compact('supervisors'));
     }
@@ -43,9 +45,19 @@ class SupervisorsController extends Controller
      */
     public function store(Request $request, Supervisor $supervisor)
     {
-        $this->validateRequest($request, $supervisor);
+         $this->validate($request, [
+            'name' => 'required|min:5|unique:supervisors,name',
+            'department_id' => 'required|exists:departments,id'
+        ]);
 
-        $supervisor->create($request->only(['name', 'department_id']));
+         Cache::forget('supervisors');
+         Cache::forget('employees');
+
+        $supervisor = $supervisor->create($request->only(['name', 'department_id']));
+
+        if ($request->ajax()) {
+            return $supervisor;
+        }
 
         return redirect()->route('admin.supervisors.index')
             ->withSuccess("Supervisor $supervisor->name create!!");
@@ -82,7 +94,16 @@ class SupervisorsController extends Controller
      */
     public function update(Request $request, Supervisor $supervisor)
     {
-        $this->validateRequest($request, $supervisor);
+        $this->validate(
+            $request,
+            [
+                'name' => 'required|min:5|unique:supervisors,name,'.$supervisor->id,
+                'department_id' => 'required|exists:departments,id'
+            ]
+        );
+
+         Cache::forget('supervisors');
+         Cache::forget('employees');
 
         $supervisor->update($request->only(['name', 'department_id']));
 
@@ -98,14 +119,8 @@ class SupervisorsController extends Controller
      */
     public function destroy(Supervisor $supervisor)
     {
-        //
-    }
 
-    protected function validateRequest($request, $supervisor)
-    {
-        return $this->validate($request, [
-            'name' => 'required|min:5|unique:supervisors,name,' . $supervisor->id . ',id',
-            'department_id' => 'required|exists:departments,id'
-        ]);
+         Cache::forget('supervisors');
+         Cache::forget('employees');
     }
 }

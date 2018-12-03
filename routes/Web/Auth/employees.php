@@ -44,7 +44,7 @@ Route::put('employees/{employee}/bank-account', 'Employee\BankAccountController@
 Route::post('employees/{employee}/social-security', 'Employee\SocialSecurityController@update')
     ->name('employees.update-social-security');
 
-Route::post('employees/{employee}/supervisor', 'Employee\SupervisorController@update')
+Route::put('employees/{employee}/supervisor', 'Employee\SupervisorController@update')
     ->name('employees.update-supervisor');
 
 Route::post('employees/{employee}/nationality', 'Employee\NationalityController@update')

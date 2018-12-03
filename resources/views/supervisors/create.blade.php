@@ -7,7 +7,14 @@
 			<div class="col-sm-8 col-sm-offset-2">
 				<div class="box box-primary">
 					{!! Form::open(['route'=>['admin.supervisors.store'], 'method'=>'POST', 'class'=>'form-horizontal', 'role'=>'form']) !!}
-						<div class="box-header with-border">Adding a New Supervisor</div>
+						<div class="box-header with-border">
+							<h4>
+								Add a New Supervisor
+								<a href="{{ route('admin.supervisors.index') }}" class="pull-right">
+									<i class="fa fa-home"></i> List
+								</a>
+							</h4>
+						</div>
 
 						<div class="box-body">
 							@include('supervisors._form')
@@ -17,12 +24,6 @@
 							<div class="col-sm-12">
 								<div class="form-group">
 									<button type="submit" class="btn btn-primary">Create</button>
-								</div>
-							</div>
-
-							<div class="form-group">
-								<div class="col-sm-12">
-									<a href="{{ route('admin.supervisors.index') }}"><< Return to Supervisors List</a>
 								</div>
 							</div>
 						</div>
@@ -35,7 +36,7 @@
 		</div>
 
 	</div>
-	
+
 @stop
 
 @section('scripts')

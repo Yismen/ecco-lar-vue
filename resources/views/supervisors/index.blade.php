@@ -3,10 +3,10 @@
 
 @section('content')
 	<div class="container-fluid">
-		<div class="col-sm-12">
+		<div class="col-sm-8 col-sm-offset-2">
 			<div class="box box-primary pad">
                 <div class="box-header with-border">
-                    Supervisors List 
+                    Supervisors List
                     <a href="/admin/supervisors/create" class="pull-right"><i class="fa fa-plus"></i> Create</a>
                 </div>
 
@@ -17,7 +17,7 @@
                                 <tr>
                                     <th>Name</th>
                                     <th>Department</th>
-                                    <th class="col-sm-2">Edit</th>
+                                    <th class="col-sm-2">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -25,7 +25,12 @@
                                     <tr>
                                         <td><a href="/admin/supervisors/{{ $supervisor->id }}">{{ $supervisor->name }}</a></td>
                                         <td><a href="/admin/departments/{{ $supervisor->department->id }}" target="_new">{{ $supervisor->department->department }}</a></td>
-                                        <td><a href="/admin/supervisors/{{ $supervisor->id }}/edit"><i class="fa fa-edit"></i></a></td>
+                                        <td>
+                                            <a href="/admin/supervisors/{{ $supervisor->id }}/edit">
+                                                <i class="fa fa-edit"></i>
+                                                Edit
+                                            </a>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

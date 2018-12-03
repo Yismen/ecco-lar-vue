@@ -2955,6 +2955,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -3351,6 +3354,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__forms_CreateSupervisor__ = __webpack_require__("./resources/assets/js/components/forms/CreateSupervisor.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__forms_CreateSupervisor___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__forms_CreateSupervisor__);
 //
 //
 //
@@ -3386,14 +3391,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-
-    name: 'SupervisorsComponent',
+    name: 'SupervisorComponent',
 
     data: function data() {
         return {
+            supervisors_list: [],
             form: new (this.$ioc.resolve('Form'))({
                 'supervisor_id': this.employee.supervisor ? this.employee.supervisor.id : ''
             }, false)
@@ -3405,17 +3423,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         employee: {}
     },
 
+    components: { CreateSupervisorForm: __WEBPACK_IMPORTED_MODULE_0__forms_CreateSupervisor___default.a },
+
+    mounted: function mounted() {
+        this.supervisors_list = this.employee.supervisors_list;
+    },
+
+
     methods: {
         updated: function updated(event) {
             this.form.error.clear(event.target.name);
         },
-        handleUpdateUSupervisor: function handleUpdateUSupervisor() {
+        handleUpdateSupervisor: function handleUpdateSupervisor() {
             var _this = this;
 
-            this.form.post('/admin/employees/' + this.employee.id + '/supervisor').then(function (response) {
+            this.form.put('/admin/employees/' + this.employee.id + '/supervisor').then(function (response) {
                 _this.employee.supervisor = response.data.supervisor;
                 return _this.form.fields.supervisor_id = response.data.supervisor.id;
             });
+        },
+        supervisorCreated: function supervisorCreated(supervisor) {
+            // return this.supervisors_list = Object.assign({[supervisor.id]: supervisor.name}, this.supervisors_list)
+            this.employee.supervisors_list.unshift(supervisor);
         }
     }
 });
@@ -3936,6 +3965,102 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.form.fields.name = '';
                 _this.$swal('Nice!', 'The Bank ' + response.data.name + ' was added!', 'success');
                 _this.$modal.hide('create-bank');
+            });
+        }
+    }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/forms/CreateSupervisor.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: "CreateSupervisorComponent",
+    props: {
+        departments_list: { type: Object, required: true }
+    },
+
+    data: function data() {
+        return {
+            form: new (this.$ioc.resolve('Form'))({
+                'name': ''
+            })
+        };
+    },
+
+
+    methods: {
+        modalOpened: function modalOpened(e) {
+            var inputs = e.ref.getElementsByTagName("input");
+            if (inputs.length > 0) {
+                inputs[0].focus();
+            }
+        },
+        createNew: function createNew() {
+            var _this = this;
+
+            this.form.post('/api/supervisors', {}).then(function (response) {
+                _this.$emit('supervisor-created', response.data);
+                _this.form.fields.name = '';
+                _this.$swal('Nice!', 'The Supervisor ' + response.data.name + ' was added!', 'success');
+                _this.$modal.hide('create-supervisor');
             });
         }
     }
@@ -8907,7 +9032,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -8937,7 +9062,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -8968,6 +9093,21 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 // module
 exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-195f874a\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/forms/CreateSupervisor.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -57129,95 +57269,134 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "_Supervisor well" }, [
-    _c(
-      "form",
-      {
-        staticClass: "form-horizontalS",
-        attrs: { role: "form", autocomplete: "off" },
-        on: {
-          submit: function($event) {
-            $event.preventDefault()
-            return _vm.handleUpdateUSupervisor($event)
-          },
-          change: _vm.updated
-        }
-      },
-      [
-        _c("div", { staticClass: "box-header with-border" }, [
-          _c("h4", [_vm._v(_vm._s(_vm.employee.full_name) + "' Supervisor:")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "box-body" }, [
+  return _c(
+    "div",
+    { staticClass: "_Supervisor well" },
+    [
+      _c(
+        "form",
+        {
+          staticClass: "form-horizontal",
+          attrs: { role: "form", autocomplete: "off" },
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.handleUpdateSupervisor($event)
+            },
+            change: _vm.updated
+          }
+        },
+        [
+          _c("div", { staticClass: "box-header with-border" }, [
+            _c("h4", [
+              _vm._v(_vm._s(_vm.employee.full_name) + "' Supervisor Info:")
+            ])
+          ]),
+          _vm._v(" "),
           _c(
             "div",
             {
-              staticClass: "form-group",
+              staticClass: "box-body",
               class: { "has-error": _vm.form.error.has("supervisor_id") }
             },
             [
-              _c("label", { attrs: { for: "supervisor_id" } }, [
-                _vm._v("Supervisor:")
-              ]),
-              _vm._v(" "),
-              _c(
-                "select",
-                {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.form.fields.supervisor_id,
-                      expression: "form.fields.supervisor_id"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { name: "supervisor_id", id: "supervisor_id" },
-                  on: {
-                    change: function($event) {
-                      var $$selectedVal = Array.prototype.filter
-                        .call($event.target.options, function(o) {
-                          return o.selected
-                        })
-                        .map(function(o) {
-                          var val = "_value" in o ? o._value : o.value
-                          return val
-                        })
-                      _vm.$set(
-                        _vm.form.fields,
-                        "supervisor_id",
-                        $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      )
-                    }
-                  }
-                },
-                _vm._l(_vm.employee.supervisors_list, function(
-                  supervisor_id,
-                  index
-                ) {
-                  return _c(
-                    "option",
-                    { key: supervisor_id, domProps: { value: index } },
-                    [_vm._v(_vm._s(supervisor_id))]
-                  )
-                })
-              ),
-              _vm._v(" "),
-              _vm.form.error.has("supervisor_id")
-                ? _c("span", { staticClass: "text-danger" }, [
-                    _vm._v(_vm._s(_vm.form.error.get("supervisor_id")))
-                  ])
-                : _vm._e()
+              _c("div", { staticClass: "form-group" }, [
+                _c(
+                  "label",
+                  {
+                    staticClass: "col-sm-2 control-label",
+                    attrs: { for: "input" }
+                  },
+                  [_vm._v("Supervisor:")]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-10" }, [
+                  _c("div", { staticClass: "input-group" }, [
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.fields.supervisor_id,
+                            expression: "form.fields.supervisor_id"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { name: "supervisor_id", id: "supervisor_id" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.form.fields,
+                              "supervisor_id",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      _vm._l(_vm.supervisors_list, function(supervisor, index) {
+                        return _c(
+                          "option",
+                          {
+                            key: supervisor.id,
+                            domProps: { value: supervisor.id }
+                          },
+                          [_vm._v(_vm._s(supervisor.name))]
+                        )
+                      })
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      {
+                        staticClass: "input-group-addon",
+                        attrs: { href: "#" },
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            _vm.$modal.show("create-supervisor")
+                          }
+                        }
+                      },
+                      [
+                        _c("i", { staticClass: "fa fa-plus" }),
+                        _vm._v(" Add\n                        ")
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _vm.form.error.has("supervisor_id")
+                    ? _c("span", { staticClass: "text-danger" }, [
+                        _vm._v(_vm._s(_vm.form.error.get("supervisor_id")))
+                      ])
+                    : _vm._e()
+                ])
+              ])
             ]
-          )
-        ]),
-        _vm._v(" "),
-        _vm._m(0)
-      ]
-    )
-  ])
+          ),
+          _vm._v(" "),
+          _vm._m(0)
+        ]
+      ),
+      _vm._v(" "),
+      _c("create-supervisor-form", {
+        attrs: { departments_list: _vm.employee.departments_list },
+        on: { "supervisor-created": _vm.supervisorCreated }
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
@@ -57317,29 +57496,37 @@ var render = function() {
               class: { "has-error": _vm.form.error.has("nationality_id") }
             },
             [
-              _c("label", { attrs: { for: "nationality_id" } }, [
-                _vm._v("Nationality:")
-              ]),
+              _c(
+                "label",
+                { staticClass: "col-sm-2", attrs: { for: "nationality_id" } },
+                [_vm._v("Nationality:")]
+              ),
               _vm._v(" "),
-              _c("nationality-select", {
-                attrs: { current: _vm.employee.nationality.id },
-                on: { changed: _vm.nationalityUpdated },
-                model: {
-                  value: _vm.form.fields.nationality_id,
-                  callback: function($$v) {
-                    _vm.$set(_vm.form.fields, "nationality_id", $$v)
-                  },
-                  expression: "form.fields.nationality_id"
-                }
-              }),
-              _vm._v(" "),
-              _vm.form.error.has("nationality_id")
-                ? _c("span", { staticClass: "text-danger" }, [
-                    _vm._v(_vm._s(_vm.form.error.get("nationality_id")))
-                  ])
-                : _vm._e()
-            ],
-            1
+              _c(
+                "div",
+                { staticClass: "col-sm-10" },
+                [
+                  _c("nationality-select", {
+                    attrs: { current: _vm.employee.nationality.id },
+                    on: { changed: _vm.nationalityUpdated },
+                    model: {
+                      value: _vm.form.fields.nationality_id,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form.fields, "nationality_id", $$v)
+                      },
+                      expression: "form.fields.nationality_id"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm.form.error.has("nationality_id")
+                    ? _c("span", { staticClass: "text-danger" }, [
+                        _vm._v(_vm._s(_vm.form.error.get("nationality_id")))
+                      ])
+                    : _vm._e()
+                ],
+                1
+              )
+            ]
           )
         ]),
         _vm._v(" "),
@@ -57547,6 +57734,209 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-0aebbc02", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-195f874a\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/forms/CreateSupervisor.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "_create_positions" },
+    [
+      _c(
+        "modal",
+        {
+          attrs: {
+            name: "create-supervisor",
+            height: "auto",
+            scrollable: true
+          },
+          on: { opened: _vm.modalOpened }
+        },
+        [
+          _c(
+            "form",
+            {
+              staticClass: "form-horizontal",
+              attrs: { role: "form", autocomplete: "off" },
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.createNew($event)
+                }
+              }
+            },
+            [
+              _c("div", { staticClass: "box-header with-border" }, [
+                _c("h4", [_vm._v("Create Supervisor")])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "box-body" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "form-group",
+                    class: { "has-error": _vm.form.error.has("name") }
+                  },
+                  [
+                    _c("div", {}, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-sm-2 control-label",
+                          attrs: { for: "name" }
+                        },
+                        [_vm._v("Name:")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-10" }, [
+                        _c("div", { staticClass: "input-group" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.fields.name,
+                                expression: "form.fields.name"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              id: "create-supervisor-name",
+                              name: "name"
+                            },
+                            domProps: { value: _vm.form.fields.name },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form.fields,
+                                  "name",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "input-group-addon" }, [
+                            _c("i", { staticClass: "fa fa-flag" })
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _vm.form.error.has("name")
+                          ? _c("span", { staticClass: "text-danger" }, [
+                              _vm._v(_vm._s(_vm.form.error.get("name")))
+                            ])
+                          : _vm._e()
+                      ])
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "form-group",
+                    class: { "has-error": _vm.form.error.has("department_id") }
+                  },
+                  [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-sm-2 control-label",
+                        attrs: { for: "input" }
+                      },
+                      [_vm._v("Department:")]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-sm-10" }, [
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.fields.department_id,
+                              expression: "form.fields.department_id"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { name: "department_id", id: "department_id" },
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.form.fields,
+                                "department_id",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
+                          }
+                        },
+                        _vm._l(_vm.departments_list, function(
+                          department,
+                          index
+                        ) {
+                          return _c(
+                            "option",
+                            { key: index, domProps: { value: index } },
+                            [_vm._v(_vm._s(department))]
+                          )
+                        })
+                      ),
+                      _vm._v(" "),
+                      _vm.form.error.has("department_id")
+                        ? _c("span", { staticClass: "text-danger" }, [
+                            _vm._v(_vm._s(_vm.form.error.get("department_id")))
+                          ])
+                        : _vm._e()
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "box-footer" }, [
+                _c(
+                  "button",
+                  { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+                  [_vm._v("CREATE")]
+                )
+              ])
+            ]
+          )
+        ]
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-195f874a", module.exports)
   }
 }
 
@@ -62442,6 +62832,33 @@ if(false) {
  if(!content.locals) {
    module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-0aebbc02\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./CreateArs.vue", function() {
      var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-0aebbc02\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./CreateArs.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-195f874a\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/forms/CreateSupervisor.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-195f874a\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/forms/CreateSupervisor.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("3381a7d4", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-195f874a\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./CreateSupervisor.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-195f874a\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./CreateSupervisor.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -78285,6 +78702,58 @@ if (false) {(function () {
     hotAPI.createRecord("data-v-3604056f", Component.options)
   } else {
     hotAPI.reload("data-v-3604056f", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/forms/CreateSupervisor.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-195f874a\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/forms/CreateSupervisor.vue")
+}
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/forms/CreateSupervisor.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-195f874a\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/forms/CreateSupervisor.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/forms/CreateSupervisor.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-195f874a", Component.options)
+  } else {
+    hotAPI.reload("data-v-195f874a", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true

@@ -44,7 +44,7 @@ trait EmployeeAccessors
 
     public function getSupervisorsListAttribute()
     {
-        return Supervisor::orderBy('name')->pluck('name', 'id');
+        return Supervisor::orderBy('name')->select('id', 'name')->get();
     }
 
     public function getBanksListAttribute()

@@ -6,35 +6,35 @@
     	<div class="row">
 			<div class="col-sm-8 col-sm-offset-2">
 				<div class="box box-primary">
-						<div class="box-header with-border">Edit Supervisor {{ $supervisor->name }}</div>
-
-						<div class="box-body">
-							{!! Form::model($supervisor, ['route'=>['admin.supervisors.update', $supervisor->id], 'method'=>'PUT', 'class'=>'form-horizontal', 'role'=>'form']) !!}
-							@include('supervisors._form')
+						<div class="box-header with-border">
+							<h4>
+								Edit Supervisor {{ $supervisor->name }}
+								<a href="{{ route('admin.supervisors.index') }}" class="pull-right">
+									<i class="fa fa-home"></i> List
+								</a>
+							</h4>
 						</div>
 
-						<div class="box-footer">
-							<div class="col-sm-12">
-								<div class="form-group">
-									<button type="submit" class="btn btn-success">UPDATE</button>
-								</div>
+						{!! Form::model($supervisor, ['route'=>['admin.supervisors.update', $supervisor->id], 'method'=>'PUT', 'class'=>'form-horizontal', 'role'=>'form']) !!}
+
+							<div class="box-body">
+								@include('supervisors._form')
 							</div>
 
-							<div class="form-group">
+							<div class="box-footer">
 								<div class="col-sm-12">
-									<a href="{{ route('admin.supervisors.index') }}"><< Return to Supervisors List</a>
+									<div class="form-group">
+										<button type="submit" class="btn btn-success">UPDATE</button>
+									</div>
 								</div>
 							</div>
-							{!! Form::close() !!}
-							
-							<form action="{{ url('/admin/supervisors', $supervisor->id) }}" method="POST" class="" >
-							    {!! csrf_field() !!}
-							    {!! method_field('DELETE') !!}
-							
-							    <button type="submit" id="delete-supervisor" class="btn btn-danger"  name="deleteBtn">
-							        <i class="fa fa-btn fa-trash"></i> DELETE
-							    </button>
-							</form>
+						{!! Form::close() !!}
+
+						<div class="box-footer">
+							<delete-request-button
+								url="{{ route('admin.supervisors.destroy', $supervisor->id) }}"
+								redirectUrl="{{ route('admin.supervisors.index') }}"
+							></delete-request-button>
 						</div>
 
 						</div>
@@ -46,7 +46,7 @@
 		</div>
 
 	</div>
-	
+
 @stop
 
 @section('scripts')

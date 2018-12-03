@@ -1,6 +1,6 @@
-[] Work on Module Supervisors
+[X] Work on Module Supervisors
 [] Work on Module Login Names
-[] Work on Module Positions
 [] Work on Module Departments
 [] Work on Module Payments
+[] Work on Module Positions
 [] Work on Module Employees/Edit (Change dates)
