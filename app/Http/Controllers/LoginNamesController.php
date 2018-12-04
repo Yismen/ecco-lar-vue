@@ -2,19 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Employee;
 use App\LoginName;
 use Illuminate\Http\Request;
-use App\Employee;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Cache;
+use App\Exports\LoginName as LoginNameExport;
 
 class LoginNamesController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('authorize:view_logins|edit_logins|create_logins', ['only' => ['index', 'show']]);
-        $this->middleware('authorize:edit_logins', ['only' => ['edit', 'update']]);
-        $this->middleware('authorize:create_logins', ['only' => ['create', 'store']]);
-        $this->middleware('authorize:destroy_logins', ['only' => ['destroy']]);
+        $this->middleware('authorize:view_login_names|edit_login_names|create_login_names', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit_login_names', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create_login_names', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy_login_names', ['only' => ['destroy']]);
+        $this->middleware('authorize:export-login-names-to-excel', ['only' => ['toExcel']]);
     }
 
     /**
@@ -24,14 +27,16 @@ class LoginNamesController extends Controller
      */
     public function index()
     {
-        // $logins = Login::with('employee')
-        //     ->orderBy('employee_id')->orderBy('login')
-        //     ->paginate(100);
-
         $employees = Employee::select('id', 'first_name', 'second_first_name', 'last_name', 'second_last_name')
-            ->orderBy('first_name')->with('logins')->has('logins')->paginate(20);
+                    ->orderBy('first_name')
+                    ->orderBy('second_first_name')
+                    ->orderBy('last_name')
+                    ->orderBy('second_last_name')
+                    ->with('loginNames')
+                    ->has('loginNames')
+                    ->paginate(50);
 
-        return view('logins.index', compact('logins', 'employees'));
+        return view('login_names.index', compact('employees'));
     }
 
     /**
@@ -39,9 +44,9 @@ class LoginNamesController extends Controller
      *
      * @return Response
      */
-    public function create(Login $login)
+    public function create(LoginName $login)
     {
-        return view('logins.create', compact('login'));
+        return view('login_names.create', compact('login'));
     }
 
     /**
@@ -49,17 +54,20 @@ class LoginNamesController extends Controller
      *
      * @return Response
      */
-    public function store(Login $login, Request $request)
+    public function store(LoginName $login, Request $request)
     {
         $this->validate($request, [
-            'login' => 'required|unique:logins',
+            'login' => 'required|unique:login_names',
             'employee_id' => 'required|exists:employees,id',
         ]);
 
+        Cache::forget('employees');
+        Cache::forget('login-names');
+
         $login->create($request->all());
 
-        return redirect()->route('admin.logins.index')
-            ->withSuccess("Login $login->login has been created!");
+        return redirect()->route('admin.login-names.index')
+            ->withSuccess("LoginName $login->login has been created!");
     }
 
     /**
@@ -68,9 +76,9 @@ class LoginNamesController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function show(Login $login)
+    public function show(LoginName $login)
     {
-        return view('logins.show', compact('login'));
+        return view('login_names.show', compact('login'));
     }
 
     /**
@@ -79,9 +87,9 @@ class LoginNamesController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function edit(Login $login)
+    public function edit(LoginName $login)
     {
-        return view('logins.edit', compact('login'));
+        return view('login_names.edit', compact('login'));
     }
 
     /**
@@ -90,17 +98,24 @@ class LoginNamesController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(Login $login, Request $request)
+    public function update(LoginName $login, Request $request)
     {
         $this->validate($request, [
-            'login' => 'required|unique:logins,login,' . $login->id,
-            'employee_id' => 'required|exists:employees,id',
+            'login' => 'required|min:2|unique:login_names,login,' . $login->id,
+            'employee_id' => 'sometimes|required|exists:employees,id',
         ]);
+
+        Cache::forget('employees');
+        Cache::forget('login-names');
 
         $login->update($request->all());
 
-        return redirect()->route('admin.logins.index')
-            ->withSuccess("Login $login->login has been updated!");
+        if ($request->ajax()) {
+            return $login;
+        }
+
+        return redirect()->route('admin.login-names.index')
+            ->withSuccess("LoginName $login->login has been updated!");
     }
 
     /**
@@ -109,23 +124,19 @@ class LoginNamesController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function destroy(Login $login)
+    public function destroy(LoginName $login)
     {
         $login->delete();
 
-        return redirect()->route('admin.logins.index')
-            ->withDanger("Login $login->login has been removed.");
+        Cache::forget('employees');
+        Cache::forget('login-names');
+
+        return redirect()->route('admin.login-names.index')
+            ->withDanger("LoginName $login->login has been removed.");
     }
 
     public function toExcel(Request $request)
     {
-        $employees = Employee::select('id', 'first_name', 'second_first_name', 'last_name', 'second_last_name')
-            ->orderBy('first_name')->with('logins')->get();
-
-        Excel::create('Logins', function ($excel) use ($employees) {
-            $excel->sheet('Logins', function ($sheet) use ($employees) {
-                $sheet->loadView('logins.partials.results-to-excel', compact('employees'));
-            });
-        })->download();
+        return Excel::download(new LoginNameExport, 'login-names.xlsx');
     }
 }

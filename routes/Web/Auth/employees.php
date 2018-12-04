@@ -7,10 +7,8 @@ Route::get('employees/export_to_excel/{status}', 'Employee\ExportController@toEx
 Route::get('employees/export_all_to_excel', 'Employee\ExportController@toExcelAll')
     ->name('employees.export_all_to_excel');
 
-Route::post('employees/{employee}/login-names/create', 'Employee\LoginNameController@create')
+Route::post('employees/{employee}/login-names', 'Employee\LoginNameController@store')
     ->name('employees.login.create');
-Route::post('employees/{employee}/login-names/update', 'Employee\LoginNameController@update')
-    ->name('employees.login.update');
 
 /**
  * Terminations

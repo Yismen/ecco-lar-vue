@@ -2369,8 +2369,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__CardComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__CardComponent__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__InfoComponent__ = __webpack_require__("./resources/assets/js/components/employees/InfoComponent.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__InfoComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__InfoComponent__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__LoginsComponent__ = __webpack_require__("./resources/assets/js/components/employees/LoginsComponent.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__LoginsComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__LoginsComponent__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__LoginNamesComponent__ = __webpack_require__("./resources/assets/js/components/employees/LoginNamesComponent.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__LoginNamesComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__LoginNamesComponent__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__NationalityComponent__ = __webpack_require__("./resources/assets/js/components/employees/NationalityComponent.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__NationalityComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__NationalityComponent__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__PhotoComponent__ = __webpack_require__("./resources/assets/js/components/employees/PhotoComponent.vue");
@@ -2508,7 +2508,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     components: {
-        EmployeeAddress: __WEBPACK_IMPORTED_MODULE_0__AddressComponent___default.a, EmployeeAfp: __WEBPACK_IMPORTED_MODULE_1__AFPComponent___default.a, EmployeeArs: __WEBPACK_IMPORTED_MODULE_2__ARSComponent___default.a, EmployeeBankAccount: __WEBPACK_IMPORTED_MODULE_3__BankAccountComponent___default.a, EmployeeCard: __WEBPACK_IMPORTED_MODULE_4__CardComponent___default.a, EmployeeEdit: __WEBPACK_IMPORTED_MODULE_5__InfoComponent___default.a, EmployeeLogins: __WEBPACK_IMPORTED_MODULE_6__LoginsComponent___default.a, EmployeeNationality: __WEBPACK_IMPORTED_MODULE_7__NationalityComponent___default.a, EmployeePhoto: __WEBPACK_IMPORTED_MODULE_8__PhotoComponent___default.a, EmployeePunch: __WEBPACK_IMPORTED_MODULE_9__PunchComponent___default.a, EmployeeReactivation: __WEBPACK_IMPORTED_MODULE_10__ReactivationComponent___default.a, EmployeeSocialSecurity: __WEBPACK_IMPORTED_MODULE_11__SocialSecurityComponent___default.a, EmployeeSupervisor: __WEBPACK_IMPORTED_MODULE_12__SupervisorComponent___default.a, EmployeeTermination: __WEBPACK_IMPORTED_MODULE_13__TerminationComponent___default.a
+        EmployeeAddress: __WEBPACK_IMPORTED_MODULE_0__AddressComponent___default.a, EmployeeAfp: __WEBPACK_IMPORTED_MODULE_1__AFPComponent___default.a, EmployeeArs: __WEBPACK_IMPORTED_MODULE_2__ARSComponent___default.a, EmployeeBankAccount: __WEBPACK_IMPORTED_MODULE_3__BankAccountComponent___default.a, EmployeeCard: __WEBPACK_IMPORTED_MODULE_4__CardComponent___default.a, EmployeeEdit: __WEBPACK_IMPORTED_MODULE_5__InfoComponent___default.a, EmployeeLoginNames: __WEBPACK_IMPORTED_MODULE_6__LoginNamesComponent___default.a, EmployeeNationality: __WEBPACK_IMPORTED_MODULE_7__NationalityComponent___default.a, EmployeePhoto: __WEBPACK_IMPORTED_MODULE_8__PhotoComponent___default.a, EmployeePunch: __WEBPACK_IMPORTED_MODULE_9__PunchComponent___default.a, EmployeeReactivation: __WEBPACK_IMPORTED_MODULE_10__ReactivationComponent___default.a, EmployeeSocialSecurity: __WEBPACK_IMPORTED_MODULE_11__SocialSecurityComponent___default.a, EmployeeSupervisor: __WEBPACK_IMPORTED_MODULE_12__SupervisorComponent___default.a, EmployeeTermination: __WEBPACK_IMPORTED_MODULE_13__TerminationComponent___default.a
     },
 
     methods: {
@@ -2801,11 +2801,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/employees/LoginsComponent.vue":
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/employees/LoginNamesComponent.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__forms_UpdateLoginName__ = __webpack_require__("./resources/assets/js/components/forms/UpdateLoginName.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__forms_UpdateLoginName___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__forms_UpdateLoginName__);
 //
 //
 //
@@ -2871,6 +2873,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2882,8 +2889,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             form: new (this.$ioc.resolve('Form'))({
                 'login': ''
             }),
-            logins: []
-
+            login_names: [],
+            current_edit: {}
         };
     },
 
@@ -2893,8 +2900,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     created: function created() {
-        if (this.employee.logins) {
-            return this.logins = this.employee.logins;
+        if (this.employee.login_names) {
+            return this.login_names = this.employee.login_names;
         }
     },
 
@@ -2903,14 +2910,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         updated: function updated(event) {
             this.form.error.clear(event.target.name);
         },
+        updateLogin: function updateLogin(current_index, login) {
+            this.current_edit.login = login;
+            this.current_edit.current_index = current_index;
+            this.$modal.show('update-login-name-form', this.current_edit);
+        },
+        loginNameUpdated: function loginNameUpdated(login_name) {
+            this.login_names[this.current_edit.current_index].login = login_name.login;
+        },
         handleCreateLogin: function handleCreateLogin() {
             var _this = this;
 
-            this.form.post('/admin/employees/' + this.employee.id + '/login-names/create').then(function (response) {
-                return _this.logins.unshift(response);
+            this.form.post('/admin/employees/' + this.employee.id + '/login-names').then(function (response) {
+                return _this.login_names.unshift(response.data);
             });
         }
-    }
+    },
+
+    components: { UpdateLoginNameForm: __WEBPACK_IMPORTED_MODULE_0__forms_UpdateLoginName___default.a }
 });
 
 /***/ }),
@@ -4061,6 +4078,99 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.form.fields.name = '';
                 _this.$swal('Nice!', 'The Supervisor ' + response.data.name + ' was added!', 'success');
                 _this.$modal.hide('create-supervisor');
+            });
+        }
+    }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/forms/UpdateLoginName.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: "UpdateLoginNameComponent",
+    data: function data() {
+        return {
+            form: new (this.$ioc.resolve('Form'))({
+                'login': ''
+            }),
+            current_index: '',
+            login: {}
+        };
+    },
+
+
+    methods: {
+        beforeOpen: function beforeOpen(data) {
+            this.form.fields.login = data.params.login.login;
+            this.login = data.params.login;
+            this.current_index = data.params.current_index;
+        },
+        modalOpened: function modalOpened(e) {
+            var inputs = e.ref.getElementsByTagName("input");
+            if (inputs.length > 0) {
+                inputs[0].focus();
+            }
+        },
+        doUpdate: function doUpdate() {
+            var _this = this;
+
+            this.form.put('/admin/login-names/' + this.login.id).then(function (response) {
+                _this.$emit('login-name-updated', response.data);
+                _this.form.fields.login = '';
+                _this.$modal.hide('update-login-name-form');
+                _this.$swal('Nice!', 'The LoginName ' + response.data.login + ' was updated!', 'success');
             });
         }
     }
@@ -9324,6 +9434,21 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-578ca5c4\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/forms/UpdateLoginName.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5b6a2d5a\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/DatePicker.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9369,21 +9494,6 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-79d128c2\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/employees/LoginsComponent.vue":
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
-
-// exports
-
-
-/***/ }),
-
 /***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7bbaf94d\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/employees/positions/_Form.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9423,6 +9533,21 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 // module
 exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-b8c03fa6\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/employees/LoginNamesComponent.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -59854,6 +59979,136 @@ if (false) {
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-578ca5c4\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/forms/UpdateLoginName.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "_create_login_names" },
+    [
+      _c(
+        "modal",
+        {
+          attrs: {
+            name: "update-login-name-form",
+            height: "auto",
+            scrollable: true
+          },
+          on: { opened: _vm.modalOpened, "before-open": _vm.beforeOpen }
+        },
+        [
+          _c(
+            "form",
+            {
+              staticClass: "form-horizonal",
+              attrs: { role: "form", autocomplete: "off" },
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.doUpdate($event)
+                }
+              }
+            },
+            [
+              _c("div", { staticClass: "box-header with-border" }, [
+                _c("h4", [
+                  _vm._v("Update LoginName - " + _vm._s(_vm.form.fields.login))
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "box-body" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "form-group",
+                    class: { "has-error": _vm.form.error.has("login") }
+                  },
+                  [
+                    _c("div", {}, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-sm-2 control-label",
+                          attrs: { for: "login" }
+                        },
+                        [_vm._v("Name:")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-10" }, [
+                        _c("div", { staticClass: "input-group" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.fields.login,
+                                expression: "form.fields.login"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { type: "text", id: "login", name: "login" },
+                            domProps: { value: _vm.form.fields.login },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form.fields,
+                                  "login",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "input-group-addon" }, [
+                            _c("i", { staticClass: "fa fa-flag" })
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _vm.form.error.has("login")
+                          ? _c("span", { staticClass: "text-danger" }, [
+                              _vm._v(_vm._s(_vm.form.error.get("login")))
+                            ])
+                          : _vm._e()
+                      ])
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "box-footer" }, [
+                _c(
+                  "button",
+                  { staticClass: "btn btn-warning", attrs: { type: "submit" } },
+                  [_vm._v("UPDATE")]
+                )
+              ])
+            ]
+          )
+        ]
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-578ca5c4", module.exports)
+  }
+}
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-5b6a2d5a\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/DatePicker.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -60615,7 +60870,7 @@ var render = function() {
         _c(
           "li",
           {
-            class: { active: _vm.selectedTab == "#logins" },
+            class: { active: _vm.selectedTab == "#login-names" },
             attrs: { role: "presentation" }
           },
           [
@@ -60623,8 +60878,8 @@ var render = function() {
               "a",
               {
                 attrs: {
-                  href: "#logins",
-                  "aria-controls": "logins",
+                  href: "#login-names",
+                  "aria-controls": "login-names",
                   role: "tab",
                   "data-toggle": "tab"
                 },
@@ -60789,9 +61044,9 @@ var render = function() {
           "div",
           {
             staticClass: "tab-pane",
-            attrs: { role: "tabpanel", id: "logins" }
+            attrs: { role: "tabpanel", id: "login-names" }
           },
-          [_c("employee-logins", { attrs: { employee: _vm.employee } })],
+          [_c("employee-login-names", { attrs: { employee: _vm.employee } })],
           1
         ),
         _vm._v(" "),
@@ -60862,171 +61117,6 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-6e65de4b", module.exports)
-  }
-}
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-79d128c2\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/employees/LoginsComponent.vue":
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "logins" }, [
-    _c(
-      "form",
-      {
-        staticClass: "form-horizontal",
-        attrs: { role: "form", autocomplete: "off" },
-        on: {
-          submit: function($event) {
-            $event.preventDefault()
-            return _vm.handleCreateLogin($event)
-          },
-          change: _vm.updated
-        }
-      },
-      [
-        _c("div", { staticClass: "box-header with-border" }, [
-          _c("h4", [_vm._v(_vm._s(_vm.employee.full_name) + "' Logins:")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "box-body" }, [
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-sm-10" }, [
-              _c(
-                "div",
-                {
-                  staticClass: "form-group",
-                  class: { "has-error": _vm.form.error.has("login") }
-                },
-                [
-                  _c(
-                    "label",
-                    {
-                      staticClass: "col-sm-2 control-label",
-                      attrs: { for: "input" }
-                    },
-                    [_vm._v("Login Name:")]
-                  ),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-sm-10" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.form.fields.login,
-                          expression: "form.fields.login"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text", id: "login", name: "login" },
-                      domProps: { value: _vm.form.fields.login },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.form.fields,
-                            "login",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _vm.form.error.has("login")
-                      ? _c("span", { staticClass: "text-danger" }, [
-                          _vm._v(_vm._s(_vm.form.error.get("login")))
-                        ])
-                      : _vm._e()
-                  ])
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _vm._m(0)
-          ])
-        ])
-      ]
-    ),
-    _vm._v(" "),
-    _c("div", { staticClass: "box-footer" }, [
-      _c("table", { staticClass: "table table-condensed table-bordered" }, [
-        _vm._m(1),
-        _vm._v(" "),
-        _c(
-          "tbody",
-          _vm._l(_vm.logins, function(login) {
-            return _c("tr", { key: login.id }, [
-              _c("td", [_vm._v(_vm._s(login.login))]),
-              _vm._v(" "),
-              _c("td", [
-                _c(
-                  "a",
-                  {
-                    attrs: {
-                      href: "/admin/logins/" + login.id + "/edit",
-                      target: "_new_login"
-                    }
-                  },
-                  [
-                    _c("i", { staticClass: "fa fa-edit" }),
-                    _vm._v(" Edit\n                        ")
-                  ]
-                )
-              ])
-            ])
-          })
-        )
-      ])
-    ])
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-sm-2" }, [
-      _c("div", { staticClass: "form-group" }, [
-        _c("div", { staticClass: "col-sm-10 col-sm-offset-2" }, [
-          _c(
-            "button",
-            { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-            [
-              _vm._v(
-                "\n                                Submit\n                            "
-              )
-            ]
-          )
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("Login Name")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Edit")])
-      ])
-    ])
-  }
-]
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-79d128c2", module.exports)
   }
 }
 
@@ -61576,6 +61666,183 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-8bff5948", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-b8c03fa6\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/employees/LoginNamesComponent.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "login-names" },
+    [
+      _c(
+        "form",
+        {
+          staticClass: "form-horizontal",
+          attrs: { role: "form", autocomplete: "off" },
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.handleCreateLogin($event)
+            },
+            change: _vm.updated
+          }
+        },
+        [
+          _c("div", { staticClass: "box-header with-border" }, [
+            _c("h4", [_vm._v(_vm._s(_vm.employee.full_name) + "' Logins:")])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "box-body" }, [
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-sm-8 col-sm-offset-2" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "form-group",
+                    class: { "has-error": _vm.form.error.has("login") }
+                  },
+                  [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-sm-2 control-label",
+                        attrs: { for: "input" }
+                      },
+                      [_vm._v("Login Name:")]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-sm-10" }, [
+                      _c("div", { staticClass: "input-group" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.fields.login,
+                              expression: "form.fields.login"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text", id: "login", name: "login" },
+                          domProps: { value: _vm.form.fields.login },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form.fields,
+                                "login",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _vm._m(0)
+                      ]),
+                      _vm._v(" "),
+                      _vm.form.error.has("login")
+                        ? _c("span", { staticClass: "text-danger" }, [
+                            _vm._v(_vm._s(_vm.form.error.get("login")))
+                          ])
+                        : _vm._e()
+                    ])
+                  ]
+                )
+              ])
+            ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _vm.login_names.length
+        ? _c("div", { staticClass: "box-footer" }, [
+            _c(
+              "table",
+              { staticClass: "table table-condensed table-bordered" },
+              [
+                _vm._m(1),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.login_names, function(login, index) {
+                    return _c("tr", { key: login.id }, [
+                      _c("td", [_vm._v(_vm._s(login.login))]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "col-sm-2" }, [
+                        _c(
+                          "a",
+                          {
+                            attrs: { href: "#" },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                _vm.updateLogin(index, login)
+                              }
+                            }
+                          },
+                          [
+                            _c("i", { staticClass: "fa fa-edit" }),
+                            _vm._v(" Edit\n                        ")
+                          ]
+                        )
+                      ])
+                    ])
+                  })
+                )
+              ]
+            )
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _c("update-login-name-form", {
+        on: { "login-name-updated": _vm.loginNameUpdated }
+      })
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "input-group-btn" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+        [_vm._v("CREATE")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Login Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Actions")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-b8c03fa6", module.exports)
   }
 }
 
@@ -63247,6 +63514,33 @@ if(false) {
 
 /***/ }),
 
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-578ca5c4\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/forms/UpdateLoginName.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-578ca5c4\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/forms/UpdateLoginName.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("04517391", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-578ca5c4\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./UpdateLoginName.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-578ca5c4\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./UpdateLoginName.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
 /***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5b6a2d5a\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/DatePicker.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -63328,33 +63622,6 @@ if(false) {
 
 /***/ }),
 
-/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-79d128c2\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/employees/LoginsComponent.vue":
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-79d128c2\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/employees/LoginsComponent.vue");
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("6a54d044", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-79d128c2\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./LoginsComponent.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-79d128c2\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./LoginsComponent.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-
 /***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7bbaf94d\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/employees/positions/_Form.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -63426,6 +63693,33 @@ if(false) {
  if(!content.locals) {
    module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-8bff5948\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./CardComponent.vue", function() {
      var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-8bff5948\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./CardComponent.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-b8c03fa6\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/employees/LoginNamesComponent.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-b8c03fa6\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/employees/LoginNamesComponent.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("060c9de5", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-b8c03fa6\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./LoginNamesComponent.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-b8c03fa6\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./LoginNamesComponent.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -78037,25 +78331,25 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/employees/LoginsComponent.vue":
+/***/ "./resources/assets/js/components/employees/LoginNamesComponent.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-79d128c2\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/employees/LoginsComponent.vue")
+  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-b8c03fa6\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/employees/LoginNamesComponent.vue")
 }
 var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
 /* script */
-var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/employees/LoginsComponent.vue")
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/employees/LoginNamesComponent.vue")
 /* template */
-var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-79d128c2\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/employees/LoginsComponent.vue")
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-b8c03fa6\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/employees/LoginNamesComponent.vue")
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-79d128c2"
+var __vue_scopeId__ = "data-v-b8c03fa6"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -78066,7 +78360,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/employees/LoginsComponent.vue"
+Component.options.__file = "resources/assets/js/components/employees/LoginNamesComponent.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -78075,9 +78369,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-79d128c2", Component.options)
+    hotAPI.createRecord("data-v-b8c03fa6", Component.options)
   } else {
-    hotAPI.reload("data-v-79d128c2", Component.options)
+    hotAPI.reload("data-v-b8c03fa6", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -78754,6 +79048,58 @@ if (false) {(function () {
     hotAPI.createRecord("data-v-195f874a", Component.options)
   } else {
     hotAPI.reload("data-v-195f874a", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/forms/UpdateLoginName.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-578ca5c4\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/forms/UpdateLoginName.vue")
+}
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/forms/UpdateLoginName.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-578ca5c4\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/forms/UpdateLoginName.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/forms/UpdateLoginName.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-578ca5c4", Component.options)
+  } else {
+    hotAPI.reload("data-v-578ca5c4", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true

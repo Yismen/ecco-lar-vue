@@ -81,19 +81,4 @@ trait EmployeesTrait
     private function appyDatesScopesToTheQuery($search, $employees, $carbon)
     {
     }
-
-    private function handleAddLoginsToEmployee($employee, $request)
-    {
-        $this->validate($request, [
-            'login' => 'required|unique:logins,login,NULL,id',
-        ]);
-
-        $newlogin = $employee->logins()->create($request->all());
-
-        $loginsList = $employee->logins;
-
-        Cache::forget('employees');
-
-        return $newlogin;
-    }
 }

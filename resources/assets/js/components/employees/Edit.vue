@@ -21,8 +21,8 @@
                 <li role="presentation" :class="{'active': selectedTab == '#tss'}" >
                     <a href="#tss" aria-controls="tss" role="tab" data-toggle="tab" @click="setTab">TSS</a>
                 </li>
-                <li role="presentation" :class="{'active': selectedTab == '#logins'}" >
-                    <a href="#logins" aria-controls="logins" role="tab" data-toggle="tab" @click="setTab">Logins</a>
+                <li role="presentation" :class="{'active': selectedTab == '#login-names'}" >
+                    <a href="#login-names" aria-controls="login-names" role="tab" data-toggle="tab" @click="setTab">Logins</a>
                 </li>
                 <li role="presentation" :class="{'active': selectedTab == '#bank_account'}" >
                     <a href="#bank_account" aria-controls="bank_account" role="tab" data-toggle="tab" @click="setTab">Bank Account</a>
@@ -72,8 +72,8 @@
                         </div>
                     </div>
                 </div>
-                <div role="tabpanel" class="tab-pane" id="logins">
-                    <employee-logins :employee="employee"></employee-logins>
+                <div role="tabpanel" class="tab-pane" id="login-names">
+                    <employee-login-names :employee="employee"></employee-login-names>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="bank_account">
                     <employee-bank-account :employee="employee"></employee-bank-account>
@@ -103,7 +103,7 @@
     import EmployeeBankAccount from './BankAccountComponent';
     import EmployeeCard from './CardComponent';
     import EmployeeEdit from './InfoComponent';
-    import EmployeeLogins from './LoginsComponent';
+    import EmployeeLoginNames from './LoginNamesComponent';
     import EmployeeNationality from './NationalityComponent';
     import EmployeePhoto from './PhotoComponent';
     import EmployeePunch from './PunchComponent';
@@ -120,7 +120,7 @@
             }
         },
         components: {
-            EmployeeAddress, EmployeeAfp, EmployeeArs, EmployeeBankAccount, EmployeeCard, EmployeeEdit, EmployeeLogins, EmployeeNationality, EmployeePhoto, EmployeePunch, EmployeeReactivation, EmployeeSocialSecurity, EmployeeSupervisor, EmployeeTermination
+            EmployeeAddress, EmployeeAfp, EmployeeArs, EmployeeBankAccount, EmployeeCard, EmployeeEdit, EmployeeLoginNames, EmployeeNationality, EmployeePhoto, EmployeePunch, EmployeeReactivation, EmployeeSocialSecurity, EmployeeSupervisor, EmployeeTermination
         },
 
         methods: {

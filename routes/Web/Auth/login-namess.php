@@ -1,9 +1,9 @@
 <?php
 
-Route::post('login-names/to_excel', 'LoginNamesController@toExcel');
+Route::get('login-names/to-excel/all', 'LoginNamesController@toExcel')->name('login-names.to-excel.all');
 
-Route::bind('login-name', function ($login_name) {
-    return App\Login::whereId($login_name)
+Route::bind('login_name', function ($login_name) {
+    return App\LoginName::whereId($login_name)
         ->with('employee')
         ->firstOrFail();
 });

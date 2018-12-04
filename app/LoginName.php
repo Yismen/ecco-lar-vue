@@ -23,14 +23,13 @@ class LoginName extends Model
      */
     public function getEmployeesListAttribute()
     {
-        $employees = Employee::orderBy('first_name')->get();
-
-        return $employees->pluck('fullName', 'id');
-    }
-
-    public function getSystemsListAttribute()
-    {
-        return \App\System::pluck('name', 'id');
+        return Employee::select('id', 'first_name', 'second_first_name', 'last_name', 'second_last_name')
+                    ->orderBy('first_name')
+                    ->orderBy('second_first_name')
+                    ->orderBy('last_name')
+                    ->orderBy('second_last_name')
+                    ->get()
+                    ->pluck('fullName', 'id');
     }
 
     /**
