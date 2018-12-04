@@ -66,7 +66,8 @@ trait EmployeeRelationships
 
     public function loginNames()
     {
-        return $this->hasMany('App\LoginName');
+        return $this->hasMany('App\LoginName')
+            ->orderBy('login');
     }
 
     public function card()

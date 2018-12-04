@@ -23,8 +23,9 @@
                 </div>
 
                 <div class="box-footer">
-                    <button type="submit" class="btn btn-success">UPDATE</button>
-                    <button type="reset" class="btn btn-default">CANCEL</button>
+                    <div class="col-sm-10 col-sm-offset-2">
+                        <button type="submit" class="btn btn-warning">UPDATE</button>
+                    </div>
                 </div>
             {!! Form::close() !!}
 

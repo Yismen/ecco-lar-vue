@@ -151,18 +151,6 @@ class EmployeesController extends Controller
             ->withSuccess("Succesfully updated employee [$request->first_name $request->last_name]");
     }
 
-    public function createLogin(Employee $employee, Login $login, Request $request)
-    {
-        $newLogin = $this->handleAddLoginsToEmployee($employee, $request);
-
-        if ($request->ajax()) {
-            return $newLogin;
-        }
-
-        return redirect()->route('admin.employees.edit', $employee->id)
-            ->withSuccess("Succesfully created [$request->login]");
-    }
-
     public function updateSocialSecurity(Employee $employee, Request $request)
     {
         $employee = $this->handleUpdateSocialSecurity($employee, $request);
@@ -188,30 +176,6 @@ class EmployeesController extends Controller
         if ($request->ajax()) {
             return $employee;
         }
-    }
-
-    public function updateLogin(Employee $employee, Login $login, Request $request)
-    {
-        if ($employee->logins) {
-            $employee->logins->update($request->all());
-        } else {
-            $login = new $login([
-                'login' => $request->input('login'),
-                'system_id' => $request->input('system_id')
-            ]);
-            $employee->logins()->save($login);
-        }
-
-        if ($request->ajax()) {
-            return response()->json([
-                'status' => 1,
-                'employee' => $employee,
-                'message' => "$employee->first_name's Login updated!"
-            ]);
-        }
-
-        return redirect()->route('admin.employees.show', $employee->id)
-            ->withSuccess('Login Number Updated');
     }
 
     /**
