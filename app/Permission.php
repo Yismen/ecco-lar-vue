@@ -32,26 +32,21 @@ class Permission extends EmpatiePermission
 
     public function createPermission($request)
     {
-        $actions = $this->getSelectedActions($request->actions);
-
-        foreach ($actions as $action) {
-            $permission_name = $this->getParsedPermission($action, $request->resource);
-
-            $permission = $this->where('name', $permission_name)->first();
-
-            if ($permission) {
-                $permission->delete();
-            }
-
-            $permission = $this->create(['name' => $permission_name, 'resource' => trim($request->resource)]);
-
-            $permission->roles()->sync((array) $request->roles);
+        if ($request->exists('not_resource')) {
+            return $this->createNonResourcePermission($request);
         }
+
+        return createResourcePermission($request);
     }
 
     public function updatePermission($request)
     {
-        $request->merge(['resource' => explode("-", str_slug($request->name), 2)[1]]);
+        $resource = explode("-", str_slug($request->name), 2);
+        $resource = count($resource) > 1 ? $resource[1] : $resource[0];
+
+        $request->merge([
+            'resource' => $resource
+        ]);
 
         $this->update($request->only('name', 'resource'));
 
@@ -78,5 +73,38 @@ class Permission extends EmpatiePermission
     protected function getParsedPermission($action, $resource)
     {
         return $action. ' ' . $resource;
+    }
+
+    protected function createNonResourcePermission($request)
+    {
+        $permission = $this->create([
+            'name' => $request->resource,
+            'resource' => $request->resource,
+        ]);
+
+        $permission->roles()->sync((array) $request->roles);
+
+        return $permission;
+    }
+
+    protected function createResourcePermission($request)
+    {
+        $actions = $this->getSelectedActions($request->actions);
+
+        foreach ($actions as $action) {
+            $permission_name = $this->getParsedPermission($action, $request->resource);
+
+            $permission = $this->where('name', $permission_name)->first();
+
+            if ($permission) {
+                $permission->delete();
+            }
+
+            $permission = $this->create(['name' => $permission_name, 'resource' => trim($request->resource)]);
+
+            $permission->roles()->sync((array) $request->roles);
+
+            return $permission;
+        }
     }
 }
