@@ -5,16 +5,20 @@
 @section('content')
 	<div class="col-sm-8 col-sm-offset-2">
 		<div class="box box-primary">
-			<div class="box-header with-border"><h3>Create a New HH RR Department / Project</h3></div>
-			{!! Form::open(['route'=>['admin.departments.store'], 'class'=>'form-horizontal', 'role'=>'form']) !!}	
-				<div class="box-body">
-					@include('departments._form')	
-				</div>	
-		
-			{!! Form::close() !!}
-			<div class="box-footer with-border">
-				@include('departments._back-to-home')
+			<div class="box-header with-border">
+				<h4>
+					Create a New HH RR Department / Project
+					<a href="{{ route('admin.departments.index') }}" class="pull-right">
+						<i class="fa fa-home"></i> List
+					</a>
+				</h4>
 			</div>
+			{!! Form::open(['route'=>['admin.departments.store'], 'class'=>'form-horizontal', 'role'=>'form']) !!}
+				<div class="box-body">
+					@include('departments._form')
+				</div>
+
+			{!! Form::close() !!}
 		</div>
 	</div>
 @endsection

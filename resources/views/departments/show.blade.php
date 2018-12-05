@@ -4,16 +4,20 @@
 @section('content')
 	<div class="col-sm-8 col-sm-offset-2">
 		<div class="box box-primary pad">
-			<h3 class="page-header">
-				Showing details for department {{ $department->department }} 
-				<a href="{{ route('admin.departments.edit', $department->id) }}"><i class="fa fa-pencil"></i></a>
-			</h3>
+			<h4 class="page-header">
+				{{ $department->department }}
+				<a href="{{ route('admin.departments.edit', $department->id) }}">
+					<i class="fa fa-pencil"></i>
+				</a>
+				<a href="{{ route('admin.departments.index') }}" class="pull-right">
+					<i class="fa fa-home"></i> List
+				</a>
+			</h4>
 
 			@if (!$department->positions->count())
 
 				<div class="alert alert-danger">
-					<strong>Alone!</strong> This department has not been given any position yet. 
-					<a class="pull-right btn btn-primary" href="{{ route('admin.positions.create') }}"><i class="fa fa-plus"></i> Add</a>
+					<strong>Alone!</strong> This department has not been given any position yet.
 				</div>
 			@else
 				<h3>Positions</h3>
@@ -40,7 +44,7 @@
 					</tbody>
 				</table>
 			@endif
-		<p>@include('departments._back-to-home')</p>
+
 		</div>
 	</div>
 @endsection

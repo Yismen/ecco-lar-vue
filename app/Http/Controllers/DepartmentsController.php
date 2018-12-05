@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Department;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 // use App\Http\Requests\Request;
 
@@ -24,11 +25,9 @@ class DepartmentsController extends Controller
      */
     public function index(Department $departments, Request $request)
     {
-        $departments = $departments->orderBy('department')->paginate(15);
-
-        if ($request->ajax()) {
-            return $departments;
-        }
+        $departments = Cache::rememberForever('departments', function() {
+            return Department::orderBy('department')->get();
+        });;
 
         return view('departments.index', compact('departments'));
     }
@@ -38,13 +37,9 @@ class DepartmentsController extends Controller
      *
      * @return Response
      */
-    public function create(Department $department, Request $request)
+    public function create()
     {
-        if ($request->ajax()) {
-            return $department;
-        }
-
-        return view('departments.create', compact('department'));
+        return view('departments.create');
     }
 
     /**
@@ -60,9 +55,8 @@ class DepartmentsController extends Controller
 
         $department = $department->create($request->only('department'));
 
-        if ($request->ajax()) {
-            return $department;
-        }
+        Cache::forget('departments');
+        Cache::forget('employees');
 
         return redirect()->route('admin.departments.index')
             ->withSuccess("Department $department->department has been added!");
@@ -74,12 +68,8 @@ class DepartmentsController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function show(Department $department, Request $request)
+    public function show(Department $department)
     {
-        if ($request->ajax()) {
-            return $department;
-        }
-
         return view('departments.show', compact('department'));
     }
 
@@ -89,12 +79,8 @@ class DepartmentsController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function edit(Department $department, Request $request)
+    public function edit(Department $department)
     {
-        if ($request->ajax()) {
-            return $department;
-        }
-
         return view('departments.edit', compact('department'));
     }
 
@@ -110,11 +96,10 @@ class DepartmentsController extends Controller
             'department' => "required|unique:departments,department,$department->id,id"
         ]);
 
-        $department->update($request->all());
+        Cache::forget('departments');
+        Cache::forget('employees');
 
-        if ($request->ajax()) {
-            return $department;
-        }
+        $department->update($request->only('department'));
 
         return redirect()->route('admin.departments.edit', $department->id)->withSuccess("HH RR Department $department->department has been updated");
     }
@@ -127,11 +112,10 @@ class DepartmentsController extends Controller
      */
     public function destroy(Department $department)
     {
-        $department->destroy($department->id);
+        $department->delete();
 
-        if ($request->ajax()) {
-            return $department;
-        }
+        Cache::forget('departments');
+        Cache::forget('employees');
 
         return redirect()
             ->route('admin.departments.index')

@@ -1,1 +1,0 @@
-<a href="{{ route('admin.departments.index') }}"><i class="fa fa-list"> </i> Return to the list.</a>
