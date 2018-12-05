@@ -9,14 +9,12 @@ use Carbon\Carbon;
 use App\Department;
 use App\ImageUploader;
 use Illuminate\Http\Request;
-use App\Http\Traits\EmployeesTrait;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Cache;
 use Yajra\DataTables\Facades\Datatables;
 
 class EmployeesController extends Controller
 {
-    use EmployeesTrait;
 
     protected $provider;
     private $request;
@@ -151,33 +149,6 @@ class EmployeesController extends Controller
             ->withSuccess("Succesfully updated employee [$request->first_name $request->last_name]");
     }
 
-    public function updateSocialSecurity(Employee $employee, Request $request)
-    {
-        $employee = $this->handleUpdateSocialSecurity($employee, $request);
-
-        if ($request->ajax()) {
-            return $employee;
-        }
-    }
-
-    public function updateSupervisor(Employee $employee, Request $request)
-    {
-        $employee = $this->handleUpdateSupervisor($employee, $request);
-
-        if ($request->ajax()) {
-            return $employee;
-        }
-    }
-
-    public function updateNationality(Employee $employee, Request $request)
-    {
-        $employee = $this->handleUpdateNationality($employee, $request);
-
-        if ($request->ajax()) {
-            return $employee;
-        }
-    }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -188,30 +159,6 @@ class EmployeesController extends Controller
     {
         Cache::forget('employees');
         return $employee;
-    }
-
-    public function updateTermination(Request $request, $employee)
-    {
-        $employee = $this->handleInactivation($employee, $request);
-
-        if ($request->ajax()) {
-            return $employee;
-        }
-
-        return redirect()->route('admin.employees.edit', $employee->id)
-            ->withSuccess("$employee->first_name's termination has been updated!");
-    }
-
-    public function reactivate($employee, Request $request)
-    {
-        $employee = $this->handleReactivation($employee, $request);
-
-        if ($request->ajax()) {
-            return $employee;
-        }
-
-        return redirect()->route('admin.employees.edit', $employee->id)
-            ->withWarning("Employee $employee->full_name has been reactivated. Please make sure to update Hire Date field");
     }
 
     /**

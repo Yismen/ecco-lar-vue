@@ -13,7 +13,10 @@
                 <div class="form-group" :class="{'has-error': form.error.has('nationality_id')}">
                     <label for="nationality_id" class="col-sm-2">Nationality:</label>
                     <div class="col-sm-10">
-                        <nationality-select :current="employee.nationality.id" @changed="nationalityUpdated" v-model="form.fields.nationality_id"
+                        <nationality-select
+                            :current="employee.nationality ? employee.nationality.id : 0"
+                            @changed="nationalityUpdated"
+                            v-model="form.fields.nationality_id"
                         ></nationality-select>
                         <span class="text-danger" v-if="form.error.has('nationality_id')">{{ form.error.get('nationality_id') }}</span>
                     </div>
