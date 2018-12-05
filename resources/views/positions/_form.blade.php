@@ -60,7 +60,7 @@
 		<div class="form-group {{ $errors->has('salary') ? 'has-error' : null }}">
 			{!! Form::label('salary', 'Salary:', ['class'=>'col-sm-2 control-label']) !!}
 			<div class="col-sm-10">
-				{!! Form::input('number', 'salary', null, ['class'=>'form-control', 'placeholder'=>'Salary', 'step'=>0.01]) !!}
+				{!! Form::input('number', 'salary', null, ['class'=>'form-control', 'placeholder'=>'Salary', 'min'=>0, 'max'=>550000]) !!}
 				{!! $errors->first('salary', '<span class="text-danger">:message</span>') !!}
 			</div>
 		</div>
