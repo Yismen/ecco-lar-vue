@@ -22,10 +22,9 @@ class PositionsController extends Controller
      *
      * @return Response
      */
-    public function index(Position $positions, Request $request)
+    public function index(Request $request)
     {
-        $positions = $positions
-                ->orderBy('department_id')
+        $positions = Position::orderBy('department_id')
                 ->orderBy('name')
                 ->with('department')
                 ->withCount(['employees' => function ($query) {
@@ -38,6 +37,7 @@ class PositionsController extends Controller
         if ($request->ajax()) {
             return $positions;
         }
+
         return view('positions.index', compact('positions'));
     }
 
@@ -49,11 +49,7 @@ class PositionsController extends Controller
     public function create(Position $position, Request $request)
     {
         if ($request->ajax()) {
-            return $position->append([
-                    'departments_list',
-                    'payment_types_list',
-                    'payment_frequencies_list',
-                ]);
+            return $position;
         }
 
         return view('positions.create', compact('position'));
@@ -66,9 +62,21 @@ class PositionsController extends Controller
      */
     public function store(Position $position, Request $request)
     {
-        $this->validateRequest($request, $position);
+       $this->validate($request, [
+            'name' => [
+                'required',
+                'min:2',
+                new PositionUnique($position, $request)
+            ],
+            'department_id' => 'required|exists:departments,id',
+            'payment_type_id' => 'required|exists:payment_types,id',
+            'payment_frequency_id' => 'required|exists:payment_frequencies,id',
+            'salary' => 'required|numeric|min:45|max:500000',
+        ]);
 
-        $position = $this->createPosition($position, $request);
+        $position = $position->create(
+            $request->only(['name', 'department_id', 'payment_frequency_id', 'payment_type_id', 'salary'])
+        );
 
         if ($request->ajax()) {
             return $position;
@@ -84,12 +92,8 @@ class PositionsController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function show(Position $position, Request $request)
+    public function show(Position $position)
     {
-        if ($request->ajax()) {
-            return $position;
-        }
-
         return view('positions.show', compact('position'));
     }
 
@@ -116,7 +120,17 @@ class PositionsController extends Controller
      */
     public function update(Position $position, Request $request)
     {
-        $this->validateRequest($request, $position);
+       $this->validate($request, [
+            'name' => [
+                'required',
+                'min:2',
+                new PositionUnique($position, $request)
+            ],
+            'department_id' => 'required|exists:departments,id',
+            'payment_type_id' => 'required|exists:payment_types,id',
+            'payment_frequency_id' => 'required|exists:payment_frequencies,id',
+            'salary' => 'required|numeric|min:45|max:500000',
+        ]);
 
         $position->update($request->only(['name', 'department_id', 'payment_frequency_id', 'payment_type_id', 'salary']));
 
@@ -126,9 +140,6 @@ class PositionsController extends Controller
 
         return redirect()->route('admin.positions.index')
             ->withSuccess("Position $position->name updated!");
-
-        // return redirect()->route('admin.positions.show', $position->id)
-        // 	->withSuccess("Position $position->name has been ubdated!!");
     }
 
     /**
@@ -147,29 +158,5 @@ class PositionsController extends Controller
 
         return redirect()->route('admin.positions.index')
             ->withWarning("Position $position->name has been removed!");
-    }
-
-    protected function validateRequest($request, $position)
-    {
-        $this->validate($request, [
-            'name' => [
-                'required',
-                'min:2',
-                new PositionUnique($position, $request)
-            ],
-            'department_id' => 'required|exists:departments,id',
-            'payment_type_id' => 'required|exists:payment_types,id',
-            'payment_frequency_id' => 'required|exists:payment_frequencies,id',
-            'salary' => 'required|numeric|min:45|max:500000',
-        ]);
-
-        return $this;
-    }
-
-    protected function createPosition($position, $request)
-    {
-        $position->create($request->all());
-
-        return $position;
     }
 }

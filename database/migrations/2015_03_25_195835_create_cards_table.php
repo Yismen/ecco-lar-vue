@@ -16,6 +16,7 @@ class CreateCardsTable extends Migration
             $table->increments('id');
             $table->integer('employee_id')->unsigned()->unique()->index();
             $table->string('card', 100);
+            // $table->integer('number', 10)->unsigned()->unique()->index();
             $table->timestamps();
 
             $table->foreign('employee_id')->references('id')->on('employees')

@@ -16,6 +16,7 @@ class CreatePunchesTable extends Migration
             $table->increments('id');
             $table->integer('employee_id')->unsigned()->unique()->index();
             $table->string('punch', 100);
+            // $table->integer('number', 100)->unsigned()->unique()->index();
             $table->timestamps();
 
             $table->foreign('employee_id')->references('id')->on('employees')

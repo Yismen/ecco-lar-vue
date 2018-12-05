@@ -1,5 +1,5 @@
 <template>
-    <div class="_create_positions">
+    <div class="_create_Banks">
         <modal name="create-bank" height="auto" :scrollable="true" @opened="modalOpened">
              <form role="form" class="form-horizonal"
                 @submit.prevent="createNew"

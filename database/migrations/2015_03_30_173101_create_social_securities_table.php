@@ -16,6 +16,7 @@ class CreateSocialSecuritiesTable extends Migration
             $table->increments('id');
             $table->integer('employee_id')->unsigned();
             $table->string('number', 100);
+            // $table->integer('number', 100)->unsigned()->unique()->index();
             $table->timestamps();
 
             $table->foreign('employee_id')->references('id')->on('employees');

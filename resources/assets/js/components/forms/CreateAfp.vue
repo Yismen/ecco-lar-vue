@@ -1,5 +1,5 @@
 <template>
-    <div class="_create_positions">
+    <div class="_create_Afps">
 
         <modal name="create-afp" height="auto" :scrollable="true" @opened="modalOpened">
              <form role="form" class="form-horizonal"

@@ -14,8 +14,9 @@ class CreateLoginNamesTable extends Migration
     {
         Schema::create('login_names', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('login');
             $table->integer('employee_id')->unsigned()->index();
+            $table->string('login');
+            // $table->string('name');
             $table->timestamps();
 
             $table->foreign('employee_id')->references('id')->on('employees');
@@ -29,7 +30,6 @@ class CreateLoginNamesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('login_names'); 
-        
+        Schema::dropIfExists('login_names');
     }
 }

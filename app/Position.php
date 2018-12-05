@@ -43,12 +43,12 @@ class Position extends Model
 
     public function getDepartmentsListAttribute()
     {
-        return \App\Department::select('id', 'department')->get();
+        return Department::select('id', 'department')->orderBy('department')->get();
     }
 
     public function getPaymentTypesListAttribute()
     {
-        return PaymentType::select('id', 'name')->get();
+        return PaymentType::select('id', 'name')->orderBy('name')->get();
     }
 
     public function getPayPerHoursAttribute()
@@ -66,7 +66,7 @@ class Position extends Model
 
     public function getPaymentFrequenciesListAttribute()
     {
-        return PaymentFrequency::select('id', 'name')->get();
+        return PaymentFrequency::select('id', 'name')->orderBy('name')->get();
     }
 
     /**

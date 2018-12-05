@@ -1,5 +1,5 @@
 <template>
-    <div class="_create_positions">
+    <div class="_create_supervisors">
         <modal name="create-supervisor" height="auto" :scrollable="true" @opened="modalOpened">
              <form role="form" class="form-horizontal"
                 @submit.prevent="createNew"

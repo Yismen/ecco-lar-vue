@@ -83,7 +83,8 @@ Vue.component('loading-component', require('./components/LoadingComponent.vue'))
 Vue.component( 'passport-clients', require('./components/passport/Clients.vue') );
 Vue.component( 'passport-authorized-clients', require('./components/passport/AuthorizedClients.vue') );
 Vue.component( 'passport-personal-access-tokens', require('./components/passport/PersonalAccessTokens.vue') );
-Vue.component('create-position', require('./components/employees/positions/Create'))
+Vue.component('positions-select', require('./components/positions/SelectList'))
+// Vue.component('create-position', require('./components/employees/positions/Create'))
 // Vue.component('modal', require('./components/Modal'))
 Vue.component('add-button', require('./components/links/AddButton'))
 Vue.component('delete-request-button', require('./components/DeleteRequest'))
