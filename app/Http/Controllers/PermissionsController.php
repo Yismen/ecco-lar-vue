@@ -48,7 +48,7 @@ class PermissionsController extends Controller
     {
         $this->validate($request, [
             'resource' => 'required|min:3|unique:permissions,resource',
-            'actions' => 'required|array',
+            'actions' => 'required_without:not_resource|array',
             'roles' => 'array|exists:roles,id',
         ]);
 

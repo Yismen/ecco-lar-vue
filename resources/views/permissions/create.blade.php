@@ -14,17 +14,17 @@
 							</a>
 						</h4>
 					</div>
-					
+
 					{!! Form::open(['route'=>['admin.permissions.store'], 'method'=>'POST', 'class'=>'form-horizontal', 'role'=>'form']) !!}
 						<div class="box-body">
-						
+
 							@include('permissions._form')
-						
+
 						</div>
 
-						<div class="box-footer">	
+						<div class="box-footer">
 							<div class="col-sm-10 col-sm-offset-2">
-								<button type="submit" class="btn btn-primary form-control">Create</button>
+								<button type="submit" class="btn btn-primary">CREATE</button>
 							</div>
 						</div>
 					{!! Form::close() !!}
@@ -33,10 +33,10 @@
 			</div>
 			{{-- // errors --}}
 		</div>
-		
+
 	</div>
 @stop
 
 @section('scripts')
-	
+
 @stop
