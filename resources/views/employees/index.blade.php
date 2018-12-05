@@ -4,14 +4,13 @@
 @section('content')
 <div class="col-sm-12">
     <div class="box box-primary">
-        
         <div class="box-header with-border">
-            
+
             <div class="col-sm-6">
                 <h3>Employees List</h3>
             </div>
 
-            <div class="col-sm-6">                    
+            <div class="col-sm-6">
                 <!-- Single button -->
                 <div class="btn-group">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -21,7 +20,7 @@
                         <li>
                             <a href="{{ route('admin.employees.export_to_excel', 'actives') }}" class="">
                                 <i class="fa fa-download"></i> Actives
-                            </a> 
+                            </a>
                         </li>
                         <li>
                             <a href="{{ route('admin.employees.export_to_excel', 'inactives') }}" class="">
@@ -32,19 +31,19 @@
                         <li>
                             <a href="{{ route('admin.employees.export_all_to_excel') }}" class="">
                                 <i class="fa fa-download"></i> All
-                            </a> 
+                            </a>
                         </li>
                     </ul>
                 </div>
-                
+
                 <a href="{{ route('admin.employees.create') }}" class="pull-right">
                     <i class="fa fa-plus"></i> Create
                 </a>
-                
+
             </div>
-            
+
         </div>
-        
+
         <div class="box-body">
             <div class="table-responsive">
                 <table class="table table-hover table-condensed table-bordered" id="employees-table">
@@ -63,12 +62,12 @@
                             <th>Cell Phone:</th>
                             <th>Other Phone:</th>
                             <th>Edit:</th>
-                            
+
                         </tr>
                     </thead>
-                    
+
                 </table>
-            </div>  
+            </div>
         </div>
     </div>
 </div>
@@ -82,7 +81,7 @@
             let dTable = $('#employees-table').DataTable({
                 "processing": true,
                 "serverSide": true,
-                // "scrollY": "600px",                
+                // "scrollY": "600px",
                 // "scrollCollapse": true,
                 // "pageLength": 10,
                 // "lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"] ],
@@ -133,9 +132,9 @@
                 buttons: ['copy', 'excel', 'pdf']
             });
         });
-        
+
     })(jQuery);
-    
+
 </script>
 
 @stop
