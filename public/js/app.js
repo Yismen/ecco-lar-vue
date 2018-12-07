@@ -1684,7 +1684,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         format: { default: "MM/dd/yyyy" },
         inputClass: { default: "form-control" },
         typeable: { default: true },
-        value: { default: new Date() }
+        value: {}
     },
 
     data: function data() {
@@ -2119,24 +2119,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-
 /* harmony default export */ __webpack_exports__["default"] = ({
 
     name: 'AddressComponent',
 
     data: function data() {
         return {
-            form: new (this.$ioc.resolve('Form'))({
-                'sector': this.employee.address ? this.employee.address.sector : '',
-                'street_address': this.employee.address ? this.employee.address.street_address : '',
-                'city': this.employee.address ? this.employee.address.city : ''
-            }, false)
+            form: new (this.$ioc.resolve('Form'))(this.$store.getters["employee/getAddress"], { reset: false })
         };
     },
 
 
-    props: {
-        employee: {}
+    computed: {
+        address: function address() {
+            return this.$store.getters["employee/getAddress"];
+        }
     },
 
     methods: {
@@ -2146,9 +2143,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         submitAddress: function submitAddress() {
             var _this = this;
 
-            this.form.post('/admin/employees/' + this.employee.id + '/address').then(function (response) {
-                _this.employee.address = response.data.address;
-                _this.form.fields = response.data.address;
+            this.form.post('/admin/employees/' + this.$store.getters["employee/getEmployee"].id + '/address').then(function (response) {
+                _this.$store.dispatch('employee/updateAddress', response.data.address);
+                // this.form.fields = response.data.address
             });
         }
     }
@@ -2352,6 +2349,279 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/employees/CreateEmployee.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DatePicker__ = __webpack_require__("./resources/assets/js/components/DatePicker.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DatePicker___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__DatePicker__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+    name: 'EditInfoComponent',
+
+    data: function data() {
+        return {
+            form: new (this.$ioc.resolve('Form'))({
+                'first_name': '',
+                'second_first_name': '',
+                'last_name': '',
+                'second_last_name': '',
+                'personal_id': '',
+                'passport': '',
+                'hire_date': new Date(),
+                'date_of_birth': new Date(),
+                'cellphone_number': '',
+                'secondary_phone': '',
+                'gender_id': '',
+                'marital_id': '',
+                'has_kids': '',
+                'position_id': ''
+            }, false)
+        };
+    },
+
+
+    props: {
+        employee: {}
+    },
+
+    components: { DatePicker: __WEBPACK_IMPORTED_MODULE_0__DatePicker___default.a },
+
+    methods: {
+        createEmployee: function createEmployee() {
+            this.form.post('/admin/employees/').then(function (response) {
+                window.location.assign("/admin/employees/" + response.data.id + "/edit");
+            });
+        },
+        positionChanged: function positionChanged(payload) {
+            this.form.fields.position_id = payload;
+        }
+    }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/employees/Edit.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2484,6 +2754,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+// import Store from '.../../store'
 
 
 
@@ -2503,13 +2774,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     props: ['employee'],
     data: function data() {
         return {
-            selectedTab: "#edit-employee"
+            selectedTab: "#info-employee"
         };
     },
 
     components: {
-        EmployeeAddress: __WEBPACK_IMPORTED_MODULE_0__AddressComponent___default.a, EmployeeAfp: __WEBPACK_IMPORTED_MODULE_1__AFPComponent___default.a, EmployeeArs: __WEBPACK_IMPORTED_MODULE_2__ARSComponent___default.a, EmployeeBankAccount: __WEBPACK_IMPORTED_MODULE_3__BankAccountComponent___default.a, EmployeeCard: __WEBPACK_IMPORTED_MODULE_4__CardComponent___default.a, EmployeeEdit: __WEBPACK_IMPORTED_MODULE_5__InfoComponent___default.a, EmployeeLoginNames: __WEBPACK_IMPORTED_MODULE_6__LoginNamesComponent___default.a, EmployeeNationality: __WEBPACK_IMPORTED_MODULE_7__NationalityComponent___default.a, EmployeePhoto: __WEBPACK_IMPORTED_MODULE_8__PhotoComponent___default.a, EmployeePunch: __WEBPACK_IMPORTED_MODULE_9__PunchComponent___default.a, EmployeeReactivation: __WEBPACK_IMPORTED_MODULE_10__ReactivationComponent___default.a, EmployeeSocialSecurity: __WEBPACK_IMPORTED_MODULE_11__SocialSecurityComponent___default.a, EmployeeSupervisor: __WEBPACK_IMPORTED_MODULE_12__SupervisorComponent___default.a, EmployeeTermination: __WEBPACK_IMPORTED_MODULE_13__TerminationComponent___default.a
+        EmployeeAddress: __WEBPACK_IMPORTED_MODULE_0__AddressComponent___default.a, EmployeeAfp: __WEBPACK_IMPORTED_MODULE_1__AFPComponent___default.a, EmployeeArs: __WEBPACK_IMPORTED_MODULE_2__ARSComponent___default.a, EmployeeBankAccount: __WEBPACK_IMPORTED_MODULE_3__BankAccountComponent___default.a, EmployeeCard: __WEBPACK_IMPORTED_MODULE_4__CardComponent___default.a, EmployeeInfo: __WEBPACK_IMPORTED_MODULE_5__InfoComponent___default.a, EmployeeLoginNames: __WEBPACK_IMPORTED_MODULE_6__LoginNamesComponent___default.a, EmployeeNationality: __WEBPACK_IMPORTED_MODULE_7__NationalityComponent___default.a, EmployeePhoto: __WEBPACK_IMPORTED_MODULE_8__PhotoComponent___default.a, EmployeePunch: __WEBPACK_IMPORTED_MODULE_9__PunchComponent___default.a, EmployeeReactivation: __WEBPACK_IMPORTED_MODULE_10__ReactivationComponent___default.a, EmployeeSocialSecurity: __WEBPACK_IMPORTED_MODULE_11__SocialSecurityComponent___default.a, EmployeeSupervisor: __WEBPACK_IMPORTED_MODULE_12__SupervisorComponent___default.a, EmployeeTermination: __WEBPACK_IMPORTED_MODULE_13__TerminationComponent___default.a
     },
+
+    created: function created() {
+        this.$store.dispatch("employee/set", this.employee);
+    },
+
 
     methods: {
         setTab: function setTab(e) {
@@ -2528,7 +2804,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuejs_datepicker__ = __webpack_require__("./node_modules/vuejs-datepicker/dist/vuejs-datepicker.esm.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DatePicker__ = __webpack_require__("./resources/assets/js/components/DatePicker.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__DatePicker___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__DatePicker__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2721,18 +3020,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 'second_last_name': this.employee ? this.employee.second_last_name : '',
                 'personal_id': this.employee ? this.employee.personal_id : '',
                 'passport': this.employee ? this.employee.passport : '',
-                'hire_date': this.employee ? this.employee.hire_date : '',
-                'date_of_birth': this.employee ? this.employee.date_of_birth : '',
+                'hire_date': this.employee ? this.employee.hire_date : new Date(),
+                'date_of_birth': this.employee ? this.employee.date_of_birth : new Date(),
                 'cellphone_number': this.employee ? this.employee.cellphone_number : '',
                 'secondary_phone': this.employee ? this.employee.secondary_phone : '',
                 'gender_id': this.employee ? this.employee.gender_id : '',
                 'marital_id': this.employee ? this.employee.marital_id : '',
-                'has_kids': this.employee ? this.employee.has_kids : '',
+                'has_kids': this.employee ? Number(this.employee.has_kids) : '',
                 'position_id': this.employee ? this.employee.position_id : ''
-            }, false),
-            positions_list: [],
-            showButton: false
-
+            }, false)
         };
     },
 
@@ -2741,19 +3037,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         employee: {}
     },
 
-    components: { datepicker: __WEBPACK_IMPORTED_MODULE_0_vuejs_datepicker__["a" /* default */] },
+    components: { DatePicker: __WEBPACK_IMPORTED_MODULE_0__DatePicker___default.a },
 
     methods: {
-        fieldUpdated: function fieldUpdated(event) {
-            this.showButton = true;
-        },
         handleEdit: function handleEdit() {
             var _this = this;
 
             this.form.put('/admin/employees/' + this.employee.id).then(function (response) {
-                _this.employee = response;
-                _this.showButton = false;
-                return _this.form.fields = response;
+                // this.employee = response.data;
+                return _this.form.fields = response.data;
             });
         },
         positionChanged: function positionChanged(payload) {
@@ -9584,6 +9876,21 @@ exports.push([module.i, "\n.action-link[data-v-5d1d7d82] {\n    cursor: pointer;
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-60fb40cb\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/employees/CreateEmployee.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6e65de4b\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/employees/Edit.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9592,7 +9899,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -9682,7 +9989,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -60787,6 +61094,684 @@ if (false) {
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-60fb40cb\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/employees/CreateEmployee.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "_Edit" }, [
+    _c(
+      "form",
+      {
+        attrs: { role: "form", autocomplete: "off" },
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.createEmployee($event)
+          },
+          change: function($event) {
+            _vm.form.error.clear($event.target.name)
+          }
+        }
+      },
+      [
+        _c("div", { staticClass: "box-body" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-sm-6" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "first_name" } }, [
+                  _vm._v("First Name:")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.fields.first_name,
+                      expression: "form.fields.first_name"
+                    }
+                  ],
+                  staticClass: "form-control input-sm",
+                  attrs: { type: "text", id: "first_name", name: "first_name" },
+                  domProps: { value: _vm.form.fields.first_name },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.form.fields,
+                        "first_name",
+                        $event.target.value
+                      )
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm.form.error.has("first_name")
+                  ? _c("span", { staticClass: "text-danger" }, [
+                      _vm._v(_vm._s(_vm.form.error.get("first_name")))
+                    ])
+                  : _vm._e()
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-sm-6" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "second_first_name" } }, [
+                  _vm._v("Second First Name:")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.fields.second_first_name,
+                      expression: "form.fields.second_first_name"
+                    }
+                  ],
+                  staticClass: "form-control input-sm",
+                  attrs: {
+                    type: "text",
+                    id: "second_first_name",
+                    name: "second_first_name"
+                  },
+                  domProps: { value: _vm.form.fields.second_first_name },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.form.fields,
+                        "second_first_name",
+                        $event.target.value
+                      )
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm.form.error.has("second_first_name")
+                  ? _c("span", { staticClass: "text-danger" }, [
+                      _vm._v(_vm._s(_vm.form.error.get("second_first_name")))
+                    ])
+                  : _vm._e()
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-sm-6" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "last_name" } }, [
+                  _vm._v("Last Name:")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.fields.last_name,
+                      expression: "form.fields.last_name"
+                    }
+                  ],
+                  staticClass: "form-control input-sm",
+                  attrs: { type: "text", id: "last_name", name: "last_name" },
+                  domProps: { value: _vm.form.fields.last_name },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.form.fields,
+                        "last_name",
+                        $event.target.value
+                      )
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm.form.error.has("last_name")
+                  ? _c("span", { staticClass: "text-danger" }, [
+                      _vm._v(_vm._s(_vm.form.error.get("last_name")))
+                    ])
+                  : _vm._e()
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-sm-6" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "second_last_name" } }, [
+                  _vm._v("Second Last Name:")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.fields.second_last_name,
+                      expression: "form.fields.second_last_name"
+                    }
+                  ],
+                  staticClass: "form-control input-sm",
+                  attrs: {
+                    type: "text",
+                    id: "second_last_name",
+                    name: "second_last_name"
+                  },
+                  domProps: { value: _vm.form.fields.second_last_name },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.form.fields,
+                        "second_last_name",
+                        $event.target.value
+                      )
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm.form.error.has("second_last_name")
+                  ? _c("span", { staticClass: "text-danger" }, [
+                      _vm._v(_vm._s(_vm.form.error.get("second_last_name")))
+                    ])
+                  : _vm._e()
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-sm-6" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "personal_id" } }, [
+                  _vm._v("Personal ID:")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.fields.personal_id,
+                      expression: "form.fields.personal_id"
+                    }
+                  ],
+                  staticClass: "form-control input-sm",
+                  attrs: {
+                    type: "text",
+                    id: "personal_id",
+                    name: "personal_id"
+                  },
+                  domProps: { value: _vm.form.fields.personal_id },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.form.fields,
+                        "personal_id",
+                        $event.target.value
+                      )
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm.form.error.has("personal_id")
+                  ? _c("span", { staticClass: "text-danger" }, [
+                      _vm._v(_vm._s(_vm.form.error.get("personal_id")))
+                    ])
+                  : _vm._e()
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-sm-6" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "passport" } }, [
+                  _vm._v("Or Passport:")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.fields.passport,
+                      expression: "form.fields.passport"
+                    }
+                  ],
+                  staticClass: "form-control input-sm",
+                  attrs: { type: "text", id: "passport", name: "passport" },
+                  domProps: { value: _vm.form.fields.passport },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form.fields, "passport", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm.form.error.has("passport")
+                  ? _c("span", { staticClass: "text-danger" }, [
+                      _vm._v(_vm._s(_vm.form.error.get("passport")))
+                    ])
+                  : _vm._e()
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-sm-6" }, [
+              _c(
+                "div",
+                { staticClass: "form-group" },
+                [
+                  _c("label", { attrs: { for: "hire_date" } }, [
+                    _vm._v("Hire Date:")
+                  ]),
+                  _vm._v(" "),
+                  _c("date-picker", {
+                    attrs: {
+                      "input-class": "form-control input-sm",
+                      name: "hire_date",
+                      format: "MM/dd/yyyy"
+                    },
+                    model: {
+                      value: _vm.form.fields.hire_date,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form.fields, "hire_date", $$v)
+                      },
+                      expression: "form.fields.hire_date"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm.form.error.has("hire_date")
+                    ? _c("span", { staticClass: "text-danger" }, [
+                        _vm._v(_vm._s(_vm.form.error.get("hire_date")))
+                      ])
+                    : _vm._e()
+                ],
+                1
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-sm-6" }, [
+              _c(
+                "div",
+                { staticClass: "form-group" },
+                [
+                  _c("label", { attrs: { for: "date_of_birth" } }, [
+                    _vm._v("Date of Birth:")
+                  ]),
+                  _vm._v(" "),
+                  _c("date-picker", {
+                    attrs: {
+                      "input-class": "form-control input-sm",
+                      name: "date_of_birth",
+                      format: "MM/dd/yyyy"
+                    },
+                    model: {
+                      value: _vm.form.fields.date_of_birth,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form.fields, "date_of_birth", $$v)
+                      },
+                      expression: "form.fields.date_of_birth"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm.form.error.has("date_of_birth")
+                    ? _c("span", { staticClass: "text-danger" }, [
+                        _vm._v(_vm._s(_vm.form.error.get("date_of_birth")))
+                      ])
+                    : _vm._e()
+                ],
+                1
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-sm-6" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "cellphone_number" } }, [
+                  _vm._v("Cellphone Number:")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.fields.cellphone_number,
+                      expression: "form.fields.cellphone_number"
+                    }
+                  ],
+                  staticClass: "form-control input-sm",
+                  attrs: {
+                    type: "text",
+                    id: "cellphone_number",
+                    name: "cellphone_number"
+                  },
+                  domProps: { value: _vm.form.fields.cellphone_number },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.form.fields,
+                        "cellphone_number",
+                        $event.target.value
+                      )
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm.form.error.has("cellphone_number")
+                  ? _c("span", { staticClass: "text-danger" }, [
+                      _vm._v(_vm._s(_vm.form.error.get("cellphone_number")))
+                    ])
+                  : _vm._e()
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-sm-6" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "secondary_phone" } }, [
+                  _vm._v("Secondary Phone #:")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.fields.secondary_phone,
+                      expression: "form.fields.secondary_phone"
+                    }
+                  ],
+                  staticClass: "form-control input-sm",
+                  attrs: {
+                    type: "text",
+                    id: "secondary_phone",
+                    name: "secondary_phone"
+                  },
+                  domProps: { value: _vm.form.fields.secondary_phone },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.form.fields,
+                        "secondary_phone",
+                        $event.target.value
+                      )
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm.form.error.has("secondary_phone")
+                  ? _c("span", { staticClass: "text-danger" }, [
+                      _vm._v(_vm._s(_vm.form.error.get("secondary_phone")))
+                    ])
+                  : _vm._e()
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-sm-6" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "gender_id" } }, [
+                  _vm._v("Gender:")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.fields.gender_id,
+                        expression: "form.fields.gender_id"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { name: "gender_id", id: "gender_id" },
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.form.fields,
+                          "gender_id",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      }
+                    }
+                  },
+                  _vm._l(_vm.employee.genders_list, function(gender_id, index) {
+                    return _c(
+                      "option",
+                      { key: index, domProps: { value: index } },
+                      [
+                        _vm._v(
+                          "\n                                " +
+                            _vm._s(gender_id) +
+                            "\n                            "
+                        )
+                      ]
+                    )
+                  })
+                ),
+                _vm._v(" "),
+                _vm.form.error.has("gender_id")
+                  ? _c("span", { staticClass: "text-danger" }, [
+                      _vm._v(_vm._s(_vm.form.error.get("gender_id")))
+                    ])
+                  : _vm._e()
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-sm-6" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "marital_id" } }, [
+                  _vm._v("Marital Status:")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.fields.marital_id,
+                        expression: "form.fields.marital_id"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { name: "marital_id", id: "marital_id" },
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.form.fields,
+                          "marital_id",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      }
+                    }
+                  },
+                  _vm._l(_vm.employee.maritals_list, function(
+                    marital_id,
+                    index
+                  ) {
+                    return _c(
+                      "option",
+                      { key: index, domProps: { value: index } },
+                      [_vm._v(_vm._s(marital_id))]
+                    )
+                  })
+                ),
+                _vm._v(" "),
+                _vm.form.error.has("marital_id")
+                  ? _c("span", { staticClass: "text-danger" }, [
+                      _vm._v(_vm._s(_vm.form.error.get("marital_id")))
+                    ])
+                  : _vm._e()
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-sm-6" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "has_kids" } }, [
+                  _vm._v("Has Kids?:")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.fields.has_kids,
+                        expression: "form.fields.has_kids"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { name: "has_kids", id: "has_kids" },
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.form.fields,
+                          "has_kids",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      }
+                    }
+                  },
+                  _vm._l(_vm.employee.has_kids_list, function(has_kids, index) {
+                    return _c(
+                      "option",
+                      { key: index, domProps: { value: index } },
+                      [
+                        _vm._v(
+                          "\n                                " +
+                            _vm._s(has_kids) +
+                            "\n                            "
+                        )
+                      ]
+                    )
+                  })
+                ),
+                _vm._v(" "),
+                _vm.form.error.has("has_kids")
+                  ? _c("span", { staticClass: "text-danger" }, [
+                      _vm._v(_vm._s(_vm.form.error.get("has_kids")))
+                    ])
+                  : _vm._e()
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-sm-6" }, [
+              _c(
+                "div",
+                { staticClass: "form-group" },
+                [
+                  _c("label", { attrs: { for: "position_id" } }, [
+                    _vm._v("Position:")
+                  ]),
+                  _vm._v(" "),
+                  _c("positions-select", {
+                    attrs: { current: Number(_vm.form.fields.position_id) },
+                    on: { changed: _vm.positionChanged }
+                  })
+                ],
+                1
+              )
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _vm._m(0)
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "box-footer" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("div", { staticClass: "col-sm-10 col-sm-offset-2" }, [
+          _c(
+            "button",
+            { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+            [_vm._v("\n                        CREATE\n                    ")]
+          )
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-60fb40cb", module.exports)
+  }
+}
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-6e65de4b\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/employees/Edit.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -60800,7 +61785,7 @@ var render = function() {
         _c(
           "li",
           {
-            class: { active: _vm.selectedTab == "#edit-employee" },
+            class: { active: _vm.selectedTab == "#info-employee" },
             attrs: { role: "presentation" }
           },
           [
@@ -60808,8 +61793,8 @@ var render = function() {
               "a",
               {
                 attrs: {
-                  href: "#edit-employee",
-                  "aria-controls": "edit-employee",
+                  href: "#info-employee",
+                  "aria-controls": "info-employee",
                   role: "tab",
                   "data-toggle": "tab"
                 },
@@ -61012,9 +61997,9 @@ var render = function() {
           "div",
           {
             staticClass: "tab-pane active",
-            attrs: { role: "tabpanel", id: "edit-employee" }
+            attrs: { role: "tabpanel", id: "info-employee" }
           },
-          [_c("employee-edit", { attrs: { employee: _vm.employee } })],
+          [_c("employee-info", { attrs: { employee: _vm.employee } })],
           1
         ),
         _vm._v(" "),
@@ -61039,7 +62024,7 @@ var render = function() {
             staticClass: "tab-pane",
             attrs: { role: "tabpanel", id: "address" }
           },
-          [_c("employee-address", { attrs: { employee: _vm.employee } })],
+          [_c("employee-address")],
           1
         ),
         _vm._v(" "),
@@ -62413,8 +63398,7 @@ var render = function() {
           },
           change: function($event) {
             _vm.form.error.clear($event.target.name)
-          },
-          input: _vm.fieldUpdated
+          }
         }
       },
       [
@@ -62672,7 +63656,7 @@ var render = function() {
                   _vm._v("Hire Date:")
                 ]),
                 _vm._v(" "),
-                _c("datepicker", {
+                _c("date-picker", {
                   attrs: {
                     "input-class": "form-control input-sm",
                     name: "hire_date",
@@ -62706,7 +63690,7 @@ var render = function() {
                   _vm._v("Date of Birth:")
                 ]),
                 _vm._v(" "),
-                _c("datepicker", {
+                _c("date-picker", {
                   attrs: {
                     "input-class": "form-control input-sm",
                     name: "date_of_birth",
@@ -63007,7 +63991,7 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("positions-select", {
-                  attrs: { current: _vm.form.fields.position_id },
+                  attrs: { current: Number(_vm.form.fields.position_id) },
                   on: { changed: _vm.positionChanged }
                 })
               ],
@@ -63016,9 +64000,7 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _vm.showButton
-          ? _c("div", { staticClass: "box-footer" }, [_vm._m(0)])
-          : _vm._e()
+        _vm._m(0)
       ]
     )
   ])
@@ -63028,13 +64010,15 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("div", { staticClass: "col-sm-10 col-sm-offset-2" }, [
-        _c(
-          "button",
-          { staticClass: "btn btn-success", attrs: { type: "submit" } },
-          [_vm._v("\n                        UPDATE\n                    ")]
-        )
+    return _c("div", { staticClass: "box-footer" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c("div", { staticClass: "col-sm-10 col-sm-offset-2" }, [
+          _c(
+            "button",
+            { staticClass: "btn btn-success", attrs: { type: "submit" } },
+            [_vm._v("\n                        UPDATE\n                    ")]
+          )
+        ])
       ])
     ])
   }
@@ -63196,7 +64180,12 @@ var render = function() {
       },
       [
         _c("div", { staticClass: "box-header with-border" }, [
-          _c("h4", [_vm._v(_vm._s(_vm.employee.full_name) + "' Address:")])
+          _c("h4", [
+            _vm._v(
+              _vm._s(_vm.$store.getters["employee/getEmployee"].full_name) +
+                "' Address:"
+            )
+          ])
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "box-body" }, [
@@ -64092,6 +65081,33 @@ if(false) {
  if(!content.locals) {
    module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5d1d7d82\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Clients.vue", function() {
      var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5d1d7d82\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Clients.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-60fb40cb\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/employees/CreateEmployee.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-60fb40cb\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/employees/CreateEmployee.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("326ad8fa", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-60fb40cb\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./CreateEmployee.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-60fb40cb\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./CreateEmployee.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -78147,14 +79163,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
  * building robust, powerful web applications using Vue and Laravel.
  */
 __webpack_require__("./resources/assets/js/bootstrap.js");
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
 
 /**
- * Now we import the main store from vuex
+ * Here we will load Vue store with it modulations. This implements
+ * an API to have centralized states and mutations.
  */
 
 
@@ -78169,6 +79181,11 @@ __webpack_require__("./resources/assets/js/bootstrap.js");
 //     routes
 // })
 
+/**
+ * Next, we will create a fresh Vue application instance and attach it to
+ * the page. Then, you may begin adding components to this application
+ * or customize the JavaScript scaffolding to fit your unique needs.
+ */
 var app = new Vue({
   store: __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */],
   el: '#app'
@@ -78237,11 +79254,6 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vue_js_modal___default.a);
  */
 window.axios = __webpack_require__("./node_modules/axios/index.js");
 
-/**
- * Here we will load Vue store with it modulations. This implements
- * an API to have centralized states and mutations.
- */
-
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /**
@@ -78260,12 +79272,6 @@ if (token) {
 __webpack_require__("./resources/assets/js/config/interceptors.js");
 
 /**
- * Echo exposes an expressive API for subscribing to channels and listening
- * for events that are broadcast by Laravel. Echo and event broadcasting
- * allows your team to easily build robust real-time web applications.
- */
-
-/**
 * Here global components are registered
 */
 Vue.component('loading-component', __webpack_require__("./resources/assets/js/components/LoadingComponent.vue"));
@@ -78279,7 +79285,14 @@ Vue.component('add-button', __webpack_require__("./resources/assets/js/component
 Vue.component('delete-request-button', __webpack_require__("./resources/assets/js/components/DeleteRequest.vue"));
 Vue.component('create-afp-form', __webpack_require__("./resources/assets/js/components/forms/CreateAfp.vue"));
 Vue.component('flash-message', __webpack_require__("./resources/assets/js/components/FlashMessage.vue"));
-Vue.component('employee-edit', __webpack_require__("./resources/assets/js/components/employees/Edit.vue"));
+Vue.component('edit-employee', __webpack_require__("./resources/assets/js/components/employees/Edit.vue"));
+Vue.component('create-employee', __webpack_require__("./resources/assets/js/components/employees/CreateEmployee.vue"));
+
+/**
+ * Echo exposes an expressive API for subscribing to channels and listening
+ * for events that are broadcast by Laravel. Echo and event broadcasting
+ * allows your team to easily build robust real-time web applications.
+ */
 
 // import Echo from 'laravel-echo'
 
@@ -78751,6 +79764,58 @@ if (false) {(function () {
     hotAPI.createRecord("data-v-8bff5948", Component.options)
   } else {
     hotAPI.reload("data-v-8bff5948", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/employees/CreateEmployee.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-60fb40cb\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/employees/CreateEmployee.vue")
+}
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/employees/CreateEmployee.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-60fb40cb\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/employees/CreateEmployee.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-60fb40cb"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/employees/CreateEmployee.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-60fb40cb", Component.options)
+  } else {
+    hotAPI.reload("data-v-60fb40cb", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -80012,7 +81077,7 @@ axios.interceptors.response.use(function (response) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modules_loading__ = __webpack_require__("./resources/assets/js/store/modules/loading.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules_cart__ = __webpack_require__("./resources/assets/js/store/modules/cart.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules_employee__ = __webpack_require__("./resources/assets/js/store/modules/employee.js");
 
 
 
@@ -80024,114 +81089,71 @@ var debug = "development" !== 'production';
 
 /* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     modules: {
-        cart: __WEBPACK_IMPORTED_MODULE_3__modules_cart__["a" /* default */], loading: __WEBPACK_IMPORTED_MODULE_2__modules_loading__["a" /* default */]
+        loading: __WEBPACK_IMPORTED_MODULE_2__modules_loading__["a" /* default */], employee: __WEBPACK_IMPORTED_MODULE_3__modules_employee__["a" /* default */]
     },
     strict: debug
 }));
 
 /***/ }),
 
-/***/ "./resources/assets/js/store/modules/cart.js":
+/***/ "./resources/assets/js/store/modules/employee.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
 // initial state
 // shape: [{ id, quantity }]
 var state = {
-    items: [],
-    checkoutStatus: null
+    employee: {},
+    address: {
+        city: "",
+        sector: "",
+        street_address: ""
+    }
 
     // getters
 };var getters = {
-    cartProducts: function cartProducts(state, getters, rootState) {
-        return state.items.map(function (_ref) {
-            var id = _ref.id,
-                quantity = _ref.quantity;
-
-            var product = rootState.products.all.find(function (product) {
-                return product.id === id;
-            });
-            return {
-                title: product.title,
-                price: product.price,
-                quantity: quantity
-            };
-        });
+    getEmployee: function getEmployee(state, getters, rootState) {
+        return state.employee;
     },
-
-    cartTotalPrice: function cartTotalPrice(state, getters) {
-        return getters.cartProducts.reduce(function (total, product) {
-            return total + product.price * product.quantity;
-        }, 0);
-    }
-
-    // actions
-};var actions = {
-    checkout: function checkout(_ref2, products) {
-        var commit = _ref2.commit,
-            state = _ref2.state;
-
-        var savedCartItems = [].concat(_toConsumableArray(state.items));
-        commit('setCheckoutStatus', null);
-        // empty cart
-        commit('setCartItems', { items: [] });
-        // shop.buyProducts(
-        //     products,
-        //     () => commit('setCheckoutStatus', 'successful'),
-        //     () => {
-        //         commit('setCheckoutStatus', 'failed')
-        //         // rollback to the cart saved before sending the request
-        //         commit('setCartItems', { items: savedCartItems })
-        //     }
-        // )
-    },
-    addProductToCart: function addProductToCart(_ref3, product) {
-        var state = _ref3.state,
-            commit = _ref3.commit;
-
-        commit('setCheckoutStatus', null);
-        if (product.inventory > 0) {
-            var cartItem = state.items.find(function (item) {
-                return item.id === product.id;
-            });
-            if (!cartItem) {
-                commit('pushProductToCart', { id: product.id });
-            } else {
-                commit('incrementItemQuantity', cartItem);
-            }
-            // remove 1 item from stock
-            commit('products/decrementProductInventory', { id: product.id }, { root: true });
-        }
+    getAddress: function getAddress(state, getters, rootState) {
+        return getters.getEmployee.address ? getters.getEmployee.address : state.address;
     }
 };
 
-// mutations
+// actions (an action commit a mutation)
+var actions = {
+    set: function set(_ref, employee) {
+        var commit = _ref.commit,
+            state = _ref.state;
+
+        commit('mutateEmployee', employee);
+    },
+    updateAddress: function updateAddress(_ref2, address) {
+        var commit = _ref2.commit,
+            state = _ref2.state;
+
+        commit('mutateAddress', address);
+    },
+    updateHireDate: function updateHireDate(_ref3, hire_date) {
+        var commit = _ref3.commit,
+            state = _ref3.state;
+
+        commit('mutateHireDate', hire_date);
+    }
+};
+
+// mutations (a mutation update the state)
 var mutations = {
-    pushProductToCart: function pushProductToCart(state, _ref4) {
-        var id = _ref4.id;
-
-        state.items.push({
-            id: id,
-            quantity: 1
-        });
+    mutateEmployee: function mutateEmployee(state, employee) {
+        state.employee = employee;
+        state.address = employee.address;
     },
-    incrementItemQuantity: function incrementItemQuantity(state, _ref5) {
-        var id = _ref5.id;
-
-        var cartItem = state.items.find(function (item) {
-            return item.id === id;
-        });
-        cartItem.quantity++;
+    mutateAddress: function mutateAddress(state, address) {
+        state.employee.address = address;
+        state.address = address;
     },
-    setCartItems: function setCartItems(state, _ref6) {
-        var items = _ref6.items;
-
-        state.items = items;
-    },
-    setCheckoutStatus: function setCheckoutStatus(state, status) {
-        state.checkoutStatus = status;
+    mutateHireDate: function mutateHireDate(state, hire_date) {
+        state.employee.hire_date = hire_date;
     }
 };
 
@@ -80269,8 +81291,10 @@ var Form = function () {
 
         _classCallCheck(this, Form);
 
+        var reset = typeof options == "boolean" ? options : true;
+
         this.default = Object.assign({
-            reset: true
+            reset: reset
         }, options);
 
         this.fields = {};

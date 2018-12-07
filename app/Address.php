@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Address extends Model
 {
-    protected $fillable = ['sector', 'street_address', 'city'];
+    protected $fillable = ['employee_id', 'sector', 'street_address', 'city'];
 
     protected $table = 'addresses';
 
@@ -14,9 +14,9 @@ class Address extends Model
      * -------------------------------------------------------------------
      * Relatioships
      */
-    public function employees()
+    public function employee()
     {
-        return $this->belongsTo(Employee);
+        return $this->belongsTo(Employee::class);
     }
 
     public function setSectorAttribute($sector)

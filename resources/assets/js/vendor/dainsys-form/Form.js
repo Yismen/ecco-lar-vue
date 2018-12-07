@@ -2,8 +2,10 @@ import Error from './Error.js';
 
 export default class Form {
     constructor(data, options = {}) {
+        let reset = typeof(options) == "boolean" ? options : true
+
         this.default = Object.assign({
-            reset: true
+            reset: reset
         }, options);
 
         this.fields = {}
@@ -64,7 +66,7 @@ export default class Form {
     delete(url) {
         return this.submit('delete', url);
     }
-    
+
     reset(field) {
         if (field) {
             return this.fields[field] = '';

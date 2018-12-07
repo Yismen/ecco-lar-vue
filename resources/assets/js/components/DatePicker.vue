@@ -1,10 +1,10 @@
 <template>
-    <div class="__Date input-group">        
-        <datepicker 
+    <div class="__Date input-group">
+        <datepicker
             :input-class="inputClass"
             :value="selectedDate"
-            :name="name" 
-            :format="format" 
+            :name="name"
+            :format="format"
             :typeable="typeable"
             @input="changed"
 
@@ -23,7 +23,7 @@ export default {
         format: {default: "MM/dd/yyyy"},
         inputClass: {default: "form-control"},
         typeable: {default: true},
-        value: {default: new Date()}
+        value: {}
     },
 
     data() {

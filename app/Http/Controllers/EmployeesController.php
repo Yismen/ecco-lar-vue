@@ -55,6 +55,12 @@ class EmployeesController extends Controller
      */
     public function create(Employee $employee)
     {
+        $employee->append([
+            'genders_list',
+            'has_kids_list',
+            'maritals_list',
+            'positions_list',
+        ]);
         return view('employees.create', compact('employee'));
     }
 

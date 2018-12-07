@@ -2,19 +2,19 @@
     <div class="address">
         <form class="form-horizontal" role="form"
             @submit.prevent="submitAddress"
-            autocomplete="off" 
+            autocomplete="off"
             @change="updated">
 
-            <div class="box-header with-border"><h4>{{ employee.full_name }}' Address:</h4></div>
-    
+            <div class="box-header with-border"><h4>{{ $store.getters["employee/getEmployee"].full_name }}' Address:</h4></div>
+
             <div class="box-body">
-    
-            
+
+
                 <div class="form-group" :class="{'has-error': form.error.has('sector')}">
                     <label for="input" class="col-sm-2 control-label">Sector:</label>
                     <div class="col-sm-10">
-                        <input type="text" id="sector" 
-                        name="sector" class="form-control" 
+                        <input type="text" id="sector"
+                        name="sector" class="form-control"
                         v-model="form.fields.sector">
                         <span class="text-danger" v-if="form.error.has('sector')">{{ form.error.get('sector') }}</span>
                     </div>
@@ -23,8 +23,8 @@
                 <div class="form-group" :class="{'has-error': form.error.has('street_address')}">
                     <label for="input" class="col-sm-2 control-label">Street Address:</label>
                     <div class="col-sm-10">
-                        <input type="text" id="street_address" 
-                        name="street_address" class="form-control" 
+                        <input type="text" id="street_address"
+                        name="street_address" class="form-control"
                         v-model="form.fields.street_address">
                         <span class="text-danger" v-if="form.error.has('street_address')">{{ form.error.get('street_address') }}</span>
                     </div>
@@ -33,13 +33,13 @@
                 <div class="form-group" :class="{'has-error': form.error.has('city')}">
                     <label for="input" class="col-sm-2 control-label">City:</label>
                     <div class="col-sm-10">
-                        <input type="text" id="city" 
-                        name="city" class="form-control" 
+                        <input type="text" id="city"
+                        name="city" class="form-control"
                         v-model="form.fields.city">
                         <span class="text-danger" v-if="form.error.has('city')">{{ form.error.get('city') }}</span>
                     </div>
                 </div> <!-- ./City -->
-        
+
             <div class="box-footer">
                 <div class="form-group">
                     <div class="col-sm-10 col-sm-offset-2">
@@ -55,23 +55,23 @@
 </template>
 
 <script>
+export default {
 
-    export default {
-
-      name: 'AddressComponent',
+    name: 'AddressComponent',
 
       data () {
         return {
-            form: new (this.$ioc.resolve('Form')) ({
-                'sector': this.employee.address ? this.employee.address.sector : '',
-                'street_address': this.employee.address ? this.employee.address.street_address : '',
-                'city':this.employee.address ? this.employee.address.city : '',
-            }, false),
+            form: new (this.$ioc.resolve('Form')) (
+                this.$store.getters["employee/getAddress"],
+                {reset: false}
+            )
         };
     },
 
-    props: {
-        employee: {}
+    computed: {
+        address() {
+            return this.$store.getters["employee/getAddress"]
+        }
     },
 
     methods: {
@@ -79,10 +79,10 @@
             this.form.error.clear(event.target.name)
         },
         submitAddress() {
-            this.form.post('/admin/employees/'+this.employee.id+'/address')
+            this.form.post('/admin/employees/' + this.$store.getters["employee/getEmployee"].id + '/address')
                 .then(response => {
-                    this.employee.address = response.data.address;
-                    this.form.fields = response.data.address
+                    this.$store.dispatch('employee/updateAddress', response.data.address)
+                    // this.form.fields = response.data.address
                 })
         }
     }

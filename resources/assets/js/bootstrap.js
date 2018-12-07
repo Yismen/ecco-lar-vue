@@ -48,11 +48,6 @@ Vue.use(VModal)
  */
 window.axios = require('axios');
 
-/**
- * Here we will load Vue store with it modulations. This implements
- * an API to have centralized states and mutations.
- */
-
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /**
@@ -71,12 +66,6 @@ if (token) {
 require('./config/interceptors')
 
 /**
- * Echo exposes an expressive API for subscribing to channels and listening
- * for events that are broadcast by Laravel. Echo and event broadcasting
- * allows your team to easily build robust real-time web applications.
- */
-
-/**
 * Here global components are registered
 */
 Vue.component('loading-component', require('./components/LoadingComponent.vue'));
@@ -90,7 +79,15 @@ Vue.component('add-button', require('./components/links/AddButton'))
 Vue.component('delete-request-button', require('./components/DeleteRequest'))
 Vue.component('create-afp-form', require('./components/forms/CreateAfp'))
 Vue.component('flash-message', require('./components/FlashMessage'))
-Vue.component('employee-edit', require('./components/employees/Edit'));
+Vue.component('edit-employee', require('./components/employees/Edit'));
+Vue.component('create-employee', require('./components/employees/CreateEmployee'));
+
+/**
+ * Echo exposes an expressive API for subscribing to channels and listening
+ * for events that are broadcast by Laravel. Echo and event broadcasting
+ * allows your team to easily build robust real-time web applications.
+ */
+
 
 // import Echo from 'laravel-echo'
 

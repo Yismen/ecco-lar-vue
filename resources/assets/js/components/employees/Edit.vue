@@ -3,8 +3,8 @@
         <div role="tabpanel" class="nav-tabs-custom">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" :class="{'active': selectedTab == '#edit-employee'}">
-                    <a href="#edit-employee" aria-controls="edit-employee" role="tab" data-toggle="tab" @click="setTab">Edit</a>
+                <li role="presentation" :class="{'active': selectedTab == '#info-employee'}">
+                    <a href="#info-employee" aria-controls="info-employee" role="tab" data-toggle="tab" @click="setTab">Edit</a>
                 </li>
                 <li role="presentation" :class="{'active': selectedTab == '#termination'}" >
                     <a href="#termination" aria-controls="termination" role="tab" data-toggle="tab" @click="setTab">Termination</a>
@@ -37,14 +37,14 @@
 
             <!-- Tab panes -->
             <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="edit-employee">
-                    <employee-edit :employee="employee"></employee-edit>
+                <div role="tabpanel" class="tab-pane active" id="info-employee">
+                    <employee-info :employee="employee"></employee-info>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="termination">
                     <employee-termination :employee="employee" @employee-reactivated="updateHireDate"></employee-termination>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="address">
-                    <employee-address :employee="employee"></employee-address>
+                    <employee-address></employee-address>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="photo">
                     <employee-photo :employee="employee"></employee-photo>
@@ -97,12 +97,13 @@
 </template>
 
 <script>
+    // import Store from '.../../store'
     import EmployeeAddress from './AddressComponent';
     import EmployeeAfp from './AFPComponent';
     import EmployeeArs from './ARSComponent';
     import EmployeeBankAccount from './BankAccountComponent';
     import EmployeeCard from './CardComponent';
-    import EmployeeEdit from './InfoComponent';
+    import EmployeeInfo from './InfoComponent';
     import EmployeeLoginNames from './LoginNamesComponent';
     import EmployeeNationality from './NationalityComponent';
     import EmployeePhoto from './PhotoComponent';
@@ -116,11 +117,15 @@
         props: ['employee'],
         data() {
             return {
-                selectedTab: "#edit-employee",
+                selectedTab: "#info-employee",
             }
         },
         components: {
-            EmployeeAddress, EmployeeAfp, EmployeeArs, EmployeeBankAccount, EmployeeCard, EmployeeEdit, EmployeeLoginNames, EmployeeNationality, EmployeePhoto, EmployeePunch, EmployeeReactivation, EmployeeSocialSecurity, EmployeeSupervisor, EmployeeTermination
+            EmployeeAddress, EmployeeAfp, EmployeeArs, EmployeeBankAccount, EmployeeCard, EmployeeInfo, EmployeeLoginNames, EmployeeNationality, EmployeePhoto, EmployeePunch, EmployeeReactivation, EmployeeSocialSecurity, EmployeeSupervisor, EmployeeTermination
+        },
+
+        created() {
+                this.$store.dispatch("employee/set", this.employee)
         },
 
         methods: {
