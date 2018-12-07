@@ -2,75 +2,79 @@
 @extends('layouts.'.$layout->app(), ['page_header'=>'Employees', 'page_description'=>'List of active employees.'])
 
 @section('content')
-<div class="col-sm-12">
-    <div class="box box-primary">
-        <div class="box-header with-border">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
 
-            <div class="col-sm-6">
-                <h3>Employees List</h3>
-            </div>
+                        <div class="col-sm-6">
+                            <h3>Employees List</h3>
+                        </div>
 
-            <div class="col-sm-6">
-                <!-- Single button -->
-                <div class="btn-group">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-file-excel-o"></i> Download Excel <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="{{ route('admin.employees.export_to_excel', 'actives') }}" class="">
-                                <i class="fa fa-download"></i> Actives
+                        <div class="col-sm-6">
+                            <!-- Single button -->
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-file-excel-o"></i> Download Excel <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="{{ route('admin.employees.export_to_excel', 'actives') }}" class="">
+                                            <i class="fa fa-download"></i> Actives
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('admin.employees.export_to_excel', 'inactives') }}" class="">
+                                            <i class="fa fa-download"></i> Inactives
+                                        </a>
+                                    </li>
+                                    <li role="separator" class="divider"></li>
+                                    <li>
+                                        <a href="{{ route('admin.employees.export_all_to_excel') }}" class="">
+                                            <i class="fa fa-download"></i> All
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <a href="{{ route('admin.employees.create') }}" class="pull-right">
+                                <i class="fa fa-plus"></i> Create
                             </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('admin.employees.export_to_excel', 'inactives') }}" class="">
-                                <i class="fa fa-download"></i> Inactives
-                            </a>
-                        </li>
-                        <li role="separator" class="divider"></li>
-                        <li>
-                            <a href="{{ route('admin.employees.export_all_to_excel') }}" class="">
-                                <i class="fa fa-download"></i> All
-                            </a>
-                        </li>
-                    </ul>
+
+                        </div>
+
+                    </div>
+
+                    <div class="box-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-condensed table-bordered" id="employees-table">
+                                <thead>
+                                    <tr>
+                                        <th>Employee ID:</th>
+                                        <th>Name:</th>
+                                        <th>Second First Name:</th>
+                                        <th>Last Name:</th>
+                                        <th>Second Last Name:</th>
+                                        <th>Hire Date</th>
+                                        <th>Status</th>
+                                        <th>Position:</th>
+                                        <th>Personal ID / Passport:</th>
+                                        <th>Passport:</th>
+                                        <th>Cell Phone:</th>
+                                        <th>Other Phone:</th>
+                                        <th>Edit:</th>
+
+                                    </tr>
+                                </thead>
+
+                            </table>
+                        </div>
+                    </div>
                 </div>
-
-                <a href="{{ route('admin.employees.create') }}" class="pull-right">
-                    <i class="fa fa-plus"></i> Create
-                </a>
-
-            </div>
-
-        </div>
-
-        <div class="box-body">
-            <div class="table-responsive">
-                <table class="table table-hover table-condensed table-bordered" id="employees-table">
-                    <thead>
-                        <tr>
-                            <th>Employee ID:</th>
-                            <th>Name:</th>
-                            <th>Second First Name:</th>
-                            <th>Last Name:</th>
-                            <th>Second Last Name:</th>
-                            <th>Hire Date</th>
-                            <th>Status</th>
-                            <th>Position:</th>
-                            <th>Personal ID / Passport:</th>
-                            <th>Passport:</th>
-                            <th>Cell Phone:</th>
-                            <th>Other Phone:</th>
-                            <th>Edit:</th>
-
-                        </tr>
-                    </thead>
-
-                </table>
             </div>
         </div>
     </div>
-</div>
 @endsection
 
 @section('scripts')
@@ -83,8 +87,8 @@
                 "serverSide": true,
                 // "scrollY": "600px",
                 // "scrollCollapse": true,
-                // "pageLength": 10,
-                // "lengthMenu": [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "All"] ],
+                "pageLength": 50,
+                "lengthMenu": [ [50, 100, 200, -1], [50, 100, 200, "All"] ],
                 "searching": { "regex": true },
                 "createdRow": function( row, data, dataIndex){
                     if(! data.active){
@@ -98,6 +102,7 @@
                     'type': 'get',
                     "url": "{{ route('admin.employees.list') }}",
                 },
+                "order": [[ 1, "asc" ], [ 2, "asc" ], [ 3, "asc" ], [ 4, "asc" ]],
                 "columns": [
                     {data: 'id', name: 'id', render: function(data, type, full) {
                         return '<a href="/admin/employees/'+data+'">'+ data +'</a>'

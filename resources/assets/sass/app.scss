@@ -9,6 +9,7 @@
 // Bootstrap
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
 // @import "~bootstrap/scss/bootstrap";
+@import url('~datatables.net-bs/css/dataTables.bootstrap.css');
 @import url('~admin-lte/dist/css/AdminLTE.css');
 @import url('~admin-lte/dist/css/skins/_all-skins.css');
 @import url('~animate.css/animate.css');
@@ -32,7 +33,7 @@ section {
   -ms-filter: blur(5px);
   filter: blur(5px);
 }
-.parallax { 
+.parallax {
     position: relative;
     opacity: 0.70;
     background-attachment: fixed;
@@ -47,7 +48,7 @@ section {
 
     /* Create the parallax scrolling effect */
 }
-.vertical-center {  
+.vertical-center {
   display: inline-block;
   vertical-align: middle;
   line-height: normal;
@@ -90,8 +91,8 @@ section {
 /**
  * Color Divs
  */
-.black-div {background-color: #222d32; color: #ffffff; } 
-.blue-div {background-color: #3c8dbc; color: #ffffff; } 
+.black-div {background-color: #222d32; color: #ffffff; }
+.blue-div {background-color: #3c8dbc; color: #ffffff; }
 .green-div {background-color: #218457; color: #ffffff; }
 .green-div>h1 { color: #ffffff; }
 .grey-div {background-color: #ccc; color: #000; }

@@ -31,7 +31,7 @@ try {
     require('bootstrap');
     require('admin-lte');
     require('datatables.net-bs');
-} catch (e) { }
+} catch (e) { console.log(e) }
 
 /**
  * Vue Modal.

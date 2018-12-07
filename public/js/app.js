@@ -79237,7 +79237,9 @@ try {
   __webpack_require__("./node_modules/bootstrap/dist/js/bootstrap.js");
   __webpack_require__("./node_modules/admin-lte/dist/js/adminlte.min.js");
   __webpack_require__("./node_modules/datatables.net-bs/js/dataTables.bootstrap.js");
-} catch (e) {}
+} catch (e) {
+  console.log(e);
+}
 
 /**
  * Vue Modal.

@@ -42,10 +42,7 @@ class EmployeesController extends Controller
         if (!request()->ajax()) {
             return view('employees.index');
         }
-
-        return Cache::rememberForever('employees', function () {
-            return $this->getDatatables();
-        });
+        return $this->getDatatables();
     }
 
     /**
@@ -88,7 +85,6 @@ class EmployeesController extends Controller
 
         $employee = $employee->create($request->all());
 
-        Cache::forget('employees');
 
         if ($request->ajax()) {
             return $employee;
@@ -145,8 +141,6 @@ class EmployeesController extends Controller
 
         $employee->update($request->all());
 
-        Cache::forget('employees');
-
         if ($request->ajax()) {
             return $employee;
         }
@@ -163,7 +157,6 @@ class EmployeesController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        Cache::forget('employees');
         return $employee;
     }
 
