@@ -2,8 +2,8 @@
     <div class="_Supervisor well">
         <form class="form-horizontal" role="form"
             autocomplete="off"
-            @submit.prevent="handleUpdateSupervisor"
-            @change="updated"
+            @submit.prevent="updateSupervisor"
+            @change="form.error.clear($event.target.name)"
         >
 
             <div class="box-header with-border">
@@ -15,8 +15,13 @@
                     <label for="input" class="col-sm-2 control-label">Supervisor:</label>
                     <div class="col-sm-10">
                         <div class="input-group">
-                            <select name="supervisor_id" id="supervisor_id" class="form-control" v-model="form.fields.supervisor_id">
-                                <option v-for="(supervisor, index) in supervisors_list" :value="supervisor.id" :key="supervisor.id">{{ supervisor.name }}</option>
+                            <select name="supervisor_id" id="supervisor_id"
+                                class="form-control"
+                                v-model="form.fields.supervisor_id"
+                            >
+                                <option v-for="(supervisor, index) in supervisors_list" :value="supervisor.id" :key="supervisor.id">
+                                    {{ supervisor.name }}
+                                </option>
                             </select>
                             <a href="#" @click.prevent="$modal.show('create-supervisor')" class="input-group-addon">
                                 <i class="fa fa-plus"></i> Add
@@ -54,36 +59,39 @@ name: 'SupervisorComponent',
 data () {
     return {
         supervisors_list: [],
-        form: new (this.$ioc.resolve('Form')) ({
-            'supervisor_id': this.employee.supervisor ? this.employee.supervisor.id : '',
-        }, false)
+        form: new (this.$ioc.resolve('Form')) (this.getSupervisorObject(), {reset: false})
     };
 },
 
-props: {
-    employee: {}
+computed: {
+    employee() {
+        return this.$store.getters['employee/getEmployee']
+    }
 },
 
 components: {CreateSupervisorForm },
 
 mounted() {
-    this.supervisors_list = this.employee.supervisors_list
+    return this.supervisors_list = this.employee.supervisors_list
 },
 
 methods: {
-    updated(event) {
-        this.form.error.clear(event.target.name)
+    getSupervisorObject(){
+        return {
+            'supervisor_id': this.$store.getters['employee/getEmployee'].supervisor ?
+                this.$store.getters['employee/getEmployee'].supervisor.id :
+                ''
+        }
     },
-    handleUpdateSupervisor() {
+    updateSupervisor() {
         this.form.put('/admin/employees/' + this.employee.id + '/supervisor')
-            .then(response => {
-                this.employee.supervisor = response.data.supervisor;
-                return this.form.fields.supervisor_id = response.data.supervisor.id
+            .then(({data}) => {
+                this.$store.dispatch('employee/set', data)
             })
     },
     supervisorCreated(supervisor) {
         // return this.supervisors_list = Object.assign({[supervisor.id]: supervisor.name}, this.supervisors_list)
-        this.employee.supervisors_list.unshift(supervisor);
+        this.supervisors_list.unshift(supervisor);
     }
 }
 };

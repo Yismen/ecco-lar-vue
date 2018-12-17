@@ -48,11 +48,12 @@ class PunchesController extends Controller
      */
     public function store(Punch $punch, Request $request)
     {
-        $this->validateRequest($request, $punch);
+        $this->validate($request, [
+            'punch' => "required|digits:5|unique:punches,punch",
+            'employee_id' => "required|exists:employees,id|unique:punches,employee_id",
+        ]);
 
-        $punch->punch = $request->punch;
-        $punch->employee_id = $request->employee_list;
-        $punch->save();
+        $punch->create($request->only('punch', 'employee_id'));
 
         return redirect()->route('admin.punches.index')
             ->withSuccess("Punch number $punch->punch has been created!");
@@ -88,11 +89,12 @@ class PunchesController extends Controller
      */
     public function update(Punch $punch, Request $request)
     {
-        $this->validateRequest($request, $punch);
+        $this->validate($request, [
+            'punch' => "required|digits:5|unique:punches,punch,$punch->id,id",
+            'employee_id' => "required|exists:employees,id|unique:punches,employee_id,$punch->id,id",
+        ]);
 
-        $punch->punch = $request->punch;
-        $punch->employee_id = $request->employee_list;
-        $punch->save();
+        $punch->update($request->only('punch', 'employee_id'));
 
         return redirect()->route('admin.punches.index')
             ->withSuccess("Punch $punch->card has been updated");
@@ -110,15 +112,5 @@ class PunchesController extends Controller
 
         return redirect()->route('admin.punches.index')
             ->withWarning("Punch $punch->punch has been deleted!");
-    }
-
-    public function validateRequest($request, $punch)
-    {
-        return $this->validate($request, [
-            'punch' => "required|digits:5|unique:punches,punch,$punch->id,id",
-            'employee_list' => "required|exists:employees,id|unique:punches,employee_id,$punch->id,id",
-        ], [
-            'employee_list.unique' => "Employee ID $request->employee_list has been taken!",
-        ]);
     }
 }

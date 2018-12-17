@@ -1,5 +1,5 @@
 {{--  @if(Session::has('alert'))
-    <flash-message 
+    <flash-message
         type="{{ $class }}"
         heading="{{ $title }}"
         message="{{ $message }}"
@@ -44,16 +44,17 @@
             $message = Session::get('question');
             $icon = 'exclamation-circle';
         }
-    ?>	
+    ?>
 
 	@if($class)
 
-        <flash-message type="{{ $class }}" title="{{ $title }}" text="{{ $message }}"></flash-message>
-		{{--  <div style="position: fixed; z-index: 100000; bottom: 25px; right: 25px;" class="container-fluid {{ session('important', 'dismiss') }}">
-			<div class="alert alert-{{ $class }}">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-				<strong>{{ $title }} <i class="fa fa-{{ $icon }}"></i> !</strong> {!! $message !!} 
-			</div>
-		</div>  --}}
+        <flash-message
+            type="{{ $class }}"
+            title="{{ $title }}"
+            text="{{ $message }}"
+            show-confirm-button="{{ false }}"
+            position="{{ 'bottom-end' }}"
+            toast="{{ true }}
+        "></flash-message>
 	@endif
 	<!-- /. Warning Messages -->

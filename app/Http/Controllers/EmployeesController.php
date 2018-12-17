@@ -15,7 +15,6 @@ use Yajra\DataTables\Facades\Datatables;
 
 class EmployeesController extends Controller
 {
-
     protected $provider;
     private $request;
     private $carbon;
@@ -52,12 +51,16 @@ class EmployeesController extends Controller
      */
     public function create(Employee $employee)
     {
-        $employee->append([
-            'genders_list',
-            'has_kids_list',
-            'maritals_list',
-            'positions_list',
-        ]);
+        $employee
+            ->append([
+                'genders_list',
+                'maritals_list',
+                'positions_list',
+                'departments_list',
+                'payment_types_list',
+                'payment_frequencies_list'
+            ]);
+
         return view('employees.create', compact('employee'));
     }
 

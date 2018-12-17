@@ -20,7 +20,7 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('banks', 'BanksController')->only(['index', 'store']);
     Route::resource('supervisors', 'SupervisorsController')->only(['index', 'store']);
     Route::resource('departments', 'DepartmentsController');
-    Route::resource('nationalities', 'NationalitiesController');
+    Route::resource('nationalities', 'NationalitiesController')->only('store');
     Route::resource('payment_frequencies', 'PaymentFrequenciesController');
 
     Route::get('/blackhawk/de/management', 'Blackhawk\DE\ManagementController@dashboardData');

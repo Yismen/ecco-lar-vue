@@ -108,7 +108,7 @@ class LoginNamesController extends Controller
         Cache::forget('employees');
         Cache::forget('login-names');
 
-        $login->update($request->all());
+        $login->update($request->only(['login', 'employee_id']));
 
         if ($request->ajax()) {
             return $login;

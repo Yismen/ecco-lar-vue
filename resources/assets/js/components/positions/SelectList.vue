@@ -46,10 +46,10 @@ export default {
 
     mounted() {
         this.changed();
-        axios.get('/api/positions')
-            .then(({data}) => {
-                return this.positions = data.data
-            }).catch(errors => console.log(errors))
+        // axios.get('/api/positions')
+        //     .then(({data}) => {
+        //         return this.positions = data.data
+        //     }).catch(errors => console.log(errors))
     },
 
     methods: {

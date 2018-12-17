@@ -4,13 +4,13 @@
 @section('content')
 	<div class="container-fluid">
 		<div class="box box-primary pad">
-			
+
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title">
 						Edit Payment - [{{ $payment_type->name }}]
 						<a href="{{ route('admin.payment_types.index') }}" class="pull-right">
-							<i class="fa fa-arrow-circle-left"></i> 
+							<i class="fa fa-arrow-circle-left"></i>
 							Back
 						</a>
 					</h3>
@@ -29,25 +29,21 @@
 
 						{!! Form::close() !!}
 
-						<form action="{{ url('/admin/payment_types', $payment_type->id) }}" method="POST" class="" style="display: inline-block;">
-						    {!! csrf_field() !!}
-						    {!! method_field('DELETE') !!}
-						
-						    <button type="submit" id="delete-payment" class="btn btn-danger"  name="deleteBtn">
-						        <i class="fa fa-btn fa-trash"></i> DELETE
-						    </button>
-						</form>
+						<delete-request-button
+						    url="{{ route('admin.payment_types.destroy', $payment_type->id) }}"
+						    redirect-url="{{ route('admin.payment_types.index') }}"
+						></delete-request-button>
 					</div>
-					
+
 				</div>
 			</div>
-			
+
 
 			{{-- // errors --}}
 		</div>
 
 	</div>
-	
+
 @stop
 
 @section('scripts')

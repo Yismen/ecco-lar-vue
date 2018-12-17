@@ -14,36 +14,32 @@ const getters = {
     getEmployee: (state, getters, rootState) => {
         return state.employee
     },
-    getAddress(state, getters, rootState) {
-        return getters.getEmployee.address ? getters.getEmployee.address : state.address
-    }
 }
 
 // actions (an action commit a mutation)
+// this.$store.dispatch('employee/action')
 const actions = {
     set({ commit, state }, employee) {
-        commit('mutateEmployee', employee)
+        commit('updateEmployee', employee)
     },
-    updateAddress({commit, state}, address) {
-        commit('mutateAddress', address)
+    addLoginName({commit, state}, loginName) {
+        commit('addLoginName', loginName)
     },
-    updateHireDate({ commit, state }, hire_date) {
-        commit('mutateHireDate', hire_date)
+    updateLoginName({commit, state}, loginName, index) {
+        commit('updateLoginName', loginName)
     }
 }
 
 // mutations (a mutation update the state)
 const mutations = {
-    mutateEmployee(state , employee ) {
+    updateEmployee(state , employee ) {
         state.employee = employee
-        state.address = employee.address
     },
-    mutateAddress(state, address) {
-        state.employee.address = address
-        state.address = address
+    addLoginName(state, loginName) {
+        state.employee.login_names.unshift(loginName)
     },
-    mutateHireDate(state, hire_date) {
-        state.employee.hire_date = hire_date
+    updateLoginName(state, login) {
+        state.employee.login_names[login.index].login = login.login
     }
 }
 

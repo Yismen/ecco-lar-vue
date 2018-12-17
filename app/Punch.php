@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Punch extends Model
 {
-    protected $fillable = ['punch'];
+    protected $fillable = ['punch', 'employee_id'];
 
     /**
      * -----------------------------------------------------------

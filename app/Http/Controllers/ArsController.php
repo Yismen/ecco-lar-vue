@@ -22,7 +22,7 @@ class ArsController extends Controller
      */
     public function index(Request $request)
     {
-        $arss = Cache::rememberForever('arss', function() {
+        $arss = Cache::rememberForever('arss', function () {
             return Ars::with(['employees' => function ($query) {
                 return $query->actives();
             }])->orderBy('name')->get();
@@ -60,7 +60,7 @@ class ArsController extends Controller
         Cache::forget('employees');
         Cache::forget('arss');
 
-        $ars = $ars->create($request->all());
+        $ars = $ars->create($request->only('name'));
 
         if ($request->ajax()) {
             return $ars;

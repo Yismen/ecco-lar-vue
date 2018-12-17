@@ -65,36 +65,40 @@ import CreateBankForm from '../forms/CreateBank'
       data () {
         return {
             banks_list: [],
-            form: new (this.$ioc.resolve('Form')) ({
-                'bank_id': this.employee.bank_account ? this.employee.bank_account.bank_id : '',
-                'account_number': this.employee.bank_account ? this.employee.bank_account.account_number : '',
-            }, false),
+            form: new (this.$ioc.resolve('Form')) (this.getBankAccountObject(), false),
         };
     },
 
-    props: {
-        employee: {}
+    mounted() {
+        return this.banks_list = this.employee.banks_list
+    },
+
+    computed: {
+        employee() {
+            return this.$store.getters['employee/getEmployee']
+        }
     },
 
     methods: {
+        getBankAccountObject() {
+            let employee = this.$store.getters['employee/getEmployee'];
+            return {
+                'bank_id': employee.bank_account ? employee.bank_account.bank_id : '',
+                'account_number': employee.bank_account ? employee.bank_account.account_number : '',
+            }
+        },
         updated(event) {
             this.form.error.clear(event.target.name);
         },
         handleUpdateBankAccount() {
             this.form.put('/admin/employees/' + this.employee.id + '/bank-account')
                 .then(response => {
-                    this.employee.bank_account = response.data.bank_account;
-                    return this.form.fields = response.data.bank_account
+                   this.$store.dispatch('employee/set', response.data)
                 })
         },
         bankCreated(bank) {
             this.banks_list.unshift(bank)
         }
-    },
-
-    mounted() {
-        axios.get('/api/banks')
-            .then(response => this.banks_list = response.data)
     },
 
     components: {CreateBankForm}

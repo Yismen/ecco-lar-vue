@@ -18,18 +18,13 @@ class PhotoController extends Controller
         ]);
 
         $path = "images/employees/{$employee->id}.png";
-        
+
         Storage::drive('public')->put($path, ImageMaker::make($request->photo));
 
         $employee->update(['photo' => "storage/{$path}"]);
 
         Cache::forget('employees');
 
-        if ($request->ajax()) {
-            return $employee;
-        }
-        
-        return redirect()->route('admin.employees.edit', $employee->id)
-            ->withSuccess("$employee->first_name's photo has been updated!");
+        return $employee;
     }
 }

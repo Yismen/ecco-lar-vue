@@ -18,7 +18,9 @@
                             <select name="afp_id" id="afp_id" class="form-control" v-model="form.fields.afp_id">
                                 <option v-for="(afp, index) in afp_list" :value="afp.id" :key="afp.id">{{ afp.name }}</option>
                             </select>
-                            <add-button class="input-group-addon" modal-name="create-afp"></add-button>
+                            <a href="#" @click.prevent="$modal.show('create-afp')" class="input-group-addon">
+                                <i class="fa fa-plus"></i> Add
+                            </a>
                         </div>
                         <span class="text-danger" v-if="form.error.has('afp_id')">{{ form.error.get('afp_id') }}</span>
                     </div>
@@ -50,30 +52,34 @@ data () {
     return {
         afp_list: [],
         form: new (this.$ioc.resolve('Form')) ({
-            'afp_id': this.employee.afp ? this.employee.afp.id : '',
+            'afp_id': this.getAfpId(),
         }, false)
     };
 },
 
-props: {
-    employee: {}
-},
-
-mounted() {
-    axios.get('/api/afps')
-        .then(response => this.afp_list = response.data)
+computed: {
+    employee() {
+        return this.$store.getters['employee/getEmployee']
+    }
 },
 
 components: {CreateAfpForm },
 
+mounted() {
+    return this.afp_list = this.employee.afp_list
+},
+
 methods: {
+    getAfpId() {
+        return this.$store.getters['employee/getEmployee'].afp_id
+    },
     updated(event) {
         this.form.error.clear(event.target.name)
     },
     handleUpdateAfp() {
         this.form.put('/admin/employees/' + this.employee.id + '/afp')
             .then(response => {
-                this.employee.afp = response.data.afp;
+                this.$store.dispatch('employee/set', response.data)
                 return this.form.fields.afp_id = response.data.afp.id
             })
     },

@@ -33,7 +33,7 @@
 						<div class="box-footer">
 							<delete-request-button
 								url="{{ route('admin.supervisors.destroy', $supervisor->id) }}"
-								redirectUrl="{{ route('admin.supervisors.index') }}"
+								redirect-url="{{ route('admin.supervisors.index') }}"
 							></delete-request-button>
 						</div>
 

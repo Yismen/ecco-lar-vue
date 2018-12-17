@@ -53,9 +53,6 @@
                             <a href="#"@click.prevent="updateLogin(index, login)">
                                 <i class="fa fa-edit"></i> Edit
                             </a>
-                            <!-- <a :href="'/admin/login-names/' + login.id + '/edit'" target="_new_login">
-                                <i class="fa fa-edit"></i> Edit ({{ index }})
-                            </a> -->
                         </td>
                     </tr>
                 </tbody>
@@ -79,18 +76,15 @@
                 form: new (this.$ioc.resolve('Form')) ({
                     'login': ''
                 }),
-                login_names: [],
-                current_edit: {}
             };
         },
 
-        props: {
-            employee: {required: true, type: Object}
-        },
-
-        created () {
-            if (this.employee.login_names) {
-                return this.login_names = this.employee.login_names;
+        computed: {
+            employee() {
+                return this.$store.getters['employee/getEmployee']
+            },
+            login_names() {
+                return this.$store.getters['employee/getEmployee'].login_names
             }
         },
 
@@ -98,19 +92,19 @@
             updated(event) {
                 this.form.error.clear(event.target.name)
             },
-            updateLogin(current_index, login) {
-                this.current_edit.login = login
-                this.current_edit.current_index = current_index
-                this.$modal.show('update-login-name-form', this.current_edit)
+            updateLogin(index, login) {
+                login.index = index
+                this.$modal.show('update-login-name-form', login)
             },
-            loginNameUpdated(login_name) {
-                this.login_names[this.current_edit.current_index].login = login_name.login
+            loginNameUpdated(login_name, index) {
+                login_name.index = index
+                this.$store.dispatch('employee/updateLoginName', login_name)
             },
             handleCreateLogin() {
                 this.form.post('/admin/employees/' + this.employee.id + '/login-names')
-                .then(response => {
-                    return this.login_names.unshift(response.data);
-                })
+                    .then(response => {
+                        return this.$store.dispatch('employee/addLoginName', response.data)
+                    })
             }
         },
 

@@ -1,9 +1,10 @@
 <template>
     <div class="_Nationality well">
         <form class="form-horizontal" role="form"
-            @submit.prevent="handleForm"
+            @submit.prevent="updateNationality"
             autocomplete="off"
-            @change="updated">
+            @change="form.error.clear($event.target.name)"
+        >
 
             <div class="box-header with-border">
                 <h4>{{ employee.full_name }}' Nationality:</h4>
@@ -13,11 +14,19 @@
                 <div class="form-group" :class="{'has-error': form.error.has('nationality_id')}">
                     <label for="nationality_id" class="col-sm-2">Nationality:</label>
                     <div class="col-sm-10">
-                        <nationality-select
-                            :current="employee.nationality ? employee.nationality.id : 0"
-                            @changed="nationalityUpdated"
-                            v-model="form.fields.nationality_id"
-                        ></nationality-select>
+                        <div class="input-group">
+                            <select name="nationality" id="nationality"
+                                class="form-control"
+                                v-model="form.fields.nationality_id"
+                            >
+                                <option v-for="nationality in nationalities_list" :key="nationality.id" :value="nationality.id">
+                                    {{ nationality.name }}
+                                </option>
+                            </select>
+                            <a href="#" @click.prevent="$modal.show('create-nationality')" class="input-group-addon">
+                                <i class="fa fa-plus"></i> Add
+                            </a>
+                        </div>
                         <span class="text-danger" v-if="form.error.has('nationality_id')">{{ form.error.get('nationality_id') }}</span>
                     </div>
                 </div>
@@ -34,12 +43,15 @@
             </div>
 
         </form>
+        <create-nationality-form
+            @nationality-created="nationalityCreated"
+            :departments_list="employee.departments_list"
+        ></create-nationality-form>
     </div>
 </template>
 
 <script>
-
-    import NationalitySelect from '../nationalities/SelectList'
+    import CreateNationalityForm from '../forms/CreateNationality'
 
     export default {
 
@@ -47,34 +59,46 @@
 
       data () {
         return {
-            form: new (this.$ioc.resolve('Form')) ({
-                'nationality_id': this.employee.nationality ? this.employee.nationality.id : '',
-            }, false),
+            form: new (this.$ioc.resolve('Form')) (this.getNationalityObject(), false),
+            nationalities_list: []
         };
     },
 
-    props: {
-        employee: {}
+    computed: {
+        employee() {
+            return this.$store.getters['employee/getEmployee']
+        }
     },
 
     components: {
-        NationalitySelect
+        CreateNationalityForm
+    },
+
+    mounted() {
+        return this.nationalities_list = this.employee.nationalities_list
     },
 
     methods: {
-        updated(event) {
-            this.form.error.clear(event.target.name)
+        getNationalityObject() {
+            let employee = this.$store.getters['employee/getEmployee']
+            return {
+                'nationality_id': employee.nationality ? employee.nationality.id : '',
+            }
         },
-        handleForm() {
+        nationalityCreated(nationality) {
+            this.nationalities_list.unshift(nationality)
+        },
+        updateNationality() {
             this.form.post('/admin/employees/' + this.employee.id + '/nationality')
                 .then(response => {
-                    this.employee.nationality = response.data.nationality;
-                    return this.form.fields.nationality_id = response.data.nationality.id
+                    this.$store.dispatch('employee/set', response.data)
+                    // this.employee.nationality = response.data.nationality;
+                    // return this.form.fields.nationality_id = response.data.nationality.id
                 })
         },
-        nationalityUpdated(id) {
-            return this.form.fields.nationality_id = id
-        }
+    //     nationalityUpdated(id) {
+    //         return this.form.fields.nationality_id = id
+    //     }
     }
 };
 </script>

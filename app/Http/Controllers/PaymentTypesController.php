@@ -55,7 +55,9 @@ class PaymentTypesController extends Controller
      */
     public function store(PaymentType $payment_type, Request $request)
     {
-        $this->validateRequest($payment_type, $request);
+        $this->validate($request, [
+            'name' => "required|unique:payment_types"
+        ]);
 
         $payment_type = $payment_type->create($request->only(['name']));
 
@@ -89,7 +91,9 @@ class PaymentTypesController extends Controller
      */
     public function update(PaymentType $payment_type, Request $request)
     {
-        $this->validateRequest($payment_type, $request);
+        $this->validate($request, [
+            'name' => "required|unique:payment_types,name,$payment_type->id,id"
+        ]);
 
         $payment_type->update($request->only(['name']));
 
@@ -109,18 +113,5 @@ class PaymentTypesController extends Controller
 
         return redirect()->route('admin.payment_types.index')
             ->withWarning("payment $payment_type->name has been removed!");
-    }
-
-    /**
-     * Validate the form submitted by the user.
-     * @param  object $payment_type the current payment model being passed.
-     * @param  object $request the form array.
-     * @return [type]          [description]
-     */
-    private function validateRequest($payment_type, $request)
-    {
-        return $this->validate($request, [
-            'name' => "required|unique:payment_types,name,$payment_type->id,id"
-        ]);
     }
 }

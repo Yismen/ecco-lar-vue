@@ -14,12 +14,12 @@ class PunchController extends Controller
         $this->validate($request, [
             'punch' => 'required|numeric|digits:5|unique:punches,punch,'.$employee->id.',employee_id'
         ]);
-        
-        $employee->punch()->updateOrCreate($request->only(['punch']));
+
+        $employee->punch()->updateOrCreate([], $request->only(['punch']));
 
         Cache::forget('employees');
         Cache::forget('punches');
-            
+
         return $employee->load('punch');
     }
 }

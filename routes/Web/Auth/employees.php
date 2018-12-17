@@ -61,17 +61,22 @@ Route::bind('employee', function ($id) {
     ->with('marital')
     ->with('nationalities')
         ->with('punch')
-        ->with('position.payment_type', 'position.department', 'position.payment_frequency')
+        ->with('position')
         ->with('termination')
         ->with('supervisor')
 
         ->firstOrFail()
         ->append([
+            'ars_list',
+            'afp_list',
+            'banks_list',
             'departments_list',
             'genders_list',
             'has_kids_list',
             'maritals_list',
             'positions_list',
+            'payment_types_list',
+            'payment_frequencies_list',
             'nationalities_list',
             'supervisors_list',
             'termination_type_list',

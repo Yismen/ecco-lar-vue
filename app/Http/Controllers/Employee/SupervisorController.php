@@ -15,9 +15,9 @@ class SupervisorController extends Controller
             'supervisor_id' => 'required|exists:supervisors,id',
         ]);
 
-        $employee->update($request->only('supervisor_id'));
-
         Cache::forget('employees');
+
+        $employee->update($request->only('supervisor_id'));
 
         return $employee->load('supervisor');
     }

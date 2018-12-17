@@ -1,5 +1,5 @@
 <template>
-    
+
 </template>
 
 <script>
@@ -10,7 +10,6 @@ export default {
         title: {default: null},
         text: {default: ''},
         footer: {default: null},
-        backdrop: {default: true},
         showConfirmButton: {default: true},
         timer: {default: null},
         toast: {default: false},
@@ -25,13 +24,15 @@ export default {
             this.$swal({
                 position: this.position,
                 type: this.type,
-                footer: this.footer, 
-                backdrop: this.backdrop,
+                // footer: this.footer,
+                showConfirmButton: this.showConfirmButton,
+                // backdrop: this.backdrop,
                 title: this.title,
                 text: this.text,
                 showConfirmButton: this.showConfirmButton,
                 timer: this.timer,
-                toast: this.toast
+                toast: this.toast,
+                timer: 5000
             })
         }
     }

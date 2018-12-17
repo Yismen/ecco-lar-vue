@@ -20,27 +20,18 @@ class AddressController extends Controller
     public function update(Employee $employee, Request $request, Address $address)
     {
         $this->validate(
-            $request, [
+            $request,
+            [
                 'sector' => 'required|min:3',
                 'street_address' => 'required|min:3',
                 'city' => 'required|min:3'
             ]
         );
 
-        $request->merge(['employee_id' => $employee->id]);
-
         Cache::forget('employees');
         Cache::forget('addresses');
 
-        if ($employee->address) {
-            $employee->address->update(
-                $request->only(['employee_id', 'sector', 'street_address', 'city'])
-            );
-        } else {
-            $address->create(
-                $request->only(['employee_id', 'sector', 'street_address', 'city'])
-            );
-        }
+        $employee->address()->updateOrCreate([], $request->only(['sector', 'street_address', 'city']));
 
         return $employee->load('address');
     }

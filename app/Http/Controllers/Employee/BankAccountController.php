@@ -19,11 +19,8 @@ class BankAccountController extends Controller
         Cache::forget('employees');
         Cache::forget('bank-accounts');
 
-        if ($employee->bankAccount) {
-            $employee->bankAccount->update($request->only('bank_id', 'account_number'));
-        } else {
-            $employee->bankAccount()->create($request->only('bank_id', 'account_number'));
-        }
+        $employee->bankAccount()
+            ->updateOrCreate([], $request->only('bank_id', 'account_number'));
 
         return $employee->load('bankAccount');
     }

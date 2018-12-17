@@ -13,16 +13,11 @@ class CardController extends Controller
     {
         $this->validate($request, ['card' => 'required|numeric|digits:8|unique:cards,card,'.$employee->id.',employee_id']);
 
-        $employee->card()->updateOrCreate($request->only('card'));        
-        
-        Cache::forget('employees');   
-        Cache::forget('cards');   
+        Cache::forget('employees');
+        Cache::forget('cards');
 
-        if ($request->ajax()) {
-            return $employee->load('card');
-        }
+        $employee->card()->updateOrCreate([], $request->only('card'));
 
-        return redirect()->route('admin.employees.show', $employee->id)
-            ->withSuccess('Card Number Updated');
+        return $employee->load('card');
     }
 }

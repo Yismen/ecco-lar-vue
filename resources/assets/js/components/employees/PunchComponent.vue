@@ -2,25 +2,25 @@
     <div class="_Punch well">
         <form class="form-horizontal" role="form"
             @submit.prevent="submitPunch"
-            autocomplete="off" 
+            autocomplete="off"
             @change="updated">
 
             <div class="box-header with-border">
                 <h4>{{ employee.full_name }}' Punch:</h4>
             </div>
-    
+
             <div class="box-body">
                 <div class="form-group" :class="{'has-error': form.error.has('punch')}">
                     <label for="input" class="col-sm-2 control-label">Punch:</label>
                     <div class="col-sm-10">
-                        <input type="text" id="punch" 
-                        name="punch" class="form-control" 
+                        <input type="text" class="form-control"
+                         id="punch" name="punch"
                         v-model="form.fields.punch">
                         <span class="text-danger" v-if="form.error.has('punch')">{{ form.error.get('punch') }}</span>
                     </div>
                 </div> <!-- ./Punch -->
             </div>
-    
+
             <div class="box-footer">
                 <div class="form-group">
                     <div class="col-sm-10 col-sm-offset-2">
@@ -30,7 +30,7 @@
                     </div>
                 </div>
             </div>
-            
+
         </form>
     </div>
 </template>
@@ -44,24 +44,36 @@
       data () {
         return {
             form: new (this.$ioc.resolve('Form')) ({
-                'punch': this.employee.punch ? this.employee.punch.punch : '',
+                'punch': this.getPunch(),
             }, false),
+
+        };
+    },
+
+    computed: {
+        employee() {
+            return this.$store.getters['employee/getEmployee']
+        },
+        punch() {
+            return this.employee.punch ?
+                this.employee.punch.punch :
+                ''
         }
     },
 
-    props: {
-        employee: {}
-    },
-
     methods: {
+        getPunch(){
+            return this.$store.getters['employee/getEmployee'].punch ?
+                this.$store.getters['employee/getEmployee'].punch.punch :
+                ''
+        },
         updated(event) {
             this.form.error.clear(event.target.name)
         },
         submitPunch() {
-            this.form.post('/admin/employees/' + this.employee.id + '/punch')
+            this.form.post('/admin/employees/'+ this.employee.id +'/punch')
                 .then(response => {
-                    this.employee.punch = response.data.punch;
-                    return this.form.fields = response.data.punch
+                    this.$store.dispatch('employee/set', response.data)
                 })
         }
     }

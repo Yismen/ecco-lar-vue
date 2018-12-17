@@ -11,7 +11,6 @@ class CardsController extends Controller
 {
     public function __construct()
     {
-        // $this->niddleware = ['authorize:'];
         $this->middleware('authorize:view_cards|edit_cards|create_cards', ['only' => ['index', 'show']]);
         $this->middleware('authorize:edit_cards', ['only' => ['edit', 'update']]);
         $this->middleware('authorize:create_cards', ['only' => ['create', 'store']]);
@@ -49,11 +48,12 @@ class CardsController extends Controller
      */
     public function store(Card $card, Request $request)
     {
-        $this->validateRequest($request, $card);
+        $this->validate($request, [
+            'card' => "required|digits_between:5,8|unique:cards,card",
+            'employee_id' => "required|exists:employees,id|unique:cards,employee_id",
+        ]);
 
-        $card->card = $request->card;
-        $card->employee_id = $request->employee_list;
-        $card->save();
+        $card = $card->create($request->only('card', 'employee_id'));
 
         return redirect()->route('admin.cards.index')
             ->withSuccess("Card number $card->card has been created!");
@@ -89,11 +89,12 @@ class CardsController extends Controller
      */
     public function update(Card $card, Request $request)
     {
-        $this->validateRequest($request, $card);
+        $this->validate($request, [
+            'card' => "required|digits_between:5,8|unique:cards,card,$card->id,id",
+            'employee_id' => "required|exists:employees,id|unique:cards,employee_id,$card->id,id",
+        ]);
 
-        $card->card = $request->card;
-        $card->employee_id = $request->employee_list;
-        $card->save();
+        $card->update($request->only('card', 'employee_id'));
 
         return redirect()->route('admin.cards.index')
             ->withSuccess("Card $card->card has been updated");
@@ -111,15 +112,5 @@ class CardsController extends Controller
 
         return redirect()->route('admin.cards.index')
             ->withDanger("Card $card->card has been removed.");
-    }
-
-    public function validateRequest($request, $card)
-    {
-        return $this->validate($request, [
-            'card' => "required|digits_between:5,8|unique:cards,card,$card->id,id",
-            'employee_list' => "required|exists:employees,id|unique:cards,employee_id,$card->id,id",
-        ], [
-            'employee_list.unique' => "Employee ID $request->employee_list has been taken!",
-        ]);
     }
 }

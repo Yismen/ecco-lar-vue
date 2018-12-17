@@ -8,7 +8,13 @@ class Position extends Model
 {
     protected $fillable = ['name', 'department_id', 'payment_type_id', 'payment_frequency_id', 'salary'];
 
-    protected $appends = ['name_and_department', 'pay_per_hours', 'departments_list', 'payment_types_list', 'payment_frequencies_list'];
+    protected $appends = [
+        'name_and_department',
+        'pay_per_hours',
+        // 'departments_list',
+        // 'payment_types_list',
+        // 'payment_frequencies_list'
+    ];
 
     public function department()
     {

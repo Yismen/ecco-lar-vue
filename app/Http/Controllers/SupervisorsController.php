@@ -15,14 +15,12 @@ class SupervisorsController extends Controller
      */
     public function index()
     {
-        $supervisors = Cache::rememberForever('supervisors', function() {
-            return Supervisor::with(['department' => function ($query) {
-                return $query->orderBy('department');
-            }])
-            ->orderBy('department_id')
-            ->orderBy('name')
-            ->paginate(25);
-        });
+        $supervisors = Supervisor::with(['department' => function ($query) {
+            return $query->orderBy('department');
+        }])
+        ->orderBy('department_id')
+        ->orderBy('name')
+        ->paginate(25);
 
         return view('supervisors.index', compact('supervisors'));
     }
@@ -45,13 +43,13 @@ class SupervisorsController extends Controller
      */
     public function store(Request $request, Supervisor $supervisor)
     {
-         $this->validate($request, [
+        $this->validate($request, [
             'name' => 'required|min:5|unique:supervisors,name',
             'department_id' => 'required|exists:departments,id'
         ]);
 
-         Cache::forget('supervisors');
-         Cache::forget('employees');
+        Cache::forget('supervisors');
+        Cache::forget('employees');
 
         $supervisor = $supervisor->create($request->only(['name', 'department_id']));
 
@@ -102,8 +100,8 @@ class SupervisorsController extends Controller
             ]
         );
 
-         Cache::forget('supervisors');
-         Cache::forget('employees');
+        Cache::forget('supervisors');
+        Cache::forget('employees');
 
         $supervisor->update($request->only(['name', 'department_id']));
 
@@ -117,10 +115,18 @@ class SupervisorsController extends Controller
      * @param  int  Supervisor $supervisor
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Supervisor $supervisor)
+    public function destroy(Supervisor $supervisor, Request $request)
     {
+        $supervisor->delete();
 
-         Cache::forget('supervisors');
-         Cache::forget('employees');
+        Cache::forget('supervisors');
+        Cache::forget('employees');
+
+        if ($request->ajax()) {
+            return $supervisor;
+        }
+
+        return redirect()->route('admin.supervisors.index')
+            ->withDanger("Supervisor $supervisor->name have been eliminated!");
     }
 }

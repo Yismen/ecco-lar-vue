@@ -1,16 +1,16 @@
 <template>
-    <div class="_Social Security well">
+    <div class="_Social_Security well">
         <form class="form-horizontals" role="form"
             @submit.prevent="handleUpdateSocialSecurity"
-            autocomplete="off" 
+            autocomplete="off"
             @change="updated">
-        
+
             <div class="box-header with-border"><h4>{{ employee.full_name }}' Social Security Info:</h4></div>
 
             <div class="box-body">
                 <div class="form-group" :class="{'has-error': form.error.has('number')}">
-                    <label for="number" class="">Social Sec. Number:</label>      
-                    <input type="text" class="form-control" 
+                    <label for="number" class="">Social Sec. Number:</label>
+                    <input type="text" class="form-control"
                     id="number" name="number"
                     v-model="form.fields.number">
                     <span class="text-danger" v-if="form.error.has('number')">{{ form.error.get('number') }}</span>
@@ -26,7 +26,7 @@
                     </div>
                 </div>
             </div>
-            
+
         </form>
     </div>
 </template>
@@ -35,29 +35,35 @@
 
     export default {
 
-      name: 'SocialSecurityComponent',
+    name: 'SocialSecurityComponent',
 
-      data () {
+    data () {
         return {
             form: new (this.$ioc.resolve('Form')) ({
-                'number': this.employee.social_security ? this.employee.social_security.number : '',
+                'number': this.getSocial(),
             }, false),
         };
     },
 
-    props: {
-        employee: {}
+    computed: {
+        employee() {
+            return this.$store.getters['employee/getEmployee']
+        }
     },
 
     methods: {
+        getSocial() {
+            return this.$store.getters['employee/getEmployee'].social_security ?
+                this.$store.getters['employee/getEmployee'].social_security.number :
+                ''
+        },
         updated(event) {
             this.form.error.clear(event.target.name)
         },
         handleUpdateSocialSecurity() {
             this.form.post('/admin/employees/' + this.employee.id + '/social-security')
                 .then(response => {
-                    this.employee.social_security = response.data.social_security;
-                    return this.form.fields.number = response.data.social_security.number
+                    this.$store.dispatch('employee/set', response.data)
                 })
         }
     }

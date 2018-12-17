@@ -52,30 +52,34 @@ data () {
     return {
         ars_list: [],
         form: new (this.$ioc.resolve('Form')) ({
-            'ars_id': this.employee.ars ? this.employee.ars.id : '',
+            'ars_id': this.getArsId(),
         }, false)
     };
 },
 
-props: {
-    employee: {}
+computed: {
+    employee() {
+        return this.$store.getters['employee/getEmployee']
+    }
 },
 
 mounted() {
-    axios.get('/api/arss')
-        .then(response => this.ars_list = response.data)
+    return this.ars_list = this.employee.ars_list
 },
 
 components: {CreateArsForm },
 
 methods: {
+    getArsId() {
+        return this.$store.getters['employee/getEmployee'].ars_id
+    },
     updated(event) {
         this.form.error.clear(event.target.name)
     },
     handleUpdateArs() {
         this.form.put('/admin/employees/' + this.employee.id + '/ars')
             .then(response => {
-                this.employee.ars = response.data.ars;
+                this.$store.dispatch('employee/set', response.data)
                 return this.form.fields.ars_id = response.data.ars.id
             })
     },

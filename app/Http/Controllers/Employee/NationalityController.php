@@ -14,12 +14,12 @@ class NationalityController extends Controller
         $this->validate($request, [
             'nationality_id' => 'required|exists:nationalities,id',
         ]);
-        
-        $employee->nationalities()->sync((array)$request->nationality_id);
 
         Cache::forget('employees');
         Cache::forget('nationalities');
-        
+
+        $employee->nationalities()->sync((array)$request->nationality_id);
+
         return $employee;
     }
 }

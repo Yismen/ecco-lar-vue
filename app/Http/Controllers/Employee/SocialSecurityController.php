@@ -14,11 +14,11 @@ class SocialSecurityController extends Controller
         $this->validate($request, [
             'number' => 'required|min:5|max:10|unique:social_securities,number,' . $employee->id.',employee_id',
         ]);
-        
-        $employee->socialSecurity()->updateOrCreate($request->only('number'));
 
         Cache::forget('employees');
         Cache::forget('social-securities');
+
+        $employee->socialSecurity()->updateOrCreate([], $request->only('number'));
 
         return $employee->load('socialSecurity');
     }

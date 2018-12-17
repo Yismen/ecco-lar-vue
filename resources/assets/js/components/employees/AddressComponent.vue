@@ -3,9 +3,10 @@
         <form class="form-horizontal" role="form"
             @submit.prevent="submitAddress"
             autocomplete="off"
-            @change="updated">
+            @change="form.error.clear($event.target.name)"
+            >
 
-            <div class="box-header with-border"><h4>{{ $store.getters["employee/getEmployee"].full_name }}' Address:</h4></div>
+            <div class="box-header with-border"><h4>Address:</h4></div>
 
             <div class="box-body">
 
@@ -62,27 +63,32 @@ export default {
       data () {
         return {
             form: new (this.$ioc.resolve('Form')) (
-                this.$store.getters["employee/getAddress"],
+                this.getAddress(),
                 {reset: false}
             )
         };
     },
 
     computed: {
-        address() {
-            return this.$store.getters["employee/getAddress"]
+        employee() {
+            return this.$store.getters["employee/getEmployee"]
         }
     },
 
     methods: {
-        updated(event) {
-            this.form.error.clear(event.target.name)
+        getAddress() {
+            return this.$store.getters["employee/getEmployee"].address ?
+                this.$store.getters["employee/getEmployee"].address :
+                {
+                    'sector': '',
+                    'street_address': '',
+                    'city': ''
+                }
         },
         submitAddress() {
-            this.form.post('/admin/employees/' + this.$store.getters["employee/getEmployee"].id + '/address')
+            this.form.post('/admin/employees/' + this.employee.id + '/address')
                 .then(response => {
-                    this.$store.dispatch('employee/updateAddress', response.data.address)
-                    // this.form.fields = response.data.address
+                    this.$store.dispatch('employee/set', response.data)
                 })
         }
     }

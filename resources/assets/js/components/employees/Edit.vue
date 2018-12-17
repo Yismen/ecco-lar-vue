@@ -9,11 +9,8 @@
                 <li role="presentation" :class="{'active': selectedTab == '#termination'}" >
                     <a href="#termination" aria-controls="termination" role="tab" data-toggle="tab" @click="setTab">Termination</a>
                 </li>
-                <li role="presentation" :class="{'active': selectedTab == '#address'}" >
-                    <a href="#address" aria-controls="address" role="tab" data-toggle="tab" @click="setTab">Address</a>
-                </li>
-                <li role="presentation" :class="{'active': selectedTab == '#photo'}" >
-                    <a href="#photo" aria-controls="photo" role="tab" data-toggle="tab" @click="setTab">Photo</a>
+                <li role="presentation" :class="{'active': selectedTab == '#photo-and-address'}" >
+                    <a href="#photo-and-address" aria-controls="photo-and-address" role="tab" data-toggle="tab" @click="setTab">Photo and Address</a>
                 </li>
                 <li role="presentation" :class="{'active': selectedTab == '#card_and_punch'}" >
                     <a href="#card_and_punch" aria-controls="card_and_punch" role="tab" data-toggle="tab" @click="setTab">Card and Punch</a>
@@ -38,54 +35,61 @@
             <!-- Tab panes -->
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="info-employee">
-                    <employee-info :employee="employee"></employee-info>
+                    <EmployeeInfo />
                 </div>
                 <div role="tabpanel" class="tab-pane" id="termination">
-                    <employee-termination :employee="employee" @employee-reactivated="updateHireDate"></employee-termination>
+                    <EmployeeTermination />
                 </div>
-                <div role="tabpanel" class="tab-pane" id="address">
-                    <employee-address></employee-address>
+                <div role="tabpanel" class="tab-pane" id="photo-and-address">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <EmployeePhoto />
+                        </div>
+
+                        <div class="col-sm-6">
+                            <EmployeeAddress />
+                        </div>
+                    </div>
+
                 </div>
-                <div role="tabpanel" class="tab-pane" id="photo">
-                    <employee-photo :employee="employee"></employee-photo>
-                </div>
+
                 <div role="tabpanel" class="tab-pane" id="card_and_punch">
                     <div class="row">
                         <div class="col-sm-6">
-                            <employee-card :employee="employee"></employee-card>
+                            <EmployeeCard />
                         </div>
                         <div class="col-sm-6">
-                            <employee-punch :employee="employee"></employee-punch>
+                            <EmployeePunch />
                         </div>
                     </div>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="tss">
                     <div class="row">
                         <div class="col-sm-6">
-                            <employee-ars :employee="employee"></employee-ars>
+                            <EmployeeArs />
                         </div>
                         <div class="col-sm-6">
-                            <employee-afp :employee="employee"></employee-afp>
+                            <EmployeeAfp />
                         </div>
                         <div class="col-sm-6">
-                            <employee-social-security :employee="employee"></employee-social-security>
+                            <EmployeeSocialSecurity />
                         </div>
                     </div>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="login-names">
-                    <employee-login-names :employee="employee"></employee-login-names>
+                    <EmployeeLoginNames />
                 </div>
                 <div role="tabpanel" class="tab-pane" id="bank_account">
-                    <employee-bank-account :employee="employee"></employee-bank-account>
+                    <EmployeeBankAccount />
                 </div>
                 <div role="tabpanel" class="tab-pane" id="others">
                     <div class="box-body">
                         <div class="row">
                             <div class="col-sm-6">
-                                <employee-nationality :employee="employee"></employee-nationality>
+                                <EmployeeSupervisor />
                             </div>
                             <div class="col-sm-6">
-                                <employee-supervisor :employee="employee"></employee-supervisor>
+                                <EmployeeNationality />
                             </div>
                         </div>
                     </div>
@@ -97,7 +101,6 @@
 </template>
 
 <script>
-    // import Store from '.../../store'
     import EmployeeAddress from './AddressComponent';
     import EmployeeAfp from './AFPComponent';
     import EmployeeArs from './ARSComponent';
@@ -131,10 +134,6 @@
         methods: {
             setTab(e) {
                 this.selectedTab = e.target.hash
-            },
-
-            updateHireDate(employee) {
-                return this.employee.hire_date = employee.hire_date
             }
         }
     }

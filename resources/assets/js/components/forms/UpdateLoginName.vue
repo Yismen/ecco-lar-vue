@@ -60,10 +60,9 @@ export default {
 
     methods: {
         beforeOpen(data) {
-            this.form.fields.login = data.params.login.login
-            this.login = data.params.login
-            this.current_index = data.params.current_index
-
+            this.form.fields.login = data.params.login
+            this.login = data.params
+            this.current_index = data.params.index
         },
 
         modalOpened(e) {
@@ -77,10 +76,19 @@ export default {
         doUpdate() {
             this.form.put('/admin/login-names/' + this.login.id )
                 .then(response => {
-                    this.$emit('login-name-updated', response.data)
+                    this.$emit('login-name-updated', response.data, this.current_index)
                     this.form.fields.login = ''
                     this.$modal.hide('update-login-name-form')
-                    this.$swal('Nice!', 'The LoginName '+response.data.login + ' was updated!', 'success')
+                    // this.$swal('Nice!', 'The LoginName '+response.data.login + ' was updated!', 'success')
+                    this.$swal({
+                        toast: true,
+                        type: 'success',
+                        text: 'The LoginName '+response.data.login + ' was updated!',
+                        title: 'Success',
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 5000
+                    })
                 })
         }
     }

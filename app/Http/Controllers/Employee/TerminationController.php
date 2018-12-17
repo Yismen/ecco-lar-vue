@@ -21,14 +21,13 @@ class TerminationController extends Controller
             'can_be_rehired' => 'required|boolean',
         ]);
 
-        $employee->termination()->delete();
-
-        $employee->termination()->create($request->only([
-            'termination_date', 'termination_type_id', 'termination_reason_id', 'can_be_rehired', 'comments'
-        ]));
-
         Cache::forget('empleados');
         Cache::forget('terminations');
+
+        $employee->termination()->updateOrCreate(
+            [],
+            $request->only(['termination_date', 'termination_type_id', 'termination_reason_id', 'can_be_rehired', 'comments'])
+        );
 
         event(new EmployeeTerminated());
 
@@ -44,10 +43,11 @@ class TerminationController extends Controller
         $employee->termination->delete();
         $employee->update($request->only(['hire_date']));
 
-        Cache::forget('employees');
+        Cache::forget('empleados');
+        Cache::forget('terminations');
 
         event(new EmployeeReactivated());
 
-        return $employee->load('termination');
+        return $employee->load('termination')->append('active');
     }
 }

@@ -13,7 +13,9 @@ use Carbon\Carbon;
 use App\Department;
 use App\Supervisor;
 use App\Nationality;
+use App\PaymentType;
 use App\TerminationType;
+use App\PaymentFrequency;
 use App\TerminationReason;
 
 trait EmployeeAccessors
@@ -24,7 +26,7 @@ trait EmployeeAccessors
      */
     public function getNationalitiesListAttribute()
     {
-        return Nationality::orderBy('name')->pluck('name', 'id');
+        return Nationality::orderBy('name')->get();
     }
 
     public function getNationalityAttribute()
@@ -39,7 +41,7 @@ trait EmployeeAccessors
 
     public function getAfpListAttribute()
     {
-        return Afp::orderBy('name')->pluck('name', 'id');
+        return Afp::orderBy('name')->get();
     }
 
     public function getSupervisorsListAttribute()
@@ -49,7 +51,7 @@ trait EmployeeAccessors
 
     public function getBanksListAttribute()
     {
-        return Bank::orderBy('name')->pluck('name', 'id');
+        return Bank::orderBy('name')->get();
     }
 
     public function getCurrentSupervisorAttribute()
@@ -57,29 +59,16 @@ trait EmployeeAccessors
         return $this->supervisor()->pluck('id');
     }
 
-    public function getSystemsListAttribute()
-    {
-        return System::pluck('display_name', 'id');
-    }
-
     public function getPhotoAttribute($photo)
     {
         return $photo == '' ? 'http://placehold.it/300x300' : $photo;
     }
 
-    /**
-     * determine if the user is active or inactive
-     * @return string user status
-     */
     public function getStatusAttribute()
     {
         return $this->termination ? 'Inactive' : 'Active';
     }
 
-    /**
-     * set the active attribute
-     * @return  boolean   if user has termination
-     */
     public function getActiveAttribute()
     {
         return $this->termination == false;
@@ -131,27 +120,33 @@ trait EmployeeAccessors
 
     public function getTerminationDateAttribute()
     {
-        return !$this->termination ? Carbon::now()->format('Y-m-d') : Carbon::parse($this->termination->termination_date)->format('Y-m-d');
+        return !$this->termination ?
+            Carbon::now()->format('Y-m-d') :
+            $this->termination->termination_date->format('Y-m-d');
     }
 
     public function getTerminationTypeIdAttribute()
     {
-        return $this->termination ? $this->termination->terminationType->id : null;
+        return $this->termination ?
+            $this->termination->terminationType->id :
+            null;
     }
 
     public function getTerminationTypeListAttribute()
     {
-        return $this->termination ? $this->termination->terminationType->orderBy('name')->pluck('name', 'id') : TerminationType::orderBy('name')->pluck('name', 'id');
+        return TerminationType::orderBy('name')->get();
     }
 
     public function getTerminationReasonIdAttribute()
     {
-        return $this->termination ? $this->termination->terminationType->id : null;
+        return $this->termination ?
+            $this->termination->terminationType->id :
+            null;
     }
 
     public function getTerminationReasonListAttribute()
     {
-        return $this->termination ? $this->termination->terminationReason->pluck('reason', 'id') : TerminationReason::pluck('reason', 'id');
+        return TerminationReason::select('reason', 'id')->get();
     }
 
     /**
@@ -196,7 +191,17 @@ trait EmployeeAccessors
 
     public function getDepartmentsListAttribute()
     {
-        return Department::orderBy('department')->pluck('department', 'id');
+        return Department::orderBy('department')->select('department', 'id')->get();
+    }
+
+    public function getPaymentTypesListAttribute()
+    {
+        return PaymentType::orderBy('name')->select('name', 'id')->get();
+    }
+
+    public function getPaymentFrequenciesListAttribute()
+    {
+        return PaymentFrequency::orderBy('name')->select('name', 'id')->get();
     }
 
     /**
@@ -206,12 +211,12 @@ trait EmployeeAccessors
      */
     public function getGendersListAttribute()
     {
-        return Gender::pluck('gender', 'id');
+        return Gender::select('gender', 'id')->get();
     }
 
     public function getMaritalsListAttribute()
     {
-        return Marital::orderBy('name')->pluck('name', 'id');
+        return Marital::orderBy('name')->select('name', 'id')->get();
     }
 
     /**
@@ -221,6 +226,8 @@ trait EmployeeAccessors
      */
     public function getPositionsListAttribute()
     {
-        return  Position::orderBy('department_id')->with('department', 'payment_type', 'payment_frequency')->get();
+        return  Position::orderBy('department_id')
+            ->with('department', 'payment_type', 'payment_frequency')
+            ->get();
     }
 }
