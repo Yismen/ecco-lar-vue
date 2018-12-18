@@ -48,6 +48,11 @@ class Employee extends Model
         'nationality',
     ];
 
+    public function scopeAll($query)
+    {
+        return $query;
+    }
+
     public function scopeActives($query)
     {
         return $query->has('termination', false);

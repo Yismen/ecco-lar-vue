@@ -4,8 +4,6 @@ Route::get('api/employees', 'EmployeesController@index')->name('employees.list')
 
 Route::get('employees/export_to_excel/{status}', 'Employee\ExportController@toExcel')
     ->name('employees.export_to_excel');
-Route::get('employees/export_all_to_excel', 'Employee\ExportController@toExcelAll')
-    ->name('employees.export_all_to_excel');
 
 Route::post('employees/{employee}/login-names', 'Employee\LoginNameController@store')
     ->name('employees.login.create');

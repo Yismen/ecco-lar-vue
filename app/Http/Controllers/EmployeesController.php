@@ -163,64 +163,6 @@ class EmployeesController extends Controller
         return $employee;
     }
 
-    /**
-     * Allows to export employees to excel by status
-     *
-     * @param string $status
-     * @return download file
-     */
-    public function toExcel($status)
-    {
-        $status = strtolower($status);
-
-        $statuses = ['actives', 'inactives', 'all'];
-
-        if (!in_array($status, $statuses)) {
-            return redirect()->back()->withDanger('The searched status is not not allowed');
-        }
-
-        $employees = Employee::select([
-            'id', 'first_name', 'second_first_name', 'last_name', 'second_last_name', 'personal_id', 'passport', 'hire_date'
-        ])
-            ->with('address')->with('bankAccount')
-            ->orderBy('first_name', 'ASC')
-            ->$status()
-            ->get();
-
-        Excel::create('Employees', function ($excel) use ($employees) {
-            $excel->sheet('Employees', function ($sheet) use ($employees) {
-                $sheet->setColumnFormat([
-                    'F' => 'mm/dd/yyyy'
-                ])
-                    ->loadView('employees.excel.employees', compact('employees'));
-            })->download('xlsx');
-        });
-    }
-
-    /**
-     * Allows to export all employees to excel
-     *
-     * @return download
-     */
-    public function toExcelAll()
-    {
-        $employees = Employee::select([
-            'id', 'first_name', 'second_first_name', 'last_name', 'second_last_name', 'personal_id', 'passport', 'hire_date'
-        ])
-            ->with('address')->with('bankAccount')
-            ->orderBy('first_name', 'ASC')
-            ->get();
-
-        Excel::create('Employees', function ($excel) use ($employees) {
-            $excel->sheet('Employees', function ($sheet) use ($employees) {
-                $sheet->setColumnFormat([
-                    'F' => 'mm/dd/yyyy'
-                ])
-                    ->loadView('employees.excel.employees', compact('employees'));
-            })->download('xlsx');
-        });
-    }
-
     protected function getDatatables()
     {
         return datatables()->eloquent(

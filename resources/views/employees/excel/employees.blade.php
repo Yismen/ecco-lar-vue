@@ -1,4 +1,3 @@
-<h2>Employees List</h2>
 
 <table class="table table-bordered">
     <thead>
@@ -10,7 +9,7 @@
             <th>Segundo Apellido</th>
             <th>Fecha de Entrada</th>
             <th>Cedula o Pasaporte</th>
-            <th>Celucar</th>
+            <th>Celular</th>
             <th>Cuenta de Banco</th>
         </tr>
     </thead>
@@ -22,14 +21,10 @@
                 <td>{{ $employee->second_first_name }}</td>
                 <td>{{ $employee->last_name }}</td>
                 <td>{{ $employee->second_last_name }}</td>
-                <td>{{ $employee->hire_date->format('m/d/Y') }}</td>                
-                @if ($employee->personal_id)
-                    <td>{{ $employee->personal_id }}</td>
-                @else
-                    <td>{{ $employee->passport }}</td>
-                @endif
+                <td>{{ $employee->hire_date->format('m/d/Y') }}</td>
+                <td>{{ $employee->personal_id ?? $employee->passport }}</td>
                 <td>{{ $employee->cellphone_number }}</td>
-                <td>{{ $employee->bankAccount->account_number or '' }}</td>
+                <td>{{ $employee->bankAccount->account_number ?? '' }}</td>
             </tr>
         @endforeach
     </tbody>

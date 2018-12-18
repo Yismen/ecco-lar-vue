@@ -31,7 +31,7 @@
                                     </li>
                                     <li role="separator" class="divider"></li>
                                     <li>
-                                        <a href="{{ route('admin.employees.export_all_to_excel') }}" class="">
+                                        <a href="{{ route('admin.employees.export_to_excel', 'all') }}" class="">
                                             <i class="fa fa-download"></i> All
                                         </a>
                                     </li>
