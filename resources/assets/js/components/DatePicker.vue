@@ -2,7 +2,7 @@
     <div class="__Date input-group">
         <datepicker
             :input-class="inputClass"
-            :value="selectedDate"
+            v-model="selectedDate"
             :name="name"
             :format="format"
             :typeable="typeable"

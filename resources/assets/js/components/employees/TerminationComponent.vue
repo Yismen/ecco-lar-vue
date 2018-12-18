@@ -9,7 +9,9 @@
             <form class="" role="form"
                 @submit.prevent="terminate"
                 autocomplete="off"
-                @change="updated">
+                @keydown="form.error.clear($event.target.name)"
+                @change="form.error.clear($event.target.name)"
+            >
 
                 <div class="box-body">
                     <div class="row">
@@ -18,6 +20,7 @@
                                 <label for="input" class="">Date:</label>
                                 <date-picker input-class="form-control input-sm"
                                     v-model="form.fields.termination_date"
+                                    @updated="updateTerminationDate"
                                 ></date-picker>
                                 <span class="text-danger" v-if="form.error.has('termination_date')">{{ form.error.get('termination_date') }}</span>
                             </div>
@@ -152,8 +155,8 @@
     },
 
     methods: {
-        updated(event) {
-            this.form.error.clear(event.target.name)
+        updateTerminationDate(date) {
+            this.form.fields.termination_date = date
         },
         terminate() {
             this.form.post('/admin/employees/' + this.employee.id + '/terminate/')

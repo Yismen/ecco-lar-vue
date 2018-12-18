@@ -3,6 +3,7 @@
 namespace App;
 
 use Carbon\Carbon;
+use App\Traits\Trackable;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Traits\Mutators\EmployeeMutators;
 use App\Http\Traits\Accessors\EmployeeAccessors;
@@ -10,7 +11,7 @@ use App\Http\Traits\Relationships\EmployeeRelationships;
 
 class Employee extends Model
 {
-    use EmployeeRelationships, EmployeeAccessors, EmployeeMutators;
+    use EmployeeRelationships, EmployeeAccessors, EmployeeMutators, Trackable;
 
     protected $fillable = [
         'first_name',

@@ -3109,6 +3109,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -3173,6 +3175,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 'has_kids': employee.hasOwnProperty('has_kids') ? Number(employee.has_kids) : '',
                 'position_id': employee.hasOwnProperty('position_id') ? employee.position_id : ''
             };
+        },
+        updateHireDate: function updateHireDate(date) {
+            this.form.fields.hire_date = date;
+        },
+        updateDateOfBirth: function updateDateOfBirth(date) {
+            this.form.fields.date_of_birth = date;
         }
     }
 });
@@ -4021,6 +4029,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -4052,8 +4063,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     methods: {
-        updated: function updated(event) {
-            this.form.error.clear(event.target.name);
+        updateTerminationDate: function updateTerminationDate(date) {
+            this.form.fields.termination_date = date;
         },
         terminate: function terminate() {
             var _this = this;
@@ -9928,7 +9939,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -10093,7 +10104,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -60156,7 +60167,12 @@ var render = function() {
                 $event.preventDefault()
                 return _vm.terminate($event)
               },
-              change: _vm.updated
+              keydown: function($event) {
+                _vm.form.error.clear($event.target.name)
+              },
+              change: function($event) {
+                _vm.form.error.clear($event.target.name)
+              }
             }
           },
           [
@@ -60178,6 +60194,7 @@ var render = function() {
                       _vm._v(" "),
                       _c("date-picker", {
                         attrs: { "input-class": "form-control input-sm" },
+                        on: { updated: _vm.updateTerminationDate },
                         model: {
                           value: _vm.form.fields.termination_date,
                           callback: function($$v) {
@@ -60736,12 +60753,18 @@ var render = function() {
       _c("datepicker", {
         attrs: {
           "input-class": _vm.inputClass,
-          value: _vm.selectedDate,
           name: _vm.name,
           format: _vm.format,
           typeable: _vm.typeable
         },
-        on: { input: _vm.changed }
+        on: { input: _vm.changed },
+        model: {
+          value: _vm.selectedDate,
+          callback: function($$v) {
+            _vm.selectedDate = $$v
+          },
+          expression: "selectedDate"
+        }
       }),
       _vm._v(" "),
       _vm._m(0)
@@ -63933,6 +63956,7 @@ var render = function() {
                       name: "hire_date",
                       format: "MM/dd/yyyy"
                     },
+                    on: { updated: _vm.updateHireDate },
                     model: {
                       value: _vm.form.fields.hire_date,
                       callback: function($$v) {
@@ -63967,6 +63991,7 @@ var render = function() {
                       name: "date_of_birth",
                       format: "MM/dd/yyyy"
                     },
+                    on: { updated: _vm.updateDateOfBirth },
                     model: {
                       value: _vm.form.fields.date_of_birth,
                       callback: function($$v) {

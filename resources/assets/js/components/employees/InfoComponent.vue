@@ -95,6 +95,7 @@
                                 v-model="form.fields.hire_date"
                                 name="hire_date"
                                 format="MM/dd/yyyy"
+                                @updated="updateHireDate"
                             ></date-picker>
                             <span class="text-danger" v-if="form.error.has('hire_date')">{{ form.error.get('hire_date') }}</span>
                         </div>
@@ -107,6 +108,7 @@
                                 name="date_of_birth"
                                 v-model="form.fields.date_of_birth"
                                 format="MM/dd/yyyy"
+                                @updated="updateDateOfBirth"
                             ></date-picker>
                             <span class="text-danger" v-if="form.error.has('date_of_birth')">{{ form.error.get('date_of_birth') }}</span>
                         </div>
@@ -295,6 +297,12 @@
                 'has_kids': employee.hasOwnProperty('has_kids') ? Number(employee.has_kids) : '',
                 'position_id': employee.hasOwnProperty('position_id') ? employee.position_id : '',
             }
+        },
+        updateHireDate(date) {
+            this.form.fields.hire_date = date
+        },
+        updateDateOfBirth(date) {
+            this.form.fields.date_of_birth = date
         }
     }
 };
