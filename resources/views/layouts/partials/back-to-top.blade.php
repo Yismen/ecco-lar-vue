@@ -29,18 +29,19 @@
 <a id="back2Top" title="Back to top" href="#">&#10148;</a>
 @section('scripts')
     <script  type="text/javascript">
-            console.log("scroll")
-            $(window).scroll(function() {
-                var height = $(window).scrollTop();
-                    console.log("scroll")
-                if (height > 100) {
-                        console.log("show")
-                    $('#back2Top').fadeIn();
-                } else {
-                        console.log("hide")
-                    $('#back2Top').fadeOut();
-                }
-            });
+            $(window).scroll(
+                _.debounce(
+                    function() {
+                        var height = $(window).scrollTop();
+                        if (height > 100) {
+                            $('#back2Top').fadeIn();
+                        } else {
+                            $('#back2Top').fadeOut();
+                        }
+                    },
+                    300
+                )
+            );
             $(document).ready(function() {
                 $("#back2Top").click(function(event) {
                     event.preventDefault();

@@ -1,5 +1,4 @@
 window.Vue = require('vue');
-window._ = require('lodash');
 window.Popper = require('popper.js').default;
 
 /**
@@ -28,6 +27,12 @@ Vue.use(VueSweetalert2);
  */
 try {
     window.$ = window.jQuery = require('jquery');
+    window._ = require('lodash');
+    window.moment = require('moment');
+    import Form from './vendor/dainsys-form'
+    window.Form = Form
+    import Datepicker from 'vuejs-datepicker'
+    window.Datepicker = Datepicker
     require('bootstrap');
     require('admin-lte');
     require('datatables.net-bs');
