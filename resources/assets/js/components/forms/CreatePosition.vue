@@ -18,18 +18,16 @@
                 <div class="box-body">
 
                     <div class="form-group" :class="{'has-error': form.error.has('name')}">
-                        <div class="">
-                            <label for="name" class="col-sm-3 control-label">Name:</label>
-                                <div class="col-sm-9">
-                                    <div class="input-group">
-                                        <input type="text" id="create-position-name"
-                                            name="name" class="form-control"
-                                            v-model="form.fields.name"
-                                        >
-                                        <div class="input-group-addon"><i class="fa fa-flag"></i></div>
-                                    </div>
-                                <span class="text-danger" v-if="form.error.has('name')">{{ form.error.get('name') }}</span>
+                        <label for="name" class="col-sm-3 control-label">Name:</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <input type="text" id="create-position-name"
+                                    name="name" class="form-control"
+                                    v-model="form.fields.name"
+                                >
+                                <div class="input-group-addon"><i class="fa fa-flag"></i></div>
                             </div>
+                            <span class="text-danger" v-if="form.error.has('name')">{{ form.error.get('name') }}</span>
                         </div>
                     </div>
                     <!-- /. Name -->
@@ -37,12 +35,20 @@
                     <div class="form-group" :class="{'has-error': form.error.has('department_id')}">
                         <label for="input" class="col-sm-3 control-label">Department:</label>
                         <div class="col-sm-9">
-                            <select name="department_id" id="department_id" class="form-control" v-model="form.fields.department_id">
-                                <option v-for="(department, index) in departments"
-                                    :value="department.id"
-                                    :key="index"
-                                >{{ department.department }}</option>
-                            </select>
+                            <div class="input-group">
+                                <select name="department_id" id="department_id"
+                                    class="form-control"
+                                    v-model="form.fields.department_id"
+                                >
+                                    <option v-for="(department, index) in departments"
+                                        :value="department.id"
+                                        :key="index"
+                                    >{{ department.department }}</option>
+                                </select>
+                                <div class="input-group-addon">
+                                    <create-department @department-created="departmentCreated"></create-department>
+                                </div>
+                            </div>
                             <span class="text-danger" v-if="form.error.has('department_id')">{{ form.error.get('department_id') }}</span>
                         </div>
                     </div>
@@ -106,6 +112,8 @@
 
 <script>
 
+import CreateDepartment from './CreateDepartment'
+
 export default {
     name: "CreatePositionComponent",
 
@@ -118,7 +126,7 @@ export default {
                 payment_frequency_id: '',
                 salary: '',
             }),
-
+            departments: []
         }
     },
 
@@ -129,10 +137,6 @@ export default {
     },
 
     computed: {
-        departments() {
-            return this.departments_list
-        },
-
         paymentTypes() {
             return this.payment_types_list
         },
@@ -140,6 +144,12 @@ export default {
         paymentFrequencies() {
             return this.payment_frequencies_list
         }
+    },
+
+    components: {CreateDepartment},
+
+    mounted() {
+        return this.departments = this.departments_list
     },
 
     methods: {
@@ -161,6 +171,11 @@ export default {
                 if (inputs.length > 0) {
                     inputs[0].focus()
                 }
+        },
+
+        departmentCreated(department) {
+            console.log(department)
+            this.departments.unshift(department)
         }
     }
 }
