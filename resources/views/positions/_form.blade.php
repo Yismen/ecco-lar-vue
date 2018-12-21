@@ -16,15 +16,7 @@
 		<div class="form-group {{ $errors->has('department_id') ? 'has-error' : null }}">
 			{!! Form::label('department_id', 'Department:', ['class'=>'col-sm-3 control-label']) !!}
 			<div class="col-sm-9">
-				<div class="input-group">
-					{{-- {{ dd($position->departments_list) }} --}}
-					{!! Form::select('department_id', $position->departments_list->pluck('department', 'id'), null, ['class'=>'form-control', 'id'=>'department_id']) !!}
-					<div class="input-group-btn">
-						<button class="btn btn-primary" type="button" data-toggle="modal" data-target="#myModal">
-							<i class="fa fa-plus"></i>
-						</button>
-					</div>
-				</div>
+				<departments-select :list="{{ $position->departments_list }}" :selected="{{ old('department_id') ?? 0 }}"/>
 				{!! $errors->first('department_id', '<span class="text-danger">:message</span>') !!}
 			</div>
 
@@ -67,23 +59,3 @@
 		<!-- /. Salary -->
 	</div>
 </div>
-
-
-{{-- <div class="modal fade in" tabindex="-1" role="dialog" id="myModal">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Modal title</h4> -->
-      </div>
-      <div class="modal-body">
-        @include('departments._form')
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="createDepartment">Save changes</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal --> --}}
-

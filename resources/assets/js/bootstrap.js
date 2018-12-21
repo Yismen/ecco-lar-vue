@@ -29,10 +29,7 @@ try {
     window.$ = window.jQuery = require('jquery');
     window._ = require('lodash');
     window.moment = require('moment');
-    import Form from './vendor/dainsys-form'
-    window.Form = Form
-    import Datepicker from 'vuejs-datepicker'
-    window.Datepicker = Datepicker
+    window.Form = require('./vendor/dainsys-form').default
     require('bootstrap');
     require('admin-lte');
     require('datatables.net-bs');
@@ -78,6 +75,7 @@ Vue.component( 'passport-clients', require('./components/passport/Clients.vue') 
 Vue.component( 'passport-authorized-clients', require('./components/passport/AuthorizedClients.vue') );
 Vue.component( 'passport-personal-access-tokens', require('./components/passport/PersonalAccessTokens.vue') );
 Vue.component('positions-select', require('./components/positions/SelectList'))
+Vue.component('departments-select', require('./components/selects/Departments'))
 // Vue.component('create-position', require('./components/employees/positions/Create'))
 // Vue.component('modal', require('./components/Modal'))
 Vue.component('add-button', require('./components/links/AddButton'))

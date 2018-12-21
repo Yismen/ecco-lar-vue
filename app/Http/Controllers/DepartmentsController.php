@@ -58,6 +58,10 @@ class DepartmentsController extends Controller
         Cache::forget('departments');
         Cache::forget('employees');
 
+        if ($request->ajax()) {
+            return $department;
+        }
+
         return redirect()->route('admin.departments.index')
             ->withSuccess("Department $department->department has been added!");
     }
