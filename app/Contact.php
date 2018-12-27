@@ -9,7 +9,7 @@ class Contact extends Model
 {
     protected $table = 'contacts';
 
-    protected $fillable = ['username', 'name', 'main_phone', 'works_at', 'position', 'secondary_phone', 'email'];
+    protected $fillable = ['user_id', 'name', 'phone', 'works_at', 'position', 'secondary_phone', 'email'];
 
     /**
      * The "booting" method of the model.
@@ -20,7 +20,7 @@ class Contact extends Model
     {
         parent::boot();
         /**
-         * Global scope applied to all methods
+         * Hide contacts not owed by current user
          */
         static::addGlobalScope('user', function (Builder $builder) {
             if (auth()->check()) {

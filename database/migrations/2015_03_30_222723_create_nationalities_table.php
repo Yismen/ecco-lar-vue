@@ -23,9 +23,9 @@ class CreateNationalitiesTable extends Migration
         Nationality::create(['name' => 'Hantiano']);
         Nationality::create(['name' => 'Venezolano']);
         Nationality::create(['name' => 'Estadounidense']);
-        Nationality::create(['name' => 'Puertoriqueño']);
+        Nationality::create(['name' => 'Puertoriqueno']);
         Nationality::create(['name' => 'Mexicano']);
-        Nationality::create(['name' => 'Israelí']);
+        Nationality::create(['name' => 'Israeli']);
         Nationality::create(['name' => 'Argentino']);
     }
 

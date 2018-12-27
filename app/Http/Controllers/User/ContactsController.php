@@ -40,13 +40,26 @@ class ContactsController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'main_phone' => 'required',
+            'phone' => 'required',
             'email' => 'email',
         ]);
-        $contact = auth()->user()->contacts()->create($request->only(['name', 'main_phone', 'works_at', 'position', 'secondary_phone', 'email']));
+
+        $contact = auth()->user()->contacts()->create(
+            $request->only(
+                ['name', 'phone', 'works_at', 'position', 'secondary_phone', 'email']
+            )
+        );
 
         return redirect()->route('admin.contacts.index')
             ->withSuccess("Your contact $contact->name has been crated!");
+    }
+
+    /**
+     * @parameter $contact Model
+     */
+    public function show(Contact $contact)
+    {
+        return view('contacts.show', compact('contact'));
     }
 
     /**
@@ -70,11 +83,11 @@ class ContactsController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'main_phone' => 'required',
+            'phone' => 'required',
             'email' => 'email',
         ]);
 
-        $contact->update($request->only(['name', 'main_phone', 'works_at', 'position', 'secondary_phone', 'email']));
+        $contact->update($request->only(['name', 'phone', 'works_at', 'position', 'secondary_phone', 'email']));
 
         return \Redirect::route('admin.contacts.index')
             ->withSuccess("Your contact $contact->name has been updated succesffully!");
