@@ -15,7 +15,7 @@
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesnt work if you view the page via file:// -->
-    
+
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -42,12 +42,12 @@
     |*********************************************************|
     -->
 
-<body 
+<body
     class="
-        {{ $settings->skin ?? config('dainsys.layout_color', 'skin-yellow') }} 
-        {{ $settings->layout ?? config('dainsys.layout', 'default')  }} 
-        {{ $settings->sidebar_collapse ?? config('dainsys.sidebar_collapse', '')  }} 
-        {{ $settings->sidebar_mini ?? config('dainsys.sidebar_mini', '')  }} 
+        {{ $settings->skin ?? config('dainsys.layout_color', 'skin-yellow') }}
+        {{ $settings->layout ?? config('dainsys.layout', 'default')  }}
+        {{ $settings->sidebar_collapse ?? config('dainsys.sidebar_collapse', '')  }}
+        {{ $settings->sidebar_mini ?? config('dainsys.sidebar_mini', '')  }}
     "
 >
     <div class="wrapper" style="height: auto;">
@@ -80,7 +80,7 @@
             <section class="content" id="app">
                 <loading-component></loading-component>
                 <!-- Your Page Content Here -->
-                <!-- 
+                <!--
                     |************************************|
                     | Main Content Here
                     |************************************|
@@ -126,7 +126,7 @@
         user experience. Slimscroll is required when using the
         fixed layout. -->
 
-    <!-- 
+    <!--
         |************************************|
         | All scripts will be placed here
         |************************************|

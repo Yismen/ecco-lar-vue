@@ -2,6 +2,7 @@
 
 namespace App\Http\ViewComposers;
 
+use App\Role;
 use App\User;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
@@ -23,7 +24,6 @@ class AppComposer
             'app_name' => ucwords(config('dainsys.app_name', 'Dainsys')),
             'client_name' => ucwords(config('dainsys.client_name', 'Dainsys\' Client')),
             'client_name_mini' => strtoupper(config('dainsys.client_name_mini', 'DAINSYS')),
-            'menu' => null,
             'settings' => $this->settings(),
             'color' => $this->color()
         ]);
@@ -33,11 +33,10 @@ class AppComposer
     {
         if (Auth::check()) {
             return User::with(['roles' => function ($query) {
-                return $query;
-                // return $query->orderBy('display_name');
+                return $query->orderBy('name');
             }])
             ->with('profile')
-            // ->with('settings')
+            ->with('roles.menus')
             ->find(Auth::id());
         }
 

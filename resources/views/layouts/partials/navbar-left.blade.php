@@ -1,4 +1,4 @@
-<!-- 
+<!--
     ===============================================================
     * Variable $user is set at App\Providers\ViewsComposerServiceProvider.
     ===============================================================
@@ -61,7 +61,7 @@
             </li>
 
             <!-- <li class="treeview">
-                <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span> 
+                <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
                     <i class="fa fa-angle-left pull-right"></i></a>
                     <ul class="treeview-menu">
                         <li><a href="#">Link in level 2</a></li>
@@ -71,15 +71,14 @@
 
 
             <li class="header">APP</li>
-            @if ($user)
-                @foreach ($user->rolesList as $role)
+            @if ($user && $user->roles)
+                @foreach ($user->roles as $role)
                     <li class="treeview">
                         <a href="#">
-                            <i class="fa fa-link"></i> 
+                            <i class="fa fa-link"></i>
                             <span>{{ personName($role->name) }}</span>
                             <i class="fa fa-angle-left pull-right"></i></a>
                             <ul class="treeview-menu">
-
                                 @foreach ($role->menus as $menu)
                                     <li>
                                         <a href="{{ url($menu->name) }}">
@@ -89,7 +88,7 @@
                                         </a>
                                     </li>
                                 @endforeach
-                                
+
                             </ul>
                         </a>
                     </li>

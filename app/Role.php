@@ -8,11 +8,6 @@ use Illuminate\Support\Facades\Cache;
 class Role extends EmpatieRole
 {
     protected $fillable = ['name', 'guard_name'];
-    /**
-     * Each role belongs to many menus
-     *
-     * @return [type] [description]
-     */
 
     public function menus()
     {

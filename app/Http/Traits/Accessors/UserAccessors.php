@@ -7,19 +7,6 @@ use Cache;
 
 trait UserAccessors
 {
-    public function getRolesListAttribute()
-    {
-        return Cache::rememberForever('menus', function () {
-            return \Auth::user()->is_admin
-            ? Role::with(['menus' => function ($query) {
-                return $query;
-            }])->get()
-            : $this->roles()
-                ->with(['menus' => function ($query) {
-                    return $query;
-                }])->get();
-        });
-    }
 
     public function getActiveListAttribute()
     {
