@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBlackhawkQascoresTable extends Migration
+class CreateBlackhawkCSQascoresTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateBlackhawkQascoresTable extends Migration
      */
     public function up()
     {
-        Schema::create('blackhawk_qascores', function (Blueprint $table) {
+        Schema::create('blackhawk_cs_qascores', function (Blueprint $table) {
             $table->increments('id');
             $table->string('unique_id')->index()->unique();
             $table->string('client');
@@ -35,6 +35,6 @@ class CreateBlackhawkQascoresTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('blackhawk_qascores');
+        Schema::dropIfExists('blackhawk_cs_qascores');
     }
 }

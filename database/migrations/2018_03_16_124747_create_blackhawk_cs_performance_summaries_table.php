@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBlackhawkPerformanceSummariesTable extends Migration
+class CreateBlackhawkCSPerformanceSummariesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateBlackhawkPerformanceSummariesTable extends Migration
      */
     public function up()
     {
-        Schema::create('blackhawk_performance_summaries', function (Blueprint $table) {
+        Schema::create('blackhawk_cs_performance_summaries', function (Blueprint $table) {
             $table->increments('id');
             $table->string('unique_id')->index()->unique();
             $table->date('date');
@@ -39,6 +39,6 @@ class CreateBlackhawkPerformanceSummariesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('blackhawk_performance_summaries');
+        Schema::dropIfExists('blackhawk_cs_performance_summaries');
     }
 }
