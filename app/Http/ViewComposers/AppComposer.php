@@ -37,6 +37,7 @@ class AppComposer
             }])
             ->with('profile')
             ->with('roles.menus')
+            ->with('settings')
             ->find(Auth::id());
         }
 

@@ -59,7 +59,7 @@
 	{!! Form::label('is_admin', 'Is Admin:', ['class'=>'col-sm-2 control-label']) !!}
 	<div class="col-sm-10">
 		{!! Form::select('is_admin', $user->adminList, null, ['class'=>'form-control', 'id'=>'is_admin'])!!}
-		<span class="help-block text-danger">Very dangerous. If you make the user admin it will 
+		<span class="help-block text-danger">Very dangerous. If you make the user admin it will
 			have access to every module of the app.</span>
 	</div>
 	{{-- {!! $errors->first('roles', '<span class="text-danger">:message</span>') !!} --}}
@@ -68,10 +68,10 @@
 
 <!-- Roles -->
 {{-- {{ dd($rolesList) }} --}}
-<div class="form-group {{ $errors->has('roles') ? 'has-error' : null }}">	
+<div class="form-group {{ $errors->has('roles') ? 'has-error' : null }}">
 	{!! Form::label('roles', 'Roles:', ['class'=>'col-sm-2 control-label']) !!}
 	<div class="col-sm-10">
-		@foreach ($user->rolesList as $role)			
+		@foreach ($user->rolesList as $role)
 			<div class="checkbox">
 				<label>
 					{!! Form::checkbox('roles[]', $role->id, null, []) !!}

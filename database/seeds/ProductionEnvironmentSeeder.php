@@ -35,7 +35,7 @@ class ProductionEnvironmentSeeder extends Seeder
             case 'pgsql':
                 DB::statement('ALTER SEQUENCE employees_id_seq RESTART WITH 10000');
                 break;
-            
+
             default:
                 DB::statement('ALTER TABLE `employees` AUTO_INCREMENT = 10000');
                 break;
@@ -76,7 +76,7 @@ class ProductionEnvironmentSeeder extends Seeder
     {
         Menu::create(['name' => 'telescope', 'display_name' => 'Telescope', 'description' => '']);
         Menu::create(['name' => 'admin/users', 'display_name' => 'Users', 'description' => '']);
-        Menu::create(['name' => 'admin/oles', 'display_name' => 'Roles', 'description' => '']);
+        Menu::create(['name' => 'admin/roles', 'display_name' => 'Roles', 'description' => '']);
         Menu::create(['name' => 'admin/permissions', 'display_name' => 'Permissions', 'description' => '']);
         Menu::create(['name' => 'admin/menus', 'display_name' => 'Menus', 'description' => '']);
         Menu::create(['name' => 'admin/employees', 'display_name' => 'Employees', 'description' => '']);

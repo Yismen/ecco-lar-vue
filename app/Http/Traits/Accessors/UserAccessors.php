@@ -27,4 +27,9 @@ trait UserAccessors
     {
         return 'skin-black';
     }
+
+    public function getRolesListAttribute()
+    {
+        return Role::get(['name', 'id']);
+    }
 }
