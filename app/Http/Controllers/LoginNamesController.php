@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Cache;
 use App\Exports\LoginName as LoginNameExport;
+use App\Exports\LoginNameEployees;
 
 class LoginNamesController extends Controller
 {
@@ -138,5 +139,9 @@ class LoginNamesController extends Controller
     public function toExcel(Request $request)
     {
         return Excel::download(new LoginNameExport, 'login-names.xlsx');
+    }
+    public function employeesToExcel(Request $request)
+    {
+        return Excel::download(new LoginNameEployees, 'login-names.xlsx');
     }
 }

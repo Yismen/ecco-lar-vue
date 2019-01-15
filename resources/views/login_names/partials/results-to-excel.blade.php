@@ -8,13 +8,22 @@
     </thead>
     <tbody>
         @foreach ($employees as $employee)
-            @foreach ($employee->loginNames as $login_name)
+            @if ($employee->loginNames()->count())
+                @foreach ($employee->loginNames as $login_name)
+                    <tr>
+                        <td>{{ $login_name->employee->id }}</td>
+                        <td>{{ $login_name->employee->full_name }}</td>
+                        <td>{{ $login_name->login }}</td>
+                    </tr>
+                @endforeach
+            @else
                 <tr>
-                    <td>{{ $login_name->employee->id }}</td>
-                    <td>{{ $login_name->employee->full_name }}</td>
-                    <td>{{ $login_name->login }}</td>
+                    <td>{{ $employee->id }}</td>
+                    <td>{{ $employee->full_name }}</td>
+                    <td></td>
                 </tr>
-            @endforeach
+            @endif
+
         @endforeach
     </tbody>
 </table>
