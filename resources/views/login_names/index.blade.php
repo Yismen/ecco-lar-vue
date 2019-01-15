@@ -24,8 +24,13 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li class="li">
+                                            <a href="{{ route('admin.login-names.to-excel.all-employees') }}">
+                                                <i class="fa fa-file-excel-o"></i> All Employees
+                                            </a>
+                                        </li>
+                                        <li class="li">
                                             <a href="{{ route('admin.login-names.to-excel.all') }}">
-                                                <i class="fa fa-file-excel-o"></i> All
+                                                <i class="fa fa-file-excel-o"></i> All Login Names
                                             </a>
                                         </li>
                                     </ul>
