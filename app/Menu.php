@@ -37,7 +37,7 @@ class Menu extends Model
     }
 
     public function addMenu($request)
-    {        
+    {
         $name = $this->parseName($request);
 
         if ($exists = $this->where('name', $request->name)->get()) {
@@ -77,7 +77,7 @@ class Menu extends Model
         Cache::forget('menus');
 
         $name = starts_with($this->name, 'admin/') ?
-            str_slug(explode('admin/', $this->name, 2)[1]) :
+            strtolower(explode('admin/', $this->name, 2)[1]) :
             $this->name;
 
         $permissions = Permission::where('resource', $name)->get();
@@ -89,23 +89,33 @@ class Menu extends Model
 
     private function parseName($request)
     {
-        $name = str_slug($request->name);
+        $name = $this->stripAdmin($this->prepareName($request->name));
 
-
-        if (starts_with($request->name, 'admin')) {
-            $name = str_slug(explode('admin', $name, 2)[1]);
-        }
-        
         $request->merge(['name' => $name]);
+
         if ($request->is_admin) {
-            $request->merge(['name' => 'admin/'. $request->name]);
+            $request->merge(['name' => 'admin'. $request->name]);
+        }
+
+        return $name;
+    }
+
+    private function prepareName($name)
+    {
+        return strtolower(trim(preg_replace("/\.|\/\//", "/", $name)));
+    }
+
+    private function stripAdmin($name)
+    {
+        if (starts_with($name, 'admin')) {
+            return explode('admin', $name, 2)[1];
         }
 
         return $name;
     }
 
     private function createPermissions($name)
-    {        
+    {
         $names = ['create', 'view', 'edit', 'destroy'];
 
         foreach ($names as $key => $value) {
@@ -113,7 +123,7 @@ class Menu extends Model
 
             if (! Permission::where('name', $new_name)->first()) {
                 Permission::create([
-                    'name' => $new_name, 
+                    'name' => $new_name,
                     'resource' => $name
                 ]);
             }
