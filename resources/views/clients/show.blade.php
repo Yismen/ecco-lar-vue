@@ -21,7 +21,7 @@
 								<td>
 									<ul>
 										@foreach ($client->departments as $department)
-											<li>{{ $department->department }}</li>
+											<li>{{ $department->name }}</li>
 										@endforeach
 									</ul>
 								</td>
@@ -50,5 +50,5 @@
 @stop
 
 @section('scripts')
-	
+
 @stop

@@ -43,7 +43,7 @@
                                             <td>
                                                 <a href="{{ route('admin.payroll-additionals.details', [$date, $additional->employee_id]) }}">{{ $additional->employee->full_name }}</a>
                                             </td>
-                                            <td>{{ $additional->employee->position->department->department }} - {{ $additional->employee->position->name }}</td>
+                                            <td>{{ $additional->employee->position->department->name }} - {{ $additional->employee->position->name }}</td>
                                             <td>${{ number_format($additional->additional_amount_sum, 2) }}</td>
                                             <td><a href="{{ route('admin.payroll-additionals.details', [$date, $additional->employee_id]) }}"><i class="fa fa-eye"></i> Details</a></td>
                                         </tr>
@@ -61,7 +61,7 @@
                     <div class="box-footer">
                         {{ $additionals->render() }}
                     </div>
-                    
+
                 </div>
             </div>
         </div>

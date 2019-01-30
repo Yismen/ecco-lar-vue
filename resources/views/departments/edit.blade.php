@@ -8,7 +8,7 @@
 				<div class="box box-primary">
 					<div class="box-header with-border">
 						<h4>
-							Edit HH RR Department [{{ $department->department }}]
+							Edit HH RR Department [{{ $department->name }}]
 							<a href="{{ route('admin.departments.index') }}" class="pull-right">
 								<i class="fa fa-home"></i> List
 							</a>

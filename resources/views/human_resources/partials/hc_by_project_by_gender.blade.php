@@ -15,7 +15,7 @@
                     @foreach ($hc_by_department as $department)
                         <tr>
                             <td>
-                                <a href="/admin/human_resources/employees/by_departments/{{ $department->id }}">{{ $department->department }}</a>
+                                <a href="/admin/human_resources/employees/by_departments/{{ $department->id }}">{{ $department->name }}</a>
                             </td>
                             <td>{{ $department->employees_count }}</td>
                         </tr>
@@ -29,7 +29,7 @@
                 </tfoot>
             </table>
         @endif
-                
+
     </div>
-    
+
 </div>

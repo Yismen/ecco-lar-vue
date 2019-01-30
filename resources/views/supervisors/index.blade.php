@@ -24,7 +24,7 @@
                                 @foreach ($supervisors as $supervisor)
                                     <tr>
                                         <td><a href="/admin/supervisors/{{ $supervisor->id }}">{{ $supervisor->name }}</a></td>
-                                        <td><a href="/admin/departments/{{ $supervisor->department->id }}" target="_new">{{ $supervisor->department->department }}</a></td>
+                                        <td><a href="/admin/departments/{{ $supervisor->department->id }}" target="_new">{{ $supervisor->department->name }}</a></td>
                                         <td>
                                             <a href="/admin/supervisors/{{ $supervisor->id }}/edit">
                                                 <i class="fa fa-edit"></i>

@@ -32,8 +32,8 @@
                                     <td>{{ $summary->employee->full_name }}</td>
                                     <td>{{ $summary->employee->personal_id or $summary->employee->passport }}</td>
                                     <td>
-                                        {{ $summary->employee->position->name }}, At 
-                                        {{ $summary->employee->position->department->department }}
+                                        {{ $summary->employee->position->name }}, At
+                                        {{ $summary->employee->position->department->name }}
                                     </td>
                                     <td>{{ $summary->employee->bankAccount->account_number or null }}</td>
                                     <td>{{ $summary->payroll_id }}</td>
@@ -130,7 +130,7 @@
                                 <tr>
                                     <th>ARS Discounts</th>
                                     <td>${{ number_format($summary->ars_discounts, 2) }}</td>
-                                </tr> 
+                                </tr>
                                 <tr>
                                     <th>AFP Discounts</th>
                                     <td>${{ number_format($summary->afp_discounts, 2) }}</td>

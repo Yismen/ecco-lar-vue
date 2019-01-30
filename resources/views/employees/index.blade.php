@@ -121,7 +121,7 @@
                     {data: 'status', name: 'status', orderable: false, searchable: false},
                     {data: 'position_id', name: 'position_id', render: function(data, type, full){
                         let position = full.position ? full.position.name : '';
-                        let department = full.position && full.position.department ? ', At ' + full.position.department.department : '';
+                        let department = full.position && full.position.department ? ', At ' + full.position.department.name : '';
                         return position + department;
                     }},
                     {data: 'personal_id', name: 'personal_id', render: function(data, type, full) {

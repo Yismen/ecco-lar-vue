@@ -8,8 +8,8 @@
                 <div class="box box-primary">
                     <div class="box-header with-border">
                         <h2>
-                            Summary for Payroll ID [{{ $payroll_id }}] 
-                            <span class="badge badge-danger">{{ $payroll_summaries->count() }} Records</span> 
+                            Summary for Payroll ID [{{ $payroll_id }}]
+                            <span class="badge badge-danger">{{ $payroll_summaries->count() }} Records</span>
                             <a href="{{ route('admin.payrolls_summary.index') }}" class="pull-right"><i class="fa fa-list"></i> List</a>
                         </h2>
                     </div>
@@ -42,7 +42,7 @@
                                                     <a href="{{ route('admin.payrolls_summary.show', $summary->id) }}">{{ $summary->employee_id }}</a>
                                                 </td>
                                                 <td><a href="{{ route('admin.payrolls_summary.show', $summary->id) }}">{{ $summary->employee->full_name }}</a></td>
-                                                <td>{{ $summary->employee->position->department->department }}</td>
+                                                <td>{{ $summary->employee->position->department->name }}</td>
                                                 <td>{{ $summary->employee->position->name }}</td>
                                                 <td>${{ number_format($summary->gross_incomes, 2) }}</td>
                                                 <td>${{ number_format($summary->tss_payroll_incomes, 2) }}</td>
@@ -62,7 +62,7 @@
                     </div>
 
                     <div class="box-footer"></div>
-                    
+
                 </div>
             </div>
         </div>

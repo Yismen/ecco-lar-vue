@@ -14,14 +14,14 @@
 		<span class="help-text">Select the Departments associated to this Client</span>
 		<p>
 			@foreach ($client->departments_list as $department)
-				
+
 				<div class="checkbox">
-					<label>						
+					<label>
 						{!! Form::checkbox('departments[]', $department->id, null, []) !!}
-						{{ $department->department }}
+						{{ $department->name }}
 					</label>
 				</div>
-				
+
 			@endforeach
 		</p>
 	</div>
@@ -32,14 +32,14 @@
 		<span class="help-text">Select the Sources associated to this Client</span>
 		<p>
 			@foreach ($client->sources_list as $source)
-				
+
 				<div class="checkbox">
-					<label>						
+					<label>
 						{!! Form::checkbox('sources[]', $source->id, null, []) !!}
 						{{ $source->name }}
 					</label>
 				</div>
-				
+
 			@endforeach
 		</p>
 	</div>

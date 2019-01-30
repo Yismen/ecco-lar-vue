@@ -22,7 +22,7 @@
                 <tbody>
                     @foreach ($hc_by_department_and_aging as $department)
                         <tr>
-                            <td>{{ $department->department }}</td>
+                            <td>{{ $department->name }}</td>
                             <td>{{ $department->employees_last_tree_months_count }}</td>
                             <td>{{ $department->employees_between_three_and_six_months_count }}</td>
                             <td>{{ $department->employees_between_six_and_nime_months_count }}</td>
@@ -54,5 +54,5 @@
     </div>
 
     <div class="box-footer"></div>
-    
+
 </div>

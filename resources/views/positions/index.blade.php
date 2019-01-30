@@ -39,7 +39,7 @@
 										<tr>
 											<td>
 												<a href="{{ route('admin.positions.show', $position->id) }}">
-													{{ $position->department->department ?? '' }} - {{ $position->name }}
+													{{ $position->department->name ?? '' }} - {{ $position->name }}
 												</a>
 											</td>
 
@@ -51,7 +51,7 @@
 
 											<td>
 												@if ($position->department)
-													<a href="{{ route('admin.departments.show', $position->department->id) }}">{{ $position->department->department ?? '' }}</a>
+													<a href="{{ route('admin.departments.show', $position->department->id) }}">{{ $position->department->name ?? '' }}</a>
 												@endif
 											</td>
 											<td>$ {{ number_format($position->salary, 2) }}</td>

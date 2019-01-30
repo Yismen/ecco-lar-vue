@@ -191,7 +191,7 @@ trait EmployeeAccessors
 
     public function getDepartmentsListAttribute()
     {
-        return Department::orderBy('department')->select('department', 'id')->get();
+        return Department::orderBy('name')->select('name', 'id')->get();
     }
 
     public function getPaymentTypesListAttribute()

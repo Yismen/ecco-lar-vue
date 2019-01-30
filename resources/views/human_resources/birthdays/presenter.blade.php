@@ -48,7 +48,7 @@
                                                         <i class="fa fa-eye"></i> {{ $employee->full_name }}
                                                     </a>
                                                 </td>
-                                                <td>{{ $employee->position->department->department }} - {{ $employee->position->name }}</td>
+                                                <td>{{ $employee->position->department->name }} - {{ $employee->position->name }}</td>
                                                 <td>{{ $employee->date_of_birth->format('M-d') }}, {{ $employee->date_of_birth->age }} Years</td>
                                             </tr>
                                         @endforeach

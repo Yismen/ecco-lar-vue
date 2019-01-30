@@ -7,7 +7,7 @@
                 :key="department.id"
                 :value="department.id"
             >
-                {{ department.department }}
+                {{ department.name }}
             </option>
         </select>
         <CreateDepartment class="input-group-addon" @department-created="addDepartment" />

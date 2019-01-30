@@ -4405,7 +4405,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.form.post('/api/departments').then(function (response) {
                 _this.$emit('department-created', response.data);
-                _this.form.fields.department = '';
+                _this.form.fields.name = '';
                 _this.$modal.hide('create-department');
             });
         },
@@ -75492,8 +75492,8 @@ var render = function() {
                               {
                                 name: "model",
                                 rawName: "v-model",
-                                value: _vm.form.fields.department,
-                                expression: "form.fields.department"
+                                value: _vm.form.fields.name,
+                                expression: "form.fields.name"
                               }
                             ],
                             staticClass: "form-control",
@@ -75502,7 +75502,7 @@ var render = function() {
                               id: "create-department-name",
                               name: "name"
                             },
-                            domProps: { value: _vm.form.fields.department },
+                            domProps: { value: _vm.form.fields.name },
                             on: {
                               input: function($event) {
                                 if ($event.target.composing) {
@@ -75510,7 +75510,7 @@ var render = function() {
                                 }
                                 _vm.$set(
                                   _vm.form.fields,
-                                  "department",
+                                  "name",
                                   $event.target.value
                                 )
                               }
@@ -75688,8 +75688,8 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.form.fields.department_id,
-                              expression: "form.fields.department_id"
+                              value: _vm.form.fields.name_id,
+                              expression: "form.fields.name_id"
                             }
                           ],
                           staticClass: "form-control",
@@ -75706,7 +75706,7 @@ var render = function() {
                                 })
                               _vm.$set(
                                 _vm.form.fields,
-                                "department_id",
+                                "name_id",
                                 $event.target.multiple
                                   ? $$selectedVal
                                   : $$selectedVal[0]
@@ -75727,7 +75727,7 @@ var render = function() {
                             [
                               _vm._v(
                                 "\n                                " +
-                                  _vm._s(department.department) +
+                                  _vm._s(department.name) +
                                   "\n                            "
                               )
                             ]
@@ -79244,11 +79244,7 @@ var render = function() {
           return _c(
             "option",
             { key: department.id, domProps: { value: department.id } },
-            [
-              _vm._v(
-                "\n            " + _vm._s(department.department) + "\n        "
-              )
-            ]
+            [_vm._v("\n            " + _vm._s(department.name) + "\n        ")]
           )
         })
       ),
@@ -79787,7 +79783,7 @@ var render = function() {
                                 key: index,
                                 domProps: { value: department.id }
                               },
-                              [_vm._v(_vm._s(department.department))]
+                              [_vm._v(_vm._s(department.name))]
                             )
                           })
                         ),

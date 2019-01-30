@@ -41,7 +41,7 @@
                                             <td>{{ date("M/d/Y", strtotime($discount->date)) }}</td>
                                             <td>{{ $discount->employee_id }}</td>
                                             <td><a href="{{ route('admin.payroll-discounts.details', [$date, $discount->employee_id]) }}">{{ $discount->employee->full_name }}</a></td>
-                                            <td>{{ $discount->employee->position->department->department }} - {{ $discount->employee->position->name }}</td>
+                                            <td>{{ $discount->employee->position->department->name }} - {{ $discount->employee->position->name }}</td>
                                             <td>${{ number_format($discount->discount_amount_sum, 2) }}</td>
                                             <td><a href="{{ route('admin.payroll-discounts.details', [$date, $discount->employee_id]) }}"><i class="fa fa-eye"></i> Details</a></td>
                                         </tr>
@@ -59,7 +59,7 @@
                     <div class="box-footer">
                         {{ $discounts->render() }}
                     </div>
-                    
+
                 </div>
             </div>
         </div>

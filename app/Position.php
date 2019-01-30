@@ -43,13 +43,13 @@ class Position extends Model
     public function getNameAndDepartmentAttribute()
     {
         return ucwords(trim(
-            ($this->department->department ?? '') . '-' . $this->name
+            ($this->department->name ?? '') . '-' . $this->name
         ));
     }
 
     public function getDepartmentsListAttribute()
     {
-        return Department::select('id', 'department')->orderBy('department')->get();
+        return Department::select('id', 'name')->orderBy('name')->get();
     }
 
     public function getPaymentTypesListAttribute()

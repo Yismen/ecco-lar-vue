@@ -1,22 +1,22 @@
 <div class="box box-primary danger-bg">
     <div class="box-header with-border"><h3>Total Employees by Project - Positions</h3></div>
 
-    
-    
+
+
     <div class="box-body">
-        
+
         @foreach ($by_department_positions as $department)
             <div class="accordion" id="accordion">
                 <div class="accordion-group">
                     <div class="accordion-heading">
-                        
+
                         {{--  <a href="/admin/human_resources/employees/by_departments/{{ $department->id }}">  --}}
-                            {{ $department->department }} 
+                            {{ $department->name }}
                             <span class="label bg-green">
                                 {{ $department->positions->sum(function($position) {
                                     return $position->employees->sum('employees_count');
                                 }) }}
-                            </span>                                
+                            </span>
                         {{--  </a>  --}}
                         <a class="accordion-toggle pull-right" data-toggle="collapse" data-parent="#accordion2" href="#collapseDeparment-{{ $department->id }}">
                             Toggle
@@ -54,7 +54,7 @@
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         @endforeach
         {{-- {{ dd($by_department->positions) }} --}}
@@ -62,5 +62,5 @@
     </div>
 
     <div class="box-footer"></div>
-    
+
 </div>

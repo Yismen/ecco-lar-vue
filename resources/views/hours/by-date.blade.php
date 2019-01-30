@@ -45,7 +45,7 @@
                                             <td>{{ $hour->date->format("M-d-Y") }}</td>
                                             <td>{{ $hour->employee_id }}</td>
                                             <td>{{ $hour->employee->full_name }}</td>
-                                            <td>{{ $hour->employee->position->department->department }} - {{ $hour->employee->position->name }}</td>
+                                            <td>{{ $hour->employee->position->department->name }} - {{ $hour->employee->position->name }}</td>
                                             <td>{{ number_format($hour->regulars, 2) }}</td>
                                             <td>{{ number_format($hour->nightly, 2) }}</td>
                                             <td>{{ number_format($hour->holidays, 2) }}</td>
@@ -71,7 +71,7 @@
                     <div class="box-footer">
                         {{ $hours->render() }}
                     </div>
-                    
+
                 </div>
             </div>
         </div>

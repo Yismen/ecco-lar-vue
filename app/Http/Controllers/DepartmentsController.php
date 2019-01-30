@@ -26,7 +26,7 @@ class DepartmentsController extends Controller
     public function index(Department $departments, Request $request)
     {
         $departments = Cache::rememberForever('departments', function() {
-            return Department::orderBy('department')->get();
+            return Department::orderBy('name')->get();
         });;
 
         return view('departments.index', compact('departments'));
@@ -50,10 +50,10 @@ class DepartmentsController extends Controller
     public function store(Request $request, Department $department)
     {
         $this->validate($request, [
-            'department' => 'required|unique:departments,department'
+            'name' => 'required|unique:departments,name'
         ]);
 
-        $department = $department->create($request->only('department'));
+        $department = $department->create($request->only('name'));
 
         Cache::forget('departments');
         Cache::forget('employees');
@@ -63,7 +63,7 @@ class DepartmentsController extends Controller
         }
 
         return redirect()->route('admin.departments.index')
-            ->withSuccess("Department $department->department has been added!");
+            ->withSuccess("Department $department->name has been added!");
     }
 
     /**
@@ -97,15 +97,15 @@ class DepartmentsController extends Controller
     public function update(Request $request, Department $department)
     {
         $this->validate($request, [
-            'department' => "required|unique:departments,department,$department->id,id"
+            'name' => "required|unique:departments,name,$department->id,id"
         ]);
 
         Cache::forget('departments');
         Cache::forget('employees');
 
-        $department->update($request->only('department'));
+        $department->update($request->only('name'));
 
-        return redirect()->route('admin.departments.edit', $department->id)->withSuccess("HH RR Department $department->department has been updated");
+        return redirect()->route('admin.departments.edit', $department->id)->withSuccess("HH RR Department $department->name has been updated");
     }
 
     /**
@@ -123,6 +123,6 @@ class DepartmentsController extends Controller
 
         return redirect()
             ->route('admin.departments.index')
-            ->withWarning("HH RR Department $department->department has been removed");
+            ->withWarning("HH RR Department $department->name has been removed");
     }
 }

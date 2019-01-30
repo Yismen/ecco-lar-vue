@@ -20,7 +20,7 @@
 							<dt>Name:</dt>
 							<dd>{{ $position->name }}</dd>
 							<dt>Department:</dt>
-							<dd>{{ $position->department->department }}</dd>
+							<dd>{{ $position->department->name }}</dd>
 							<dt>Payment Type:</dt>
 							<dd>{{ $position->payment_type ? $position->payment_type->name : 'Please Add One!' }}</dd>
 							<dt>Payment Frequency:</dt>

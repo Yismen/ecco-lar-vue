@@ -43,7 +43,7 @@
                                     <option v-for="(department, index) in departments"
                                         :value="department.id"
                                         :key="index"
-                                    >{{ department.department }}</option>
+                                    >{{ department.name }}</option>
                                 </select>
                                 <div class="input-group-addon">
                                     <create-department @department-created="departmentCreated"></create-department>

@@ -43,7 +43,7 @@
                                             <td>
                                                 <a href="{{ route('admin.payroll-incentives.details', [$date, $incentive->employee_id]) }}">{{ $incentive->employee->full_name }}</a>
                                             </td>
-                                            <td>{{ $incentive->employee->position->department->department }} - {{ $incentive->employee->position->name }}</td>
+                                            <td>{{ $incentive->employee->position->department->name }} - {{ $incentive->employee->position->name }}</td>
                                             <td>${{ number_format($incentive->incentive_amount_sum, 2) }}</td>
                                             <td><a href="{{ route('admin.payroll-incentives.details', [$date, $incentive->employee_id]) }}"><i class="fa fa-eye"></i> Details</a></td>
                                         </tr>
@@ -61,7 +61,7 @@
                     <div class="box-footer">
                         {{ $incentives->render() }}
                     </div>
-                    
+
                 </div>
             </div>
         </div>

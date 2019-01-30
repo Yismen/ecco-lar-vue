@@ -12,39 +12,6 @@ use Carbon\Carbon;
 | database. Just tell the factory how a default model should look.
 |
 */
-$factory->define(App\Login::class, function (Faker\Generator $faker) {
-    return [
-        'login' => $faker->email,
-        'employee_id' => random_int(50001, 50090),
-        'system_id' => 6
-    ];
-});
-
-$factory->define(App\Password::class, function (Faker\Generator $faker) {
-    return [
-        'user_id' => 1,
-        'slug' => str_slug($faker->lastName),
-        'title' => $faker->lastName,
-        'url' => $faker->url,
-        'username' => $faker->email,
-        'password' => str_random(10),
-    ];
-});
-
-$factory->define(App\Gender::class, function () {
-    return ['gender' => 'Male', ];
-});
-
-$factory->define(App\EscalClient::class, function (Faker\Generator $faker) {
-    return [
-        'slug' => str_slug($faker->word),
-        'name' => $faker->word,
-    ];
-});
-
-$factory->define(App\Marital::class, function (Faker\Generator $faker) {
-    return ['name' => $faker->name];
-});
 
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [

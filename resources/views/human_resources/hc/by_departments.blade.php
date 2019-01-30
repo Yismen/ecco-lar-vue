@@ -9,7 +9,7 @@
 
                     <div class="box-header">
                         <h4>
-                            Department: {{ $department->department }} 
+                            Department: {{ $department->name }}
                             <span class="badge text-center">{{ $department->employees->count() }} Active Employees</span>
 
                             <a href="/admin/human_resources" class="pull-right">
@@ -50,7 +50,7 @@
                                                         <i class="fa fa-eye"></i> {{ $employee->full_name }}
                                                     </a>
                                                 </td>
-                                                <td>{{ $employee->position->department->department }} - {{ $employee->position->name }}</td>
+                                                <td>{{ $employee->position->department->name }} - {{ $employee->position->name }}</td>
                                                 <td>{{ $employee->hire_date->format('d/M/Y') }}, {{ $employee->hire_date->diffForHumans() }}</td>
                                                 <td>
                                                     <a href="/admin/employees/{{ $employee->id }}/edit"><i class="fa fa-edit"></i> Edit</a>

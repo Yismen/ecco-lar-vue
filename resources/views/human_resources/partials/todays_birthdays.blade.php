@@ -7,7 +7,7 @@
             </div>
             <div class="col-sm-9">
                 <div class="text-center">
-                    <h5>From {{ $employee->position->department->department }}, {{ $employee->position->name }}</h5>
+                    <h5>From {{ $employee->position->department->name }}, {{ $employee->position->name }}</h5>
                     <p>Turning {{ $employee->date_of_birth->age }} years old today.</p>
                 </div>
             </div>
@@ -16,7 +16,7 @@
  --}}
     <div class="info-box bg-aqua">
         <span class="info-box-icon">
-            <img src="{{ $employee->photo }}" class="img-responsive img-circle offline" alt="Image">     
+            <img src="{{ $employee->photo }}" class="img-responsive img-circle offline" alt="Image">
         </span>
         <div class="info-box-content">
             <div class="info-box-number">
@@ -24,10 +24,9 @@
                  {{ $employee->full_name }}
             </div>
             <div class="info-box-text">
-                From {{ $employee->position->department->department }}, {{ $employee->position->name }}, <br>
+                From {{ $employee->position->department->name }}, {{ $employee->position->name }}, <br>
                 Turning {{ $employee->date_of_birth->age }} years old today.
             </div>
         </div>
     </div>
 @endforeach
-    

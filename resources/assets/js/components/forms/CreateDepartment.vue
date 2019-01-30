@@ -24,7 +24,7 @@
                                     <div class="input-group">
                                         <input type="text" id="create-department-name"
                                             name="name" class="form-control"
-                                            v-model="form.fields.department"
+                                            v-model="form.fields.name"
                                         >
                                         <div class="input-group-addon"><i class="fa fa-flag"></i></div>
                                     </div>
@@ -68,7 +68,7 @@ export default {
             this.form.post('/api/departments')
                 .then(response => {
                     this.$emit('department-created', response.data)
-                    this.form.fields.department = '';
+                    this.form.fields.name = '';
                     this.$modal.hide('create-department');
                 })
         },

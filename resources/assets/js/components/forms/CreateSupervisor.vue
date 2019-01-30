@@ -31,9 +31,9 @@
                     <div class="form-group" :class="{'has-error': form.error.has('department_id')}">
                         <label for="input" class="col-sm-2 control-label">Department:</label>
                         <div class="col-sm-10">
-                            <select name="department_id" id="department_id" class="form-control" v-model="form.fields.department_id">
+                            <select name="department_id" id="department_id" class="form-control" v-model="form.fields.name_id">
                                 <option v-for="(department, index) in departments_list" :value="department.id" :key="department.id">
-                                    {{ department.department }}
+                                    {{ department.name }}
                                 </option>
                             </select>
                             <span class="text-danger" v-if="form.error.has('department_id')">{{ form.error.get('department_id') }}</span>

@@ -6,17 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Department extends Model
 {
-    protected $fillable = ['department'];
+    protected $fillable = ['name'];
 
     /**
      * Update the Department name field to be ucwords
      *
-     * @param  [string] $department the department name's field
+     * @param  [string] $name the name name's field
      * @return string             converted string
      */
-    public function setDepartmentAttribute($department)
+    public function setNameAttribute($name)
     {
-        return $this->attributes['department'] = ucwords($department);
+        return $this->attributes['name'] = ucwords($name);
     }
 
     public function positions()
@@ -34,8 +34,8 @@ class Department extends Model
     }
 
     /**
-     * Return the count of employees assigned to the current department
-     * @return integer Count of employees assigned to the current department
+     * Return the count of employees assigned to the current name
+     * @return integer Count of employees assigned to the current name
      */
     public function employees_count()
     {

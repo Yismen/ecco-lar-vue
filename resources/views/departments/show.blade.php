@@ -5,7 +5,7 @@
 	<div class="col-sm-8 col-sm-offset-2">
 		<div class="box box-primary pad">
 			<h4 class="page-header">
-				{{ $department->department }}
+				{{ $department->name }}
 				<a href="{{ route('admin.departments.edit', $department->id) }}">
 					<i class="fa fa-pencil"></i>
 				</a>

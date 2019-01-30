@@ -29,7 +29,7 @@
                                     <tr>
                                         <td>
                                             <a href="{{ route('admin.departments.show', $department->id) }}">
-                                                {{ $department->department }}
+                                                {{ $department->name }}
                                             </a>
                                         </td>
                                         <td>

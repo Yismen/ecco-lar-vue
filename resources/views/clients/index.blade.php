@@ -5,7 +5,7 @@
 	<div class="container-fluid">
 		<div class="col-sm-8 col-sm-offset-2">
 			<div class="box box-primary">
-				
+
 				<div class="table-responsive">
 					<table class="table table-condensed table-bordered">
 						<thead>
@@ -23,14 +23,14 @@
 									<td>
 										<ul>
 											@foreach ($client->departments as $department)
-												<li> {{ $department->department }} </li>		
+												<li> {{ $department->name }} </li>
 											@endforeach
 										</ul>
 									</td>
 									<td>
 										<ul>
 											@foreach ($client->sources as $source)
-												<li> {{ $source->name }} </li>		
+												<li> {{ $source->name }} </li>
 											@endforeach
 										</ul>
 									</td>
@@ -44,12 +44,12 @@
 					</table>
 					{{ $clients->render() }}
 				</div>
-				
+
 			</div>
 		</div>
 	</div>
 @stop
 
 @section('scripts')
-	
+
 @stop
