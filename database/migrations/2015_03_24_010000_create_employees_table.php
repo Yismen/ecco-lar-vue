@@ -47,11 +47,10 @@ class CreateEmployeesTable extends Migration
         /**
          * set the initial value for the autoincrement field
          */
-        if (config('database.default') == 'mysql') {
-            DB::statement('ALTER TABLE `employees` AUTO_INCREMENT = 50001');
-        }
         if (config('database.default') == 'pgsql') {
             DB::statement('ALTER SEQUENCE employees_id_seq RESTART WITH 50001');
+        } else {
+            DB::statement('ALTER TABLE `employees` AUTO_INCREMENT = 50001');
         }
     }
 

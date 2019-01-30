@@ -211,7 +211,7 @@ trait EmployeeAccessors
      */
     public function getGendersListAttribute()
     {
-        return Gender::select('gender', 'id')->get();
+        return Gender::select('name', 'id')->get();
     }
 
     public function getMaritalsListAttribute()

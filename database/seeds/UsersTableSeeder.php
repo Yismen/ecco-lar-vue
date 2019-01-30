@@ -2,6 +2,7 @@
 
 use App\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class UsersTableSeeder extends Seeder
 {
@@ -14,8 +15,6 @@ class UsersTableSeeder extends Seeder
     {
         User::truncate();
 
-        $this->setAutoIncrementStartNumber(10000);
-
         User::create([
             'name' => 'Yismen Jorge', // $faker->name,
             'email' => 'yismen.jorge@gmail.com', // $faker->email,
@@ -25,17 +24,5 @@ class UsersTableSeeder extends Seeder
             'is_active' => 1,
             'is_admin' => 1,
         ]);
-    }
-
-    private function setAutoIncrementStartNumber($number = 10000)
-    {
-        switch (config('database.default')) {
-            case 'pgsql':
-                DB::statement('ALTER SEQUENCE employees_id_seq RESTART WITH ' . $number);
-                break;
-
-            default:
-                DB::statement('ALTER TABLE `employees` AUTO_INCREMENT = ' . $number);
-                break;
     }
 }
