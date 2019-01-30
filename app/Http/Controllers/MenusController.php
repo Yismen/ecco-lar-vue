@@ -24,7 +24,7 @@ class MenusController extends Controller
      */
     public function index(Menu $menus)
     {
-        $menus = $menus->orderBy('display_name', 'ASC')->get();
+        $menus = $menus->orderBy('name', 'ASC')->get();
 
         return view('menus.index', compact('menus'));
     }
