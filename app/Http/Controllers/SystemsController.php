@@ -11,10 +11,10 @@ class SystemsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('authorize:view_systems|edit_systems|create_systems', ['only' => ['index', 'show']]);
-        $this->middleware('authorize:edit_systems', ['only' => ['edit', 'update']]);
-        $this->middleware('authorize:create_systems', ['only' => ['create', 'store']]);
-        $this->middleware('authorize:destroy_systems', ['only' => ['destroy']]);
+        $this->middleware('authorize:view-systems|edit-systems|create-systems', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit-systems', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create-systems', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy-systems', ['only' => ['destroy']]);
     }
 
     /**

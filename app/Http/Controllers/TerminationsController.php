@@ -9,10 +9,10 @@ class TerminationsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('authorize:view_terminations|edit_terminations|create_terminations', ['only' => ['index', 'show']]);
-        $this->middleware('authorize:edit_terminations', ['only' => ['edit', 'update']]);
-        $this->middleware('authorize:create_terminations', ['only' => ['create', 'store']]);
-        $this->middleware('authorize:destroy_terminations', ['only' => ['destroy']]);
+        $this->middleware('authorize:view-terminations|edit-terminations|create-terminations', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit-terminations', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create-terminations', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy-terminations', ['only' => ['destroy']]);
     }
 
     /**

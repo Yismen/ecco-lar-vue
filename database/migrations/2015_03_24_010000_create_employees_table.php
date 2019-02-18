@@ -26,12 +26,14 @@ class CreateEmployeesTable extends Migration
             $table->string('secondary_phone', 25)->nullable();
 
             $table->integer('position_id')->unsigned()->nullable()->index();
+            // $table->integer('project_id')->unsigned()->nullable()->index();
             $table->integer('supervisor_id')->unsigned()->nullable()->index();
             $table->integer('gender_id')->unsigned()->index();
             $table->integer('marital_id')->unsigned()->index();
             $table->integer('ars_id')->unsigned()->nullable();
             $table->integer('afp_id')->unsigned()->nullable();
             $table->boolean('has_kids', 10)->default(0);
+            // $table->integer('kids', 10)->default(0);
             $table->string('photo', 800)->nullable();
 
             $table->foreign('position_id')->references('id')->on('positions');
@@ -48,9 +50,9 @@ class CreateEmployeesTable extends Migration
          * set the initial value for the autoincrement field
          */
         if (config('database.default') == 'pgsql') {
-            DB::statement('ALTER SEQUENCE employees_id_seq RESTART WITH 50001');
-        } else {
-            DB::statement('ALTER TABLE `employees` AUTO_INCREMENT = 50001');
+            DB::statement('ALTER SEQUENCE employees_id_seq RESTART WITH 10001');
+        } elseif (config('database.default') == 'mysql') {
+            DB::statement('ALTER TABLE `employees` AUTO_INCREMENT = 10001');
         }
     }
 

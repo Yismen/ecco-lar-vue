@@ -7,19 +7,19 @@ use Illuminate\Http\Request;
 
 class SourcesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function vue()
+    public function __construct()
     {
-        return view('sources.index');
+        $this->middleware('authorize:view-sources|edit-sources|create-sources', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit-sources', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create-sources', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy-sources', ['only' => ['destroy']]);
     }
 
     public function index()
     {
-        return Source::get();
+        $sources = Source::all();
+
+        return view('sources.index', compact('sources'));
     }
 
     /**
@@ -57,7 +57,7 @@ class SourcesController extends Controller
      */
     public function show(Source $source)
     {
-        return $source;
+        return view('sources.show', compact('source'));
     }
 
     /**
@@ -99,6 +99,6 @@ class SourcesController extends Controller
     {
         $source->delete();
 
-        return $source;
+        return redirect()->route('admin.sources.index');
     }
 }

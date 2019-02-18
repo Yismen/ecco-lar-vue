@@ -16,11 +16,11 @@ class HoursController extends Controller
         $this->request = $request;
         $this->hours = $hours;
 
-        $this->middleware('authorize:view_hours|edit_hours|create_hours', ['only' => ['index', 'show']]);
-        $this->middleware('authorize:edit_hours', ['only' => ['edit', 'update']]);
-        $this->middleware('authorize:create_hours', ['only' => ['create', 'store']]);
-        $this->middleware('authorize:destroy_hours', ['only' => ['destroy']]);
-        $this->middleware('authorize:view_by_date', ['only' => ['byDate']]);
+        $this->middleware('authorize:view-hours|edit-hours|create-hours', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit-hours', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create-hours', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy-hours', ['only' => ['destroy']]);
+        $this->middleware('authorize:view-by-date', ['only' => ['byDate']]);
     }
 
     /**

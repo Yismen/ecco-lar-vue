@@ -16,10 +16,10 @@ class PositionsController extends Controller
     public function __construct()
     {
         $this->middleware('role:system-administrator');
-        $this->middleware('authorize:view_positions|edit_positions|create_positions', ['only' => ['index', 'show']]);
-        $this->middleware('authorize:edit_positions', ['only' => ['edit', 'update']]);
-        $this->middleware('authorize:create_positions', ['only' => ['create', 'store']]);
-        $this->middleware('authorize:destroy_positions', ['only' => ['destroy']]);
+        $this->middleware('authorize:view-positions|edit-positions|create-positions', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit-positions', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create-positions', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy-positions', ['only' => ['destroy']]);
     }
 
     /**

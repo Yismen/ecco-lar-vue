@@ -13,10 +13,10 @@ class EscalRecordsController extends Controller
 
     public function __construct(Request $request)
     {
-        $this->middleware('authorize:view_escalations_records|edit_escalations_records|create_escalations_records', ['only' => ['index', 'show']]);
-        $this->middleware('authorize:edit_escalations_records', ['only' => ['edit', 'update']]);
-        $this->middleware('authorize:create_escalations_records', ['only' => ['create', 'store']]);
-        $this->middleware('authorize:destroy_escalations_records', ['only' => ['destroy']]);
+        $this->middleware('authorize:view-escalations-records|edit-escalations-records|create-escalations-records', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit-escalations-records', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create-escalations-records', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy-escalations-records', ['only' => ['destroy']]);
 
         // $request->flash();
     }

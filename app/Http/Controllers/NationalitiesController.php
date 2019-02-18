@@ -10,10 +10,10 @@ class NationalitiesController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('authorize:view_nationalities|edit_nationalities|create_nationalities', ['only' => ['index', 'show']]);
-        $this->middleware('authorize:edit_nationalities', ['only' => ['edit', 'update']]);
-        $this->middleware('authorize:create_nationalities', ['only' => ['create', 'store']]);
-        $this->middleware('authorize:destroy_nationalities', ['only' => ['destroy']]);
+        $this->middleware('authorize:view-nationalities|edit-nationalities|create-nationalities', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit-nationalities', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create-nationalities', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy-nationalities', ['only' => ['destroy']]);
     }
 
     /**

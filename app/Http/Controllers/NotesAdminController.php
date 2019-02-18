@@ -10,9 +10,9 @@ class NotesAdminController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('authorize:edit_notes', ['only' => ['edit', 'update']]);
-        $this->middleware('authorize:create_notes', ['only' => ['create', 'store']]);
-        $this->middleware('authorize:destroy_notes', ['only' => ['destroy']]);
+        $this->middleware('authorize:edit-notes', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create-notes', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy-notes', ['only' => ['destroy']]);
     }
 
     /**

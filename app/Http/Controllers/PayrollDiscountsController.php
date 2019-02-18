@@ -15,11 +15,11 @@ class PayrollDiscountsController extends Controller
 
     public function __construct()
     {
-        $this->middleware('authorize:view_payroll-discounts', ['only' => ['index', 'show']]);
-        $this->middleware('authorize:edit_payroll-discounts', ['only' => ['edit', 'update']]);
-        $this->middleware('authorize:create_payroll-discounts', ['only' => ['create', 'store']]);
-        $this->middleware('authorize:destroy_payroll-discounts', ['only' => ['destroy']]);
-        $this->middleware('authorize:import_payrolls-discounts', ['only' => ['import', 'handleImport']]);
+        $this->middleware('authorize:view-payroll-discounts', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit-payroll-discounts', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create-payroll-discounts', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy-payroll-discounts', ['only' => ['destroy']]);
+        $this->middleware('authorize:import-payrolls-discounts', ['only' => ['import', 'handleImport']]);
     }
 
     /**

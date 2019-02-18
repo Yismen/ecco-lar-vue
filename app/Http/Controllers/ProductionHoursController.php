@@ -16,10 +16,10 @@ class ProductionHoursController extends Controller
 
     public function __construct(Request $request)
     {
-        $this->middleware('authorize:view_production_hours|edit_production_hours|create_production_hours', ['only' => ['index', 'show']]);
-        $this->middleware('authorize:edit_production_hours', ['only' => ['edit', 'update']]);
-        $this->middleware('authorize:create_production_hours', ['only' => ['create', 'store']]);
-        $this->middleware('authorize:destroy_production_hours', ['only' => ['destroy']]);
+        $this->middleware('authorize:view-production-hours|edit-production-hours|create-production-hours', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit-production-hours', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create-production-hours', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy-production-hours', ['only' => ['destroy']]);
 
         $this->request = $request;
         $this->supervisorsList = Supervisor::pluck('name', 'name')->toArray();

@@ -1,9 +1,7 @@
 <?php
 
-Route::bind('source', function ($source) {
-    return App\Source::whereSlug($source)
-        ->firstOrFail();
+Route::bind('source', function ($id) {
+    return App\Source::findOrFail($id);
 });
 
-Route::get('sources', 'SourcesController@vue');
-Route::resource('api/sources', 'SourcesController');
+Route::resource('sources', 'SourcesController');

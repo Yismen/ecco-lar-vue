@@ -10,10 +10,10 @@ class BanksController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('authorize:view_banks', ['only' => ['index', 'show']]);
-        $this->middleware('authorize:edit_banks', ['only' => ['edit', 'update']]);
-        $this->middleware('authorize:create_banks', ['only' => ['create', 'store']]);
-        $this->middleware('authorize:destroy_banks', ['only' => ['destroy']]);
+        $this->middleware('authorize:view-banks', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit-banks', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create-banks', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy-banks', ['only' => ['destroy']]);
     }
 
     /**

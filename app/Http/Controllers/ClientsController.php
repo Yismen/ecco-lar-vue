@@ -9,10 +9,10 @@ class ClientsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('authorize:view_clients|edit_clients|create_clients', ['only' => ['index', 'show']]);
-        $this->middleware('authorize:edit_clients', ['only' => ['edit', 'update']]);
-        $this->middleware('authorize:create_clients', ['only' => ['create', 'store']]);
-        $this->middleware('authorize:destroy_clients', ['only' => ['destroy']]);
+        $this->middleware('authorize:view-clients|edit-clients|create-clients', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit-clients', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create-clients', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy-clients', ['only' => ['destroy']]);
     }
 
     /**

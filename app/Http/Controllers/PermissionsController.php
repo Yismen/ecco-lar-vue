@@ -11,10 +11,10 @@ class PermissionsController extends Controller
 
     public function __construct()
     {
-        $this->middleware('authorize:view_permissions', ['only' => ['index', 'show']]);
-        $this->middleware('authorize:edit_permissions', ['only' => ['edit', 'update']]);
-        $this->middleware('authorize:create_permissions', ['only' => ['create', 'store']]);
-        $this->middleware('authorize:destroy_permissions', ['only' => ['destroy']]);
+        $this->middleware('authorize:view-permissions', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit-permissions', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create-permissions', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy-permissions', ['only' => ['destroy']]);
     }
 
     /**

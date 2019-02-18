@@ -14,10 +14,10 @@ class LoginNamesController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('authorize:view_login_names|edit_login_names|create_login_names', ['only' => ['index', 'show']]);
-        $this->middleware('authorize:edit_login_names', ['only' => ['edit', 'update']]);
-        $this->middleware('authorize:create_login_names', ['only' => ['create', 'store']]);
-        $this->middleware('authorize:destroy_login_names', ['only' => ['destroy']]);
+        $this->middleware('authorize:view-login-names|edit-login-names|create-login-names', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit-login-names', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create-login-names', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy-login-names', ['only' => ['destroy']]);
         $this->middleware('authorize:export-login-names-to-excel', ['only' => ['toExcel']]);
     }
 

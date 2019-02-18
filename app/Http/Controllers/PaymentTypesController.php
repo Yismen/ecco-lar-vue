@@ -10,10 +10,10 @@ class PaymentTypesController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('authorize:view_payment_types|edit_payment_types|create_payment_types', ['only' => ['index', 'show']]);
-        $this->middleware('authorize:edit_payment_types', ['only' => ['edit', 'update']]);
-        $this->middleware('authorize:create_payment_types', ['only' => ['create', 'store']]);
-        $this->middleware('authorize:destroy_payment_types', ['only' => ['destroy']]);
+        $this->middleware('authorize:view-payment-types|edit-payment-types|create-payment-types', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit-payment-types', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create-payment-types', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy-payment-types', ['only' => ['destroy']]);
     }
 
     /**

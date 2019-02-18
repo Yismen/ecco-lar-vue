@@ -15,11 +15,11 @@ class PayrollAdditionalsController extends Controller
 
     public function __construct()
     {
-        $this->middleware('authorize:view_payroll-additionals', ['only' => ['index', 'show']]);
-        $this->middleware('authorize:edit_payroll-additionals', ['only' => ['edit', 'update']]);
-        $this->middleware('authorize:create_payroll-additionals', ['only' => ['create', 'store']]);
-        $this->middleware('authorize:destroy_payroll-additionals', ['only' => ['destroy']]);
-        $this->middleware('authorize:import_payrolls-additionals', ['only' => ['import', 'handleImport']]);
+        $this->middleware('authorize:view-payroll-additionals', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit-payroll-additionals', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create-payroll-additionals', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy-payroll-additionals', ['only' => ['destroy']]);
+        $this->middleware('authorize:import-payrolls-additionals', ['only' => ['import', 'handleImport']]);
     }
 
     /**

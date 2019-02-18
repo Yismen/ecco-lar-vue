@@ -10,10 +10,10 @@ class PayrollController extends Controller
 {
     public function __construc()
     {
-        $this->middleware('authorize:view_payrolls', ['only' => ['index', 'show']]);
-        $this->middleware('authorize:edit_payrolls', ['only' => ['edit', 'update']]);
-        $this->middleware('authorize:create_payrolls', ['only' => ['create', 'store']]);
-        $this->middleware('authorize:destroy_payrolls', ['only' => ['destroy']]);
+        $this->middleware('authorize:view-payrolls', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit-payrolls', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create-payrolls', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy-payrolls', ['only' => ['destroy']]);
     }
 
     /**

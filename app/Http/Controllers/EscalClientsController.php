@@ -9,10 +9,10 @@ class EscalClientsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('authorize:view_escalations_clients|edit_escalations_clients|create_escalations_clients', ['only' => ['index', 'show']]);
-        $this->middleware('authorize:edit_escalations_clients', ['only' => ['edit', 'update']]);
-        $this->middleware('authorize:create_escalations_clients', ['only' => ['create', 'store']]);
-        $this->middleware('authorize:destroy_escalations_clients', ['only' => ['destroy']]);
+        $this->middleware('authorize:view-escalations-clients|edit-escalations-clients|create-escalations-clients', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit-escalations-clients', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create-escalations-clients', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy-escalations-clients', ['only' => ['destroy']]);
     }
 
     /**

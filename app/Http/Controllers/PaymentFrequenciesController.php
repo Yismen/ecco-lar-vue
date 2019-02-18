@@ -10,10 +10,10 @@ class PaymentFrequenciesController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('authorize:view_payment_frequencies|edit_payment_frequencies|create_payment_frequencies', ['only' => ['index', 'show']]);
-        $this->middleware('authorize:edit_payment_frequencies', ['only' => ['edit', 'update']]);
-        $this->middleware('authorize:create_payment_frequencies', ['only' => ['create', 'store']]);
-        $this->middleware('authorize:destroy_payment_frequencies', ['only' => ['destroy']]);
+        $this->middleware('authorize:view-payment-frequencies|edit-payment-frequencies|create-payment-frequencies', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit-payment-frequencies', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create-payment-frequencies', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy-payment-frequencies', ['only' => ['destroy']]);
     }
 
     /**

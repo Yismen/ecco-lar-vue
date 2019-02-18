@@ -15,11 +15,11 @@ class PayrollIncentivesController extends Controller
 
     public function __construct()
     {
-        $this->middleware('authorize:view_payroll-incentives', ['only' => ['index', 'show']]);
-        $this->middleware('authorize:edit_payroll-incentives', ['only' => ['edit', 'update']]);
-        $this->middleware('authorize:create_payroll-incentives', ['only' => ['create', 'store']]);
-        $this->middleware('authorize:destroy_payroll-incentives', ['only' => ['destroy']]);
-        $this->middleware('authorize:import_payrolls-incentives', ['only' => ['import', 'handleImport']]);
+        $this->middleware('authorize:view-payroll-incentives', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit-payroll-incentives', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create-payroll-incentives', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy-payroll-incentives', ['only' => ['destroy']]);
+        $this->middleware('authorize:import-payrolls-incentives', ['only' => ['import', 'handleImport']]);
     }
 
     /**

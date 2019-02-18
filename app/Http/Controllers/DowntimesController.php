@@ -11,10 +11,10 @@ class DowntimesController extends Controller
 
     public function __construct(Request $request)
     {
-        $this->middleware('authorize:view_downtimes|edit_downtimes|create_downtimes', ['only' => ['index', 'show']]);
-        $this->middleware('authorize:edit_downtimes', ['only' => ['edit', 'update']]);
-        $this->middleware('authorize:create_downtimes', ['only' => ['create', 'store']]);
-        $this->middleware('authorize:destroy_downtimes', ['only' => ['destroy']]);
+        $this->middleware('authorize:view-downtimes|edit-downtimes|create-downtimes', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit-downtimes', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create-downtimes', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy-downtimes', ['only' => ['destroy']]);
 
         $this->request = $request;
     }

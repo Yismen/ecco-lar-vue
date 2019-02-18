@@ -10,10 +10,10 @@ class AfpsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('authorize:view_afps|edit_afps|create_afps', ['only' => ['index', 'show']]);
-        $this->middleware('authorize:edit_afps', ['only' => ['edit', 'update']]);
-        $this->middleware('authorize:create_afps', ['only' => ['create', 'store']]);
-        $this->middleware('authorize:destroy_afps', ['only' => ['destroy']]);
+        $this->middleware('authorize:view-afps|edit-afps|create-afps', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit-afps', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create-afps', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy-afps', ['only' => ['destroy']]);
     }
 
     /**

@@ -9,10 +9,10 @@ class PayrollDiscountConceptsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('authorize:view_payroll_discount_concepts', ['only' => ['index', 'show']]);
-        $this->middleware('authorize:edit_payroll_discount_concepts', ['only' => ['edit', 'update']]);
-        $this->middleware('authorize:create_payroll_discount_concepts', ['only' => ['create', 'store']]);
-        $this->middleware('authorize:destroy_payroll_discount_concepts', ['only' => ['destroy']]);
+        $this->middleware('authorize:view-payroll-discount-concepts', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit-payroll-discount-concepts', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create-payroll-discount-concepts', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy-payroll-discount-concepts', ['only' => ['destroy']]);
     }
 
     /**

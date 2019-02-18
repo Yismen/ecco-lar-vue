@@ -17,10 +17,10 @@ class RolesController extends Controller
 
     public function __construct(User $user, Menu $menu, Permission $permission)
     {
-        $this->middleware('authorize:view_roles|edit_roles|create_roles', ['only' => ['index', 'show']]);
-        $this->middleware('authorize:edit_roles', ['only' => ['edit', 'update']]);
-        $this->middleware('authorize:create_roles', ['only' => ['create', 'store']]);
-        $this->middleware('authorize:destroy_roles', ['only' => ['destroy']]);
+        $this->middleware('authorize:view-roles|edit-roles|create-roles', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit-roles', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create-roles', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy-roles', ['only' => ['destroy']]);
 
         $this->usersList = $user->orderBy('name')->pluck('name', 'id');
         $this->menusList = $menu->orderBy('name')->pluck('name', 'id');
@@ -125,9 +125,9 @@ class RolesController extends Controller
     public function destroy(Role $role)
     {
         $role->delete();
-        
+
         Cache::forget('menus');
-        Cache::forget('roles');        
+        Cache::forget('roles');
 
         return redirect()->route('admin.roles.index')
             ->withWarning("Role $role->name has been removed!!!");

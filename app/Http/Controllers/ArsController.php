@@ -9,10 +9,10 @@ class ArsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('authorize:view_ars|edit_ars|create_ars', ['only' => ['index', 'show']]);
-        $this->middleware('authorize:edit_ars', ['only' => ['edit', 'update']]);
-        $this->middleware('authorize:create_ars', ['only' => ['create', 'store']]);
-        $this->middleware('authorize:destroy_ars', ['only' => ['destroy']]);
+        $this->middleware('authorize:view-ars|edit-ars|create-ars', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit-ars', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create-ars', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy-ars', ['only' => ['destroy']]);
     }
 
     /**

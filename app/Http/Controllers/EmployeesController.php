@@ -24,10 +24,10 @@ class EmployeesController extends Controller
         $this->request = $request;
         $this->carbon = $carbon;
 
-        $this->middleware('authorize:view_employees|edit_employees|create_employees', ['only' => ['index', 'show']]);
-        $this->middleware('authorize:edit_employees', ['only' => ['edit', 'update']]);
-        $this->middleware('authorize:create_employees', ['only' => ['create', 'store']]);
-        $this->middleware('authorize:destroy_employees', ['only' => ['destroy']]);
+        $this->middleware('authorize:view-employees|edit-employees|create-employees', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit-employees', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create-employees', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy-employees', ['only' => ['destroy']]);
     }
 
     /**
