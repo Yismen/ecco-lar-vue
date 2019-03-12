@@ -5,6 +5,7 @@
 /storage/framework/sessions
 /.phpintel
 /.vscode
+/.vagrant
 Homestead.yaml
 Homestead.json
 .env
