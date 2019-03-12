@@ -5,44 +5,37 @@
 	<div class="container-fluid">
 		<div class="col-sm-8 col-sm-offset-2">
 			<div class="box box-primary">
-
-				<div class="table-responsive">
-					<table class="table table-condensed table-bordered">
-						<thead>
-							<tr>
-								<th>Client</th>
-								<th>Department</th>
-								<th>Source</th>
-								<th><a href="{{ route('admin.clients.create') }}"><i class="fa fa-plus"></i> Add</a></th>
-							</tr>
-						</thead>
-						<tbody>
-							@foreach ($clients as $client)
+				<div class="box-header">
+					<h4>Clients</h4>
+				</div>
+				<div class="box-body">
+					<div class="table-responsive">
+						<table class="table table-condensed table-bordered">
+							<thead>
 								<tr>
-									<td><a href="{{ route('admin.clients.show', $client->id) }}">{{ $client->name }}</a></td>
-									<td>
-										<ul>
-											@foreach ($client->departments as $department)
-												<li> {{ $department->name }} </li>
-											@endforeach
-										</ul>
-									</td>
-									<td>
-										<ul>
-											@foreach ($client->sources as $source)
-												<li> {{ $source->name }} </li>
-											@endforeach
-										</ul>
-									</td>
-									<td>
-										<a href="{{ route('admin.clients.edit', $client->id) }}"><i class="fa fa-pencil"></i> Edit</a>
-									</td>
-
+									<th>Name</th>
+									<th>Phone</th>
+									<th>Email</th>
+									<th><a href="{{ route('admin.clients.create') }}"><i class="fa fa-plus"></i> Add</a></th>
 								</tr>
-							@endforeach
-						</tbody>
-					</table>
-					{{ $clients->render() }}
+							</thead>
+							<tbody>
+								@foreach ($clients as $client)
+									<tr>
+										<td>
+											<a href="{{ route('admin.clients.show', $client->id) }}">{{ $client->name }}</a>
+										</td>
+										<td>{{ $client->main_phone }}</td>
+										<td>{{ $client->email }}</td>
+										<td>
+											<a href="{{ route('admin.clients.edit', $client->id) }}"><i class="fa fa-pencil"></i> Edit</a>
+										</td>
+
+									</tr>
+								@endforeach
+							</tbody>
+						</table>
+					</div>
 				</div>
 
 			</div>

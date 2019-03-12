@@ -1,9 +1,7 @@
 <?php
 
 Route::bind('client', function ($id) {
-    return App\Client::whereId($id)
-        ->firstOrFail()
-        ->append(['department_list', 'sources_list']);
+    return App\Modules\Clients\Client::findOrFail($id);
 });
 
-Route::resource('clients', 'ClientsController');
+Route::resource('clients', '\App\Modules\Clients\ClientsController');
