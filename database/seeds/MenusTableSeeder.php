@@ -19,8 +19,8 @@ class MenusTableSeeder extends Seeder
         Menu::create(['name' => 'admin/users', 'display_name' => 'Users', 'description' => '', 'icon' => 'fa fa-users']);
         Menu::create(['name' => 'admin/roles', 'display_name' => 'Roles', 'description' => '', 'icon' => 'fa fa-unlock']);
         Menu::create(['name' => 'admin/permissions', 'display_name' => 'Permissions', 'description' => '', 'icon' => 'fa fa-key']);
-        Menu::create(['name' => 'admin/menus', 'display_name' => 'Menus', 'description' => '']);
-        Menu::create(['name' => 'admin/employees', 'display_name' => 'Employees', 'description' => '']);
+        Menu::create(['name' => 'admin/menus', 'display_name' => 'Menus', 'description' => '', 'icon' => 'fa fa-bars']);
+        Menu::create(['name' => 'admin/employees', 'display_name' => 'Employees', 'description' => '', 'icon' => 'fa fa-users']);
         Menu::create(['name' => 'admin/positions', 'display_name' => 'Positions', 'description' => '']);
     }
 }
