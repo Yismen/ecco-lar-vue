@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Client;
+use Illuminate\Http\Request;
+use Cache;
 
 class ClientsController extends Controller
 {
@@ -15,110 +16,62 @@ class ClientsController extends Controller
         $this->middleware('authorize:destroy-clients', ['only' => ['destroy']]);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index(Client $clients)
+    public function index()
     {
-        $clients = $clients->with('departments')->with('sources')->paginate(25);
+        $clients = Cache::remember('clients', 60, function() {
+            return Client::get();
+        });
 
         return view('clients.index', compact('clients'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create(Client $client)
+    public function create()
     {
-        return view('clients.create', compact('client'));
+        return view('clients.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
-     */
-    public function store(Client $client, Request $request)
+    public function store(Request $request)
     {
         $this->validate($request, [
             'name' => 'required|unique:clients',
-            // 'departments' => 'required',
-            'departments.*' => 'exists:departments,id',
-            // 'sources' => 'required',
-            'sources.*' => 'exists:sources,id'
+            'contact_name' => 'required',
+            'main_phone' => 'required',
+            'email' => 'required|email',
         ]);
 
-        $client = $client->create($request->only(['name', 'departments', 'sources']));
+        $client = Client::create($request->only(['name', 'contact_name', 'main_phone', 'email', 'secondary_phone', 'account_number']));
 
-        $client->departments()->sync((array)$request->departments);
-        $client->sources()->sync((array)$request->sources);
+        Cache::forget('clients');
 
         return redirect()->route('admin.clients.index')
-            ->withSuccess("Client $client->name has been added!");
+            ->withSuccess('Client '. $client->name . ' has been created!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
     public function show(Client $client)
     {
         return view('clients.show', compact('client'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
     public function edit(Client $client)
     {
         return view('clients.edit', compact('client'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function Update(Client $client, Request $request)
+    public function update(Client $client, Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|unique:clients,id,' . $client->id . ',id',
-            // 'departments' => 'required',
-            'departments.*' => 'exists:departments,id',
-            // 'sources' => 'required',
-            'sources.*' => 'exists:sources,id'
+            'name' => 'required|unique:clients,name,'.$client->id,
+            'contact_name' => 'required',
+            'main_phone' => 'required',
+            'email' => 'required|email',
         ]);
 
-        $client->update($request->only('name', 'departments', 'sources'));
+        $client->update($request->only(['name', 'contact_name', 'main_phone', 'email', 'secondary_phone', 'account_number']));
 
-        $client->departments()->sync((array)$request->departments);
-        $client->sources()->sync((array)$request->sources);
+        Cache::forget('clients');
 
         return redirect()->route('admin.clients.index')
-            ->withSuccess("Client $client->name updated");
-    }
+            ->withSuccess('Client '. $client->name . ' has been updated!');
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy(Client $client)
-    {
-        $client->delete();
-
-        return redirect()->route('clients.index')
-            ->withWarning("Client $client->name has been removed!");
     }
 }

@@ -4,4 +4,4 @@ Route::bind('client', function ($id) {
     return App\Modules\Clients\Client::findOrFail($id);
 });
 
-Route::resource('clients', '\App\Modules\Clients\ClientsController');
+Route::resource('clients', 'ClientsController');
