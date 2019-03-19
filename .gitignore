@@ -6,8 +6,6 @@
 /.phpintel
 /.vscode
 /.vagrant
-Homestead.yaml
-Homestead.json
 .env
 npm-debug.log
 tasks.todo

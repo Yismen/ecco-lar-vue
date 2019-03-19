@@ -1,0 +1,39 @@
+ip: "192.168.10.10"
+memory: 2048
+cpus: 1
+provider: virtualbox
+authorize: ~/.ssh/id_rsa.pub
+backup: true
+#neo4j: true
+#mariadb: true
+
+keys:
+    - ~/.ssh/id_rsa
+    
+folders:
+    - map: 'C:\Users\Yismen Jorge\Personales\code\projects\dainsys'
+      to: /home/vagrant/code
+
+sites:
+    - map: dainsys.test
+      to: /home/vagrant/code/public
+
+variables:
+    - key: APP_ENV
+      value: local
+    - key: DB_HOST
+      value: 127.0.0.1
+    - key: DB_CONNECTION
+      value: pgsql
+    - key: DB_USERNAME
+      value: homestead
+    - key: DB_PASSWORD
+      value: secret
+    - key: DB_DATABASE
+      value: dainsys
+      
+databases:
+    - dainsys
+
+name: dainsys
+hostname: dainsys
