@@ -25,3 +25,85 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+
+# Documentation
+Tasks:
+  * Users
+    - Has many permissions thru Roles
+    - Has many roles
+  * Permissions
+    - Belongs to many roles
+  * Roles
+    - Has many permissios
+    - Belongs to many users
+    - Has many menus
+  * Menus
+    Belongs to a role
+  * Punches
+    - Belongs to a Employee
+  * Revenue types
+    - Has many campaings
+  * Campaigns
+    - Belongs to project
+    - Belongs to a revenue type 
+  * Payment types
+    - Belongs to many positions
+  * Payment frequency
+    Belongs to many positions
+  * Departments
+    - Has many employees through positions
+  * Termination Reasons
+    - Belongs to a termination
+    - Has many employees thru terminations
+  * ARS
+    - Has many employees
+  * AFP
+    - Has many employees
+  * Maritals
+    - has many employees
+  * Genders
+    - Has many employees
+  * Supervisors
+    - Has many employees
+    - Has Many performances
+  * Projects
+    - Project has many employees
+    - Project has many performance
+    - Has many campaigns
+  * Employees
+    - Has one position
+    - Employee Has one punch
+    - Employee has many performances
+    - Employee belongs to a site
+    - Employee belongs to a project
+    - Belongs to a supervisor
+    - Has one gender
+    - Has one marital
+    - belongs to a ARS
+    - Belongs to a AFP
+    - Has a termination (When the employee is terminated
+  * Positions
+    - Has many employees
+    - Has one payment type
+    - Has one payment frequencie
+  * Performance
+    - Performance belongs to a employee
+    - Performance belongs to a project
+  * Remove Sources Module
+  * Sites
+    - Site has many employees
+  * Terminations
+    - Belongs to a employee (meaning the employee is inactve)
+    - Has a reason
+
+
+  * Migrate Dicenew to dainsys @created(18-12-20 10:20)
+    - Hours
+    Hours is common to all projects
+    - Performance
+    - QA
+  * Incentives??????
+  * Create a Module to monitor personal issues.  @created(18-12-04 20:35)
+  * Create a Module for reporting bugs and issues for the app.  @created(18-12-04 20:35)
+ only signed in users with this permission should see the link
+ Projects:
