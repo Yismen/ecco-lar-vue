@@ -12,6 +12,12 @@ Tasks:
     ✔ Belongs to a role @done (3/21/2019, 3:03:41 PM)
   ✔ Punches @done (3/21/2019, 3:03:28 PM)
     ✔ Belongs to a Employee @done (3/21/2019, 3:03:52 PM)
+  ✔ Projects @done (3/21/2019, 4:27:04 PM)
+    ☐ Project has many employees
+    ☐ Project has many performance
+    ☐ Has many campaigns
+  ☐ Sites
+      ☐ Site has many employees
   ☐ Revenue types
     ☐ Has many campaings
   ☐ Campaigns
@@ -37,10 +43,6 @@ Tasks:
   ☐ Supervisors
     ☐ Has many employees
     ☐ Has Many performances
-  ☐ Projects
-    ☐ Project has many employees
-    ☐ Project has many performance
-    ☐ Has many campaigns
   ☐ Employees
     ☐ Has one position
     ☐ Employee Has one punch
@@ -61,8 +63,6 @@ Tasks:
     ☐ Performance belongs to a employee
     ☐ Performance belongs to a project
   ☐ Remove Sources Module
-  ☐ Sites
-    ☐ Site has many employees
   ☐ Terminations
     ☐ Belongs to a employee (meaning the employee is inactve)
     ☐ Has a reason
