@@ -1,5 +1,5 @@
 @inject('layout', 'App\Layout')
-@extends('layouts.'.$layout->app(), ['page_header'=>'Systems', 'page_description'=>'Edit a current system.'])
+@extends('layouts.'.$layout->app(), ['page_header'=>'Revenue Types', 'page_description'=>'Edit a current revenue_type.'])
 
 @section('content')
 	<div class="container-fluid">
@@ -9,14 +9,14 @@
 					<div class="box-header with-border">
 						<h4>
 							Edit Revenue Type {{ $revenue_type->name }}
-							<a href="{{ route('admin.revenue_types.admin') }}" class="pull-right">
+							<a href="{{ route('admin.revenue_types.index') }}" class="pull-right">
 								<i class="fa fa-list"></i> List
 							</a>
 						</h4>
 					</div>
-					{!! Form::model($system, ['route'=>['admin.systems.update', $system->id], 'method'=>'PUT', 'class'=>'form-horizontal', 'role'=>'form']) !!}
+					{!! Form::model($revenue_type, ['route'=>['admin.revenue_types.update', $revenue_type->id], 'method'=>'PUT', 'class'=>'form-horizontal', 'role'=>'form']) !!}
 						<div class="box-body">
-							@include('systems._form')
+							@include('revenue_types._form')
 						</div>
 
 						<div class="box-footer">

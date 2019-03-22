@@ -54,7 +54,7 @@ class RevenueTypesController extends Controller
             $request->only(['name'])
         );
 
-        return redirect()->route('admin.revenue_types.show', $revenue_type->id)
+        return redirect()->route('admin.revenue_types.index')
             ->withSuccess("RevenueType [$revenue_type->name] has been Created");
     }
 
@@ -88,13 +88,15 @@ class RevenueTypesController extends Controller
      */
     public function update(RevenueType $revenue_type, Request $request)
     {
-        $this->validateRequest($request, $revenue_type);
+        $this->validate($request, [
+            'name' =>'required|min:3|unique:revenue_types,name,' . $revenue_type->id
+        ]);
 
         $revenue_type->update($request->only([
             'name', 'display_name', 'description', 'url'
         ]));
 
-        return redirect()->route('admin.revenue_types.show', $revenue_type->id)
+        return redirect()->route('admin.revenue_types.index')
             ->withSuccess("Information for revenue_type [$revenue_type->name] has been updated");
     }
 

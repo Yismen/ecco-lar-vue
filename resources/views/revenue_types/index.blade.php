@@ -10,8 +10,8 @@
 					<div class="box-header">
 						<h4>
 					 		Revenue Types
-						 	<a href="{{ route('admin.revenue_types.create') }}">
-						 		<i class="fa fa-plus"></i>
+						 	<a href="{{ route('admin.revenue_types.create') }}" class="pull-right">
+						 		<i class="fa fa-plus"></i> Add
 						 	</a>
 						</h4>
 					</div>
