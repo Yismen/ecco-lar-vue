@@ -16,7 +16,7 @@ Tasks:
     ☐ Project has many employees
     ☐ Project has many performance
     ☐ Has many campaigns
-  ☐ Sites
+  ✔ Sites @done (3/25/2019, 3:52:12 PM)
       ☐ Site has many employees
   ☐ Revenue types
     ☐ Has many campaings
