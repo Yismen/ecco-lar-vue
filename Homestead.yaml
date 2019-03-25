@@ -3,7 +3,7 @@ memory: 2048
 cpus: 1
 provider: virtualbox
 authorize: ~/.ssh/id_rsa.pub
-backup: true
+#backup: true
 #neo4j: true
 #mariadb: true
 
@@ -11,7 +11,7 @@ keys:
     - ~/.ssh/id_rsa
 folders:
     -
-        map: 'F:\code\projects\dainsys'
+        map: 'C:\Users\Yismen Jorge\Personales\code\projects\dainsys'
         to: /home/vagrant/code
 sites:
     -
@@ -21,7 +21,7 @@ sites:
 variables:
     -
       key: DB_HOST
-      value: 127.0.0.1
+      value: '127.0.0.1'
     -
       key: DB_CONNECTION
       value: pgsql
