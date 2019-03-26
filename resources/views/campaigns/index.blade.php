@@ -35,6 +35,10 @@
                                         <td>
                                             <a href="{{ route('admin.campaigns.show', $campaign->id) }}">{{ $campaign->name }}</a>
                                         </td>
+                                        <td>{{ $campaign->project->name }}</td>
+                                        <td>{{ $campaign->revenueType->name }}</td>
+                                        <td>{{ $campaign->sph_goal }}</td>
+                                        <td>${{ $campaign->revenue_rate }}</td>
                                         <td>
                                             <a href="{{ route('admin.campaigns.edit', $campaign->id) }}" class="text-warning">
                                                 <i class="fa fa-pencil"></i> Edit

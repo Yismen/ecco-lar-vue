@@ -20,9 +20,9 @@ Tasks:
       ☐ Site has many employees
   ☐ Revenue types
     ☐ Has many campaings
-  ☐ Campaigns
-    ☐ Belongs to project
-    ☐ Belongs to a revenue type 
+  ✔ Campaigns @done (3/26/2019, 8:56:58 AM)
+    ✔ Belongs to project @done (3/26/2019, 8:43:22 AM)
+    ✔ Belongs to a revenue type @done (3/26/2019, 8:43:19 AM)
   ☐ Payment types
     ☐ Belongs to many positions
   ☐ Payment frequency

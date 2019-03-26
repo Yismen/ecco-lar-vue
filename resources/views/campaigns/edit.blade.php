@@ -3,7 +3,7 @@
 @stop
 
 @inject('layout', 'App\Layout')
-@extends('layouts.'.$layout->app(), ['page_header'=>'Sites', 'page_description'=>'Edit Site ID.'])
+@extends('layouts.'.$layout->app(), ['page_header'=>'Campaigns', 'page_description'=>'Edit Campaign.'])
 
 @section('content')
 	<div class="container-fluid">
@@ -11,40 +11,35 @@
 			<div class="col-sm-8 col-sm-offset-2">
 				<div class="box box-warning">
 					<div class="box-header">
-						<h4>Edit Site {{ $site->name }}</h4>
+						<h4>
+							Edit Campaign {{ $campaign->name }}
+					    	<a href="{{ route('admin.campaigns.index') }}" class="pull-right">
+						    	<i class="fa fa-list"></i> List
+						    </a>
+						</h4>
 					</div>
 						
 
-					<div class="box-body">
-						{!! Form::model($site, ['route'=>['admin.sites.update', $site->id], 'method'=>'PUT', 'class'=>'form-horizontal', 'role'=>'form']) !!}
+					{!! Form::model($campaign, ['route'=>['admin.campaigns.update', $campaign->id], 'method'=>'PUT', 'class'=>'form-horizontal', 'role'=>'form']) !!}
+						<div class="box-body">
 
-							@include('sites._form')
-
-							<div class="form-group">
-								<div class="col-sm-6 col-sm-offset-2">
-									<button type="submit" class="btn btn-warning">Update</button>	
-									<button type="reset" class="btn btn-default">Reset Form</button>
-								</div>			
-							</div>
-
+							@include('campaigns._form')
 						
-						{!! Form::close() !!}
-					</div>
+						</div>
+
+						<div class="box-footer">							
+							<div class="col-sm-6 col-sm-offset-2">
+								<button type="submit" class="btn btn-warning">Update</button>	
+							</div>	
+						</div>
+					{!! Form::close() !!}
 
 					<div class="box-footer">
 						<delete-request-button
-							url="{{ route('admin.sites.destroy', $site->id) }}"
-							redirect-url="{{ route('admin.sites.index') }}"
+							url="{{ route('admin.campaigns.destroy', $campaign->id) }}"
+							redirect-url="{{ route('admin.campaigns.index') }}"
 						></delete-request-button>
 					</div>
-
-					    <div class="form-group col-sm-offset-4">
-					    	<a href="/admin/sites" class="push-right">
-					    		Back to the list 
-						    	<i class="fa fa-list"></i>
-						    </a>
-					    </div>
-
 				</div>
 			</div>
 		</div>

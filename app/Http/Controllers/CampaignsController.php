@@ -60,12 +60,16 @@ class CampaignsController extends Controller
 
     public function edit(Campaign $campaign)
     {
+        $campaign->append([
+            'project_list',
+            'revenue_type_list',
+        ]);
+        
         return view('campaigns.edit', compact('campaign'));
     }
 
     public function update(Campaign $campaign, Request $request)
     {
-        
         $this->validate($request, [
             'name' => 'required|unique:campaigns,name,' . $campaign->id,
             'project_id' => 'required|exists:projects,id',
@@ -73,7 +77,8 @@ class CampaignsController extends Controller
             'sph_goal' => 'required|numeric',
             'revenue_rate' => 'required|numeric',
         ]);
-
+        
+        // return $request->all();
         $campaign->update($request->only(['name', 'project_id', 'revenue_type_id', 'sph_goal', 'revenue_rate']));
 
         Cache::forget('campaigns');

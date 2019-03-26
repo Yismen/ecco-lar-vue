@@ -17,4 +17,14 @@ class Campaign extends Model
     {
         return RevenueType::get();
     }
+
+    public function project()
+    {
+        return $this->belongsTo(Project::class);
+    }
+
+    public function revenueType()
+    {
+        return $this->belongsTo(RevenueType::class);
+    }
 }

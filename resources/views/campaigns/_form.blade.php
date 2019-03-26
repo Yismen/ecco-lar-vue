@@ -19,20 +19,7 @@
 			</div>
 		</div>
 		<!-- /. Project -->	
-	</div>
-	<div class="col-sm-6"><!-- Revenue Type -->
-		<div class="form-group {{ $errors->has('revenue_type_id') ? 'has-error' : null }}">
-			{!! Form::label('revenue_type_id', ' Revenue Type:', ['class'=>'col-sm-2 control-label']) !!}
-			<div class="col-sm-10">
-					{!! Form::select('revenue_type_id', $campaign->revenue_type_list->pluck('name', 'id'), null, ['class'=>'form-control']) !!}
-				{!! $errors->first('revenue_type_id', '<span class="text-danger">:message</span>') !!}
-			</div>
-		</div>
-		<!-- /. Revenue Type -->
-	</div>
-</div>
-
-<div class="row">	
+	</div>	
 	<div class="col-sm-6">
 		<!-- SPH Goal -->
 		<div class="form-group {{ $errors->has('sph_goal') ? 'has-error' : null }}">
@@ -43,6 +30,19 @@
 			</div>
 		</div>
 		<!-- /. SPH Goal -->	
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-sm-6"><!-- Revenue Type -->
+		<div class="form-group {{ $errors->has('revenue_type_id') ? 'has-error' : null }}">
+			{!! Form::label('revenue_type_id', ' Revenue Type:', ['class'=>'col-sm-2 control-label']) !!}
+			<div class="col-sm-10">
+					{!! Form::select('revenue_type_id', $campaign->revenue_type_list->pluck('name', 'id'), null, ['class'=>'form-control']) !!}
+				{!! $errors->first('revenue_type_id', '<span class="text-danger">:message</span>') !!}
+			</div>
+		</div>
+		<!-- /. Revenue Type -->
 	</div>
 	<div class="col-sm-6"><!-- Revenue Rate -->
 		<div class="form-group {{ $errors->has('revenue_rate') ? 'has-error' : null }}">
