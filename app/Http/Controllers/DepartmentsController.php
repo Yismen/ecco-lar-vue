@@ -27,7 +27,7 @@ class DepartmentsController extends Controller
     {
         $departments = Cache::rememberForever('departments', function() {
             return Department::orderBy('name')->get();
-        });;
+        });
 
         return view('departments.index', compact('departments'));
     }

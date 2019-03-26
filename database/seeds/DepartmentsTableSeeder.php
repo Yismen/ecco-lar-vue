@@ -13,12 +13,8 @@ class DepartmentsTableSeeder extends Seeder
     public function run()
     {
         Department::create(['name' => 'Administration']);
-        Department::create(['name' => 'Comcast']);
-        Department::create(['name' => 'Publishing']);
+        Department::create(['name' => 'Production']);
         Department::create(['name' => 'Banca']);
-        Department::create(['name' => 'Blackhawk DE']);
-        Department::create(['name' => 'Blackhawk CS']);
-        Department::create(['name' => 'ATT']);
-        Department::create(['name' => 'TMC - Energy']);
+        Department::create(['name' => 'Staff']);
     }
 }
