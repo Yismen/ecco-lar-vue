@@ -15,7 +15,6 @@ class CreateSupervisorsTable extends Migration
         Schema::create('supervisors', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('department_id');
             $table->timestamps();
         });
     }

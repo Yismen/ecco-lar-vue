@@ -32,15 +32,15 @@ Tasks:
   ☐ Termination Reasons
     ☐ Belongs to a termination
     ☐ Has many employees thru terminations
-  ☐ ARS
-    ☐ Has many employees
-  ☐ AFP
-    ☐ Has many employees
-  ☐ Maritals
+  ✔ ARS @done (3/26/2019, 9:28:51 AM)
+    ✔ Has many employees @done (3/26/2019, 9:29:11 AM)
+  ✔ AFP @done (3/26/2019, 9:28:55 AM)
+    ✔ Has many employees @done (3/26/2019, 9:29:14 AM)
+  ✔ Maritals @done (3/26/2019, 9:29:03 AM)
     ☐ has many employees
-  ☐ Genders
+  ✔ Genders @done (3/26/2019, 9:29:07 AM)
     ☐ Has many employees
-  ☐ Supervisors
+  ✔ Supervisors @done (3/26/2019, 9:28:38 AM)
     ☐ Has many employees
     ☐ Has Many performances
   ☐ Employees

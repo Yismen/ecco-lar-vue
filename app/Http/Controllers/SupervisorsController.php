@@ -15,12 +15,8 @@ class SupervisorsController extends Controller
      */
     public function index()
     {
-        $supervisors = Supervisor::with(['department' => function ($query) {
-            return $query->orderBy('department');
-        }])
-        ->orderBy('department_id')
-        ->orderBy('name')
-        ->paginate(25);
+        $supervisors = Supervisor::orderBy('name')
+        ->get();
 
         return view('supervisors.index', compact('supervisors'));
     }
@@ -30,9 +26,9 @@ class SupervisorsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Supervisor $supervisor)
+    public function create()
     {
-        return view('supervisors.create', compact('supervisor'));
+        return view('supervisors.create');
     }
 
     /**
@@ -44,21 +40,20 @@ class SupervisorsController extends Controller
     public function store(Request $request, Supervisor $supervisor)
     {
         $this->validate($request, [
-            'name' => 'required|min:5|unique:supervisors,name',
-            'department_id' => 'required|exists:departments,id'
+            'name' => 'required|min:5|unique:supervisors,name'
         ]);
 
         Cache::forget('supervisors');
         Cache::forget('employees');
 
-        $supervisor = $supervisor->create($request->only(['name', 'department_id']));
+        $supervisor = $supervisor->create($request->only(['name']));
 
         if ($request->ajax()) {
             return $supervisor;
         }
 
         return redirect()->route('admin.supervisors.index')
-            ->withSuccess("Supervisor $supervisor->name create!!");
+            ->withSuccess("Supervisor $supervisor->name created!!");
     }
 
     /**
@@ -95,15 +90,14 @@ class SupervisorsController extends Controller
         $this->validate(
             $request,
             [
-                'name' => 'required|min:5|unique:supervisors,name,'.$supervisor->id,
-                'department_id' => 'required|exists:departments,id'
+                'name' => 'required|min:5|unique:supervisors,name,'.$supervisor->id
             ]
         );
 
         Cache::forget('supervisors');
         Cache::forget('employees');
 
-        $supervisor->update($request->only(['name', 'department_id']));
+        $supervisor->update($request->only(['name']));
 
         return redirect()->route('admin.supervisors.index')
             ->withSuccess("Supervisor $supervisor->name Updated!!");

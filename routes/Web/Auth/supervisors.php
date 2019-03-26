@@ -5,9 +5,6 @@ Route::bind('supervisor', function ($id) {
         ->with(['employees' => function ($query) {
             return $query->orderBy('first_name')->with('position.department');
         }])
-        ->with(['department' => function ($query) {
-            return $query->orderBy('department');
-        }])
         ->firstOrFail();
 });
 

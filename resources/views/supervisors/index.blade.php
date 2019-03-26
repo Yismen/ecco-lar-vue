@@ -16,7 +16,6 @@
                             <thead>
                                 <tr>
                                     <th>Name</th>
-                                    <th>Department</th>
                                     <th class="col-sm-2">Action</th>
                                 </tr>
                             </thead>
@@ -24,7 +23,6 @@
                                 @foreach ($supervisors as $supervisor)
                                     <tr>
                                         <td><a href="/admin/supervisors/{{ $supervisor->id }}">{{ $supervisor->name }}</a></td>
-                                        <td><a href="/admin/departments/{{ $supervisor->department->id }}" target="_new">{{ $supervisor->department->name }}</a></td>
                                         <td>
                                             <a href="/admin/supervisors/{{ $supervisor->id }}/edit">
                                                 <i class="fa fa-edit"></i>
@@ -35,8 +33,6 @@
                                 @endforeach
                             </tbody>
                         </table>
-
-                        {{ $supervisors }}
                     </div>
                 </div>
 
