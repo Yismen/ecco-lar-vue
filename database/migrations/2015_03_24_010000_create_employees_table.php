@@ -25,8 +25,9 @@ class CreateEmployeesTable extends Migration
             $table->string('cellphone_number', 25);
             $table->string('secondary_phone', 25)->nullable();
 
+            $table->integer('site_id')->unsigned()->nullable()->index();
+            $table->integer('project_id')->unsigned()->nullable()->index();
             $table->integer('position_id')->unsigned()->nullable()->index();
-            // $table->integer('project_id')->unsigned()->nullable()->index();
             $table->integer('supervisor_id')->unsigned()->nullable()->index();
             $table->integer('gender_id')->unsigned()->index();
             $table->integer('marital_id')->unsigned()->index();
@@ -36,6 +37,8 @@ class CreateEmployeesTable extends Migration
             // $table->integer('kids', 10)->default(0);
             $table->string('photo', 800)->nullable();
 
+            $table->foreign('site_id')->references('id')->on('sites');
+            $table->foreign('project_id')->references('id')->on('projects');
             $table->foreign('position_id')->references('id')->on('positions');
             $table->foreign('supervisor_id')->references('id')->on('supervisors');
             $table->foreign('gender_id')->references('id')->on('genders');

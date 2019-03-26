@@ -18,18 +18,18 @@ Tasks:
     ☐ Has many campaigns
   ✔ Sites @done (3/25/2019, 3:52:12 PM)
       ☐ Site has many employees
-  ☐ Revenue types
+  ✔ Revenue types @done (3/26/2019, 1:28:13 PM)
     ☐ Has many campaings
   ✔ Campaigns @done (3/26/2019, 8:56:58 AM)
     ✔ Belongs to project @done (3/26/2019, 8:43:22 AM)
     ✔ Belongs to a revenue type @done (3/26/2019, 8:43:19 AM)
-  ☐ Payment types
+  ✔ Payment types @done (3/26/2019, 1:27:49 PM)
     ☐ Belongs to many positions
-  ☐ Payment frequency
+  ✔ Payment frequency @done (3/26/2019, 1:27:57 PM)
     Belongs to many positions
-  ☐ Departments
+  ✔ Departments @done (3/26/2019, 1:28:07 PM)
     ☐ Has many employees through positions
-  ☐ Termination Reasons
+  ✔ Termination Reasons @done (3/26/2019, 1:28:05 PM)
     ☐ Belongs to a termination
     ☐ Has many employees thru terminations
   ✔ ARS @done (3/26/2019, 9:28:51 AM)
