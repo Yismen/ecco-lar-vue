@@ -25,6 +25,8 @@ class Employee extends Model
         'cellphone_number',
         'secondary_phone',
         'position_id',
+        'site_id',
+        'project_id',
         'supervisor_id',
         'gender_id',
         'marital_id',

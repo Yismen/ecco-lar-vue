@@ -187,6 +187,44 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
+                            <label for="site_id" class="">Site:</label>
+                            <select
+                                name="site_id"
+                                id="site_id"
+                                class="form-control"
+                                v-model="form.fields.site_id"
+                            >
+                                <option v-for="site in employee.sites_list" :value="site.id" :key="site.id">
+                                    {{ site.name }}
+                                </option>
+                            </select>
+                            <span class="text-danger" v-if="form.error.has('site_id')">{{ form.error.get('site_id') }}</span>
+                        </div>
+                    </div>
+                    <!-- ./Site-->
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="site_id" class="">Project:</label>
+                            <select
+                                name="project_id"
+                                id="project_id"
+                                class="form-control"
+                                v-model="form.fields.project_id"
+                            >
+                                <option v-for="project in employee.projects_list" :value="project.id" :key="project.id">
+                                    {{ project.name }}
+                                </option>
+                            </select>
+                            <span class="text-danger" v-if="form.error.has('project_id')">{{ form.error.get('project_id') }}</span>
+                        </div>
+                    </div>
+                    <!-- ./Project-->
+                </div>
+                <!-- .row -->
+                <!-- .row -->
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
                             <label for="marital_id" class="">Marital Status:</label>
                             <select
                                 name="marital_id"
@@ -303,6 +341,8 @@
                 'marital_id': employee.hasOwnProperty('marital_id') ? employee.marital_id : '',
                 'has_kids': employee.hasOwnProperty('has_kids') ? Number(employee.has_kids) : '',
                 'position_id': employee.hasOwnProperty('position_id') ? employee.position_id : '',
+                'site_id': employee.hasOwnProperty('site_id') ? employee.site_id : '',
+                'project_id': employee.hasOwnProperty('project_id') ? employee.project_id : '',
             }
         }
     }

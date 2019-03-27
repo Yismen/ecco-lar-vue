@@ -55,6 +55,8 @@ class EmployeesController extends Controller
             ->append([
                 'genders_list',
                 'maritals_list',
+                'sites_list',
+                'projects_list',
                 'positions_list',
                 'departments_list',
                 'payment_types_list',
@@ -80,10 +82,12 @@ class EmployeesController extends Controller
             'date_of_birth' => 'required|date',
             'cellphone_number' => 'required|digits:10|unique:employees,cellphone_number',
             'secondary_phone' => 'nullable|digits:10',
+            'position_id' => 'required|exists:positions,id',
             'gender_id' => 'required|exists:genders,id',
+            'site_id' => 'required|exists:sites,id',
+            'project_id' => 'required|exists:projects,id',
             'marital_id' => 'required|exists:maritals,id',
             'has_kids' => 'required|boolean',
-            'position_id' => 'required|exists:positions,id',
         ]);
 
         $employee = $employee->create($request->all());
@@ -137,6 +141,8 @@ class EmployeesController extends Controller
             'cellphone_number' => 'required|digits:10|unique:employees,cellphone_number,' . $employee->id,
             'secondary_phone' => 'nullable|digits:10',
             'gender_id' => 'required|exists:genders,id',
+            'site_id' => 'required|exists:sites,id',
+            'project_id' => 'required|exists:projects,id',
             'marital_id' => 'required|exists:maritals,id',
             'has_kids' => 'required|boolean',
             'position_id' => 'required|exists:positions,id',

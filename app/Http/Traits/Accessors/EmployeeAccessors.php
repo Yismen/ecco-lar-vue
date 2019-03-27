@@ -6,7 +6,8 @@ use App\Afp;
 use App\Ars;
 use App\Bank;
 use App\Gender;
-use App\System;
+use App\Site;
+use App\Project;
 use App\Marital;
 use App\Position;
 use Carbon\Carbon;
@@ -52,6 +53,16 @@ trait EmployeeAccessors
     public function getBanksListAttribute()
     {
         return Bank::orderBy('name')->get();
+    }
+
+    public function getSitesListAttribute()
+    {
+        return Site::orderBy('name')->get();
+    }
+
+    public function getProjectsListAttribute()
+    {
+        return Project::orderBy('name')->get();
     }
 
     public function getCurrentSupervisorAttribute()
