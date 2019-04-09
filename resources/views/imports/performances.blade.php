@@ -1,5 +1,5 @@
 @inject('layout', 'App\Layout')
-@extends('layouts.'.$layout->app(), ['page_header'=>'Import Employees Data', 'page_description'=>'description'])
+@extends('layouts.'.$layout->app(), ['page_header'=>'Import Perforces Data', 'page_description'=>'description'])
 
 @section('content')
     <div class="container-fluid">
@@ -8,9 +8,9 @@
                 <div class="box box-primary">
 
                     <div class="box-body">
-                        {!! Form::open(['route'=>['admin.imports.employees'], 'method'=>'POST', 'class'=>'form-horizontal', 'role'=>'form', 'autocomplete'=>"off",  'enctype'=>"multipart/form-data"]) !!}
+                        {!! Form::open(['route'=>['admin.imports.performances'], 'method'=>'POST', 'class'=>'form-horizontal', 'role'=>'form', 'autocomplete'=>"off",  'enctype'=>"multipart/form-data"]) !!}
 
-                           <div class="box-header with-border"><h4>Import Employees Data</h4></div>
+                           <div class="box-header with-border"><h4>Import Perforces Data</h4></div>
 
                             @include('imports._form')
 
