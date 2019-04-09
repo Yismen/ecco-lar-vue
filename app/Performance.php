@@ -19,4 +19,9 @@ class Performance extends Model
         return $instance;
     }
 
+    public function campaign()
+    {
+        return $this->belongsTo(Campaign::class);
+    }
+
 }

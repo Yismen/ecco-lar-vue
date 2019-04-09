@@ -27,7 +27,13 @@ class PerformanceController extends Controller
      */
     public function create()
     {
-        return view('performances.create');
+        $dates = Performance::orderBy('date')
+            ->groupBy(['date'])
+            ->with('campaign')
+            ->take(5)
+            ->get();
+
+        return view('performances.create', compact('dates'));
     }
 
     /**
@@ -45,14 +51,16 @@ class PerformanceController extends Controller
 
         foreach($request->file('excel_file') as $key => $file) {
 
-            // if(! Str::startsWith($file->getClientOriginalName(), 'performance')) {
-            //     return redirect()->back()
-            //         ->withErrors(['excel_file' => "Wrong file selected. Please make sure you pick a file which name starts with Performance..."]);
-            // }
+            if(! Str::startsWith($file->getClientOriginalName(), 'performance')) {
+                return redirect()->back()
+                    ->withErrors(['excel_file' => "Wrong file selected. Please make sure you pick a file which name starts with Performance..."]);
+            }
 
-            $status = Excel::import(new PerformancesImport, $request->file('excel_file')[$key] );
-            dump($file->getClientOriginalName(), $status);
+            Excel::import(new PerformancesImport, $request->file('excel_file')[$key] );
         }
+
+        return redirect()->route('admin.performances.create')
+            ->withSuccess('Data Imported!');
     }
 
     /**

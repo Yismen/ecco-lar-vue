@@ -34,7 +34,7 @@ class PerformancesImport implements ToCollection, WithHeadingRow, WithValidation
     public function rules(): array
     {
         return [
-            'unique_id' => 'required|unique:performances',
+            'unique_id' => 'required',
             'date' => 'required|date',
             'employee_id' => 'required|exists:employees,id',
             'name' => 'required',
@@ -51,14 +51,22 @@ class PerformancesImport implements ToCollection, WithHeadingRow, WithValidation
             'revenue' => 'required|numeric'
         ];
     }
+
+    /**
+     * Convert an date in a carbon instance
+     *
+     * @param  value $value the value to be parsed
+     * @param  format    $format the format from where the carbon instance is created
+     * @return Carbon instance
+     */
     public function transformDate($value, $format = 'Y-m-d')
     {
         try {
             return Carbon::instance(
                 \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($value)
-            )->format('Y-m-d');
+            );
         } catch (\ErrorException $e) {
-            return Carbon::createFromFormat($format, $value)->format('Y-m-d');
+            return Carbon::createFromFormat($format, $value);
         }
     }
 
@@ -66,7 +74,7 @@ class PerformancesImport implements ToCollection, WithHeadingRow, WithValidation
     {
         return [
                 'unique_id' => $row['unique_id'],
-                'date' => $this->transformDate($row['date']),
+                'date' => $this->transformDate($row['date'])->format('Y-m-d'),
                 'employee_id' => $row['employee_id'],
                 'name' => $row['employee_name'],
                 'campaign_id' => $row['campaign_id'],

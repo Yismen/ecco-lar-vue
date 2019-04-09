@@ -19,8 +19,8 @@ class CreateEmployeesTable extends Migration
             $table->string('last_name', 50);
             $table->string('second_last_name', 100)->nullable();
             $table->dateTime('hire_date');
-            $table->string('personal_id', 15)->unique()->nullable()->index();
-            $table->string('passport', 100)->unique()->nullable()->index();
+            $table->string('personal_id', 15)->nullable()->index();
+            $table->string('passport', 100)->nullable()->index();
             $table->dateTime('date_of_birth');
             $table->string('cellphone_number', 25);
             $table->string('secondary_phone', 25)->nullable();
