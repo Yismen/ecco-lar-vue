@@ -20,17 +20,20 @@ sites:
 
 variables:
     -
-      key: DB_HOST
-      value: '127.0.0.1'
+        key: DB_HOST
+        value: 127.0.0.1
     -
-      key: DB_CONNECTION
-      value: pgsql
+        key: DB_CONNECTION
+        value: pgsql
     -
-      key: DB_USERNAME
-      value: homestead
+        key: DB_DATABASE
+        value: dainsys
     -
-      key: DB_PASSWORD
-      value: secret
+        key: DB_USERNAME
+        value: homestead
+    -
+        key: DB_PASSWORD
+        value: secret
 
 databases:
     - dainsys
