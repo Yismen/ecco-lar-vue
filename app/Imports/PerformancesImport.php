@@ -19,7 +19,6 @@ class PerformancesImport implements ToCollection, WithHeadingRow, WithValidation
 
     public function collection(Collection $rows)
     {
-
         foreach($rows as $row) {
 
             Validator::make(

@@ -27,8 +27,8 @@ class PerformanceController extends Controller
      */
     public function create()
     {
-        $dates = Performance::orderBy('date')
-            ->groupBy(['date'])
+        $dates = Performance::orderBy('date', 'DESC')
+            ->groupBy(['date', 'id'])
             ->with('campaign')
             ->take(5)
             ->get();
@@ -46,14 +46,14 @@ class PerformanceController extends Controller
     {
         $this->validate($request, [
            'excel_file' => 'required',
-           // 'excel_file.*' => 'file|mimes:xls,xlsx',
+           'excel_file.*' => 'file|mimes:xls,xlsx',
         ]);
 
         foreach($request->file('excel_file') as $key => $file) {
 
-            if(! Str::startsWith($file->getClientOriginalName(), 'performance')) {
+            if(! Str::startsWith($file->getClientOriginalName(), 'performance_daily_data_')) {
                 return redirect()->back()
-                    ->withErrors(['excel_file' => "Wrong file selected. Please make sure you pick a file which name starts with Performance..."]);
+                    ->withErrors(['excel_file' => "Wrong file selected. Please make sure you pick a file which name starts with performance_daily_data_..."]);
             }
 
             Excel::import(new PerformancesImport, $request->file('excel_file')[$key] );

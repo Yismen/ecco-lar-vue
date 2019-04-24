@@ -1,6 +1,8 @@
 /vendor
 /packages
 /node_modules
+/mysql_backup
+/pgsql_backup
 /public/storage
 /storage/framework/sessions
 /.phpintel
