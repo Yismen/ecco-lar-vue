@@ -13,8 +13,6 @@ class RolesTableSeeder extends Seeder
      */
     public function run()
     {
-        Role::truncate();
-
         $user = User::where('email', 'yismen.jorge@gmail.com')->first();
         $admin = Role::create([ 'name' => 'admin', ]);
         $user->roles()->sync((array)$admin->only('id'));
