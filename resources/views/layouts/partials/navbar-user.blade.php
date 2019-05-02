@@ -1,4 +1,4 @@
-<!-- 
+<!--
 ===============================================================
   * Variable $user is set at App\Providers\ViewsComposerServiceProvider.
 ===============================================================
@@ -35,7 +35,8 @@
       <p>
         {{ $user->name }}
         {{-- {{ $user->name }} - <h5>{!! $user->profile->work ?? null !!}</h5> --}}
-        <small>Member since {{ $user->created_at->toFormattedDateString() }}</small>
+        {{-- <small>Member since {{ $user->created_at->toFormattedDateString() }}</small> --}}
+        <small>Member since {{ $user->created_at->diffForHumans() }}</small>
       </p>
     </li>
     <!-- Menu Body -->
@@ -65,7 +66,7 @@
         </a>
       </div>
       <div class="pull-right">
-        <a href="/" onclick="event.preventDefault(); 
+        <a href="/" onclick="event.preventDefault();
               document.getElementById('logout-form').submit();">
           <i class="fa fa-sign-out"></i> Log out
         </a>

@@ -11,7 +11,7 @@
     <title>Ecco | {{ $page_header ?? 'Admin Header' }}</title>
     <link rel="stylesheet" type="text/css" href="{{ mix('css/app.css') }}">
     <!-- Site Favicon -->
-    <link rel="shortcut icon" href="{{ asset('storage/images/logo.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('images/logo.png') }}" type="image/x-icon">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesnt work if you view the page via file:// -->
