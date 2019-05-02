@@ -13,8 +13,6 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        User::truncate();
-
         User::create([
             'name' => 'Yismen Jorge', // $faker->name,
             'email' => 'yismen.jorge@gmail.com', // $faker->email,

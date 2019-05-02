@@ -12,7 +12,6 @@ class MenusTableSeeder extends Seeder
      */
     public function run()
     {
-        Menu::truncate();
 
         Menu::create(['name' => 'telescope', 'display_name' => 'Telescope', 'description' => '', 'icon' => 'fa fa-bolt']);
         Menu::create(['name' => 'horizon', 'display_name' => 'Horizon', 'description' => '', 'icon' => 'fa fa-gears']);
