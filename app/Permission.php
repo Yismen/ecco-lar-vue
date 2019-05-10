@@ -36,7 +36,7 @@ class Permission extends EmpatiePermission
             return $this->createNonResourcePermission($request);
         }
 
-        return createResourcePermission($request);
+        return $this->createResourcePermission($request);
     }
 
     public function updatePermission($request)
@@ -103,8 +103,6 @@ class Permission extends EmpatiePermission
             $permission = $this->create(['name' => $permission_name, 'resource' => trim($request->resource)]);
 
             $permission->roles()->sync((array) $request->roles);
-
-            return $permission;
         }
     }
 }

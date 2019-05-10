@@ -44,6 +44,9 @@ Tasks:
     ☐ Has many employees
     ☐ Has Many performances
   ☐ Employees
+    ☐ Test Hire date and date of birthday for modules:
+        ☐ Create employees
+        ☐ Edit employees
     ☐ Has one position
     ☐ Employee Has one punch
     ☐ Employee has many performances

@@ -11,6 +11,17 @@ use Maatwebsite\Excel\Facades\Excel;
 class PerformanceController extends Controller
 {
     /**
+     * Protect the controller agaist unauthorized users
+     */
+    public function __construct()
+    {
+        $this->middleware('authorize:view-permissions', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit-permissions', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create-permissions', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy-permissions', ['only' => ['destroy']]);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response

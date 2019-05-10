@@ -10,8 +10,9 @@ let mix = require('laravel-mix');
  | file for your application, as well as bundling up your JS files.
  |
  */
-mix 
+mix
     .sass('resources/assets/sass/app.scss', 'public/css/app.css')
+    .copy('node_modules/select2', 'storage/app/public/vendor/select2')
     .js('resources/assets/js/app.js/', 'public/js/app.js')
     .version()
 ;

@@ -1,5 +1,5 @@
 @inject('layout', 'App\Layout')
-@extends('layouts.'.$layout->app(), ['page_header'=>'500 Error Page', 'page_description'=>'Sad thing!'])
+@extends('layouts.'.$layout->app(), ['page_header'=>'403 Error Page', 'page_description'=>'Sad thing!'])
 
 @section('content')
   <div class="container-fluid">
@@ -8,14 +8,13 @@
           <div class="box box-primary pad big-box">
             <div class="box-body">
               <div class="error-page">
-                <h2 class="headline text-red"> 500</h2>
+                <h2 class="headline text-red"> 403</h2>
 
                 <div class="error-content">
-                  <h3><i class="fa fa-warning text-red"></i> Oops! Something went wrong.</h3>
+                  <h3><i class="fa fa-warning text-red"></i> Forbiden!</h3>
 
                   <p>
-                    We will work on fixing that right away.
-                    Meanwhile, you may <a href="/">return to home page</a> or notify the administrator about it.
+                    <a href="/">Go Home!</a> or notify the administrator about it.
                   </p>
                 </div>
                 <!-- /.error-content -->

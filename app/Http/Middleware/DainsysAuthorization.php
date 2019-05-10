@@ -45,6 +45,7 @@ class DainsysAuthorization
         if (! $request->user()->hasAnyPermission(
             $this->parsePermissions($permissions)
         )) {
+            session()->flash('danger', 'Unauthorized! Permissions Needed: ' . $permissions);
             abort(403, 'Unauthorized');
         }
     }
