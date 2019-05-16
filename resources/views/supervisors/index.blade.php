@@ -3,41 +3,37 @@
 
 @section('content')
 	<div class="container-fluid">
-		<div class="col-sm-8 col-sm-offset-2">
-			<div class="box box-primary pad">
-                <div class="box-header with-border">
-                    Supervisors List
-                    <a href="/admin/supervisors/create" class="pull-right"><i class="fa fa-plus"></i> Create</a>
-                </div>
-
-                <div class="box-body">
-                    <div class="table-responsive">
-                        <table class="table table-condensed table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th class="col-sm-2">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($supervisors as $supervisor)
-                                    <tr>
-                                        <td><a href="/admin/supervisors/{{ $supervisor->id }}">{{ $supervisor->name }}</a></td>
-                                        <td>
-                                            <a href="/admin/supervisors/{{ $supervisor->id }}/edit">
-                                                <i class="fa fa-edit"></i>
-                                                Edit
-                                            </a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+    	<form action="/admin/supervisors/employees" method="POST">
+            @csrf
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2">
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            Supervisors List
+                            <a href="/admin/supervisors/create" class="pull-right"><i class="fa fa-plus"></i> Create</a>
+                        </div>
                     </div>
+
+                    @include('supervisors._free_employees')
                 </div>
 
-			</div>
-		</div>
+                <div class="col-sm-10 col-sm-offset-1">
+                    @foreach ($supervisors as $supervisor)
+                        @include('supervisors._list_with_employees')
+                    @endforeach
+                </div>
+            </div>
+            <div style="position: fixed; bottom: 35%; right: 30px; padding: 15px ; width: 30%; background-color: whitesmoke; border: darkgray; border-style: solid; border-width: thin;">
+                <div class="input-group">
+                    {{ Form::select('supervisor', $supervisors->pluck('name', 'id'), null, ['class' => 'form-control']) }}
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-warning">Re-Assign</button>
+                    </span>
+                </div>
+
+                @include('layouts.partials.errors')
+            </div>
+        </form>
 	</div>
 @stop
 

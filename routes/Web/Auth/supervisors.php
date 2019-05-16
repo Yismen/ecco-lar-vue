@@ -1,5 +1,7 @@
 <?php
 
+Route::post('supervisors/employees', 'SupervisorsController@reAssign');
+
 Route::bind('supervisor', function ($id) {
     return App\Supervisor::whereId($id)
         ->with(['employees' => function ($query) {
