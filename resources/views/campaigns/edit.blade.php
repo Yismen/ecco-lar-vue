@@ -1,5 +1,5 @@
 @section('scripts')
-	
+
 @stop
 
 @inject('layout', 'App\Layout')
@@ -8,7 +8,7 @@
 @section('content')
 	<div class="container-fluid">
     	<div class="row">
-			<div class="col-sm-8 col-sm-offset-2">
+			<div class="col-sm-10 col-sm-offset-1">
 				<div class="box box-warning">
 					<div class="box-header">
 						<h4>
@@ -18,19 +18,19 @@
 						    </a>
 						</h4>
 					</div>
-						
+
 
 					{!! Form::model($campaign, ['route'=>['admin.campaigns.update', $campaign->id], 'method'=>'PUT', 'class'=>'form-horizontal', 'role'=>'form']) !!}
 						<div class="box-body">
 
 							@include('campaigns._form')
-						
+
 						</div>
 
-						<div class="box-footer">							
+						<div class="box-footer">
 							<div class="col-sm-6 col-sm-offset-2">
-								<button type="submit" class="btn btn-warning">Update</button>	
-							</div>	
+								<button type="submit" class="btn btn-warning">Update</button>
+							</div>
 						</div>
 					{!! Form::close() !!}
 

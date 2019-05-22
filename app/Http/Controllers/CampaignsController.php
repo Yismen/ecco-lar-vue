@@ -19,7 +19,8 @@ class CampaignsController extends Controller
     public function index()
     {
         $campaigns = Cache::remember('campaigns', 60, function() {
-            return Campaign::get();
+            return Campaign::orderBy('name')
+                ->get();
         });
 
         return view('campaigns.index', compact('campaigns'));
@@ -40,12 +41,13 @@ class CampaignsController extends Controller
         $this->validate($request, [
             'name' => 'required|unique:campaigns',
             'project_id' => 'required|exists:projects,id',
+            'source_id' => 'required|exists:sources,id',
             'revenue_type_id' => 'required|exists:revenue_types,id',
             'sph_goal' => 'required|numeric',
             'revenue_rate' => 'required|numeric',
         ]);
 
-        $campaign = Campaign::create($request->only(['name', 'project_id', 'revenue_type_id', 'sph_goal', 'revenue_rate']));
+        $campaign = Campaign::create($request->only(['name', 'project_id', 'source_id', 'revenue_type_id', 'sph_goal', 'revenue_rate']));
 
         Cache::forget('campaigns');
 
@@ -73,13 +75,14 @@ class CampaignsController extends Controller
         $this->validate($request, [
             'name' => 'required|unique:campaigns,name,' . $campaign->id,
             'project_id' => 'required|exists:projects,id',
+            'source_id' => 'required|exists:sources,id',
             'revenue_type_id' => 'required|exists:revenue_types,id',
             'sph_goal' => 'required|numeric',
             'revenue_rate' => 'required|numeric',
         ]);
 
         // return $request->all();
-        $campaign->update($request->only(['name', 'project_id', 'revenue_type_id', 'sph_goal', 'revenue_rate']));
+        $campaign->update($request->only(['name', 'project_id', 'source_id', 'revenue_type_id', 'sph_goal', 'revenue_rate']));
 
         Cache::forget('campaigns');
 
