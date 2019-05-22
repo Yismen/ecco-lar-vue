@@ -15,10 +15,10 @@ class PerformanceController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('authorize:view-permissions', ['only' => ['index', 'show']]);
-        $this->middleware('authorize:edit-permissions', ['only' => ['edit', 'update']]);
-        $this->middleware('authorize:create-permissions', ['only' => ['create', 'store']]);
-        $this->middleware('authorize:destroy-permissions', ['only' => ['destroy']]);
+        $this->middleware('authorize:view-performances', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit-performances', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create-performances', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy-performances', ['only' => ['destroy']]);
     }
 
     /**
@@ -62,9 +62,9 @@ class PerformanceController extends Controller
 
         foreach($request->file('excel_file') as $key => $file) {
 
-            if(! Str::startsWith($file->getClientOriginalName(), 'performance_daily_data_')) {
+            if(! Str::contains($file->getClientOriginalName(), '_performance_daily_data_')) {
                 return redirect()->back()
-                    ->withErrors(['excel_file' => "Wrong file selected. Please make sure you pick a file which name starts with performance_daily_data_..."]);
+                    ->withErrors(['excel_file' => "Wrong file selected. Please make sure you pick a file which the correct naming convention _performance_daily_data_..."]);
             }
 
             Excel::import(new PerformancesImport, $request->file('excel_file')[$key] );
