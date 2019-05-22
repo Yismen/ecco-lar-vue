@@ -12,8 +12,8 @@ class SourcesTableSeeder extends Seeder
      */
     public function run()
     {
-        Source::create(['name' => 'Inbound Calls']);
         Source::create(['name' => 'Outbound Calls']);
+        Source::create(['name' => 'Inbound Calls']);
         Source::create(['name' => 'Chats and Emails']);
         Source::create(['name' => 'Emails']);
         Source::create(['name' => 'Data Entry']);
