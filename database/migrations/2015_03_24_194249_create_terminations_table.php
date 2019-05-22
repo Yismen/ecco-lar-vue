@@ -18,7 +18,7 @@ class CreateTerminationsTable extends Migration
             $table->dateTime('termination_date');
             $table->integer('termination_type_id')->unsigned()->index();
             $table->integer('termination_reason_id')->unsigned()->index();
-            $table->boolean('can_be_rehired')->nullable()->default(false);
+            $table->boolean('can_be_rehired')->nullable()->default(true);
             $table->text('comments')->nullable();
             $table->timestamps();
 
