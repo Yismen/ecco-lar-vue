@@ -45,6 +45,7 @@ class Menu extends Model
                 $model->delete();
             }
         }
+        $request->only(['name', 'display_name', 'description', 'icon']);
 
         $menu = $this->create($request->only(['name', 'display_name', 'description', 'icon']));
 
@@ -94,7 +95,7 @@ class Menu extends Model
         $request->merge(['name' => $name]);
 
         if ($request->is_admin) {
-            $request->merge(['name' => 'admin'. $request->name]);
+            $request->merge(['name' => 'admin/'. $request->name]);
         }
 
         return $name;
@@ -107,8 +108,8 @@ class Menu extends Model
 
     private function stripAdmin($name)
     {
-        if (starts_with($name, 'admin')) {
-            return explode('admin', $name, 2)[1];
+        if (starts_with($name, 'admin/')) {
+            return explode('admin/', $name, 2)[1];
         }
 
         return $name;
