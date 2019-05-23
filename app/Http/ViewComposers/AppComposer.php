@@ -33,10 +33,10 @@ class AppComposer
     {
         if (Auth::check()) {
             return User::with(['roles' => function ($query) {
-                return $query->orderBy('name');
+                return $query->orderBy('name')
+                    ->with('menus');
             }])
             ->with('profile')
-            ->with('roles.menus')
             ->with('settings')
             ->find(Auth::id());
         }

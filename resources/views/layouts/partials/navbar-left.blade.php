@@ -42,13 +42,10 @@
 
         <!-- Sidebar Menu -->
         <ul class="nav sidebar-menu tree" data-widget="tree">
-
-            <li class="header">QUICK LINKS</li>
-            <!-- Optionally, you can add icons to the links -->
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-link"></i>
-                    <span>Quick Links!</span>
+                    <span>QUICK LINKS!</span>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
@@ -70,7 +67,7 @@
                 </li> -->
 
 
-            <li class="header">APP</li>
+            <li class="header">APP LINKS</li>
             @if ($user && $user->roles)
                 @foreach ($user->roles as $role)
                     <li class="treeview">

@@ -19,7 +19,8 @@ class CampaignsController extends Controller
     public function index()
     {
         $campaigns = Cache::remember('campaigns', 60, function() {
-            return Campaign::orderBy('name')
+            return Campaign::orderBy('project_id')->orderBy('name')
+                ->with(['project', 'source', 'revenueType'])
                 ->get();
         });
 
