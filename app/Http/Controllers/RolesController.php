@@ -11,20 +11,12 @@ use Cache;
 
 class RolesController extends Controller
 {
-    private $usersList;
-    private $menusList;
-    private $permissionsList;
-
     public function __construct(User $user, Menu $menu, Permission $permission)
     {
         $this->middleware('authorize:view-roles|edit-roles|create-roles', ['only' => ['index', 'show']]);
         $this->middleware('authorize:edit-roles', ['only' => ['edit', 'update']]);
         $this->middleware('authorize:create-roles', ['only' => ['create', 'store']]);
         $this->middleware('authorize:destroy-roles', ['only' => ['destroy']]);
-
-        $this->usersList = $user->orderBy('name')->pluck('name', 'id');
-        $this->menusList = $menu->orderBy('name')->pluck('name', 'id');
-        $this->permissionsList = $permission->orderBy('name')->pluck('name', 'id');
     }
 
     /**
@@ -46,11 +38,7 @@ class RolesController extends Controller
      */
     public function create(Role $role)
     {
-        $usersList = $this->usersList;
-        $permissionsList = $this->permissionsList;
-        $menusList = $this->menusList;
-
-        return view('roles.create', compact('role', 'usersList', 'permissionsList', 'menusList'));
+        return view('roles.create', compact('role'));
     }
 
     /**
@@ -62,7 +50,7 @@ class RolesController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|unique:roles,name',
-            'users_list' => 'required',
+            'users' => 'required',
         ]);
 
         $role = $role->createRole($request);
@@ -90,11 +78,7 @@ class RolesController extends Controller
      */
     public function edit(Role $role)
     {
-        $usersList = $this->usersList;
-        $permissionsList = $this->permissionsList;
-        $menusList = $this->menusList;
-
-        return view('roles.edit', compact('role', 'usersList', 'permissionsList', 'menusList'));
+        return view('roles.edit', compact('role'));
     }
 
     /**
@@ -107,7 +91,7 @@ class RolesController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'users_list' => 'required',
+            'users' => 'required',
         ]);
 
         $role->updateRole($request);

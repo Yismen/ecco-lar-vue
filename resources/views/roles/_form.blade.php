@@ -9,10 +9,10 @@
 <!-- /. Name -->
 
 <!-- Users -->
-<div class="form-group {{ $errors->has('users_list') ? 'has-error' : null }}">
-	{!! Form::label('users_list', 'Users:', ['class'=>'col-sm-2 control-label']) !!}
+<div class="form-group {{ $errors->has('users') ? 'has-error' : null }}">
+	{!! Form::label('users', 'Users:', ['class'=>'col-sm-2 control-label']) !!}
 	<div class="col-sm-10">
-		{!! Form::select('users_list[]', $usersList, null, ['class'=>'form-control', 'multiple'=>"multiple", 'id'=>'users_lists'])!!}
+		{!! Form::select('users[]', $role->usersList, null, ['class'=>'form-control', 'multiple'=>"multiple", 'id'=>'userss'])!!}
 		<span class="help-block">!! Select the roles that will be served with this Role item:</span>
 		{!! $errors->first('roles', '<span class="text-danger">:message</span>') !!}
 	</div>
@@ -20,22 +20,22 @@
 <!-- /. Users -->
 
 <!-- Permissions -->
-<div class="form-group {{ $errors->has('permissions_list') ? 'has-error' : null }}">
-	{!! Form::label('permissions_list', 'Permissions:', ['class'=>'col-sm-2 control-label']) !!}
+<div class="form-group {{ $errors->has('permissions') ? 'has-error' : null }}">
+	{!! Form::label('permissions', 'Permissions:', ['class'=>'col-sm-2 control-label']) !!}
 	<div class="col-sm-10">
-		{!! Form::select('permissions_list[]', $permissionsList, null, ['class'=>'form-control', 'multiple', 'id'=>'permissions_list'])!!}
+		{!! Form::select('permissions[]', $role->permissionsList, null, ['class'=>'form-control', 'multiple', 'id'=>'permissions'])!!}
 		<span class="help-block">!! Select the roles that will be served with this Role item:</span>
 		{!! $errors->first('roles', '<span class="text-danger">:message</span>') !!}
 	</div>
 </div>
 <!-- /. Permissions -->
 
-<div class="form-group {{ $errors->has('menus_list') ? 'has-error' : null }}">	
-	{!! Form::label('menus_list', 'Menus:', ['class'=>'col-sm-2 control-label']) !!}
-	<div class="col-sm-10">	
-		{!! Form::select('menus_list[]', $menusList, null, ['class'=>'form-control', 'multiple'=>"multiple", 'id'=>'menus'])!!}
+<div class="form-group {{ $errors->has('menus') ? 'has-error' : null }}">
+	{!! Form::label('menus', 'Menus:', ['class'=>'col-sm-2 control-label']) !!}
+	<div class="col-sm-10">
+		{!! Form::select('menus[]', $role->menusList, null, ['class'=>'form-control', 'multiple'=>"multiple", 'id'=>'menus'])!!}
 		<span class="help-block">!! Select the roles that will be served with this Role item:</span>
-		{!! $errors->first('menus_list', '<span class="text-danger">:message</span>') !!}
+		{!! $errors->first('menus', '<span class="text-danger">:message</span>') !!}
 	</div>
 </div>
 <!-- /. Menus -->

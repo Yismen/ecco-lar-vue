@@ -27,7 +27,7 @@ class Role extends EmpatieRole
      */
     public function getUsersListAttribute()
     {
-        return $this->users->pluck('id')->toArray();
+        return User::orderBy('name')->pluck('name', 'id');
     }
 
     /**
@@ -37,7 +37,7 @@ class Role extends EmpatieRole
      */
     public function getPermissionsListAttribute()
     {
-        return $this->permissions->pluck('id')->toArray();
+        return Permission::orderBy('resource')->pluck('name', 'id');
     }
 
     /**
@@ -47,7 +47,7 @@ class Role extends EmpatieRole
      */
     public function getMenusListAttribute()
     {
-        return $this->menus->pluck('id')->toArray();
+        return Menu::orderBy('name')->pluck('name', 'id');
     }
 
     public function createRole($request)
@@ -88,9 +88,9 @@ class Role extends EmpatieRole
      */
     protected function syncRelations($role, $request)
     {
-        $role->users()->sync((array) $request->users_list);
-        $role->permissions()->sync((array) $request->input('permissions_list'));
-        $role->menus()->sync((array) $request->input('menus_list'));
+        $role->users()->sync((array) $request->users);
+        $role->permissions()->sync((array) $request->input('permissions'));
+        $role->menus()->sync((array) $request->input('menus'));
 
         return $role;
     }

@@ -6,35 +6,27 @@
 	<div class="container-fluid">
     	<div class="row">
 			<div class="col-sm-8 col-sm-offset-2">
-				<div class="box box-primary pad">
-					<div class="row">
-						<div class="col-sm-12">
-							<h3 class="page-header">
-								Create Role 
-								<a 
-									href="{{ route('admin.roles.index') }}" 
-									class="pull-right"
-									title="Return to List"
-								>
-									<i class="fa fa-list"></i>
-								</a>
-							</h3>
-
-							{!! Form::open(['route'=>['admin.roles.store'], 'method'=>'post', 'class'=>'form-horizontal', 'role'=>'form']) !!}	
-							
-								@include('roles._form')
-
-								<div class="col-sm-10 col-sm-offset-2">
-									<button type="submit" class="btn btn-primary form-control">Create</button>
-									<br><br>
-									<a href="{{ route('admin.roles.index') }}"><< Return to Roles List</a>
-								</div>
-							
-							{!! Form::close() !!}
-							
-						</div>
+				<div class="box box-primary">
+					<div class="box-header">
+						<h4>Create Role
+							<a href="{{ route('admin.roles.index') }}"class="pull-right"title="Return to List">
+								<i class="fa fa-list"></i>
+							</a>
+						</h4>
 					</div>
-					
+
+					{!! Form::open(['route'=>['admin.roles.store'], 'method'=>'post', 'class'=>'form-horizontal', 'role'=>'form']) !!}
+						<div class="box-body">
+							@include('roles._form')
+						</div>
+
+						<div class="box-footer">
+							<div class="col-sm-10 col-sm-offset-2">
+								<button type="submit" class="btn btn-primary form-control">Create</button>
+							</div>
+						</div>
+
+					{!! Form::close() !!}
 				</div>
 			</div>
 		</div>
