@@ -84,6 +84,7 @@ Vue.component('create-afp-form', require('./components/forms/CreateAfp'))
 Vue.component('flash-message', require('./components/FlashMessage'))
 Vue.component('edit-employee', require('./components/employees/Edit'));
 Vue.component('create-employee', require('./components/employees/CreateEmployee'));
+Vue.component('employee-row', require('./components/employees/partials/RowCheckBox'));
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
