@@ -18,8 +18,4 @@ Route::post('payrolls/filter-positions-by-department', 'Payroll\GenerateControll
 Route::post('payrolls/generate/filter', 'Payroll\GenerateController@filter');
 Route::post('payrolls/close', 'Payroll\GenerateController@close');
 
-Route::bind('payroll', function ($id) {
-    return App\Payroll::find($id);
-});
-
 Route::resource('payrolls', 'Payroll\PayrollController');

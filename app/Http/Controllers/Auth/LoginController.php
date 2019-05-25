@@ -27,29 +27,12 @@ class LoginController extends Controller
     protected $redirectTo = '/admin';
 
     /**
-     * Rout to send users after logout
-     * @var string
-     */
-    protected $redirectAfterLogout = '/admin/login';
-
-    /**
      * Create a new controller instance.
      *
      * @return void
      */
     public function __construct()
     {
-        $this->middleware('guest', ['except' => 'logout']);
-    }
-
-    public function logout(Request $request)
-    {
-        $this->guard()->logout();
-
-        $request->session()->flush();
-
-        $request->session()->regenerate();
-
-        return redirect('/admin/login');
+        $this->middleware('guest')->except('logout');
     }
 }

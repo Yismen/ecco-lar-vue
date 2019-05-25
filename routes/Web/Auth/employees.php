@@ -8,9 +8,6 @@ Route::get('employees/export_to_excel/{status}', 'Employee\ExportController@toEx
 Route::post('employees/{employee}/login-names', 'Employee\LoginNameController@store')
     ->name('employees.login.create');
 
-/**
- * Terminations
- */
 Route::post('employees/{employee}/reactivate', 'Employee\TerminationController@reactivate')
     ->name('employees.reactivate');
 Route::post('employees/{employee}/terminate', 'Employee\TerminationController@terminate')
@@ -45,41 +42,5 @@ Route::put('employees/{employee}/supervisor', 'Employee\SupervisorController@upd
 
 Route::post('employees/{employee}/nationality', 'Employee\NationalityController@update')
     ->name('employees.update-nationality');
-
-Route::bind('employee', function ($id) {
-    return App\Employee::whereId($id)
-    ->with('address')
-    ->with('afp')
-    ->with('ars')
-    ->with('bankAccount')
-    ->with('socialSecurity')
-    ->with('card')
-    ->with('gender')
-    ->with('loginNames')
-    ->with('marital')
-    ->with('nationalities')
-        ->with('punch')
-        ->with('position')
-        ->with('termination')
-        ->with('supervisor')
-
-        ->firstOrFail()
-        ->append([
-            'ars_list',
-            'afp_list',
-            'banks_list',
-            'departments_list',
-            'genders_list',
-            'has_kids_list',
-            'maritals_list',
-            'positions_list',
-            'payment_types_list',
-            'payment_frequencies_list',
-            'nationalities_list',
-            'supervisors_list',
-            'termination_type_list',
-            'termination_reason_list'
-            ]);
-});
 
 Route::resource('employees', 'EmployeesController');

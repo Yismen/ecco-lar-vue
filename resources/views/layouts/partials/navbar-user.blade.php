@@ -11,8 +11,8 @@
 
 @if (!$user)
 
-<li><a href="{{ url('/admin/login') }}"><i class="fa fa-user"></i> Login</a></li>
-<li><a href="{{ url('/admin/register') }}"><i class="fa fa-user"></i> Register</a></li>
+<li><a href="{{ url('login') }}"><i class="fa fa-user"></i> Login</a></li>
+<li><a href="{{ url('register') }}"><i class="fa fa-user"></i> Register</a></li>
 
 @else
 <!-- Messages: style can be found in dropdown.less-->
@@ -70,7 +70,7 @@
               document.getElementById('logout-form').submit();">
           <i class="fa fa-sign-out"></i> Log out
         </a>
-        <form id="logout-form" action="/admin/logout" method="POST" style="display: none;">
+        <form id="logout-form" action="/logout" method="POST" style="display: none;">
           {{ csrf_field() }}
         </form>
       </div>

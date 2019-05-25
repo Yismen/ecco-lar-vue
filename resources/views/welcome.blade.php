@@ -1,7 +1,7 @@
 @inject('layout', 'App\Layout')
 @extends('layouts.'.$layout->app(), ['page_header'=>'Welcome', 'page_description'=>'Welcome page!'])
 
-@section('content') 
+@section('content')
     <div class="">
 
         <div class="jumbotron no-margin bg-{{ $color ?? 'yellow'}}  slanted-right">
@@ -16,7 +16,7 @@
                         </a>
                     @else
                         <p>Start using Dainsys</p>
-                        <a href="/admin/login" class="btn btn-default btn-lg">
+                        <a href="/login" class="btn btn-default btn-lg">
                              <i class="fa fa-user"></i> Please Sing In!
                         </a>
                     @endif
@@ -27,10 +27,10 @@
         <div class="jumbotron no-margin text-center">
             <div class="container-fluid">
                 <h1 class="">Services</h1>
-                
+
                 <div class="col-sm-4">
                     <h3><i class="fa fa-4x fa-database"></i></h3>
-                    Our database can help you to keep track of important information, regarding activities developed in you project. 
+                    Our database can help you to keep track of important information, regarding activities developed in you project.
                 </div>
                 <div class="col-sm-4">
                     <h3><i class="fa fa-4x fa-file-excel-o"></i></h3>

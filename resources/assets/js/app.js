@@ -27,7 +27,9 @@ import store from './store'
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+import MIXINS from './mixins'
 const app = new Vue({
     store,
-    el: '#app'
+    el: '#app',
+    mixins: [MIXINS]
 });

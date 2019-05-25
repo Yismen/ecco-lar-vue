@@ -3,10 +3,13 @@
 /**
  * Guest routes here
  */
-foreach (File::allFiles(__DIR__ . '/Web/Guest') as $partial) {
-    require $partial;
-}
+Route::get('date_calc', ['as' => 'date_calc.index', 'uses' => 'DateCalcController@index']);
+Route::get('date_calc/from_today', ['as' => 'date_calc.diff_from_today', 'uses' => 'DateCalcController@diffFromToday']);
+Route::get('date_calc/range_diff', ['as' => 'date_calc.range_diff', 'uses' => 'DateCalcController@rangeDiff']);
+Route::get('notes', 'NotesController@index')->name('notes.index');
+
 Route::get('/{path}', 'HomeController@index')->where('path', '(admin|home|)');
+Auth::routes();
 
 /**
  * App Routes
@@ -14,7 +17,6 @@ Route::get('/{path}', 'HomeController@index')->where('path', '(admin|home|)');
  * Roles and permissions are applied here and at the controls level.
  */
 Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {
-    Auth::routes();
 
     Route::group(['middleware' => 'auth'], function () {
         foreach (File::allFiles(__DIR__ . '/Web/Auth') as $partial) {

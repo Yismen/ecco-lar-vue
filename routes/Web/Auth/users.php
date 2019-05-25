@@ -1,12 +1,5 @@
 <?php
 
-Route::bind('user', function ($id) {
-    return App\User::whereId($id)
-    ->with('roles.permissions')
-    ->with('settings')
-    ->firstOrFail()->append('roles-list');
-});
-
 Route::get('users/reset', 'User\PasswordController@reset')->name('users.reset');
 Route::post('users/reset', 'User\PasswordController@change')->name('users.change');
 

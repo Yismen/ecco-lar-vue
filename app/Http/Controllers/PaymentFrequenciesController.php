@@ -39,7 +39,7 @@ class PaymentFrequenciesController extends Controller
         return view('payment_frequencies.create', compact('payment_frequency'));
     }
 
-    public function show($payment_frequency)
+    public function show(PaymentFrequency $payment_frequency)
     {
         return view('payment_frequencies.show', compact('payment_frequency'));
     }

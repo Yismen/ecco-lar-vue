@@ -7,14 +7,13 @@
             <div class="col-sm-8 col-sm-offset-2">
                 <transition name="fade">
 
-                    <router-view name="notes"></router-view> 
+                    <router-view name="notes"></router-view>
                     <router-view></router-view>
 
-                </transition> 
+                </transition>
             </div>
         </div>
     </div>
 @endsection
 @section('scripts')
-    <script src="{{ asset('js/dainsys/app.js') }}"></script>
 @stop

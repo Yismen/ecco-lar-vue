@@ -7,7 +7,7 @@
          <div class="col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
             <div class="box box-primary">
                 <div class="box-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('admin.login') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
                         {!! csrf_field() !!}
 
                         <div class="col-sm-12">
@@ -62,13 +62,13 @@
                                     <i class="fa fa-btn fa-sign-in"></i> Login
                                 </button>
 
-                                <a class="btn btn-link" href="{{ url('/admin/password/reset') }}">Forgot Your Password?</a>
+                                <a class="btn btn-link" href="{{ url('password/reset') }}">Forgot Your Password?</a>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <a href="{{ url('admin/register') }}">Not a Member? Please register</a>
+                                <a href="{{ url('register') }}">Not a Member? Please register</a>
                             </div>
                         </div>
 

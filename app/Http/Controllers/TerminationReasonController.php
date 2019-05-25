@@ -8,6 +8,13 @@ use App\Http\Requests\TerminationReasonRequest;
 
 class TerminationReasonController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('authorize:view-termination-reasons|edit-termination-reasons|create-termination-reasons', ['only' => ['index', 'show']]);
+        $this->middleware('authorize:edit-termination-reasons', ['only' => ['edit', 'update']]);
+        $this->middleware('authorize:create-termination-reasons', ['only' => ['create', 'store']]);
+        $this->middleware('authorize:destroy-termination-reasons', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
