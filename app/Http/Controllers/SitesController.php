@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Site;
+use App\Employee;
 use Illuminate\Http\Request;
 use Cache;
 
@@ -18,8 +19,12 @@ class SitesController extends Controller
 
     public function index()
     {
+        Cache::flush();
         $sites = Cache::remember('sites', 60, function() {
-            return Site::get();
+            return Site::with(['employees' => function($query) {
+                return $query->orderBy('first_name')->actives();
+            }])
+            ->get();
         });
 
         return view('sites.index', compact('sites'));
@@ -67,5 +72,26 @@ class SitesController extends Controller
         return redirect()->route('admin.sites.index')
             ->withSuccess('Site '. $site->name . ' has been updated!');
 
+    }
+
+    public function assignEmployees(Request $request)
+    {
+        $this->validate($request, [
+            'employee' => 'required|array',
+            'site' => 'required|exists:sites,id'
+        ], [
+            'employee.required' => 'Select at least one employee!'
+        ]);
+
+        Cache::forget('sites');
+
+        foreach ($request->employee as  $id) {
+            $employee = Employee::whereId($id)->first();
+
+            $employee->update(['site_id' => $request->site]);
+        }
+
+        return redirect()->route('admin.sites.index')
+            ->withSuccess("Done!");
     }
 }

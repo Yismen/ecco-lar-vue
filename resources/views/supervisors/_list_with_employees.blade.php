@@ -1,6 +1,6 @@
 @if ($supervisor->employees->count() > 0)
     <div class="col-sm-6">
-        <div class="box box-danger">
+        <div class="box box-warning">
             <div class="box-header">
                 <h4>
                     {{ $supervisor->name }}
@@ -15,7 +15,7 @@
                 <table class="table table-condensed table-hover">
                     <tbody>
                         @foreach ($supervisor->employees as $employee)
-                            <tr is="employee-row" :employee="{{ $employee }}">
+                            <tr is="employee-row" :employee="{{ $employee }}" class="col-md-6">
                             </tr>
                         @endforeach
                     </tbody>

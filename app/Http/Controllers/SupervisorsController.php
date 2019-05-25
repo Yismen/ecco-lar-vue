@@ -140,7 +140,7 @@ class SupervisorsController extends Controller
             ->withDanger("Supervisor $supervisor->name have been eliminated!");
     }
 
-    public function reAssign(Request $request)
+    public function assignEmployees(Request $request)
     {
         $this->validate($request, [
             'employee' => 'required|array',

@@ -7,12 +7,10 @@
             @csrf
             <div class="row">
                 <div class="col-sm-8 col-sm-offset-2">
-                    <div class="box box-info">
-                        <div class="box-header with-border">
-                            Supervisors List
-                            <a href="/admin/supervisors/create" class="pull-right"><i class="fa fa-plus"></i> Create</a>
-                        </div>
-                    </div>
+                    <h3>
+                        Supervisors List
+                        <a href="/admin/supervisors/create" class="pull-right"><i class="fa fa-plus"></i> Add</a>
+                    </h3>
 
                     @include('supervisors._free_employees')
                 </div>
