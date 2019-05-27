@@ -26,6 +26,7 @@ class SupervisorsController extends Controller
     public function index()
     {
         $free_employees = Employee::doesntHave('supervisor')
+            ->actives()
             ->get();
 
         $supervisors = Supervisor::orderBy('name')
