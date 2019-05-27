@@ -22,7 +22,7 @@
                             <div class="box-header">
                                 <h4>
                                     {{ $site->name }}
-                                    <span class="badge">{{ $site->employees->count() }}</span>
+                                    <span class="badge bg-red">{{ $site->employees->count() }}</span>
                                     <a href="{{ route('admin.sites.edit', $site->id) }}" class="pull-right text-warning">
                                         <i class="fa fa-edit"></i>
                                     </a>
