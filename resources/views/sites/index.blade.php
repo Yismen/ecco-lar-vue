@@ -33,9 +33,7 @@
                                     <table class="table table-condensed table-hover">
                                         <tbody>
                                             @foreach ($site->employees as $employee)
-                                                <div class="col-sm-4">
-                                                    <tr is="employee-row" :employee="{{ $employee }}" class="col-md-4 col-sm-6"></tr>
-                                                </div>
+                                                <tr is="employee-row" :employee="{{ $employee }}" class="col-md-4 col-sm-6"></tr>
                                             @endforeach
                                         </tbody>
                                     </table>
