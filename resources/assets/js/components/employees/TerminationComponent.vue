@@ -143,14 +143,14 @@
             return this.$store.getters["employee/getEmployee"]
         },
         reasonIsOther() {
-            if(
-                String(
-                    this.employee.termination_reason_list[this.form.fields.termination_reason_id]
-                ).toLowerCase() == "other"
-            ) {
-                return true;
-            }
-            return this.form.fields.comments = ""
+            let currentId = this.form.fields.termination_reason_id
+
+            let currentReason =  this.employee.termination_reason_list.filter(function(item) {
+                return item.id == currentId
+            })
+
+            currentReason = currentReason[0] ? currentReason[0].reason : ""
+            return String(currentReason).toLowerCase() == "other"
         }
     },
 
