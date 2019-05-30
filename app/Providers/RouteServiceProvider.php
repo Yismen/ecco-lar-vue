@@ -95,9 +95,11 @@ class RouteServiceProvider extends ServiceProvider
                     'has_kids_list',
                     'maritals_list',
                     'positions_list',
+                    'projects_list',
                     'payment_types_list',
                     'payment_frequencies_list',
                     'nationalities_list',
+                    'sites_list',
                     'supervisors_list',
                     'termination_type_list',
                     'termination_reason_list'

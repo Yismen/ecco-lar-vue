@@ -179,7 +179,7 @@
                                 v-model="form.fields.gender_id"
                             >
                                 <option v-for="gender in employee.genders_list" :value="gender.id" :key="gender.id">
-                                    {{ gender.gender }}
+                                    {{ gender.name }}
                                 </option>
                             </select>
                             <span class="text-danger" v-if="form.error.has('gender_id')">{{ form.error.get('gender_id') }}</span>
