@@ -25,9 +25,7 @@
                                     <th>Revenue Type</th>
                                     <th>Revenue Rate</th>
                                     <th>SPH Goal</th>
-                                    <th class="col-xs-2">
-                                        Actions
-                                    </th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
