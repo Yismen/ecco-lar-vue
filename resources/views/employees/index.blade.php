@@ -85,6 +85,7 @@
             let dTable = $('#employees-table').DataTable({
                 "processing": true,
                 "serverSide": true,
+                searchDelay: 800,
                 // "scrollY": "600px",
                 // "scrollCollapse": true,
                 "pageLength": 50,
