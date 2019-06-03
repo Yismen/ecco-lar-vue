@@ -86,7 +86,6 @@
                     |************************************|
                      -->
                 @include('layouts.partials.flashes')
-                @include('layouts.partials.spinner')
 
                 @yield('content')
             </section>

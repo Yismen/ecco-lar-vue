@@ -7,7 +7,8 @@
         <div class="jumbotron no-margin bg-{{ $color ?? 'yellow'}}  slanted-right">
             <div class="container-fluid">
                 <div class="col-sm-12 text-center">
-                    @include('layouts.partials.logo')
+                    <dainsys-logo default-animation="shake" logo="{{ asset('images/logo.png') }}" :random-animation="true" />
+
                     <h1 class="my-main-header">Welcome to {{ $app_name }} {{ $user->name ?? '' }}</h1>
                     <p><i class="fa fa-arrow-up"></i> Click top menu icon <i class="fa fa-bars"></i> to see your applications links. </p>
                     @if ($user)

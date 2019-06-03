@@ -70,6 +70,7 @@ require('./config/interceptors')
 /**
 * Here global components are registered
 */
+Vue.component('dainsys-logo', require('./components/DainsysLogo.vue'));
 Vue.component('loading-component', require('./components/LoadingComponent.vue'));
 Vue.component( 'passport-clients', require('./components/passport/Clients.vue') );
 Vue.component( 'passport-authorized-clients', require('./components/passport/AuthorizedClients.vue') );
