@@ -1,5 +1,5 @@
 <template>
-    <div>        
+    <div>
         <div role="tabpanel" class="nav-tabs-custom">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
@@ -34,7 +34,6 @@
                     <a href="/admin/employees" title="Back to List"><i class="fa fa-home"></i> Home</a>
                 </li>
             </ul>
-        
             <!-- Tab panes -->
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="edit">
@@ -94,8 +93,8 @@
                 </div>
             </div>
         </div>
-        
-    </div>    
+
+    </div>
 </template>
 
 <script>

@@ -7,7 +7,7 @@
         >
 
             <div class="box-header with-border">
-                <h4>{{ employee.full_name }}' Nationality:</h4>
+                <h4>Nationality:</h4>
             </div>
 
             <div class="box-body">

@@ -7,7 +7,7 @@
             >
 
             <div class="box-header with-border">
-                <h4>{{ employee.full_name }}' Logins:</h4>
+                <h4>List of Login Names Assigned:</h4>
             </div>
 
             <div class="box-body">

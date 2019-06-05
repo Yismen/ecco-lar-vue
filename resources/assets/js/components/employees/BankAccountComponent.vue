@@ -5,7 +5,9 @@
             autocomplete="off"
             @keyup="updated">
 
-        <div class="box-header with-border"><h4>{{ employee.full_name }}' Bank Account Info:</h4></div>
+        <div class="box-header with-border">
+            <h4>Bank Account Info:</h4>
+        </div>
 
         <div class="box-body">
             <div class="col-sm-6">

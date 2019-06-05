@@ -5,7 +5,9 @@
             autocomplete="off"
             @change="updated">
 
-            <div class="box-header with-border"><h4>{{ employee.full_name }}' Social Security Info:</h4></div>
+            <div class="box-header with-border">
+                <h4>Social Security Info:</h4>
+            </div>
 
             <div class="box-body">
                 <div class="form-group" :class="{'has-error': form.error.has('number')}">

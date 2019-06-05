@@ -6,7 +6,7 @@
             @change="updated">
 
             <div class="box-header with-border">
-                <h4>{{ employee.full_name }}' Punch:</h4>
+                <h4>Punch Id:</h4>
             </div>
 
             <div class="box-body">

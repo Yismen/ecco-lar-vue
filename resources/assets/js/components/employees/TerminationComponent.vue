@@ -2,7 +2,7 @@
     <div class="_Termination" >
 
         <div class="box-header with-border bg-disabled" :class="[isActive ? 'bg-green' : 'bg-yellow']">
-            <h4>{{ employee.full_name }}' Termination. Current Status is {{ employee.status }}</h4>
+            <h4>Current Status is {{ employee.status }}</h4>
         </div>
 
         <div class="box box-info">

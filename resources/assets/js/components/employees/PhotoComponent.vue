@@ -3,20 +3,14 @@
         <div class="col-sm-12">
             <div class="box box-widget widget-user">
                 <div class="widget-user-header bg-aqua-active">
-                    <h3>{{ employee.full_name }}</h3>
-                    <h4>
-                        Photo Info
-                        <a :href="photo" target="_employee_photo" class="view-photo">
-                            <i class="fa fa-eye"></i> Ver
-                        </a>
-                    </h4>
                 </div>
-
-                <div class="widget-user-image">
-                    <img :src="photo"
-                        class="img-circle"
-                    >
-                </div>
+                <a :href="photo" target="_employee_photo" class="view-photo">
+                    <div class="widget-user-image">
+                        <img :src="photo"
+                            class="img-circle"
+                        >
+                    </div>
+                </a>
 
                 <div class="box-footer">
                     <form class="form-horizontal" role="form"

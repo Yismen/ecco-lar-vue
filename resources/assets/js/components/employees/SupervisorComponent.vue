@@ -7,7 +7,7 @@
         >
 
             <div class="box-header with-border">
-                <h4>{{ employee.full_name }}' Supervisor Info:</h4>
+                <h4>Supervisor Info:</h4>
             </div>
 
             <div class="box-body" :class="{'has-error': form.error.has('supervisor_id')}">

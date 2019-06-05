@@ -5,7 +5,6 @@
             autocomplete="off"
             @change="form.error.clear($event.target.name)"
         >
-
             <div class="box-header with-border">
                 <h4>General Information</h4>
             </div>

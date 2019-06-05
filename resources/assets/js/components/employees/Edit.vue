@@ -31,6 +31,15 @@
                     <a href="/admin/employees" title="Back to List"><i class="fa fa-home"></i> Home</a>
                 </li>
             </ul>
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-1">
+                    <h4>
+                        <a :href="'/admin/employees/' + employee.id">
+                            {{ employee.id }}, {{ employee.full_name }}
+                        </a>
+                    </h4>
+                </div>
+            </div>
 
             <!-- Tab panes -->
             <div class="tab-content">
@@ -71,6 +80,8 @@
                         <div class="col-sm-6">
                             <EmployeeAfp />
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-sm-6">
                             <EmployeeSocialSecurity />
                         </div>

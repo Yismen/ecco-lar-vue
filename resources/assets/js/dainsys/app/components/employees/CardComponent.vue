@@ -2,25 +2,25 @@
     <div class="_Card well">
         <form class="form-horizontal" role="form"
             @submit.prevent="submitCard"
-            autocomplete="off" 
+            autocomplete="off"
             @change="updated">
 
             <div class="box-header with-border">
                 <h4>{{ employee.full_name }}' Card:</h4>
             </div>
-    
+
             <div class="box-body">
                 <div class="form-group">
                     <label for="input" class="col-sm-2 control-label">Card:</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" 
+                        <input type="text" class="form-control"
                          id="card" name="card"
                         v-model="form.fields.card">
                         <span class="text-danger" v-if="form.error.has('card')">{{ form.error.get('card') }}</span>
                     </div>
                 </div> <!-- ./Card -->
             </div>
-    
+
             <div class="box-footer" v-if="showButton">
                 <div class="form-group">
                     <div class="col-sm-10 col-sm-offset-2">
