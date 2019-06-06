@@ -4,6 +4,11 @@ namespace App\Http\Traits\Relationships;
 
 trait EmployeeRelationships
 {
+    public function address()
+    {
+        return $this->hasOne('App\Address');
+    }
+
     public function ars()
     {
         return $this->belongsTo('App\Ars');
@@ -17,11 +22,6 @@ trait EmployeeRelationships
     public function bankAccount()
     {
         return $this->hasOne('App\BankAccount');
-    }
-
-    public function socialSecurity()
-    {
-        return $this->hasOne('App\SocialSecurity');
     }
 
     public function department()
@@ -39,6 +39,11 @@ trait EmployeeRelationships
         return $this->belongsToMany('App\Nationality');
     }
 
+    public function project()
+    {
+        return $this->belongsTo('App\Project');
+    }
+
     public function position()
     {
         return $this->belongsTo('App\Position');
@@ -47,11 +52,6 @@ trait EmployeeRelationships
     public function marital()
     {
         return $this->belongsTo('App\Marital', 'marital_id');
-    }
-
-    public function address()
-    {
-        return $this->hasOne('App\Address');
     }
 
     public function productions()
@@ -88,6 +88,16 @@ trait EmployeeRelationships
     public function supervisor()
     {
         return $this->belongsTo('App\Supervisor');
+    }
+
+    public function site()
+    {
+        return $this->belongsTo('App\Site');
+    }
+
+    public function socialSecurity()
+    {
+        return $this->hasOne('App\SocialSecurity');
     }
 
     public function payrollAdditionals()

@@ -172,7 +172,7 @@ class EmployeesController extends Controller
     protected function getDatatables()
     {
         return datatables()->eloquent(
-            Employee::query()->with('position.department', 'position.payment_type')
+            Employee::query()->with('position.department', 'position.payment_type', 'project')
         )
         // ->editColumn('id', function ($query) {
         //     return route('admin.employees.show', $query->id);

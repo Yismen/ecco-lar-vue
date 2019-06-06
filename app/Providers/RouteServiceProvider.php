@@ -73,37 +73,39 @@ class RouteServiceProvider extends ServiceProvider
             ->with('address')
             ->with('afp')
             ->with('ars')
-            ->with('bankAccount')
+            ->with('bankAccount.bank')
             ->with('socialSecurity')
             ->with('card')
             ->with('gender')
             ->with('loginNames')
             ->with('marital')
             ->with('nationalities')
-                ->with('punch')
-                ->with('position')
-                ->with('termination')
-                ->with('supervisor')
+            ->with('punch')
+            ->with('position')
+            ->with('project')
+            ->with('termination')
+            ->with('supervisor')
+            ->with('site')
 
-                ->firstOrFail()
-                ->append([
-                    'ars_list',
-                    'afp_list',
-                    'banks_list',
-                    'departments_list',
-                    'genders_list',
-                    'has_kids_list',
-                    'maritals_list',
-                    'positions_list',
-                    'projects_list',
-                    'payment_types_list',
-                    'payment_frequencies_list',
-                    'nationalities_list',
-                    'sites_list',
-                    'supervisors_list',
-                    'termination_type_list',
-                    'termination_reason_list'
-                    ]);
+            ->firstOrFail()
+            ->append([
+                'ars_list',
+                'afp_list',
+                'banks_list',
+                'departments_list',
+                'genders_list',
+                'has_kids_list',
+                'maritals_list',
+                'positions_list',
+                'projects_list',
+                'payment_types_list',
+                'payment_frequencies_list',
+                'nationalities_list',
+                'sites_list',
+                'supervisors_list',
+                'termination_type_list',
+                'termination_reason_list'
+                ]);
         });
 
         Route::bind('escalations_client', function ($slug) {

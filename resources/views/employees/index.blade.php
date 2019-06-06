@@ -121,16 +121,19 @@
                     {data: 'hire_date', name: 'hire_date'},
                     {data: 'status', name: 'status', orderable: false, searchable: false},
                     {data: 'position_id', name: 'position_id', render: function(data, type, full){
+                        console.log(full)
                         let position = full.position ? full.position.name : '';
-                        let department = full.position && full.position.department ? ', At ' + full.position.department.name : '';
-                        return position + department;
+                        let project = full.project ? ', At ' + full.project.name : '';
+                        let salary = full.position ? ', $' + full.position.salary : '';
+
+                        return position + project + salary;
                     }},
                     {data: 'personal_id', name: 'personal_id', render: function(data, type, full) {
                         return data ? data : full.passport
                     }},
                     {data: 'passport', name: 'passport', visible: false},
                     {data: 'cellphone_number', name: 'cellphone_number'},
-                    {data: 'secondary_phone', name: 'secondary_phone'},
+                    {data: 'secondary_phone', name: 'secondary_phone', visible: false},
                     {data: 'edit', name: 'edit', searchable: "false", orderable: false, render: function(data, type, full) {
                         return '<a href="'+data+'"><i class="fa fa-pencil"></i> Edit</a>'
                     }},
