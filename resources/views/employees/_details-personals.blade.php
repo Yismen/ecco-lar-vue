@@ -46,7 +46,7 @@
                     <th>Gender: </th>
                     <td>
                         @if ($employee->gender)
-                            <i class="fa fa-{{ $employee->gender && $employee->gender->name == 'male' ? 'male' : 'female' }}"></i>
+                            <i class="fa fa-{{ $employee->gender && $employee->gender->name == 'Male' ? 'male' : 'female' }}"></i>
                             {{ optional($employee->gender)->name }}
                         @endif
                     </td>
