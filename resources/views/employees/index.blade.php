@@ -121,7 +121,6 @@
                     {data: 'hire_date', name: 'hire_date'},
                     {data: 'status', name: 'status', orderable: false, searchable: false},
                     {data: 'position_id', name: 'position_id', render: function(data, type, full){
-                        console.log(full)
                         let position = full.position ? full.position.name : '';
                         let project = full.project ? ', At ' + full.project.name : '';
                         let salary = full.position ? ', $' + full.position.salary : '';
