@@ -1884,7 +1884,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 // backdrop: this.backdrop,
                 title: this.title,
                 text: this.text
+<<<<<<< HEAD
             }, _defineProperty(_$swal, 'showConfirmButton', this.showConfirmButton), _defineProperty(_$swal, 'timer', this.timer), _defineProperty(_$swal, 'toast', this.toast), _defineProperty(_$swal, 'timer', 5000), _$swal));
+=======
+            }, _defineProperty(_$swal, 'showConfirmButton', this.showConfirmButton), _defineProperty(_$swal, 'timer', this.timer), _defineProperty(_$swal, 'background', '#FCFCFC'), _defineProperty(_$swal, 'toast', this.toast), _defineProperty(_$swal, 'padding', '5em'), _defineProperty(_$swal, 'timer', 5000), _$swal));
+>>>>>>> feature/suite-unit-text
         }
     }
 });
@@ -10324,7 +10328,11 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
+<<<<<<< HEAD
 exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+=======
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+>>>>>>> feature/suite-unit-text
 
 // exports
 

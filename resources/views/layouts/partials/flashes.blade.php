@@ -53,8 +53,8 @@
             title="{{ $title }}"
             text="{{ $message }}"
             show-confirm-button="{{ false }}"
-            {{-- position="{{ 'bottom-end' }}"
-            toast="{{ true }}" --}}
+            position="{{ 'top-end' }}"
+            toast="{{ true }}"
         ></flash-message>
 	@endif
 	<!-- /. Warning Messages -->
