@@ -31,7 +31,9 @@ export default {
                 text: this.text,
                 showConfirmButton: this.showConfirmButton,
                 timer: this.timer,
+                background: '#FCFCFC',
                 toast: this.toast,
+                padding: '5em',
                 timer: 5000
             })
         }

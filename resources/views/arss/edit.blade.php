@@ -1,5 +1,5 @@
 @inject('layout', 'App\Layout')
-@extends('layouts.'.$layout->app(), ['page_header'=>'Ars', 'page_description'=>'Create a new ars.'])
+@extends('layouts.'.$layout->app(), ['page_header'=>'ARS', 'page_description'=>'Create a new ars.'])
 
 @section('content')
     <div class="col-sm-8 col-sm-offset-2">
@@ -7,7 +7,7 @@
 
             <div class="box-header with-border">
                 <h4>
-                    Edit ARs {{ $ars->name }}
+                    Edit ARS {{ $ars->name }}
                     <a href="{{ route('admin.arss.index') }}" class="pull-right">
                         <i class="fa fa-home"></i> List
                     </a>
