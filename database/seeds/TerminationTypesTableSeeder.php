@@ -3,7 +3,7 @@
 use App\TerminationType;
 use Illuminate\Database\Seeder;
 
-class TerminationTypeSeeder extends Seeder
+class TerminationTypesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -20,7 +20,7 @@ class TerminationTypeSeeder extends Seeder
             'name' => 'Terminated (Desahucio)',
             'description' => 'The company has excercised the termination of the contract',
         ]);
-        TerminationType::create(([
+        TerminationType::create([
             'name' => 'Fired (Despido Justificado)',
             'description' => 'The employee commited a heavy fault, causing his termination',
         ]);
@@ -31,6 +31,6 @@ class TerminationTypeSeeder extends Seeder
         TerminationType::create([
             'name' => 'Dismiss (Dimision)',
             'description' => 'The person sued the company',
-        ]));
+        ]);
     }
 }

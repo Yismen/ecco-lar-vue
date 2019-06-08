@@ -3,7 +3,7 @@
 use App\TerminationReason;
 use Illuminate\Database\Seeder;
 
-class TerminationReasonSeeder extends Seeder
+class TerminationReasonsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
