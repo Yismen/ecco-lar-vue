@@ -36,4 +36,22 @@ abstract class TestCase extends BaseTestCase
         $this->app->instance(ExceptionHandler::class, $this->oldExceptionHandler);
         return $this;
     }
+
+    protected function userWithPermission($permit)
+    {
+        $user = create('App\User');
+        $role = create('App\Role');
+        $user->roles()->sync($role->id);
+        $permission = create('App\Permission', ['name' => $permit]);
+        $role->permissions()->sync($permission->id);
+
+        return $user;
+    }
+
+    protected function formAttributes($array = [])
+    {
+        return array_merge([
+            'name' => $this->faker->name,
+        ], $array);
+    }
 }

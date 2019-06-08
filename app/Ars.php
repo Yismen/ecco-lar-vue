@@ -30,11 +30,6 @@ class Ars extends Model
 
     public function setNameAttribute($name)
     {
-        $this->attributes['name'] = trim(strtolower($name));
-    }
-
-    public function getNameAttribute()
-    {
-        return trim(ucwords($this->attributes['name']));
+        $this->attributes['name'] = trim(ucwords($name));
     }
 }
