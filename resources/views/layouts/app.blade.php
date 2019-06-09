@@ -53,10 +53,10 @@
     <div class="wrapper" style="height: auto;">
         <!-- Main Header -->
         {{-- @inject('user', 'App\Layout') --}}
-        @include('layouts.partials.navbar-top')
+        @include('layouts.partials.main-header')
         <!-- Left side column. contains the logo and sidebar -->
 
-        @include('layouts.partials.navbar-left')
+        @include('layouts.partials.main-sidebar')
         <!-- Content Wrapper. Contains page content -->
 
         <!-- Content Wrapper. Contains page content -->
@@ -85,7 +85,7 @@
                     | Main Content Here
                     |************************************|
                      -->
-                @include('layouts.partials.flashes')
+                @include('layouts.partials.session-flash-messages')
 
                 @yield('content')
             </section>
@@ -111,7 +111,7 @@
 
         <!-- Control Sidebar -->
         @if ($user)
-            @include('layouts.partials.nav-settings')
+            @include('layouts.partials.control-sidebar')
         @endif
         <div class="control-sidebar-bg"></div>
         <!-- /.control-sidebar -->
