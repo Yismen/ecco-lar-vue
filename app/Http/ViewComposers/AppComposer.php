@@ -32,13 +32,15 @@ class AppComposer
     private function user()
     {
         if (Auth::check()) {
-            return User::with(['roles' => function ($query) {
-                return $query->orderBy('name')
-                    ->with('menus');
-            }])
-            ->with('profile')
-            ->with('settings')
-            ->find(Auth::id());
+            return Auth::user()
+                ->load([
+                    'settings',
+                    'roles' => function ($query) {
+                        return $query->orderBy('name')
+                            ->with('menus');
+                    }
+                ]);
+
         }
 
         return null;
