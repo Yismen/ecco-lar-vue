@@ -5,23 +5,23 @@
 -->
 <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
+    <section class="sidebar" style="">
 
         <!-- Sidebar user panel (optional) -->
         @if($user)
 
-        <div class="user-panel">
-            <div class="pull-left image">
-                @include('layouts.partials.user-photo', ['user'=>$user])
+            <div class="user-panel">
+                <div class="pull-left image">
+                    @include('layouts.partials.user-photo', ['user'=>$user])
+                </div>
+                <div class="pull-left info">
+                    <p>
+                        {{ $user->profile->name ?? $user->name }}
+                    </p>
+                    <!-- Status -->
+                    <!-- <a href="#"><i class="fa fa-circle text-success"></i> Status</a> -->
+                </div>
             </div>
-            <div class="pull-left info">
-                <p>
-                    {{ $user->profile->name ?? $user->name }}
-                </p>
-                <!-- Status -->
-                <!-- <a href="#"><i class="fa fa-circle text-success"></i> Status</a> -->
-            </div>
-        </div>
 
         @endif
 
@@ -97,6 +97,5 @@
         <!-- /.sidebar-menu -->
 
     </section>
-    <!-- /.sidebar -->
-
+        <!-- /.sidebar -->
 </aside>

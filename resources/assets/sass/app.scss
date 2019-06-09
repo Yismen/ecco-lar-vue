@@ -15,10 +15,6 @@
 @import url('~animate.css/animate.css');
 @import '~font-awesome/scss/font-awesome';
 
-section {
-  padding: 48px 0;
-}
-
 .covered {
   background-color: rgba(0,0,0,.2)
 }
@@ -103,6 +99,9 @@ section {
 /**
  * Headers
  */
+.main-header .logo {
+  height: 52px;
+}
  .my-main-header {font-family: fantasy; font-size: 76px; }
  .intro-header {
     padding-top: 50px;

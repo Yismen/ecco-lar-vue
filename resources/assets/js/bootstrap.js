@@ -31,8 +31,8 @@ try {
     window.moment = require('moment');
     window.Form = require('./vendor/dainsys-form').default
     require('bootstrap');
-    require('admin-lte');
     require('datatables.net-bs');
+    require('admin-lte');
 } catch (e) { console.log(e) }
 
 /**

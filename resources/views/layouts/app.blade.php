@@ -60,7 +60,7 @@
         <!-- Content Wrapper. Contains page content -->
 
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper" style="min-height: 946px;">
+        <div class="content-wrapper" style="min-height: 960px;">
 
             <!-- Content Header (Page header) -->
             @if (! isset($hide_content_header) )
@@ -113,6 +113,7 @@
         @if ($user)
             @include('layouts.partials.nav-settings')
         @endif
+        <div class="control-sidebar-bg"></div>
         <!-- /.control-sidebar -->
         <!-- Add the sidebars background. This div must be placed
             immediately after the control sidebar -->
