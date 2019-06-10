@@ -1,7 +1,8 @@
 <?php
 
-Route::group(['middleware' => 'authorize:view_human_resources'], function () {
+Route::group(['middleware' => 'authorize:view-human-resources-dashboard'], function () {
     Route::get('human_resources', ['as' => 'human_resources.index', 'uses' => 'HumanResourcesController@index']);
+
     Route::get('human_resources/employees/missing_address', 'HumanResourcesController@missingAddress');
     Route::get('human_resources/employees/missing_punch', 'HumanResourcesController@missingPunch');
     Route::get('human_resources/employees/missing_photo', 'HumanResourcesController@missingPhoto');

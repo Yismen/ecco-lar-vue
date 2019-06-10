@@ -13,11 +13,7 @@ class HumanResourcesController extends Controller
      */
     public function index()
     {
-        // $hc_by_department_and_aging = Count::byDepartmentAndAging()->get();
-
-        // $hc_by_department = Count::byDepartment();
-        return $stats = (new HumanResourcesRepository())->stats();
-
+        $stats = (new HumanResourcesRepository())->stats();
 
         return view('human_resources.index', compact('stats'));
     }

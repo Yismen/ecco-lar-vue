@@ -1,1 +1,0 @@
-@include('human_resources.birthdays.presenter', ['title'=>'Last Month', 'employees' => $employees])

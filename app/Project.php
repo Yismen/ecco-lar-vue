@@ -12,4 +12,9 @@ class Project extends Model
      * @var array
      */
     public $fillable = ['name'];
+
+    public function employees()
+    {
+        return $this->hasMany(Employee::class);
+    }
 }
