@@ -2,12 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Employee;
-use App\Repositories\Employees;
-use App\Repositories\HumanResources\Lists;
-use App\Repositories\HumanResources\Issues;
-use App\Repositories\HumanResources\Birthdays;
-use App\Repositories\HumanResources\Employees\Count;
+use App\Repositories\HumanResources\HumanResourcesRepository;
 
 class HumanResourcesController extends Controller
 {
@@ -18,32 +13,9 @@ class HumanResourcesController extends Controller
      */
     public function index()
     {
-        $hc_by_department_and_aging = Count::byDepartmentAndAging()->get();
+        $stats = (new HumanResourcesRepository())->stats();
 
-        $hc_by_department = Count::byDepartment();
-        $issues = Issues::render();
-        $birthdays = $this->getBirthdays();
-
-        $by_status = [
-            'actives' => Employee::actives()->count(),
-            'inactives' => Employee::inactives()->count(),
-        ];
-
-        $by_department_positions = Count::byDepartmentPositionGender()->get();
-
-        $rotationByMonth = Count::rotationbyMonths(5);
-
-        return view('human_resources.index', compact(
-            'issues',
-            'birthdays',
-            'by_status',
-            'by_department_positions',
-            'inByMonth',
-            'outByMonth',
-            'rotationByMonth',
-            'hc_by_department',
-            'hc_by_department_and_aging'
-        ));
+        return view('human_resources.index', compact('stats'));
     }
 
     public function missingArs()

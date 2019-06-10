@@ -87,6 +87,20 @@ Vue.component('edit-employee', require('./components/employees/Edit'));
 Vue.component('create-employee', require('./components/employees/CreateEmployee'));
 Vue.component('employee-row', require('./components/employees/partials/RowCheckBox'));
 
+Vue.component('headcount-by-status', require('./components/human_resources/headcounts/ByStatus'));
+Vue.component('headcount-by-gender', require('./components/human_resources/headcounts/ByGender'));
+Vue.component('headcount-by-site', require('./components/human_resources/headcounts/BySite'));
+Vue.component('headcount-by-department', require('./components/human_resources/headcounts/ByDepartment'));
+Vue.component('headcount-by-project', require('./components/human_resources/headcounts/ByProject'));
+Vue.component('headcount-by-position', require('./components/human_resources/headcounts/ByPosition'));
+Vue.component('headcount-by-supervisor', require('./components/human_resources/headcounts/BySupervisor'));
+
+Vue.component('rotations-this-month', require('./components/human_resources/rotations/ThisMonth'));
+Vue.component('rotations-last-month', require('./components/human_resources/rotations/LastMonth'));
+Vue.component('rotations-this-year', require('./components/human_resources/rotations/ThisYear'));
+Vue.component('rotations-last-year', require('./components/human_resources/rotations/LastYear'));
+
+
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
