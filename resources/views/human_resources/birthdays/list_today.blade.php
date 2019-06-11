@@ -16,6 +16,6 @@
     @endforeach
 @else
     <div class="alert alert-default">
-        <strong>No Birthdays today!</strong> None of your pears have birthdays today...
+        <strong>No Birthdays today!</strong> None of your peers have birthdays today...
     </div>
 @endif
