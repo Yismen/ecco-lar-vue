@@ -189,6 +189,12 @@ class RouteServiceProvider extends ServiceProvider
                 ->findOrFail($id);
         });
 
+        Route::bind('performance', function ($id) {
+            return \App\Performance::with('employee.supervisor')
+                ->with('campaign.project')
+                ->findOrFail($id);
+        });
+
         Route::bind('permission', function ($name) {
             return \App\Permission::
                 whereName($name)

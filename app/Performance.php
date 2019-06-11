@@ -24,4 +24,24 @@ class Performance extends Model
         return $this->belongsTo(Campaign::class);
     }
 
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class);
+    }
+
+    public function supervisor()
+    {
+        return $this->belongsTo(Supervisor::class);
+    }
+
+    public function getEmployeesListAttribute()
+    {
+        return Employee::orderBy('first_name')->orderBy('second_first_name')->get();
+    }
+
+    public function getSupervisorsListAttribute()
+    {
+        return Supervisor::orderBy('name')->get();
+    }
+
 }

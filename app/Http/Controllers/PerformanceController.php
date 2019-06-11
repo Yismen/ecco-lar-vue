@@ -28,23 +28,13 @@ class PerformanceController extends Controller
      */
     public function index()
     {
-        return redirect()->route('admin.performances.create');
-    }
+        $performances = Performance::orderBy('date', 'DESC')
+            ->orderBy('campaign_id', 'DESC')
+            ->groupBy(['date', 'campaign_id'])
+            ->with('campaign.project')
+            ->paginate(25);
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $dates = Performance::orderBy('date', 'DESC')
-            ->groupBy(['date', 'id'])
-            ->with('campaign')
-            ->take(5)
-            ->get();
-
-        return view('performances.create', compact('dates'));
+        return view('performances.index', compact('performances'));
     }
 
     /**
@@ -80,9 +70,15 @@ class PerformanceController extends Controller
      * @param  \App\Performance  $performance
      * @return \Illuminate\Http\Response
      */
-    public function show(Performance $performance)
+    public function show(Performance $performance, $perf_date)
     {
-        //
+        $performances = $performance
+            ->where('date', $perf_date)
+            ->with('employee.supervisor')
+            ->with('campaign.project')
+            ->paginate(50);
+
+        return view('performances.show', compact('performances'));
     }
 
     /**
@@ -93,7 +89,7 @@ class PerformanceController extends Controller
      */
     public function edit(Performance $performance)
     {
-        //
+        return view('performances.edit', compact('performance'));
     }
 
     /**
@@ -105,7 +101,21 @@ class PerformanceController extends Controller
      */
     public function update(Request $request, Performance $performance)
     {
-        //
+        $this->validate($request, [
+          'employee_id' => 'required|exists:employees,id',
+          'supervisor_id' => 'required|exists:supervisors,id',
+          'login_time' => 'required|numeric|min:0|max:14',
+          'production_time' => 'required|numeric|min:0|max:14',
+          'transactions' => 'required|numeric',
+          'revenue' => 'required|numeric',
+        ]);
+
+        $performance->update(
+            $request->only(['employee_id', 'supervisor_id', 'login_time', 'production_time', 'transactions', 'revenue'])
+        );
+
+        return redirect()->back()
+            ->withSuccess("Updated!");
     }
 
     /**
@@ -114,8 +124,29 @@ class PerformanceController extends Controller
      * @param  \App\Performance  $performance
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Performance $performance)
+    public function destroy(Performance $performance, $date = null, $campaign_id = null)
     {
-        //
+        if ($date && $campaign_id) {
+            return $this->wantsMassDelete($performance, $date, $campaign_id);
+        }
+
+        $performance->delete();
+
+        return $performance;
+
+    }
+
+    private function wantsMassDelete(Performance $performance, $date, $campaign_id)
+    {
+        $performances =  $performance
+            ->where('date', $date)
+            ->where('campaign_id', $campaign_id)
+            ->get();
+
+        foreach ($performances as $performance) {
+            $performance->delete();
+        }
+
+        return $performances;
     }
 }

@@ -4,18 +4,59 @@
 @section('content')
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-8 col-sm-offset-2">
+            <div class="col-md-10 col-md-offset-1">
                 <div class="box box-info">
                     <div class="box-header">
                         <h4>
-                            {{ $site->name }} Details
-                            <a href="{{ route('admin.sites.index') }}" class="pull-right">
+                            Details
+                            <a href="{{ route('admin.performances.index') }}" class="pull-right">
                                 <i class="fa fa-home"></i> List
                             </a>
                         </h4>
                     </div>
+
                     <div class="box-body">
-                        {{ $site }}
+                        <table class="table table-condensed table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Employee</th>
+                                    <th>Supervisor</th>
+                                    <th>Project</th>
+                                    <th>Campaign</th>
+                                    <th>Login Time</th>
+                                    <th>Production Time</th>
+                                    <th>Sales</th>
+                                    <th>Revenue</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($performances as $performance)
+                                    <tr>
+                                        <td>{{ $performance->date }}</td>
+                                        <td>{{ $performance->employee->full_name }}</td>
+                                        <td>{{ optional($performance->employee->supervisor)->name }}</td>
+                                        <td>{{ optional($performance->campaign->project)->name }}</td>
+                                        <td>{{ $performance->campaign->name }}</td>
+                                        <td>{{ number_format($performance->login_time, 2) }}</td>
+                                        <td>{{ number_format($performance->production_time, 2) }}</td>
+                                        <td>{{ number_format($performance->transactions, 2) }}</td>
+                                        <td>${{ number_format($performance->revenue, 2) }}</td>
+                                        <td>
+                                            <a href="{{ route('admin.performances.edit', $performance->id) }}" class="text-warning">
+                                                <i class="fa fa-pencil"></i> Edit
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="box-footer">
+                        {{ $performances }}
                     </div>
                 </div>
             </div>
