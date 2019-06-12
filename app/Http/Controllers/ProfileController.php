@@ -20,14 +20,24 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        if (!auth()->user()->profile) {
+        $user = auth()->user();
+
+        if (!$user->profile) {
             return redirect()->route('admin.profiles.create')
                 ->withInfo('You have not created a profile, please create one now.');
         }
 
-        $profile = auth()->user()->profile;
+        $profile = $user->profile;
 
-        $profiles = Profiles::all();
+        $profiles = Cache::rememberForever('profiles', function () use ($user) {
+            return Profile::
+                with('user')
+                ->whereHas('user', function ($query) {
+                    return $query;
+                })
+                ->where('user_id', '<>', $user->id)
+                ->paginate(18);
+        });
 
         return view('profiles.show', compact('profile', 'profiles'));
     }
@@ -209,8 +219,8 @@ class ProfileController extends Controller
         ]);
 
         $path = "images/profiles/{$user->id}.png";
-        
-        Storage::drive('public')->put($path, ImageMaker::make($request->photo));     
+
+        Storage::drive('public')->put($path, ImageMaker::make($request->photo));
 
         return "storage/{$path}";
     }
