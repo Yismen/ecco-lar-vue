@@ -11,14 +11,16 @@ class Profiles
 
     public static function all()
     {
-        return Cache::rememberForever('profiles', function(){
+        $user = auth()->user();
+
+        return Cache::rememberForever('profiles', function () use ($user) {
             return Profile::
                 with('user')
                 ->whereHas('user', function ($query) {
                     return $query;
                 })
-                ->paginate(16);
+                ->where('user_id', '<>', $user->id)
+                ->paginate(18);
         });
-        
     }
 }

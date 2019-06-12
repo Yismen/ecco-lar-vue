@@ -18,7 +18,7 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Profiles $profiles)
     {
         $user = auth()->user();
 
@@ -29,15 +29,7 @@ class ProfileController extends Controller
 
         $profile = $user->profile;
 
-        $profiles = Cache::rememberForever('profiles', function () use ($user) {
-            return Profile::
-                with('user')
-                ->whereHas('user', function ($query) {
-                    return $query;
-                })
-                ->where('user_id', '<>', $user->id)
-                ->paginate(18);
-        });
+
 
         return view('profiles.show', compact('profile', 'profiles'));
     }
