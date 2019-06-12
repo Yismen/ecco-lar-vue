@@ -1,4 +1,4 @@
-<aside class="control-sidebar control-sidebar-dark control-sidebar-s">
+<aside class="control-sidebar control-sidebar-dark">
     <!-- Create the tabs -->
     <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
         <li class="active">

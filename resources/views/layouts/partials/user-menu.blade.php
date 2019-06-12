@@ -3,12 +3,6 @@
   * Variable $user is set at App\Providers\ViewsComposerServiceProvider.
 ===============================================================
 -->
-<style type="text/css">
-  .navbar-user-photo img {
-    height: 20px;
-  }
-</style>
-
 @if (!$user)
 
   <li><a href="{{ url('login') }}"><i class="fa fa-user"></i> Login</a></li>
@@ -22,9 +16,7 @@
     <!-- Menu Toggle Button -->
     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
       <!-- The user image in the navbar-->
-      <span class="navbar-user-photo">
-        @include('layouts.partials.user-photo')
-      </span>
+      @include('layouts.partials.user-photo')
       <!-- hidden-xs hides the username on small devices so only the image appears. -->
       <span class="hidden-xs">{{ $user->name }}</span>
     </a>
