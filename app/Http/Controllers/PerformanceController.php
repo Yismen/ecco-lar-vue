@@ -60,7 +60,7 @@ class PerformanceController extends Controller
             Excel::import(new PerformancesImport, $request->file('excel_file')[$key] );
         }
 
-        return redirect()->route('admin.performances.create')
+        return redirect()->route('admin.performances.index')
             ->withSuccess('Data Imported!');
     }
 
