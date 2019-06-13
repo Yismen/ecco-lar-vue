@@ -150,7 +150,7 @@
                                     <option
                                         v-for="position in positions_list"
                                         :key="position.id" :value="position.id"
-                                    > {{ position.name_and_department }}, ${{ position.salary }}
+                                    > {{ position.name }} / {{ position.department.name }}, ${{ position.salary }}
                                     </option>
                                 </select>
                                 <div class="input-group-addon">

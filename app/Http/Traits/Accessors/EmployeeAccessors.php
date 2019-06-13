@@ -237,7 +237,7 @@ trait EmployeeAccessors
      */
     public function getPositionsListAttribute()
     {
-        return  Position::orderBy('department_id')
+        return  Position::orderBy('name')
             ->with('department', 'payment_type', 'payment_frequency')
             ->get();
     }
