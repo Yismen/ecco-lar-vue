@@ -13,14 +13,12 @@ class Profiles
     {
         $user = auth()->user();
 
-        return Cache::rememberForever('profiles', function () use ($user) {
-            return Profile::
-                with('user')
-                ->whereHas('user', function ($query) {
-                    return $query;
-                })
-                ->where('user_id', '<>', $user->id)
-                ->paginate(18);
-        });
+        return Profile::
+            with('user')
+            ->whereHas('user', function ($query) {
+                return $query;
+            })
+            ->where('user_id', '<>', $user->id)
+            ->paginate(18);
     }
 }

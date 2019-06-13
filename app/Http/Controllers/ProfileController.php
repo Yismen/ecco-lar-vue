@@ -22,14 +22,13 @@ class ProfileController extends Controller
     {
         $user = auth()->user();
 
-        if (!$user->profile) {
+        if (!$user->profile()) {
             return redirect()->route('admin.profiles.create')
                 ->withInfo('You have not created a profile, please create one now.');
         }
 
         $profile = $user->profile;
-
-
+        $profiles = $profiles->all();
 
         return view('profiles.show', compact('profile', 'profiles'));
     }
@@ -47,6 +46,7 @@ class ProfileController extends Controller
             return redirect()->route('admin.profiles.index')
                 ->withWarning('You have a profile already. What are you trying to do?');
         }
+
         $profile->name = $user->name;
 
         return view('profiles.create', compact('profile'));

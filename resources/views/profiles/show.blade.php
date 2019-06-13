@@ -10,10 +10,17 @@
 			<div class="col-sm-3">
 				<div class="box box-primary">
 					<div class="box-body box-profile">
-						<img
-							src="{{ file_exists($profile->photo) ? asset($profile->photo) :  'http://placehold.it/300x300'}}"
-							class="profile-user-img img-responsive img-circle animated rotateIn" alt="Image"
-						>
+						@if (file_exists($profile->photo))
+							<a href="{{ asset($profile->photo) }}" target="_user_photo">
+								<img src="{{ asset($profile->photo) }}"
+									class="profile-user-img img-responsive img-circle animated rotateIn" alt="Image"
+								>
+							</a>
+						@else
+							<img src="http://placehold.it/300x300"
+									class="profile-user-img img-responsive img-circle animated rotateIn" alt="Image"
+								>
+						@endif
 
 						<h3 class="profile-username text-center">{{ $profile->user->name }}</h3>
 						<p class="text-muted text-center">
@@ -43,7 +50,7 @@
 					</div>
 					<div class="box-body">
 						<strong> <i class="fa fa-book margin-r-5"></i> Education </strong>
-						{{-- <p class="text-muted">{!! $profile->education !!}</p> --}}
+						<p class="text-muted">{!! $profile->education !!}</p>
 						<hr>
 
 						<strong>
@@ -81,7 +88,9 @@
 					</div>
 				</div>
 
-				@include('profiles._other-profiles')
+				@if ($profiles->count() > 0)
+					@include('profiles._other-profiles')
+				@endif
 			</div>
 		</div>
 	</div>
