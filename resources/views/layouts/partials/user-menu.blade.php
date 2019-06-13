@@ -16,7 +16,7 @@
     <!-- Menu Toggle Button -->
     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
       <!-- The user image in the navbar-->
-      @include('layouts.partials.user-photo')
+      @include('layouts.partials.user-photo', ['user'=>$user, 'class_image_class'=>'user-image'])
       <!-- hidden-xs hides the username on small devices so only the image appears. -->
       <span class="hidden-xs">{{ $user->name }}</span>
     </a>
