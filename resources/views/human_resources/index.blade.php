@@ -20,6 +20,10 @@
 						@include('human_resources.birthdays.count_last_month')
 					</div>
 				</div>
+				<hr>
+				<h4>Missing Infos</h4>
+
+				@include('human_resources._issues-table')
 			</div>
 			{{-- / Head Counts --}}
 			<div class="col-sm-4">
@@ -89,12 +93,14 @@
 							></rotations-last-year>
 					</div>
 				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<monthly-attrition
+							:info="{{ collect($stats['attrition']['monthly']) }}"
+							></monthly-attrition>
+					</div>
+				</div>
 
-
-				<hr>
-				<h4>Missing Infos</h4>
-
-				@include('human_resources._issues-table')
 			</div>
 		</div>
 	</div>

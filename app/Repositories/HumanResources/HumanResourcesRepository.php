@@ -21,6 +21,7 @@ use App\Repositories\HumanResources\HeadCount\BySupervisor;
 use App\Repositories\HumanResources\Issues\MissingSupervisor;
 use App\Repositories\HumanResources\Issues\MissingBankAccount;
 use App\Repositories\HumanResources\Issues\MissingNationality;
+use App\Repositories\HumanResources\Attrition\MonthlyAttrition;
 use App\Repositories\HumanResources\Birthdays\Today as BirthdaysToday;
 use App\Repositories\HumanResources\Birthdays\LastMonth as BirthdaysLastMonth;
 use App\Repositories\HumanResources\Birthdays\NextMonth as BirthdaysNextMonth;
@@ -28,7 +29,6 @@ use App\Repositories\HumanResources\Birthdays\ThisMonth as BirthdaysThisMonth;
 
 class HumanResourcesRepository
 {
-
     public function stats()
     {
         return [
@@ -61,9 +61,10 @@ class HumanResourcesRepository
                 'last_month' => (new LastMonthRotations)->count(),
                 'this_year' => (new ThisYearRotations)->count(),
                 'last_year' => (new LastYearRotations)->count(),
+            ],
+            'attrition' =>[
+                'monthly' => (new MonthlyAttrition)->count(6),
             ]
         ];
-
-
     }
 }
