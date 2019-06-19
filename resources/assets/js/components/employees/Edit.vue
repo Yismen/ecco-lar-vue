@@ -3,29 +3,29 @@
         <div role="tabpanel" class="nav-tabs-custom">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" :class="{'active': selectedTab == '#info-employee'}">
-                    <a href="#info-employee" aria-controls="info-employee" role="tab" data-toggle="tab" @click="setTab">Edit</a>
+                <li role="presentation" class="active">
+                    <a href="#info-employee" aria-controls="info-employee" role="tab" data-toggle="tab">Edit</a>
                 </li>
-                <li role="presentation" :class="{'active': selectedTab == '#termination'}" >
-                    <a href="#termination" aria-controls="termination" role="tab" data-toggle="tab" @click="setTab">Termination</a>
+                <li role="presentation">
+                    <a href="#termination" aria-controls="termination" role="tab" data-toggle="tab">Termination</a>
                 </li>
-                <li role="presentation" :class="{'active': selectedTab == '#photo-and-address'}" >
-                    <a href="#photo-and-address" aria-controls="photo-and-address" role="tab" data-toggle="tab" @click="setTab">Photo and Address</a>
+                <li role="presentation">
+                    <a href="#photo-and-address" aria-controls="photo-and-address" role="tab" data-toggle="tab">Photo and Address</a>
                 </li>
-                <li role="presentation" :class="{'active': selectedTab == '#card_and_punch'}" >
-                    <a href="#card_and_punch" aria-controls="card_and_punch" role="tab" data-toggle="tab" @click="setTab">Card and Punch</a>
+                <li role="presentation">
+                    <a href="#card_and_punch" aria-controls="card_and_punch" role="tab" data-toggle="tab">Card and Punch</a>
                 </li>
-                <li role="presentation" :class="{'active': selectedTab == '#tss'}" >
-                    <a href="#tss" aria-controls="tss" role="tab" data-toggle="tab" @click="setTab">TSS</a>
+                <li role="presentation">
+                    <a href="#tss" aria-controls="tss" role="tab" data-toggle="tab">TSS</a>
                 </li>
-                <li role="presentation" :class="{'active': selectedTab == '#login-names'}" >
-                    <a href="#login-names" aria-controls="login-names" role="tab" data-toggle="tab" @click="setTab">Logins</a>
+                <li role="presentation" >
+                    <a href="#login-names" aria-controls="login-names" role="tab" data-toggle="tab">Logins</a>
                 </li>
-                <li role="presentation" :class="{'active': selectedTab == '#bank_account'}" >
-                    <a href="#bank_account" aria-controls="bank_account" role="tab" data-toggle="tab" @click="setTab">Bank Account</a>
+                <li role="presentation">
+                    <a href="#bank_account" aria-controls="bank_account" role="tab" data-toggle="tab">Bank Account</a>
                 </li>
-                <li role="presentation" :class="{'active': selectedTab == '#others'}" >
-                    <a href="#others" aria-controls="others" role="tab" data-toggle="tab" @click="setTab">Others</a>
+                <li role="presentation">
+                    <a href="#others" aria-controls="others" role="tab" data-toggle="tab">Others</a>
                 </li>
                 <li class="pull-right">
                     <a href="/admin/employees" title="Back to List"><i class="fa fa-home"></i> Home</a>
@@ -129,23 +129,12 @@
     export default {
         name: "EmployeeIndex",
         props: ['employee'],
-        data() {
-            return {
-                selectedTab: "#info-employee",
-            }
-        },
         components: {
             EmployeeAddress, EmployeeAfp, EmployeeArs, EmployeeBankAccount, EmployeeCard, EmployeeInfo, EmployeeLoginNames, EmployeeNationality, EmployeePhoto, EmployeePunch, EmployeeReactivation, EmployeeSocialSecurity, EmployeeSupervisor, EmployeeTermination
         },
 
         created() {
-                this.$store.dispatch("employee/set", this.employee)
-        },
-
-        methods: {
-            setTab(e) {
-                this.selectedTab = e.target.hash
-            }
+            this.$store.dispatch("employee/set", this.employee)
         }
     }
 </script>
