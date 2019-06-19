@@ -8,7 +8,7 @@ Your are a new user to this awesome app. These are your credentials:
 
 Please click the following link to login:
 
-@component('mail::button', ['url' => route('admin.login')])
+@component('mail::button', ['url' => route('login')])
 Log In
 @endcomponent
 

@@ -7,7 +7,7 @@ Admin did a Forced Password Reset to your uer. Most likely you required this, ot
 
 Your new password is: {{$password}}
 
-@component('mail::button', ['url' => route('admin.login')])
+@component('mail::button', ['url' => route('login')])
 Log In
 @endcomponent
 
