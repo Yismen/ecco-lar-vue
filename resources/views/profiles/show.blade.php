@@ -18,8 +18,8 @@
 							</a>
 						@else
 							<img src="http://placehold.it/300x300"
-									class="profile-user-img img-responsive img-circle animated rotateIn" alt="Image"
-								>
+								class="profile-user-img img-responsive img-circle animated rotateIn" alt="Image"
+							>
 						@endif
 
 						<h3 class="profile-username text-center">{{ $profile->user->name }}</h3>

@@ -27,7 +27,7 @@ class Role extends EmpatieRole
      */
     public function getUsersListAttribute()
     {
-        return User::orderBy('name')->pluck('name', 'id');
+        return User::orderBy('name')->get();
     }
 
     /**
@@ -37,7 +37,7 @@ class Role extends EmpatieRole
      */
     public function getPermissionsListAttribute()
     {
-        return Permission::orderBy('resource')->pluck('name', 'id');
+        return Permission::orderBy('resource')->get();
     }
 
     /**
@@ -47,7 +47,7 @@ class Role extends EmpatieRole
      */
     public function getMenusListAttribute()
     {
-        return Menu::orderBy('name')->pluck('name', 'id');
+        return Menu::orderBy('name')->get();
     }
 
     public function createRole($request)

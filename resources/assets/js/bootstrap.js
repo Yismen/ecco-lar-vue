@@ -72,9 +72,9 @@ require('./config/interceptors')
 */
 Vue.component('dainsys-logo', require('./components/DainsysLogo.vue'));
 Vue.component('loading-component', require('./components/LoadingComponent.vue'));
-Vue.component( 'passport-clients', require('./components/passport/Clients.vue') );
-Vue.component( 'passport-authorized-clients', require('./components/passport/AuthorizedClients.vue') );
-Vue.component( 'passport-personal-access-tokens', require('./components/passport/PersonalAccessTokens.vue') );
+Vue.component('passport-clients', require('./components/passport/Clients.vue'));
+Vue.component('passport-authorized-clients', require('./components/passport/AuthorizedClients.vue'));
+Vue.component('passport-personal-access-tokens', require('./components/passport/PersonalAccessTokens.vue'));
 Vue.component('positions-select', require('./components/positions/SelectList'))
 Vue.component('departments-select', require('./components/selects/Departments'))
 // Vue.component('create-position', require('./components/employees/positions/Create'))

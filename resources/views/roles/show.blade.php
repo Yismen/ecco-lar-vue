@@ -15,7 +15,7 @@
 									<a href="{{ route('admin.roles.index') }}" class="pull-right"><i class="fa fa-home"></i> List</a>
 								</li>
 								<li class="list-group-item">
-									<strong>Display Name: </strong>{{ $role->display_name }}
+									<strong>Display Name: </strong>{{ $role->name }}
 								</li>
 								<li class="list-group-item">
 									<strong>Assigned to Users: </strong>
@@ -29,9 +29,9 @@
 								<li class="list-group-item">
 									<strong>Assigned to Permissions: </strong>
 									<br>
-									@if ($role->perms)
-										@foreach ($role->perms as $permission)
-											<span class="label label-primary">{{ $permission->display_name }}</span>
+									@if ($role->permissions)
+										@foreach ($role->permissions as $permission)
+											<span class="label label-danger">{{ $permission->name }}</span>
 										@endforeach
 									@endif
 								</li>

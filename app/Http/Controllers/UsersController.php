@@ -36,6 +36,7 @@ class UsersController extends Controller
             ->with(['roles' => function ($query) {
                 $query->orderBy('name');
             }])
+            ->with('profile')
             ->orderBy('name')
             ->get();
 
