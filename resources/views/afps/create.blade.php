@@ -1,6 +1,7 @@
 
+
 @inject('layout', 'App\Layout')
-@extends('layouts.'.$layout->app(), ['page_header'=>'Cards', 'page_description'=>'Create a new card.'])
+@extends('layouts.'.$layout->app(), ['page_header'=>'Ars', 'page_description'=>'Create a new AFP.'])
 
 @section('content')
     <div class="col-sm-8 col-sm-offset-2">
@@ -8,7 +9,7 @@
 
             <div class="box-header with-border">
                 <h4>
-                    Add AFP
+                    Add a new AFP
                     <a href="{{ route('admin.afps.index') }}" class="pull-right">
                         <i class="fa fa-home"></i> List
                     </a>

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Afp;
-use Illuminate\Http\Request;
 use Cache;
+use App\Afp;
+use App\Employee;
+use Illuminate\Http\Request;
 
 class AfpsController extends Controller
 {
@@ -23,9 +24,18 @@ class AfpsController extends Controller
      */
     public function index(Request $request)
     {
-        $afps = Cache::rememberForever('afps', function() {
+        $free_employees = Employee::doesntHave('afp')
+            ->actives()
+            ->get();
+
+        $afps = Cache::rememberForever('afps', function () {
             return Afp::with(['employees' => function ($query) {
-                return $query->actives();
+                return $query
+                    ->orderBy('first_name')
+                    ->orderBy('second_first_name')
+                    ->orderBy('last_name')
+                    ->orderBy('second_last_name')
+                    ->actives();
             }])->orderBy('name')->get();
         });
 
@@ -33,7 +43,7 @@ class AfpsController extends Controller
             return $afps;
         }
 
-        return view('afps.index', compact('afps'));
+        return view('afps.index', compact('afps', 'free_employees'));
     }
 
     /**
@@ -142,5 +152,27 @@ class AfpsController extends Controller
 
         return redirect()->route('admin.afps.index')
             ->withDanger("AFP $afp->name have been eliminated!");
+    }
+
+    public function assignEmployees(Request $request)
+    {
+        $this->validate($request, [
+            'employee' => 'required|array',
+            'afp' => 'required|exists:afps,id'
+        ], [
+            'employee.required' => 'Select at least one employee!'
+        ]);
+
+        Cache::forget('employees');
+        Cache::forget('afps');
+
+        foreach ($request->employee as  $id) {
+            $employee = Employee::whereId($id)->first();
+
+            $employee->update(['afp_id' => $request->afp]);
+        }
+
+        return redirect()->route('admin.afps.index')
+            ->withSuccess("Done!");
     }
 }

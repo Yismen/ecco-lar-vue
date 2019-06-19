@@ -22,7 +22,7 @@
                             <div class="info-box-content">
                                 <span class="info-box-text">
                                     {{ $ars->name }}
-                                    <a href="{{ route('admin.arss.edit', $ars->slug) }}"><i class="fa fa-pencil"></i></a>
+                                    <a href="{{ route('admin.arss.edit', $ars->id) }}"><i class="fa fa-pencil"></i></a>
                                 </span>
 
                                 <strong>ID: </strong> {{ $ars->id }} <br>

@@ -1,5 +1,5 @@
 @inject('layout', 'App\Layout')
-@extends('layouts.'.$layout->app(), ['page_header'=>'Afp', 'page_description'=>'Details'])
+@extends('layouts.'.$layout->app(), ['page_header'=>'AFP', 'page_description'=>'Details'])
 
 @section('content')
     <div class="container-fluid">
@@ -17,23 +17,21 @@
                     <div class="box-body">
 
                         <div class="info-box">
-                            <span class="info-box-icon bg-yellow"><i class="fa fa-star"></i></span>
+                            <span class="info-box-icon bg-green"><i class="fa fa-star"></i></span>
 
                             <div class="info-box-content">
                                 <span class="info-box-text">
                                     {{ $afp->name }}
-                                    <a href="{{ route('admin.afps.edit', $afp->slug) }}"><i class="fa fa-pencil"></i></a>
+                                    <a href="{{ route('admin.afps.edit', $afp->id) }}"><i class="fa fa-pencil"></i></a>
                                 </span>
 
                                 <strong>ID: </strong> {{ $afp->id }} <br>
+
                                 Employees: <span class="info-box-number">{{ count($afp->employees) }}</span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
 
-                    </div>
-
-                    <div class="box-body">
                         @if(count($afp->employees))
                             <div class="table-responsive">
                                 Employees
@@ -65,6 +63,7 @@
                                 </table>
                             </div>
                         @endif
+
                     </div>
                 </div>
             </div>

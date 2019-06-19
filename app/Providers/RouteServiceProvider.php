@@ -26,20 +26,20 @@ class RouteServiceProvider extends ServiceProvider
     {
         //
         parent::boot();
-        Route::bind('afp', function ($slug) {
-            return \App\Afp::whereSlug($slug)
-                ->with(['employees' => function ($query) {
-                    return $query->actives();
-                }])
-                ->firstOrFail();
+
+        Route::bind('afp', function ($id) {
+            return \App\Afp::with(['employees' => function ($query) {
+                return $query->actives();
+            }])
+            ->findOrFail($id);
         });
 
-        Route::bind('arss', function ($slug) {
-            return \App\Ars::whereSlug($slug)
-                ->with(['employees' => function ($query) {
-                    return $query->orderBy('first_name')->actives();
-                }])
-                ->firstOrFail();
+        Route::bind('arss', function ($id) {
+            return \App\Ars::with(['employees' => function ($query) {
+                return $query->orderBy('first_name')
+                    ->actives();
+            }])
+            ->findOrFail($id);
         });
 
         Route::bind('campaign', function ($id) {

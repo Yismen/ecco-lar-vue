@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Ars;
+use App\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
@@ -22,9 +23,18 @@ class ArsController extends Controller
      */
     public function index(Request $request)
     {
+        $free_employees = Employee::doesntHave('ars')
+            ->actives()
+            ->get();
+
         $arss = Cache::rememberForever('arss', function () {
             return Ars::with(['employees' => function ($query) {
-                return $query->actives();
+                return $query
+                    ->orderBy('first_name')
+                    ->orderBy('second_first_name')
+                    ->orderBy('last_name')
+                    ->orderBy('second_last_name')
+                    ->actives();
             }])->orderBy('name')->get();
         });
 
@@ -32,7 +42,7 @@ class ArsController extends Controller
             return $arss;
         }
 
-        return view('arss.index', compact('arss'));
+        return view('arss.index', compact('arss', 'free_employees'));
     }
 
     /**
@@ -141,5 +151,27 @@ class ArsController extends Controller
 
         return redirect()->route('admin.arss.index')
             ->withWarning("ARS $ars->name have been eliminated!");
+    }
+
+    public function assignEmployees(Request $request)
+    {
+        $this->validate($request, [
+            'employee' => 'required|array',
+            'ars' => 'required|exists:arss,id'
+        ], [
+            'employee.required' => 'Select at least one employee!'
+        ]);
+
+        Cache::forget('employees');
+        Cache::forget('arss');
+
+        foreach ($request->employee as  $id) {
+            $employee = Employee::whereId($id)->first();
+
+            $employee->update(['ars_id' => $request->ars]);
+        }
+
+        return redirect()->route('admin.arss.index')
+            ->withSuccess("Done!");
     }
 }

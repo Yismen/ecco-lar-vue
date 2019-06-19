@@ -15,7 +15,7 @@
             </div>
 
 
-            {!! Form::model($ars, ['route'=>['admin.arss.update', $ars->slug], 'method'=>'PATCH', 'class'=>'form-horizontal', 'role'=>'form', 'autocomplete'=>"off"]) !!}
+            {!! Form::model($ars, ['route'=>['admin.arss.update', $ars->id], 'method'=>'PATCH', 'class'=>'form-horizontal', 'role'=>'form', 'autocomplete'=>"off"]) !!}
                 <div class="box-body">
 
                     @include('arss._form')
@@ -31,7 +31,7 @@
 
             <div class="box-footer">
                 <delete-request-button
-                    url="{{ route('admin.arss.destroy', $ars->slug) }}"
+                    url="{{ route('admin.arss.destroy', $ars->id) }}"
                     redirect-url="{{ route('admin.arss.index') }}"
                 ></delete-request-button>
             </div>
