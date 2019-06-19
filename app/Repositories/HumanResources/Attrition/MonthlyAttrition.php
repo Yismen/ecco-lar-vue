@@ -51,7 +51,7 @@ class MonthlyAttrition implements HumanResourcesInterface
             ->where(function ($query) use ($date) {
                 $query->actives()
                 ->orWhereHas('termination', function ($query) use ($date) {
-                    $query->where('termination_date', '>=', $date->startOfMonth());
+                    $query->where('termination_date', '>', $date->endOfMonth());
                 });
             });
     }

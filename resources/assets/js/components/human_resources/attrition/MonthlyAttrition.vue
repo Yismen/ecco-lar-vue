@@ -34,8 +34,34 @@
                         text: "Montly Attrition"
                     },
                     scales: {
-                        xAxes: [{ stacked: true }],
-                        yAxes: [{ stacked: true }]
+                        yAxes: [{
+                            type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                            display: true,
+                            position: 'left',
+                            id: 'head-count',
+                            // grid line settings
+                            gridLines: {
+                                drawOnChartArea: true, // only want the grid lines for one axis to show up
+                            },
+                        }, {
+                            type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                            display: false,
+                            position: 'left',
+                            id: 'termination',
+                            // grid line settings
+                            gridLines: {
+                                drawOnChartArea: false, // only want the grid lines for one axis to show up
+                            },
+                        }, {
+                            type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                            display: true,
+                            position: 'right',
+                            id: 'attrition',
+                            // grid line settings
+                            gridLines: {
+                                drawOnChartArea: false, // only want the grid lines for one axis to show up
+                            },
+                        }]
                     },
                     tooltips: {
                         mode: 'index',
@@ -80,21 +106,24 @@
                         data: head_count,
                         backgroundColor: 'rgba(54, 162, 235, 0.7)',
                         borderColor: 'rgba(54, 162, 235, 0.7)',
-                        fill: false
+                        fill: false,
+                        yAxisID: 'head-count'
                     },
-                    // {
-                    //     label: "Terminations",
-                    //     data: terminations,
-                    //     backgroundColor: 'rgba(55,0,45, 0.7)',
-                    //     borderColor: 'rgba(55,0,45, 0.7)',
-                    //     fill: false
-                    // },
+                    {
+                        label: "Terminations",
+                        data: terminations,
+                        backgroundColor: 'rgba(55,0,45, 0.7)',
+                        borderColor: 'rgba(55,0,45, 0.7)',
+                        fill: false,
+                        yAxisID: 'termination'
+                    },
                     {
                         label: "Attrition",
                         data: attritions,
-                        backgroundColor: 'rgba(255, 206, 86, 0.7)',
-                        borderColor: 'rgba(255, 206, 86, 0.7)',
-                        fill: false
+                        backgroundColor: 'rgba(255,41,62,1)',
+                        borderColor: 'rgba(255,41,62,1)',
+                        fill: false,
+                        yAxisID: 'attrition'
                     }
                 ]
             }
