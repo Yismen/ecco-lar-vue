@@ -15,41 +15,33 @@ class MonthlyAttrition implements HumanResourcesInterface
 {
     public function setup()
     {
-        return $this;
     }
 
     public function count(int $months = 6)
     {
-        $array_data = [];
-        for ($interval = $months ; $interval !== 0; $interval--) {
-            $date = (new Carbon())->subMonths($interval - 1);
-
-            $prop = $date->format('Y-m');
-
-            $array_data[$prop]['head_count'] = $this->getHeadCount($date)->count();
-            $array_data[$prop]['terminations'] = $this->getTerminations($date)->count();
-            $array_data[$prop]['hires'] = $this->getHires($date)->count();
-        }
-
-        return [$array_data];
+        return $this->getData('count', $months);
     }
 
     public function list(int $months = 6)
     {
+        return $this->getData('get', $months);
+    }
+
+    protected function getData($method, $months)
+    {
         $array_data = [];
+
         for ($interval = $months ; $interval !== 0; $interval--) {
             $date = (new Carbon())->subMonths($interval - 1);
 
             $prop = $date->format('Y-m');
 
-            dd($prop);
-
-            $array_data[$prop]['head_count'] = $this->getHeadCount($date)->get();
-            $array_data[$prop]['terminations'] = $this->getTerminations($date)->get();
-            $array_data[$prop]['hires'] = $this->getHires($date)->get();
+            $array_data[$prop]['head_count'] = $this->getHeadCount($date)->$method();
+            $array_data[$prop]['terminations'] = $this->getTerminations($date)->$method();
+            $array_data[$prop]['hires'] = $this->getHires($date)->$method();
         }
 
-        return $array_data;
+        return [$array_data];
     }
 
     protected function getHeadCount($date)
