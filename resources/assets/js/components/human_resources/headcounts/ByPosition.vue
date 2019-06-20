@@ -75,7 +75,13 @@
             computedDatasets() {
                 let vm = this
 
-                this.info.forEach(function(item, index) {
+                let vmData = this.info
+
+                vmData.sort(function(a, b) {
+                    return b.employees_count - a.employees_count
+                })
+
+                vmData.forEach(function(item, index) {
                     vm.labels.push(item.name)
                     vm.datasets[0].data.push(item.employees_count)
                 })

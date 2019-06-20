@@ -62,7 +62,7 @@
 					<div class="col-lg-12">
 						<headcount-by-position
 							:info="{{ $stats['headcounts']['by_position'] }}"
-							:height="400"
+							:height="250"
 							></headcount-by-position>
 					</div>
 				</div>
