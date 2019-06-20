@@ -102,28 +102,29 @@
 
                 return this.datasets = [
                     {
-                        label: "Head Count",
-                        data: head_count,
-                        backgroundColor: 'rgba(54, 162, 235, 0.7)',
-                        borderColor: 'rgba(54, 162, 235, 0.7)',
-                        fill: false,
-                        yAxisID: 'head-count'
-                    },
-                    {
-                        label: "Terminations",
-                        data: terminations,
-                        backgroundColor: 'rgba(55,0,45, 0.7)',
-                        borderColor: 'rgba(55,0,45, 0.7)',
-                        fill: false,
-                        yAxisID: 'termination'
-                    },
-                    {
                         label: "Attrition",
                         data: attritions,
                         backgroundColor: 'rgba(255,41,62,1)',
                         borderColor: 'rgba(255,41,62,1)',
                         fill: false,
                         yAxisID: 'attrition'
+                    },
+                    {
+                        label: "Terminations",
+                        display: false,
+                        data: terminations,
+                        backgroundColor: 'rgb(255,99,132)',
+                        borderColor: 'rgb(255,99,132)',
+                        fill: false,
+                        yAxisID: 'termination'
+                    },
+                    {
+                        label: "Head Count",
+                        data: head_count,
+                        backgroundColor: 'rgba(54, 162, 235, .9)',
+                        borderColor: 'rgba(54, 162, 235, .9)',
+                        fill: true,
+                        yAxisID: 'head-count'
                     }
                 ]
             }

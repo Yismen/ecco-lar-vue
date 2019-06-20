@@ -5,7 +5,7 @@
         <p>Employess Will Have Birthdays Next Month</p>
     </div>
     <div class="icon">
-        <i class="ion ion-bag"></i>
+        <i class="fa fa-birthday-cake"></i>
     </div>
     <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
 </div>
