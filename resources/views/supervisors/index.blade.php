@@ -15,7 +15,7 @@
                     @include('supervisors._free_employees')
                 </div>
 
-                <div class="col-sm-10 col-sm-offset-1">
+                <div class="col-sm-12">
                     @foreach ($supervisors as $supervisor)
                         @include('supervisors._list_with_employees')
                     @endforeach

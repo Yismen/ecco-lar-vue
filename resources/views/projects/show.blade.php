@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-sm-8 col-sm-offset-2">
                 <div class="box box-primary">
-                   {{ $source }}
+                   {{ $project }}
                 </div>
             </div>
         </div>

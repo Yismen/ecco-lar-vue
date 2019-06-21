@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Employee;
 use App\Project;
 use Illuminate\Http\Request;
 
@@ -17,7 +18,15 @@ class ProjectsController extends Controller
 
     public function index()
     {
-        $projects = Project::all();
+        $projects = Project::with(['employees' => function ($query) {
+            return $query->actives()
+                ->orderBy('first_name')
+                ->orderBy('second_first_name')
+                ->orderBy('last_name')
+                ->orderBy('second_last_name');
+        }])
+        ->orderBy('name')
+        ->get();
 
         return view('projects.index', compact('projects'));
     }
@@ -102,5 +111,24 @@ class ProjectsController extends Controller
         $project->delete();
 
         return redirect()->route('admin.projects.index');
+    }
+
+    public function assignEmployees(Request $request)
+    {
+        $this->validate($request, [
+            'employee' => 'required|array',
+            'project' => 'required|exists:projects,id'
+        ], [
+            'employee.required' => 'Select at least one employee!'
+        ]);
+
+        foreach ($request->employee as  $id) {
+            $employee = Employee::whereId($id)->first();
+
+            $employee->update(['project_id' => $request->project]);
+        }
+
+        return redirect()->route('admin.projects.index')
+            ->withSuccess("Done!");
     }
 }

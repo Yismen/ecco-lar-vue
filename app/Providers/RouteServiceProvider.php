@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Role;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
@@ -29,15 +28,22 @@ class RouteServiceProvider extends ServiceProvider
 
         Route::bind('afp', function ($id) {
             return \App\Afp::with(['employees' => function ($query) {
-                return $query->actives();
+                return $query->actives()
+                        ->orderBy('first_name')
+                        ->orderBy('second_first_name')
+                        ->orderBy('last_name')
+                        ->orderBy('second_last_name');
             }])
             ->findOrFail($id);
         });
 
         Route::bind('arss', function ($id) {
             return \App\Ars::with(['employees' => function ($query) {
-                return $query->orderBy('first_name')
-                    ->actives();
+                return $query->actives()
+                    ->orderBy('first_name')
+                    ->orderBy('second_first_name')
+                    ->orderBy('last_name')
+                    ->orderBy('second_last_name');
             }])
             ->findOrFail($id);
         });
@@ -58,7 +64,13 @@ class RouteServiceProvider extends ServiceProvider
                 ->with(['positions' => function ($query) {
                     $query->orderBy('name');
                 }])
-                ->with('employees')
+                ->with(['employees' => function ($query) {
+                    return $query->actives()
+                        ->orderBy('first_name')
+                        ->orderBy('second_first_name')
+                        ->orderBy('last_name')
+                        ->orderBy('second_last_name');
+                }])
                 ->firstOrFail();
         });
 
@@ -135,7 +147,12 @@ class RouteServiceProvider extends ServiceProvider
 
         Route::bind('hour', function ($id) {
             return \App\Hour::whereId($id)
-                ->with('employee')
+                ->with(['employees' => function ($query) {
+                    return $query->orderBy('first_name')
+                        ->orderBy('second_first_name')
+                        ->orderBy('last_name')
+                        ->orderBy('second_last_name');
+                }])
                 ->firstOrFail();
         });
 
@@ -158,7 +175,14 @@ class RouteServiceProvider extends ServiceProvider
         });
 
         Route::bind('nationality', function ($id) {
-            return \App\Nationality::with('employees.position')->findOrFail($id);
+            return \App\Nationality::with(['employees' => function ($query) {
+                return $query->actives()
+                    ->orderBy('first_name')
+                    ->orderBy('second_first_name')
+                    ->orderBy('last_name')
+                    ->orderBy('second_last_name')
+                    ->with('position');
+            }])->findOrFail($id);
         });
 
         Route::bind('note', function ($slug) {
@@ -205,14 +229,38 @@ class RouteServiceProvider extends ServiceProvider
         Route::bind('position', function ($id) {
             return \App\Position::whereId($id)
                 ->with('department')
+                ->with(['employees' => function ($query) {
+                    return $query->actives()
+                        ->orderBy('first_name')
+                        ->orderBy('second_first_name')
+                        ->orderBy('last_name')
+                        ->orderBy('second_last_name');
+                }])
                 ->with('payment_type')
                 ->with('payment_frequency')
                 ->firstOrFail();
         });
 
+        Route::bind('project', function ($id) {
+            return \App\Project::with(['employees' => function ($query) {
+                return $query->actives()
+                        ->orderBy('first_name')
+                        ->orderBy('second_first_name')
+                        ->orderBy('last_name')
+                        ->orderBy('second_last_name');
+            }])
+                ->findOrFail($id);
+        });
+
         Route::bind('punch', function ($punches) {
             return \App\Punch::wherePunch($punches)
-                ->with('employee')
+                ->with(['employees' => function ($query) {
+                    return $query->actives()
+                        ->orderBy('first_name')
+                        ->orderBy('second_first_name')
+                        ->orderBy('last_name')
+                        ->orderBy('second_last_name');
+                }])
                 ->firstOrFail();
         });
 
@@ -222,7 +270,7 @@ class RouteServiceProvider extends ServiceProvider
         });
 
         Route::bind('role', function ($role) {
-            return Role::whereName($role)
+            return \App\Role::whereName($role)
                 ->with(['permissions' => function ($query) {
                     $query->orderBy('resource');
                 }])
@@ -238,13 +286,24 @@ class RouteServiceProvider extends ServiceProvider
         Route::bind('supervisor', function ($id) {
             return \App\Supervisor::whereId($id)
                 ->with(['employees' => function ($query) {
-                    return $query->orderBy('first_name')->with('position.department');
+                    return $query->actives()
+                        ->orderBy('first_name')
+                        ->orderBy('second_first_name')
+                        ->orderBy('last_name')
+                        ->orderBy('second_last_name')
+                        ->with('position.department');
                 }])
                 ->firstOrFail();
         });
 
         Route::bind('site', function ($id) {
-            return \App\Site::with('employees')
+            return \App\Site::with(['employees' => function ($query) {
+                return $query->actives()
+                    ->orderBy('first_name')
+                    ->orderBy('second_first_name')
+                    ->orderBy('last_name')
+                    ->orderBy('second_last_name');
+            }])
                 ->findOrFail($id);
         });
 

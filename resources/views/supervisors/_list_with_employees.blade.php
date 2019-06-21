@@ -2,7 +2,7 @@
     <div class="box box-warning">
         <div class="box-header">
             <h4>
-                {{ $supervisor->name }}
+                <a href="{{ route('admin.supervisors.show', $supervisor->id) }}">{{ $supervisor->name }}</a>
                 <span class="badge bg-yellow">{{ $supervisor->employees->count() }}</span>
                 <a href="{{ route('admin.supervisors.edit', $supervisor->id) }}" class="pull-right text-warning">
                     <i class="fa fa-edit"></i>

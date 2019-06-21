@@ -7,7 +7,7 @@
 			<div class="col-sm-8 col-sm-offset-2">
 				<div class="box box-primary">
 					<div class="box-header with-boarder">
-						Details for Supervisor {{ $supervisor->name }}, at {{ $supervisor->department->name or 'NO DEPARTMENT' }}, has
+						Details for Supervisor {{ $supervisor->name }}, has
 						<span class="badge badge-primary">{{ $supervisor->employees->count()  }}</span> employees assigned.
 						<a href="/admin/supervisors" class="pull-right"><i class="fa fa-list"></i> List</a>
 					</div>

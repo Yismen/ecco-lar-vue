@@ -7,12 +7,12 @@
 			<div class="col-sm-8 col-sm-offset-2">
 				<div class="box box-primary">
 					<div class="box-header with-border">
-						<h3 class="box-title">
+						<h4>
 							{{ $position->name }}
-						</h3>
 							<a href="{{ route('admin.positions.index') }}" class="pull-right">
 								<i class="fa fa-home"></i> List
 							</a>
+						</h4>
 					</div>
 					{{-- ./ Box header --}}
 					<div class="box-body">
@@ -37,6 +37,34 @@
 					</div>
 				</div>
 				{{-- .box --}}
+				@if ($position->employees->count() > 0)
+					<div class="box box-info">
+						<div class="box-header">
+							<h5>Employees for this Position</h5>
+						</div>
+						{{-- /.box-header --}}
+						<div class="box-body">
+							<div class="table-responsive">
+								<table class="table table-condensed table-bordered">
+									<thead>
+										<tr>
+											<th>Name</th>
+										</tr>
+									</thead>
+									<tbody>
+										@foreach ($position->employees as $employee)
+											<tr>
+												<td>
+													<a href="{{ route('admin.employees.show', $employee->id) }}">{{ $employee->full_name }}</a>
+												</td>
+											</tr>
+										@endforeach
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				@endif
 			</div>
 			{{-- .column --}}
 		</div>
