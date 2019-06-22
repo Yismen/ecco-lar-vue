@@ -5,7 +5,7 @@
 -->
 <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
+    <section class="sidebar" style="height: auto;">
 
         <!-- Sidebar user panel (optional) -->
         @if($user)
@@ -41,7 +41,7 @@
 
 
         <!-- Sidebar Menu -->
-        <ul class="nav sidebar-menu tree" data-widget="tree">
+        <ul class="sidebar-menu tree" data-widget="tree">
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-link"></i>
@@ -85,8 +85,7 @@
                                 @foreach ($role->menus as $menu)
                                     <li>
                                         <a href="{{ url($menu->name) }}">
-                                            <i class="{{ $menu->icon ?? 'fa fa-circle-o' }}">
-
+                                            <i class="{{ filled($menu->icon) ? $menu->icon : 'fa fa-circle-o' }} text-red">
                                             </i> {{ $menu->display_name }}
                                         </a>
                                     </li>

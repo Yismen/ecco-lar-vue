@@ -99,14 +99,18 @@
 /**
  * Headers
  */
- .my-main-header {font-family: fantasy; font-size: 76px; }
  .intro-header {
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding-top: 13.5rem;
+    padding-bottom: 13.5rem;
     text-align: center;
     color: #f8f8f8;
-    /* background-image: url('../images/backgrounds/main-header.jpg'); */
+    // background-image: url('/images/main-header.jpg');
     background-size: cover;
+}
+ .secondary-header {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
+    text-align: center;
 }
 /**
  * Margins

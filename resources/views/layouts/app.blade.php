@@ -65,20 +65,20 @@
 
                 <!-- Content Header (Page header) -->
                 @if (! isset($hide_content_header) )
-                <section class="content-header">
-                    <h1>
-                        {{ $page_header ?? config('dainsys.app_name') }}
-                        <small>{{ $page_description ?? '' }}</small>
-                    </h1>
-                    <!-- <ol class="breadcrumb">
-                                <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-                                <li class="active">Here</li>
-                            </ol> -->
-                </section>
+                    <section class="content-header" style="padding: 15px;">
+                        <h1>
+                            {{ $page_header ?? config('dainsys.app_name') }}
+                            <small>{{ $page_description ?? '' }}</small>
+                        </h1>
+                        <!-- <ol class="breadcrumb">
+                                    <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
+                                    <li class="active">Here</li>
+                                </ol> -->
+                    </section>
                 @endif
 
                 <!-- Main content -->
-                <section class="content" id="app">
+                <section class="" id="app">
                     <loading-component></loading-component>
                     <!-- Your Page Content Here -->
                     <!--
