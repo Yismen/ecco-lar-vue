@@ -9,8 +9,8 @@
                 <div class="col-sm-12 text-center">
                     <dainsys-logo default-animation="shake" logo="{{ asset('images/logo.png') }}" :random-animation="true"></dainsys-logo>
 
-                    <h1 class="my-main-header" style="font-weight: bold; margin-bottom: 2.5rem;">
-                        Welcome to {{ $app_name }}, {{ $user->name ?? '' }}
+                    <h1 class="my-main-header" style="font-weight: bold; margin-bottom: 2.5rem; font-size: 50px;">
+                        Welcome to {{ $app_name }}{{ isset($user) && $user->name ? ', ' . $user->name : '' }}
                     </h1>
                     @if ($user)
                         <a href="/admin/profiles" class="btn btn-default btn-lg">
