@@ -3,7 +3,7 @@
 @section('content')
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+			<div class="col-sm-8 col-sm-offset-2">
 				<div class="box box-warning">
 					<div class="box-header with-border">
 						<h4>
@@ -33,4 +33,10 @@
 			</div>
 		</div>
 	</div>
+@endsection
+@section('scripts')
+	<script src="https://cdn.ckeditor.com/4.11.4/standard/ckeditor.js"></script>
+	<script>
+           CKEDITOR.replace( 'bio' );
+    </script>
 @endsection
