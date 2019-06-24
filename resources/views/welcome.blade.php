@@ -7,7 +7,9 @@
         <div class="no-margin bg-{{ $color ?? 'yellow'}}  intro-header">
             <div class="container-fluid">
                 <div class="col-sm-12 text-center">
-                    <dainsys-logo default-animation="shake" logo="{{ asset('images/logo.png') }}" :random-animation="true"></dainsys-logo>
+                    <animation-scale>
+                        <dainsys-logo default-animation="shake" logo="{{ asset('images/logo.png') }}" :random-animation="true"></dainsys-logo>
+                    </animation-scale>
 
                     <h1 class="my-main-header" style="font-weight: bold; margin-bottom: 2.5rem; font-size: 50px;">
                         Welcome to {{ $app_name }}{{ isset($user) && $user->name ? ', ' . $user->name : '' }}
@@ -30,7 +32,9 @@
                 <div class="col-sm-10 col-sm-offset-1">
                     <div class="col-md-4">
                         <div class="row">
-                            <i class="fa fa-5x fa-users text-primary"></i>
+                            <animation-scale>
+                                <i class="fa fa-5x fa-users text-primary"></i>
+                            </animation-scale>
                             <h3>Employees</h3>
                             <div class="col-xs-8 col-xs-offset-2 col-sm-10 col-sm-offset-1 col-md-12 col-md-offset-0">
                                 <p>With {{ $app_name }} performance reports, dashboards, payrolls and invoicing are all one click away.</p>
@@ -40,7 +44,9 @@
 
                     <div class="col-md-4">
                         <div class="row">
-                            <i class="fa fa-5x fa-dashboard text-primary"></i>
+                            <animation-scale>
+                                <i class="fa fa-5x fa-dashboard text-primary"></i>
+                            </animation-scale>
                             <h3>Dashboards</h3>
                             <div class="col-xs-8 col-xs-offset-2 col-sm-10 col-sm-offset-1 col-md-12 col-md-offset-0">
                                 <p>We help create amazing dashboards with {{ $app_name }}. Your business at a glance.</p>
@@ -50,7 +56,9 @@
 
                     <div class="col-md-4">
                         <div class="row">
-                            <i class="fa fa-5x fa-lock text-primary"></i>
+                            <animation-scale>
+                                <i class="fa fa-5x fa-lock text-primary"></i>
+                            </animation-scale>
                             <h3>ACL</h3>
                             <div class="col-xs-8 col-xs-offset-2 col-sm-10 col-sm-offset-1 col-md-12 col-md-offset-0">
                                 <p>Limit the access to sensitive data based on our Access Level Control logic. Security First.</p>

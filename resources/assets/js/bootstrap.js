@@ -102,6 +102,8 @@ Vue.component('rotations-last-year', require('./components/human_resources/rotat
 
 Vue.component('monthly-attrition', require('./components/human_resources/attrition/MonthlyAttrition'));
 
+Vue.component('animation-scale', require('./components/animations/ScaleComponent'));
+
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
