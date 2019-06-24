@@ -49,12 +49,12 @@
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li>
+                    {{-- <li>
                         <a href="{{ route('notes.index') }}"><i class="fa fa-circle-o text-red"></i> Notes List</a>
                     </li>
                     <li>
                         <a href="{{ route('admin.notes.index') }}"><i class="fa fa-circle-o text-red"></i> Admin Notes</a>
-                    </li>
+                    </li> --}}
                     <li>
                         <a href="{{ route('date_calc.index') }}"><i class="fa fa-circle-o text-red"></i> Date Diff
                             Calculator</a>
