@@ -37,10 +37,11 @@ class AppComposer
                     'settings',
                     'roles' => function ($query) {
                         return $query->orderBy('name')
-                            ->with('menus');
+                            ->with(['menus' => function ($query) {
+                                return $query->orderBy('display_name');
+                            }]);
                     }
                 ]);
-
         }
 
         return null;
