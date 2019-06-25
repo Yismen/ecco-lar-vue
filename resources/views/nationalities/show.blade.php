@@ -30,7 +30,7 @@
                                     <tr>
                                         <td>{{ $nationality->name }}</td>
                                         <td>
-                                            <a href="{{ route('admin.employees.show', $employee->id) }}">
+                                            <a href="{{ route('admin.employees.show', $employee->id) }}" target="_employee">
                                                 {{ $employee->full_name }}
                                             </a>
                                         </td>

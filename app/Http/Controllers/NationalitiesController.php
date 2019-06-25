@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Cache;
+use App\Employee;
 use App\Nationality;
 use Illuminate\Http\Request;
-use Cache;
 
 class NationalitiesController extends Controller
 {
@@ -14,6 +15,7 @@ class NationalitiesController extends Controller
         $this->middleware('authorize:edit-nationalities', ['only' => ['edit', 'update']]);
         $this->middleware('authorize:create-nationalities', ['only' => ['create', 'store']]);
         $this->middleware('authorize:destroy-nationalities', ['only' => ['destroy']]);
+        $this->middleware('authorize:assign-nationalities-employees', ['only' => ['reAssign']]);
     }
 
     /**
@@ -23,16 +25,31 @@ class NationalitiesController extends Controller
      */
     public function index(Request $request)
     {
-        $nationalities = Cache::rememberForever('nationalities', function() {
-                return Nationality::orderBy('name', 'ASC')
-                ->with('employees')->select('id', 'name')->get();
-            });
+        $free_employees = Employee::doesntHave('nationalities')
+            ->orderBy('first_name')
+            ->orderBy('first_name')
+            ->orderBy('last_name')
+            ->orderBy('second_last_name')
+            ->actives()
+            ->get();
+
+        $nationalities = Cache::rememberForever('nationalities', function () {
+            return Nationality::orderBy('name', 'ASC')
+                ->with(['employees' => function ($query) {
+                    return $query
+                        ->orderBy('first_name')
+                        ->orderBy('first_name')
+                        ->orderBy('last_name')
+                        ->orderBy('second_last_name')
+                        ->actives();
+                }])->get();
+        });
 
         if ($request->ajax()) {
             return $nationalities;
         }
 
-        return view('nationalities.index', compact('nationalities'));
+        return view('nationalities.index', compact('nationalities', 'free_employees'));
     }
 
     /**
@@ -122,6 +139,28 @@ class NationalitiesController extends Controller
     {
         return redirect()->route('admin.nationalities.index')
             ->withDanger('Deleting a nationality is not allowed at this moment. You can re-use them by changing the name. If you still requires to delete a Nationality consult with the administrator!');
+    }
+
+    public function assignEmployees(Request $request)
+    {
+        $this->validate($request, [
+            'employee' => 'required|array',
+            'nationality' => 'required|exists:nationalities,id'
+        ], [
+            'employee.required' => 'Select at least one employee!'
+        ]);
+
+        Cache::forget('nationalities');
+        Cache::forget('employees');
+
+        foreach ($request->employee as  $id) {
+            $employee = Employee::whereId($id)->first();
+
+            $employee->nationality()->sync($request->nationality);
+        }
+
+        return redirect()->route('admin.nationalities.index')
+            ->withSuccess("Done!");
     }
 
     protected function validateRequest(Request $request, Nationality $nationality)
