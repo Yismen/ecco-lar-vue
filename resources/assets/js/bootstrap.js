@@ -85,7 +85,9 @@ Vue.component('create-afp-form', require('./components/forms/CreateAfp'))
 Vue.component('flash-message', require('./components/FlashMessage'))
 Vue.component('edit-employee', require('./components/employees/Edit'));
 Vue.component('create-employee', require('./components/employees/CreateEmployee'));
+
 Vue.component('employee-row', require('./components/employees/partials/RowCheckBox'));
+Vue.component('employee-check-box', require('./components/employees/partials/DinamicCheckbox'));
 
 Vue.component('headcount-by-status', require('./components/human_resources/headcounts/ByStatus'));
 Vue.component('headcount-by-gender', require('./components/human_resources/headcounts/ByGender'));

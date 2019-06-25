@@ -29,7 +29,13 @@
                                 <table class="table table-condensed table-hover">
                                     <tbody>
                                         @foreach ($free_employees as $employee)
-                                            <tr is="employee-row" :employee="{{ $employee }}"  class="col-lg-3 col-md-4 col-sm-6"/>
+                                            <tr  class="col-lg-4 col-md-6">
+                                                <td>
+                                                    <employee-check-box :employee="{{ $employee }}">
+                                                        - {{ filled($employee->personal_id) ? $employee->personal_id : $employee->passport }}
+                                                    </employee-check-box>
+                                                </td>
+                                            </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -39,7 +45,7 @@
 
                     @foreach ($nationalities as $nationality)
                         @if ($nationality->employees->count() > 0)
-                            <div class="box box-danger">
+                            <div class="box box-warning">
                                 <div class="box-header">
                                     <h4>
                                         <a href="{{ route('admin.nationalities.show', $nationality->id) }}" title="Details">{{ $nationality->name }}</a>
@@ -53,7 +59,13 @@
                                         <table class="table table-condensed table-hover">
                                             <tbody>
                                                 @foreach ($nationality->employees as $employee)
-                                                    <tr is="employee-row" :employee="{{ $employee }}" class="col-lg-3 col-md-4 col-sm-6"></tr>
+                                                    <tr  class="col-lg-4 col-md-6">
+                                                        <td>
+                                                            <employee-check-box :employee="{{ $employee }}">
+                                                                - {{ filled($employee->personal_id) ? $employee->personal_id : $employee->passport }}
+                                                            </employee-check-box>
+                                                        </td>
+                                                    </tr>
                                                 @endforeach
                                             </tbody>
                                         </table>

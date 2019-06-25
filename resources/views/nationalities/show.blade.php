@@ -19,8 +19,8 @@
                         <table class="table table-condensed table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Nationality</th>
                                     <th>Name</th>
+                                    <th>Personal ID or Passport</th>
                                     <th>Position</th>
                                     <th>Photo</th>
                                 </tr>
@@ -28,12 +28,12 @@
                             <tbody>
                                 @foreach ($nationality->employees as $employee)
                                     <tr>
-                                        <td>{{ $nationality->name }}</td>
                                         <td>
-                                            <a href="{{ route('admin.employees.show', $employee->id) }}" target="_employee">
+                                            <a href="{{ route('admin.employees.edit', $employee->id) }}" target="_employee">
                                                 {{ $employee->full_name }}
                                             </a>
                                         </td>
+                                        <td>{{ filled($employee->personal_id) ? $employee->personal_id : $employee->passport }}</td>
                                         <td>{{ $employee->position ? $employee->position->name_and_department : '' }}</td>
                                         <td class="col-xs-1">
                                             <a href="{{ $employee->photo }}" target="_photo">

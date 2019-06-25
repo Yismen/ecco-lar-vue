@@ -12,7 +12,7 @@ class Nationality extends Model
     {
         return $this->belongsToMany('App\Employee')
             ->select([
-                'id', 'first_name', 'second_first_name', 'last_name', 'second_last_name', 'photo', 'position_id'
+                'id', 'first_name', 'second_first_name', 'last_name', 'second_last_name', 'photo', 'position_id', 'personal_id', 'passport'
             ])
             ->actives();
     }
