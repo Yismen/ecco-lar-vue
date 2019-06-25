@@ -70,6 +70,7 @@ class UsersController extends Controller
             'username' => 'required|unique:users,username',
         ]);
 
+        \Cache::flush();
 
         $password = $user->createUser($request);
 
@@ -115,6 +116,9 @@ class UsersController extends Controller
             'email' => 'required|email|unique:users,email,' . $user->id,
             'username' => 'required|unique:users,username,' . $user->id,
         ]);
+
+        \Cache::flush();
+
         $user->updateUser($request);
 
         return redirect()->route('admin.users.index')
@@ -138,6 +142,8 @@ class UsersController extends Controller
             return redirect()->route('admin.users.edit', $user->id)
                 ->withDanger('Super users can not be removed.');
         }
+
+        \Cache::flush();
 
         $user->delete();
 

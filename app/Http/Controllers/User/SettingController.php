@@ -24,12 +24,14 @@ class SettingController extends Controller
         $settings = [
             'data' => json_encode($request->only('route', 'layout', 'skin', 'sidebar_collapse', 'sidebar_mini'))
         ];
-        
+
         if (!$user->settings) {
             $user->settings()->create($settings);
         } else {
             $user->settings()->update($settings);
         }
+
+        \Cache::flush();
 
         return back();
     }
@@ -42,6 +44,8 @@ class SettingController extends Controller
             'mini' => 'boolean',
             'collapse' => 'boolean',
         ]);
+
+        \Cache::flush();
 
         return $request->all();
 
@@ -61,6 +65,8 @@ class SettingController extends Controller
         $user->app_setting()->count() > 0 ?
             event(new EditUserSettings($user)) :
             event(new CreateUserSettings($user));
+
+        \Cache::flush();
 
         Cache::forget('user-navbar');
     }

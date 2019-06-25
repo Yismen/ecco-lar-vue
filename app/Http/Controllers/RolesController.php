@@ -55,6 +55,8 @@ class RolesController extends Controller
 
         $role = $role->createRole($request);
 
+        \Cache::flush();
+
         return redirect()->route('admin.roles.index')
             ->withSuccess("Role $role->display_name has bee created.");
     }
@@ -96,6 +98,8 @@ class RolesController extends Controller
 
         $role->updateRole($request);
 
+        \Cache::flush();
+
         return redirect()->route('admin.roles.show', $role->name)
             ->withSuccess("Role $role->display_name has bee update.");
     }
@@ -110,8 +114,7 @@ class RolesController extends Controller
     {
         $role->delete();
 
-        Cache::forget('menus');
-        Cache::forget('roles');
+        \Cache::flush();
 
         return redirect()->route('admin.roles.index')
             ->withWarning("Role $role->name has been removed!!!");

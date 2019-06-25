@@ -54,6 +54,8 @@ class MenusController extends Controller
 
         $menu = $menu->addMenu($request);
 
+        \Cache::flush();
+
         return redirect()->route('admin.menus.index')
             ->withSuccess("Menu $menu->display_name has bee created.");
     }
@@ -96,6 +98,8 @@ class MenusController extends Controller
 
         $menu->updateMenu($request);
 
+        \Cache::flush();
+
         return redirect()->route('admin.menus.show', $menu->id)
             ->withSuccess("Menu $menu->display_name has been updated.");
     }
@@ -109,6 +113,8 @@ class MenusController extends Controller
     public function destroy(Menu $menu)
     {
         $menu->removeMenu();
+
+        \Cache::flush();
 
         return redirect()->route('admin.menus.index')
             ->withWarning("Menu collection [$menu->display_name] has been removed!");

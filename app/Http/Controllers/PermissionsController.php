@@ -54,6 +54,8 @@ class PermissionsController extends Controller
 
         $permission->createPermission($request);
 
+        \Cache::flush();
+
         return redirect()->route('admin.permissions.index')
             ->withSuccess('Permissions created.');
     }
@@ -95,6 +97,8 @@ class PermissionsController extends Controller
 
         $permission = $permission->updatePermission($request);
 
+        \Cache::flush();
+
         return redirect()->route('admin.permissions.show', $permission->name)
             ->withSuccess("Menu $permission->name has been updated.");
     }
@@ -108,6 +112,8 @@ class PermissionsController extends Controller
     public function destroy(Permission $permission)
     {
         $permission->delete();
+
+        \Cache::flush();
 
         return redirect()->route('admin.permissions.index')
             ->withWarning("Permission [$permission->name] has been removed!");

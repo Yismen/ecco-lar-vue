@@ -32,16 +32,18 @@ class AppComposer
     private function user()
     {
         if (Auth::check()) {
-            return Auth::user()
-                ->load([
-                    'settings',
-                    'roles' => function ($query) {
-                        return $query->orderBy('name')
-                            ->with(['menus' => function ($query) {
-                                return $query->orderBy('display_name');
-                            }]);
-                    }
-                ]);
+            return \Cache::rememberForEver('user-' . Auth::user()->id, function () {
+                return Auth::user()
+                    ->load([
+                        'settings',
+                        'roles' => function ($query) {
+                            return $query->orderBy('name')
+                                ->with(['menus' => function ($query) {
+                                    return $query->orderBy('display_name');
+                                }]);
+                        }
+                    ]);
+            });
         }
 
         return null;
