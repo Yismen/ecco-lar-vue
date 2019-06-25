@@ -59,11 +59,15 @@
 							:info="{{ $stats['headcounts']['by_supervisor'] }}"
 							></headcount-by-supervisor>
 					</div>
-					<div class="col-lg-12">
+					<div class="col-lg-6">
 						<headcount-by-position
 							:info="{{ $stats['headcounts']['by_position'] }}"
-							:height="250"
 							></headcount-by-position>
+					</div>
+					<div class="col-lg-6">
+						<headcount-by-nationality
+							:info="{{ $stats['headcounts']['by_nationality'] }}"
+							></headcount-by-nationality>
 					</div>
 				</div>
 

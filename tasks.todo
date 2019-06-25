@@ -81,6 +81,6 @@ Tasks:
   ☐ Create a Module for reporting bugs and issues for the app.  @created(18-12-04 20:35)
  only signed in users with this permission should see the link
  Projects:
-   ☐ Cache user in AppComposer @created(19-06-25 09:18)
-     ☐ Clear whole cache when any of the following is touched @created(19-06-25 09:18)
-         ☐  users, roles, menus, settings, permissions, @created(19-06-25 09:18)
+   ✔ Cache user in AppComposer @created(19-06-25 09:18) @done (19-06-25 16:30)
+     ✔ Clear whole cache when any of the following is touched @created(19-06-25 09:18) @done (19-06-25 16:30)
+         ✔  users, roles, menus, settings, permissions, @created(19-06-25 09:18) @done (19-06-25 16:31)

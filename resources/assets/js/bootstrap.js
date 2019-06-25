@@ -95,6 +95,7 @@ Vue.component('headcount-by-site', require('./components/human_resources/headcou
 Vue.component('headcount-by-department', require('./components/human_resources/headcounts/ByDepartment'));
 Vue.component('headcount-by-project', require('./components/human_resources/headcounts/ByProject'));
 Vue.component('headcount-by-position', require('./components/human_resources/headcounts/ByPosition'));
+Vue.component('headcount-by-nationality', require('./components/human_resources/headcounts/ByNationality'));
 Vue.component('headcount-by-supervisor', require('./components/human_resources/headcounts/BySupervisor'));
 
 Vue.component('rotations-this-month', require('./components/human_resources/rotations/ThisMonth'));

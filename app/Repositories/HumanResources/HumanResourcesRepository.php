@@ -3,21 +3,22 @@
 namespace App\Repositories\HumanResources;
 
 use Carbon\Carbon;
-use App\Repositories\HumanResources\HeadCount\BySite;
 use App\Repositories\HumanResources\Issues\MissingAfp;
 use App\Repositories\HumanResources\Issues\MissingArs;
+use App\Repositories\HumanResources\Issues\MissingAddress;
+use App\Repositories\HumanResources\HeadCount\BySite;
 use App\Repositories\HumanResources\HeadCount\ByGender;
 use App\Repositories\HumanResources\HeadCount\ByStatus;
 use App\Repositories\HumanResources\HeadCount\ByProject;
 use App\Repositories\HumanResources\Issues\MissingPunch;
 use App\Repositories\HumanResources\HeadCount\ByPosition;
-use App\Repositories\HumanResources\Issues\MissingAddress;
 use App\Repositories\HumanResources\Employees\Rotations\ThisMonthRotations;
 use App\Repositories\HumanResources\Employees\Rotations\LastMonthRotations;
 use App\Repositories\HumanResources\Employees\Rotations\ThisYearRotations;
 use App\Repositories\HumanResources\Employees\Rotations\LastYearRotations;
 use App\Repositories\HumanResources\HeadCount\ByDepartment;
 use App\Repositories\HumanResources\HeadCount\BySupervisor;
+use App\Repositories\HumanResources\HeadCount\ByNationality;
 use App\Repositories\HumanResources\Issues\MissingSupervisor;
 use App\Repositories\HumanResources\Issues\MissingBankAccount;
 use App\Repositories\HumanResources\Issues\MissingNationality;
@@ -55,6 +56,7 @@ class HumanResourcesRepository
                 'by_position' => (new ByPosition)->count(),
                 'by_project' => (new ByProject)->count(),
                 'by_supervisor' => (new BySupervisor)->count(),
+                'by_nationality' => (new ByNationality)->count(),
             ],
             'rotations' =>[
                 'this_month' => (new ThisMonthRotations)->count(),
