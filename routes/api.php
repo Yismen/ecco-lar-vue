@@ -23,5 +23,9 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('nationalities', 'NationalitiesController')->only('store');
     Route::resource('payment_frequencies', 'PaymentFrequenciesController');
 
+    Route::get('performance_data', 'Api\PerformancesController@performanceData');
+    Route::get('login_names', 'Api\PerformancesController@loginNames');
+    Route::get('campaigns', 'Api\PerformancesController@campaigns');
+
     Route::get('/blackhawk/de/management', 'Blackhawk\DE\ManagementController@dashboardData');
 });

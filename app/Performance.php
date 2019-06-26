@@ -43,5 +43,4 @@ class Performance extends Model
     {
         return Supervisor::orderBy('name')->get();
     }
-
 }
