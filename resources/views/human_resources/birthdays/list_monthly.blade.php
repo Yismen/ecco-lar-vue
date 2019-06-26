@@ -53,7 +53,6 @@
                         @endif
                     </div>
                 </div>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque sint, cumque ad, eos exercitationem dicta fuga sequi voluptate, iste nisi mollitia alias non, minus nemo repellat obcaecati magnam. Ullam, animi?
             </div>
         </div>
     </div>
