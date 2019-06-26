@@ -1,26 +1,10 @@
 <template>
-    <div>
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="box box-primary">
-                    <div class="box-body">
-                        <doughnut-chart
-                            :labels="labels"
-                            :datasets="computedDatasets"
-                            :options="options"
-                            :height="height"
-                        ></doughnut-chart>
-                    </div>
-                    <div class="box-footer">
-                        <a href="/admin/human_resources/head_count/by_project" title="View Details by Project"
-                        target="_employees_">
-                            <i class="fa fa-eye"></i> Details
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <doughnut-chart
+        :labels="labels"
+        :datasets="computedDatasets"
+        :options="options"
+        :height="height"
+    ></doughnut-chart>
 </template>
 
 <script>

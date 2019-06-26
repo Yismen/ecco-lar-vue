@@ -12,7 +12,6 @@ class ThisMonth implements HumanResourcesInterface
 
     public function __construct()
     {
-
         $this->carbon = new Carbon;
     }
     public function setup()
@@ -28,6 +27,8 @@ class ThisMonth implements HumanResourcesInterface
 
     public function list()
     {
-        return $this->setup()->get();
+        return $this->setup()
+            ->orderByRaw('Day(date_of_birth)')
+            ->get();
     }
 }

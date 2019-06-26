@@ -12,7 +12,6 @@ class LastMonth implements HumanResourcesInterface
 
     public function __construct()
     {
-
         $this->carbon = (new Carbon)->subMonth();
     }
     public function setup()
@@ -28,6 +27,8 @@ class LastMonth implements HumanResourcesInterface
 
     public function list()
     {
-        return $this->setup()->get();
+        return $this->setup()
+            ->orderByRaw('Day(date_of_birth)')
+            ->get();
     }
 }

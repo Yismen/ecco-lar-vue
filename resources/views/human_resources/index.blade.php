@@ -30,45 +30,165 @@
 				<h4>Head Counts</h4>
 				<div class="row">
 					<div class="col-lg-6">
-						<headcount-by-status
-							:info="{{ collect($stats['headcounts']['by_status']) }}"
-							></headcount-by-status>
+						<div class="row">
+				            <div class="col-sm-12">
+				                <div class="box box-primary">
+				                    <div class="box-body">
+				                        <headcount-by-status
+											:info="{{ collect($stats['headcounts']['by_status']) }}"
+										></headcount-by-status>
+				                    </div>
+				                    {{-- <div class="box-footer">
+				                        <a href="#" title="View Details by Status"
+				                        target="_employees_">
+				                            <i class="fa fa-eye"></i> Details
+				                        </a>
+				                    </div> --}}
+				                </div>
+				            </div>
+				        </div>
 					</div>
+					{{-- .by-status --}}
 					<div class="col-lg-6">
-						<headcount-by-gender
-							:info="{{ $stats['headcounts']['by_gender'] }}"
-							></headcount-by-gender>
+						<div class="row">
+				            <div class="col-sm-12">
+				                <div class="box box-primary">
+				                    <div class="box-body">
+				                        <headcount-by-gender
+											:info="{{ $stats['headcounts']['by_gender'] }}"
+										></headcount-by-gender>
+				                    </div>
+				                    {{-- <div class="box-footer">
+				                        <a href="/admin/human_resources/head_count/by_gender" title="View Details by Gender"
+				                        target="_employees_">
+				                            <i class="fa fa-eye"></i> Details
+				                        </a>
+				                    </div> --}}
+				                </div>
+				            </div>
+				        </div>
 					</div>
+					{{-- .by-gender --}}
 					<div class="col-lg-6">
-						<headcount-by-site
-							:info="{{ $stats['headcounts']['by_site'] }}"
-							></headcount-by-site>
+				        <div class="row">
+				            <div class="col-sm-12">
+				                <div class="box box-primary">
+				                    <div class="box-body">
+				                        <headcount-by-site
+											:info="{{ $stats['headcounts']['by_site'] }}"
+										></headcount-by-site>
+				                    </div>
+				                    <div class="box-footer">
+				                        <a href="/admin/sites" title="View Details by Site"
+				                        target="_employees_">
+				                            <i class="fa fa-eye"></i> Details
+				                        </a>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>
 					</div>
+					{{-- /.by-site --}}
 					<div class="col-lg-6">
-						<headcount-by-department
-							:info="{{ $stats['headcounts']['by_department'] }}"
-							></headcount-by-department>
+						<div class="row">
+				            <div class="col-sm-12">
+				                <div class="box box-primary">
+				                    <div class="box-body">
+				                        <headcount-by-department
+											:info="{{ $stats['headcounts']['by_department'] }}"
+										></headcount-by-department>
+				                    </div>
+				                    <div class="box-footer">
+				                        <a href="/admin/departments" title="View Details by Departments"
+				                        target="_employees_">
+				                            <i class="fa fa-eye"></i> Details
+				                        </a>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>
 					</div>
+					{{-- .by-department --}}
 					<div class="col-lg-6">
-						<headcount-by-project
-							:info="{{ $stats['headcounts']['by_project'] }}"
-							></headcount-by-project>
+				        <div class="row">
+				            <div class="col-sm-12">
+				                <div class="box box-primary">
+				                    <div class="box-body">
+				                        <headcount-by-project
+											:info="{{ $stats['headcounts']['by_project'] }}"
+										></headcount-by-project>
+				                    </div>
+				                    <div class="box-footer">
+				                        <a href="/admin/projects" title="View Details by Project"
+				                        target="_employees_">
+				                            <i class="fa fa-eye"></i> Details
+				                        </a>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>
 					</div>
+					{{-- .by-project --}}
 					<div class="col-lg-6">
-						<headcount-by-supervisor
-							:info="{{ $stats['headcounts']['by_supervisor'] }}"
-							></headcount-by-supervisor>
+				        <div class="row">
+				            <div class="col-sm-12">
+				                <div class="box box-primary">
+				                    <div class="box-body">
+				                        <headcount-by-supervisor
+											:info="{{ $stats['headcounts']['by_supervisor'] }}"
+										></headcount-by-supervisor>
+				                    </div>
+				                    <div class="box-footer">
+				                        <a href="/admin/supervisors" title="View Details by Supervisor"
+				                        target="_employees_">
+				                            <i class="fa fa-eye"></i> Details
+				                        </a>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>
 					</div>
+					{{-- .by-supervisors --}}
 					<div class="col-lg-6">
-						<headcount-by-position
-							:info="{{ $stats['headcounts']['by_position'] }}"
-							></headcount-by-position>
+						 <div class="row">
+				            <div class="col-sm-12">
+				                <div class="box box-primary">
+				                    <div class="box-body">
+				                        <headcount-by-position
+											:info="{{ $stats['headcounts']['by_position'] }}"
+										></headcount-by-position>
+				                    </div>
+				                    <div class="box-footer">
+				                        <a href="/admin/positions" title="View Details by Position"
+				                        target="_employees_">
+				                            <i class="fa fa-eye"></i> Details
+				                        </a>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>
 					</div>
+					{{-- .by-positions --}}
 					<div class="col-lg-6">
-						<headcount-by-nationality
-							:info="{{ $stats['headcounts']['by_nationality'] }}"
-							></headcount-by-nationality>
+						<div class="row">
+				            <div class="col-sm-12">
+				                <div class="box box-primary">
+				                    <div class="box-body">
+				                        <headcount-by-nationality
+											:info="{{ $stats['headcounts']['by_nationality'] }}"
+										></headcount-by-nationality>
+				                    </div>
+				                    <div class="box-footer">
+				                        <a href="/admin/nationalities" title="View Details by Nationality"
+				                        target="_employees_">
+				                            <i class="fa fa-eye"></i> Details
+				                        </a>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>
 					</div>
+					{{-- .by-nationality --}}
 				</div>
 
 			</div>
