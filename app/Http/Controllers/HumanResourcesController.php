@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\HumanResources\Birthdays\ThisMonth as ThisMonthBirthdays;
+use App\Repositories\HumanResources\Birthdays\NextMonth as NextMonthBirthdays;
+use App\Repositories\HumanResources\Birthdays\LastMonth as LastMonthBirthdays;
 use App\Repositories\HumanResources\HumanResourcesRepository;
 
 class HumanResourcesController extends Controller
@@ -18,97 +21,24 @@ class HumanResourcesController extends Controller
         return view('human_resources.index', compact('stats'));
     }
 
-    public function missingArs()
-    {
-        $employees = Lists::missingArs()->paginate(25);
-
-        return view('human_resources.issues.missing_ars', compact('employees'));
-    }
-
-    public function missingAfp()
-    {
-        $employees = Lists::missingAfp()->paginate(25);
-
-        return view('human_resources.issues.missing_afp', compact('employees'));
-    }
-
-    public function missingPhoto()
-    {
-        $employees = Lists::missingPhoto()->paginate(25);
-
-        return view('human_resources.issues.missing_photo', compact('employees'));
-    }
-
-    public function missingAddress()
-    {
-        $employees = Lists::missingAddress()->paginate(25);
-
-        return view('human_resources.issues.missing_address', compact('employees'));
-    }
-
-    public function missingPunch()
-    {
-        $employees = Lists::missingPunch()->paginate(25);
-
-        return view('human_resources.issues.missing_punch', compact('employees'));
-    }
-
-    public function missingSocialSecurity()
-    {
-        $employees = Lists::missingSocialSecurity()->paginate(25);
-
-        return view('human_resources.issues.missing_social_security', compact('employees'));
-    }
-
-    public function missingBankAccount()
-    {
-        $employees = Lists::missingBankAccount()->paginate(25);
-
-        return view('human_resources.issues.missing_bank_account', compact('employees'));
-    }
-
-    public function getBirthdays()
-    {
-        return [
-            'today' => Birthdays::onDate()->get(),
-            'last_month' => Birthdays::lastMonth()->count(),
-            'this_month' => Birthdays::currentMonth()->count(),
-            'next_month' => Birthdays::nextMonth()->count(),
-        ];
-    }
-
     public function birthdaysThisMonth()
     {
-        $employees = Birthdays::currentMonth()->paginate(25);
+        $employees = (new ThisMonthBirthdays)->list();
 
-        return view('human_resources.birthdays.this_month', compact('employees'));
+        return view('human_resources.birthdays.list_monthly', compact('employees'))->with(['title' => 'Birthdays This Month!']);
     }
 
     public function birthdaysNextMonth()
     {
-        $employees = Birthdays::nextMonth()->paginate(25);
+        $employees = (new NextMonthBirthdays)->list();
 
-        return view('human_resources.birthdays.next_month', compact('employees'));
+        return view('human_resources.birthdays.list_monthly', compact('employees'))->with(['title' => 'Birthdays Next Month!']);
     }
 
     public function birthdaysLastMonth()
     {
-        $employees = Birthdays::lastMonth()->paginate(25);
+        $employees = (new LastMonthBirthdays)->list();
 
-        return view('human_resources.birthdays.last_month', compact('employees'));
-    }
-
-    public function byDepartment($id, Employees $employees)
-    {
-        $department = $employees->employeesByDepartment($id);
-
-        return view('human_resources.hc.by_departments', compact('department'));
-    }
-
-    public function byPosition($id, Employees $employees)
-    {
-        $position = $employees->employeesByPosition($id);
-
-        return view('human_resources.hc.by_positions', compact('position'));
+        return view('human_resources.birthdays.list_monthly', compact('employees'))->with(['title' => 'Birthdays Last Month!']);
     }
 }

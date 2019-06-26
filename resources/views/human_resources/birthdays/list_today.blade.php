@@ -1,4 +1,5 @@
 @if (count($stats['birthdays']['today']) > 0)
+    <p>The following employees have birthday today!</p>
     @foreach ($stats['birthdays']['today'] as $employee)
         <div class="box box-widget widget-user-2">
             <!-- Add the bg color to the header using any of the bg-* classes -->

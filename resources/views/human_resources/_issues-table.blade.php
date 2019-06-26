@@ -13,7 +13,7 @@
                 <tbody>
                     <tr class="">
                         <th>
-                            <a href="/admin/human_resources/issues/missing_address" target="_employees_">Missing Address</a>
+                            <a href="/admin/addresses" target="_issues">Missing Address</a>
                         </th>
                         <td>
                             <span class="badge bg-{{ $stats['issues']['missing_address'] > 0 ? 'red' : 'green' }}">{{ $stats['issues']['missing_address'] }}</span>
@@ -21,7 +21,7 @@
                     </tr>
                     <tr class="">
                         <th>
-                            <a href="/admin/human_resources/issues/missing_punch" target="_employees_">Missing Punch ID</a>
+                            <a href="/admin/punches" target="_issues">Missing Punch ID</a>
                         </th>
                         <td>
                             <span class="badge bg-{{ $stats['issues']['missing_punch'] > 0 ? 'red' : 'green' }}">{{ $stats['issues']['missing_punch'] }}</span>
@@ -29,7 +29,7 @@
                     </tr>
                     <tr class="">
                         <th>
-                            <a href="/admin/human_resources/issues/missing_ars" target="_employees_">Missing ARS</a>
+                            <a href="/admin/arss" target="_issues">Missing ARS</a>
                         </th>
                         <td>
                             <span class="badge bg-{{ $stats['issues']['missing_ars'] > 0 ? 'red' : 'green' }}">{{ $stats['issues']['missing_ars'] }}</span>
@@ -37,7 +37,7 @@
                     </tr>
                     <tr class="">
                         <th>
-                            <a href="/admin/human_resources/issues/missing_afp" target="_employees_">Missing AFP</a>
+                            <a href="/admin/afps" target="_issues">Missing AFP</a>
                         </th>
                         <td>
                             <span class="badge bg-{{ $stats['issues']['missing_afp'] > 0 ? 'red' : 'green' }}">{{ $stats['issues']['missing_afp'] }}</span>
@@ -45,7 +45,7 @@
                     </tr>
                     <tr class="">
                         <th>
-                            <a href="/admin/human_resources/issues/missing_bank_account" target="_employees_">Missing Bank Acc.</a>
+                            <a href="/admin/bank_accounts" target="_issues">Missing Bank Acc.</a>
                         </th>
                         <td>
                             <span class="badge bg-{{ $stats['issues']['missing_bank_account'] > 0 ? 'red' : 'green' }}">{{ $stats['issues']['missing_bank_account'] }}</span>
@@ -53,7 +53,7 @@
                     </tr>
                     <tr class="">
                         <th>
-                            <a href="/admin/human_resources/issues/missing_supervisor" target="_employees_">Missing Supervisor</a>
+                            <a href="/admin/supervisors" target="_issues">Missing Supervisor</a>
                         </th>
                         <td>
                             <span class="badge bg-{{ $stats['issues']['missing_supervisor'] > 0 ? 'red' : 'green' }}">{{ $stats['issues']['missing_supervisor'] }}</span>
@@ -61,7 +61,7 @@
                     </tr>
                     <tr class="">
                         <th>
-                            <a href="/admin/human_resources/issues/missing_nationality" target="_employees_">Missing Nationality</a>
+                            <a href="/admin/nationalities" target="_issues">Missing Nationality</a>
                         </th>
                         <td>
                             <span class="badge bg-{{ $stats['issues']['missing_nationality'] > 0 ? 'red' : 'green' }}">{{ $stats['issues']['missing_nationality'] }}</span>

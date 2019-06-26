@@ -7,5 +7,8 @@
     <div class="icon">
         <i class="fa fa-birthday-cake"></i>
     </div>
-    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+    <a href="/admin/human_resources/birthdays/this_month" class="small-box-footer" target="_birthdays">
+        More info
+        <i class="fa fa-arrow-circle-right"></i>
+    </a>
 </div>
