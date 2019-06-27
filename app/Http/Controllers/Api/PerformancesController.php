@@ -7,6 +7,7 @@ use App\Campaign;
 use App\Employee;
 use App\LoginName;
 use App\Performance;
+use App\DowntimeReason;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CampaignResource;
@@ -14,6 +15,7 @@ use App\Http\Resources\EmployeeResource;
 use App\Http\Resources\DowntimesResource;
 use App\Http\Resources\LoginNameResource;
 use App\Http\Resources\PerformanceResource;
+use App\Http\Resources\DowntimeReasonsResource;
 
 class PerformancesController extends Controller
 {
@@ -74,5 +76,13 @@ class PerformancesController extends Controller
         ->get();
 
         return DowntimesResource::collection($downtimes);
+    }
+
+    public function downtimeReasons()
+    {
+        $downtime_reasons = DowntimeReason::orderBy('name')
+        ->get();
+
+        return DowntimeReasonsResource::collection($downtime_reasons);
     }
 }
