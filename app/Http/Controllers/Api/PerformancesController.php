@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Project;
 use App\Campaign;
+use App\Employee;
 use App\LoginName;
 use App\Performance;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CampaignResource;
+use App\Http\Resources\EmployeeResource;
 use App\Http\Resources\LoginNameResource;
 use App\Http\Resources\PerformanceResource;
 
@@ -56,5 +59,12 @@ class PerformancesController extends Controller
             ->get();
 
         return CampaignResource::collection($campaigns);
+    }
+
+    public function employees()
+    {
+        $projects = Employee::get();
+
+        return EmployeeResource::collection($projects);
     }
 }
