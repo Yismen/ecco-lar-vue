@@ -23,7 +23,7 @@ class PerformanceResource extends JsonResource
             'hire_date' => optional($this->employee)->hire_date->format('Y-m-d'),
             'status' => $this->employee->status,
             'supervisor_employee' => optional($this->employee->supervisor)->name,
-            'project_employee' => optional($this->campaign->project)->name,
+            'project_employee' => optional($this->employee->project)->name,
             'department' => optional($this->employee->position->department)->name,
             'site' => optional($this->employee->site)->name,
             'campaign' => optional($this->campaign)->name,

@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CampaignResource;
 use App\Http\Resources\EmployeeResource;
+use App\Http\Resources\DowntimesResource;
 use App\Http\Resources\LoginNameResource;
 use App\Http\Resources\PerformanceResource;
 
@@ -18,23 +19,15 @@ class PerformancesController extends Controller
 {
     public function performanceData()
     {
-        $performances = Performance::with([
-            'supervisor'
-        ])
-        ->with(['campaign' => function ($query) {
-            return $query->with(['source', 'project']);
-        }])
-        ->with(['employee' => function ($query) {
-            return $query
-                ->with('site')
-                ->with([
-                    'supervisor'
-                ])
-                ->with(['position' => function ($query) {
-                    return $query->with('department');
-                }]);
-        }])
-        ->get();
+        $performances = Performance::with(['supervisor'])
+            ->with(['campaign' => function ($query) {
+                return $query->with(['source', 'project']);
+            }])
+            ->with(['employee' => function ($query) {
+                return $query
+                    ->with(['supervisor', 'site', 'termination', 'position.department', 'project']);
+            }])
+            ->get();
 
         return PerformanceResource::collection($performances);
     }
@@ -63,8 +56,23 @@ class PerformancesController extends Controller
 
     public function employees()
     {
-        $projects = Employee::get();
+        $projects = Employee::with('supervisor')->get();
 
         return EmployeeResource::collection($projects);
+    }
+
+    public function downtimes()
+    {
+        $downtimes = Performance::with('campaign.project')
+        ->with('employee')
+        ->whereHas('campaign', function ($query) {
+            return $query->whereHas('project', function ($query) {
+                return $query->where('name', 'like', '%downtimes%');
+            })
+            ->orWhere('name', 'like', '%downtimes%');
+        })
+        ->get();
+
+        return DowntimesResource::collection($downtimes);
     }
 }
