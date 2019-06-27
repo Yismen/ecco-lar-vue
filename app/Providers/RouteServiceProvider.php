@@ -75,7 +75,7 @@ class RouteServiceProvider extends ServiceProvider
         });
 
         Route::bind('downtime_reason', function ($id) {
-            return \App\DowntimeReason::with('hours')
+            return \App\DowntimeReason::with('hours:id,downtime_reason_id,login_time,reported_by')
                 ->findOrFail($id);
         });
 

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Performance extends Model
 {
-    protected $fillable = ['unique_id', 'date', 'employee_id', 'name', 'campaign_id', 'supervisor_id', 'sph_goal', 'login_time', 'production_time', 'talk_time', 'billable_hours', 'contacts', 'calls', 'transactions', 'revenue'];
+    protected $fillable = ['unique_id', 'date', 'employee_id', 'name', 'campaign_id', 'supervisor_id', 'sph_goal', 'login_time', 'production_time', 'talk_time', 'billable_hours', 'contacts', 'calls', 'transactions', 'revenue', 'downtime_reason_id', 'reported_by'];
 
     public static function removeExisting($unique_id)
     {
@@ -32,6 +32,11 @@ class Performance extends Model
     public function supervisor()
     {
         return $this->belongsTo(Supervisor::class);
+    }
+
+    public function downtimeReason()
+    {
+        return $this->belongsTo(DowntimeReason::class);
     }
 
     public function getEmployeesListAttribute()

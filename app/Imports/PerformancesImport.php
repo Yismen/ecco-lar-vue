@@ -19,10 +19,10 @@ class PerformancesImport implements ToCollection, WithHeadingRow, WithValidation
 
     public function collection(Collection $rows)
     {
-        foreach($rows as $row) {
-
+        foreach ($rows as $row) {
             Validator::make(
-                $row->all(), $this->rules()
+                $row->all(),
+                $this->rules()
             )->validate();
 
             Performance::removeExisting($row['unique_id'])
@@ -47,7 +47,8 @@ class PerformancesImport implements ToCollection, WithHeadingRow, WithValidation
             'contacts' => 'required|numeric',
             'calls' => 'required|numeric',
             'transactions' => 'required|numeric',
-            'revenue' => 'required|numeric'
+            'revenue' => 'required|numeric',
+            'downtime_reason_id' => 'nullable|exists:downtime_reasons,id',
         ];
     }
 
@@ -72,21 +73,23 @@ class PerformancesImport implements ToCollection, WithHeadingRow, WithValidation
     public function map($row): array
     {
         return [
-                'unique_id' => $row['unique_id'],
-                'date' => $this->transformDate($row['date'])->format('Y-m-d'),
-                'employee_id' => $row['employee_id'],
-                'name' => $row['employee_name'],
-                'campaign_id' => $row['campaign_id'],
-                'supervisor_id' => $row['supervisor_id'],
-                'sph_goal' => $row['sph_goal'],
-                'login_time' => $row['login_time_parsed'],
-                'production_time' => $row['production_time_parsed'],
-                'talk_time' => $row['talk_time_parsed'],
-                'billable_hours' => $row['billable_hours'],
-                'contacts' => $row['contacts'],
-                'calls' => $row['calls'],
-                'transactions' => $row['transactions'],
-                'revenue' => $row['revenue']
-            ];
+            'unique_id' => $row['unique_id'],
+            'date' => $this->transformDate($row['date'])->format('Y-m-d'),
+            'employee_id' => $row['employee_id'],
+            'name' => $row['employee_name'],
+            'campaign_id' => $row['campaign_id'],
+            'supervisor_id' => $row['supervisor_id'],
+            'sph_goal' => $row['sph_goal'],
+            'login_time' => $row['login_time_parsed'],
+            'production_time' => $row['production_time_parsed'],
+            'talk_time' => $row['talk_time_parsed'],
+            'billable_hours' => $row['billable_hours'],
+            'contacts' => $row['contacts'],
+            'calls' => $row['calls'],
+            'transactions' => $row['transactions'],
+            'revenue' => $row['revenue'],
+            'downtime_reason_id' => $row['reason_id'],
+            'reported_by' => $row['reported_by'],
+        ];
     }
 }
