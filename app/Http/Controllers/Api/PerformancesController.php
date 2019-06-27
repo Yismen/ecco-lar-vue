@@ -80,8 +80,7 @@ class PerformancesController extends Controller
 
     public function downtimeReasons()
     {
-        $downtime_reasons = DowntimeReason::orderBy('name')
-        ->get();
+        $downtime_reasons = DowntimeReason::get();
 
         return DowntimeReasonsResource::collection($downtime_reasons);
     }
