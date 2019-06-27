@@ -33,7 +33,7 @@ class PerformancesController extends Controller
                 ->with(['position' => function ($query) {
                     return $query->with('department');
                 }]);
-        }])
+        }])->take(5)
         ->get();
 
         return PerformanceResource::collection($performances);
