@@ -74,9 +74,8 @@ class RouteServiceProvider extends ServiceProvider
                 ->firstOrFail();
         });
 
-        Route::bind('downtime', function ($id) {
-            return \App\Downtime::with('employee.positions')
-                ->with('reason')
+        Route::bind('downtime_reason', function ($id) {
+            return \App\DowntimeReason::with('hours')
                 ->findOrFail($id);
         });
 
