@@ -1,10 +1,11 @@
 @component('mail::message')
 # Welcome to {{ config('app.name') }}, {{ $user->name }}
 
-Your are a new user to this awesome app. These are your credentials:
+Your have been invited to use this awesome app.
 
-<strong>Username:</strong> {{ $user->email }} <br>
-<strong>Password:</strong> {{ $password }}
+These are your new credentials: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>Username:</strong> {{ $user->email }} <br>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>Password:</strong> {{ $password }}
 
 Please click the following link to login:
 

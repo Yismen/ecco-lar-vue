@@ -3,9 +3,11 @@
 
 Hello {{ $user->name }},
 
-Admin did a Forced Password Reset to your uer. Most likely you required this, otherwise contact Dainsys administrator by replaying to this email.
+Dainsys administrator performed a Hard Password Reset to your user. Most likely you required this action. If you did not requested this action please contact Dainsys administrator by replaying to this email ASAP.
 
-Your new password is: {{$password}}
+These are your new credentials:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>Username:</strong> {{$user->email}}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<strong>Password:</strong> {{$password}}
 
 @component('mail::button', ['url' => route('login')])
 Log In

@@ -8,7 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class UpdatedPassword extends Mailable
+class UpdatedPassword extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 

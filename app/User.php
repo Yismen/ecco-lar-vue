@@ -73,7 +73,6 @@ class User extends Authenticatable implements CanResetPassword
 
     public function createUser($request)
     {
-
         $new_password = str_random(15);
 
         $user = $this->create([
@@ -88,7 +87,7 @@ class User extends Authenticatable implements CanResetPassword
         $user->roles()->sync((array) $request->input('roles'));
 
         if ($request->notify) {
-            Mail::send(new NewUserCreated ($user, $new_password));
+            Mail::send(new NewUserCreated($user, $new_password));
         }
 
         return $new_password;
@@ -96,7 +95,6 @@ class User extends Authenticatable implements CanResetPassword
 
     public function updateUser($request)
     {
-
         if ($this->id == auth()->user()->id && $request->is_active == 0) {
             abort(401, 'You cant inactivate Your self. No changes made.');
         }
