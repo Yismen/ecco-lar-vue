@@ -38,6 +38,8 @@ class PerformanceResource extends JsonResource
             'calls' => $this->calls,
             'sales' => $this->transactions,
             'revenue' => $this->revenue,
+            'dontime_reason' => optional($this->downtimeReason)->name,
+            'reported_by' => $this->reported_by,
         ];
     }
 }

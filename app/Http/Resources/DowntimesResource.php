@@ -23,6 +23,8 @@ class DowntimesResource extends JsonResource
             'project_performance' => optional($this->campaign->project)->name,
             'employee_name' => optional($this->employee)->full_name,
             'login_time' => $this->login_time,
+            'dontime_reason' => optional($this->downtimeReason)->name,
+            'reported_by' => $this->reported_by,
         ];
     }
 }
