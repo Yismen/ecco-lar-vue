@@ -6,6 +6,7 @@ use App\Project;
 use App\Campaign;
 use App\Employee;
 use App\LoginName;
+use Carbon\Carbon;
 use App\Performance;
 use App\DowntimeReason;
 use Illuminate\Http\Request;
@@ -19,8 +20,10 @@ use App\Http\Resources\DowntimeReasonsResource;
 
 class PerformancesController extends Controller
 {
-    public function performanceData()
+    public function performanceData(int $many = 3)
     {
+        $start_of_month = Carbon::now()->subMonths($many)->startOfMonth();
+
         $performances = Performance::with(['supervisor'])
             ->with(['campaign' => function ($query) {
                 return $query->with(['source', 'project']);
@@ -29,6 +32,7 @@ class PerformancesController extends Controller
                 return $query
                     ->with(['supervisor', 'site', 'termination', 'position.department', 'project']);
             }])
+            ->whereDate('date', '>=', $start_of_month)
             ->get();
 
         return PerformanceResource::collection($performances);

@@ -25,6 +25,8 @@ class PerformancesImport implements ToCollection, WithHeadingRow, WithValidation
                 $this->rules()
             )->validate();
 
+            \Cache::flush();
+
             Performance::removeExisting($row['unique_id'])
                 ->create($row->all());
         }
