@@ -152,14 +152,14 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
+        Arcanedev\LogViewer\LogViewerServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
-        Intervention\Image\ImageServiceProvider::class,
         Cviebrock\EloquentSluggable\ServiceProvider::class,
-        // Zizaco\Entrust\EntrustServiceProvider::class,
-        Yajra\Datatables\DatatablesServiceProvider::class,
         GrahamCampbell\Flysystem\FlysystemServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
+        Yajra\Datatables\DatatablesServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -169,7 +169,6 @@ return [
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
-        App\Providers\HorizonServiceProvider::class,
         App\Providers\TelescopeServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
     ],
