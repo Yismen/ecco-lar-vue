@@ -22,6 +22,10 @@ class PerformancesController extends Controller
 {
     public function performanceData(int $many = 3)
     {
+        $many--;
+
+        $many =  $many <= 0 ? 0 : $many;
+
         $start_of_month = Carbon::now()->subMonths($many)->startOfMonth();
 
         $performances = Performance::with(['supervisor'])

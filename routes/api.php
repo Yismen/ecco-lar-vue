@@ -23,7 +23,7 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('nationalities', 'NationalitiesController')->only('store');
     Route::resource('payment_frequencies', 'PaymentFrequenciesController');
 
-    Route::get('performances/performance_data/{many}/months', 'Api\PerformancesController@performanceData');
+    Route::get('performances/performance_data/last/{many}/months', 'Api\PerformancesController@performanceData');
     Route::get('performances/login_names', 'Api\PerformancesController@loginNames');
     Route::get('performances/campaigns', 'Api\PerformancesController@campaigns');
     Route::get('performances/employees', 'Api\PerformancesController@employees');
