@@ -22,6 +22,7 @@
         "intervention/image": "*",
         "laravel/framework": "5.7.*",
         "laravel/passport": "^7.0",
+        "laravel/telescope": "~1.0",
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^5.7",
         "maatwebsite/excel": "*",
@@ -34,7 +35,6 @@
         "filp/whoops": "^2.1",
         "fzaninotto/faker": "^1.4",
         "laravel/homestead": "^8",
-        "laravel/telescope": "^1.0",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^2.0",
         "phpunit/phpunit": "^7.0"
