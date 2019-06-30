@@ -26,6 +26,8 @@ class PerformancesController extends Controller
 
         $many =  $many <= 0 ? 0 : $many;
 
+        ini_set('memory_limit', '1G');
+
         $start_of_month = Carbon::now()->subMonths($many)->startOfMonth();
 
         $performances = Performance::with(['supervisor', 'downtimeReason'])
