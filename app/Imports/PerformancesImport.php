@@ -49,6 +49,8 @@ class PerformancesImport implements ToCollection, WithHeadingRow, WithValidation
             'contacts' => 'required|numeric',
             'calls' => 'required|numeric',
             'transactions' => 'required|numeric',
+            'upsales' => 'required|numeric',
+            'cc_sales' => 'required|numeric',
             'revenue' => 'required|numeric',
             'downtime_reason_id' => 'nullable|exists:downtime_reasons,id',
         ];
@@ -89,6 +91,8 @@ class PerformancesImport implements ToCollection, WithHeadingRow, WithValidation
             'contacts' => $row['contacts'],
             'calls' => $row['calls'],
             'transactions' => $row['transactions'],
+            'upsales' => $row['upsales'],
+            'cc_sales' => $row['cc_sales'],
             'revenue' => $row['revenue'],
             'downtime_reason_id' => $row['reason_id'],
             'reported_by' => $row['reported_by'],
