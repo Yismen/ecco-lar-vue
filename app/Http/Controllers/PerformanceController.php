@@ -53,9 +53,9 @@ class PerformanceController extends Controller
 
         ini_set('memory_limit', config('dainsys.memory_limit'));
         ini_set('max_execution_time', 240);
+        $files_handledled = '';
 
         foreach ($request->file('excel_file') as $key => $file) {
-            $files_handledled = '';
             if (! Str::contains($file->getClientOriginalName(), '_performance_daily_data_')) {
                 return redirect()->back()
                     ->withErrors(['excel_file' => "Wrong file selected. Please make sure you pick a file which the correct naming convention _performance_daily_data_..."]);
