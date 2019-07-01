@@ -94,7 +94,9 @@ class RouteServiceProvider extends ServiceProvider
             ->with('punch')
             ->with('position')
             ->with('project')
-            ->with('termination')
+            ->with(['termination' => function ($query) {
+                return $query->with(['terminationType', 'terminationReason']);
+            }])
             ->with('supervisor')
             ->with('site')
 

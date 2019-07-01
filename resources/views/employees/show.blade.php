@@ -17,9 +17,13 @@
 
 					<div class="col-sm-6 animated fadeIn">
 						@include('employees._details-personals')
+						@if ($employee->termination)
+							@include('employees._details-termination-info')
+						@endif
 					</div>
 					{{-- /. Photo	 --}}
 					<div class="col-sm-6 animated fadeIn">
+						@include('employees._details-tss-info')
 						@include('employees._details-other-info')
 					</div>
 				</div>
