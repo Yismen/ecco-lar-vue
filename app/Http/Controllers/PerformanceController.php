@@ -10,6 +10,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class PerformanceController extends Controller
 {
+    protected $files = [];
     /**
      * Protect the controller agaist unauthorized users
      */
@@ -51,18 +52,22 @@ class PerformanceController extends Controller
         ]);
 
         ini_set('memory_limit', config('dainsys.memory_limit'));
+        ini_set('max_execution_time', 240);
 
         foreach ($request->file('excel_file') as $key => $file) {
+            $files_handledled = '';
             if (! Str::contains($file->getClientOriginalName(), '_performance_daily_data_')) {
                 return redirect()->back()
                     ->withErrors(['excel_file' => "Wrong file selected. Please make sure you pick a file which the correct naming convention _performance_daily_data_..."]);
             }
 
+            $files_handledled = $files_handledled . $file->getClientOriginalName() . '; ';
+
             Excel::import(new PerformancesImport, $request->file('excel_file')[$key]);
         }
 
         return redirect()->route('admin.performances.index')
-            ->withSuccess('Data Imported!');
+            ->withSuccess('Data Imported for the following files: ' . $files_handledled);
     }
 
     /**
