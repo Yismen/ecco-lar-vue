@@ -50,14 +50,15 @@ class PerformanceController extends Controller
            'excel_file.*' => 'file|mimes:xls,xlsx',
         ]);
 
-        foreach($request->file('excel_file') as $key => $file) {
+        ini_set('memory_limit', config('dainsys.memory_limit'));
 
-            if(! Str::contains($file->getClientOriginalName(), '_performance_daily_data_')) {
+        foreach ($request->file('excel_file') as $key => $file) {
+            if (! Str::contains($file->getClientOriginalName(), '_performance_daily_data_')) {
                 return redirect()->back()
                     ->withErrors(['excel_file' => "Wrong file selected. Please make sure you pick a file which the correct naming convention _performance_daily_data_..."]);
             }
 
-            Excel::import(new PerformancesImport, $request->file('excel_file')[$key] );
+            Excel::import(new PerformancesImport, $request->file('excel_file')[$key]);
         }
 
         return redirect()->route('admin.performances.index')
@@ -133,7 +134,6 @@ class PerformanceController extends Controller
         $performance->delete();
 
         return $performance;
-
     }
 
     private function wantsMassDelete(Performance $performance, $date, $campaign_id)
