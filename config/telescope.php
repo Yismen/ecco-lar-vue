@@ -52,6 +52,7 @@ return [
 
     'middleware' => [
         'web',
+        'authorize:view-telescope',
         Authorize::class,
     ],
 

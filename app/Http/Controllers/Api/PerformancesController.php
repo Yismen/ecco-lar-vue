@@ -26,7 +26,7 @@ class PerformancesController extends Controller
 
         $many =  $many <= 0 ? 0 : $many;
 
-        ini_set('memory_limit', '1G');
+        ini_set('memory_limit', config('dainsys.memory_limit'));
 
         $start_of_month = Carbon::now()->subMonths($many)->startOfMonth();
 

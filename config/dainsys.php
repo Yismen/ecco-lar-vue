@@ -39,6 +39,17 @@ return [
      */
     'sidebar_collapse' => 'sidebar-collapse', // sidebar-collapse, ''
 
+    /*
+    |--------------------------------------------------------------------------
+    | Emergency Memory Limit
+    |--------------------------------------------------------------------------
+    |
+    | Here we set the memory limit for PHP. Done here to avoid
+    | code dig in case it we need to change this property.
+    |
+    */
+   'memory_limit' => env('EMERGENCY_MEMORY_LIMIT', '1G'),
+
     /**
     * Menu
     */
