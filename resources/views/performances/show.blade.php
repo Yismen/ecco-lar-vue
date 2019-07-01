@@ -1,5 +1,5 @@
 @inject('layout', 'App\Layout')
-@extends('layouts.'.$layout->app(), ['page_header'=>'Sites', 'page_description'=>'Details.'])
+@extends('layouts.'.$layout->app(), ['page_header'=>'Performances', 'page_description'=>'Details.'])
 
 @section('content')
     <div class="container-fluid">
@@ -34,10 +34,16 @@
                             <tbody>
                                 @foreach ($performances as $performance)
                                     <tr>
-                                        <td>{{ $performance->date }}</td>
+                                        <td>
+                                            <a href="/admin/performances/{{ $performance->date }}" title="SHOW ONLY DATA FOR THIS DATE">{{ $performance->date }}</a>
+                                        </td>
                                         <td>{{ $performance->employee->full_name }}</td>
                                         <td>{{ optional($performance->employee->supervisor)->name }}</td>
-                                        <td>{{ optional($performance->campaign->project)->name }}</td>
+                                        <td>
+                                            <a href="/admin/performances/{{ $performance->date }}?project={{ optional($performance->campaign->project)->id }}" title="SHOW ONLY DATA FOR THIS DATE AND THIS PROJECT">
+                                                {{ optional($performance->campaign->project)->name }}
+                                            </a>
+                                        </td>
                                         <td>{{ $performance->campaign->name }}</td>
                                         <td>{{ number_format($performance->login_time, 2) }}</td>
                                         <td>{{ number_format($performance->production_time, 2) }}</td>
@@ -56,7 +62,7 @@
                     </div>
 
                     <div class="box-footer">
-                        {{ $performances }}
+                        {{ $performances->links() }}
                     </div>
                 </div>
             </div>

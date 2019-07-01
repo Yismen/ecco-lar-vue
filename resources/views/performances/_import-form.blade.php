@@ -1,6 +1,8 @@
  {!! Form::open(['route'=>['admin.performances.store'], 'method'=>'POST', 'class'=>'form-horizontal', 'role'=>'form', 'autocomplete'=>"off",  'files'=>"true"]) !!}
 
-   <div class="box-header with-border"><h4>Import Perforces Data</h4></div>
+    <div class="box-header">
+        <h4>Import Perforces Data</h4>
+    </div>
 
     <div class="col-sm-12">
         <div class="form-group {{ $errors->has('excel_file') ? 'has-error' : null }}">

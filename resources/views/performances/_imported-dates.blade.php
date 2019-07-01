@@ -19,10 +19,16 @@
                     @foreach ($performances as $performance)
                         <tr>
                             <td>
-                                <a href="/admin/performances/{{ $performance->date }}">{{ $performance->date }}</a>
+                                <a href="/admin/performances/{{ $performance->date }}" title="SHOW ONLY DATA FOR THIS DATE">{{ $performance->date }}</a>
                             </td>
-                            <td>{{ optional($performance->campaign->project)->name }}</td>
-                            <td>{{ $performance->campaign->name }}</td>
+                            <td>
+                                <a href="/admin/performances/{{ $performance->date }}?project={{ optional($performance->campaign->project)->id }}"  title="SHOW ONLY DATA FOR THIS DATE AND THIS PROJECT">
+                                    {{ optional($performance->campaign->project)->name }}
+                                </a>
+                            </td>
+                            <td>
+                                {{ optional($performance->campaign)->name }}
+                            </td>
                             <td>{{ $performance->created_at->diffForHumans() }}</td>
                             <td>
                                 <delete-request-button
@@ -38,7 +44,7 @@
         </div>
 
         <div class="box-footer">
-            {{ $performances }}
+            {{ $performances->links() }}
         </div>
     </div>
 </div>

@@ -10,7 +10,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class PerformanceController extends Controller
 {
-    protected $files = [];
+    protected $imported_files = [];
     /**
      * Protect the controller agaist unauthorized users
      */
@@ -53,7 +53,6 @@ class PerformanceController extends Controller
 
         ini_set('memory_limit', config('dainsys.memory_limit'));
         ini_set('max_execution_time', 240);
-        $files_handledled = '';
 
         foreach ($request->file('excel_file') as $key => $file) {
             if (! Str::contains($file->getClientOriginalName(), '_performance_daily_data_')) {
@@ -61,13 +60,15 @@ class PerformanceController extends Controller
                     ->withErrors(['excel_file' => "Wrong file selected. Please make sure you pick a file which the correct naming convention _performance_daily_data_..."]);
             }
 
-            $files_handledled = $files_handledled . $file->getClientOriginalName() . '; ';
+            $this->imported_files[] = $file->getClientOriginalName();
 
             Excel::import(new PerformancesImport, $request->file('excel_file')[$key]);
         }
 
+        $request->session()->flash('imported_files', $this->imported_files);
+
         return redirect()->route('admin.performances.index')
-            ->withSuccess('Data Imported for the following files: ' . $files_handledled);
+            ->withSuccess('Data Imported!');
     }
 
     /**
@@ -76,13 +77,22 @@ class PerformanceController extends Controller
      * @param  \App\Performance  $performance
      * @return \Illuminate\Http\Response
      */
-    public function show(Performance $performance, $perf_date)
+    public function show(Performance $performance, Request $request, $perf_date)
     {
+        $project = $request->get('project');
+
         $performances = $performance
             ->where('date', $perf_date)
-            ->with('employee.supervisor')
-            ->with('campaign.project')
-            ->paginate(50);
+            ->with('campaign.project');
+
+        if ($request->has('project')) {
+            $performances = $performances->whereHas('campaign', function ($query) use ($project) {
+                return $query->where('project_id', $project);
+            });
+        }
+
+        $performances = $performances->with('employee.supervisor')
+            ->paginate(50)->appends(['project' => $project]);
 
         return view('performances.show', compact('performances'));
     }
@@ -90,7 +100,7 @@ class PerformanceController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Performance  $performance
+     * @param  \App\Performance  $performances
      * @return \Illuminate\Http\Response
      */
     public function edit(Performance $performance)
