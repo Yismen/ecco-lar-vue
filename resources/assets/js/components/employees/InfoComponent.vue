@@ -294,6 +294,7 @@
 
     computed: {
         employee() {
+            this.form.fields.hire_date = this.$store.getters['employee/getEmployee'].hire_date
             return this.$store.getters['employee/getEmployee']
         }
     },

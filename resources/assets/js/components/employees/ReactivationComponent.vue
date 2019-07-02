@@ -78,6 +78,7 @@
         handleReactivation() {
             this.form.post('/admin/employees/' + this.employee.id + '/reactivate/')
                 .then(response => {
+                    this.$emit('employee-reactivated', response.data)
                     this.$store.dispatch('employee/set', response.data)
                 })
         }

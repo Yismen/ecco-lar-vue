@@ -114,7 +114,7 @@
             </form>
         </div>
 
-        <EmployeeReactivation />
+        <EmployeeReactivation @employee-reactivated="reactivated"/>
     </div>
 </template>
 
@@ -172,6 +172,14 @@
                         termination_type_id: null,
                         termination_reason_id: null
                     }
+        },
+        reactivated() {
+            this.form.fields = {
+                can_be_rehired: '',
+                termination_date: new Date(),
+                termination_reason_id: '',
+                termination_type_id: ''
+            }
         }
     },
 
