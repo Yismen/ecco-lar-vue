@@ -90,6 +90,7 @@ class PerformancesController extends Controller
             })
             ->orWhere('name', 'like', '%downtimes%');
         })
+        ->whereDate('date', '>=', Carbon::now()->subMonth()->startOfMonth())
         ->get();
 
         return DowntimesResource::collection($downtimes);
