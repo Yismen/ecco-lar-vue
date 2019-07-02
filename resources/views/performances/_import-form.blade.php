@@ -1,4 +1,4 @@
- {!! Form::open(['route'=>['admin.performances.store'], 'method'=>'POST', 'class'=>'form-horizontal', 'role'=>'form', 'autocomplete'=>"off",  'files'=>"true"]) !!}
+ {{-- {!! Form::open(['route'=>['admin.performances.store'], 'method'=>'POST', 'class'=>'form-horizontal', 'role'=>'form', 'autocomplete'=>"off",  'files'=>"true"]) !!}
 
     <div class="box-header">
         <h4>Import Perforces Data</h4>
@@ -20,4 +20,6 @@
         <button type="reset" class="btn btn-default">CANCEL</button>
     </div>
 
-{!! Form::close() !!}
+{!! Form::close() !!} --}}
+
+<dropzone-form url="{{ route('admin.performances.store') }}"></dropzone-form>

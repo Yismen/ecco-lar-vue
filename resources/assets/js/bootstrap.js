@@ -90,6 +90,8 @@ Vue.component('create-employee', require('./components/employees/CreateEmployee'
 Vue.component('employee-row', require('./components/employees/partials/RowCheckBox'));
 Vue.component('employee-check-box', require('./components/employees/partials/DinamicCheckbox'));
 
+Vue.component('dropzone-form', require('./components/DropzoneForm'));
+
 Vue.component('headcount-by-status', require('./components/human_resources/headcounts/ByStatus'));
 Vue.component('headcount-by-gender', require('./components/human_resources/headcounts/ByGender'));
 Vue.component('headcount-by-site', require('./components/human_resources/headcounts/BySite'));

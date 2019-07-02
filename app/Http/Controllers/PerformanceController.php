@@ -61,11 +61,15 @@ class PerformanceController extends Controller
             }
 
             $this->imported_files[] = $file->getClientOriginalName();
-
             Excel::import(new PerformancesImport, $request->file('excel_file')[$key]);
         }
 
         $request->session()->flash('imported_files', $this->imported_files);
+        $request->session()->flash('success', 'Data Imported');
+
+        if ($request->ajax()) {
+            return ['message' => 'Data Imported', 'success' => 'Data Imported'];
+        }
 
         return redirect()->route('admin.performances.index')
             ->withSuccess('Data Imported!');
