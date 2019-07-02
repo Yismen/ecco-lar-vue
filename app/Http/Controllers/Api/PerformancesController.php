@@ -20,15 +20,18 @@ use App\Http\Resources\DowntimeReasonsResource;
 
 class PerformancesController extends Controller
 {
-    public function performanceData(int $many = 3)
+    public function performanceData(Request $request, int $many = 3)
     {
         $many--;
 
         $many =  $many <= 0 ? 0 : $many;
 
         ini_set('memory_limit', config('dainsys.memory_limit'));
+        ini_set('max_execution_time', 240);
 
         $start_of_month = Carbon::now()->subMonths($many)->startOfMonth();
+
+        $project = $request->has('project') ? $request->get('project') : '%';
 
         $performances = Performance::with(['supervisor', 'downtimeReason'])
             ->with(['campaign' => function ($query) {
@@ -39,6 +42,11 @@ class PerformancesController extends Controller
                     ->with(['supervisor', 'site', 'termination', 'position.department', 'project']);
             }])
             ->whereDate('date', '>=', $start_of_month)
+            ->whereHas('campaign', function ($query) use ($project) {
+                return $query->whereHas('project', function ($query) use ($project) {
+                    return $query->where('name', 'like', $project);
+                });
+            })
             ->get();
 
         return PerformanceResource::collection($performances);
