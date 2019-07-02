@@ -79,6 +79,7 @@
 
                 <!-- Main content -->
                 <section class="">
+                    <loading-component></loading-component>
                     <!-- Your Page Content Here -->
                     <!--
                         |************************************|
