@@ -19,11 +19,14 @@ class ProjectsController extends Controller
     public function index()
     {
         $projects = Project::with(['employees' => function ($query) {
+            // give it the possition
             return $query->actives()
                 ->orderBy('first_name')
                 ->orderBy('second_first_name')
                 ->orderBy('last_name')
-                ->orderBy('second_last_name');
+                ->orderBy('second_last_name')
+                ->with('position')
+                ;
         }])
         ->orderBy('name')
         ->get();

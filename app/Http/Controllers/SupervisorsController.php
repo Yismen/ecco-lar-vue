@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Cache;
 
 class SupervisorsController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('authorize:view-supervisors|edit-supervisors|create-supervisors', ['only' => ['index', 'show']]);
@@ -26,13 +25,13 @@ class SupervisorsController extends Controller
     public function index()
     {
         $free_employees = Employee::doesntHave('supervisor')
-            ->actives()
+            ->actives()->with('position')
             ->get();
 
         $supervisors = Supervisor::orderBy('name')
-            ->with(['employees' => function($query) {
-                return $query->orderBy('first_name')->actives();
-            }] )
+            ->with(['employees' => function ($query) {
+                return $query->orderBy('first_name')->with('position')->actives();
+            }])
             ->get();
 
         return view('supervisors.index', compact('supervisors', 'free_employees'));

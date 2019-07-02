@@ -12,9 +12,16 @@
 
         <div class="box-body">
             <table class="table table-condensed table-hover">
+
                 <tbody>
                     @foreach ($supervisor->employees as $employee)
-                        <tr is="employee-row" :employee="{{ $employee }}" class="col-lg-3 col-md-4 col-sm-6">
+                        <tr class="col-md-4 col-sm-6">
+                            <td>
+                                <employee-check-box :employee="{{ $employee }}"
+                                >,
+                                    {{ optional($employee->position)->name }}
+                                </employee-check-box>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
