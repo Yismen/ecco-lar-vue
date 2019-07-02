@@ -71,6 +71,7 @@ require('./config/interceptors')
 * Here global components are registered
 */
 Vue.component('dainsys-logo', require('./components/DainsysLogo.vue'));
+Vue.component('back-to-top', require('./components/BackToTop'));
 Vue.component('loading-component', require('./components/LoadingComponent.vue'));
 Vue.component('passport-clients', require('./components/passport/Clients.vue'));
 Vue.component('passport-authorized-clients', require('./components/passport/AuthorizedClients.vue'));
@@ -106,8 +107,6 @@ Vue.component('rotations-last-year', require('./components/human_resources/rotat
 Vue.component('monthly-attrition', require('./components/human_resources/attrition/MonthlyAttrition'));
 
 Vue.component('animation-scale', require('./components/animations/ScaleComponent'));
-
-
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting

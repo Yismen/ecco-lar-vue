@@ -51,7 +51,7 @@
             {{ $settings->sidebar_mini ?? config('dainsys.sidebar_mini', '')  }}
         "
     >
-        <div class="wrapper" style="height: auto;">
+        <div class="wrapper" style="height: auto;" id="app">
             <!-- Main Header -->
             {{-- @inject('user', 'App\Layout') --}}
             @include('layouts.partials.main-header')
@@ -78,8 +78,7 @@
                 @endif
 
                 <!-- Main content -->
-                <section class="" id="app">
-                    <loading-component></loading-component>
+                <section class="">
                     <!-- Your Page Content Here -->
                     <!--
                         |************************************|
@@ -87,7 +86,9 @@
                         |************************************|
                          -->
                     @include('layouts.partials.session-flash-messages')
-
+                    <div class="hidden-xs">
+                        <back-to-top></back-to-top>
+                    </div>
                     @yield('content')
                 </section>
                 <!-- /.content -->
@@ -98,7 +99,6 @@
             <footer class="main-footer">
                 <!-- To the right -->
                 <div class="pull-right hidden-xs">
-                    @include('layouts.partials.back-to-top')
                     @include('layouts.partials.links.webmaster')
                 </div>
                 <!-- Default to the left -->
