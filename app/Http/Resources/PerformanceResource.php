@@ -32,6 +32,7 @@ class PerformanceResource extends JsonResource
             'department' => optional(optional($this->employee->position)->department)->name,
             'site' => optional($this->employee->site)->name,
             'campaign' => optional($this->campaign)->name,
+            'campaign_sph_goal' => $this->sph_goal, // here we return the goal at the moment of creation, no the current goal optional($this->campaign)->sph_goal
             'supervisor_performance' => optional($this->supervisor)->name,
             'project_performance' => optional(optional($this->campaign)->project)->name,
             'source' => optional(optional($this->campaign)->source)->name,
