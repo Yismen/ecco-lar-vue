@@ -84,14 +84,15 @@ class PerformancesController extends Controller
     public function downtimes()
     {
         $downtimes = Performance::with('campaign.project', 'downtimeReason', 'employee')
-        ->whereHas('campaign', function ($query) {
-            return $query->whereHas('project', function ($query) {
-                return $query->where('name', 'like', '%downtimes%');
+            ->whereHas('campaign', function ($query) {
+                return $query->whereHas('project', function ($query) {
+                    return $query->where('name', 'like', '%downtimes%');
+                })
+                ->orWhere('name', 'like', '%downtimes%');
             })
-            ->orWhere('name', 'like', '%downtimes%');
-        })
-        ->whereDate('date', '>=', Carbon::now()->subMonth()->startOfMonth())
-        ->get();
+            ->orderBy('date')
+            ->whereDate('date', '>=', Carbon::now()->subMonth()->startOfMonth())
+            ->get();
 
         return DowntimesResource::collection($downtimes);
     }
