@@ -91,8 +91,14 @@ trait EmployeeAccessors
      */
     public function getFullNameAttribute()
     {
-        $name = $this->first_name . ' ' . $this->second_first_name . ' ' . $this->last_name . ' ' . $this->second_last_name;
-        return ucwords(trim(mb_strtolower($name)));
+        // $name = $this->first_name . ' ' . $this->second_first_name . ' ' . $this->last_name . ' ' . $this->second_last_name;
+
+        $name = filled($this->first_name) ? trim($this->first_name) : '';
+        $name = filled($this->second_first_name) ? $name . ' '. trim($this->second_first_name)  : $name;
+        $name = filled($this->last_name) ? $name . ' '. trim($this->last_name)  : $name;
+        $name = filled($this->second_last_name) ? $name . ' '. trim($this->second_last_name)  : $name;
+
+        return ucwords(mb_strtolower(trim($name)));
     }
 
     /**
