@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Performance extends Model
 {
-    protected $fillable = ['unique_id', 'date', 'employee_id', 'name', 'campaign_id', 'supervisor_id', 'sph_goal', 'login_time', 'production_time', 'talk_time', 'billable_hours', 'contacts', 'calls', 'transactions', 'revenue', 'downtime_reason_id', 'reported_by'];
+    protected $fillable = ['unique_id', 'date', 'employee_id', 'name', 'campaign_id', 'supervisor_id', 'sph_goal', 'login_time', 'production_time', 'talk_time', 'billable_hours', 'contacts', 'calls', 'transactions', 'upsales', 'cc_sales', 'revenue', 'downtime_reason_id', 'reported_by'];
 
     public static function removeExisting($unique_id)
     {
