@@ -29,6 +29,8 @@ Route::middleware('auth:api')->group(function () {
     Route::get('performances/employees', 'Api\PerformancesController@employees');
     Route::get('performances/downtimes', 'Api\PerformancesController@downtimes');
     Route::get('performances/downtime_reasons', 'Api\PerformancesController@downtimeReasons');
+    Route::get('performances/supervisors', 'Api\PerformancesController@supervisors');
+    Route::get('performances/supervisors/actives', 'Api\PerformancesController@activesupervisors');
 
     Route::get('/blackhawk/de/management', 'Blackhawk\DE\ManagementController@dashboardData');
 });

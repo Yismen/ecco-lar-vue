@@ -20,7 +20,27 @@
                         @include('supervisors._list_with_employees')
                     @endforeach
                 </div>
+
             </div>
+                @if ($inactive_supervisors->count() > 0)
+                    <div class="row">
+                        <div class="box box-danger">
+                            <div class="box-header">
+                                <h4>List of Supervisors Inactives</h4>
+                            </div>
+                            <div class="box-body">
+                                @foreach ($inactive_supervisors as $supervisor)
+                                    <div class="col-lg-3 col-md-4 col-sm-6">
+                                        <a href="{{ route('admin.supervisors.edit', $supervisor->id) }}" class="text-warning">
+                                            {{ $supervisor->name }}
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                @endif
             <div class="col-sm-3 col-xs-7" style="position: fixed; bottom: 35%; right: 30px; padding: 15px ;  background-color: whitesmoke; border: darkgray; border-style: solid; border-width: thin;">
                 <div class="input-group">
                     {{ Form::select('supervisor', $supervisors->pluck('name', 'id'), null, ['class' => 'form-control']) }}

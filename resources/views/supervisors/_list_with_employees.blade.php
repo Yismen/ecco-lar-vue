@@ -1,4 +1,4 @@
-@if ($supervisor->employees->count() > 0)
+@if ($supervisor->employees->count() > 0 || $supervisor->active)
     <div class="box box-warning">
         <div class="box-header">
             <h4>

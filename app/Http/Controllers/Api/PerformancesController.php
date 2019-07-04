@@ -7,6 +7,7 @@ use App\Campaign;
 use App\Employee;
 use App\LoginName;
 use Carbon\Carbon;
+use App\Supervisor;
 use App\Performance;
 use App\DowntimeReason;
 use Illuminate\Http\Request;
@@ -16,6 +17,7 @@ use App\Http\Resources\EmployeeResource;
 use App\Http\Resources\DowntimesResource;
 use App\Http\Resources\LoginNameResource;
 use App\Http\Resources\PerformanceResource;
+use App\Http\Resources\SupervisorsResource;
 use App\Http\Resources\DowntimeReasonsResource;
 
 class PerformancesController extends Controller
@@ -102,5 +104,19 @@ class PerformancesController extends Controller
         $downtime_reasons = DowntimeReason::get();
 
         return DowntimeReasonsResource::collection($downtime_reasons);
+    }
+
+    public function supervisors()
+    {
+        $supervisors = Supervisor::orderBy('name')->get();
+
+        return SupervisorsResource::collection($supervisors);
+    }
+
+    public function activeSupervisors()
+    {
+        $supervisors = Supervisor::actives()->orderBy('name')->get();
+
+        return SupervisorsResource::collection($supervisors);
     }
 }

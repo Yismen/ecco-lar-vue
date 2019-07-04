@@ -28,13 +28,17 @@ class SupervisorsController extends Controller
             ->actives()->with('position')
             ->get();
 
+        $inactive_supervisors = Supervisor::orderBy('name')
+            ->inactives()
+            ->get();
+
         $supervisors = Supervisor::orderBy('name')
             ->with(['employees' => function ($query) {
                 return $query->orderBy('first_name')->with('position')->actives();
             }])
             ->get();
 
-        return view('supervisors.index', compact('supervisors', 'free_employees'));
+        return view('supervisors.index', compact('supervisors', 'free_employees', 'inactive_supervisors'));
     }
 
     /**
@@ -103,17 +107,22 @@ class SupervisorsController extends Controller
      */
     public function update(Request $request, Supervisor $supervisor)
     {
+        if (! $request->has('active')) {
+            $request->merge(['active' => "0"]);
+        }
+
         $this->validate(
             $request,
             [
-                'name' => 'required|min:5|unique:supervisors,name,'.$supervisor->id
+                'name' => 'required|min:5|unique:supervisors,name,'.$supervisor->id,
+                'active' => 'boolean'
             ]
         );
 
         Cache::forget('supervisors');
         Cache::forget('employees');
 
-        $supervisor->update($request->only(['name']));
+        $supervisor->update($request->only(['name', 'active']));
 
         return redirect()->route('admin.supervisors.index')
             ->withSuccess("Supervisor $supervisor->name Updated!!");

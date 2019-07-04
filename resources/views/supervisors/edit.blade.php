@@ -19,6 +19,20 @@
 
 						<div class="box-body">
 							@include('supervisors._form')
+
+							{{-- <div class="checkbox">
+								<label>
+									<input type="checkbox" value="1" name="active">
+									Is Active
+								</label>
+							</div> --}}
+
+							<div class="checkbox">
+								<label>
+									{!! Form::checkbox('active', 1, null, []) !!}
+									Is Active
+								</label>
+							</div>
 						</div>
 
 						<div class="box-footer">
@@ -30,12 +44,12 @@
 						</div>
 					{!! Form::close() !!}
 
-					<div class="box-footer">
+					{{-- <div class="box-footer">
 						<delete-request-button
 							url="{{ route('admin.supervisors.destroy', $supervisor->id) }}"
 							redirect-url="{{ route('admin.supervisors.index') }}"
 						></delete-request-button>
-					</div>
+					</div> --}}
 				</div>
 			</div>
 
