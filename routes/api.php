@@ -23,14 +23,14 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('nationalities', 'NationalitiesController')->only('store');
     Route::resource('payment_frequencies', 'PaymentFrequenciesController');
 
-    Route::get('performances/performance_data/last/{many}/months', 'Api\PerformancesController@performanceData');
-    Route::get('performances/login_names', 'Api\PerformancesController@loginNames');
-    Route::get('performances/campaigns', 'Api\PerformancesController@campaigns');
-    Route::get('performances/employees', 'Api\PerformancesController@employees');
-    Route::get('performances/downtimes', 'Api\PerformancesController@downtimes');
-    Route::get('performances/downtime_reasons', 'Api\PerformancesController@downtimeReasons');
-    Route::get('performances/supervisors', 'Api\PerformancesController@supervisors');
-    Route::get('performances/supervisors/actives', 'Api\PerformancesController@activesupervisors');
+    Route::get('performances/performance_data/last/{many}/months', 'Api\Performances\PerformancesController@data');
+    Route::get('performances/downtimes', 'Api\Performances\PerformancesController@downtimes');
+    Route::get('performances/downtime_reasons', 'Api\Performances\DowntimesController@reasons');
+    Route::get('performances/employees', 'Api\Performances\DowntimesController@employees');
+    Route::get('performances/campaigns', 'Api\Performances\CampaignsController@list');
+    Route::get('performances/login_names', 'Api\Performances\EmployeesController@loginNames');
+    Route::get('performances/supervisors', 'Api\Performances\SupervisorsController@list');
+    Route::get('performances/supervisors/actives', 'Api\Performances\SupervisorsController@actives');
 
     Route::get('/blackhawk/de/management', 'Blackhawk\DE\ManagementController@dashboardData');
 });
