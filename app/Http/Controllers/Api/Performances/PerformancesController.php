@@ -1,28 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Performances;
 
-use App\Project;
-use App\Campaign;
-use App\Employee;
-use App\LoginName;
 use Carbon\Carbon;
-use App\Supervisor;
 use App\Performance;
-use App\DowntimeReason;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\CampaignResource;
-use App\Http\Resources\EmployeeResource;
 use App\Http\Resources\DowntimesResource;
-use App\Http\Resources\LoginNameResource;
 use App\Http\Resources\PerformanceResource;
-use App\Http\Resources\SupervisorsResource;
-use App\Http\Resources\DowntimeReasonsResource;
 
 class PerformancesController extends Controller
 {
-    public function performanceData(Request $request, int $many = 3)
+    public function data(Request $request, int $many = 3)
     {
         $many--;
 
@@ -54,35 +43,6 @@ class PerformancesController extends Controller
         return PerformanceResource::collection($performances);
     }
 
-    public function loginNames()
-    {
-        $login_names = LoginName::with([
-            'employee.supervisor',
-        ])
-        ->get();
-
-        return LoginNameResource::collection($login_names);
-    }
-
-    public function campaigns()
-    {
-        $campaigns = Campaign::with([
-            'project',
-            'source',
-            'revenueType',
-        ])
-            ->get();
-
-        return CampaignResource::collection($campaigns);
-    }
-
-    public function employees()
-    {
-        $projects = Employee::with('supervisor')->get();
-
-        return EmployeeResource::collection($projects);
-    }
-
     public function downtimes()
     {
         $downtimes = Performance::with('campaign.project', 'downtimeReason', 'employee')
@@ -97,26 +57,5 @@ class PerformancesController extends Controller
             ->get();
 
         return DowntimesResource::collection($downtimes);
-    }
-
-    public function downtimeReasons()
-    {
-        $downtime_reasons = DowntimeReason::get();
-
-        return DowntimeReasonsResource::collection($downtime_reasons);
-    }
-
-    public function supervisors()
-    {
-        $supervisors = Supervisor::orderBy('name')->get();
-
-        return SupervisorsResource::collection($supervisors);
-    }
-
-    public function activeSupervisors()
-    {
-        $supervisors = Supervisor::actives()->orderBy('name')->get();
-
-        return SupervisorsResource::collection($supervisors);
     }
 }
