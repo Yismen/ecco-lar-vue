@@ -25,12 +25,13 @@
                                     <th>Project</th>
                                     <th>Campaign</th>
                                     <th>Login Time</th>
-                                    <th>Production Time</th>
+                                    <th>Prod. Time</th>
                                     <th>Sales</th>
                                     <th>Revenue</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
+
                             <tbody>
                                 @foreach ($performances as $performance)
                                     <tr>
@@ -44,12 +45,16 @@
                                                 {{ optional($performance->campaign->project)->name }}
                                             </a>
                                         </td>
-                                        <td>{{ $performance->campaign->name }}</td>
-                                        <td>{{ number_format($performance->login_time, 2) }}</td>
-                                        <td>{{ number_format($performance->production_time, 2) }}</td>
-                                        <td>{{ number_format($performance->transactions, 2) }}</td>
-                                        <td>${{ number_format($performance->revenue, 2) }}</td>
                                         <td>
+                                            <a href="/admin/performances/{{ $performance->date }}?campaign={{ optional($performance->campaign)->id }}" title="SHOW ONLY DATA FOR THIS DATE AND THIS CAMPAIGN">
+                                                {{ optional($performance->campaign)->name }}
+                                            </a>
+                                        </td>
+                                        <td class="text-center">{{ number_format($performance->login_time, 2) }}</td>
+                                        <td class="text-center">{{ number_format($performance->production_time, 2) }}</td>
+                                        <td class="text-center">{{ number_format($performance->transactions, 2) }}</td>
+                                        <td class="text-center">${{ number_format($performance->revenue, 2) }}</td>
+                                        <td class="text-center">
                                             <a href="{{ route('admin.performances.edit', $performance->id) }}" class="text-warning">
                                                 <i class="fa fa-pencil"></i> Edit
                                             </a>
@@ -58,6 +63,14 @@
 
                                 @endforeach
                             </tbody>
+
+                            <tfoot>
+                                <th colspan="5" class="text-right">Totals:</th>
+                                <th class="text-center">{{ number_format($performances->sum('revenue'), 2)  }}</th>
+                                <th class="text-center">{{ number_format($performance->sum('production_time'), 2) }}</th>
+                                <th class="text-center">{{ number_format($performance->sum('transactions'), 2) }}</th>
+                                <th class="text-center">${{ number_format($performance->sum('revenue'), 2) }}</th>
+                            </tfoot>
                         </table>
                     </div>
 

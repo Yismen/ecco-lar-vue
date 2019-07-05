@@ -31,8 +31,7 @@ class PerformanceController extends Controller
     {
         $performances = Performance::orderBy('date', 'DESC')
             ->orderBy('campaign_id', 'DESC')
-            ->groupBy(['date', 'campaign_id'])
-            ->with('campaign.project')
+            ->groupBy(['date'])
             ->paginate(25);
 
         return view('performances.index', compact('performances'));
@@ -84,6 +83,7 @@ class PerformanceController extends Controller
     public function show(Performance $performance, Request $request, $perf_date)
     {
         $project = $request->get('project');
+        $campaign = $request->get('campaign');
 
         $performances = $performance
             ->where('date', $perf_date)
@@ -95,8 +95,14 @@ class PerformanceController extends Controller
             });
         }
 
+        if ($request->has('campaign')) {
+            $performances = $performances->whereHas('campaign', function ($query) use ($campaign) {
+                return $query->where('id', $campaign);
+            });
+        }
+
         $performances = $performances->with('employee.supervisor')
-            ->paginate(50)->appends(['project' => $project]);
+            ->paginate(50)->appends(['project' => $project, 'campaign'=>$campaign]);
 
         return view('performances.show', compact('performances'));
     }

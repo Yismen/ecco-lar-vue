@@ -9,8 +9,6 @@
                 <thead>
                     <tr>
                         <th>Performance Date</th>
-                        <th>Project</th>
-                        <th>Campaign</th>
                         <th>Created At</th>
                         <th>Actions</th>
                     </tr>
@@ -20,14 +18,6 @@
                         <tr>
                             <td>
                                 <a href="/admin/performances/{{ $performance->date }}" title="SHOW ONLY DATA FOR THIS DATE">{{ $performance->date }}</a>
-                            </td>
-                            <td>
-                                <a href="/admin/performances/{{ $performance->date }}?project={{ optional($performance->campaign->project)->id }}"  title="SHOW ONLY DATA FOR THIS DATE AND THIS PROJECT">
-                                    {{ optional($performance->campaign->project)->name }}
-                                </a>
-                            </td>
-                            <td>
-                                {{ optional($performance->campaign)->name }}
                             </td>
                             <td>{{ $performance->created_at->diffForHumans() }}</td>
                             <td>
