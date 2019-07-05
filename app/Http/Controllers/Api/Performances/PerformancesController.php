@@ -25,7 +25,7 @@ class PerformancesController extends Controller
         $project = $request->has('project') ? $request->get('project') : '%';
         $campaign = $request->has('campaign') ? $request->get('campaign') : '%';
 
-        return $performances = Performance::with(['supervisor', 'downtimeReason'])
+        $performances = Performance::with(['supervisor', 'downtimeReason'])
             ->with(['campaign' => function ($query) {
                 return $query->with(['source', 'project']);
             }])
