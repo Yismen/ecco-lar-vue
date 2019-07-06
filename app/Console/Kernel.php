@@ -15,14 +15,14 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         'App\Console\Commands\Inspire',
         'App\Console\Commands\ReportEmployeesHired',
-        'App\Console\Commands\MyMigrationStatus',
+        'App\Console\Commands\UpdateSlugs',
+        'App\Console\Commands\MigrationStatus',
     ];
 
     /**
      * Define the application's command schedule.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
-     * @return void
+     * @param \Illuminate\Console\Scheduling\Schedule $schedule
      */
     protected function schedule(Schedule $schedule)
     {

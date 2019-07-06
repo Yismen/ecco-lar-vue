@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
+use Log;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\File;
 
 class ReportEmployeesHired extends Command
 {
@@ -13,19 +13,17 @@ class ReportEmployeesHired extends Command
      *
      * @var string
      */
-    protected $signature = 'employees:hired';
+    protected $signature = 'dainsys:employees-hired {--month=0}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Send an email with all the employees hired the previous day';
+    protected $description = 'Send an email with all the since the given month';
 
     /**
      * Create a new command instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -39,7 +37,8 @@ class ReportEmployeesHired extends Command
      */
     public function handle()
     {
-        File::put(storage_path('files/employees' . Carbon::now()->format('H-i-s') . '.txt'), 'Employees');
-        $this->info('Email sent to the users');
+        Log::notice('Email Sent');
+        //File::put(storage_path('/app/files/employees-hired-'.Carbon::now()->format('H-i-s').'.txt'), 'Employees');
+        $this->info('Email sent to yismen.jorge@gmail.com');
     }
 }

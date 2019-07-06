@@ -6,14 +6,14 @@ use App\Migration;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 
-class MyMigrationStatus extends Command
+class MigrationStatus extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'mymigration:status {--dirname=migrations}';
+    protected $signature = 'dainsys:migration-status {--dirname=migrations}';
 
     /**
      * The console command description.
@@ -27,8 +27,6 @@ class MyMigrationStatus extends Command
 
     /**
      * Create a new command instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -71,6 +69,7 @@ class MyMigrationStatus extends Command
             }
             array_push($this->migration_array, $array);
         }
+
         return $this;
     }
 
@@ -83,9 +82,11 @@ class MyMigrationStatus extends Command
 
     /**
      * Retrieve a row from the migration table filtered by the name of the file.
-     * @param  string $name The name of the migration file.
-     * @return Model       An instance of the migration based on the name. Null
-     * if not found.
+     *
+     * @param string $name the name of the migration file
+     *
+     * @return Model An instance of the migration based on the name. Null
+     *               if not found.
      */
     private function getMigration($name)
     {
@@ -94,11 +95,13 @@ class MyMigrationStatus extends Command
 
     /**
      * Retrieve all the migration files located in a given path.
-     * @param  string $dir The name of the folder withing the migration folder.
-     * @return [type]      [description]
+     *
+     * @param string $dir the name of the folder withing the migration folder
+     *
+     * @return [type] [description]
      */
     private function getMigrationFiles($dir)
     {
-        return File::files(database_path() . "/{$dir}");
+        return File::files(database_path()."/{$dir}");
     }
 }
