@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Support\Str;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Schema;
 
 class UpdateSlugs extends Command
 {
@@ -43,18 +44,15 @@ class UpdateSlugs extends Command
             return $this->error("Model {$model} Not Found...");
         }
 
+        if (!Schema::hasColumn((new $model())->getTable(), $field)) {
+            return $this->error("Field {$field} does not exists in model {$model}");
+        }
+
         $collection = (new $model())->all();
+
         $bar = $this->output->createProgressBar($collection->count());
 
         $bar->start();
-
-        return $this->error($collection->get('slug'));
-
-        if (!$collection->has($field)) {
-            $bar->finish();
-
-            return $this->error("Field {$field} does not exists in model {$model}");
-        }
 
         foreach ($collection as $row) {
             $row->$field = Str::slug($row->$field);

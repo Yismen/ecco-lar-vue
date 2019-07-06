@@ -67,6 +67,14 @@
                             <span class="badge bg-{{ $stats['issues']['missing_nationality'] > 0 ? 'red' : 'green' }}">{{ $stats['issues']['missing_nationality'] }}</span>
                         </td>
                     </tr>
+                    <tr class="">
+                        <th>
+                            <a href="/admin/schedules" target="_issues">Missing Schedule</a>
+                        </th>
+                        <td>
+                            <span class="badge bg-{{ $stats['issues']['missing_schedule'] > 0 ? 'red' : 'green' }}">{{ $stats['issues']['missing_schedule'] }}</span>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>

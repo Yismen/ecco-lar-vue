@@ -90,6 +90,16 @@ trait EmployeeRelationships
         return $this->hasOne('App\Termination');
     }
 
+    /**
+     * An employee can have one schedule.
+     *
+     * @return [relationship] [The schedule belonging to the current employee]
+     */
+    public function schedules()
+    {
+        return $this->hasMany('App\Schedule');
+    }
+
     public function supervisor()
     {
         return $this->belongsTo('App\Supervisor');
