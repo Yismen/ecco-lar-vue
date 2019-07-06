@@ -13,14 +13,16 @@ class UpdateSlugs extends Command
      *
      * @var string
      */
-    protected $signature = 'dainsys:re-slug {model} {--field=slug}';
+    protected $signature = 'dainsys:re-slug {model : The Model to Apply the Slug}
+                                            {--field=slug : The Field to run the slug. By default it is slug}
+                                            {--force : If set all models will be re-slugged}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Reset the slug field on a given model';
+    protected $description = 'Reset the slug field on a given model. This command rely on the implementation and ussage of cviebrock/eloquent-sluggable package ';
 
     /**
      * Create a new command instance.
@@ -48,7 +50,7 @@ class UpdateSlugs extends Command
             return $this->error("Field {$field} does not exists in model {$model}");
         }
 
-        $collection = (new $model())->all();
+        $collection = $this->getCollection($model, $field);
 
         $bar = $this->output->createProgressBar($collection->count());
 
@@ -65,5 +67,14 @@ class UpdateSlugs extends Command
         $bar->finish();
 
         return $this->info("Re-slug process completed in model {$model}");
+    }
+
+    private function getCollection($model, $field)
+    {
+        $collection = new $model();
+
+        $collection = $this->option('force') ? $collection : $collection->whereNull($field);
+
+        return $collection->get();
     }
 }

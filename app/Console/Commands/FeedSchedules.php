@@ -13,7 +13,11 @@ class FeedSchedules extends Command
      *
      * @var string
      */
-    protected $signature = 'dainsys:feed-schedules {start-day=1} {end-day=5} {--hours=8}';
+    protected $signature = 'dainsys:feed-schedules {start-day=1 : An Integer representing the first day of the week. Monday is day 1. Min 0}
+                                                    {end-day=5 : An Integer representing the final day to schedule. 7 is the highest allowed for Sunday.}
+                                                    {--hours=8 : The amount of hours for the given schedule}';
+
+    protected $error_message = '';
 
     protected $days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 
@@ -39,14 +43,6 @@ class FeedSchedules extends Command
      */
     public function handle()
     {
-        if (!$this->confirm('Do you wish to continue?')) {
-            return $this->alert('You Cancelled!');
-        }
-
-        if ($this->argument('start-day') < 1 || $this->argument('end-day') > 7) {
-            return $this->error('Invalid Arguments. Only numbers between 1 and 7 accepted, corresponding to the day of the weeks!');
-        }
-
         $collection = Employee::actives()->whereDoesntHave('schedules')->get();
 
         $bar = $this->output->createProgressBar($collection->count());
@@ -67,5 +63,20 @@ class FeedSchedules extends Command
         $bar->finish();
 
         return $this->info('done');
+    }
+
+    private function validate()
+    {
+        if ($this->argument('start-day') < 1
+            || $this->argument('start-day') > 7
+            || $this->argument('end-day') < 1
+            || $this->argument('end-day') > 7
+            || $this->option('hours') < 0
+            || $this->option('hours') > 9
+            || $this->argument('end-day')) {
+            return false;
+        }
+
+        return true;
     }
 }
