@@ -62,6 +62,19 @@ class Schedule extends Model
         }
     }
 
+    public function createFor($employee_id, $day, $hours)
+    {
+        $this->removeIfExists($employee_id, $day);
+
+        $this->create(
+            [
+                'employee_id' => $employee_id,
+                'day' => $day,
+                'hours' => $hours,
+            ]
+        );
+    }
+
     private function removeIfExists($employee, $day)
     {
         $model = $this->exists($employee, $day);
