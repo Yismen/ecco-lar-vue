@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 // use App\Http\Requests\Request;
-use Illuminate\Http\Request;
 use App\Punch;
+use App\Employee;
+use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class PunchesController extends Controller
 {
@@ -21,14 +23,23 @@ class PunchesController extends Controller
      *
      * @return Response
      */
-    public function index(Punch $punches)
+    public function index()
     {
-        $punches = $punches->with(['employee' => function ($query) {
-            return $query->orderBy('first_name', 'ASC');
-        }])
-            ->paginate(10);
+        if (!request()->ajax()) {
+            $employees_missing_punch = Employee::actives()->whereDoesntHave('punch')
+                ->orderBy('first_name')
+                ->orderBy('second_first_name')
+                ->orderBy('last_name')
+                ->paginate(25);
 
-        return view('punches.index', compact('punches'));
+            return view('punches.index', compact('employees_missing_punch'));
+        }
+
+        $punches = Punch::with('employee');
+
+        return DataTables::of($punches)
+            ->orderColumn('employee', 'slug $1')
+            ->toJson(true);
     }
 
     /**
@@ -49,8 +60,8 @@ class PunchesController extends Controller
     public function store(Punch $punch, Request $request)
     {
         $this->validate($request, [
-            'punch' => "required|digits:5|unique:punches,punch",
-            'employee_id' => "required|exists:employees,id|unique:punches,employee_id",
+            'punch' => 'required|digits:5|unique:punches,punch',
+            'employee_id' => 'required|exists:employees,id|unique:punches,employee_id',
         ]);
 
         $punch->create($request->only('punch', 'employee_id'));
@@ -62,7 +73,8 @@ class PunchesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  Punch $punch
+     * @param int  Punch $punch
+     *
      * @return Response
      */
     public function show(Punch $punch)
@@ -73,7 +85,8 @@ class PunchesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  Punch $punch
+     * @param int  Punch $punch
+     *
      * @return Response
      */
     public function edit(Punch $punch)
@@ -84,7 +97,8 @@ class PunchesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  Punch $punch
+     * @param int  Punch $punch
+     *
      * @return Response
      */
     public function update(Punch $punch, Request $request)
@@ -103,7 +117,8 @@ class PunchesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  Punch $punch
+     * @param int  Punch $punch
+     *
      * @return Response
      */
     public function destroy(Punch $punch)

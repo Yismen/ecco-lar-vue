@@ -18,12 +18,9 @@ class RouteServiceProvider extends ServiceProvider
 
     /**
      * Define your route model bindings, pattern filters, etc.
-     *
-     * @return void
      */
     public function boot()
     {
-        //
         parent::boot();
 
         Route::bind('afp', function ($id) {
@@ -117,7 +114,7 @@ class RouteServiceProvider extends ServiceProvider
                 'sites_list',
                 'supervisors_list',
                 'termination_type_list',
-                'termination_reason_list'
+                'termination_reason_list',
                 ]);
         });
 
@@ -257,13 +254,7 @@ class RouteServiceProvider extends ServiceProvider
 
         Route::bind('punch', function ($punches) {
             return \App\Punch::wherePunch($punches)
-                ->with(['employees' => function ($query) {
-                    return $query->actives()
-                        ->orderBy('first_name')
-                        ->orderBy('second_first_name')
-                        ->orderBy('last_name')
-                        ->orderBy('second_last_name');
-                }])
+                ->with('employee')
                 ->firstOrFail();
         });
 
@@ -320,22 +311,17 @@ class RouteServiceProvider extends ServiceProvider
 
     /**
      * Define the routes for the application.
-     *
-     * @return void
      */
     public function map()
     {
         $this->mapApiRoutes();
         $this->mapWebRoutes();
-        //
     }
 
     /**
      * Define the "web" routes for the application.
      *
      * These routes all receive session state, CSRF protection, etc.
-     *
-     * @return void
      */
     protected function mapWebRoutes()
     {
@@ -351,8 +337,6 @@ class RouteServiceProvider extends ServiceProvider
      * Define the "api" routes for the application.
      *
      * These routes are typically stateless.
-     *
-     * @return void
      */
     protected function mapApiRoutes()
     {
