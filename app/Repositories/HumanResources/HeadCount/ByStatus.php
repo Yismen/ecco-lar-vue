@@ -6,18 +6,22 @@ use App\Employee;
 use App\Repositories\HumanResources\HumanResourcesInterface;
 
 /**
- * summary
+ * summary.
  */
 class ByStatus implements HumanResourcesInterface
 {
     public function setup()
     {
+        return [
+            'actives' => Employee::actives(),
+            'inactives' => Employee::inactives(),
+        ];
     }
 
     public function count()
     {
         return [
-            'actives' => Employee::actives()->count(),
+            'actives' => $this->setup()['actives']->count(),
             'inactives' => Employee::inactives()->count(),
         ];
     }
@@ -25,9 +29,8 @@ class ByStatus implements HumanResourcesInterface
     public function list()
     {
         return [
-            'actives' => Employee::actives()->get(),
+            'actives' => $this->setup()['actives']->get(),
             'inactives' => Employee::inactives()->get(),
         ];
     }
 }
-
