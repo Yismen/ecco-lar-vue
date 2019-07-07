@@ -3,10 +3,10 @@
 namespace App\Console\Commands;
 
 use App\Employee;
-use App\Mail\EmployeesTerminatedMail;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\EmployeesTerminatedMail;
 
 class EmployeesTerminated extends Command
 {
