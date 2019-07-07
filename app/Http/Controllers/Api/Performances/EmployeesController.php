@@ -23,6 +23,7 @@ class EmployeesController extends Controller
     public function schedules()
     {
         $schedules = Schedule::with('employee.supervisor')
+            ->orderBy('employee_id')
             ->whereHas('employee', function ($query) {
                 return $query->whereDoesntHave('termination');
             })
