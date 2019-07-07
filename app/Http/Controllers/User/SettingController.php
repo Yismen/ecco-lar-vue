@@ -11,18 +11,15 @@ class SettingController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\UserSetting  $setting
+     * @param \Illuminate\Http\Request $request
+     * @param \App\UserSetting         $setting
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, User $user)
     {
-        if (!$request->has('sidebar_collapse')) {
-            $request['sidebar_collapse'] = '';
-        }
-
         $settings = [
-            'data' => json_encode($request->only('route', 'layout', 'skin', 'sidebar_collapse', 'sidebar_mini'))
+            'data' => json_encode($request->only('route', 'layout', 'skin', 'sidebar', 'sidebar_mini')),
         ];
 
         if (!$user->settings) {

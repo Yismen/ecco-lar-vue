@@ -47,7 +47,7 @@
         class="
             {{ $settings->skin ?? config('dainsys.layout_color', 'skin-yellow') }}
             {{ $settings->layout ?? config('dainsys.layout', 'default')  }}
-            {{ $settings->sidebar_collapse ?? config('dainsys.sidebar_collapse', '')  }}
+            {{ $settings->sidebar ?? config('dainsys.sidebar_collapse', '')  }}
             {{ $settings->sidebar_mini ?? config('dainsys.sidebar_mini', '')  }}
         "
     >

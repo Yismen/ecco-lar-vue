@@ -55,8 +55,8 @@
                 <div class="form-group">
                     <div class="checkbox">
                         <label>
-                            {!! Form::checkbox('sidebar_collapse', 'sidebar-collapse', null, []) !!}
-                            Collapse Side Bar
+                            {!! Form::checkbox('sidebar', 'sidebar', null, []) !!}
+                            Keep Side Bar
                         </label>
                     </div>
                 </div>
