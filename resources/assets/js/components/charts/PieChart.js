@@ -1,5 +1,5 @@
 
-    import { Doughnut } from 'vue-chartjs'
+    import { Pie } from 'vue-chartjs'
 
     export default {
         props: {
@@ -34,7 +34,7 @@
             },
             options: { type: Object}
         },
-        extends: Doughnut,
+        extends: Pie,
         mounted() {
             this.renderChart({
                 labels: this.labels,
