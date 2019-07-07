@@ -1,0 +1,38 @@
+@component('mail::message')
+# List of Employees Hired Since Last Month
+
+@component('mail::table')
+<table>
+    <thead>
+        <th>Hire Date</th>
+        <th>Site</th>
+        <th>Supervisor</th>
+        <th>Project</th>
+        <th>Position</th>
+        <th>Name</th>
+        <th>Personal ID or Passport</th>
+        <th>Status</th>
+    </thead>
+
+    <tbody>
+        @foreach ($employees as $employee)
+            <tr>
+                <td>{{ $employee->hire_date }}</td>
+                <td>{{ optional($employee->site)->name }}</td>
+                <td>{{ optional($employee->supervisor)->name }}</td>
+                <td>{{ optional($employee->project)->name }}</td>
+                <td>
+                    {{ optional($employee->position)->name }},
+                    {{ optional(optional($employee->position)->department)->name }},
+                    ${{ optional($employee->position)->salary }}, {{ optional($employee->position->payment_type)->name }}
+                </td>
+                <td>{{ $employee->fullName }}</td>
+                <td>{{ filled($employee->personal_id) ? $employee->personal_id : $employee->passport }}</td>
+                <td>{{ $employee->status }}</td>
+            </tr>
+        @endforeach
+    </tbody>
+</table>
+@endcomponent
+
+@endcomponent

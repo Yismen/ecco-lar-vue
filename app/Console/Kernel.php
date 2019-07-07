@@ -14,10 +14,11 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         'App\Console\Commands\Inspire',
-        'App\Console\Commands\ReportEmployeesHired',
-        'App\Console\Commands\UpdateSlugs',
         'App\Console\Commands\FeedSchedules',
         'App\Console\Commands\MigrationStatus',
+        'App\Console\Commands\EmployeesHired',
+        'App\Console\Commands\EmployeesTerminated',
+        'App\Console\Commands\UpdateSlugs',
     ];
 
     /**
@@ -27,8 +28,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('employees:hired')->everyMinute();
-        // $schedule->command('mymigration:status')->everyFiveMinutes();
-        // $schedule->command('inspire')->everyMinute();
+        $schedule->command('dainsys:employees-hired --months=1')->dailyAt('10:20');
+        $schedule->command('dainsys:employees-terminated --months=1')->dailyAt('10:20');
     }
 }
