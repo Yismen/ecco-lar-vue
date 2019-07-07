@@ -23,21 +23,21 @@ class HumanResourcesController extends Controller
 
     public function birthdaysThisMonth()
     {
-        $employees = (new ThisMonthBirthdays)->list();
+        $employees = (new ThisMonthBirthdays())->list();
 
         return view('human_resources.birthdays.list_monthly', compact('employees'))->with(['title' => 'Birthdays This Month!']);
     }
 
     public function birthdaysNextMonth()
     {
-        $employees = (new NextMonthBirthdays)->list();
+        $employees = (new NextMonthBirthdays())->list();
 
         return view('human_resources.birthdays.list_monthly', compact('employees'))->with(['title' => 'Birthdays Next Month!']);
     }
 
     public function birthdaysLastMonth()
     {
-        $employees = (new LastMonthBirthdays)->list();
+        $employees = (new LastMonthBirthdays())->list();
 
         return view('human_resources.birthdays.list_monthly', compact('employees'))->with(['title' => 'Birthdays Last Month!']);
     }

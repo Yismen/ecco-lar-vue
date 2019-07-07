@@ -10,7 +10,7 @@ class MissingSchedule implements HumanResourcesInterface
     public function setup()
     {
         return Employee::actives()
-            ->doesntHave('schedule');
+            ->doesntHave('schedules');
     }
 
     public function count()
