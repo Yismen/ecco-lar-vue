@@ -30,5 +30,6 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('dainsys:employees-hired --months=1')->dailyAt('15:59');
         $schedule->command('dainsys:employees-terminated --months=1')->dailyAt('15:59');
+        $schedule->command('telescope:prune --hours=48')->daily();
     }
 }
