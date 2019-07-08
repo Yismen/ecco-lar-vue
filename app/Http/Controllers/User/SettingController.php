@@ -19,7 +19,7 @@ class SettingController extends Controller
     public function update(Request $request, User $user)
     {
         $settings = [
-            'data' => json_encode($request->only('route', 'layout', 'skin', 'sidebar', 'sidebar_mini')),
+            'data' => json_encode($request->only('layout', 'skin', 'sidebar', 'sidebar_mini')),
         ];
 
         if (!$user->settings) {
