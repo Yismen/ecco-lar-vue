@@ -214,9 +214,12 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-md navbar-dark sticky-top bg-dark p-0">
-        <a href="{{ route('log-viewer::dashboard') }}" class="navbar-brand mr-0">
-            <i class="fa fa-fw fa-book"></i> LogViewer
+        <a href="/" class="navbar-brand mr-0">
+            <i class="fa fa-fw fa-book"></i> Dainsys
         </a>
+       {{--  <a href="{{ route('log-viewer::dashboard') }}" class="navbar-brand mr-0">
+            <i class="fa fa-fw fa-book"></i> LogViewer
+        </a> --}}
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>

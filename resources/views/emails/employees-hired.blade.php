@@ -36,3 +36,21 @@
 @endcomponent
 
 @endcomponent
+<style>
+
+
+.inner-body {
+    width: 95%;
+    -premailer-width: 95%;
+}
+
+
+.footer {
+    width: 95%;
+    -premailer-width: 95%;
+}
+
+.table td {
+    border-bottom: solid 1px #ccc;
+}
+</style>

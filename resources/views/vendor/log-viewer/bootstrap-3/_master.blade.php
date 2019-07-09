@@ -289,9 +289,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="{{ route('log-viewer::dashboard') }}" class="navbar-brand">
-                    <i class="fa fa-fw fa-book"></i> LogViewer
+                <a href="/" class="navbar-brand mr-0">
+                    <i class="fa fa-fw fa-book"></i> Dainsys
                 </a>
+                {{-- <a href="{{ route('log-viewer::dashboard') }}" class="navbar-brand">
+                    <i class="fa fa-fw fa-book"></i> LogViewer
+                </a> --}}
             </div>
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="nav navbar-nav">

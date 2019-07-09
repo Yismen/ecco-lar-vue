@@ -109,11 +109,7 @@
                         return '<a href="/admin/employees/'+data+'">'+ data +'</a>'
                     }},
                     {data: 'first_name', name: 'first_name', render: function(data, type, full){
-                        let first_name = full.first_name || '';
-                        let second_first_name = full.second_first_name || '';
-                        let last_name = full.last_name || '';
-                        let second_last_name = full.second_last_name  || '';
-                        return (first_name +' '+second_first_name+' '+last_name+' '+second_last_name).trim();
+                        return full.full_name.trim();
                     }},
                     {data: 'second_first_name', name: 'second_first_name', 'visible': false},
                     {data: 'last_name', name: 'last_name', 'visible': false},
