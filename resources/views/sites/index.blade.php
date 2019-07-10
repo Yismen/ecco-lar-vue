@@ -30,13 +30,18 @@
                             </div>
                             @if ($site->employees->count() > 0)
                                 <div class="box-body">
-                                    <table class="table table-condensed table-hover">
-                                        <tbody>
-                                            @foreach ($site->employees as $employee)
-                                                <tr is="employee-row" :employee="{{ $employee }}" class="col-lg-3 col-md-4 col-sm-6"></tr>
+                                    @foreach ($site->employees->chunk(3) as $chunk)
+                                        <div class="row">
+                                            @foreach ($chunk as $employee)
+                                                <div class="col-xs-4">
+                                                     <employee-check-box :employee="{{ $employee }}"
+                                                    >,
+                                                        {{ optional($employee->position)->name }}
+                                                    </employee-check-box>
+                                                </div>
                                             @endforeach
-                                        </tbody>
-                                    </table>
+                                        </div>
+                                    @endforeach
                                 </div>
                             @endif
                         </div>

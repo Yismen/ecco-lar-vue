@@ -11,21 +11,18 @@
         </div>
 
         <div class="box-body">
-            <table class="table table-condensed table-hover">
-
-                <tbody>
-                    @foreach ($supervisor->employees as $employee)
-                        <tr class="col-md-4 col-sm-6">
-                            <td>
-                                <employee-check-box :employee="{{ $employee }}"
+            @foreach ($supervisor->employees->chunk(3) as $chunk)
+                <div class="row">
+                    @foreach ($chunk as $employee)
+                        <div class="col-xs-4">
+                             <employee-check-box :employee="{{ $employee }}"
                                 >,
-                                    {{ optional($employee->position)->name }}
-                                </employee-check-box>
-                            </td>
-                        </tr>
+                                {{ optional($employee->position)->name }}
+                            </employee-check-box>
+                        </div>
                     @endforeach
-                </tbody>
-            </table>
+                </div>
+            @endforeach
         </div>
     </div>
 @endif
