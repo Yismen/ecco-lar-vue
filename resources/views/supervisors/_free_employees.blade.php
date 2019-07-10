@@ -7,20 +7,20 @@
             </h4>
         </div>
         <div class="box-body">
-            <table class="table table-condensed table-hover">
-                <tbody>
-                    @foreach ($free_employees as $employee)
-                        <tr class="col-sm-6">
-                            <td>
-                                <employee-check-box :employee="{{ $employee }}"
-                                >,
-                                    {{ optional($employee->position)->name }}
-                                </employee-check-box>
-                            </td>
-                        </tr>
+
+            <?php $count = $free_employees->count() == 0 ? 0 : ceil($free_employees->count() / 2) ?>
+
+            @foreach ($free_employees->chunk($count) as $chunk)
+                <div class="col-sm-6">
+                    @foreach ($chunk as $employee)
+                         <employee-check-box :employee="{{ $employee }}"
+                            >,
+                            {{ optional($employee->project)->name }} -
+                            {{ optional($employee->position)->name }}
+                        </employee-check-box>
                     @endforeach
-                </tbody>
-            </table>
+                </div>
+            @endforeach
         </div>
     </div>
 </div>

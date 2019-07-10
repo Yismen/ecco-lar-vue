@@ -30,15 +30,16 @@
                             </div>
                             @if ($site->employees->count() > 0)
 
-                                <?php $count = $site->employees->count() == 0 ? 0 : ceil($site->employees->count() / 3) ?>
+                                <?php $count = $site->employees->count() == 0 ? 0 : ceil($site->employees->count() / 2) ?>
 
                                 <div class="box-body">
                                     <div class="row">
                                         @foreach ($site->employees->chunk($count) as $chunk)
-                                            <div class="col-sm-4">
+                                            <div class="col-sm-6">
                                                 @foreach ($chunk as $employee)
-                                                     <employee-check-box :employee="{{ $employee }}"
+                                                     <employee-check-box :employee="{{ $employee }}" style="border-top: solid 1px #ccc"
                                                     >,
+                                                        {{ optional($employee->project)->name }} -
                                                         {{ optional($employee->position)->name }}
                                                     </employee-check-box>
                                                 @endforeach

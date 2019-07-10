@@ -19,10 +19,13 @@ class SitesController extends Controller
 
     public function index()
     {
-        Cache::flush();
-        $sites = Cache::remember('sites', 60, function() {
-            return Site::with(['employees' => function($query) {
-                return $query->orderBy('first_name')->actives();
+        $sites = Cache::remember('sites', 60, function () {
+            return Site::with(['employees' => function ($query) {
+                return $query->orderBy('first_name')
+                    ->orderBy('second_first_name')
+                    ->orderBy('last_name')
+                    ->orderBy('second_last_name')
+                    ->actives();
             }])
             ->get();
         });
@@ -38,7 +41,7 @@ class SitesController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|unique:sites'
+            'name' => 'required|unique:sites',
         ]);
 
         $site = Site::create($request->only(['name']));
@@ -46,7 +49,7 @@ class SitesController extends Controller
         Cache::forget('sites');
 
         return redirect()->route('admin.sites.index')
-            ->withSuccess('Site '. $site->name . ' has been created!');
+            ->withSuccess('Site '.$site->name.' has been created!');
     }
 
     public function show(Site $site)
@@ -70,17 +73,16 @@ class SitesController extends Controller
         Cache::forget('sites');
 
         return redirect()->route('admin.sites.index')
-            ->withSuccess('Site '. $site->name . ' has been updated!');
-
+            ->withSuccess('Site '.$site->name.' has been updated!');
     }
 
     public function assignEmployees(Request $request)
     {
         $this->validate($request, [
             'employee' => 'required|array',
-            'site' => 'required|exists:sites,id'
+            'site' => 'required|exists:sites,id',
         ], [
-            'employee.required' => 'Select at least one employee!'
+            'employee.required' => 'Select at least one employee!',
         ]);
 
         Cache::forget('sites');
@@ -92,6 +94,6 @@ class SitesController extends Controller
         }
 
         return redirect()->route('admin.sites.index')
-            ->withSuccess("Done!");
+            ->withSuccess('Done!');
     }
 }

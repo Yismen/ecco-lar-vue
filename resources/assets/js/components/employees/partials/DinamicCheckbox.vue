@@ -2,7 +2,7 @@
     <div class="checkbox" v-bind:class="{ 'bg-danger': isCheked }">
         <label>
             <input type="checkbox" :value="employee.id" :name="'employee[]'" @change="toggleChecked">
-            {{ employee.full_name }}<slot></slot>
+            <b>{{ employee.full_name }}</b><slot></slot>
         </label>
     </div>
 </template>

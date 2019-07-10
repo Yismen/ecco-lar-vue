@@ -26,7 +26,11 @@ class SupervisorsController extends Controller
     public function index()
     {
         $free_employees = Employee::doesntHave('supervisor')
-            ->actives()->with('position')
+            ->orderBy('first_name')
+            ->orderBy('second_first_name')
+            ->orderBy('last_name')
+            ->orderBy('second_last_name')
+            ->actives()->with('position', 'project')
             ->get();
 
         $inactive_supervisors = Supervisor::orderBy('name')
@@ -35,7 +39,11 @@ class SupervisorsController extends Controller
 
         $supervisors = Supervisor::orderBy('name')
             ->with(['employees' => function ($query) {
-                return $query->orderBy('first_name')->with('position')->actives();
+                return $query->orderBy('first_name')
+                    ->orderBy('second_first_name')
+                    ->orderBy('last_name')
+                    ->orderBy('second_last_name')
+                    ->with('position', 'project')->actives();
             }])
             ->get();
 

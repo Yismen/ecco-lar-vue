@@ -4,7 +4,7 @@
             <div class="checkbox">
                 <label>
                     <input type="checkbox" :value="employee.id" :name="'employee[]'" @change="toggleChecked">
-                    {{ employee.full_name }}
+                    <b>{{ employee.full_name }}</b>
                 </label>
             </div>
         </td>
