@@ -87,7 +87,7 @@ class RouteServiceProvider extends ServiceProvider
             ->with('gender')
             ->with('loginNames')
             ->with('marital')
-            ->with('nationalities')
+            ->with('nationality')
             ->with('punch')
             ->with('position')
             ->with('project')

@@ -25,7 +25,7 @@ class NationalitiesController extends Controller
      */
     public function index(Request $request)
     {
-        $free_employees = Employee::doesntHave('nationalities')
+        $free_employees = Employee::doesntHave('nationality')
             ->orderBy('first_name')
             ->orderBy('first_name')
             ->orderBy('last_name')
@@ -65,13 +65,14 @@ class NationalitiesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request, Nationality $nationality)
     {
         $this->validate($request, [
-            'name' => 'required|min:3|unique:nationalities'
+            'name' => 'required|min:3|unique:nationalities',
         ]);
 
         $nationality = $nationality->create($request->only(['name']));
@@ -90,7 +91,8 @@ class NationalitiesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(Nationality $nationality)
@@ -101,7 +103,8 @@ class NationalitiesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(Nationality $nationality)
@@ -112,8 +115,9 @@ class NationalitiesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int                      $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Nationality $nationality)
@@ -132,7 +136,8 @@ class NationalitiesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(Nationality $nationality)
@@ -145,9 +150,9 @@ class NationalitiesController extends Controller
     {
         $this->validate($request, [
             'employee' => 'required|array',
-            'nationality' => 'required|exists:nationalities,id'
+            'nationality' => 'required|exists:nationalities,id',
         ], [
-            'employee.required' => 'Select at least one employee!'
+            'employee.required' => 'Select at least one employee!',
         ]);
 
         Cache::forget('nationalities');
@@ -156,17 +161,17 @@ class NationalitiesController extends Controller
         foreach ($request->employee as  $id) {
             $employee = Employee::whereId($id)->first();
 
-            $employee->nationality()->sync($request->nationality);
+            $employee->update(['nationality_id' => $request->get('nationality')]);
         }
 
         return redirect()->route('admin.nationalities.index')
-            ->withSuccess("Done!");
+            ->withSuccess('Done!');
     }
 
     protected function validateRequest(Request $request, Nationality $nationality)
     {
         $this->validate($request, [
-            'name' => 'required|min:3|unique:nationalities,name,' . $nationality->id
+            'name' => 'required|min:3|unique:nationalities,name,'.$nationality->id,
         ]);
     }
 }

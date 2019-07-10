@@ -36,12 +36,7 @@ trait EmployeeRelationships
 
     public function nationality()
     {
-        return $this->nationalities();
-    }
-
-    public function nationalities()
-    {
-        return $this->belongsToMany('App\Nationality');
+        return $this->belongsTo('App\Nationality');
     }
 
     public function project()

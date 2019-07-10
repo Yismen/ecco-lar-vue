@@ -11,7 +11,10 @@ use App\Http\Traits\Relationships\EmployeeRelationships;
 
 class Employee extends Model
 {
-    use EmployeeRelationships, EmployeeAccessors, EmployeeMutators, Trackable;
+    use EmployeeRelationships;
+    use EmployeeAccessors;
+    use EmployeeMutators;
+    use Trackable;
 
     protected $fillable = [
         'first_name',
@@ -32,11 +35,13 @@ class Employee extends Model
         'marital_id',
         'ars_id',
         'afp_id',
+        'nationality_id',
         'has_kids',
         'photo',
     ];
     /**
-     * Fields to be converted to Carbon instances
+     * Fields to be converted to Carbon instances.
+     *
      * @var Carbon Instance
      */
     protected $dates = ['hire_date', 'date_of_birth'];
@@ -47,7 +52,6 @@ class Employee extends Model
         'full_name',
         'active',
         'status',
-        'nationality',
     ];
 
     public function scopeAll($query)
@@ -79,9 +83,11 @@ class Employee extends Model
 
     /**
      * Determine if an employee was active on a given date.
-     * @param  [query] $query DB query builder chaining
-     * @param  [string as date] $date  A date like string to parsed with Carbon
-     * @return [query]        returns the query builder chaining.
+     *
+     * @param [query]          $query DB query builder chaining
+     * @param [string as date] $date  A date like string to parsed with Carbon
+     *
+     * @return [query] returns the query builder chaining
      */
     public function scopeWasActiveOrTerminatedBefore($query, $date)
     {
@@ -111,16 +117,17 @@ class Employee extends Model
         $base_salary = 8310;
         if ($this->position && $this->position->salary) {
             // if ($this->position->payment->payment_type == 'By-Weekly') {
-            // 	return $this->position->salary * 2;
+            //  return $this->position->salary * 2;
             // };
 
             // if ($this->position->payment->payment_type == 'Monthly') {
-            // 	return $this->position->salary;
+            //  return $this->position->salary;
             // };
             if ($this->position->salary > $base_salary) {
                 return $this->position->salary;
-            };
+            }
         }
+
         return $base_salary;
     }
 
@@ -133,6 +140,7 @@ class Employee extends Model
     {
         $starts = $this->vacationsStarts();
         $days = $starts->diffInYears(Carbon::today()) >= 5 ? 21 : 14;
+
         return $starts->addDays($days);
     }
 
@@ -166,17 +174,18 @@ class Employee extends Model
     }
 
     /**
-     * cheks if the current employeed
+     * cheks if the current employeed.
+     *
      * @return string or null 'Masculine'
      */
     public function isMasculine()
     {
-        return $this->has('gender') && $this->gender->gender == 'Masculine' ? 'Masculine' : null;
+        return $this->has('gender') && 'Masculine' == $this->gender->gender ? 'Masculine' : null;
     }
 
     public function isFemenine()
     {
-        return $this->has('gender') && $this->gender->gender == 'Femenine' ? 'Femenine' : null;
+        return $this->has('gender') && 'Femenine' == $this->gender->gender ? 'Femenine' : null;
     }
 
     public function isOfGender($gender, $return_value = null)
@@ -185,6 +194,7 @@ class Employee extends Model
             if ($return_value) {
                 return $return_value;
             }
+
             return $gender;
         }
 

@@ -25,20 +25,22 @@
                                     <span class="badge bg-yellow">{{ $free_employees->count() }}</span>
                                 </h4>
                             </div>
+
+                            <?php $count = $free_employees->count() == 0 ? 0 : ceil($free_employees->count() / 2) ?>
+
                             <div class="box-body">
-                                <table class="table table-condensed table-hover">
-                                    <tbody>
-                                        @foreach ($free_employees as $employee)
-                                            <tr  class="col-lg-4 col-md-6">
-                                                <td>
-                                                    <employee-check-box :employee="{{ $employee }}">
-                                                        - {{ filled($employee->personal_id) ? $employee->personal_id : $employee->passport }}
-                                                    </employee-check-box>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                <div class="row">
+                                    @foreach ($free_employees->chunk($count) as $chunk)
+                                        <div class="col-sm-6">
+                                            @foreach ($chunk as $employee)
+                                                 <employee-check-box :employee="{{ $employee }}" style="border-top: solid 1px #ccc"
+                                                >,
+                                                    - {{ filled($employee->personal_id) ? $employee->personal_id : $employee->passport }}
+                                                </employee-check-box>
+                                            @endforeach
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
                     @endif
@@ -56,19 +58,23 @@
                                     </h4>
                                 </div>
                                     <div class="box-body">
-                                        <table class="table table-condensed table-hover">
-                                            <tbody>
-                                                @foreach ($nationality->employees as $employee)
-                                                    <tr  class="col-lg-4 col-md-6">
-                                                        <td>
-                                                            <employee-check-box :employee="{{ $employee }}">
-                                                                - {{ filled($employee->personal_id) ? $employee->personal_id : $employee->passport }}
+
+                                        <?php $count = $nationality->employees->count() == 0 ? 0 : ceil($nationality->employees->count() / 2) ?>
+
+                                        <div class="box-body">
+                                            <div class="row">
+                                                @foreach ($nationality->employees->chunk($count) as $chunk)
+                                                    <div class="col-sm-6">
+                                                        @foreach ($chunk as $employee)
+                                                             <employee-check-box :employee="{{ $employee }}" style="border-top: solid 1px #ccc"
+                                                            >,
+                                                                {{ filled($employee->personal_id) ? $employee->personal_id : $employee->passport }}
                                                             </employee-check-box>
-                                                        </td>
-                                                    </tr>
+                                                        @endforeach
+                                                    </div>
                                                 @endforeach
-                                            </tbody>
-                                        </table>
+                                            </div>
+                                        </div>
                                     </div>
                             </div>
                         @endif

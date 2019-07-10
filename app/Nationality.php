@@ -10,11 +10,7 @@ class Nationality extends Model
 
     public function employees()
     {
-        return $this->belongsToMany('App\Employee')
-            ->select([
-                'id', 'first_name', 'second_first_name', 'last_name', 'second_last_name', 'photo', 'position_id', 'personal_id', 'passport'
-            ])
-            ->actives();
+        return $this->hasMany(Employee::class);
     }
 
     public function setNameAttribute($name)

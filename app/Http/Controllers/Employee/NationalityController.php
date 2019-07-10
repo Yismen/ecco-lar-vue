@@ -18,7 +18,9 @@ class NationalityController extends Controller
         Cache::forget('employees');
         Cache::forget('nationalities');
 
-        $employee->nationalities()->sync((array)$request->nationality_id);
+        $employee->update($request->only('nationality_id'));
+
+        return $employee->load('nationality');
 
         return $employee;
     }

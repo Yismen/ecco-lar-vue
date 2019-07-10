@@ -22,17 +22,13 @@ use App\TerminationReason;
 trait EmployeeAccessors
 {
     /**
-     * return a list array of the systems, including name and id
-     * @return array a list of systems registered.
+     * return a list array of the systems, including name and id.
+     *
+     * @return array a list of systems registered
      */
     public function getNationalitiesListAttribute()
     {
         return Nationality::orderBy('name')->get();
-    }
-
-    public function getNationalityAttribute()
-    {
-        return $this->nationalities()->first();
     }
 
     public function getArsListAttribute()
@@ -72,7 +68,7 @@ trait EmployeeAccessors
 
     public function getPhotoAttribute($photo)
     {
-        return $photo == '' ? 'http://placehold.it/300x300' : $photo;
+        return '' == $photo ? 'http://placehold.it/300x300' : $photo;
     }
 
     public function getStatusAttribute()
@@ -82,29 +78,32 @@ trait EmployeeAccessors
 
     public function getActiveAttribute()
     {
-        return $this->termination == false;
+        return false == $this->termination;
     }
 
     /**
-     * Concatanets firs name and last name attributes
-     * @return  string  first and last names joint by space
+     * Concatanets firs name and last name attributes.
+     *
+     * @return string first and last names joint by space
      */
     public function getFullNameAttribute()
     {
         // $name = $this->first_name . ' ' . $this->second_first_name . ' ' . $this->last_name . ' ' . $this->second_last_name;
 
         $name = filled($this->first_name) ? trim($this->first_name) : '';
-        $name = filled($this->second_first_name) ? $name . ' '. trim($this->second_first_name)  : $name;
-        $name = filled($this->last_name) ? $name . ' '. trim($this->last_name)  : $name;
-        $name = filled($this->second_last_name) ? $name . ' '. trim($this->second_last_name)  : $name;
+        $name = filled($this->second_first_name) ? $name.' '.trim($this->second_first_name) : $name;
+        $name = filled($this->last_name) ? $name.' '.trim($this->last_name) : $name;
+        $name = filled($this->second_last_name) ? $name.' '.trim($this->second_last_name) : $name;
 
         return ucwords(mb_strtolower(trim($name)));
     }
 
     /**
-     * Return a new instance for the date
-     * @param  [type] $date [description]
-     * @return [type]       [description]
+     * Return a new instance for the date.
+     *
+     * @param [type] $date [description]
+     *
+     * @return [type] [description]
      */
     // public function getHireDateAttribute($date)
     // {
@@ -117,9 +116,11 @@ trait EmployeeAccessors
     // }
 
     /**
-     * Convert the Date of birth to date
-     * @param  datetime $date employee date of birth
-     * @return datetime       an instance of carbon
+     * Convert the Date of birth to date.
+     *
+     * @param datetime $date employee date of birth
+     *
+     * @return datetime an instance of carbon
      */
     // public function getDateOfBirthAttribute($date)
     // {
@@ -127,8 +128,9 @@ trait EmployeeAccessors
     // }
 
     /**
-     * define the attribute can be rehired
-     * @return boolean whether or not the
+     * define the attribute can be rehired.
+     *
+     * @return bool whether or not the
      */
     public function getCanBeRehiredAttribute()
     {
@@ -167,9 +169,11 @@ trait EmployeeAccessors
     }
 
     /**
-     * convert the First Name to UC Words
-     * @param  String $first_name Employee First name
-     * @return String             Converted to ucwords
+     * convert the First Name to UC Words.
+     *
+     * @param string $first_name Employee First name
+     *
+     * @return string Converted to ucwords
      */
     public function getFirstNameAttribute($name)
     {
@@ -182,9 +186,11 @@ trait EmployeeAccessors
     }
 
     /**
-     * convert the First Name to UC Words
-     * @param  String $first_name Employee First name
-     * @return String             Converted to ucwords
+     * convert the First Name to UC Words.
+     *
+     * @param string $first_name Employee First name
+     *
+     * @return string Converted to ucwords
      */
     public function getLastNameAttribute($name)
     {
@@ -197,7 +203,7 @@ trait EmployeeAccessors
     }
 
     /**
-     * list the has kids attribute
+     * list the has kids attribute.
      *
      * @return array
      */
@@ -222,7 +228,7 @@ trait EmployeeAccessors
     }
 
     /**
-     * List all the Genders model
+     * List all the Genders model.
      *
      * @return [array] [description]
      */
@@ -237,7 +243,7 @@ trait EmployeeAccessors
     }
 
     /**
-     * List all the departments
+     * List all the departments.
      *
      * @return array [description]
      */
