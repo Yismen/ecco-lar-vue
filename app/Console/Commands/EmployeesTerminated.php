@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Employee;
 use Carbon\Carbon;
+use App\Termination;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\EmployeesTerminatedMail;
@@ -39,23 +39,15 @@ class EmployeesTerminated extends Command
      */
     public function handle()
     {
-        $startOfMonth = Carbon::now()->subMonths($this->option('months'))->startOfMonth();
+        $months = $this->option('months');
+        $startOfMonth = Carbon::now()->subMonths($months)->startOfMonth();
 
-        $employees = Employee::with('site')
-            ->with(['termination' => function ($query) {
-                return $query->orderBy('termination_date')
-                        ->with(['terminationType', 'terminationReason']);
+        $terminations = Termination::orderBy('termination_date', 'DESC')
+            ->with(['employee' => function ($query) {
+                return $query->with('site');
             }])
-            ->whereHas('termination', function ($query) use ($startOfMonth) {
-                return $query->whereDate('termination_date', '>=', $startOfMonth)
-                        ->orderBy('termination_date')
-                        ->with(['terminationType', 'terminationReason']);
-            })
-            ->orderBy('first_name')
-            ->orderBy('second_first_name')
-            ->orderBy('last_name')
             ->get();
 
-        Mail::send(new EmployeesTerminatedMail($employees));
+        Mail::send(new EmployeesTerminatedMail($terminations, $months));
     }
 }

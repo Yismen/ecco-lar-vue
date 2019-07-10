@@ -39,12 +39,10 @@ class EmployeesHired extends Command
      */
     public function handle()
     {
-        $employees = Employee::whereDate('hire_date', '>=', Carbon::now()->subMonths($this->option('months'))->startOfMonth())
-            ->orderBy('hire_date')
-            ->orderBy('site_id')
-            ->orderBy('supervisor_id')
-            ->orderBy('project_id')
-            ->orderBy('position_id')
+        $months = $this->option('months');
+
+        $employees = Employee::whereDate('hire_date', '>=', Carbon::now()->subMonths($months)->startOfMonth())
+            ->orderBy('hire_date', 'DESC')
             ->orderBy('first_name')
             ->orderBy('second_first_name')
             ->orderBy('last_name')
@@ -54,6 +52,6 @@ class EmployeesHired extends Command
             }])
             ->get();
 
-        Mail::send(new EmployeesHiredMail($employees));
+        Mail::send(new EmployeesHiredMail($employees, $months));
     }
 }

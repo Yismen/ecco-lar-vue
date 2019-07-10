@@ -5,21 +5,22 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
-class EmployeesTerminatedMail extends Mailable implements ShouldQueue
+class EmployeesTerminatedMail extends Mailable
 {
     use Queueable;
     use SerializesModels;
 
-    public $employees;
+    public $terminations;
+    public $months;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($employees)
+    public function __construct($terminations, $months)
     {
-        $this->employees = $employees;
+        $this->terminations = $terminations;
+        $this->months = $months;
     }
 
     /**
@@ -30,7 +31,7 @@ class EmployeesTerminatedMail extends Mailable implements ShouldQueue
     public function build()
     {
         return $this->to('yjorge@eccocorpbpo.com')
-            ->subject('Employees Terminated Last 2 Months')
+            ->subject('Employees Terminated Last '.$this->months.' Months')
             ->markdown('emails.employees-terminated');
     }
 }
