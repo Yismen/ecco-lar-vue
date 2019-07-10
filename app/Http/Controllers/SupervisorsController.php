@@ -17,6 +17,7 @@ class SupervisorsController extends Controller
         $this->middleware('authorize:destroy-supervisors', ['only' => ['destroy']]);
         $this->middleware('authorize:assign-supervisors-employees', ['only' => ['reAssign']]);
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -54,13 +55,14 @@ class SupervisorsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request, Supervisor $supervisor)
     {
         $this->validate($request, [
-            'name' => 'required|min:5|unique:supervisors,name'
+            'name' => 'required|min:5|unique:supervisors,name',
         ]);
 
         Cache::forget('supervisors');
@@ -79,7 +81,8 @@ class SupervisorsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  Supervisor $supervisor
+     * @param int  Supervisor $supervisor
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(Supervisor $supervisor)
@@ -90,7 +93,8 @@ class SupervisorsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  Supervisor $supervisor
+     * @param int  Supervisor $supervisor
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(Supervisor $supervisor)
@@ -101,21 +105,22 @@ class SupervisorsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  Supervisor $supervisor
+     * @param \Illuminate\Http\Request $request
+     * @param int  Supervisor          $supervisor
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Supervisor $supervisor)
     {
-        if (! $request->has('active')) {
-            $request->merge(['active' => "0"]);
+        if (!$request->has('active')) {
+            $request->merge(['active' => '0']);
         }
 
         $this->validate(
             $request,
             [
                 'name' => 'required|min:5|unique:supervisors,name,'.$supervisor->id,
-                'active' => 'boolean'
+                'active' => 'boolean',
             ]
         );
 
@@ -131,7 +136,8 @@ class SupervisorsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  Supervisor $supervisor
+     * @param int  Supervisor $supervisor
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(Supervisor $supervisor, Request $request)
@@ -153,9 +159,9 @@ class SupervisorsController extends Controller
     {
         $this->validate($request, [
             'employee' => 'required|array',
-            'supervisor' => 'required|exists:supervisors,id'
+            'supervisor' => 'required|exists:supervisors,id',
         ], [
-            'employee.required' => 'Select at least one employee!'
+            'employee.required' => 'Select at least one employee!',
         ]);
 
         foreach ($request->employee as  $id) {
@@ -165,6 +171,6 @@ class SupervisorsController extends Controller
         }
 
         return redirect()->route('admin.supervisors.index')
-            ->withSuccess("Done!");
+            ->withSuccess('Done!');
     }
 }

@@ -29,19 +29,22 @@
                                 </h4>
                             </div>
                             @if ($site->employees->count() > 0)
+
+                                <?php $count = $site->employees->count() == 0 ? 0 : ceil($site->employees->count() / 3) ?>
+
                                 <div class="box-body">
-                                    @foreach ($site->employees->chunk(3) as $chunk)
-                                        <div class="row">
-                                            @foreach ($chunk as $employee)
-                                                <div class="col-xs-4">
+                                    <div class="row">
+                                        @foreach ($site->employees->chunk($count) as $chunk)
+                                            <div class="col-sm-4">
+                                                @foreach ($chunk as $employee)
                                                      <employee-check-box :employee="{{ $employee }}"
                                                     >,
                                                         {{ optional($employee->position)->name }}
                                                     </employee-check-box>
-                                                </div>
-                                            @endforeach
-                                        </div>
-                                    @endforeach
+                                                @endforeach
+                                            </div>
+                                        @endforeach
+                                    </div>
                                 </div>
                             @endif
                         </div>
