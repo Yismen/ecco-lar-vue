@@ -84,3 +84,6 @@ Tasks:
    ✔ Cache user in AppComposer @created(19-06-25 09:18) @done (19-06-25 16:30)
      ✔ Clear whole cache when any of the following is touched @created(19-06-25 09:18) @done (19-06-25 16:30)
          ✔  users, roles, menus, settings, permissions, @created(19-06-25 09:18) @done (19-06-25 16:31)
+☐  Performance Store @created(19-07-11 16:17)
+      ☐ Limit it to only import downtimes @created(19-07-11 16:17)
+      ☐ Check if Existis, return the ID in order to edit @created(19-07-11 16:17)
