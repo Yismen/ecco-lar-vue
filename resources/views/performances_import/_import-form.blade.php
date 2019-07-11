@@ -22,4 +22,4 @@
 
 {!! Form::close() !!}
  --}}
-<dropzone-form url="{{ route('admin.performances.store') }}"></dropzone-form>
+<dropzone-form url="{{ route('admin.performances_import.store') }}"></dropzone-form>

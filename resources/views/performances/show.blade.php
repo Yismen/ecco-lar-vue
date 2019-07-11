@@ -4,84 +4,105 @@
 @section('content')
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-10 col-sm-offset-1">
                 <div class="box box-info">
-                    <div class="box-header">
+                    <div class="box-header with-border">
                         <h4>
-                            Details
-                            <a href="{{ route('admin.performances.index') }}" class="pull-right">
-                                <i class="fa fa-home"></i> List
+                            Performance Details {{ $performance->unique_id }}
+                            <a href="{{ route('admin.performances.edit', $performance->id) }}" title="Edit This Record" class="text-warning">
+                                <i class="fa fa-pencil"></i> Edit
+                            </a>
+                            <a href="/admin/performances" class="pull-right" title="Back to the list" style="margin-left: 3px;">
+                                 <i class="fa fa-list"></i> List
                             </a>
                         </h4>
                     </div>
 
                     <div class="box-body">
-                        <table class="table table-condensed table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Employee</th>
-                                    <th>Supervisor</th>
-                                    <th>Project</th>
-                                    <th>Campaign</th>
-                                    <th>Login Time</th>
-                                    <th>Prod. Time</th>
-                                    <th>Sales</th>
-                                    <th>Revenue</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
+                        <div class="col-sm-6">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <strong>Date: </strong> {{ $performance->date }}
+                                </li>
 
-                            <tbody>
-                                @foreach ($performances as $performance)
-                                    <tr>
-                                        <td>
-                                            <a href="/admin/performances/{{ $performance->date }}" title="SHOW ONLY DATA FOR THIS DATE">{{ $performance->date }}</a>
-                                        </td>
-                                        <td>{{ $performance->employee->full_name }}</td>
-                                        <td>{{ optional($performance->employee->supervisor)->name }}</td>
-                                        <td>
-                                            <a href="/admin/performances/{{ $performance->date }}?project={{ optional($performance->campaign->project)->id }}" title="SHOW ONLY DATA FOR THIS DATE AND THIS PROJECT">
-                                                {{ optional($performance->campaign->project)->name }}
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a href="/admin/performances/{{ $performance->date }}?campaign={{ optional($performance->campaign)->id }}" title="SHOW ONLY DATA FOR THIS DATE AND THIS CAMPAIGN">
-                                                {{ optional($performance->campaign)->name }}
-                                            </a>
-                                        </td>
-                                        <td class="text-center">{{ number_format($performance->login_time, 2) }}</td>
-                                        <td class="text-center">{{ number_format($performance->production_time, 2) }}</td>
-                                        <td class="text-center">{{ number_format($performance->transactions, 2) }}</td>
-                                        <td class="text-center">${{ number_format($performance->revenue, 2) }}</td>
-                                        <td class="text-center">
-                                            <a href="{{ route('admin.performances.edit', $performance->id) }}" class="text-warning">
-                                                <i class="fa fa-pencil"></i> Edit
-                                            </a>
-                                        </td>
-                                    </tr>
+                                <li class="list-group-item">
+                                    <strong>Employee: </strong> {{ $performance->employee->fullName }}
+                                </li>
 
-                                @endforeach
-                            </tbody>
+                                <li class="list-group-item">
+                                    <strong>Project: </strong> {{ optional(optional($performance->campaign)->project)->name }}
+                                </li>
 
-                            <tfoot>
-                                <th colspan="5" class="text-right">Totals:</th>
-                                <th class="text-center">{{ number_format($performances->sum('revenue'), 2)  }}</th>
-                                <th class="text-center">{{ number_format($performance->sum('production_time'), 2) }}</th>
-                                <th class="text-center">{{ number_format($performance->sum('transactions'), 2) }}</th>
-                                <th class="text-center">${{ number_format($performance->sum('revenue'), 2) }}</th>
-                            </tfoot>
-                        </table>
+                                <li class="list-group-item">
+                                    <strong>Campaign: </strong> {{ optional($performance->campaign)->name }}
+                                </li>
+
+                                <li class="list-group-item">
+                                    <strong>SPH Goal: </strong> {{ optional($performance->campaign)->sph_goal }} SPH
+                                </li>
+
+                                <li class="list-group-item">
+                                    <strong>Supervisor: </strong> {{ optional($performance->supervisor)->name }}
+                                </li>
+
+                                <li class="list-group-item">
+                                    <strong>Contacts: </strong> {{ number_format($performance->contacts) }}
+                                </li>
+
+                                <li class="list-group-item">
+                                    <strong>Calls: </strong> {{ number_format($performance->calls) }}
+                                </li>
+
+                                <li class="list-group-item">
+                                    <strong>Sales: </strong> {{ number_format($performance->transactions) }}
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <strong>Login Time: </strong> {{ number_format($performance->login_time, 3) }}
+                                </li>
+
+                                <li class="list-group-item">
+                                    <strong>Production Time: </strong> {{ number_format($performance->production_time, 3) }}
+                                </li>
+
+                                <li class="list-group-item">
+                                    <strong>Talk Time: </strong> {{ number_format($performance->talk_time, 3) }}
+                                </li>
+
+                                <li class="list-group-item">
+                                    <strong>Billable Time: </strong> {{ number_format($performance->billable_hours, 3) }}
+                                </li>
+
+                                <li class="list-group-item">
+                                    <strong>Upsales: </strong> {{ number_format($performance->upsales) }}
+                                </li>
+
+                                <li class="list-group-item">
+                                    <strong>CC Sales: </strong> {{ number_format($performance->cc_sales) }}
+                                </li>
+
+                                <li class="list-group-item">
+                                    <strong>Revenue: </strong> ${{ number_format($performance->revenue, 3) }}
+                                </li>
+
+                                <li class="list-group-item">
+                                    <strong>Downtime Reason: </strong> {{ optional($performance->downtimeReason)->name }}
+                                </li>
+
+                                <li class="list-group-item">
+                                    <strong>Downtime Reported By: </strong> {{ $performance->reported_by }}
+                                </li>
+                            </ul>
+                        </div>
+                        {{-- /details --}}
                     </div>
-
-                    <div class="box-footer">
-                        {{ $performances->links() }}
-                    </div>
+                    {{-- .box-body --}}
                 </div>
             </div>
         </div>
     </div>
 @endsection
-
-@section('scripts')
-@stop

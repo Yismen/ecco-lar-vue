@@ -3,16 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Performance;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Imports\PerformancesImport;
-use Maatwebsite\Excel\Facades\Excel;
+use Yajra\DataTables\Facades\DataTables;
 
 class PerformanceController extends Controller
 {
     protected $imported_files = [];
+
     /**
-     * Protect the controller agaist unauthorized users
+     * Protect the controller agaist unauthorized users.
      */
     public function __construct()
     {
@@ -29,88 +28,74 @@ class PerformanceController extends Controller
      */
     public function index()
     {
-        $performances = Performance::orderBy('date', 'DESC')
-            ->orderBy('campaign_id', 'DESC')
-            ->groupBy(['date'])
-            ->paginate(25);
+        if (!request()->ajax()) {
+            return view('performances.index');
+        }
 
-        return view('performances.index', compact('performances'));
+        $performances = Performance::with(
+            ['campaign.project', 'supervisor', 'employee.supervisor']
+        );
+
+        return DataTables::of($performances)
+            ->addColumn('dow', function ($query) {
+                return route('admin.performances.show', $query->id);
+            })
+            ->addColumn('edit', function ($query) {
+                return route('admin.performances.edit', $query->id);
+            })
+            ->toJson(true);
+    }
+
+    public function create()
+    {
+        return view('performances.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         $this->validate($request, [
-           'excel_file' => 'required',
-           'excel_file.*' => 'file|mimes:xls,xlsx',
+          'employee_id' => 'required|exists:employees,id',
+          'supervisor_id' => 'required|exists:supervisors,id',
+          'login_time' => 'required|numeric|min:0|max:14',
+          'production_time' => 'required|numeric|min:0|max:14',
+          'transactions' => 'required|numeric',
+          'revenue' => 'required|numeric',
         ]);
 
-        ini_set('memory_limit', config('dainsys.memory_limit'));
-        ini_set('max_execution_time', 300);
+        dd('Create. Validate it doesnt exists first');
 
-        foreach ($request->file('excel_file') as $key => $file) {
-            if (! Str::contains($file->getClientOriginalName(), '_performance_daily_data_')) {
-                return redirect()->back()
-                    ->withErrors(['excel_file' => "Wrong file selected. Please make sure you pick a file which the correct naming convention _performance_daily_data_..."]);
-            }
+        $performance->update(
+            $request->only(['employee_id', 'supervisor_id', 'login_time', 'production_time', 'transactions', 'revenue'])
+        );
 
-            $this->imported_files[] = $file->getClientOriginalName();
-            Excel::import(new PerformancesImport, $request->file('excel_file')[$key]);
-        }
-
-        $request->session()->flash('imported_files', $this->imported_files);
-        $request->session()->flash('success', 'Data Imported');
-
-        if ($request->ajax()) {
-            return ['message' => 'Data Imported', 'success' => 'Data Imported'];
-        }
-
-        return redirect()->route('admin.performances.index')
-            ->withSuccess('Data Imported!');
+        return redirect()->back()
+            ->withSuccess('Updated!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Performance  $performance
+     * @param \App\Performance $performance
+     *
      * @return \Illuminate\Http\Response
      */
-    public function show(Performance $performance, Request $request, $perf_date)
+    public function show(Performance $performance)
     {
-        $project = $request->get('project');
-        $campaign = $request->get('campaign');
-
-        $performances = $performance
-            ->where('date', $perf_date)
-            ->with('campaign.project');
-
-        if ($request->has('project')) {
-            $performances = $performances->whereHas('campaign', function ($query) use ($project) {
-                return $query->where('project_id', $project);
-            });
-        }
-
-        if ($request->has('campaign')) {
-            $performances = $performances->whereHas('campaign', function ($query) use ($campaign) {
-                return $query->where('id', $campaign);
-            });
-        }
-
-        $performances = $performances->with('employee.supervisor')
-            ->paginate(50)->appends(['project' => $project, 'campaign'=>$campaign]);
-
-        return view('performances.show', compact('performances'));
+        return view('performances.show', compact('performance'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Performance  $performances
+     * @param \App\Performance $performances
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(Performance $performance)
@@ -121,8 +106,9 @@ class PerformanceController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Performance  $performance
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Performance         $performance
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Performance $performance)
@@ -141,37 +127,20 @@ class PerformanceController extends Controller
         );
 
         return redirect()->back()
-            ->withSuccess("Updated!");
+            ->withSuccess('Updated!');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Performance  $performance
+     * @param \App\Performance $performance
+     *
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Performance $performance, $date = null, $campaign_id = null)
+    public function destroy(Performance $performance)
     {
-        if ($date && $campaign_id) {
-            return $this->wantsMassDelete($performance, $date, $campaign_id);
-        }
-
         $performance->delete();
 
-        return $performance;
-    }
-
-    private function wantsMassDelete(Performance $performance, $date, $campaign_id)
-    {
-        $performances =  $performance
-            ->where('date', $date)
-            ->where('campaign_id', $campaign_id)
-            ->get();
-
-        foreach ($performances as $performance) {
-            $performance->delete();
-        }
-
-        return $performances;
+        return ['status' => 'sucess', 'message' => 'Performance Data Deleted', 'data' => $performance];
     }
 }

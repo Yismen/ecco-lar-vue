@@ -5,18 +5,18 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <div class="box box-primary">
+                <div class="box box-info">
                     <div class="box-header">
                         <h4>
-                            Performance Data
-                            <a href="{{ route('admin.performances.create') }}" class="pull-right">
-                                <i class="fa fa-plus"></i> Add
+                            Details for date {{ $date }}
+                            <a href="{{ route('admin.performances_import.index') }}" class="pull-right">
+                                <i class="fa fa-home"></i> List
                             </a>
                         </h4>
                     </div>
 
                     <div class="box-body table-responsive">
-                        <table class="table table-condensed table-bordered" id="performances-table">
+                        <table class="table table-condensed table-bordered" id="performances_import-table">
                             <thead>
                                 <tr>
                                     <th>Date</th>
@@ -44,25 +44,25 @@
         (function($){
             $(document).ready(function($) {
 
-                let dTable = $('#performances-table').DataTable({
+                let dTable = $('#performances_import-table').DataTable({
                     "processing": true,
                     "serverSide": true,
                     "searchDelay": 1000,
                     // "scrollY": "600px",
                     // "scrollCollapse": true,
-                    "pageLength": 25,
-                    "lengthMenu": [ [25, 100, 200], [25, 100, 200] ],
+                    "pageLength": 5,
+                    "lengthMenu": [ [5, 100, 200, -1], [5, 100, 200, "All"] ],
                     "searching": { "regex": true },
                     "language": {
                         "processing": "<i class='fa fa-spinner'></i> Loading, Please wait!"
                     },
                     "ajax": {
                         'type': 'get',
-                        "url": "{{ route('admin.performances.index') }}",
+                        "url": "{{ route('admin.performances_import.by_date', $date) }}",
                     },
-                    "order": [[ 0, "desc" ], [ 1, "asc" ]],
+                    "order": [[ 1, "asc" ]],
                     "columns": [
-                        {data: 'date', name: 'date'},
+                        {data: 'date', name: 'date', searchable: false, orderable: false},
                         {data: 'name', name: 'name', render: function(data, type, full){
                             return '<a href="/admin/performances/' + full.id +'" title="Performance Details">' + (data).trim() + '</a>'
                         }},

@@ -2,7 +2,6 @@
 
 namespace App\Imports;
 
-use App\User;
 use Carbon\Carbon;
 use App\Performance;
 use Illuminate\Support\Collection;
@@ -15,6 +14,13 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 
 class PerformancesImport implements ToCollection, WithHeadingRow, WithValidation, WithMapping
 {
+    protected $file_name;
+
+    public function __construct($file_name)
+    {
+        $this->file_name = $file_name;
+    }
+
     use Importable;
 
     public function collection(Collection $rows)
@@ -57,10 +63,11 @@ class PerformancesImport implements ToCollection, WithHeadingRow, WithValidation
     }
 
     /**
-     * Convert an date in a carbon instance
+     * Convert an date in a carbon instance.
      *
-     * @param  value $value the value to be parsed
-     * @param  format    $format the format from where the carbon instance is created
+     * @param value  $value  the value to be parsed
+     * @param format $format the format from where the carbon instance is created
+     *
      * @return Carbon instance
      */
     public function transformDate($value, $format = 'Y-m-d')
@@ -96,6 +103,7 @@ class PerformancesImport implements ToCollection, WithHeadingRow, WithValidation
             'revenue' => $row['revenue'],
             'downtime_reason_id' => $row['reason_id'],
             'reported_by' => $row['reported_by'],
+            'file_name' => $this->file_name,
         ];
     }
 }

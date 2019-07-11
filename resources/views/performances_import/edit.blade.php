@@ -13,11 +13,11 @@
                     <div class="box-header">
                         <h4>
                             Edit Performance
-                            <a href="{{ route('admin.performances.show', $performance->id) }}" title="Show Details">
-                                 <i class="fa fa-eye"></i>
-                            </a>
-                            <a href="/admin/performances" class="pull-right" title="Back to the list">
+                            <a href="/admin/performances" class="pull-right" title="Back to the list" style="margin-left: 3px;">
                                  <i class="fa fa-list"></i> List
+                            </a>
+                            <a href="{{ url()->previous() }}" class="pull-right" title="Back to Previous Page">
+                                <i class="fa fa-angle-double-left"></i> Previous |
                             </a>
                         </h4>
                     </div>
@@ -117,7 +117,7 @@
                     <div class="box-footer">
                         <delete-request-button
                             url="{{ route('admin.performances.destroy', $performance->id) }}"
-                            redirect-url="{{ route('admin.performances.index') }}"
+                            redirect-url="{{ route('admin.performances.by_date', $performance->date) }}"
                         ></delete-request-button>
                     </div>
                 </div>

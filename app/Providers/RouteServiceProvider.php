@@ -212,10 +212,9 @@ class RouteServiceProvider extends ServiceProvider
         });
 
         Route::bind('performance', function ($id) {
-            return \App\Performance::with('employee.supervisor')
+            return \App\Performance::with('employee.supervisor', 'campaign.project', 'supervisor', 'downtimeReason')
                 ->orderBy('date')
                 ->orderBy('updated_at')
-                ->with('campaign.project')
                 ->findOrFail($id);
         });
 

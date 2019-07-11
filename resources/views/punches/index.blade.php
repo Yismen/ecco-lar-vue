@@ -107,7 +107,6 @@
 	                        return '<a href="/admin/punches/'+data+'">'+ data +'</a>'
 	                    }},
 	                    {data: 'employee', name: 'employee', searchable: "false", render: function(data, type, full){
-	                    	console.log(full)
 	                        let first_name = data.first_name || '';
 	                        let second_first_name = data.second_first_name || '';
 	                        let last_name = data.last_name || '';
