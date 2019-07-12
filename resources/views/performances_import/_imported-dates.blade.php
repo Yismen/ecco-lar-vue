@@ -11,9 +11,7 @@
                         <th>Performance Date</th>
                         <th>File Name</th>
                         <th>Created At</th>
-                        @can('destroy-performances')
-                            <th>Actions</th>
-                        @endcan
+                        <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -27,15 +25,13 @@
                             </td>
                             <td>{{ $performance->file_name }}</td>
                             <td>{{ $performance->created_at->diffForHumans() }}</td>
-                            @can('destroy-performances')
-                                <td>
-                                    <delete-request-button
-                                        url="/admin/performances_import/mass_delete?date={{$performance->date}}&file_name={{$performance->file_name}}"
-                                        btn-class="btn btn-link no-padding text-red"
-                                        redirect-url="{{ route('admin.performances_import.index') }}"
-                                    ></delete-request-button>
-                                </td>
-                            @endcan
+                            <td>
+                                <delete-request-button
+                                    url="/admin/performances_import/mass_delete?date={{$performance->date}}&file_name={{$performance->file_name}}"
+                                    btn-class="btn btn-link no-padding text-red"
+                                    redirect-url="{{ route('admin.performances_import.index') }}"
+                                ></delete-request-button>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
