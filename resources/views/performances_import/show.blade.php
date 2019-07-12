@@ -64,7 +64,7 @@
                     "columns": [
                         {data: 'date', name: 'date', searchable: false, orderable: false},
                         {data: 'name', name: 'name', render: function(data, type, full){
-                            return '<a href="/admin/performances/' + full.id +'" title="Performance Details">' + (data).trim() + '</a>'
+                            return '<a href="/admin/performances/' + full.id +'" title="Performance Details" target="_performances">' + (data).trim() + '</a>'
                         }},
                         {data: 'supervisor_id', name: 'supervisor_id', orderable: false, searchable: false, render: function(data, type, full) {
                             return full.supervisor ? full.supervisor.name : null;
@@ -80,7 +80,7 @@
                         {data: 'transactions', name: 'transactions', searchable: false},
                         {data: 'revenue', name: 'revenue', searchable: false},
                         {data: 'edit', name: 'edit', searchable: "false", orderable: false, render: function(data, type, full) {
-                            return '<a href="'+data+'"><i class="fa fa-pencil"></i> Edit</a>'
+                            return '<a href="'+data+'" target="_performances"><i class="fa fa-pencil"></i> Edit</a>'
                         }},
                     ],
                     buttons: ['copy', 'excel', 'pdf']

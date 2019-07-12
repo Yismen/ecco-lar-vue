@@ -5,6 +5,7 @@
             v-model="selectedDate"
             :name="name"
             :format="format"
+            :disabledDates="disabledDates"
             :typeable="typeable"
             @input="changed"
 
@@ -22,13 +23,19 @@ export default {
         name: {default: "date-imput"},
         format: {default: "MM/dd/yyyy"},
         inputClass: {default: "form-control"},
-        typeable: {default: true},
+        allowFutureDates: {type: Boolean, default: false},
+        disableSinceManyDaysAgo: {type: Number, default: 0},
+        typeable: {type: Boolean, default: true},
         value: {}
     },
 
     data() {
         return {
-            selectedDate: this.value
+            selectedDate: this.value,
+            disabledDates: new Object({
+                from: this.allowFutureDates ? '' : new Date,
+                to: this.disableSinceManyDaysAgo > 0 ? new Date(moment().subtract(this.disableSinceManyDaysAgo, 'days').format()) : null,
+            })
         }
     },
 
@@ -47,7 +54,16 @@ export default {
 
     components: {
         Datepicker
-    }
+    },
+
+    // computed: {
+    //     disabledDates() {
+    //         return new Object({
+    //             from: this.allowFutureDates ? new Date : moment().subtract(6, 'days'),
+    //             to: new Date()
+    //         })
+    //     }
+    // }
 }
 </script>
 

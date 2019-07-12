@@ -46,9 +46,9 @@ class PerformanceController extends Controller
             ->toJson(true);
     }
 
-    public function create()
+    public function create(Performance $performance)
     {
-        return view('performances.create');
+        return view('performances.create', compact('performance'));
     }
 
     /**
@@ -60,23 +60,25 @@ class PerformanceController extends Controller
      */
     public function store(Request $request)
     {
+        // It is like Create downtimes
         $this->validate($request, [
-          'employee_id' => 'required|exists:employees,id',
-          'supervisor_id' => 'required|exists:supervisors,id',
-          'login_time' => 'required|numeric|min:0|max:14',
-          'production_time' => 'required|numeric|min:0|max:14',
-          'transactions' => 'required|numeric',
-          'revenue' => 'required|numeric',
+            'date' => 'required|date|',
+            'employee_id' => 'required|exists:employees,id',
+            'campaign_id' => 'required|exists:campaigns,id',
+            'login_time' => 'required|numeric|min:0|max:14',
+            'downtime_reason_id' => 'required|exists:downtime_reasons,id',
+            'reported_by' => 'required|exists:supervisors,name',
         ]);
 
-        dd('Create. Validate it doesnt exists first');
+        if ($exists = $this->exists($request)) {
+            return redirect()->route('admin.performances.edit', $exists->id)
+                ->withWarning('This data you tried to create exists already. You have been redirected to the edit page.');
+        }
 
-        $performance->update(
-            $request->only(['employee_id', 'supervisor_id', 'login_time', 'production_time', 'transactions', 'revenue'])
-        );
+        $pperformance = (new Performance())->createManually($request);
 
-        return redirect()->back()
-            ->withSuccess('Updated!');
+        return redirect()->route('admin.performances.index')
+            ->withSuccess('Data Created!');
     }
 
     /**
@@ -142,5 +144,13 @@ class PerformanceController extends Controller
         $performance->delete();
 
         return ['status' => 'sucess', 'message' => 'Performance Data Deleted', 'data' => $performance];
+    }
+
+    private function exists(Request $request)
+    {
+        return Performance::whereDate('date', $request->date)
+            ->where('employee_id', $request->employee_id)
+            ->where('campaign_id', $request->campaign_id)
+            ->first();
     }
 }

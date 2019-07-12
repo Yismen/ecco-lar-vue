@@ -8,8 +8,6 @@ class CreatePerformancesTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
@@ -26,9 +24,9 @@ class CreatePerformancesTable extends Migration
             $table->double('production_time', 15, 8)->default(0.00);
             $table->double('talk_time', 15, 8)->default(0.00);
             $table->double('billable_hours', 15, 8)->default(0.00);
-            $table->integer('contacts')->unsigned();
-            $table->integer('calls')->unsigned();
-            $table->integer('transactions')->unsigned();
+            $table->integer('contacts')->unsigned()->default(0);
+            $table->integer('calls')->unsigned()->default(0);
+            $table->integer('transactions')->unsigned()->default(0);
             $table->double('revenue', 15, 8)->default(0.00);
 
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
@@ -41,8 +39,6 @@ class CreatePerformancesTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {

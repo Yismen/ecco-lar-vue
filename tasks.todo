@@ -44,10 +44,10 @@ Tasks:
     ☐ Has many employees
     ☐ Has Many performances
   ☐ Employees
-    ☐ Test Hire date and date of birthday for modules:
-        ☐ Create employees
-        ☐ Edit employees
-    ☐ Has one position
+    ✔ Test Hire date and date of birthday for modules: @done (19-07-11 23:08)
+        ✔ Create employees @done (19-07-11 23:08)
+        ✔ Edit employees @done (19-07-11 23:09)
+    ✔ Has one position @done (19-07-11 23:09)
     ☐ Employee Has one punch
     ☐ Employee has many performances
     ☐ Employee belongs to a site
@@ -83,7 +83,8 @@ Tasks:
  Projects:
    ✔ Cache user in AppComposer @created(19-06-25 09:18) @done (19-06-25 16:30)
      ✔ Clear whole cache when any of the following is touched @created(19-06-25 09:18) @done (19-06-25 16:30)
-         ✔  users, roles, menus, settings, permissions, @created(19-06-25 09:18) @done (19-06-25 16:31)
-☐  Performance Store @created(19-07-11 16:17)
-      ☐ Limit it to only import downtimes @created(19-07-11 16:17)
-      ☐ Check if Existis, return the ID in order to edit @created(19-07-11 16:17)
+         ✔  users, roles, menus, settings, permissions, @@created19-06-25 09:18) @done (19-06-25 16:31)
+  ✔  Performance Store @created(19-07-11 16:17) @done (19-07-11 23:06)
+      ✔ Limit it to only import downtimes @created(19-07-11 16:17) @done (19-07-11 23:05)
+      ✔ Check if Existis, redirect to edit @created(19-07-11 16:17) @done (19-07-11 23:06)
+☐ Change all Data Generators to stick to the format "Y-m-d-employee_id-campaign_id" for the unique_id (including downtimes) @created(19-07-11 23:06)
