@@ -43,6 +43,7 @@ class EmployeesTerminated extends Command
         $startOfMonth = Carbon::now()->subMonths($months)->startOfMonth();
 
         $terminations = Termination::orderBy('termination_date', 'DESC')
+            ->where('termination_date', '>=', $startOfMonth)
             ->with(['employee' => function ($query) {
                 return $query->with('site');
             }])

@@ -20,7 +20,7 @@ class EmployeesTerminatedMail extends Mailable
     public function __construct($terminations, $months)
     {
         $this->terminations = $terminations;
-        $this->months = $months;
+        $this->months = (int) $months + 1;
     }
 
     /**

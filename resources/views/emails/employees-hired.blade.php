@@ -1,24 +1,6 @@
-<style>
-
-
-.inner-body {
-    width: 95%;
-    -premailer-width: 95%;
-}
-
-
-.footer {
-    width: 95%;
-    -premailer-width: 95%;
-}
-
-.table td {
-    border-bottom: solid 1px #ccc;
-}
-</style>
 @component('mail::message')
-# List of Employees Hired Since Last {{ $months }} Months
-<table>
+# List of Employees Hired Since Last {{ $months + 1 }} Months
+<table class="dainsys-table">
     <thead>
         <th>Hire Date</th>
         <th>Name</th>
@@ -33,7 +15,7 @@
     <tbody>
         @foreach ($employees as $employee)
             <tr>
-                <td>{{ $employee->hire_date }}</td>
+                <td>{{ $employee->hire_date->format('M-d-y') }}</td>
                 <td>{{ $employee->fullName }}</td>
                 <td>{{ filled($employee->personal_id) ? $employee->personal_id : $employee->passport }}</td>
                 <td>{{ optional($employee->site)->name }}</td>
@@ -53,4 +35,22 @@
 
 
 @endcomponent
+<style>
+
+
+.inner-body {
+    width: 95%;
+    -premailer-width: 95%;
+}
+
+
+.footer {
+    width: 95%;
+    -premailer-width: 95%;
+}
+
+.dainsys-table tbody tr td {
+    border-top: solid 1px #ccc;
+}
+</style>
 
