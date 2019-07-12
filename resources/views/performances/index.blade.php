@@ -102,6 +102,10 @@
                 });
 
                 let getSubTotal = function(data, field) {
+                    if(data.length == 0) {
+                        return 0
+                    }
+
                     return data.reduce(function(el1, el2) {
                         el1 = el1[field] == undefined ? el1 : el1[field]
                         return Number(el1) + Number(el2[field])
