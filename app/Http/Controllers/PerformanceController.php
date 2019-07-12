@@ -151,6 +151,8 @@ class PerformanceController extends Controller
         return Performance::whereDate('date', $request->date)
             ->where('employee_id', $request->employee_id)
             ->where('campaign_id', $request->campaign_id)
+            ->orWhere('unique_id', $request->date.'-'.$request->employee_id.'-downtime')
+            ->orWhere('unique_id', $request->date.'-'.$request->campaign_id.'-'.$request->campaign_id)
             ->first();
     }
 }
