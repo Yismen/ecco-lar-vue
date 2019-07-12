@@ -10,17 +10,20 @@ class Campaign extends Model
 
     public function getProjectListAttribute()
     {
-        return Project::get();
+        return Project::
+            orderBy('name')->get();
     }
 
     public function getSourceListAttribute()
     {
-        return Source::get();
+        return Source::
+            orderBy('name')->get();
     }
 
     public function getRevenueTypeListAttribute()
     {
-        return RevenueType::get();
+        return RevenueType::
+            orderBy('name')->get();
     }
 
     public function project()
