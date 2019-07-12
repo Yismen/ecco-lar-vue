@@ -31,6 +31,16 @@
                                     <th>Actions</th>
                                 </tr>
                             </thead>
+
+                            <tfoot>
+                                <tr>
+                                    <th colspan="5" style="text-align:right">Total:</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>
@@ -55,6 +65,12 @@
                     "searching": { "regex": true },
                     "language": {
                         "processing": "<i class='fa fa-spinner'></i> Loading, Please wait!"
+                    },
+                    "footerCallback": function(row, data, start, end, display) {
+                        $(row).children('th')[1].textContent = Number(getSubTotal(data, 'login_time')).toFixed(2)
+                        $(row).children('th')[2].textContent = Number(getSubTotal(data, 'production_time')).toFixed(2)
+                        $(row).children('th')[3].textContent = Number(getSubTotal(data, 'transactions')).toFixed(2)
+                        $(row).children('th')[4].textContent = '$' + Number(getSubTotal(data, 'revenue')).toFixed(2)
                     },
                     "ajax": {
                         'type': 'get',
@@ -82,9 +98,15 @@
                         {data: 'edit', name: 'edit', searchable: "false", orderable: false, render: function(data, type, full) {
                             return '<a href="'+data+'" target="_performances"><i class="fa fa-pencil"></i> Edit</a>'
                         }},
-                    ],
-                    buttons: ['copy', 'excel', 'pdf']
+                    ]
                 });
+
+                let getSubTotal = function(data, field) {
+                    return data.reduce(function(el1, el2) {
+                        el1 = el1[field] == undefined ? el1 : el1[field]
+                        return Number(el1) + Number(el2[field])
+                    })
+                }
             });
 
         })(jQuery);

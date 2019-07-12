@@ -31,6 +31,16 @@
                                     <th>Actions</th>
                                 </tr>
                             </thead>
+
+                            <tfoot>
+                                <tr>
+                                    <th colspan="5" style="text-align:right">Total:</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>
@@ -83,8 +93,20 @@
                             return '<a href="'+data+'"><i class="fa fa-pencil"></i> Edit</a>'
                         }},
                     ],
-                    buttons: ['copy', 'excel', 'pdf']
+                    "footerCallback": function(row, data, start, end, display) {
+                        $(row).children('th')[1].textContent = Number(getSubTotal(data, 'login_time')).toFixed(2)
+                        $(row).children('th')[2].textContent = Number(getSubTotal(data, 'production_time')).toFixed(2)
+                        $(row).children('th')[3].textContent = Number(getSubTotal(data, 'transactions')).toFixed(2)
+                        $(row).children('th')[4].textContent = '$' + Number(getSubTotal(data, 'revenue')).toFixed(2)
+                    }
                 });
+
+                let getSubTotal = function(data, field) {
+                    return data.reduce(function(el1, el2) {
+                        el1 = el1[field] == undefined ? el1 : el1[field]
+                        return Number(el1) + Number(el2[field])
+                    })
+                }
             });
 
         })(jQuery);
