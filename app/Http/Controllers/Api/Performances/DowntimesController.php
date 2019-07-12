@@ -19,7 +19,13 @@ class DowntimesController extends Controller
 
     public function employees()
     {
-        $projects = Employee::with('supervisor')->get();
+        $projects = Employee::with('supervisor')
+            ->orderBy('first_name')
+            ->orderBy('second_first_name')
+            ->orderBy('last_name')
+            ->orderBy('second_last_name')
+            ->recents()
+                ->get();
 
         return EmployeeResource::collection($projects);
     }

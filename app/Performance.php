@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use App\Traits\Trackable;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
@@ -44,7 +45,17 @@ class Performance extends Model
 
     public function getEmployeesListAttribute()
     {
-        return Employee::orderBy('first_name')->orderBy('second_first_name')->get();
+        return Employee::orderBy('first_name')
+            ->orderBy('second_first_name')
+            ->get();
+    }
+
+    public function getEmployeeRecentsListAttribute()
+    {
+        return Employee::orderBy('first_name')
+            ->orderBy('second_first_name')
+            ->recents(Carbon::now()->subMonth())
+            ->get();
     }
 
     public function getDowntimesCampaignsListAttribute()

@@ -23,7 +23,7 @@
                             <div class="form-group {{ $errors->has('employee_id') ? 'has-error' : null }}">
                                 {!! Form::label('employee_id', ' Employee:', ['class'=>'col-sm-2 control-label']) !!}
                                 <div class="col-sm-10">
-                                    {!! Form::select('employee_id', $performance->employeesList->pluck('full_name', 'id'), null, ['class'=>'form-control']) !!}
+                                    {!! Form::select('employee_id', $performance->employeeRecentsList->pluck('full_name', 'id'), null, ['class'=>'form-control']) !!}
                                     {!! $errors->first('employee_id', '<span class="text-danger">:message</span>') !!}
                                 </div>
                             </div>

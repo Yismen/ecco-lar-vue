@@ -10,7 +10,7 @@ class LoginName extends Model
 
     /**
      * -------------------------------------------------------
-     * Relatioships
+     * Relatioships.
      */
     public function employee()
     {
@@ -19,7 +19,7 @@ class LoginName extends Model
 
     /**
      * --------------------------------------------
-     * Accessors
+     * Accessors.
      */
     public function getEmployeesListAttribute()
     {
@@ -30,14 +30,5 @@ class LoginName extends Model
                     ->orderBy('second_last_name')
                     ->get()
                     ->pluck('fullName', 'id');
-    }
-
-    /**
-     * ----------------------------------------
-     * Mutators
-     */
-    public function setLoginAttribute($login)
-    {
-        $this->attributes['login'] = trim($login);
     }
 }

@@ -64,6 +64,29 @@ class Employee extends Model
         return $query->has('termination', false);
     }
 
+    /**
+     * Query Active employees or terminated after a given date.
+     *
+     * @param Query Builder $query -automatically injected by laravel
+     * @param Carbon        $date  carbon instance. The Date since where
+     *                             to include the inactives. Default is 1 month ago
+     *
+     * @return Query Builder        query builder instance
+     */
+    public function scopeRecents($query, Carbon $date = null)
+    {
+        if (null == $date) {
+            $date = Carbon::now()->subMonths(1);
+        }
+
+        return $query->doesntHave('termination')
+            ->orWhereHas(
+                'termination', function ($query) use ($date) {
+                    return $query->where('termination_date', '>=', $date);
+                }
+            );
+    }
+
     public function scopeHiredSince($query, $date)
     {
         $date = Carbon::parse($date);
