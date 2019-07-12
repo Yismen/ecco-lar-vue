@@ -4,7 +4,7 @@
             <h4>Imported Dates</h4>
         </div>
 
-        <div class="box-body">
+        <div class="box-body table-responsive">
             <table class="table table-condensed table-bordered">
                 <thead>
                     <tr>

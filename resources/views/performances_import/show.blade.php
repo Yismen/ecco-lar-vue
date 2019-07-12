@@ -50,8 +50,8 @@
                     "searchDelay": 1000,
                     // "scrollY": "600px",
                     // "scrollCollapse": true,
-                    "pageLength": 5,
-                    "lengthMenu": [ [5, 100, 200, -1], [5, 100, 200, "All"] ],
+                    "pageLength": 25,
+                    "lengthMenu": [ [25, 100, 200, -1], [25, 100, 200, "All"] ],
                     "searching": { "regex": true },
                     "language": {
                         "processing": "<i class='fa fa-spinner'></i> Loading, Please wait!"
