@@ -88,8 +88,8 @@
                 searchDelay: 800,
                 // "scrollY": "600px",
                 // "scrollCollapse": true,
-                "pageLength": 50,
-                "lengthMenu": [ [50, 100, 200, -1], [50, 100, 200, "All"] ],
+                "pageLength": 25,
+                "lengthMenu": [ [25, 100, 200, -1], [25, 100, 200, "All"] ],
                 "searching": { "regex": true },
                 "createdRow": function( row, data, dataIndex){
                     if(! data.active){
@@ -116,7 +116,7 @@
                     {data: 'second_last_name', name: 'second_last_name', 'visible': false},
                     {data: 'hire_date', name: 'hire_date'},
                     {data: 'status', name: 'status', orderable: false, searchable: false},
-                    {data: 'position_id', name: 'position_id', render: function(data, type, full){
+                    {data: 'position_id', name: 'position_id', searchable: false, render: function(data, type, full){
                         let position = full.position ? full.position.name : '';
                         let project = full.project ? ', At ' + full.project.name : '';
                         let salary = full.position ? ', $' + full.position.salary : '';
@@ -132,8 +132,7 @@
                     {data: 'edit', name: 'edit', searchable: "false", orderable: false, render: function(data, type, full) {
                         return '<a href="'+data+'"><i class="fa fa-pencil"></i> Edit</a>'
                     }},
-                ],
-                buttons: ['copy', 'excel', 'pdf']
+                ]
             });
         });
 
