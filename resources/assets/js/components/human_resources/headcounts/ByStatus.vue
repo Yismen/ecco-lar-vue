@@ -27,8 +27,8 @@
                     label: "HeadCount By Status",
                     data: [],
                     backgroundColor: [
-                        "rgba(0, 166, 90, .8)",
-                        "rgba(243, 156, 18, .8)",
+                        "rgba(0,150,136,1)",
+                        "rgba(233,30,99,1)",
                         "rgba(245, 15, 84, .8)",
                         "rgba(200, 35, 150, .8)",
                     ]

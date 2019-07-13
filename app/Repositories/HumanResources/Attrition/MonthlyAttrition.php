@@ -38,7 +38,7 @@ class MonthlyAttrition extends HumanResources implements HumanResourcesInterface
             $prop = $this->current_date->format('Y-m');
 
             if ($this->by_site) {
-                foreach (Site::pluck('name') as $site) {
+                foreach (Site::orderBy('name')->pluck('name') as $site) {
                     $this->results[$site][$prop]['head_count'] = $this->query('headCount', $site)->$type();
                     $this->results[$site][$prop]['terminations'] = $this->query('terminations', $site)->$type();
                     $this->results[$site][$prop]['hires'] = $this->query('hires', $site)->$type();
@@ -50,7 +50,7 @@ class MonthlyAttrition extends HumanResources implements HumanResourcesInterface
             }
         }
 
-        return [$this->results];
+        return $this->results;
     }
 
     public function query($status, $site = '%')

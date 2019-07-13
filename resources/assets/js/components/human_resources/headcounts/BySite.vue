@@ -26,8 +26,9 @@
                     label: "HeadCount By Sites",
                     data: [],
                     backgroundColor: [
-                        "rgba(0, 166, 90, 0.8)",
-                        "rgba(243, 156, 18, 0.8)",
+                        "rgba(255,193,7,1)",
+                        "rgba(33,150,243,1)",
+                        "rgba(126,87,194 ,1)",
                         "rgba(245, 15, 84, 0.8)",
                         "rgba(200, 35, 150, 0.8)",
                     ]

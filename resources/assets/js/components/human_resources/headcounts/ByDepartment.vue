@@ -9,6 +9,7 @@
 
 <script>
     import DoughnutChart from '../../charts/DoughnutChart'
+    import {DAINSYS} from '../../../config/app'
     export default {
         name: "ByDepartment",
         data() {
@@ -19,22 +20,17 @@
                     legend: {display: false},
                     title: {
                         display: true,
-                        text: "HeadCount By Departments"
+                        text: "Departments: " + this.site
                     }
                 },
                 datasets: [ {
                     label: "HeadCount By Departments",
                     data: [],
-                    backgroundColor: [
-                        "rgba(0, 166, 90, .80)",
-                        "rgba(243, 156, 18, .80)",
-                        "rgba(245, 15, 84, .80)",
-                        "rgba(200, 35, 150, .80)",
-                    ]
+                    backgroundColor: DAINSYS.getColors()
                 }],
             }
         },
-        props: ['info'],
+        props: ['info', 'site'],
         components: {
             DoughnutChart
         },
@@ -49,8 +45,10 @@
                 })
 
                 vmData.forEach(function(item, index) {
-                    vm.labels.push(item.name)
-                    vm.datasets[0].data.push(item.employees_count)
+                    if (item.employees_count && item.employees_count > 0) {
+                        vm.labels.push(item.name)
+                        vm.datasets[0].data.push(item.employees_count)
+                    }
                 })
                 return this.datasets = this.datasets
             }

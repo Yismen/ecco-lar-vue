@@ -23,7 +23,7 @@ class BirthdaysThisMonth extends HumanResources implements HumanResourcesInterfa
     public function setup($type)
     {
         if ($this->by_site) {
-            foreach (Site::pluck('name') as $id => $name) {
+            foreach (Site::orderBy('name')->pluck('name') as $id => $name) {
                 $this->results[$name] = $this->query('actives', $name)->$type();
             }
 
@@ -38,6 +38,7 @@ class BirthdaysThisMonth extends HumanResources implements HumanResourcesInterfa
         $date = Carbon::now();
 
         $employees = Employee::$status()
+            ->orderByRaw('Day(date_of_birth)')
             ->whereMonth('date_of_birth', $date->month);
 
         return !$this->by_site ?

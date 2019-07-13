@@ -23,7 +23,7 @@ class BirthdaysToday extends HumanResources implements HumanResourcesInterface
     public function setup($type)
     {
         if ($this->by_site) {
-            foreach (Site::pluck('name') as $id => $name) {
+            foreach (Site::orderBy('name')->pluck('name') as $id => $name) {
                 $this->results[$name] = $this->query('actives', $name)->$type();
             }
 

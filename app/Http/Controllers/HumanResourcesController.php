@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\HumanResources\Birthdays\ThisMonth as ThisMonthBirthdays;
-use App\Repositories\HumanResources\Birthdays\NextMonth as NextMonthBirthdays;
-use App\Repositories\HumanResources\Birthdays\LastMonth as LastMonthBirthdays;
+use App\Repositories\HumanResources\Birthdays\BirthdaysThisMonth;
+use App\Repositories\HumanResources\Birthdays\BirthdaysNextMonth;
+use App\Repositories\HumanResources\Birthdays\BirthdaysLastMonth;
 use App\Repositories\HumanResources\HumanResourcesRepository;
 
 class HumanResourcesController extends Controller
@@ -23,21 +23,21 @@ class HumanResourcesController extends Controller
 
     public function birthdaysThisMonth()
     {
-        $employees = (new ThisMonthBirthdays())->list();
+        $employees = (new BirthdaysThisMonth())->list();
 
         return view('human_resources.birthdays.list_monthly', compact('employees'))->with(['title' => 'Birthdays This Month!']);
     }
 
     public function birthdaysNextMonth()
     {
-        $employees = (new NextMonthBirthdays())->list();
+        $employees = (new BirthdaysNextMonth())->list();
 
         return view('human_resources.birthdays.list_monthly', compact('employees'))->with(['title' => 'Birthdays Next Month!']);
     }
 
     public function birthdaysLastMonth()
     {
-        $employees = (new LastMonthBirthdays())->list();
+        $employees = (new BirthdaysLastMonth())->list();
 
         return view('human_resources.birthdays.list_monthly', compact('employees'))->with(['title' => 'Birthdays Last Month!']);
     }

@@ -19,22 +19,20 @@
                     legend: {display: false},
                     title: {
                         display: true,
-                        text: "HeadCount By Genders"
+                        text: "Genders: " + this.site
                     }
                 },
                 datasets: [ {
                     label: "HeadCount By Genders",
                     data: [],
                     backgroundColor: [
-                        "rgba(0, 166, 90, .80)",
-                        "rgba(243, 156, 18, .80)",
-                        "rgba(245, 15, 84, .80)",
-                        "rgba(200, 35, 150, .80)",
+                        "rgba(255,112,67 ,1)",
+                        "rgba(0,188,212 ,1)",
                     ]
                 }],
             }
         },
-        props: ['info'],
+        props: ['info', 'site'],
         components: {
             DoughnutChart
         },
@@ -44,9 +42,9 @@
 
                 let vmData = this.info
 
-                vmData.sort(function(a, b) {
-                    return b.employees_count - a.employees_count
-                })
+                // vmData.sort(function(a, b) {
+                //     return b.employees_count - a.employees_count
+                // })
 
                 vmData.forEach(function(item, index) {
                     vm.labels.push(item.name)

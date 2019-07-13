@@ -31,7 +31,7 @@
                     legend: {display: false},
                     title: {
                         display: true,
-                        text: "Montly Attrition"
+                        text: "Montly Attrition: " + this.site
                     },
                     scales: {
                         yAxes: [{
@@ -71,7 +71,7 @@
                 datasets: []
             }
         },
-        props: ['info'],
+        props: ['info', 'site'],
         components: {
             LineChart
         },
@@ -85,15 +85,14 @@
                 return this.lab
             },
             computedDatasets() {
-
                 let vm = this
                 let head_count = []
                 let terminations = []
                 let attritions = []
 
-                for (var key in this.info[0]) {
-                    let attr = vm.info[0][key].head_count
-                    let terms = vm.info[0][key].terminations
+                for (var key in this.info) {
+                    let attr = vm.info[key].head_count
+                    let terms = vm.info[key].terminations
                     vm.lab.push(key)
                     head_count.push(attr)
                     terminations.push(terms)

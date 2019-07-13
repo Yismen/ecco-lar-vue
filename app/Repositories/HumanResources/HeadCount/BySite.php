@@ -28,7 +28,7 @@ class BySite extends HumanResources implements HumanResourcesInterface
         $this->type = $type;
 
         if ($this->by_site) {
-            foreach (Site::pluck('name') as $site) {
+            foreach (Site::orderBy('name')->pluck('name') as $site) {
                 $this->results[$site] = $this->query('actives', $site)->get();
             }
 
@@ -58,7 +58,7 @@ class BySite extends HumanResources implements HumanResourcesInterface
 
     protected function getForCount($status, $site, $by_site)
     {
-        return Site::withCount(
+        return Site::orderBy('name')->withCount(
             ['employees' => function ($query) use ($status, $site, $by_site) {
                 return $by_site ?
                     $query->$status()
@@ -76,7 +76,7 @@ class BySite extends HumanResources implements HumanResourcesInterface
 
     public function getForList($status, $site, $by_site)
     {
-        return Site::with(
+        return Site::orderBy('name')->with(
             ['employees' => function ($query) use ($status, $site, $by_site) {
                 return $by_site ?
                     $query->$status()

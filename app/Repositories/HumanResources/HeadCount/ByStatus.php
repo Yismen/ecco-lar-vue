@@ -15,7 +15,7 @@ class ByStatus extends HumanResources implements HumanResourcesInterface
     public function setup($type)
     {
         if ($this->by_site) {
-            foreach (Site::pluck('name') as $site) {
+            foreach (Site::orderBy('name')->pluck('name') as $site) {
                 $this->results[$site] = [
                     'actives' => $this->query('actives', $site)->$type(),
                     'inactives' => $this->query('inactives', $site)->$type(),
@@ -43,7 +43,7 @@ class ByStatus extends HumanResources implements HumanResourcesInterface
 
     public function query($status, $site = '%')
     {
-        $employees = Employee::$status();
+        $employees = Employee::orderBy('name')->$status();
 
         return !$this->by_site ?
             $employees :

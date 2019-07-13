@@ -29,7 +29,7 @@ class ByNationality extends HumanResources implements HumanResourcesInterface
         $this->type = $type;
 
         if ($this->by_site) {
-            foreach (Site::pluck('name') as $site) {
+            foreach (Site::orderBy('name')->pluck('name') as $site) {
                 $this->results[$site] = $this->query('actives', $site)->get();
             }
 
@@ -59,7 +59,7 @@ class ByNationality extends HumanResources implements HumanResourcesInterface
 
     protected function getForCount($status, $site, $by_site)
     {
-        return Nationality::withCount(
+        return Nationality::orderBy('name')->withCount(
             ['employees' => function ($query) use ($status, $site, $by_site) {
                 return $by_site ?
                     $query->$status()
@@ -77,7 +77,7 @@ class ByNationality extends HumanResources implements HumanResourcesInterface
 
     public function getForList($status, $site, $by_site)
     {
-        return Nationality::with(
+        return Nationality::orderBy('name')->with(
             ['employees' => function ($query) use ($status, $site, $by_site) {
                 return $by_site ?
                     $query->$status()

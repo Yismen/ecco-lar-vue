@@ -26,7 +26,7 @@ class LastYearRotations extends HumanResources implements HumanResourcesInterfac
     public function setup($type)
     {
         if ($this->by_site) {
-            foreach (Site::pluck('name') as $site) {
+            foreach (Site::orderBy('name')->pluck('name') as $site) {
                 $this->results[$site] = [
                     'hires' => $this->query('hires', $site)->$type(),
                     'terminations' => $this->query('terminations', $site)->$type(),

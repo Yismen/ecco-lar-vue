@@ -9,6 +9,7 @@
 
 <script>
     import DoughnutChart from '../../charts/DoughnutChart'
+    import {DAINSYS} from '../../../config/app'
     export default {
         name: "ByProject",
         data() {
@@ -19,30 +20,13 @@
                     legend: {display: false},
                     title: {
                         display: true,
-                        text: "HeadCount By Projects"
+                        text: "Projects: " + this.site
                     }
                 },
                 datasets: [ {
                     label: "HeadCount By Projects",
                     data: [],
-                    backgroundColor: [
-                        "rgba(0, 166, 90, .80)",
-                        "rgba(243, 156, 18, .80)",
-                        "rgba(245, 15, 84, .80)",
-                        "rgba(200, 35, 150, .80)",
-                        "rgba(255, 195, 0, 0.8)",
-                        "rgba(218, 247, 166, 0.8)",
-                        "rgba(249, 235, 234, 0.8)",
-                        "rgba(245, 183, 177, 0.8)",
-                        "rgba(215, 189, 226, 0.8)",
-                        "rgba(84, 153, 199, 0.8)",
-                        "rgba(195, 155, 211, 0.8)",
-                        "rgba(247, 220, 111, 0.8)",
-                        "rgba(217, 136, 128, 0.8)",
-                        "rgba(133, 193, 233, 0.8)",
-                        "rgba(240, 178, 122, 0.8)",
-                        "rgba(215, 219, 221, 0.8)",
-                    ]
+                    backgroundColor: DAINSYS.getColors()
                 }],
             }
         },
@@ -50,7 +34,8 @@
             info: {
                 default: []
             },
-            height: {default: 200}
+            height: {default: 200},
+            site: {default: ''}
         },
         components: {
             DoughnutChart
@@ -66,8 +51,10 @@
                 })
 
                 vmData.forEach(function(item, index) {
-                    vm.labels.push(item.name)
-                    vm.datasets[0].data.push(item.employees_count)
+                    if (item.employees_count && item.employees_count > 0) {
+                        vm.labels.push(item.name)
+                        vm.datasets[0].data.push(item.employees_count)
+                    }
                 })
                 return this.datasets = this.datasets
             }
