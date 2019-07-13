@@ -33,8 +33,9 @@ class PerformanceController extends Controller
         }
 
         $performances = Performance::with(
-            ['campaign.project', 'supervisor', 'employee.supervisor']
-        );
+            ['campaign.project', 'supervisor', 'employee' => function ($query) {
+                return $query->with('supervisor', 'termination');
+            }]);
 
         return DataTables::of($performances)
             ->addColumn('dow', function ($query) {

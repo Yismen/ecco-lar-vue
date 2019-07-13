@@ -59,9 +59,16 @@ class Employee extends Model
         return $query;
     }
 
+    /**
+     * Limit the query to employees not associated to a termination.
+     *
+     * @param QueryBuilder $query QueryBuilder Instance
+     *
+     * @return [type] Chain of query builder instance
+     */
     public function scopeActives($query)
     {
-        return $query->has('termination', false);
+        return $query->with('termination')->has('termination', false);
     }
 
     /**
@@ -79,12 +86,25 @@ class Employee extends Model
             $date = Carbon::now()->subMonths(1);
         }
 
-        return $query->doesntHave('termination')
+        return $query->actives()
             ->orWhereHas(
                 'termination', function ($query) use ($date) {
                     return $query->where('termination_date', '>=', $date);
                 }
             );
+    }
+
+    /**
+     * Limit the query to employees associated to a termination.
+     * By definition these employees are considered inactives.
+     *
+     * @param QueryBuilder $query QueryBuilder Instance     *
+     *
+     * @return [type] Chain of query builder instance
+     */
+    public function scopeInactives($query)
+    {
+        return $query->with('termination')->has('termination');
     }
 
     public function scopeHiredSince($query, $date)
@@ -98,10 +118,7 @@ class Employee extends Model
     {
         $date = Carbon::parse($date);
 
-        return $query->where('hire_date', '<=', $date)
-            ->where(function ($query) {
-                $query->has('termination', false);
-            });
+        return $query->actives()->where('hire_date', '<=', $date);
     }
 
     /**
@@ -123,11 +140,6 @@ class Employee extends Model
                         $query->where('termination_date', '>=', $date);
                     });
             });
-    }
-
-    public function scopeInactives($query)
-    {
-        return $query->has('termination');
     }
 
     public function scopeMissingCard($query)
