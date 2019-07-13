@@ -2,15 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Excel;
-use App\Login;
 use App\Employee;
 use Carbon\Carbon;
-use App\Department;
-use App\ImageUploader;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Cache;
 use Yajra\DataTables\Facades\Datatables;
 
 class EmployeesController extends Controller
@@ -34,6 +28,7 @@ class EmployeesController extends Controller
      * Display a listing of the resource.
      *
      * @Get("/employees")
+     *
      * @return Response
      */
     public function index()
@@ -41,6 +36,7 @@ class EmployeesController extends Controller
         if (!request()->ajax()) {
             return view('employees.index');
         }
+
         return $this->getDatatables();
     }
 
@@ -60,7 +56,7 @@ class EmployeesController extends Controller
                 'positions_list',
                 'departments_list',
                 'payment_types_list',
-                'payment_frequencies_list'
+                'payment_frequencies_list',
             ]);
 
         return view('employees.create', compact('employee'));
@@ -92,7 +88,6 @@ class EmployeesController extends Controller
 
         $employee = $employee->create($request->all());
 
-
         if ($request->ajax()) {
             return $employee;
         }
@@ -104,7 +99,8 @@ class EmployeesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function show(Employee $employee)
@@ -115,7 +111,8 @@ class EmployeesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function edit(Employee $employee)
@@ -126,7 +123,8 @@ class EmployeesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function update(Employee $employee, Request $request)
@@ -135,10 +133,10 @@ class EmployeesController extends Controller
             'first_name' => 'required',
             'last_name' => 'required',
             'hire_date' => 'required|date',
-            'personal_id' => 'required_if:passport,|nullable|digits:11|unique:employees,personal_id,' . $employee->id,
-            'passport' => 'required_if:personal_id,|nullable|size:10|unique:employees,passport,' . $employee->id,
+            'personal_id' => 'required_if:passport,|nullable|digits:11|unique:employees,personal_id,'.$employee->id,
+            'passport' => 'required_if:personal_id,|nullable|size:10|unique:employees,passport,'.$employee->id,
             'date_of_birth' => 'required|date',
-            'cellphone_number' => 'required|digits:10|unique:employees,cellphone_number,' . $employee->id,
+            'cellphone_number' => 'required|digits:10|unique:employees,cellphone_number,'.$employee->id,
             'secondary_phone' => 'nullable|digits:10',
             'gender_id' => 'required|exists:genders,id',
             'site_id' => 'required|exists:sites,id',
@@ -161,7 +159,8 @@ class EmployeesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function destroy(Employee $employee)
@@ -172,7 +171,7 @@ class EmployeesController extends Controller
     protected function getDatatables()
     {
         return datatables()->eloquent(
-            Employee::query()->with('position.department', 'position.payment_type', 'project')
+            Employee::query()->with('position.department', 'position.payment_type', 'project', 'termination')
         )
         // ->editColumn('id', function ($query) {
         //     return route('admin.employees.show', $query->id);
