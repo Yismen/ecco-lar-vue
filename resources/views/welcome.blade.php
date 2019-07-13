@@ -2,20 +2,30 @@
 @extends('layouts.'.$layout->app(), ['page_header'=>'Welcome', 'page_description'=>'Welcome page!', 'hide_content_header'=>false])
 
 @section('content')
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <div class="">
 
-        <div class="no-margin bg-{{ $color ?? 'yellow'}}  intro-header">
+        <div class="no-margin bg-{{ $color ?? 'yellow'}}  intro-header" style="font-family: 'Roboto', sans-serif">
             <div class="container-fluid">
                 <div class="col-sm-12 text-center">
                     <dainsys-logo default-animation="shake" logo="{{ asset('images/logo.png') }}" :random-animation="true"></dainsys-logo>
 
-                    <h1 class="my-main-header" style="font-weight: bold; margin-bottom: 2.5rem; font-size: 50px;">
-                        Welcome to {{ $app_name }}{{ isset($user) && $user->name ? ', ' . $user->name : '' }}
-                    </h1>
+                    <div class="row">
+                        <div class="col-lg-10 col-lg-offset-1">
+                            <h1 class="my-main-header" style="font-weight: bold; font-size: 4.5rem; text-transform: uppercase;">
+                                Welcome to {{ $app_name }}{{ isset($user) && $user->name ? ', ' . $user->name : '' }}
+                            </h1>
+                        </div>
+                    </div>
+
+                    <hr class="divider" style="max-width: 3.25rem; border-width: .4rem; border-color: #fff;">
+
+                    <div class="row">
+                        <div class="col-lg-8 col-lg-offset-2">
+                            <p style="font-size: 2rem">Dainsys (Data Integration System) is an app created to provide you with valuable, timely and on point information to add value to your job.</p>
+                        </div>
+                    </div>
                     @if ($user)
-                        <a href="/admin/profiles" class="btn btn-default btn-lg">
-                            User Profile! <i class="fa fa-angle-double-right"></i>
-                        </a>
                     @else
                         <a href="/login" class="btn btn-default btn-lg">
                              <i class="fa fa-user"></i> Get Started!
@@ -71,7 +81,7 @@
             <div class="container-fluid">
                 <h1 class="">{{ $app_name }}</h1>
                 <div class="col-xs-8 col-xs-offset-2">
-                    <p>Process documentation? Collect data? Customize reports? Just ask for it. Get in contact with the System Administrator and together create what you need. Please log in to gain access to {{ $app_name }}!</p>
+                    <p>Process documentation? Collect data? Customize reports? Just ask for it. Get in contact with the System Administrator and together create very useful components.</p>
                 </div>
                 </div>
             </div>

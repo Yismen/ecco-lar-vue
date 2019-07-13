@@ -6,16 +6,12 @@
     <div class="row">
          <div class="col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
             <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3>Log In</h3>
+                </div>
                 <div class="box-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
                         {!! csrf_field() !!}
-
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <legend>Please log in to start your session</legend>
-                            </div>
-                        </div>
-
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label class="col-md-4 control-label">E-Mail Address</label>
@@ -58,7 +54,7 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary btn-flat">
                                     <i class="fa fa-btn fa-sign-in"></i> Login
                                 </button>
 

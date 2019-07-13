@@ -10,7 +10,7 @@
                     {!! Form::open(['url'=>['register',], 'method'=>'POST', 'class'=>'', 'role'=>'form', 'autocomplete'=>"off"]) !!}
 
                         <div class="box-header with-border">
-                            <h3>Register as a new membership</h3>
+                            <h3>Register as a new member</h3>
                         </div>
 
                         <div class="box-body">
@@ -65,16 +65,16 @@
                                 <button type="submit" class="btn btn-primary btn-block btn-flat">Register</button>
                             </div>
 
-                            <div class="social-auth-links text-center">
+                            {{-- <div class="social-auth-links text-center">
                                 <p>- OR -</p>
                                 <hr>
                                 <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign up using
                                 Facebook</a>
                                 <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign up using
                                 Google+</a>
-                            </div>
+                            </div> --}}
+                            <a href="{{ url('login') }}" class="text-center">I already have a membership</a>
 
-                                <a href="{{ url('login') }}" class="text-center">I already have a membership</a>
                         </div>
 
                     {!! Form::close() !!}
