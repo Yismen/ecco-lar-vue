@@ -70,10 +70,8 @@
                             {{ $page_header ?? config('dainsys.app_name') }}
                             <small>{{ $page_description ?? '' }}</small>
                         </h1>
-                        <!-- <ol class="breadcrumb">
-                                    <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-                                    <li class="active">Here</li>
-                                </ol> -->
+
+                        @include('layouts.partials.breadcrumbs')
                     </section>
                 @endif
 
