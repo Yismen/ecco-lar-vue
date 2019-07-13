@@ -2,35 +2,56 @@
 
 namespace App\Repositories\HumanResources\HeadCount;
 
+use App\Site;
 use App\Employee;
+use App\Repositories\HumanResources\HumanResources;
 use App\Repositories\HumanResources\HumanResourcesInterface;
 
 /**
  * summary.
  */
-class ByStatus implements HumanResourcesInterface
+class ByStatus extends HumanResources implements HumanResourcesInterface
 {
-    public function setup()
+    public function setup($type)
     {
-        return [
-            'actives' => Employee::actives(),
-            'inactives' => Employee::inactives(),
+        if ($this->by_site) {
+            foreach (Site::pluck('name') as $site) {
+                $this->results[$site] = [
+                    'actives' => $this->query('actives', $site)->$type(),
+                    'inactives' => $this->query('inactives', $site)->$type(),
+                ];
+            }
+
+            return $this->results;
+        }
+
+        return $this->results = [
+            'actives' => $this->query('actives')->$type(),
+            'inactives' => $this->query('inactives')->$type(),
         ];
     }
 
     public function count()
     {
-        return [
-            'actives' => $this->setup()['actives']->count(),
-            'inactives' => Employee::inactives()->count(),
-        ];
+        return $this->setup('count');
     }
 
     public function list()
     {
-        return [
-            'actives' => $this->setup()['actives']->get(),
-            'inactives' => Employee::inactives()->get(),
-        ];
+        return $this->setup('get');
+    }
+
+    public function query($status, $site = '%')
+    {
+        $employees = Employee::$status();
+
+        return !$this->by_site ?
+            $employees :
+            $employees->with('site')
+            ->whereHas(
+                'site', function ($query) use ($site) {
+                    return $query->where('name', 'like', $site);
+                }
+            );
     }
 }
