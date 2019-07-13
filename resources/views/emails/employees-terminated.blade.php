@@ -35,17 +35,17 @@
 
 
 .inner-body {
-    width: 95%;
-    -premailer-width: 95%;
+    width: 95% !important;
+    -premailer-width: 95% !important;
 }
 
 
 .footer {
-    width: 95%;
-    -premailer-width: 95%;
+    width: 95% !important;
+    -premailer-width: 95% !important;
 }
 
 .dainsys-table tbody tr td {
-    border-top: solid 1px #ccc;
+    border-top: solid 1px #ccc !important;
 }
 </style>
