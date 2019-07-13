@@ -16,7 +16,7 @@ class HumanResourcesController extends Controller
      */
     public function index()
     {
-        return $stats = (new HumanResourcesRepository())->stats();
+        $stats = (new HumanResourcesRepository())->stats();
 
         return view('human_resources.index', compact('stats'));
     }

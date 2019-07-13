@@ -2,46 +2,70 @@
 
 namespace App\Repositories\HumanResources\Employees\Rotations;
 
+use App\Site;
 use App\Employee;
 use Carbon\Carbon;
+use App\Repositories\HumanResources\HumanResources;
 use App\Repositories\HumanResources\HumanResourcesInterface;
 
 /**
- * summary
+ * summary.
  */
-class ThisYearRotations implements HumanResourcesInterface
+class ThisYearRotations extends HumanResources implements HumanResourcesInterface
 {
-    protected $date;
-    protected $hires;
-    protected $terminations;
-
-    public function __construct()
-    {
-        $this->date = (new Carbon())->year;
-        $this->hires = Employee::whereYear('hire_date', $this->date);
-        $this->terminations = Employee::whereHas('termination', function($query) {
-            return $query->whereYear('termination_date', $this->date);
-        });
-    }
-
-    public function setup()
-    {
-
-    }
-
     public function count()
     {
-        return [
-            'hires' => $this->hires->count(),
-            'terminations' => $this->terminations->count(),
-        ];
+        return $this->setup('count');
     }
 
     public function list()
     {
-        return [
-            'hires' => $this->hires->get(),
-            'terminations' => $this->terminations->get(),
+        return $this->setup('get');
+    }
+
+    public function setup($type)
+    {
+        if ($this->by_site) {
+            foreach (Site::pluck('name') as $site) {
+                $this->results[$site] = [
+                    'hires' => $this->query('hires', $site)->$type(),
+                    'terminations' => $this->query('terminations', $site)->$type(),
+                ];
+            }
+
+            return $this->results;
+        }
+
+        return $this->results = [
+            'hires' => $this->query('hires')->$type(),
+            'terminations' => $this->query('terminations')->$type(),
         ];
+    }
+
+    public function query($status, $site = '%')
+    {
+        $employees = $this->$status(Carbon::now());
+
+        return !$this->by_site ?
+            $employees :
+            $employees->with('site')
+                ->whereHas(
+                    'site', function ($query) use ($site) {
+                        return $query->where('name', 'like', $site);
+                    }
+                );
+    }
+
+    private function hires(Carbon $date)
+    {
+        return Employee::whereYear('hire_date', $date->year);
+    }
+
+    private function terminations(Carbon $date)
+    {
+        return Employee::with('termination')
+            ->whereHas('termination', function ($query) use ($date) {
+                return $query->whereYear('termination_date', $date->year);
+            });
     }
 }

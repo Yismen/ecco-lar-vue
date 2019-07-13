@@ -2,51 +2,75 @@
 
 namespace App\Repositories\HumanResources\Attrition;
 
+use App\Site;
 use App\Employee;
 use Carbon\Carbon;
-use App\Termination;
-use Illuminate\Support\Facades\DB;
+use App\Repositories\HumanResources\HumanResources;
 use App\Repositories\HumanResources\HumanResourcesInterface;
 
 /**
- * Monthly Attrition Class
+ * summary.
  */
-class MonthlyAttrition implements HumanResourcesInterface
+class MonthlyAttrition extends HumanResources implements HumanResourcesInterface
 {
-    public function setup()
-    {
-    }
+    protected $months;
+
+    protected $current_date;
 
     public function count(int $months = 6)
     {
-        return $this->getData('count', $months);
+        $this->months = $months;
+
+        return $this->setup('count');
     }
 
     public function list(int $months = 6)
     {
-        return $this->getData('get', $months);
+        $this->months = $months;
+
+        return $this->setup('get');
     }
 
-    protected function getData($method, $months)
+    public function setup($type)
     {
-        $array_data = [];
+        for ($interval = $this->months; 0 !== $interval; --$interval) {
+            $this->current_date = (new Carbon())->subMonths($interval - 1);
+            $prop = $this->current_date->format('Y-m');
 
-        for ($interval = $months ; $interval !== 0; $interval--) {
-            $date = (new Carbon())->subMonths($interval - 1);
-
-            $prop = $date->format('Y-m');
-
-            $array_data[$prop]['head_count'] = $this->getHeadCount($date)->$method();
-            $array_data[$prop]['terminations'] = $this->getTerminations($date)->$method();
-            $array_data[$prop]['hires'] = $this->getHires($date)->$method();
+            if ($this->by_site) {
+                foreach (Site::pluck('name') as $site) {
+                    $this->results[$site][$prop]['head_count'] = $this->query('headCount', $site)->$type();
+                    $this->results[$site][$prop]['terminations'] = $this->query('terminations', $site)->$type();
+                    $this->results[$site][$prop]['hires'] = $this->query('hires', $site)->$type();
+                }
+            } else {
+                $this->results[$prop]['head_count'] = $this->query('headCount')->$type();
+                $this->results[$prop]['terminations'] = $this->query('terminations')->$type();
+                $this->results[$prop]['hires'] = $this->query('hires')->$type();
+            }
         }
 
-        return [$array_data];
+        return [$this->results];
     }
 
-    protected function getHeadCount($date)
+    public function query($status, $site = '%')
     {
-        // CACHE THIS SHIT FOR 10 MINUTES AT LEAST
+        $employees = $this->$status();
+
+        return !$this->by_site ?
+            $employees :
+            $employees->with('site')
+            ->whereHas(
+                'site', function ($query) use ($site) {
+                    return $query->where('name', 'like', $site);
+                }
+            );
+    }
+
+    private function headCount()
+    {
+        $date = $this->current_date;
+
         return Employee::where('hire_date', '<=', $date->endOfMonth())
             ->where(function ($query) use ($date) {
                 $query->actives()
@@ -56,15 +80,22 @@ class MonthlyAttrition implements HumanResourcesInterface
             });
     }
 
-    protected function getTerminations($from_date)
+    private function terminations()
     {
-        // CACHE THIS SHIT FOR 10 MINUTES AT LEAST
-        return Termination::whereMonth('termination_date', $from_date->month);
+        $date = $this->current_date;
+
+        return Employee::with('termination')
+            ->whereHas('termination', function ($query) use ($date) {
+                return $query->whereYear('termination_date', $date->year)
+                ->whereMonth('termination_date', $date->month);
+            });
     }
 
-    protected function getHires($from_date)
+    private function hires()
     {
-        // CACHE THIS SHIT FOR 10 MINUTES AT LEAST
-        return Employee::whereMonth('hire_date', $from_date->month);
+        $date = $this->current_date;
+
+        return Employee::whereYear('hire_date', $date->year)
+            ->whereMonth('hire_date', $date->month);
     }
 }
