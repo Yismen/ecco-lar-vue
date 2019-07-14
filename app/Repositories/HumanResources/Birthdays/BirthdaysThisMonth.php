@@ -38,7 +38,6 @@ class BirthdaysThisMonth extends HumanResources implements HumanResourcesInterfa
         $date = Carbon::now();
 
         $employees = Employee::$status()
-            ->orderByRaw('Day(date_of_birth)')
             ->whereMonth('date_of_birth', $date->month);
 
         return !$this->by_site ?

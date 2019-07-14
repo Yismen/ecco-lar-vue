@@ -6,9 +6,12 @@
             <div class="col-sm-12">
                 <div class="box box-primary">
                     <div class="box-body">
-                        <headcount-by-status
-                            :info="{{ collect($stats['headcounts']['by_status']) }}"
-                        ></headcount-by-status>
+                        <hc-rotations
+                            :hires="{{ $stats['headcounts']['by_status']['actives'] }}"
+                            :terminations="{{ $stats['headcounts']['by_status']['inactives']}}"
+                            title="HC By Status "
+                            go-to-route="{{ route('admin.human_resources.index') }}"
+                        ></hc-rotations>
                     </div>
                     <div class="box-footer">
                         <a href="#" title="View Details by Status"
@@ -26,9 +29,11 @@
             <div class="col-sm-12">
                 <div class="box box-primary">
                     <div class="box-body">
-                        <headcount-by-site
+                        <headcounts
                             :info="{{ $stats['headcounts']['by_site'] }}"
-                        ></headcount-by-site>
+                            title="HC By Site"
+                            :colorset="{{ json_encode(["rgba(33,150,243,1)", "rgba(255,193,7,1)"]) }}"
+                        ></headcounts>
                     </div>
                     <div class="box-footer">
                         <a href="/admin/sites" title="View Details by Site"
@@ -47,10 +52,11 @@
                 <div class="col-sm-12">
                     <div class="box box-primary">
                         <div class="box-body">
-                            <headcount-by-gender
+                            <headcounts
                                 :info="{{ $genders }}"
-                                site="{{ $site }}"
-                            ></headcount-by-gender>
+                                title="HC By Genders: {{ $site }}"
+                                :colorset="{{ json_encode(["rgba(233,30,99 ,1)", "rgba(21,101,192 ,1)"]) }}"
+                            ></headcounts>
                         </div>
                         <div class="box-footer">
                             <a href="/admin/human_resources/head_count/by_gender" title="View Details by Gender"
@@ -70,10 +76,11 @@
                 <div class="col-sm-12">
                     <div class="box box-primary">
                         <div class="box-body">
-                            <headcount-by-department
+                            <headcounts
                                 :info="{{ $departments }}"
-                                site="{{ $site }}"
-                            ></headcount-by-department>
+                                title="HC By Depts.: {{ $site }}"
+                                :sort-data="true"
+                            ></headcounts>
                         </div>
                         <div class="box-footer">
                             <a href="/admin/departments" title="View Details by Departments"
@@ -93,10 +100,11 @@
                 <div class="col-sm-12">
                     <div class="box box-primary">
                         <div class="box-body">
-                            <headcount-by-project
+                            <headcounts
                                 :info="{{ $projects }}"
-                                site="{{ $site }}"
-                            ></headcount-by-project>
+                                title="HC By Projects: {{ $site }}"
+                                :sort-data="true"
+                            ></headcounts>
                         </div>
                         <div class="box-footer">
                             <a href="/admin/projects" title="View Details by Project"
@@ -116,10 +124,11 @@
                 <div class="col-sm-12">
                     <div class="box box-primary">
                         <div class="box-body">
-                            <headcount-by-supervisor
+                            <headcounts
                                 :info="{{ $supervisors }}"
-                                site="{{ $site }}"
-                            ></headcount-by-supervisor>
+                                title="HC Supervisors: {{ $site }}"
+                                :sort-data="true"
+                            ></headcounts>
                         </div>
                         <div class="box-footer">
                             <a href="/admin/supervisors" title="View Details by Supervisor"
@@ -139,10 +148,11 @@
                 <div class="col-sm-12">
                     <div class="box box-primary">
                         <div class="box-body">
-                            <headcount-by-position
+                            <headcounts
                                 :info="{{ $positions }}"
-                                site="{{ $site }}"
-                            ></headcount-by-position>
+                                title="HC Positions: {{ $site }}"
+                                :sort-data="true"
+                            ></headcounts>
                         </div>
                         <div class="box-footer">
                             <a href="/admin/positions" title="View Details by Position"
@@ -162,10 +172,11 @@
                 <div class="col-sm-12">
                     <div class="box box-primary">
                         <div class="box-body">
-                            <headcount-by-nationality
+                            <headcounts
                                 :info="{{ $nationalities }}"
-                                site="{{ $site }}"
-                            ></headcount-by-nationality>
+                                title="HC By Nation: {{ $site }}"
+                                :sort-data="true"
+                            ></headcounts>
                         </div>
                         <div class="box-footer">
                             <a href="/admin/nationalities" title="View Details by Nationality"

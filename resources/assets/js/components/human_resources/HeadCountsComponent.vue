@@ -3,15 +3,15 @@
         :labels="labels"
         :datasets="computedDatasets"
         :options="options"
-        :height="200"
+        :height="height"
     ></doughnut-chart>
 </template>
 
 <script>
-    import DoughnutChart from '../../charts/DoughnutChart'
-    import {DAINSYS} from '../../../config/app'
+    import DoughnutChart from '../charts/DoughnutChart'
+    import {DAINSYS} from '../../config/app'
     export default {
-        name: "ByDepartment",
+        name: "HeadCounts",
         data() {
             return {
                 labels: [],
@@ -20,17 +20,25 @@
                     legend: {display: false},
                     title: {
                         display: true,
-                        text: "Departments: " + this.site
+                        text: this.title
                     }
                 },
                 datasets: [ {
-                    label: "HeadCount By Departments",
+                    label: "HeadCount By Projects",
                     data: [],
-                    backgroundColor: DAINSYS.getColors()
+                    backgroundColor: this.colorset && this.colorset.length > 0 ? this.colorset : DAINSYS.getColors()
                 }],
             }
         },
-        props: ['info', 'site'],
+        props: {
+            info: {
+                default: []
+            },
+            height: {default: 200},
+            title: {default: ''},
+            colorset: {type: Array},
+            sortData: {type: Boolean}
+        },
         components: {
             DoughnutChart
         },
@@ -40,9 +48,11 @@
 
                 let vmData = this.info
 
-                vmData.sort(function(a, b) {
-                    return b.employees_count - a.employees_count
-                })
+                if (this.sortData) {
+                    vmData.sort(function(a, b) {
+                        return b.employees_count - a.employees_count
+                    })
+                }
 
                 vmData.forEach(function(item, index) {
                     if (item.employees_count && item.employees_count > 0) {

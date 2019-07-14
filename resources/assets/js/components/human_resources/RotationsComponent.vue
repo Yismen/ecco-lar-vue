@@ -1,4 +1,14 @@
-import DoughnutChart from '../../charts/DoughnutChart'
+<template>
+    <doughnut-chart
+        :labels="labels"
+        :datasets="computedDatasets"
+        :options="computedOptions"
+        :height="200"
+    ></doughnut-chart>
+</template>
+
+<script>
+import DoughnutChart from '../charts/DoughnutChart'
 
 export default {
     data() {
@@ -29,7 +39,8 @@ export default {
     props: {
         hires: {required: true, type: Number},
         terminations: {required: true, type: Number},
-        site: {default: ''},
+        title: {default: ''},
+        goToRoute: {default: null},
     },
 
     computed: {
@@ -45,7 +56,7 @@ export default {
         },
 
         computedOptions() {
-            this.options.title.text = this.defaultTitle
+            this.options.title.text = this.title
             return this.options
         }
     },
@@ -53,3 +64,7 @@ export default {
         DoughnutChart
     }
 }
+</script>
+
+<style lang= "css" scoped>
+</style>
