@@ -8,6 +8,8 @@
             :disabledDates="disabledDates"
             :typeable="typeable"
             @input="changed"
+            @focusin.native="open"
+            @focusout.native="close"
 
         ></datepicker>
         <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
@@ -43,6 +45,26 @@ export default {
         changed(date) {
             this.selectedDate = date
             this.$emit('updated', date);
+        },
+        open() {
+            const datepicker = this.$children.find(e => e.$el.className === 'vdp-datepicker');
+            const dateInput = datepicker.$el.childNodes[0].childNodes[2];
+              datepicker.showCalendar();
+            // dateInput.onfocus = () => {
+            //   datepicker.showCalendar();
+            // }
+            // if(!this.$refs.picker.isOpen) {
+            //     this.$refs.picker.$el.querySelector("input").focus();
+            //     this.$refs.picker.showCalendar();
+            // }
+        },
+        close() {
+            const datepicker = this.$children.find(e => e.$el.className === 'vdp-datepicker');
+            const dateInput = datepicker.$el.childNodes[0].childNodes[2];
+            datepicker.close(true);
+            // if(this.$refs.picker.isOpen) {
+            //     this.$refs.picker.close(true);
+            // }
         }
     },
 
