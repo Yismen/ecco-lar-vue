@@ -25,8 +25,15 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($employees as $employee)
-                                        <tr class="{{ $employee->date_of_birth->format('m-d') < $date ? 'bg-warning' : '' }}">
-                                            <td>
+                                        @php
+                                            $contextual_class = '';
+                                            $formated_date = $employee->date_of_birth->format('m-d');
+                                            if ($formated_date < $date)
+                                                {$contextual_class = 'bg-warning';}
+                                            elseif ($formated_date == $date)
+                                                {$contextual_class = 'bg-success';}
+                                        @endphp
+                                        <tr class="{{ $contextual_class }}"> <td>
                                                 <a href="{{ route('admin.employees.show', $employee->id) }}" target="_employee">{{ $employee->full_name }}</a>
                                             </td>
                                             <td>
