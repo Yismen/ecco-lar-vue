@@ -44,7 +44,7 @@ class EmployeesTerminated extends Command
 
         $terminations = Termination::orderBy('termination_date', 'DESC')
             ->where('termination_date', '>=', $startOfMonth)
-            ->with(['employee' => function ($query) {
+            ->with(['terminationType', 'terminationReason', 'employee' => function ($query) {
                 return $query->with('site');
             }])
             ->get();

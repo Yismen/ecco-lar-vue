@@ -95,6 +95,10 @@ Vue.component('dropzone-form', require('./components/DropzoneForm'));
 Vue.component('headcounts', require('./components/human_resources/HeadCountsComponent'));
 Vue.component('hc-rotations', require('./components/human_resources/RotationsComponent'));
 
+Vue.component('sites-metric', require('./components/dashboards/SitesOverview'));
+
+
+
 Vue.component('monthly-attrition', require('./components/human_resources/attrition/MonthlyAttrition'));
 
 Vue.component('animation-scale', require('./components/animations/ScaleComponent'));

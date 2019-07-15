@@ -74,20 +74,20 @@
                         @include('layouts.partials.breadcrumbs')
                     </section>
                 @endif
+                @include('layouts.partials.session-flash-messages')
+                <div class="hidden-xs">
+                    <back-to-top></back-to-top>
+                </div>
+                <loading-component></loading-component>
+                <!-- Your Page Content Here -->
+                <!--
+                    |************************************|
+                    | Main Content Here
+                    |************************************|
+                     -->
 
                 <!-- Main content -->
-                <section class="">
-                    <loading-component></loading-component>
-                    <!-- Your Page Content Here -->
-                    <!--
-                        |************************************|
-                        | Main Content Here
-                        |************************************|
-                         -->
-                    @include('layouts.partials.session-flash-messages')
-                    <div class="hidden-xs">
-                        <back-to-top></back-to-top>
-                    </div>
+                <section class="content" style="padding: 0">
                     @yield('content')
                 </section>
                 <!-- /.content -->
@@ -121,6 +121,8 @@
         <!-- ./wrapper -->
         <!-- REQUIRED JS SCRIPTS -->
         <script src="{{ mix('js/app.js') }}"></script>
+        <script>
+        </script>
         <!-- Optionally, you can add Slimscroll and FastClick plugins.
             Both of these plugins are recommended to enhance the
             user experience. Slimscroll is required when using the
