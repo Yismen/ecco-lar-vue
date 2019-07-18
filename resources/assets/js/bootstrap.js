@@ -33,6 +33,8 @@ try {
     require('bootstrap');
     require('datatables.net-bs');
     require('admin-lte');
+    // require('select2');
+    require('./dainsysJQuery')
 } catch (e) { console.log(e) }
 
 /**
@@ -70,40 +72,40 @@ require('./config/interceptors')
 /**
 * Here global components are registered
 */
-Vue.component('dainsys-logo', require('./components/DainsysLogo.vue'));
-Vue.component('back-to-top', require('./components/BackToTop'));
-Vue.component('loading-component', require('./components/LoadingComponent.vue'));
-Vue.component('passport-clients', require('./components/passport/Clients.vue'));
-Vue.component('passport-authorized-clients', require('./components/passport/AuthorizedClients.vue'));
-Vue.component('passport-personal-access-tokens', require('./components/passport/PersonalAccessTokens.vue'));
-Vue.component('positions-select', require('./components/positions/SelectList'))
-Vue.component('departments-select', require('./components/selects/Departments'))
-// Vue.component('create-position', require('./components/employees/positions/Create'))
-// Vue.component('modal', require('./components/Modal'))
-Vue.component('add-button', require('./components/links/AddButton'))
-Vue.component('delete-request-button', require('./components/DeleteRequest'))
-Vue.component('create-afp-form', require('./components/forms/CreateAfp'))
-Vue.component('flash-message', require('./components/FlashMessage'))
-Vue.component('edit-employee', require('./components/employees/Edit'));
-Vue.component('create-employee', require('./components/employees/CreateEmployee'));
+Vue.component('dainsys-logo', require('./components/DainsysLogo.vue').default);
+Vue.component('back-to-top', require('./components/BackToTop').default);
+Vue.component('loading-component', require('./components/LoadingComponent.vue').default);
+Vue.component('passport-clients', require('./components/passport/Clients.vue').default);
+Vue.component('passport-authorized-clients', require('./components/passport/AuthorizedClients.vue').default);
+Vue.component('passport-personal-access-tokens', require('./components/passport/PersonalAccessTokens.vue').default);
+Vue.component('positions-select', require('./components/positions/SelectList').default)
+Vue.component('departments-select', require('./components/selects/Departments').default)
+// Vue.component('create-position', require('./components/employees/positions/Create').default)
+// Vue.component('modal', require('./components/Modal').default)
+Vue.component('add-button', require('./components/links/AddButton').default)
+Vue.component('delete-request-button', require('./components/DeleteRequest').default)
+Vue.component('create-afp-form', require('./components/forms/CreateAfp').default)
+Vue.component('flash-message', require('./components/FlashMessage').default)
+Vue.component('edit-employee', require('./components/employees/Edit').default);
+Vue.component('create-employee', require('./components/employees/CreateEmployee').default);
 
-Vue.component('employee-row', require('./components/employees/partials/RowCheckBox'));
-Vue.component('employee-check-box', require('./components/employees/partials/DinamicCheckbox'));
+Vue.component('employee-row', require('./components/employees/partials/RowCheckBox').default);
+Vue.component('employee-check-box', require('./components/employees/partials/DinamicCheckbox').default);
 
-Vue.component('dropzone-form', require('./components/DropzoneForm'));
+Vue.component('dropzone-form', require('./components/DropzoneForm').default);
 
-Vue.component('headcounts', require('./components/human_resources/HeadCountsComponent'));
-Vue.component('hc-rotations', require('./components/human_resources/RotationsComponent'));
+Vue.component('headcounts', require('./components/human_resources/HeadCountsComponent').default);
+Vue.component('hc-rotations', require('./components/human_resources/RotationsComponent').default);
 
-Vue.component('sites-metric', require('./components/dashboards/SitesOverview'));
+Vue.component('sites-metric', require('./components/dashboards/SitesOverview').default);
 
 
 
-Vue.component('monthly-attrition', require('./components/human_resources/attrition/MonthlyAttrition'));
+Vue.component('monthly-attrition', require('./components/human_resources/attrition/MonthlyAttrition').default);
 
-Vue.component('animation-scale', require('./components/animations/ScaleComponent'));
+Vue.component('animation-scale', require('./components/animations/ScaleComponent').default);
 
-Vue.component('date-picker', require('./components/DatePicker'));
+Vue.component('date-picker', require('./components/DatePicker').default);
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
