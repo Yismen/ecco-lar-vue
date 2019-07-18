@@ -78,22 +78,44 @@ class Performance extends Model
         return Supervisor::orderBy('name')->actives()->get();
     }
 
-    public function createManually(Request $request)
+    public function createAsDowntime(Request $request)
     {
         $employee = Employee::with('supervisor')->findOrFail($request->employee_id);
 
-        $fields = [
-            'unique_id' => $request->date.'-'.$request->employee_id.'-'.$request->campaign_id,
-            'date' => $request->date,
-            'employee_id' => $request->employee_id,
-            'name' => $employee->fullName,
-            'campaign_id' => $request->campaign_id,
-            'supervisor_id' => optional($employee->supervisor)->id,
-            'login_time' => $request->login_time,
-            'downtime_reason_id' => $request->downtime_reason_id,
-            'reported_by' => $request->reported_by,
-        ];
+        return $this->create(
+            [
+                'unique_id' => $request->date.'-'.$request->employee_id.'-'.$request->campaign_id,
+                'date' => $request->date,
+                'employee_id' => $request->employee_id,
+                'name' => $employee->fullName,
+                'campaign_id' => $request->campaign_id,
+                'supervisor_id' => optional($employee->supervisor)->id,
+                'login_time' => $request->login_time,
+                'downtime_reason_id' => $request->downtime_reason_id,
+                'reported_by' => $request->reported_by,
+                'file_name' => Carbon::now()->format('Y-m-d').'-'.$request->campaign_id.'-downtime',
+            ]
+        );
+    }
 
-        return $this->create($fields);
+    public function updateAsDowntime(Request $request)
+    {
+        $employee = Employee::with('supervisor')->findOrFail($request->employee_id);
+
+        $this->update(
+            [
+                'employee_id' => $request->employee_id,
+                'name' => $employee->fullName,
+                'supervisor_id' => optional($employee->supervisor)->id,
+                'login_time' => $request->login_time,
+                'production_time' => $request->production_time,
+                'transactions' => $request->transactions,
+                'revenue' => $request->revenue,
+                'downtime_reason_id' => $request->downtime_reason_id,
+                'reported_by' => $request->reported_by,
+            ]
+        );
+
+        return $this;
     }
 }

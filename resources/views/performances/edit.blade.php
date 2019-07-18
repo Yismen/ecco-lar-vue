@@ -24,7 +24,7 @@
 
 
                     <div class="box-body">
-                        {!! Form::model($performance, ['route'=>['admin.performances.update', $performance->id], 'method'=>'PUT', 'class'=>'form-horizontal', 'role'=>'form', 'novalidate'=>true]) !!}
+                        {!! Form::model($performance, ['route'=>['admin.performances.update', $performance->id], 'method'=>'PUT', 'class'=>'', 'role'=>'form', 'novalidate'=>true]) !!}
 
                             @include('performances._form')
 

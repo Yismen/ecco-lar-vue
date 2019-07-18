@@ -76,10 +76,10 @@ class PerformanceController extends Controller
                 ->withWarning('This data you tried to create exists already. You have been redirected to the edit page.');
         }
 
-        $pperformance = (new Performance())->createManually($request);
+        $performance = (new Performance())->createAsDowntime($request);
 
-        return redirect()->route('admin.performances.index')
-            ->withSuccess('Data Created!');
+        return redirect()->route('admin.performances.create')
+            ->withSuccess('Data Created! for '.$performance->name);
     }
 
     /**
@@ -125,12 +125,10 @@ class PerformanceController extends Controller
           'revenue' => 'required|numeric',
         ]);
 
-        $performance->update(
-            $request->only(['employee_id', 'supervisor_id', 'login_time', 'production_time', 'transactions', 'revenue'])
-        );
+        $performance->updateAsDowntime($request);
 
         return redirect()->back()
-            ->withSuccess('Updated!');
+            ->withSuccess('Updated! '.$performance->name);
     }
 
     /**
