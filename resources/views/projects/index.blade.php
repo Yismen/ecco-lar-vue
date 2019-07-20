@@ -20,36 +20,38 @@
                 <form action="/admin/projects/employees" method="POST">
                     @csrf
 
+
+
                     @foreach ($projects as $project)
                         @if ($project->employees->count() > 0)
-                            <div class="box box-danger">
+                            <div class="box box-info">
                                 <div class="box-header">
                                     <h4>
                                         <a href="{{ route('admin.projects.show', $project->id) }}">{{ $project->name }}</a>
-                                        <span class="badge bg-red">{{ $project->employees->count() }}</span>
-                                        <a href="{{ route('admin.projects.edit', $project->id) }}" class="pull-right text-warning">
+                                        <span class="badge bg-light-blue">{{ $project->employees->count() }}</span>
+                                        <a href="{{ route('admin.projects.edit', $project->id) }}" class="pull-right text-info">
                                             <i class="fa fa-edit"></i>
                                         </a>
                                     </h4>
                                 </div>
-                                @if ($project->employees->count() > 0)
-                                    <div class="box-body">
-                                        <table class="table table-condensed table-hover">
-                                            <tbody>
-                                                @foreach ($project->employees as $employee)
-                                                    <tr class="col-md-4 col-sm-6">
-                                                        <td>
-                                                            <employee-check-box :employee="{{ $employee }}"
-                                                            >,
-                                                                {{ optional($employee->position)->name }}
-                                                            </employee-check-box>
-                                                        </td>
-                                                    </tr>
+
+                                <?php $count = $project->employees->count() == 0 ? 0 : ceil($project->employees->count() / 2) ?>
+
+                                <div class="box-body">
+                                    <div class="row">
+                                        @foreach ($project->employees->chunk($count) as $chunk)
+                                            <div class="col-sm-6">
+                                                @foreach ($chunk as $employee)
+                                                     <employee-check-box :employee="{{ $employee }}" style="border-top: solid 1px #ccc"
+                                                        >,
+                                                        {{ optional($employee->supervisor)->name }} -
+                                                        {{ optional($employee->position)->name }}
+                                                    </employee-check-box>
                                                 @endforeach
-                                            </tbody>
-                                        </table>
+                                            </div>
+                                        @endforeach
                                     </div>
-                                @endif
+                                </div>
                             </div>
                         @endif
                     @endforeach
@@ -57,7 +59,7 @@
                         <div class="input-group">
                             {{ Form::select('project', $projects->filter(function($key,$value){return ! Str::contains($key->name, 'Downtimes');})->pluck('name', 'id'), null, ['class' => 'form-control']) }}
                             <span class="input-group-btn">
-                                <button type="submit" class="btn btn-warning">Re-Assign</button>
+                                <button type="submit" class="btn btn-info">Re-Assign</button>
                             </span>
                         </div>
 

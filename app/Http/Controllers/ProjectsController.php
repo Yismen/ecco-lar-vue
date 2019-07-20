@@ -20,13 +20,15 @@ class ProjectsController extends Controller
     {
         $projects = Project::with(['employees' => function ($query) {
             // give it the possition
-            return $query->actives()
-                ->orderBy('first_name')
+            return $query->orderBy('first_name')
                 ->orderBy('second_first_name')
                 ->orderBy('last_name')
                 ->orderBy('second_last_name')
-                ->with('position')
-                ;
+                ->with('supervisor', 'nationality')
+                ->with(['position' => function ($query) {
+                    return $query->with(['department', 'payment_type']);
+                }])
+                ->actives();
         }])
         ->orderBy('name')
         ->get();
@@ -47,25 +49,27 @@ class ProjectsController extends Controller
     /**
      * Store a newly created reproject in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request, Project $project)
     {
         $this->validate($request, [
-            'name' => 'required|min:3|unique:projects'
+            'name' => 'required|min:3|unique:projects',
         ]);
 
         $project = $project->create($request->only(['name']));
 
         return redirect()->route('admin.projects.index')
-            ->withSuccess('Project '. $project->name.' created');
+            ->withSuccess('Project '.$project->name.' created');
     }
 
     /**
      * Display the specified reproject.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(Project $project)
@@ -76,7 +80,8 @@ class ProjectsController extends Controller
     /**
      * Show the form for editing the specified reproject.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(Project $project)
@@ -87,14 +92,15 @@ class ProjectsController extends Controller
     /**
      * Update the specified reproject in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int                      $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Project $project)
     {
         $this->validate($request, [
-            'name' => 'required|min:3|unique:projects,name,'.$project->id
+            'name' => 'required|min:3|unique:projects,name,'.$project->id,
         ]);
 
         $project->update($request->only(['name']));
@@ -106,7 +112,8 @@ class ProjectsController extends Controller
     /**
      * Remove the specified reproject from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(Project $project)
@@ -120,9 +127,9 @@ class ProjectsController extends Controller
     {
         $this->validate($request, [
             'employee' => 'required|array',
-            'project' => 'required|exists:projects,id'
+            'project' => 'required|exists:projects,id',
         ], [
-            'employee.required' => 'Select at least one employee!'
+            'employee.required' => 'Select at least one employee!',
         ]);
 
         foreach ($request->employee as  $id) {
@@ -132,6 +139,6 @@ class ProjectsController extends Controller
         }
 
         return redirect()->route('admin.projects.index')
-            ->withSuccess("Done!");
+            ->withSuccess('Done!');
     }
 }
