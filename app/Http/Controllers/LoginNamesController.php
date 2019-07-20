@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Employee;
 use App\LoginName;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
+use App\Exports\LoginNameEployees;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Cache;
 use App\Exports\LoginName as LoginNameExport;
-use App\Exports\LoginNameEployees;
 
 class LoginNamesController extends Controller
 {
@@ -28,16 +28,15 @@ class LoginNamesController extends Controller
      */
     public function index()
     {
-        $employees = Employee::select('id', 'first_name', 'second_first_name', 'last_name', 'second_last_name')
-                    ->orderBy('first_name')
-                    ->orderBy('second_first_name')
-                    ->orderBy('last_name')
-                    ->orderBy('second_last_name')
-                    ->with('loginNames')
-                    ->has('loginNames')
-                    ->paginate(50);
+        if (!request()->ajax()) {
+            return view('login_names.index');
+        }
 
-        return view('login_names.index', compact('employees'));
+        $login_names = LoginName::with('employee');
+
+        return DataTables::of($login_names)
+            ->orderColumn('employee', 'slug $1')
+            ->toJson(true);
     }
 
     /**
@@ -67,14 +66,15 @@ class LoginNamesController extends Controller
 
         $login->create($request->all());
 
-        return redirect()->route('admin.login-names.index')
+        return redirect()->route('admin.login_names.index')
             ->withSuccess("LoginName $login->login has been created!");
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function show(LoginName $login)
@@ -85,7 +85,8 @@ class LoginNamesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function edit(LoginName $login)
@@ -96,13 +97,14 @@ class LoginNamesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function update(LoginName $login, Request $request)
     {
         $this->validate($request, [
-            'login' => 'required|min:2|unique:login_names,login,' . $login->id,
+            'login' => 'required|min:2|unique:login_names,login,'.$login->id,
             'employee_id' => 'sometimes|required|exists:employees,id',
         ]);
 
@@ -115,14 +117,15 @@ class LoginNamesController extends Controller
             return $login;
         }
 
-        return redirect()->route('admin.login-names.index')
+        return redirect()->route('admin.login_names.index')
             ->withSuccess("LoginName $login->login has been updated!");
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function destroy(LoginName $login)
@@ -132,16 +135,17 @@ class LoginNamesController extends Controller
         Cache::forget('employees');
         Cache::forget('login-names');
 
-        return redirect()->route('admin.login-names.index')
+        return redirect()->route('admin.login_names.index')
             ->withDanger("LoginName $login->login has been removed.");
     }
 
     public function toExcel(Request $request)
     {
-        return Excel::download(new LoginNameExport, 'login-names.xlsx');
+        return Excel::download(new LoginNameExport(), 'login-names.xlsx');
     }
+
     public function employeesToExcel(Request $request)
     {
-        return Excel::download(new LoginNameEployees, 'login-names.xlsx');
+        return Excel::download(new LoginNameEployees(), 'login-names.xlsx');
     }
 }

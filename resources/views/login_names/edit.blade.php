@@ -9,14 +9,14 @@
 					<div class="box-header with-border">
 						<h4>
 							Edit Login {{ $login->login }}
-							<a href="{{ route('admin.login-names.index') }}" class="pull-right">
+							<a href="{{ route('admin.login_names.index') }}" class="pull-right">
 								<i class="fa fa-home"></i> List
 							</a>
 
 						</h4>
 					</div>
 
-					{!! Form::model($login, ['route'=>['admin.login-names.update', $login->id], 'method'=>'PUT', 'class'=>'form-horizontal', 'role'=>'form']) !!}
+					{!! Form::model($login, ['route'=>['admin.login_names.update', $login->id], 'method'=>'PUT', 'class'=>'form-horizontal', 'role'=>'form']) !!}
 
 						<div class="box-body">
 							@include('login_names._form')
@@ -34,8 +34,8 @@
 
 					<div class="box-footer">
 		                <delete-request-button
-		                    url="{{ route('admin.login-names.destroy', $login->id) }}"
-		                    redirect-url="{{ route('admin.login-names.index') }}"
+		                    url="{{ route('admin.login_names.destroy', $login->id) }}"
+		                    redirect-url="{{ route('admin.login_names.index') }}"
 		                ></delete-request-button>
 					</div>
 

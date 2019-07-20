@@ -13,7 +13,7 @@
                                 Logins Items List
                             </div>
                             <div class="col-xs-4">
-                                <a href="{{ route('admin.login-names.create') }}" class="">
+                                <a href="{{ route('admin.login_names.create') }}" class="">
                                     <i class="fa fa-plus"></i> Create
                                 </a>
 
@@ -24,12 +24,12 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li class="li">
-                                            <a href="{{ route('admin.login-names.to-excel.all-employees') }}">
+                                            <a href="{{ route('admin.login_names.to-excel.all-employees') }}">
                                                 <i class="fa fa-file-excel-o"></i> All Employees
                                             </a>
                                         </li>
                                         <li class="li">
-                                            <a href="{{ route('admin.login-names.to-excel.all') }}">
+                                            <a href="{{ route('admin.login_names.to-excel.all') }}">
                                                 <i class="fa fa-file-excel-o"></i> All Login Names
                                             </a>
                                         </li>
@@ -41,17 +41,17 @@
                     </div>
 
                     <div class="box-body">
-                        @if ($employees->isEmpty())
-                            <div class="bs-callout bs-callout-warning">
-                                <h1>No Logins has been added yet, please add one</h1>
-                            </div>
-                        @else
-                            @include('login_names.partials.results', ['login_names', $employees])
-                        @endif
-                    </div>
+                        <table class="table table-condensed table-hover" id="login-names-table">
+                            <thead>
+                                <tr>
+                                    <th>Employee</th>
+                                    <th>Login</th>
+                                    <th>Slug</th>
+                                    <th class="col-xs-2">Actions</th>
+                                </tr>
+                            </thead>
 
-                    <div class="box-footer with-border">
-                        {{ $employees }}
+                        </table>
                     </div>
 
                 </div>
@@ -59,3 +59,43 @@
         </div>
     </div>
 @endsection
+@section('scripts')
+    <script>
+        (function($){
+            $(document).ready(function($) {
+
+                let dTable = $('#login-names-table').DataTable({
+                    "processing": true,
+                    "serverSide": true,
+                    "searchDelay": 1000,
+                    // "scrollY": "600px",
+                    // "scrollCollapse": true,
+                    "pageLength": 25,
+                    "lengthMenu": [ [25, 100, 200, -1], [25, 100, 200, "All"] ],
+                    "searching": { "regex": true },
+                    "language": {
+                        "processing": "<i class='fa fa-spinner'></i> Loading, Please wait!"
+                    },
+                    "ajax": {
+                        'type': 'get',
+                        "url": "{{ route('admin.login_names.index') }}",
+                    },
+                    "order": [[ 1, "asc" ]],
+                    "columns": [
+                        {data: 'employee', name: 'employee', searchable: "false", render: function(data, type, full){
+                            return '<a href="/admin/employees/' + data.id +'" target="_employee">'+ (data.full_name).trim() +'</a>'
+                        }},
+                        {data: 'login', name: 'login', render: function(data, type, full) {
+                            return '<a href="/admin/login_names/'+full.id+'">'+ data +'</a>'
+                        }},
+                        {data: 'slug', name: 'slug', 'visible': false, orderable: false},
+                        {data: 'id', name: 'id', searchable: "false", orderable: false, render: function(data, type, full) {
+                            return '<a href="/admin/login_names/'+data+'/edit"><i class="fa fa-pencil"></i> Edit</a>'
+                        }},
+                    ]
+                });
+            });
+
+        })(jQuery);
+    </script>
+@stop

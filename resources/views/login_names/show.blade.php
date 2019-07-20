@@ -10,7 +10,7 @@
 					<div class="box-header with-border">
 						<h4>
 							Login Name: {{ $login->login }}
-							<a href="{{ route('admin.login-names.index') }}" class="pull-right">
+							<a href="{{ route('admin.login_names.index') }}" class="pull-right">
 								<i class="fa fa-home"></i> List
 							</a>
 						</h4>
@@ -42,7 +42,7 @@
 					{{-- /. box body --}}
 
 					<div class="box-footer">
-						<a href="{{ route('admin.login-names.edit', $login->id) }}" class="btn btn-warning">
+						<a href="{{ route('admin.login_names.edit', $login->id) }}" class="btn btn-warning">
 							<i class="fa fa-edit"></i>
 							Edit
 						</a>

@@ -155,9 +155,8 @@ class RouteServiceProvider extends ServiceProvider
         });
 
         Route::bind('login_name', function ($login_name) {
-            return \App\LoginName::whereId($login_name)
-                ->with('employee')
-                ->firstOrFail();
+            return \App\LoginName::with('employee')
+                ->findOrFail($login_name);
         });
 
         Route::bind('menu', function ($id) {

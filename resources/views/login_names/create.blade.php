@@ -9,12 +9,12 @@
 				<div class="box-header with-border">
 					<h4>
 						New Login Name
-						<a href="{{ route('admin.login-names.index') }}" class="pull-right small">
+						<a href="{{ route('admin.login_names.index') }}" class="pull-right small">
 							<i class="fa fa-home"></i> Back to List
 						</a>
 					</h4>
 				</div>
-				{!! Form::open(['route'=>['admin.login-names.store'], 'method'=>'POST', 'class'=>'form-horizontal', 'role'=>'form']) !!}
+				{!! Form::open(['route'=>['admin.login_names.store'], 'method'=>'POST', 'class'=>'form-horizontal', 'role'=>'form']) !!}
 
 					<div class="box-body">
 						@include('login_names._form')
