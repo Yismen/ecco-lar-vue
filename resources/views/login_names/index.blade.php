@@ -80,7 +80,7 @@
                         'type': 'get',
                         "url": "{{ route('admin.login_names.index') }}",
                     },
-                    "order": [[ 1, "asc" ]],
+                    "order": [[ 0, "asc" ]],
                     "columns": [
                         {data: 'employee', name: 'employee', searchable: "false", render: function(data, type, full){
                             return '<a href="/admin/employees/' + data.id +'" target="_employee">'+ (data.full_name).trim() +'</a>'
