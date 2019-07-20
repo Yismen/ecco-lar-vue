@@ -30,7 +30,11 @@ class SupervisorsController extends Controller
             ->orderBy('second_first_name')
             ->orderBy('last_name')
             ->orderBy('second_last_name')
-            ->actives()->with('position', 'project', 'nationality')
+            ->with('project', 'nationality')
+            ->with(['position' => function ($query) {
+                return $query->with(['department', 'payment_type']);
+            }])
+            ->actives()
             ->get();
 
         $inactive_supervisors = Supervisor::orderBy('name')
@@ -43,7 +47,11 @@ class SupervisorsController extends Controller
                     ->orderBy('second_first_name')
                     ->orderBy('last_name')
                     ->orderBy('second_last_name')
-                    ->with('position', 'project', 'nationality')->actives();
+                    ->with('project', 'nationality')
+                    ->with(['position' => function ($query) {
+                        return $query->with(['department', 'payment_type']);
+                    }])
+                    ->actives();
             }])
             ->get();
 
