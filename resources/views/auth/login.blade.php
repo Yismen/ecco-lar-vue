@@ -7,7 +7,7 @@
          <div class="col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3>Log In</h3>
+                    <h3>Sign In</h3>
                 </div>
                 <div class="box-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
