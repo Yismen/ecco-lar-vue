@@ -101,7 +101,7 @@
                 },
                 "ajax": {
                     'type': 'get',
-                    "url": "{{ route('admin.employees.list') }}",
+                    "url": "{{ route('admin.employees.index') }}",
                 },
                 "order": [[ 1, "asc" ], [ 2, "asc" ], [ 3, "asc" ], [ 4, "asc" ]],
                 "columns": [

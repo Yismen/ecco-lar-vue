@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Employee;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Yajra\DataTables\Facades\Datatables;
+use Yajra\DataTables\DataTables;
 
 class EmployeesController extends Controller
 {
@@ -15,9 +15,6 @@ class EmployeesController extends Controller
 
     public function __construct(Request $request, Carbon $carbon)
     {
-        $this->request = $request;
-        $this->carbon = $carbon;
-
         $this->middleware('authorize:view-employees|edit-employees|create-employees', ['only' => ['index', 'show']]);
         $this->middleware('authorize:edit-employees', ['only' => ['edit', 'update']]);
         $this->middleware('authorize:create-employees', ['only' => ['create', 'store']]);
@@ -170,7 +167,7 @@ class EmployeesController extends Controller
 
     protected function getDatatables()
     {
-        return datatables()->eloquent(
+        return DataTables::of(
             Employee::query()->with('position.department', 'position.payment_type', 'project', 'termination')
         )
         // ->editColumn('id', function ($query) {
@@ -178,7 +175,7 @@ class EmployeesController extends Controller
         //     // return '<a href="' . route('admin.employees.show', $query->id) . '" class="">' . $query->id . '</a>';
         // })
         ->editColumn('hire_date', function ($query) {
-            return $query->hire_date->format('d/M/Y');
+            return $query->hire_date->format('d-M-Y');
         })
         ->editColumn('status', function ($query) {
             return $query->active ? 'Active' : 'Inactive';
