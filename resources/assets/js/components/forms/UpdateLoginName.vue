@@ -74,7 +74,7 @@ export default {
         },
 
         doUpdate() {
-            this.form.put('/admin/login-names/' + this.login.id )
+            this.form.put('/admin/login_names/' + this.login.id )
                 .then(response => {
                     this.$emit('login-name-updated', response.data, this.current_index)
                     this.form.fields.login = ''

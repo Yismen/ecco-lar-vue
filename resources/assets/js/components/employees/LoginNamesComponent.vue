@@ -101,7 +101,7 @@
                 this.$store.dispatch('employee/updateLoginName', login_name)
             },
             handleCreateLogin() {
-                this.form.post('/admin/employees/' + this.employee.id + '/login-names')
+                this.form.post('/admin/employees/' + this.employee.id + '/login_names')
                     .then(response => {
                         return this.$store.dispatch('employee/addLoginName', response.data)
                     })
