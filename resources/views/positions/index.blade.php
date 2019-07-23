@@ -44,9 +44,12 @@
 											</td>
 
 											<td>
-												<span class="label {{ $position->employees_count > 0 ? 'bg-green' : 'bg-grey'}}">
-													{{ $position->employees_count }}
-												</span>
+												<a href="{{ route('admin.positions.show', $position->id) }}">
+													<span class="label {{ $position->employees_count > 0 ? 'bg-green' : 'bg-grey'}}">
+														{{ $position->employees_count }}
+													</span>
+												</a>
+
 											</td>
 
 											<td>

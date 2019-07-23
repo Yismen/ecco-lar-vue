@@ -229,10 +229,13 @@ class RouteServiceProvider extends ServiceProvider
                 ->with('department')
                 ->with(['employees' => function ($query) {
                     return $query->actives()
+                        ->orderBy('site_id')
+                        ->orderBy('project_id')
                         ->orderBy('first_name')
                         ->orderBy('second_first_name')
                         ->orderBy('last_name')
-                        ->orderBy('second_last_name');
+                        ->orderBy('second_last_name')
+                        ->with(['site', 'supervisor', 'project']);
                 }])
                 ->with('payment_type')
                 ->with('payment_frequency')
