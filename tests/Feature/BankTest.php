@@ -8,10 +8,11 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class BankTest extends TestCase
 {
-    use RefreshDatabase, WithFaker;
+    use RefreshDatabase;
+    use WithFaker;
 
     /** @test */
-    function guests_can_not_visit_any_banks_route()
+    public function guests_can_not_visit_any_banks_route()
     {
         $this->withExceptionHandling();
         $bank = create('App\Bank');
@@ -23,20 +24,19 @@ class BankTest extends TestCase
         $this->delete(route('admin.banks.destroy', $bank->id))->assertRedirect('/login');
     }
 
-
     /** @test */
-    function it_requires_view_banks_permissions_to_view_all_banks()
+    public function it_requires_view_banks_permissions_to_view_all_banks()
     {
         $this->withExceptionHandling();
         $this->actingAs(create('App\User'));
--
+
         $response = $this->get('/admin/banks');
 
         $response->assertStatus(403);
     }
 
     /** @test */
-    function it_allows_users_to_view_banks_if_they_have_view_banks_permission()
+    public function it_allows_users_to_view_banks_if_they_have_view_banks_permission()
     {
         $this->withExceptionHandling();
         // given
@@ -52,7 +52,7 @@ class BankTest extends TestCase
     }
 
     /** @test */
-    function it_requires_destroy_banks_permission_to_destroy_a_permission()
+    public function it_requires_destroy_banks_permission_to_destroy_a_permission()
     {
         $this->withExceptionHandling();
         // Given
@@ -68,7 +68,7 @@ class BankTest extends TestCase
     }
 
     /** @test */
-    function it_allows_users_with_destroy_banks_permission_to_destroy_banks()
+    public function it_allows_users_with_destroy_banks_permission_to_destroy_banks()
     {
         // $this->withExceptionHandling();
         // given
@@ -85,7 +85,7 @@ class BankTest extends TestCase
     }
 
     /** @test */
-    function it_requires_a_name_to_create_a_bank()
+    public function it_requires_a_name_to_create_a_bank()
     {
         $this->withExceptionHandling();
 
@@ -95,7 +95,7 @@ class BankTest extends TestCase
     }
 
     /** @test */
-    function a_user_can_create_a_bank()
+    public function a_user_can_create_a_bank()
     {
         // $this->withExceptionHandling();
         $bank = make('App\Bank');
@@ -105,25 +105,24 @@ class BankTest extends TestCase
 
         $this->assertDatabaseHas('banks', ['name' => $bank->name]);
 
-        $this->get(route('admin.banks.index'))
+        $this->actingAs($this->userWithPermission('view-banks'))
+            ->get(route('admin.banks.index'))
             ->assertSee($bank->name);
-
     }
 
     /** @test */
-    function a_user_can_see_a_form_to_update_a_bank()
+    public function a_user_can_see_a_form_to_update_a_bank()
     {
         $this->withExceptionHandling();
         $bank = create('App\Bank');
 
         $this->actingAs($this->userWithPermission('edit-banks'))
             ->get(route('admin.banks.edit', $bank->id))
-            ->assertSee("Edit Bank " . $bank->name);
-
+            ->assertSee('Edit Bank '.$bank->name);
     }
 
     /** @test */
-    function it_requires_a_name_to_update_a_bank()
+    public function it_requires_a_name_to_update_a_bank()
     {
         $this->withExceptionHandling();
         $bank = create('App\Bank');
@@ -134,7 +133,7 @@ class BankTest extends TestCase
     }
 
     /** @test */
-    function a_user_can_update_a_bank()
+    public function a_user_can_update_a_bank()
     {
         $this->withExceptionHandling();
         $bank = create('App\Bank');
@@ -147,6 +146,5 @@ class BankTest extends TestCase
 
         $this->get(route('admin.banks.index'))
             ->assertSee('New Name');
-
     }
 }

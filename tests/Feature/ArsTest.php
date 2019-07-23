@@ -8,25 +8,25 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ArsTest extends TestCase
 {
-    use RefreshDatabase, WithFaker;
+    use RefreshDatabase;
+    use WithFaker;
 
     /** @test */
-    function guests_can_not_visit_any_arss_route()
+    public function guests_can_not_visit_any_arss_route()
     {
         $this->withExceptionHandling();
         $ars = create('App\Ars');
         $this->get(route('admin.arss.index'))->assertRedirect('/login');
-        $this->get(route('admin.arss.show', $ars->slug))->assertRedirect('/login');
+        $this->get(route('admin.arss.show', $ars->id))->assertRedirect('/login');
         $this->get(route('admin.arss.create'))->assertRedirect('/login');
         $this->post(route('admin.arss.store', $ars->toArray()))->assertRedirect('/login');
-        $this->get(route('admin.arss.edit', $ars->slug))->assertRedirect('/login');
-        $this->put(route('admin.arss.update', $ars->slug))->assertRedirect('/login');
-        $this->delete(route('admin.arss.destroy', $ars->slug))->assertRedirect('/login');
+        $this->get(route('admin.arss.edit', $ars->id))->assertRedirect('/login');
+        $this->put(route('admin.arss.update', $ars->id))->assertRedirect('/login');
+        $this->delete(route('admin.arss.destroy', $ars->id))->assertRedirect('/login');
     }
 
-
     /** @test */
-    function it_requires_view_arss_permissions_to_view_all_arss()
+    public function it_requires_view_arss_permissions_to_view_all_arss()
     {
         $this->withExceptionHandling();
         $this->actingAs(create('App\User'));
@@ -37,7 +37,7 @@ class ArsTest extends TestCase
     }
 
     /** @test */
-    function it_requires_view_arss_permissions_to_view_a_ars_details()
+    public function it_requires_view_arss_permissions_to_view_a_ars_details()
     {
         $this->withExceptionHandling();
         // given
@@ -45,14 +45,14 @@ class ArsTest extends TestCase
         $this->actingAs(create('App\User'));
 
         // when
-        $response = $this->get("/admin/arss/{$ars->slug}");
+        $response = $this->get("/admin/arss/{$ars->id}");
 
         // assert
         $response->assertStatus(403);
     }
 
     /** @test */
-    function it_allows_users_to_view_arss_if_they_have_view_arss_permission()
+    public function it_allows_users_to_view_arss_if_they_have_view_arss_permission()
     {
         $this->withExceptionHandling();
         // given
@@ -68,7 +68,7 @@ class ArsTest extends TestCase
     }
 
     /** @test */
-    function it_allows_users_to_view_a_ars_if_they_have_view_arss_permission()
+    public function it_allows_users_to_view_a_ars_if_they_have_view_arss_permission()
     {
         // $this->withExceptionHandling();
         // given
@@ -77,14 +77,14 @@ class ArsTest extends TestCase
 
         // when
         $this->actingAs($user);
-        $response = $this->get(route('admin.arss.show', $ars->slug));
+        $response = $this->get(route('admin.arss.show', $ars->id));
 
         // assert
         $response->assertSee($ars->name);
     }
 
     /** @test */
-    function it_requires_create_arss_permission_to_add_a_permission()
+    public function it_requires_create_arss_permission_to_add_a_permission()
     {
         $this->withExceptionHandling();
         // Given
@@ -99,7 +99,7 @@ class ArsTest extends TestCase
     }
 
     /** @test */
-    function it_allows_with_create_arss_permission_to_create_arss()
+    public function it_allows_with_create_arss_permission_to_create_arss()
     {
         // $this->withExceptionHandling();
         // given
@@ -114,7 +114,7 @@ class ArsTest extends TestCase
     }
 
     /** @test */
-    function it_requires_destroy_arss_permission_to_destroy_a_permission()
+    public function it_requires_destroy_arss_permission_to_destroy_a_permission()
     {
         $this->withExceptionHandling();
         // Given
@@ -122,7 +122,7 @@ class ArsTest extends TestCase
         $ars = create('App\Ars');
 
         // When
-        $response = $this->delete(route('admin.arss.destroy', $ars->slug));
+        $response = $this->delete(route('admin.arss.destroy', $ars->id));
 
         // Expect
 
@@ -130,7 +130,7 @@ class ArsTest extends TestCase
     }
 
     /** @test */
-    function it_allows_users_with_destroy_arss_permission_to_destroy_arss()
+    public function it_allows_users_with_destroy_arss_permission_to_destroy_arss()
     {
         // $this->withExceptionHandling();
         // given
@@ -139,15 +139,15 @@ class ArsTest extends TestCase
 
         // when
         $this->actingAs($user);
-        $response = $this->delete(route('admin.arss.destroy', $ars->slug));
+        $response = $this->delete(route('admin.arss.destroy', $ars->id));
 
         // assert
         $response->assertRedirect(route('admin.arss.index'));
-        $this->assertDatabaseMissing('arss', ['id' => $ars->slug]);
+        $this->assertDatabaseMissing('arss', ['id' => $ars->id]);
     }
 
     /** @test */
-    function it_requires_a_name_to_create_a_ars()
+    public function it_requires_a_name_to_create_a_ars()
     {
         $this->withExceptionHandling();
 
@@ -157,7 +157,7 @@ class ArsTest extends TestCase
     }
 
     /** @test */
-    function a_user_can_create_a_ars()
+    public function a_user_can_create_a_ars()
     {
         // $this->withExceptionHandling();
         $ars = make('App\Ars');
@@ -169,46 +169,43 @@ class ArsTest extends TestCase
 
         $this->get(route('admin.arss.index'))
             ->assertSee($ars->name);
-
     }
 
     /** @test */
-    function a_user_can_see_a_form_to_update_a_ars()
+    public function a_user_can_see_a_form_to_update_a_ars()
     {
         $this->withExceptionHandling();
         $ars = create('App\Ars');
 
         $this->actingAs($this->userWithPermission('edit-arss'))
-            ->get(route('admin.arss.edit', $ars->slug))
-            ->assertSee("Edit ARS " . $ars->name);
-
+            ->get(route('admin.arss.edit', $ars->id))
+            ->assertSee('Edit ARS '.$ars->name);
     }
 
     /** @test */
-    function it_requires_a_name_to_update_a_ars()
+    public function it_requires_a_name_to_update_a_ars()
     {
         $this->withExceptionHandling();
         $ars = create('App\Ars');
 
         $this->actingAs($this->userWithPermission('edit-arss'))
-            ->put(route('admin.arss.update', $ars->slug), $this->formAttributes(['name' => '']))
+            ->put(route('admin.arss.update', $ars->id), $this->formAttributes(['name' => '']))
             ->assertSessionHasErrors('name');
     }
 
     /** @test */
-    function a_user_can_update_a_ars()
+    public function a_user_can_update_a_ars()
     {
         $this->withExceptionHandling();
         $ars = create('App\Ars');
         $ars->name = 'New Name';
 
         $this->actingAs($this->userWithPermission('edit-arss'))
-            ->put(route('admin.arss.update', $ars->slug), $ars->toArray());
+            ->put(route('admin.arss.update', $ars->id), $ars->toArray());
 
         $this->assertDatabaseHas('arss', ['name' => 'New Name']);
 
         $this->get(route('admin.arss.index'))
             ->assertSee('New Name');
-
     }
 }
