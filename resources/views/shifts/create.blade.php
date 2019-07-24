@@ -4,13 +4,13 @@
 @section('content')
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-6 col-sm-offset-3">
+            <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
                 <div class="box box-primary">
-                    {!! Form::open(['route'=>['admin.shifts.store'], 'method'=>'POST', 'class'=>'form-horizontal', 'role'=>'form']) !!}
+                    {!! Form::open(['route'=>['admin.shifts.store'], 'method'=>'POST', 'class'=>'', 'role'=>'form', 'novalidate' => true]) !!}
 
                         <div class="box-header with-border">
                             <h4>
-                                New Menu Item
+                                New Menu Shift
                                 <a href="{{ route('admin.shifts.index') }}" class="pull-right">
                                     <i class="fa fa-home"></i>
                                         Return to List

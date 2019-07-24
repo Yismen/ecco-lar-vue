@@ -86,6 +86,16 @@ trait EmployeeRelationships
     }
 
     /**
+     * An employee can have one shift.
+     *
+     * @return [relationship] [The shift belonging to the current employee]
+     */
+    public function shift()
+    {
+        return $this->hasMany('App\Shift');
+    }
+
+    /**
      * An employee can have one schedule.
      *
      * @return [relationship] [The schedule belonging to the current employee]

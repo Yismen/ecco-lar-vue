@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Shift;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
+use Yajra\DataTables\DataTables;
 
 class ShiftsController extends Controller
 {
@@ -15,6 +15,7 @@ class ShiftsController extends Controller
         $this->middleware('authorize:create-shifts', ['only' => ['create', 'store']]);
         $this->middleware('authorize:destroy-shifts', ['only' => ['destroy']]);
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -22,11 +23,19 @@ class ShiftsController extends Controller
      */
     public function index()
     {
-        $shifts = Cache::rememberForever('shifts', function() {
-            return Shift::get();
-        });;
+        if (!request()->ajax()) {
+            return view('shifts.index');
+        }
 
-        return view('shifts.index', compact('shifts'));
+        $shifts = Shift::with('employee')
+            ->orderBy('slug')
+            ->whereHas('employee', function ($query) {
+                return $query->actives();
+            });
+
+        return DataTables::of($shifts)
+            ->orderColumn('employee', 'slug $1')
+            ->toJson(true);
     }
 
     /**
@@ -34,37 +43,44 @@ class ShiftsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Shift $shift)
     {
-        return view('shifts.create');
+        return view('shifts.create', compact('shift'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required|unique:shifts',
-            'start' => 'required|date_format:H:i',
-            'end' => 'required|date_format:H:i',
+        $validated = $this->validate($request, [
+            'employee_id' => 'required|unique:shifts',
+            'start_at' => 'required|date_format:H:i',
+            'end_at' => 'required|date_format:H:i',
+            'mondays' => 'nullable|numeric|min:0|max:12',
+            'tuesdays' => 'nullable|numeric|min:0|max:12',
+            'wednesdays' => 'nullable|numeric|min:0|max:12',
+            'thursdays' => 'nullable|numeric|min:0|max:12',
+            'fridays' => 'nullable|numeric|min:0|max:12',
+            'saturdays' => 'nullable|numeric|min:0|max:12',
+            'sundays' => 'nullable|numeric|min:0|max:12',
         ]);
 
-        Cache::forget('shifts');
-
-        $shift = Shift::create($request->only(['name', 'start', 'end']));
+        $shift = Shift::create($validated);
 
         return redirect()->route('admin.shifts.index')
-            ->withSuccess('Shift '. $shift->name . ' created!');
+            ->withSuccess('Shift '.$shift->name.' created!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  Shift $shift
+     * @param int  Shift $shift
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(Shift $shift)
@@ -75,7 +91,8 @@ class ShiftsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  Shift $shift
+     * @param int  Shift $shift
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(Shift $shift)
@@ -86,39 +103,44 @@ class ShiftsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  Shift $shift
+     * @param \Illuminate\Http\Request $request
+     * @param int  Shift               $shift
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Shift $shift)
     {
-        $this->validate($request, [
-            'name' => 'required|unique:shifts,name,'.$shift->id,
-            'start' => 'required|date_format:H:i',
-            'end' => 'required|date_format:H:i',
+        $validated = $this->validate($request, [
+            'employee_id' => 'required|unique:shifts,employee_id,'.$shift->id,
+            'start_at' => 'required|date_format:H:i',
+            'end_at' => 'required|date_format:H:i',
+            'mondays' => 'nullable|numeric|min:0|max:12',
+            'tuesdays' => 'nullable|numeric|min:0|max:12',
+            'wednesdays' => 'nullable|numeric|min:0|max:12',
+            'thursdays' => 'nullable|numeric|min:0|max:12',
+            'fridays' => 'nullable|numeric|min:0|max:12',
+            'saturdays' => 'nullable|numeric|min:0|max:12',
+            'sundays' => 'nullable|numeric|min:0|max:12',
         ]);
 
-        Cache::forget('shifts');
-
-        $shift->update($request->only(['name', 'start', 'end']));
+        $shift->update($validated);
 
         return redirect()->route('admin.shifts.index')
-            ->withSuccess('Shift '. $shift->name . ' updated!');
+            ->withSuccess('Shift '.$shift->name.' updated!');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  Shift $shift
+     * @param int  Shift $shift
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(Shift $shift)
     {
         $shift->delete();
 
-        Cache::forget('shifts');
-
         return redirect()->route('admin.shifts.index')
-            ->withWarning("Card $shift->name has been removed.");
+            ->withWarning("Shift $shift->name has been removed.");
     }
 }

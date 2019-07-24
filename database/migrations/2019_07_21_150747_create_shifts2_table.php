@@ -15,13 +15,15 @@ class CreateShifts2Table extends Migration
             $table->increments('id');
             $table->integer('employee_id')->unsigned();
             $table->string('slug', 100)->nullable();
-            $table->double('mondays', 15, 8);
-            $table->double('tuesdays', 15, 8);
-            $table->double('wednesdays', 15, 8);
-            $table->double('thursdays', 15, 8);
-            $table->double('fridays', 15, 8);
-            $table->double('saturdays', 15, 8);
-            $table->double('sundays', 15, 8);
+            $table->time('start_at')->default('07:00:00');
+            $table->time('end_at')->default('16:00:00');
+            $table->double('mondays', 15, 8)->default(0);
+            $table->double('tuesdays', 15, 8)->default(0);
+            $table->double('wednesdays', 15, 8)->default(0);
+            $table->double('thursdays', 15, 8)->default(0);
+            $table->double('fridays', 15, 8)->default(0);
+            $table->double('saturdays', 15, 8)->default(0);
+            $table->double('sundays', 15, 8)->default(0);
             $table->timestamps();
 
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');

@@ -2,24 +2,21 @@
 
 namespace App\Events;
 
+use App\Employee;
 use Illuminate\Queue\SerializesModels;
 
 class EmployeeCreated extends Event
 {
     private $employee;
-    private $request;
 
     use SerializesModels;
 
     /**
      * Create a new event instance.
-     *
-     * @return void
      */
-    public function __construct($employee, $request)
+    public function __construct(Employee $employee)
     {
         $this->employee = $employee;
-        $this->request = $request;
     }
 
     /**

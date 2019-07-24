@@ -2,14 +2,52 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class Shift extends Model
 {
-    protected $fillable = ['name', 'start', 'end'];
+    use Sluggable;
 
-    public function setNameAttribute($name)
+    protected $fillable = ['employee_id', 'start_at', 'end_at', 'mondays', 'tuesdays', 'wednesdays', 'thursdays', 'fridays', 'saturdays', 'sundays'];
+
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable()
     {
-        $this->attributes['name'] = ucwords(trim($name));
+        return [
+            'slug' => [
+                'source' => 'employee.fullName',
+                'onUpdate' => true,
+            ],
+        ];
+    }
+
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class);
+    }
+
+    public function getStartAtAttribute($start_at)
+    {
+        return Carbon::parse($start_at)->format('H:i');
+    }
+
+    public function getEndAtAttribute($start_at)
+    {
+        return Carbon::parse($start_at)->format('H:i');
+    }
+
+    public function getEmployeesListAttribute()
+    {
+        return Employee::actives()
+            ->orderBy('first_name')
+            ->orderBy('second_first_name')
+            ->orderBy('last_name')
+            ->get();
     }
 }

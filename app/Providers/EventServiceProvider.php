@@ -23,32 +23,30 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\EmployeeCreated' => [
             'App\Listeners\SemdEmailToHumanResources',
+            'App\Listeners\CreateEmployeeShift',
         ],
         'App\Events\MessageCreaed' => [
-            'App\Listeners\NotifyUserOfANewMessage'
+            'App\Listeners\NotifyUserOfANewMessage',
         ],
         'App\Events\CreateUserSettings' => [
-            'App\Listeners\StoreUserSettings'
+            'App\Listeners\StoreUserSettings',
         ],
         'App\Events\EditUserSettings' => [
-            'App\Listeners\UpdateUserSettings'
+            'App\Listeners\UpdateUserSettings',
         ],
         'App\Events\EmployeesUpdates' => [
             'App\Listeners\NotifyEmployeesTerminated',
             'App\Listeners\NotifyEmployeesHired',
-        ]
+        ],
     ];
 
     /**
      * Register any other events for your application.
      *
-     * @param  \Illuminate\Contracts\Events\Dispatcher  $events
-     * @return void
+     * @param \Illuminate\Contracts\Events\Dispatcher $events
      */
     public function boot()
     {
         parent::boot();
-
-        //
     }
 }
