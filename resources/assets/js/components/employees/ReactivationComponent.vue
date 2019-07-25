@@ -52,8 +52,8 @@
       data () {
         return {
             form: new (this.$ioc.resolve('Form')) ({
-                'hire_date': new Date(),
-            })
+                'hire_date': moment(this.current).format('Y-M-D'),
+            }, false)
 
         };
     },
@@ -61,6 +61,8 @@
     components: {
         DatePicker
     },
+
+    props: ['current'],
 
     computed: {
         employee() {

@@ -114,7 +114,9 @@
             </form>
         </div>
 
-        <EmployeeReactivation @employee-reactivated="reactivated"/>
+        <EmployeeReactivation
+            :current="employee.hire_date"
+            @employee-reactivated="reactivated"/>
     </div>
 </template>
 
@@ -173,7 +175,9 @@
                         termination_reason_id: null
                     }
         },
-        reactivated() {
+        reactivated(data) {
+            console.log(data)
+            this.$store.dispatch('employee/set', data)
             this.form.fields = {
                 can_be_rehired: '',
                 termination_date: new Date(),
