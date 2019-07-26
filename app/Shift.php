@@ -10,7 +10,7 @@ class Shift extends Model
 {
     use Sluggable;
 
-    protected $fillable = ['employee_id', 'start_at', 'end_at', 'mondays', 'tuesdays', 'wednesdays', 'thursdays', 'fridays', 'saturdays', 'sundays'];
+    protected $fillable = ['employee_id', 'start_at', 'end_at', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 
     /**
      * Return the sluggable configuration array for this model.

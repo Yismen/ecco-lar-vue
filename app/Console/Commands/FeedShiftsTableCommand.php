@@ -9,8 +9,6 @@ use Illuminate\Console\Command;
 
 class FeedShiftsTableCommand extends Command
 {
-    protected $start_day;
-    protected $end_day;
     protected $hours;
 
     /**
@@ -18,7 +16,7 @@ class FeedShiftsTableCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'dainsys:feed-shifts';
+    protected $signature = 'dainsys:feed-shifts {--hours=7.5}{--saturday=0}{--sunday=0}';
 
     /**
      * The console command description.
@@ -54,13 +52,13 @@ class FeedShiftsTableCommand extends Command
                     'slug' => Str::slug($employee->fullName),
                     'start_at' => '07:00:00',
                     'end_at' => '16:00:00',
-                    'mondays' => '8',
-                    'tuesdays' => '8',
-                    'wednesdays' => '8',
-                    'thursdays' => '8',
-                    'fridays' => '8',
-                    'saturdays' => '0',
-                    'sundays' => '0',
+                    'monday' => $this->option('hours'),
+                    'tuesday' => $this->option('hours'),
+                    'wednesday' => $this->option('hours'),
+                    'thursday' => $this->option('hours'),
+                    'friday' => $this->option('hours'),
+                    'saturday' => true == (bool) $this->option('saturday') ? $this->option('hours') : 0,
+                    'sunday' => true == (bool) $this->option('sunday') ? $this->option('hours') : 0,
                 ]
             );
 

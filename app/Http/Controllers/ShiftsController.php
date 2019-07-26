@@ -61,13 +61,13 @@ class ShiftsController extends Controller
             'employee_id' => 'required|unique:shifts',
             'start_at' => 'required|date_format:H:i',
             'end_at' => 'required|date_format:H:i',
-            'mondays' => 'nullable|numeric|min:0|max:12',
-            'tuesdays' => 'nullable|numeric|min:0|max:12',
-            'wednesdays' => 'nullable|numeric|min:0|max:12',
-            'thursdays' => 'nullable|numeric|min:0|max:12',
-            'fridays' => 'nullable|numeric|min:0|max:12',
-            'saturdays' => 'nullable|numeric|min:0|max:12',
-            'sundays' => 'nullable|numeric|min:0|max:12',
+            'monday' => 'nullable|numeric|min:0|max:12',
+            'tuesday' => 'nullable|numeric|min:0|max:12',
+            'wednesday' => 'nullable|numeric|min:0|max:12',
+            'thursday' => 'nullable|numeric|min:0|max:12',
+            'friday' => 'nullable|numeric|min:0|max:12',
+            'saturday' => 'nullable|numeric|min:0|max:12',
+            'sunday' => 'nullable|numeric|min:0|max:12',
         ]);
 
         $shift = Shift::create($validated);
@@ -114,13 +114,13 @@ class ShiftsController extends Controller
             'employee_id' => 'required|unique:shifts,employee_id,'.$shift->id,
             'start_at' => 'required|date_format:H:i',
             'end_at' => 'required|date_format:H:i',
-            'mondays' => 'nullable|numeric|min:0|max:12',
-            'tuesdays' => 'nullable|numeric|min:0|max:12',
-            'wednesdays' => 'nullable|numeric|min:0|max:12',
-            'thursdays' => 'nullable|numeric|min:0|max:12',
-            'fridays' => 'nullable|numeric|min:0|max:12',
-            'saturdays' => 'nullable|numeric|min:0|max:12',
-            'sundays' => 'nullable|numeric|min:0|max:12',
+            'monday' => 'nullable|numeric|min:0|max:12',
+            'tuesday' => 'nullable|numeric|min:0|max:12',
+            'wednesday' => 'nullable|numeric|min:0|max:12',
+            'thursday' => 'nullable|numeric|min:0|max:12',
+            'friday' => 'nullable|numeric|min:0|max:12',
+            'saturday' => 'nullable|numeric|min:0|max:12',
+            'sunday' => 'nullable|numeric|min:0|max:12',
         ]);
 
         $shift->update($validated);
