@@ -55,7 +55,6 @@ class Schedule extends Model
     public function createNew($data)
     {
         $data['days'] = empty($data['days']) ? 0 : $data['days'] - 1;
-
         $date = Carbon::parse($data['date']);
         $toDate = Carbon::parse($data['date'])->addDays($data['days']);
 

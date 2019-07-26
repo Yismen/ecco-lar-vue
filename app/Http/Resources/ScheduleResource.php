@@ -19,7 +19,7 @@ class ScheduleResource extends JsonResource
             'employee_id' => $this->employee_id,
             'employee_name' => optional($this->employee)->full_name,
             'supervisor' => optional($this->employee->supervisor)->name,
-            'day' => ucwords(trim($this->day)),
+            'date' => $this->date->format('Y-m-d'),
             'hours' => $this->hours,
         ];
     }
