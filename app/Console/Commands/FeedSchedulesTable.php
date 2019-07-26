@@ -16,7 +16,8 @@ class FeedSchedulesTable extends Command
      *
      * @var string
      */
-    protected $signature = 'dainsys:feed-schedules {--days=1 : An Integer representing the number of days from today to feed: Min: 0, Max: 60}';
+    protected $signature = 'dainsys:feed-schedules {--days=1 : An Integer representing the number of days from today to feed: Min: 0, Max: 60}
+    {--since-days-ago=0 : An Integer representing the number of days before today to feed from: Min: 0, Max: 140}';
 
     /**
      * The console command description.
@@ -55,7 +56,7 @@ class FeedSchedulesTable extends Command
             (new Schedule())->createNew(
                 [
                     'employee_id' => $employee->id,
-                    'date' => Carbon::now()->format('Y-m-d'),
+                    'date' => Carbon::now()->subDays($this->option('since-days-ago'))->format('Y-m-d'),
                     'days' => $this->days,
                 ]
             );
