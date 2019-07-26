@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 
@@ -13,7 +14,7 @@ class Schedule extends Model
 
     protected $days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 
-    protected $fillable = ['employee_id', 'day', 'hours'];
+    protected $fillable = ['employee_id', 'date', 'hours'];
 
     /**
      * Return the sluggable configuration array for this model.
@@ -46,46 +47,39 @@ class Schedule extends Model
             ->get();
     }
 
-    public function createNew($fields)
+    public function getDateAttribute($date)
     {
-        foreach ($fields['days'] as $day) {
-            if (in_array($day, $this->days)) {
-                $this->removeIfExists($fields['employee_id'], $day);
-                $this->create(
-                    [
-                        'employee_id' => $fields['employee_id'],
-                        'day' => $day,
-                        'hours' => $fields['hours'],
-                    ]
-                );
+        return Carbon::parse($date);
+    }
+
+    public function createNew($data)
+    {
+        $data['days'] = empty($data['days']) ? 0 : $data['days'] - 1;
+
+        $date = Carbon::parse($data['date']);
+        $toDate = Carbon::parse($data['date'])->addDays($data['days']);
+
+        while ($date <= $toDate) {
+            try {
+                $weekDay = strtolower($date->format('l'));
+                $data['date'] = $date->format('Y-m-d');
+
+                if (!$this->exists($data)) {
+                    $shift = Shift::where('employee_id', $data['employee_id'])->first();
+                    $data['hours'] = $shift->$weekDay;
+
+                    $this->create($data);
+                }
+
+                $date->addDays(1);
+            } catch (\Exception $e) {
+                throw new \Exception('Invalid Data. Must pass a valid employee_id, date, hours', 423);
             }
         }
     }
 
-    public function createFor($employee_id, $day, $hours)
+    private function exists($data)
     {
-        $this->removeIfExists($employee_id, $day);
-
-        $this->create(
-            [
-                'employee_id' => $employee_id,
-                'day' => $day,
-                'hours' => $hours,
-            ]
-        );
-    }
-
-    private function removeIfExists($employee, $day)
-    {
-        $model = $this->exists($employee, $day);
-
-        if ($model) {
-            $model->delete();
-        }
-    }
-
-    private function exists($employee, $day)
-    {
-        return $this->where('employee_id', $employee)->where('day', $day)->first();
+        return $this->where('employee_id', $data['employee_id'])->where('date', $data['date'])->first();
     }
 }

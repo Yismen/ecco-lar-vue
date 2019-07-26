@@ -9,7 +9,10 @@
 
 					<div class="box-header with-border">
 						<h4>
-							Schedules Items List
+							Schedules Items List, Based on
+							<a href="{{ route('admin.shifts.index') }}" target="_shifts">
+								Shifts <i class="fa fa-angle-double-right"></i>
+							</a>
 						 	<a href="{{ route('admin.schedules.create') }}" class="pull-right">
 						 		<i class="fa fa-plus"></i> Add
 						 	</a>
@@ -21,7 +24,10 @@
 							<thead>
 								<tr>
 									<th>Employee</th>
-									<th>Schedules</th>
+									<th>Slug</th>
+									<th>Date</th>
+									<th>Hours</th>
+									<th>Action</th>
 								</tr>
 							</thead>
 						</table>
@@ -58,33 +64,23 @@
 	                    'type': 'get',
 	                    "url": "{{ route('admin.schedules.index') }}",
 	                },
-	                // "order": [[ 0, "asc" ]],
+	                "order": [[ 1, "asc" ], [2, "asc"]],
 	                "columns": [
-	                    // {data: 'employee', name: 'employee', searchable: "false", render: function(data, type, full){
-	                    //     let first_name = data.first_name || '';
-	                    //     let second_first_name = data.second_first_name || '';
-	                    //     let last_name = data.last_name || '';
-	                    //     let second_last_name = data.second_last_name  || '';
-	                    //     return '<a href="/admin/employees/' + data.id +'" target="_employee">'+ (first_name +' '+second_first_name+' '+last_name+' '+second_last_name).trim() +'</a>'
-	                    // }},
-	                    {data: 'first_name', name: 'first_name', render: function(data, type, full){
-	                        return full.full_name.trim();
+	                    {data: 'employee', name: 'employee', searchable: false, render: function(data, type, full){
+	                        return data.full_name.trim();
 	                    }},
-	                    {data: 'schedules', name: 'schedules', searchable: "false", orderable: false, render: function(data, type, full) {
-	                    	var links = ''
-
-	                    	full.schedules.forEach(function(value, index) {
-	                    		return links = links +
-
-                    			'<a href="/admin/schedules/'+value.id+'/edit" class="btn btn-info btn-xs" style="margin-right: 10px;">' +
-	                    			value.day.toUpperCase() + ', ' + value.hours + ' Hours' +
-	                    			' <i class="fa fa-pencil"></i>' +
-                    			'</a>'
-	                    	})
-	                        return links
+	                    {data: 'slug', name: 'slug', 'visible': false, orderable: false},
+	                    {data: 'date', name: 'date', render: function(data, type, full){
+	                    	date = moment(data.date)
+	                        return date.format("M/D/Y") + ', ' + date.format('dddd');
 	                    }},
-	                ],
-	                buttons: ['copy', 'excel', 'pdf']
+	                    {data: 'hours', name: 'hours', render: function(data, type, full){
+	                        return Number(data).toFixed(2);
+	                    }},
+	                    {data: 'id', name: 'id', orderable: false, render: function(data, type, full){
+	                        return '<a href="/admin/schedules/' + data + '/edit" class="text-warning"><i class="fa fa-pencil"></i> Edit</a>';
+	                    }}
+	                ]
 	            });
 	        });
 

@@ -24,6 +24,7 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\EmployeeCreated' => [
             'App\Listeners\SemdEmailToHumanResources',
             'App\Listeners\CreateEmployeeShift',
+            'App\Listeners\CreateEmployeeSchedule',
         ],
         'App\Events\MessageCreaed' => [
             'App\Listeners\NotifyUserOfANewMessage',

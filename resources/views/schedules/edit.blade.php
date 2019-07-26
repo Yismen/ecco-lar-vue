@@ -13,7 +13,7 @@
 
 					<div class="box-header">
 						<h4>
-							Edit Schedule for Employee {{ $schedule->employee->fullName }}
+							Edit Schedule for Employee {{ $schedule->employee->fullName }} on date {{ $schedule->date->format('M-d-Y') }}, {{ $schedule->date->format('l') }}
 							 <span class="label label-info">{{ strtoupper($schedule->day) }}</span>
 							<a href="{{ route('admin.schedules.index') }}" class="pull-right" title="Back To Schedules List">
 								<i class="fa fa-list"></i>

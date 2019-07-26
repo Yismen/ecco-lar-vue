@@ -17,7 +17,7 @@
 						<span class="text-muted">Any previous schedule for this employee will be removed if the same days are selected...</span>
 					</div>
 
-					{!! Form::open(['route'=>['admin.schedules.store'], 'method'=>'POST', 'class'=>'form-horizontal', 'role'=>'form']) !!}
+					{!! Form::open(['route'=>['admin.schedules.store'], 'method'=>'POST', 'class'=>'form-horizontal', 'role'=>'form', 'novalidate' => true]) !!}
 
 						<div class="box-body">
 							@include('schedules._form')

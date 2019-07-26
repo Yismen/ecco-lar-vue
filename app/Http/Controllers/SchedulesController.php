@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Employee;
 use App\Schedule;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -28,7 +29,12 @@ class SchedulesController extends Controller
     public function index()
     {
         if (!request()->ajax()) {
-            $employees_missing_schedule = Employee::actives()->whereDoesntHave('schedules')
+            $employees_missing_schedule = Employee::actives()
+                ->whereDoesntHave(
+                    'schedules', function ($query) {
+                        return $query->whereDate('date', '>=', Carbon::now()->subDays(10));
+                    }
+                )
                 ->orderBy('first_name')
                 ->orderBy('second_first_name')
                 ->orderBy('last_name')
@@ -37,13 +43,15 @@ class SchedulesController extends Controller
             return view('schedules.index', compact('employees_missing_schedule'));
         }
 
-        $schedules = Employee::actives()->whereHas('schedules')
-                ->with('schedules')
-                ->orderBy('first_name')
-                ->orderBy('second_first_name')
-                ->orderBy('last_name');
+        $schedules = Schedule::whereHas('employee', function ($query) {
+            return $query->actives();
+        })
+        ->with('employee')
+        ->whereDate('date', '>=', Carbon::now()->subDays(10))
+        ->orderBy('slug');
 
         return DataTables::of($schedules)
+            ->orderColumn('employee', 'slug $1')
             ->toJson(true);
     }
 
@@ -66,16 +74,16 @@ class SchedulesController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $validated = $this->validate($request, [
             'employee_id' => 'required|exists:employees,id',
-            'days' => 'required|array',
-            'hours' => 'required|numeric',
+            'date' => 'required|date',
+            'days' => 'nullable|numeric|min:1|max:30',
         ]);
 
-        $schedule = (new Schedule())->createNew($request->all());
+        $schedule = (new Schedule())->createNew($validated);
 
         return redirect()->route('admin.schedules.index')
-            ->withSuccess('Schedule Created');
+            ->withSuccess('Schedules Created');
     }
 
     /**
@@ -114,7 +122,7 @@ class SchedulesController extends Controller
     public function update(Request $request, Schedule $schedule)
     {
         $this->validate($request, [
-            'hours' => 'required|numeric',
+            'hours' => 'required|numeric|min:0|max:14',
         ]);
 
         $schedule = $schedule->update($request->only('hours'));

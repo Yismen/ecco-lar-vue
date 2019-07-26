@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         'App\Console\Commands\Inspire',
-        'App\Console\Commands\FeedSchedules',
+        'App\Console\Commands\FeedSchedulesTable',
         'App\Console\Commands\FeedShiftsTableCommand',
         'App\Console\Commands\MigrationStatus',
         'App\Console\Commands\EmployeesHired',
@@ -29,10 +29,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $schedule->command('telescope:prune --hours=48')->dailyAt('12:20');
+        $schedule->command('dainsys:feed-shifts --hours=7.5 --saturday=1')->dailyAt('14:59');
+        $schedule->command('dainsys:feed-schedules --days=10')->dailyAt('15:10');
         $schedule->command('dainsys:employees-hired --months=1')->dailyAt('15:59');
         $schedule->command('dainsys:employees-terminated --months=1')->dailyAt('15:59');
-        $schedule->command('dainsys:feed-shifts')->dailyAt('14:59');
-        // $schedule->command('dainsys:feed-schedules 1 5 --hours=8')->dailyAt('15:50');
-        $schedule->command('telescope:prune --hours=48')->daily();
     }
 }

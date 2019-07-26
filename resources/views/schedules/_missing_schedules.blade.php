@@ -1,12 +1,7 @@
 <div class="box box-danger">
 
     <div class="box-header with-border">
-        <h4>
-            List of Employees Missing Schedule ID
-            <a href="{{ route('admin.schedules.create') }}" class="pull-right">
-                <i class="fa fa-plus"></i> Add
-            </a>
-        </h4>
+        <h4> List of Employees Missing Schedule ID </h4>
     </div>
 
     <div class="box-body">
@@ -25,8 +20,8 @@
                             <a href="{{ route('admin.employees.show', $employee->id) }}" target="_employee">{{ $employee->full_name }}</a>
                         </td>
                         <td>
-                            <a href="{{ route('admin.employees.edit', $employee->id) }}" target="_employee">
-                                <i class="fa fa-pencil"></i> Edit
+                            <a href="/admin/schedules/create?employee={{ $employee->id }}">
+                                <i class="fa fa-plus"></i> Add
                             </a>
                         </td>
                     </tr>
