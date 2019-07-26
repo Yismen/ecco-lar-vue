@@ -4,7 +4,7 @@
     \Carbon\Carbon::setLocale('en');
 @endphp
 @component('mail::message')
-# List of Employees Hired Terminated Since Last {{ $months + 1 }} Months
+# List of Employees Terminated Since {{ $months }} Months Ago
 <table class="dainsys-table">
     <thead>
         <th>Termination Date</th>
