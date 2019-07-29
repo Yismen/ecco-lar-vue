@@ -4,7 +4,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+            <div class="col-sm-10 col-sm-offset-1">
                 <div class="box box-primary">
                     <div class="box-header">
                         <h4>
@@ -18,27 +18,34 @@
                     {!! Form::open(['route'=>['admin.performances.store'], 'method'=>'POST', 'class'=>'', 'role'=>'form', 'novalidate'=>true]) !!}
                         <div class="box-body" id="performances-create">
                             <div class="row">
-                                <div class="col-sm-6">
+                                @php
+                                    $employeeRecentsList = $performance->employeeRecentsList->pluck('full_name', 'id');
+                                    $employeeRecentsList[''] = '--Select One';
+                                @endphp
+
+                                <div class="col-sm-4">
                                     <div class="form-group {{ $errors->has('employee_id') ? 'has-error' : null }}">
                                         {!! Form::label('employee_id', ' Employee:', ['class'=>'']) !!}
-                                        {!! Form::select('employee_id', $performance->employeeRecentsList->pluck('full_name', 'id'), null, ['class'=>'form-control']) !!}
+                                        {!! Form::select('employee_id', $employeeRecentsList, null, ['class'=>'form-control']) !!}
                                         {!! $errors->first('employee_id', '<span class="text-danger">:message</span>') !!}
                                     </div>
                                 </div>
+                                @php
+                                    $downtimesCampaignsList = $performance->downtimesCampaignsList->pluck('name', 'id');
+                                    $downtimesCampaignsList[''] = '--Select One';
+                                @endphp
                                 <!-- /Employee -->
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <div class="form-group {{ $errors->has('campaign_id') ? 'has-error' : null }}">
                                         {!! Form::label('campaign_id', ' Downtime Campaign:', ['class'=>'']) !!}
-                                        {!! Form::select('campaign_id', $performance->downtimesCampaignsList->pluck('name', 'id'), null, ['class'=>'form-control']) !!}
+                                        {!! Form::select('campaign_id', $downtimesCampaignsList, null, ['class'=>'form-control']) !!}
                                         {!! $errors->first('campaign_id', '<span class="text-danger">:message</span>') !!}
                                     </div>
                                 </div>
                                 <!-- /Downtime Campaign -->
-                            </div>
-                            {{-- /.row --}}
-                            <div class="row">
+
                                 {{-- Login Time --}}
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <div class="form-group {{ $errors->has('login_time') ? 'has-error' : null }}">
                                         {!! Form::label('login_time', ' Login Time:', ['class'=>'']) !!}
                                         {!! Form::input('number', 'login_time', null, ['step'=>0.05, 'class'=>'form-control', 'placeholder'=>'Login Time']) !!}
@@ -46,7 +53,10 @@
                                     </div>
                                 </div>
                                 {{-- /. Login Time --}}
-                                <div class="col-sm-6">
+                            </div>
+                            {{-- /.row --}}
+                            <div class="row">
+                                <div class="col-sm-4">
                                     <!-- Date -->
                                     <div class="form-group {{ $errors->has('date') ? 'has-error' : null }}">
                                         {!! Form::label('date', ' Date:', ['class'=>'']) !!}
@@ -61,24 +71,30 @@
                                     </div>
                                     {{-- /. Date --}}
                                 </div>
-                            </div>
-                            {{-- /.row --}}
-                            <div class="row">
+                                @php
+                                    $downtimesReasonsList = $performance->downtimesReasonsList->pluck('name', 'id')->toArray();
+                                    $downtimesReasonsList[''] = '--Select One';
+                                @endphp
+
                                 <!-- Downtime Reason -->
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <div class="form-group {{ $errors->has('downtime_reason_id') ? 'has-error' : null }}">
                                         {!! Form::label('downtime_reason_id', ' Downtime Reason:', ['class'=>'']) !!}
-                                        {!! Form::select('downtime_reason_id', $performance->downtimesReasonsList->pluck('name', 'id'), null, ['class'=>'form-control']) !!}
+                                        {!! Form::select('downtime_reason_id', $downtimesReasonsList, null, ['class'=>'form-control']) !!}
                                         {!! $errors->first('downtime_reason_id', '<span class="text-danger">:message</span>') !!}
                                     </div>
                                 </div>
                                 <!-- /. Downtime Reason -->
+                                @php
+                                    $activeSupervisorsList = $performance->activeSupervisorsList->pluck('name', 'id')->toArray();
+                                    $activeSupervisorsList[''] = '--Select One';
+                                @endphp
                                 <!-- Reported By -->
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <div class="form-group {{ $errors->has('reported_by') ? 'has-error' : null }}">
                                         {!! Form::label('reported_by', ' Reported By:', ['class'=>'']) !!}
 
-                                        {!! Form::select('reported_by', $performance->activeSupervisorsList->pluck('name', 'name'), null, ['class'=>'form-control']) !!}
+                                        {!! Form::select('reported_by', array_merge([''=>'--Select One'], $performance->activeSupervisorsList->pluck('name', 'name')->toArray()), null, ['class'=>'form-control']) !!}
                                         {!! $errors->first('reported_by', '<span class="text-danger">:message</span>') !!}
                                     </div>
                                 </div>
@@ -96,6 +112,44 @@
                         </div>
                         {{-- .box-footer --}}
                     {!! Form::close() !!}
+                </div>
+
+                <div class="box box-info">
+                    <div class="box-header">
+                        <h4>Recently Created</h4>
+                    </div>
+
+                    <div class="box-body">
+                        <table class="table table-condensed table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Date</th>
+                                    <th>Project / Campaign</th>
+                                    <th>Login Time</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($recents as $performance)
+                                    <tr>
+                                        <td>{{ optional($performance->employee)->full_name }}</td>
+                                        <td>{{ $performance->date }}</td>
+                                        <td>
+                                            {{ optional(optional($performance->campaign)->project)->name }} /
+                                            {{ optional($performance->campaign)->name }}
+                                        </td>
+                                        <td>{{ $performance->login_time }}</td>
+                                        <td>
+                                            <a href="{{ route('admin.performances.edit', $performance->id) }}" class="text-warning" target="_performance">
+                                                <i class="fa fa-pencil"></i> Edit
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

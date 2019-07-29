@@ -49,7 +49,9 @@ class PerformanceController extends Controller
 
     public function create(Performance $performance)
     {
-        return view('performances.create', compact('performance'));
+        $recents = Performance::orderBy('updated_at', 'desc')->with('employee', 'campaign.project')->take(20)->get();
+
+        return view('performances.create', compact('performance', 'recents'));
     }
 
     /**
@@ -103,6 +105,8 @@ class PerformanceController extends Controller
      */
     public function edit(Performance $performance)
     {
+        // return $performance;
+
         return view('performances.edit', compact('performance'));
     }
 

@@ -106,7 +106,7 @@ class Performance extends Model
             [
                 'employee_id' => $request->employee_id,
                 'name' => $employee->fullName,
-                'supervisor_id' => optional($employee->supervisor)->id,
+                'supervisor_id' => $request->supervisor_id,
                 'login_time' => $request->login_time,
                 'production_time' => $request->production_time,
                 'transactions' => $request->transactions,
