@@ -25,7 +25,13 @@
                 <td>{{ optional($termination->employee->site)->name }}</td>
                 <td>{{ $termination->termination_date->diffForHumans($termination->employee->hire_date) }}</td>
                 <td>{{ optional($termination->terminationType)->name }}</td>
-                <td>{{ optional($termination->terminationReason)->reason }}</td>
+                <td>
+                    @if (filled($termination->comments))
+                        {{ ucfirst(trim($termination->comments)) }}
+                    @else
+                        {{ optional($termination->terminationReason)->reason }}
+                    @endif
+                </td>
             </tr>
         @endforeach
     </tbody>
