@@ -49,7 +49,19 @@ class PerformanceController extends Controller
 
     public function create(Performance $performance)
     {
-        $recents = Performance::orderBy('updated_at', 'desc')->with('employee', 'campaign.project')->take(20)->get();
+        $recents = Performance::orderBy('updated_at', 'desc')
+            ->with('employee.termination', 'campaign.project')
+            ->whereHas(
+                'campaign', function ($query) {
+                    return $query->with('project')
+                        ->where('name', 'like', '%downtime%')
+                        ->orWhereHas('project', function ($query) {
+                            return $query->where('name', 'like', '%downtime%');
+                        });
+                }
+            )
+            ->take(20)
+            ->get();
 
         return view('performances.create', compact('performance', 'recents'));
     }
