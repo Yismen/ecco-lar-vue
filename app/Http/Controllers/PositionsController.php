@@ -62,11 +62,11 @@ class PositionsController extends Controller
      */
     public function store(Position $position, Request $request)
     {
-       $this->validate($request, [
+        $this->validate($request, [
             'name' => [
                 'required',
                 'min:2',
-                new PositionUnique($position, $request)
+                new PositionUnique($position, $request),
             ],
             'department_id' => 'required|exists:departments,id',
             'payment_type_id' => 'required|exists:payment_types,id',
@@ -89,7 +89,8 @@ class PositionsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function show(Position $position)
@@ -100,7 +101,8 @@ class PositionsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function edit(Position $position, Request $request)
@@ -115,16 +117,17 @@ class PositionsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function update(Position $position, Request $request)
     {
-       $this->validate($request, [
+        $this->validate($request, [
             'name' => [
                 'required',
                 'min:2',
-                new PositionUnique($position, $request)
+                new PositionUnique($position, $request),
             ],
             'department_id' => 'required|exists:departments,id',
             'payment_type_id' => 'required|exists:payment_types,id',
@@ -145,7 +148,8 @@ class PositionsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function destroy(Position $position, Request $request)

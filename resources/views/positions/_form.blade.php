@@ -16,7 +16,7 @@
 		<div class="form-group {{ $errors->has('department_id') ? 'has-error' : null }}">
 			{!! Form::label('department_id', 'Department:', ['class'=>'col-sm-3 control-label']) !!}
 			<div class="col-sm-9">
-				<departments-select :list="{{ $position->departments_list }}" :selected="{{ $position->department_id }}"/>
+				<departments-select :list="{{ $position->departments_list }}" selected="{{ $position->department_id }}"/>
 				{!! $errors->first('department_id', '<span class="text-danger">:message</span>') !!}
 			</div>
 
