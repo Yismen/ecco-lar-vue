@@ -168,7 +168,7 @@ class EmployeesController extends Controller
     protected function getDatatables()
     {
         return DataTables::of(
-            Employee::query()->with('position.department', 'position.payment_type', 'project', 'termination')
+            Employee::query()->with('position.department', 'position.payment_type', 'project', 'termination', 'punch')
         )
         // ->editColumn('id', function ($query) {
         //     return route('admin.employees.show', $query->id);

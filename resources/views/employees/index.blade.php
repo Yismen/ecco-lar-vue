@@ -61,6 +61,7 @@
                                         <th>Position:</th>
                                         <th>Personal ID / Passport:</th>
                                         <th>Passport:</th>
+                                        <th>Punch ID:</th>
                                         <th>Cell Phone:</th>
                                         <th>Other Phone:</th>
                                         <th>Edit:</th>
@@ -127,6 +128,9 @@
                         return data ? data : full.passport
                     }},
                     {data: 'passport', name: 'passport', visible: false},
+                    {data: 'punch', name: 'punch', orderable: false, searchable: false, render: function(data, type, full) {
+                        return data ? data.punch : ''
+                    }},
                     {data: 'cellphone_number', name: 'cellphone_number'},
                     {data: 'secondary_phone', name: 'secondary_phone', visible: false},
                     {data: 'edit', name: 'edit', searchable: "false", orderable: false, render: function(data, type, full) {
