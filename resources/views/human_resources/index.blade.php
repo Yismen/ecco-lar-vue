@@ -29,89 +29,35 @@
                 @include('human_resources._issues-table')
             </div>
             {{-- / Head Counts --}}
-            <div class="col-sm-4">
-                <h4>Head Counts</h4>
+            <div class="col-sm-8">
 
-                @include('human_resources.hc._stats')
-
-            </div>
-            {{-- Rotations and Issues --}}
-            <div class="col-sm-4">
                 <h4>Rotations</h4>
-                <div class="row">
-                    @foreach ($stats['rotations']['this_month'] as $site => $data)
-                        <div class="col-lg-6">
-                            <div class="box box-warning">
-                                <div class="box-body">
-                                    <hc-rotations
-                                        :hires="{{ $data['hires'] }}"
-                                        :terminations="{{ $data['terminations'] }}"
-                                        title="MTD In/Out: {{ $site }}"
-                                        go-to-route="{{ route('admin.human_resources.index') }}"
-                                    ></hc-rotations>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                    {{-- last month --}}
-                    @foreach ($stats['rotations']['last_month'] as $site => $data)
-                        <div class="col-lg-6">
-                            <div class="box box-warning">
-                                <div class="box-body">
-                                    <hc-rotations
-                                        :hires="{{ $data['hires'] }}"
-                                        :terminations="{{ $data['terminations'] }}"
-                                        title="P. Month In/Out: {{ $site }}"
-                                        go-to-route="{{ route('admin.human_resources.index') }}"
-                                    ></hc-rotations>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                    {{-- this-year --}}
-                    @foreach ($stats['rotations']['this_year'] as $site => $data)
-                        <div class="col-lg-6">
-                            <div class="box box-warning">
-                                <div class="box-body">
-                                    <hc-rotations
-                                        :hires="{{ $data['hires'] }}"
-                                        :terminations="{{ $data['terminations'] }}"
-                                        title="YTD In/Out: {{ $site }}"
-                                        {{-- go-to-route="{{ route('admin.human_resources.index') }}" --}}
-                                    ></hc-rotations>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                    {{-- last-year --}}
-                    @foreach ($stats['rotations']['last_year'] as $site => $data)
-                        <div class="col-lg-6">
-                            <div class="box box-warning">
-                                <div class="box-body">
-                                    <hc-rotations
-                                        :hires="{{ $data['hires'] }}"
-                                        :terminations="{{ $data['terminations'] }}"
-                                        title="P. Year In/Out: {{ $site }}"
-                                        {{-- go-to-route="{{ route('admin.human_resources.index') }}" --}}
-                                    ></hc-rotations>
-                                </div>
-                            </div>
 
-                        </div>
-                    @endforeach
-                </div>
                 <div class="row">
                     @foreach ($stats['attrition']['monthly'] as $site => $attrition)
-                        <div class="col-sm-12">
+                        <div class="col-sm-6">
                             <monthly-attrition
                                 :info="{{ collect($attrition) }}"
                                 site="{{ $site }}"
                                 ></monthly-attrition>
                         </div>
                     @endforeach
-
                 </div>
 
+                <div class="row">
+                    @foreach ($stats['rotations']['monthly'] as $site => $rotation)
+                        <div class="col-sm-6">
+                            <monthly-rotation
+                                :info="{{ collect($rotation) }}"
+                                site="{{ $site }}"
+                                ></monthly-rotation>
+                        </div>
+                    @endforeach
+                </div>
+
+                <h4>Head Counts</h4>
+
+                @include('human_resources.hc._stats')
             </div>
         </div>
     </div>

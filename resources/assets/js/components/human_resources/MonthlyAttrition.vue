@@ -18,7 +18,7 @@
 </template>
 
 <script>
-    import LineChart from '../../charts/LineChart'
+    import LineChart from '../charts/LineChart'
 
     export default {
         name: "MonthlyAttrition",
@@ -31,37 +31,31 @@
                     legend: {display: false},
                     title: {
                         display: true,
-                        text: "Montly Attrition: " + this.site
+                        text: "Monthly Attrition: " + this.site
                     },
                     scales: {
-                        yAxes: [{
-                            type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
-                            display: true,
-                            position: 'left',
-                            id: 'head-count',
-                            // grid line settings
-                            gridLines: {
-                                drawOnChartArea: true, // only want the grid lines for one axis to show up
+                        yAxes: [
+                            {
+                                type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                                display: true,
+                                position: 'left',
+                                id: 'head-count',
+                                // grid line settings
+                                gridLines: {
+                                    drawOnChartArea: true, // only want the grid lines for one axis to show up
+                                },
                             },
-                        }, {
-                            type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
-                            display: false,
-                            position: 'left',
-                            id: 'termination',
-                            // grid line settings
-                            gridLines: {
-                                drawOnChartArea: false, // only want the grid lines for one axis to show up
-                            },
-                        }, {
-                            type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
-                            display: true,
-                            position: 'right',
-                            id: 'attrition',
-                            // grid line settings
-                            gridLines: {
-                                drawOnChartArea: false, // only want the grid lines for one axis to show up
-                            },
-                        }]
+                            {
+                                type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                                display: true,
+                                position: 'right',
+                                id: 'attrition',
+                                // grid line settings
+                                gridLines: {
+                                    drawOnChartArea: false, // only want the grid lines for one axis to show up
+                                },
+                            }
+                        ]
                     },
                     tooltips: {
                         mode: 'index',
@@ -103,24 +97,15 @@
                     {
                         label: "Attrition",
                         data: attritions,
-                        backgroundColor: 'rgba(255,41,62,1)',
+                        backgroundColor: 'rgba(255,41,62, 0.85)',
                         borderColor: 'rgba(255,41,62,1)',
                         fill: false,
                         yAxisID: 'attrition'
                     },
                     {
-                        label: "Terminations",
-                        display: false,
-                        data: terminations,
-                        backgroundColor: 'rgb(255,99,132)',
-                        borderColor: 'rgb(255,99,132)',
-                        fill: false,
-                        yAxisID: 'termination'
-                    },
-                    {
                         label: "Head Count",
                         data: head_count,
-                        backgroundColor: 'rgba(54, 162, 235, .9)',
+                        backgroundColor: 'rgba(54, 162, 235, .35)',
                         borderColor: 'rgba(54, 162, 235, .9)',
                         fill: true,
                         yAxisID: 'head-count'

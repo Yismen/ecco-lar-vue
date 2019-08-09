@@ -101,7 +101,8 @@ Vue.component('sites-metric', require('./components/dashboards/SitesOverview').d
 
 
 
-Vue.component('monthly-attrition', require('./components/human_resources/attrition/MonthlyAttrition').default);
+Vue.component('monthly-rotation', require('./components/human_resources/MonthlyRotation').default);
+Vue.component('monthly-attrition', require('./components/human_resources/MonthlyAttrition').default);
 
 Vue.component('animation-scale', require('./components/animations/ScaleComponent').default);
 

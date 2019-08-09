@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\HumanResources\Attrition;
+namespace App\Repositories\HumanResources\Employees\Rotations;
 
 use App\Site;
 use App\Employee;
@@ -11,7 +11,7 @@ use App\Repositories\HumanResources\HumanResourcesInterface;
 /**
  * summary.
  */
-class MonthlyAttrition extends HumanResources implements HumanResourcesInterface
+class MonthlyRotation extends HumanResources implements HumanResourcesInterface
 {
     protected $months;
 
@@ -39,12 +39,12 @@ class MonthlyAttrition extends HumanResources implements HumanResourcesInterface
 
             if ($this->by_site) {
                 foreach (Site::orderBy('name')->pluck('name') as $site) {
-                    $this->results[$site][$prop]['head_count'] = $this->query('headCount', $site)->$type();
                     $this->results[$site][$prop]['terminations'] = $this->query('terminations', $site)->$type();
+                    $this->results[$site][$prop]['hires'] = $this->query('hires', $site)->$type();
                 }
             } else {
-                $this->results[$prop]['head_count'] = $this->query('headCount')->$type();
                 $this->results[$prop]['terminations'] = $this->query('terminations')->$type();
+                $this->results[$prop]['hires'] = $this->query('hires')->$type();
             }
         }
 
@@ -65,19 +65,6 @@ class MonthlyAttrition extends HumanResources implements HumanResourcesInterface
             );
     }
 
-    private function headCount()
-    {
-        $date = $this->current_date;
-
-        return Employee::where('hire_date', '<=', $date->endOfMonth())
-            ->where(function ($query) use ($date) {
-                $query->actives()
-                ->orWhereHas('termination', function ($query) use ($date) {
-                    $query->where('termination_date', '>', $date->endOfMonth());
-                });
-            });
-    }
-
     private function terminations()
     {
         $date = $this->current_date;
@@ -87,5 +74,13 @@ class MonthlyAttrition extends HumanResources implements HumanResourcesInterface
                 return $query->whereYear('termination_date', $date->year)
                 ->whereMonth('termination_date', $date->month);
             });
+    }
+
+    private function hires()
+    {
+        $date = $this->current_date;
+
+        return Employee::whereYear('hire_date', $date->year)
+            ->whereMonth('hire_date', $date->month);
     }
 }

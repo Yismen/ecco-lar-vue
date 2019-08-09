@@ -15,18 +15,15 @@ use App\Repositories\HumanResources\HeadCount\ByDepartment;
 use App\Repositories\HumanResources\HeadCount\BySupervisor;
 use App\Repositories\HumanResources\Issues\MissingSchedule;
 use App\Repositories\HumanResources\HeadCount\ByNationality;
-use App\Repositories\HumanResources\Issues\MissingSupervisor;
 use App\Repositories\HumanResources\Birthdays\BirthdaysToday;
+use App\Repositories\HumanResources\Issues\MissingSupervisor;
 use App\Repositories\HumanResources\Issues\MissingBankAccount;
 use App\Repositories\HumanResources\Issues\MissingNationality;
 use App\Repositories\HumanResources\Attrition\MonthlyAttrition;
 use App\Repositories\HumanResources\Birthdays\BirthdaysLastMonth;
 use App\Repositories\HumanResources\Birthdays\BirthdaysNextMonth;
 use App\Repositories\HumanResources\Birthdays\BirthdaysThisMonth;
-use App\Repositories\HumanResources\Employees\Rotations\LastYearRotations;
-use App\Repositories\HumanResources\Employees\Rotations\ThisYearRotations;
-use App\Repositories\HumanResources\Employees\Rotations\LastMonthRotations;
-use App\Repositories\HumanResources\Employees\Rotations\ThisMonthRotations;
+use App\Repositories\HumanResources\Employees\Rotations\MonthlyRotation;
 
 class HumanResourcesRepository
 {
@@ -60,10 +57,7 @@ class HumanResourcesRepository
                 'by_supervisor' => (new BySupervisor())->bySite()->count(),
             ],
             'rotations' => [
-                'this_month' => (new ThisMonthRotations())->bySite()->count(),
-                'last_month' => (new LastMonthRotations())->bySite()->count(),
-                'this_year' => (new ThisYearRotations())->bySite()->count(),
-                'last_year' => (new LastYearRotations())->bySite()->count(),
+                'monthly' => (new MonthlyRotation())->bySite()->count(6),
             ],
             'attrition' => [
                 'monthly' => (new MonthlyAttrition())->bySite()->count(6),

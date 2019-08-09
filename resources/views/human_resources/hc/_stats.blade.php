@@ -1,7 +1,7 @@
 
 <div class="row">
     {{-- By Status --}}
-    <div class="col-lg-6">
+    <div class="col-lg-3">
         <div class="row">
             <div class="col-sm-12">
                 <div class="box box-primary">
@@ -24,7 +24,7 @@
         </div>
     </div>
     {{-- By Site --}}
-    <div class="col-lg-6">
+    <div class="col-lg-3">
         <div class="row">
             <div class="col-sm-12">
                 <div class="box box-primary">
@@ -47,7 +47,7 @@
     </div>
     {{-- .by-gender --}}
     @foreach ($stats['headcounts']['by_gender'] as $site => $genders)
-        <div class="col-lg-6">
+        <div class="col-lg-3">
             <div class="row">
                 <div class="col-sm-12">
                     <div class="box box-primary">
@@ -71,7 +71,7 @@
     @endforeach
     {{-- By Department --}}
     @foreach ($stats['headcounts']['by_department'] as $site => $departments)
-        <div class="col-lg-6">
+        <div class="col-lg-3">
             <div class="row">
                 <div class="col-sm-12">
                     <div class="box box-primary">
@@ -95,7 +95,7 @@
     @endforeach
     {{-- .by-project --}}
     @foreach ($stats['headcounts']['by_project'] as $site => $projects)
-        <div class="col-lg-6">
+        <div class="col-lg-3">
             <div class="row">
                 <div class="col-sm-12">
                     <div class="box box-primary">
@@ -119,7 +119,7 @@
     @endforeach
     {{-- .by-supervisors --}}
     @foreach ($stats['headcounts']['by_supervisor'] as $site => $supervisors)
-        <div class="col-lg-6">
+        <div class="col-lg-3">
             <div class="row">
                 <div class="col-sm-12">
                     <div class="box box-primary">
@@ -143,7 +143,7 @@
     @endforeach
     {{-- .by-positions --}}
     @foreach ($stats['headcounts']['by_position'] as $site => $positions)
-        <div class="col-lg-6">
+        <div class="col-lg-3">
              <div class="row">
                 <div class="col-sm-12">
                     <div class="box box-primary">
@@ -167,7 +167,7 @@
     @endforeach
     {{-- .by-nationality --}}
     @foreach ($stats['headcounts']['by_nationality'] as $site => $nationalities)
-        <div class="col-lg-6">
+        <div class="col-lg-3">
             <div class="row">
                 <div class="col-sm-12">
                     <div class="box box-primary">
