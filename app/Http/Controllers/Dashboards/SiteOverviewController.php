@@ -6,7 +6,10 @@ use App\Site;
 use App\Project;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Repositories\SitesOverview\SPHCalculator;
 use App\Repositories\SitesOverview\SitesOverviewRepository;
+use App\Repositories\HumanResources\Attrition\MonthlyAttrition;
+use App\Repositories\HumanResources\Employees\Rotations\MonthlyRotation;
 
 class SiteOverviewController extends Controller
 {
@@ -27,10 +30,14 @@ class SiteOverviewController extends Controller
             Project::where('name', 'not like', '%-Downtimes')->pluck('name', 'name')->toArray()
         );
 
-        $stats = (new SitesOverviewRepository())->stats($request);
+        $stats = (new SitesOverviewRepository())->withSph()->stats($request);
+
+        $stats['sph'] = (new SPHCalculator($stats['transactions'], $stats['production_time'], $request))->get();
+        $stats['rotations']['monthly'] = (new MonthlyRotation())->bySite()->count(6); // This need to be filterable by the request
+        $stats['attrition']['monthly'] = (new MonthlyAttrition())->bySite()->count(6); // This need to be filterable by the request
 
         $request->flash();
 
-        return view('dashboards.sites_overview', compact('stats', 'sites_list', 'projects_list'));
+        return view('dashboards.sites_overview', compact('stats', 'sites_list', 'projects_list', 'hhrr_stats'));
     }
 }

@@ -98,6 +98,7 @@ Vue.component('headcounts', require('./components/human_resources/HeadCountsComp
 Vue.component('hc-rotations', require('./components/human_resources/RotationsComponent').default);
 
 Vue.component('sites-metric', require('./components/dashboards/SitesOverview').default);
+Vue.component('sites-sph', require('./components/dashboards/sites/Sph').default);
 
 
 

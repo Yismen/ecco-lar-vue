@@ -88,3 +88,15 @@ Tasks:
       ✔ Limit it to only import downtimes @created(19-07-11 16:17) @done (19-07-11 23:05)
       ✔ Check if Existis, redirect to edit @created(19-07-11 16:17) @done (19-07-11 23:06)
 ☐ Change all Data Generators to stick to the format "Y-m-d-employee_id-campaign_id" for the unique_id (including downtimes) @created(19-07-11 23:06)
+☐ Refactor/update sites oviwerview
+  ☐ Current Headcount
+  ☐ MTD Revenue
+  ☐ Monthly Gross Revenue
+  ☐ Yearly Gross Revenue
+  ☐ Attrition
+  ☐ Rotation
+  ☐ RPH (revenue / production hours)
+  ☐ SPH (sales / productions hours) vs SPH Goal (calculate...)
+  ☐ Conversion Rate (sales / contacts)
+  ☐ Utilization (talk time / production time)
+  ☐ Eficiency (production time vs paid time)

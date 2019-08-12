@@ -40,4 +40,9 @@ class Campaign extends Model
     {
         return $this->belongsTo(RevenueType::class);
     }
+
+    public function performances()
+    {
+        return $this->hasMany(Performance::class);
+    }
 }
