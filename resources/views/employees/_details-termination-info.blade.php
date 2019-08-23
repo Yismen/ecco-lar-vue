@@ -4,7 +4,9 @@
         <tr>
             <th>Termination Date: </th>
             <td>
-                {{ $employee->termination->termination_date->format('M/d/Y') }}, {{ $employee->termination->termination_date->diffForHumans() }}
+                {{ $employee->termination->termination_date->format('M/d/Y') }},
+                {{ $employee->termination->termination_date->diffForHumans() }}. <br>
+                Worked for {{ $employee->termination->termination_date->diff($employee->hire_date)->format('%y years, %m months and %d days') }}
             </td>
         </tr>
 

@@ -5,8 +5,8 @@
         <tr>
             <th>Hired On: </th>
             <td>
-                {{ Carbon\Carbon::parse($employee->hire_date)->format('M-d-Y') }},
-                {{ Carbon\Carbon::parse($employee->hire_date)->diffForHumans() }}
+                {{ $employee->hire_date->format('M-d-Y') }},
+                {{ $employee->hire_date->diffForHumans() }}
             </td>
         </tr>
 
