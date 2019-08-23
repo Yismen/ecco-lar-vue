@@ -81,9 +81,11 @@ class EmployeesController extends Controller
             'project_id' => 'required|exists:projects,id',
             'marital_id' => 'required|exists:maritals,id',
             'has_kids' => 'required|boolean',
+            'punch' => 'required|numeric|digits:5|unique:punches,punch',
         ]);
 
         $employee = $employee->create($request->all());
+        $employee->punch()->create($request->only(['punch']));
 
         if ($request->ajax()) {
             return $employee;
