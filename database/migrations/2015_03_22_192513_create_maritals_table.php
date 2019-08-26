@@ -8,8 +8,6 @@ class CreateMaritalsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
@@ -21,14 +19,10 @@ class CreateMaritalsTable extends Migration
 
         Marital::create(['id' => 1, 'name' => 'Married']);
         Marital::create(['id' => 2, 'name' => 'Single']);
-        Marital::create(['id' => 3, 'name' => 'Common Law']);
-        Marital::create(['id' => 4, 'name' => 'Divorced']);
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {
