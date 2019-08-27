@@ -74,7 +74,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group {{ $errors->has('reported_by') ? 'has-error' : null }}">
                                         {!! Form::label('reported_by', ' Reported By:', ['class'=>'']) !!}
-                                        {!! Form::select('reported_by', array_merge([''=>'--Select One'], $performance->activeSupervisorsList->pluck('name', 'name')->toArray()), null, ['class'=>'form-control', 'placeholder' => '--Select One']) !!}
+                                        {!! Form::select('reported_by', $performance->activeSupervisorsList->pluck('name', 'name')->toArray(), null, ['class'=>'form-control', 'placeholder' => '--Select One']) !!}
                                         {!! $errors->first('reported_by', '<span class="text-danger">:message</span>') !!}
                                     </div>
                                 </div>
