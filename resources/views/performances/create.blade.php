@@ -18,28 +18,18 @@
                     {!! Form::open(['route'=>['admin.performances.store'], 'method'=>'POST', 'class'=>'', 'role'=>'form', 'novalidate'=>true]) !!}
                         <div class="box-body" id="performances-create">
                             <div class="row">
-                                @php
-                                    $employeeRecentsList = $performance->employeeRecentsList->pluck('full_name', 'id');
-                                    $employeeRecentsList[''] = '--Select One';
-                                @endphp
-
                                 <div class="col-sm-4">
                                     <div class="form-group {{ $errors->has('employee_id') ? 'has-error' : null }}">
                                         {!! Form::label('employee_id', ' Employee:', ['class'=>'']) !!}
-                                        {!! Form::select('employee_id', $employeeRecentsList, null, ['class'=>'form-control']) !!}
+                                        {!! Form::select('employee_id', $performance->employeeRecentsList->pluck('full_name', 'id'), null, ['class'=>'form-control', 'placeholder' => '--Select One']) !!}
                                         {!! $errors->first('employee_id', '<span class="text-danger">:message</span>') !!}
                                     </div>
                                 </div>
-                                @php
-                                    $downtimesCampaignsList = $performance->downtimesCampaignsList->pluck('name', 'id');
-                                    $downtimesCampaignsList[''] = '--Select One';
-                                @endphp
                                 <!-- /Employee -->
                                 <div class="col-sm-4">
                                     <div class="form-group {{ $errors->has('campaign_id') ? 'has-error' : null }}">
                                         {!! Form::label('campaign_id', ' Downtime Campaign:', ['class'=>'']) !!}
-                                        {!! Form::select('campaign_id', $downtimesCampaignsList, null, ['class'=>'form-control']) !!}
-                                        {!! $errors->first('campaign_id', '<span class="text-danger">:message</span>') !!}
+                                        {!! Form::select('campaign_id', $performance->downtimesCampaignsList->pluck('name', 'id'), null, ['class'=>'form-control', 'placeholder' => '--Select One']) !!}
                                     </div>
                                 </div>
                                 <!-- /Downtime Campaign -->
@@ -71,30 +61,20 @@
                                     </div>
                                     {{-- /. Date --}}
                                 </div>
-                                @php
-                                    $downtimesReasonsList = $performance->downtimesReasonsList->pluck('name', 'id')->toArray();
-                                    $downtimesReasonsList[''] = '--Select One';
-                                @endphp
-
                                 <!-- Downtime Reason -->
                                 <div class="col-sm-4">
                                     <div class="form-group {{ $errors->has('downtime_reason_id') ? 'has-error' : null }}">
                                         {!! Form::label('downtime_reason_id', ' Downtime Reason:', ['class'=>'']) !!}
-                                        {!! Form::select('downtime_reason_id', $downtimesReasonsList, null, ['class'=>'form-control']) !!}
+                                        {!! Form::select('downtime_reason_id', $performance->downtimesReasonsList->pluck('name', 'id')->toArray(), null, ['class'=>'form-control', 'placeholder' => '--Select One']) !!}
                                         {!! $errors->first('downtime_reason_id', '<span class="text-danger">:message</span>') !!}
                                     </div>
                                 </div>
                                 <!-- /. Downtime Reason -->
-                                @php
-                                    $activeSupervisorsList = $performance->activeSupervisorsList->pluck('name', 'id')->toArray();
-                                    $activeSupervisorsList[''] = '--Select One';
-                                @endphp
                                 <!-- Reported By -->
                                 <div class="col-sm-4">
                                     <div class="form-group {{ $errors->has('reported_by') ? 'has-error' : null }}">
                                         {!! Form::label('reported_by', ' Reported By:', ['class'=>'']) !!}
-
-                                        {!! Form::select('reported_by', array_merge([''=>'--Select One'], $performance->activeSupervisorsList->pluck('name', 'name')->toArray()), null, ['class'=>'form-control']) !!}
+                                        {!! Form::select('reported_by', array_merge([''=>'--Select One'], $performance->activeSupervisorsList->pluck('name', 'name')->toArray()), null, ['class'=>'form-control', 'placeholder' => '--Select One']) !!}
                                         {!! $errors->first('reported_by', '<span class="text-danger">:message</span>') !!}
                                     </div>
                                 </div>

@@ -14,7 +14,7 @@
         <div class="form-group {{ $errors->has('supervisor_id') ? 'has-error' : null }}">
             {!! Form::label('supervisor_id', ' Supervisor:', ['class'=>'']) !!}
 
-            {!! Form::select('supervisor_id', $performance->supervisorsList->pluck('name', 'id'), null, ['class'=>'form-control', 'placeholder'=>'Supervisor']) !!}
+            {!! Form::select('supervisor_id', $performance->supervisorsList->pluck('name', 'id'), null, ['class'=>'form-control']) !!}
             {!! $errors->first('supervisor_id', '<span class="text-danger">:message</span>') !!}
         </div>
         <!-- /. Supervisor -->
@@ -75,7 +75,7 @@
     <div class="col-sm-6">
         <div class="form-group {{ $errors->has('downtime_reason_id') ? 'has-error' : null }}">
             {!! Form::label('downtime_reason_id', ' Downtime Reason:', ['class'=>'']) !!}
-            {!! Form::select('downtime_reason_id', $performance->downtimesReasonsList->pluck('name', 'id')->toArray(), null, ['class'=>'form-control']) !!}
+            {!! Form::select('downtime_reason_id', $performance->downtimesReasonsList->pluck('name', 'id')->toArray(), null, ['class'=>'form-control', 'placeholder' => '']) !!}
             {!! $errors->first('downtime_reason_id', '<span class="text-danger">:message</span>') !!}
         </div>
     </div>
@@ -85,7 +85,7 @@
         <div class="form-group {{ $errors->has('reported_by') ? 'has-error' : null }}">
             {!! Form::label('reported_by', ' Reported By:', ['class'=>'']) !!}
 
-            {!! Form::select('reported_by', $performance->activeSupervisorsList->pluck('name', 'name')->toArray(), null, ['class'=>'form-control']) !!}
+            {!! Form::select('reported_by', $performance->activeSupervisorsList->pluck('name', 'name')->toArray(), null, ['class'=>'form-control', 'placeholder' => '']) !!}
             {!! $errors->first('reported_by', '<span class="text-danger">:message</span>') !!}
         </div>
     </div>
