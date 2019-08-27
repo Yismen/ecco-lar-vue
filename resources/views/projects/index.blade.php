@@ -55,7 +55,9 @@
                             </div>
                         @endif
                     @endforeach
-                    <div class="col-sm-4 col-xs-7" style="position: fixed; bottom: 35%; right: 30px; padding: 15px ;  background-color: whitesmoke; border: darkgray; border-style: solid; border-width: thin;">
+
+                    {{-- Empty projects --}}
+                    <div class="col-sm-4 col-xs-7" style="position: fixed; bottom: 35%; right: 30px; padding: 15px ;  background-color: whitesmoke; border: darkgray; border-style: solid; border-width: thin; z-index: 1000">
                         <div class="input-group">
                             {{ Form::select('project', $projects->filter(function($key,$value){return ! Str::contains($key->name, 'Downtimes');})->pluck('name', 'id'), null, ['class' => 'form-control']) }}
                             <span class="input-group-btn">
@@ -66,6 +68,22 @@
                         @include('layouts.partials.errors')
                     </div>
                 </form>
+
+                {{-- Empty Projects --}}
+                <div class="col-sm-6 col-sm-offset-3">
+                    <h5>Empty Projects</h5>
+
+                    <ul class="list-group">
+                        @foreach ($projects as $project)
+                            @if ($project->employees->count() == 0)
+                                <li class="list-group-item">
+                                    {{ $project->name }}
+                                    <a href="{{ route('admin.projects.edit', $project->id) }}" class="pull-right text-warning"><i class="fa fa-pencil"></i></a>
+                                </li>
+                            @endif
+                        @endforeach
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
