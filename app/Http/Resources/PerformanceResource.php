@@ -9,7 +9,8 @@ class PerformanceResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function toArray($request)
@@ -31,6 +32,7 @@ class PerformanceResource extends JsonResource
             'project_employee' => optional($this->employee->project)->name,
             'department' => optional(optional($this->employee->position)->department)->name,
             'site' => optional($this->employee->site)->name,
+            'salary' => optional(optional($this->employee)->position)->salary,
             'campaign' => optional($this->campaign)->name,
             'campaign_sph_goal' => $this->sph_goal, // here we return the goal at the moment of creation, no the current goal optional($this->campaign)->sph_goal
             'supervisor_performance' => optional($this->supervisor)->name,
