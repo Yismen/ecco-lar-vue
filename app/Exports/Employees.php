@@ -21,8 +21,9 @@ class Employees implements FromQuery, WithTitle, ShouldAutoSize, WithColumnForma
     {
         $this->scope = $scope;
     }
+
     /**
-     * : View
+     * : View.
      *
      * @return Excel file
      */
@@ -38,7 +39,7 @@ class Employees implements FromQuery, WithTitle, ShouldAutoSize, WithColumnForma
 
     public function title(): string
     {
-        return "Employees";
+        return 'Employees';
     }
 
     public function map($employee): array
@@ -53,7 +54,13 @@ class Employees implements FromQuery, WithTitle, ShouldAutoSize, WithColumnForma
             $employee->personal_id,
             $employee->passport,
             $employee->cellphone_number,
-            optional($employee->bankAccount)->account_number
+            optional($employee->bankAccount)->account_number,
+            $employee->full_name,
+            optional($employee->punch)->punch,
+            optional($employee->site)->name,
+            optional($employee->project)->name,
+            optional($employee->position)->name,
+            optional($employee->position)->salary,
         ];
     }
 
@@ -79,6 +86,12 @@ class Employees implements FromQuery, WithTitle, ShouldAutoSize, WithColumnForma
             'passport',
             'cellphone_number',
             'account_number',
+            'full_name',
+            'punch',
+            'site',
+            'project',
+            'position',
+            'salary',
         ];
     }
 }
