@@ -71,6 +71,7 @@ class Employees implements FromQuery, WithTitle, ShouldAutoSize, WithColumnForma
             optional(optional($employee->position)->department)->name,
             optional($employee->position)->salary,
             optional($employee->bankAccount)->account_number,
+            $employee->status,
         ];
     }
 
@@ -112,6 +113,7 @@ class Employees implements FromQuery, WithTitle, ShouldAutoSize, WithColumnForma
             'department',
             'salary',
             'account_number',
+            'status',
         ];
     }
 }
