@@ -80,6 +80,8 @@ class Employees implements FromQuery, WithTitle, ShouldAutoSize, WithColumnForma
             'J' => NumberFormat::FORMAT_DATE_XLSX15,
             'G' => NumberFormat::FORMAT_TEXT,
             'H' => NumberFormat::FORMAT_TEXT,
+            'K' => NumberFormat::FORMAT_TEXT,
+            'L' => NumberFormat::FORMAT_TEXT,
             'U' => NumberFormat::FORMAT_NUMBER,
         ];
     }
