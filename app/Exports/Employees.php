@@ -68,6 +68,7 @@ class Employees implements FromQuery, WithTitle, ShouldAutoSize, WithColumnForma
             optional($employee->site)->name,
             optional($employee->project)->name,
             optional($employee->position)->name,
+            optional(optional($employee->position)->department)->name,
             optional($employee->position)->salary,
             optional($employee->bankAccount)->account_number,
         ];
@@ -82,7 +83,7 @@ class Employees implements FromQuery, WithTitle, ShouldAutoSize, WithColumnForma
             'H' => NumberFormat::FORMAT_TEXT,
             'K' => NumberFormat::FORMAT_TEXT,
             'L' => NumberFormat::FORMAT_TEXT,
-            'U' => NumberFormat::FORMAT_NUMBER,
+            'V' => NumberFormat::FORMAT_NUMBER,
         ];
     }
 
@@ -108,6 +109,7 @@ class Employees implements FromQuery, WithTitle, ShouldAutoSize, WithColumnForma
             'site',
             'project',
             'position',
+            'department',
             'salary',
             'account_number',
         ];
