@@ -33,7 +33,10 @@ class Employees implements FromQuery, WithTitle, ShouldAutoSize, WithColumnForma
 
         return Employee::query()
             ->orderBy('first_name')
-            ->with('bankAccount')
+            ->with([
+                'punch', 'address', 'gender', 'marital', 'nationality',
+                'site', 'project', 'position', 'bankAccount',
+            ])
             ->$status();
     }
 
@@ -46,30 +49,38 @@ class Employees implements FromQuery, WithTitle, ShouldAutoSize, WithColumnForma
     {
         return [
             $employee->id,
+            $employee->full_name,
             $employee->first_name,
             $employee->second_first_name,
             $employee->last_name,
             $employee->second_last_name,
-            Date::dateTimeToExcel($employee->hire_date),
-            $employee->personal_id,
-            $employee->passport,
-            $employee->cellphone_number,
-            optional($employee->bankAccount)->account_number,
-            $employee->full_name,
             optional($employee->punch)->punch,
+            filled($employee->personal_id) ? $employee->personal_id : $employee->passport,
+            Date::dateTimeToExcel($employee->hire_date),
+            Date::dateTimeToExcel($employee->date_of_birth),
+            substr($employee->cellphone_number, 0, 3),
+            substr($employee->cellphone_number, -7),
+            null == $employee->address ? '' :
+                $employee->address->street_address.', '.$employee->address->sector.', '.$employee->address->city,
+            substr(optional($employee->gender)->name, 0, 1),
+            optional($employee->marital)->name,
+            optional($employee->nationality)->name,
             optional($employee->site)->name,
             optional($employee->project)->name,
             optional($employee->position)->name,
             optional($employee->position)->salary,
+            optional($employee->bankAccount)->account_number,
         ];
     }
 
     public function columnFormats(): array
     {
         return [
-            'F' => NumberFormat::FORMAT_DATE_XLSX15,
+            'I' => NumberFormat::FORMAT_DATE_XLSX15,
+            'J' => NumberFormat::FORMAT_DATE_XLSX15,
             'G' => NumberFormat::FORMAT_TEXT,
-            'J' => NumberFormat::FORMAT_NUMBER,
+            'H' => NumberFormat::FORMAT_TEXT,
+            'U' => NumberFormat::FORMAT_NUMBER,
         ];
     }
 
@@ -77,21 +88,26 @@ class Employees implements FromQuery, WithTitle, ShouldAutoSize, WithColumnForma
     {
         return [
             'id',
+            'full_name',
             'first_name',
             'second_first_name',
             'last_name',
             'second_last_name',
-            'hire_date',
-            'personal_id',
-            'passport',
-            'cellphone_number',
-            'account_number',
-            'full_name',
             'punch',
+            'personal_id or passport',
+            'hire_date',
+            'date_of_birth',
+            'phone_area',
+            'phone_number',
+            'address',
+            'gender',
+            'relationship',
+            'nationality',
             'site',
             'project',
             'position',
             'salary',
+            'account_number',
         ];
     }
 }
