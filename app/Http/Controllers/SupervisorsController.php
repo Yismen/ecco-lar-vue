@@ -30,10 +30,14 @@ class SupervisorsController extends Controller
             ->orderBy('second_first_name')
             ->orderBy('last_name')
             ->orderBy('second_last_name')
-            ->with('project', 'nationality')
+            ->with('site', 'project', 'nationality')
             ->with(['position' => function ($query) {
                 return $query->with(['department', 'payment_type']);
             }])
+            ->actives()
+            ->get();
+
+        $active_supervisors = Supervisor::orderBy('name')
             ->actives()
             ->get();
 
@@ -47,7 +51,7 @@ class SupervisorsController extends Controller
                     ->orderBy('second_first_name')
                     ->orderBy('last_name')
                     ->orderBy('second_last_name')
-                    ->with('project', 'nationality')
+                    ->with('project', 'nationality', 'site')
                     ->with(['position' => function ($query) {
                         return $query->with(['department', 'payment_type']);
                     }])
@@ -55,7 +59,7 @@ class SupervisorsController extends Controller
             }])
             ->get();
 
-        return view('supervisors.index', compact('supervisors', 'free_employees', 'inactive_supervisors'));
+        return view('supervisors.index', compact('supervisors', 'free_employees', 'active_supervisors', 'inactive_supervisors'));
     }
 
     /**

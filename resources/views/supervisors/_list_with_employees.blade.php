@@ -20,7 +20,8 @@
                              <employee-check-box :employee="{{ $employee }}" style="border-top: solid 1px #ccc"
                                 >,
                                 {{ optional($employee->project)->name }} -
-                                {{ optional($employee->position)->name }}
+                                {{ optional($employee->position)->name }},
+                                {{ optional($employee->site)->name }}
                             </employee-check-box>
                         @endforeach
                     </div>
