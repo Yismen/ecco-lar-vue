@@ -37,7 +37,7 @@ return [
     /*
      * Admin LTE option to hide or show the sidebar by default.
      */
-    'sidebar_collapse' => 'sidebar-collapse', // sidebar-collapse, ''
+    'sidebar_collapse' => '', // sidebar-collapse, ''
 
     /*
     |--------------------------------------------------------------------------
