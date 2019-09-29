@@ -12,7 +12,7 @@ return [
      * be used a the top of the page, as well as at the
      * bottom. Set this in your ".env" file.
      */
-    'client_name' => env('CLIENT_NAME', 'Dainsys \' Client Name'),
+    'client_name' => env('CLIENT_NAME', 'Dainsys'),
 
     /*
      * A short name of the client. Set this in your ".env" file.

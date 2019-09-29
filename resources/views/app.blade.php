@@ -17,96 +17,14 @@
 
     <div class="row">
         <div class="col-sm-9">
-            <div class="row">
-                <div class="col-md-6">
-                    @component('components.info-box', ['color' => 'bg-red', 'icon' => 'fa fa-users'])
-                        Users
-                        @slot('number')
-                            {{ $users_count }}
-                        @endslot
-                    @endcomponent
-                </div>
+            @include('app.partials.stats')
 
-                <div class="col-md-6">
-                    @component('components.info-box', ['color' => 'bg-red', 'icon' => 'fa fa-users'])
-                        Sites
-                        @slot('number')
-                            {{ $sites }}
-                        @endslot
-                    @endcomponent
-                </div>
+            @include('app.partials.birthdays')
 
-                <div class="col-md-6">
-                    @component('components.info-box', ['color' => 'bg-red', 'icon' => 'fa fa-users'])
-                        Projects
-                        @slot('number')
-                            {{ $projects }}
-                        @endslot
-                    @endcomponent
-                </div>
-
-                <div class="col-md-6">
-                    @component('components.info-box', ['color' => 'bg-red', 'icon' => 'fa fa-users'])
-                        Employees
-                        @slot('number')
-                            {{ $employees_count }}
-                        @endslot
-                    @endcomponent
-                </div>
-            </div>
-
-            <div class="row" >
-                <div class="col-sm-12">
-                    <div class="box box-danger">
-                        <div class="box-header with-border">
-                            <h4 class="no-margin">Latest Members</h4>
-                        </div>
-
-                        <div class="box-body" style="display: flex; flex-wrap: wrap; justify-content: space-around;">
-                            @foreach ($profiles as $profile)
-                                <div class="col-sm-4">
-                                    <img
-                                        src="{{ file_exists($profile->photo) ? asset($profile->photo) :  'http://placehold.it/300x300'}}"
-                                        class="profile-user-img img-responsive img-circle" alt="Image"
-                                    >
-
-                                    <h5 class="profile-username text-center">
-                                        <a href="{{ route('admin.profiles.show', $profile->id) }}" title="Visit {{ $profile->user->name }} Profile">
-                                            {{ mb_strimwidth(optional($profile->user)->name, 0, 15, '...') }}
-                                        </a>
-                                    </h5>
-
-                                    <p class="text-center help-block" style="font-size: 10px;">{{ strtoupper($profile->created_at->diffForHumans()) }}</p>
-
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-                {{-- {{ $profiles }} --}}
-            </div>
+            @include('app.partials.latest-members')
         </div>
         <div class="col-sm-3">
-            <h4>Your Apps</h4>
-            @if ($user && $user->roles->count() > 0)
-                @foreach ($user->roles as $role)
-                    <div class="box box-primary" style="max-height: 200px; overflow-y: auto;">
-                        <div class="box-header">
-                            <h4>{{ personName($role->name) }}</h4>
-                        </div>
-
-                        <div class="box-body">
-                            @if ($role->menus && $role->menus->count() > 0)
-                                <div class="list-group">
-                                    @foreach ($role->menus as $menu)
-                                        <a href="/{{ $menu->name }}" class="list-group-item">{{ $menu->display_name }}</a>
-                                    @endforeach
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-                @endforeach
-            @endif
+            @include('app.partials.your-apps')
         </div>
     </div>
 </div>
