@@ -9,7 +9,7 @@
 					<h3 class="page-header">
 						Permissions Items List
 						<a href="{{ route('admin.permissions.create') }}" class="pull-right">
-							<i class="fa fa-plus"></i>
+							<i class="fa fa-plus"></i> 
 							New Permission
 						</a>
 					</h3>
@@ -41,18 +41,18 @@
 										</td>
 										<td>
 											<a href="{{ route('admin.permissions.edit', $permission->name) }}" class="btn btn-warning btn-xs">
-												<i class="fa fa-pencil"></i>
+												<i class="fa fa-pencil"></i> 
 												Edit
 											</a>
-											<form
-												action="{{ url('/admin/permissions', $permission->name) }}"
-												method="POST"
-												style="display:inline-block;"
+											<form 
+												action="{{ url('/admin/permissions', $permission->name) }}" 
+												method="POST" 
+												style="display:inline-block;" 
 												id="delete-form-{{ $permission->id }}"
 												onsubmit="submitForm(event, {{ $permission->id }})"
 											>
 												{!! csrf_field() !!} {!! method_field('DELETE') !!}
-
+									
 												<button type="submit" id="delete-permission" class="btn btn-danger btn-xs" name="deleteBtn">
 													<i class="fa fa-btn fa-trash"></i> Remove
 												</button>
@@ -66,7 +66,7 @@
 				</div>
 			</div>
 		</div>
-
+		
 	</div>
 @stop
 
