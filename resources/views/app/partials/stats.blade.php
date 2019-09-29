@@ -9,7 +9,7 @@
     </div>
 
     <div class="col-md-6">
-        @component('components.info-box', ['color' => 'bg-red', 'icon' => 'fa fa-users'])
+        @component('components.info-box', ['color' => 'bg-red', 'icon' => 'fa fa-building'])
             Sites
             @slot('number')
                 {{ $sites }}
@@ -18,7 +18,7 @@
     </div>
 
     <div class="col-md-6">
-        @component('components.info-box', ['color' => 'bg-red', 'icon' => 'fa fa-users'])
+        @component('components.info-box', ['color' => 'bg-red', 'icon' => 'fa fa-book'])
             Projects
             @slot('number')
                 {{ $projects }}

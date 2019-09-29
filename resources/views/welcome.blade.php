@@ -7,7 +7,9 @@
         <div class="no-margin bg-{{ $color ?? 'yellow'}}  intro-header">
             <div class="container-fluid">
                 <div class="col-sm-12 text-center">
-                    <dainsys-logo default-animation="shake" logo="{{ asset('images/logo.png') }}" :random-animation="true"></dainsys-logo>
+                    <div style="min-height: 185px;">
+                        <dainsys-logo default-animation="shake" logo="{{ asset('images/logo.png') }}" :random-animation="true"></dainsys-logo>
+                    </div>
 
                     <div class="row">
                         <div class="col-lg-10 col-lg-offset-1">
