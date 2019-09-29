@@ -6,7 +6,6 @@
 @if (!$user)
 
   <li><a href="{{ url('login') }}"><i class="fa fa-user"></i> Login</a></li>
-  <li><a href="{{ url('register') }}"><i class="fa fa-user"></i> Register</a></li>
 
 @else
 <!-- Messages: style can be found in dropdown.less-->
