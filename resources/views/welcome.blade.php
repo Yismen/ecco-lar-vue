@@ -1,11 +1,10 @@
 @inject('layout', 'App\Layout')
-@extends('layouts.'.$layout->app(), ['page_header'=>'Welcome', 'page_description'=>'Welcome page!', 'hide_content_header'=>false])
+@extends('layouts.'.$layout->site(), ['page_header'=>'Welcome', 'page_description'=>'Welcome page!', 'hide_content_header'=>false])
 
 @section('content')
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <div class="">
-
-        <div class="no-margin bg-{{ $color ?? 'yellow'}}  intro-header" style="font-family: 'Roboto', sans-serif">
+        <div class="no-margin bg-{{ $color ?? 'yellow'}}  intro-header">
             <div class="container-fluid">
                 <div class="col-sm-12 text-center">
                     <dainsys-logo default-animation="shake" logo="{{ asset('images/logo.png') }}" :random-animation="true"></dainsys-logo>
@@ -13,7 +12,7 @@
                     <div class="row">
                         <div class="col-lg-10 col-lg-offset-1">
                             <h1 class="my-main-header" style="font-weight: bold; font-size: 4.5rem; text-transform: uppercase;">
-                                Welcome to {{ $app_name }}{{ isset($user) && $user->name ? ', ' . $user->name : '' }}
+                                Welcome to {{ $app_name }}
                             </h1>
                         </div>
                     </div>
@@ -25,12 +24,9 @@
                             <p style="font-size: 2rem">Dainsys (Data Integration System) is an app created to provide you with valuable, timely and on point information to add value to your job.</p>
                         </div>
                     </div>
-                    @if ($user)
-                    @else
-                        <a href="/login" class="btn btn-default btn-lg">
-                             <i class="fa fa-user"></i> Get Started!
-                        </a>
-                    @endif
+                    <a href="/admin" class="btn btn-default btn-lg">
+                        <i class="fa fa-user"></i> Get Started!
+                    </a>
                 </div>
             </div>
         </div>
@@ -90,16 +86,13 @@
         <div class="secondary-header no-margin text-center">
             <div class="container-fluid">
                 <h1 class="">Roles Based Access</h1>
-                @if ($user && $user->roles )
-                    <h3 class="">You have the following roles assigned to you. </h3>
-                    @foreach ($user->roles as $role)
-                        <span class="label label-success">{{ personName($role->name) }}</span>
-                    @endforeach
-                    <p>Access their end points by using the left side menu by clicking on the <i class="fa fa-bars"></i> sign at the top.</p>
-                @else
-                    <p>Routes are limited by roles and permissions. Please Log In to gain access. </p>
-                @endif
+                <p>Routes are limited by roles and permissions. Please Log In to gain access. </p>
+                <a href="/admin" class="btn btn-primary">
+                    <i class="fa fa-sing-in"></i> Sign In
+                </a>
+                <p>Or @include('layouts.partials.links.webmaster'), System Administrator</p>
             </div>
         </div>
     </div>
 @endsection
+

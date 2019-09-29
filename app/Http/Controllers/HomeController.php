@@ -9,13 +9,18 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {        
+    public function admin()
+    {
         $user = auth()->user();
         if ($user && !$user->profile) {
             return redirect()->route('admin.profiles.create');
         }
 
+        return view('app');
+    }
+
+    public function welcome()
+    {
         return view('welcome');
     }
 }

@@ -2,10 +2,14 @@
 
 namespace App\Http\ViewComposers;
 
-use App\Role;
+use App\Site;
 use App\User;
+use App\Profile;
+use App\Project;
+use App\Employee;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
+use App\Repositories\HumanResources\Birthdays\BirthdaysToday;
 
 class AppComposer
 {
@@ -25,14 +29,24 @@ class AppComposer
             'client_name' => ucwords(config('dainsys.client_name', 'Dainsys\' Client')),
             'client_name_mini' => strtoupper(config('dainsys.client_name_mini', 'DAINSYS')),
             'settings' => $this->settings(),
-            'color' => $this->color()
+            'color' => $this->color(),
+            'users_count' => User::count(),
+            'employees_count' => Employee::actives()->count(),
+            'profiles' => Profile::latest()->take(6)->get(),
+            'sites' => Site::whereHas('employees', function ($query) {
+                return $query->actives();
+            })->count(),
+            'projects' => Project::whereHas('employees', function ($query) {
+                return $query->actives();
+            })->count(),
+            'birthdays' => (new BirthdaysToday())->list(),
         ]);
     }
 
     private function user()
     {
         if (Auth::check()) {
-            return \Cache::rememberForEver('user-' . Auth::user()->id, function () {
+            return \Cache::rememberForEver('user-'.Auth::user()->id, function () {
                 return Auth::user()
                     ->load([
                         'settings',
@@ -41,7 +55,7 @@ class AppComposer
                                 ->with(['menus' => function ($query) {
                                     return $query->orderBy('display_name');
                                 }]);
-                        }
+                        },
                     ]);
             });
         }

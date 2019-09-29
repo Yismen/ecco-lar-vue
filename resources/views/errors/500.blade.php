@@ -15,7 +15,7 @@
 
                   <p>
                     We will work on fixing that right away.
-                    Meanwhile, you may <a href="/">return to home page</a> or notify the administrator about it.
+                    Meanwhile, you may <a href="/admin">return to home page</a> or notify the administrator about it.
                   </p>
                 </div>
                 <!-- /.error-content -->

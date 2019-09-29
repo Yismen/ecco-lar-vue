@@ -10,7 +10,7 @@ class ComposerserviceProvider extends ServiceProvider
 {
     public function boot()
     {
-        view()->composer(['layouts.app', 'welcome'], AppComposer::class);
+        view()->composer(['layouts.app', 'app', 'welcome'], AppComposer::class);
         view()->composer(['human_resources.reports.dgt3', 'human_resources.reports.dgt4'], DgtComposer::class);
     }
 

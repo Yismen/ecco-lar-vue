@@ -45,9 +45,8 @@
     /* Create the parallax scrolling effect */
 }
 .vertical-center {
-  display: inline-block;
-  vertical-align: middle;
-  line-height: normal;
+  display: flex;
+  align-items: center;
 }
 .main-spinner {
     /*background-color: rgba(0, 0, 0, .2);*/
@@ -100,14 +99,17 @@
  * Headers
  */
  .intro-header {
-    padding-top: 13.5rem;
-    padding-bottom: 13.5rem;
-    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*text-align: center;*/
     color: #f8f8f8;
     background-image: url(/images/main-header.jpg);
-    background-position: center;
+    background-position: 50%;
     background-repeat: no-repeat;
     background-size: cover;
+    height: 100vh;
 }
  .secondary-header {
     padding-top: 7rem;

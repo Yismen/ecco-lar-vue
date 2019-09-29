@@ -10,13 +10,15 @@
         <!-- Sidebar user panel (optional) -->
         @if($user)
 
-            <div class="user-panel">
-                <div class="pull-left image">
+            <div class="user-panel" style="display: flex; align-items: center; flex-direction: row;">
+                <div class="image">
                     @include('layouts.partials.user-photo', ['user'=>$user, 'class_image_class'=>'user-image'])
                 </div>
-                <div class="pull-left info">
+                <div class="info">
                     <p>
-                        {{ $user->profile->name ?? $user->name }}
+                        <a href="/profiles">
+                            {{ $user->profile->name ?? $user->name }}
+                        </a>
                     </p>
                     <!-- Status -->
                     <!-- <a href="#"><i class="fa fa-circle text-success"></i> Status</a> -->
