@@ -16,14 +16,14 @@
     </h1>
 
     <div class="row">
-        <div class="col-sm-9">
+        <div class="col-md-9">
             @include('app.partials.stats')
 
             @include('app.partials.birthdays')
 
             @include('app.partials.latest-members')
         </div>
-        <div class="col-sm-3">
+        <div class="col-md-3">
             @include('app.partials.your-apps')
         </div>
     </div>
