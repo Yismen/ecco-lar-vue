@@ -3,7 +3,9 @@
     <!-- Logo -->
     <a href="{{ url('/admin') }}" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><b>{{ $client_name_mini }}</b></span>
+        <span class="logo-mini" style="margin-top: 3px;">
+            <img src="{{ asset('images/logo.png') }}" class="img-responsive" alt="Image">
+        </span>
         <!-- logo for regular state and mobile devices -->
         <span class="logo-lg"><b>{{ $client_name_mini }}</b></span>
     </a>
