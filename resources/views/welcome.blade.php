@@ -11,22 +11,19 @@
                         <dainsys-logo default-animation="shake" logo="{{ asset('images/logo.png') }}" :random-animation="true"></dainsys-logo>
                     </div>
 
-                    <div class="row">
-                        <div class="col-lg-10 col-lg-offset-1">
-                            <h1 class="my-main-header" style="font-weight: bold; font-size: 4.5rem; text-transform: uppercase;">
-                                Welcome to {{ $app_name }}
-                            </h1>
+                    <h1 class="my-main-header" >
+                        {{ $app_name }}
+                    </h1>
+
+
+                    <hr class="divider" style="max-width: 5.25rem; border-width: .8rem; border-color: #fff;">
+
+                    <div class="row header-description">
+                        <div class="col-sm-8 col-sm-offset-2">
+                            Created to provide you with valuable, timely and on point information to aggregate value to your job.
                         </div>
                     </div>
-
-                    <hr class="divider" style="max-width: 3.25rem; border-width: .4rem; border-color: #fff;">
-
-                    <div class="row">
-                        <div class="col-lg-8 col-lg-offset-2">
-                            <p style="font-size: 2rem">Dainsys (Data Integration System) is an app created to provide you with valuable, timely and on point information to add value to your job.</p>
-                        </div>
-                    </div>
-                    <a href="/admin" class="btn btn-default btn-lg">
+                    <a href="/admin" class="btn btn-default btn-lg call-to-action">
                         <i class="fa fa-user"></i> Get Started!
                     </a>
                 </div>

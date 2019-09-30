@@ -21,6 +21,45 @@
             <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
             <![endif]-->
     </head>
+
+    <style>
+        .my-main-header {
+            animation: from-left 1s 1 ease-in-out;
+            font-weight: bold;
+            font-size: 6rem;
+            font-stretch: extra-expanded;
+            text-shadow: -2px 1px 6px #4a4747;
+            text-transform: uppercase;
+        }
+        .header-description {
+            animation: from-bottom 1s 1 ease-in-out;
+            font-size: 2rem;
+            letter-spacing: .2rem;
+        }
+        .call-to-action {
+            margin-top: 2rem;
+            animation: from-right 1s 1 ease-in-out;
+        }
+        @keyframes from-left {
+            from{
+                transform: translateX(-50px);
+                opacity: 0;
+            }
+        }
+        @keyframes from-bottom {
+            from{
+                transform: translateX(-5px);
+                transform: translateY(40px);
+                opacity: 0;
+            }
+        }
+        @keyframes from-right {
+            from{
+                transform: translateX(50px);
+                opacity: 0;
+            }
+        }
+    </style>
     <!--
         BODY TAG OPTIONS:
         =================
