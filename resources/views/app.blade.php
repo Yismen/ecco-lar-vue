@@ -1,4 +1,4 @@
-@extends('layouts.app', ['page_header'=>'Welcome', 'page_description'=>'Welcome page!', 'hide_content_header'=>false])
+@extends('layouts.app', ['page_header'=>'App Home', 'page_description'=>'Home App page!', 'hide_content_header'=>false])
 @section('content')
 <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 
