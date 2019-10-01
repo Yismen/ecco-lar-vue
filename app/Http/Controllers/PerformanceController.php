@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Performance;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
+use App\Repositories\PerformanceRepository;
+use App\Http\Requests\Performance\CraetePerformance;
+use App\Http\Requests\Performance\UpdatePerformance;
 
 class PerformanceController extends Controller
 {
@@ -26,18 +29,13 @@ class PerformanceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(PerformanceRepository $repo)
     {
         if (!request()->ajax()) {
             return view('performances.index');
         }
 
-        $performances = Performance::with(
-            ['campaign.project', 'supervisor', 'employee' => function ($query) {
-                return $query->with('supervisor', 'termination');
-            }]);
-
-        return DataTables::of($performances)
+        return DataTables::of($repo->datatables())
             ->addColumn('dow', function ($query) {
                 return route('admin.performances.show', $query->id);
             })
@@ -47,21 +45,9 @@ class PerformanceController extends Controller
             ->toJson(true);
     }
 
-    public function create(Performance $performance)
+    public function create(PerformanceRepository $repo, Performance $performance)
     {
-        $recents = Performance::orderBy('updated_at', 'desc')
-            ->with('employee.termination', 'campaign.project')
-            ->whereHas(
-                'campaign', function ($query) {
-                    return $query->with('project')
-                        ->where('name', 'like', '%downtime%')
-                        ->orWhereHas('project', function ($query) {
-                            return $query->where('name', 'like', '%downtime%');
-                        });
-                }
-            )
-            ->take(20)
-            ->get();
+        $recents = $repo->recents();
 
         return view('performances.create', compact('performance', 'recents'));
     }
@@ -73,24 +59,14 @@ class PerformanceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CraetePerformance $request, Performance $performance)
     {
-        // It is like Create downtimes
-        $this->validate($request, [
-            'date' => 'required|date|',
-            'employee_id' => 'required|exists:employees,id',
-            'campaign_id' => 'required|exists:campaigns,id',
-            'login_time' => 'required|numeric|min:0|max:14',
-            'downtime_reason_id' => 'required|exists:downtime_reasons,id',
-            'reported_by' => 'required|exists:supervisors,name',
-        ]);
-
         if ($exists = $this->exists($request)) {
             return redirect()->route('admin.performances.edit', $exists->id)
                 ->withWarning('This data you tried to create exists already. You have been redirected to the edit page.');
         }
 
-        $performance = (new Performance())->createAsDowntime($request);
+        $performance = $performance->createAsDowntime($request);
 
         return redirect()->route('admin.performances.create')
             ->withSuccess('Data Created! for '.$performance->name);
@@ -117,8 +93,6 @@ class PerformanceController extends Controller
      */
     public function edit(Performance $performance)
     {
-        // return $performance;
-
         return view('performances.edit', compact('performance'));
     }
 
@@ -130,17 +104,8 @@ class PerformanceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Performance $performance)
+    public function update(UpdatePerformance $request, Performance $performance)
     {
-        $this->validate($request, [
-          'employee_id' => 'required|exists:employees,id',
-          'supervisor_id' => 'required|exists:supervisors,id',
-          'login_time' => 'required|numeric|min:0|max:14',
-          'production_time' => 'required|numeric|min:0|max:14',
-          'transactions' => 'required|numeric',
-          'revenue' => 'required|numeric',
-        ]);
-
         $performance->updateAsDowntime($request);
 
         return redirect()->back()
