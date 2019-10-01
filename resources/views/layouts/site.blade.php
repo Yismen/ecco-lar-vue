@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html style="height: auto; min-height: 100%;">
+<html>
 
     <head>
         <meta charset="utf-8">
@@ -10,6 +10,7 @@
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <title>Ecco | {{ $page_header ?? 'Admin Header' }}</title>
         <link rel="stylesheet" type="text/css" href="{{ mix('css/app.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ mix('css/site.css') }}">
         <!-- Site Favicon -->
         <link rel="shortcut icon" href="{{ asset('images/logo.png') }}" type="image/x-icon">
 
@@ -21,45 +22,6 @@
             <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
             <![endif]-->
     </head>
-
-    <style>
-        .my-main-header {
-            animation: from-left 1s 1 ease-in-out;
-            font-weight: bold;
-            font-size: 6rem;
-            font-stretch: extra-expanded;
-            text-shadow: -2px 1px 6px #4a4747;
-            text-transform: uppercase;
-        }
-        .header-description {
-            animation: from-bottom 1s 1 ease-in-out;
-            font-size: 2rem;
-            letter-spacing: .2rem;
-        }
-        .call-to-action {
-            margin-top: 2rem;
-            animation: from-right 1s 1 ease-in-out;
-        }
-        @keyframes from-left {
-            from{
-                transform: translateX(-50px);
-                opacity: 0;
-            }
-        }
-        @keyframes from-bottom {
-            from{
-                transform: translateX(-5px);
-                transform: translateY(40px);
-                opacity: 0;
-            }
-        }
-        @keyframes from-right {
-            from{
-                transform: translateX(50px);
-                opacity: 0;
-            }
-        }
-    </style>
     <!--
         BODY TAG OPTIONS:
         =================
@@ -81,12 +43,8 @@
         |*********************************************************|
         -->
 
-    <body
-        style="height: auto; min-height: 100%;"
-        class="sidebar-collapse
-        "
-    >
-        <div class="wrapper" style="height: auto;" id="app">
+    <body class="sidebar-collapse">
+        <div class="wrapper" id="app">
             <!-- Main Header -->
             {{-- @inject('user', 'App\Layout') --}}
             {{-- @include('layouts.partials.main-header') --}}
@@ -96,7 +54,7 @@
             <!-- Content Wrapper. Contains page content -->
 
             <!-- Content Wrapper. Contains page content -->
-            <div class="content-wrapper" style="min-height: 960px;">
+            <div class="content-wrapper">
                 {{-- @include('layouts.partials.session-flash-messages') --}}
                 <div class="hidden-xs">
                     <back-to-top></back-to-top>
@@ -110,7 +68,7 @@
                      -->
 
                 <!-- Main content -->
-                <section class="content" style="padding: 0">
+                <section class="content">
                     @yield('content')
                 </section>
                 <!-- /.content -->
