@@ -3,6 +3,11 @@
   * Variable $user is set at App\Providers\ViewsComposerServiceProvider.
 ===============================================================
 -->
+<li>
+  <a href="/" title="Home Page">
+      <i class="fa fa-home"></i>
+  </a>
+</li>
 @if (!$user)
 
   <li><a href="{{ url('login') }}"><i class="fa fa-user"></i> Login</a></li>
