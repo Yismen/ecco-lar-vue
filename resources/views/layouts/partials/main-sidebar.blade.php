@@ -16,7 +16,7 @@
                 </div>
                 <div class="info">
                     <p>
-                        <a href="/profiles">
+                        <a href="{{ route('admin.profiles.index') }}">
                             {{ $user->profile->name ?? $user->name }}
                         </a>
                     </p>
