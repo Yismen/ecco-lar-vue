@@ -18,6 +18,26 @@ body {
     text-shadow: -2px 1px 6px #4a4747;
     text-transform: uppercase;
 }
+
+ .intro-header {
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*text-align: center;*/
+    color: #f8f8f8;
+    background-image: url(/images/main-header.jpg);
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+    padding: 3rem;
+}
+ .secondary-header {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
+    text-align: center;
+}
 .header-description {
     animation: from-bottom 1s 1 ease-in-out;
     font-size: 2rem;
