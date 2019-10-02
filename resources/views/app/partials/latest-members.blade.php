@@ -5,7 +5,7 @@
                 <h4 class="no-margin">Latest Members</h4>
             </div>
 
-            <div class="box-body" style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+            <div class="box-body" style="display: flex; flex-wrap: wrap; justify-content: flex-start;">
                 @foreach ($profiles as $profile)
                     <div class="col-sm-4">
                         <img
