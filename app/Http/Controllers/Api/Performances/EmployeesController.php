@@ -26,7 +26,7 @@ class EmployeesController extends Controller
     {
         $daysago = $request->daysago ?? 90;
 
-        $schedules = Schedule::with('employee.supervisor')
+        $schedules = Schedule::with(['employee.supervisor', 'site'])
             ->orderBy('employee_id')
             ->orderBy('date')
             ->whereDate('date', '>=', Carbon::now()->subDays((int) $daysago))

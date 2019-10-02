@@ -23,13 +23,15 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('nationalities', 'NationalitiesController')->only('store');
     Route::resource('payment_frequencies', 'PaymentFrequenciesController');
 
-    Route::get('performances/performance_data/last/{many}/months', 'Api\Performances\PerformancesController@data');
+    Route::get('performances/campaigns', 'Api\Performances\CampaignsController@list');
     Route::get('performances/downtimes', 'Api\Performances\PerformancesController@downtimes');
     Route::get('performances/downtime_reasons', 'Api\Performances\DowntimesController@reasons');
     Route::get('performances/employees', 'Api\Performances\DowntimesController@employees');
-    Route::get('performances/campaigns', 'Api\Performances\CampaignsController@list');
     Route::get('performances/login_names', 'Api\Performances\EmployeesController@loginNames');
+    Route::get('performances/performance_data/last/{many}/months', 'Api\Performances\PerformancesController@data');
+    Route::get('performances/projects', 'Api\Performances\ProjectsController@list');
     Route::get('performances/schedules', 'Api\Performances\EmployeesController@schedules');
+    Route::get('performances/sites', 'Api\Performances\SitesController@list');
     Route::get('performances/supervisors', 'Api\Performances\SupervisorsController@list');
     Route::get('performances/supervisors/actives', 'Api\Performances\SupervisorsController@actives');
 
