@@ -26,10 +26,11 @@ body {
 .call-to-action {
     margin-top: 2rem;
     animation: from-right 1s 1 ease-in-out;
-    background-color: transparent;
-    color: white;
+    // background-color: transparent;
+    // color: white;
+    font-weight: 800;
     text-transform: uppercase;
-    text-shadow: -1.5px 1.5px 3px #030303;
+    // text-shadow: -1px 1px 3px #030303;
     box-shadow: -1.5px 1.5px 3px #030303;
 }
 @keyframes from-left {
