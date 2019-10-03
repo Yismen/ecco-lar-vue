@@ -13,7 +13,7 @@
         <th>Site</th>
         <th>Tenure</th>
         <th>Termination Type</th>
-        <th>Termination Reason</th>
+        {{-- <th>Termination Reason</th> --}}
     </thead>
 
     <tbody>
@@ -25,13 +25,13 @@
                 <td>{{ optional($termination->employee->site)->name }}</td>
                 <td>{{ $termination->termination_date->diffForHumans($termination->employee->hire_date) }}</td>
                 <td>{{ optional($termination->terminationType)->name }}</td>
-                <td>
+                {{-- <td>
                     @if (filled($termination->comments))
                         {{ ucfirst(trim($termination->comments)) }}
                     @else
                         {{ optional($termination->terminationReason)->reason }}
                     @endif
-                </td>
+                </td> --}}
             </tr>
         @endforeach
     </tbody>
@@ -46,6 +46,13 @@
 }
 
 
+.content-cell{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
 .footer {
     width: 95% !important;
     -premailer-width: 95% !important;
@@ -53,5 +60,7 @@
 
 .dainsys-table tbody tr td {
     border-top: solid 1px #ccc !important;
+    border-right: solid 1px #ccc !important;
+    margin: 0 !important;
 }
 </style>

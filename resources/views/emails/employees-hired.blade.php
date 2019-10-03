@@ -43,6 +43,13 @@
 }
 
 
+.content-cell{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
 .footer {
     width: 95% !important;
     -premailer-width: 95% !important;
@@ -50,6 +57,8 @@
 
 .dainsys-table tbody tr td {
     border-top: solid 1px #ccc !important;
+    border-right: solid 1px #ccc !important;
+    margin: 0 !important;
 }
 </style>
 
