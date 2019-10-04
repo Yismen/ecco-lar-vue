@@ -134,4 +134,9 @@ trait EmployeeRelationships
     {
         return $this->hasMany('App\PayrollIncentive');
     }
+
+    public function vip()
+    {
+        return $this->hasOne('App\Vip');
+    }
 }

@@ -1,9 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateShiftsTable extends Migration
+class CreateVipsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +13,13 @@ class CreateShiftsTable extends Migration
      */
     public function up()
     {
-        Schema::create('shifts', function (Blueprint $table) {
+        Schema::create('vips', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 150);
-            $table->time('start')->nullable();
-            $table->time('end')->nullable();
+            $table->integer('employee_id')->unsigned();
+            $table->date('since');
             $table->timestamps();
+
+            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
         });
     }
 
@@ -28,6 +30,6 @@ class CreateShiftsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('shifts');
+        Schema::dropIfExists('vips');
     }
 }

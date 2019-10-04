@@ -60,6 +60,42 @@ class Employee extends Model
     }
 
     /**
+     * sort the query in ascending order
+     *
+     * @param QueryBuilder $query
+     * @return $query
+     */
+    public function scopeSorted($query)
+    {
+        return $query->orderBy('first_name')
+            ->orderBy('second_first_name')
+            ->orderBy('last_name')
+            ->orderBy('second_last_name');
+    }
+
+    /**
+     * Limit the query to the Vips only     
+     *
+     * @param QueryBuilder $query
+     * @return $query
+     */
+    public function scopeVips($query)
+    {
+        return $query->with('vip')->has('vip');
+    }
+
+    /**
+     * Limit the query to those not assigned as vip
+     *
+     * @param QueryBuilder $query
+     * @return $query
+     */
+    public function scopeNoVips($query)
+    {
+        return $query->with('vip')->has('vip', false);
+    }
+
+    /**
      * Limit the query to employees not associated to a termination.
      *
      * @param QueryBuilder $query QueryBuilder Instance
@@ -88,7 +124,8 @@ class Employee extends Model
 
         return $query->actives()
             ->orWhereHas(
-                'termination', function ($query) use ($date) {
+                'termination',
+                function ($query) use ($date) {
                     return $query->where('termination_date', '>=', $date);
                 }
             );
@@ -205,7 +242,7 @@ class Employee extends Model
             'termination_type_id' => $carbon->now(),
             'termination_reason_id' => $carbon->now(),
             'can_be_rehired' => $carbon->now(),
-            ]);
+        ]);
     }
 
     /**
