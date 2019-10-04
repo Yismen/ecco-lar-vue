@@ -28,6 +28,6 @@ class CreateShiftsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('shifts');
+        Schema::dropIfExists('shifts');
     }
 }

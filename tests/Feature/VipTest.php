@@ -11,7 +11,7 @@ class VipTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
-    /** test */
+    /** @test */
     public function it_requries_authentication()
     {
         $this->withExceptionHandling();
@@ -52,7 +52,8 @@ class VipTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testAuthenticatedUsersWithViewVipsPermissionCanViewVips()
+    /** @test */
+    public function authorized_users_can_view_vip_resource()
     {
         $this->withExceptionHandling();
         $user = $this->userWithPermission('view-vips');
@@ -60,21 +61,26 @@ class VipTest extends TestCase
         $this->actingAs($user);
 
         $response = $this->get('/admin/vips');
-        $response->assertSee($vip->name);
+        $response->assertSee('VIP List');
+        $response->assertSee('Add to VIP List');
+        $response->assertSee($vip->employee->full_name);
 
         $response = $this->get(route('admin.vips.show', $vip->id));
-        $response->assertSee($vip->name);
+        $response->assertSee('Details');
+        $response->assertSee($vip->employee->full_name);
     }
 
     /** @test */
-    public function it_allows_users_with_create_vips_permission_to_create_vips()
+    public function authorized_users_can_create_vip_resource()
     {
         $this->withExceptionHandling();
         $user = $this->userWithPermission('create-vips');
+        $vip = create('App\Vip');
         $this->actingAs($user);
 
-        $response = $this->get(route('admin.vips.create'));
-        $response->assertStatus(200);
+        $response = $this->post(route('admin.vips.store', $vip->id));
+        $response->assertRedirect(route('admin.vips.store'));
+        $response->assertSee($vip->employee->full_name);
     }
 
     /** @test */
@@ -103,10 +109,10 @@ class VipTest extends TestCase
         $this->actingAs($this->userWithPermission('create-vips'))
             ->post(route('admin.vips.store', $vip->toArray()));
 
-        $this->assertDatabaseHas('vips', ['name' => $vip->name]);
+        $this->assertDatabaseHas('vips', ['name' => $vip->employee->full_name]);
 
         $this->get(route('admin.vips.index'))
-            ->assertSee($vip->name);
+            ->assertSee($vip->employee->full_name);
     }
 
     /** @test */
@@ -127,7 +133,7 @@ class VipTest extends TestCase
 
         $this->actingAs($this->userWithPermission('edit-vips'))
             ->get(route('admin.vips.edit', $vip->id))
-            ->assertSee('Edit AFP '.$vip->name);
+            ->assertSee('Edit AFP ' . $vip->employee->full_name);
     }
 
     /** @test */
@@ -146,7 +152,7 @@ class VipTest extends TestCase
     {
         $this->withExceptionHandling();
         $vip = create('App\Vip');
-        $vip->name = 'New Name';
+        $vip->employee->full_name = 'New Name';
 
         $this->actingAs($this->userWithPermission('edit-vips'))
             ->put(route('admin.vips.update', $vip->id), $vip->toArray());

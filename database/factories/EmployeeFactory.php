@@ -4,10 +4,10 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Employee::class, function (Faker $faker) {
     return [
-        'first_name' => $faker->name,
-        'second_first_name' => $faker->name,
-        'last_name' => $faker->name,
-        'second_last_name' => $faker->name,
+        'first_name' => $faker->firstName,
+        'second_first_name' => $faker->firstName,
+        'last_name' => $faker->lastName,
+        'second_last_name' => $faker->lastName,
         'hire_date' => $faker->date(),
         'personal_id' => $faker->numberBetween(8091000001, 8099999999),
         'passport' => '',

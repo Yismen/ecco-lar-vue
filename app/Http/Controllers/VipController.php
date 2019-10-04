@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Vip;
+use App\Employee;
 use Illuminate\Http\Request;
+use App\Repositories\Employees\VipRepo;
 
 class VipController extends Controller
 {
@@ -20,17 +22,12 @@ class VipController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(VipRepo $vips)
     {
-    }
+        $vip_list = $vips->vips()->paginate(50);
+        $no_vip_list = $vips->noVips()->get();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
+        return view('vips.index', compact('vip_list', 'no_vip_list'));
     }
 
     /**
@@ -40,19 +37,20 @@ class VipController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Vip $vip)
     {
-    }
+        $this->validate($request, [
+            'employee_id' => 'required|exists:employees,id',
+            'since' => 'required|date',
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param \App\Vip $vip
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Vip $vip)
-    {
+        $employee = Employee::findOrFail($request->get('employee_id'));
+
+        $vip = $vip->create($request->only('employee_id', 'since'));
+
+        return redirect()
+            ->route('admin.vips.index')
+            ->withSuccess("Employee {$employee->full_name} is now a VIP member.");
     }
 
     /**
@@ -64,6 +62,7 @@ class VipController extends Controller
      */
     public function edit(Vip $vip)
     {
+        return view('vips.edit', compact('vip'));
     }
 
     /**
@@ -76,6 +75,15 @@ class VipController extends Controller
      */
     public function update(Request $request, Vip $vip)
     {
+        $this->validate($request, [
+            'since' => 'required|date',
+        ]);
+
+        $vip->update($request->only('since'));
+
+        return redirect()
+            ->route('admin.vips.index')
+            ->withSuccess("VIP {$vip->employee->full_name} Updated.");
     }
 
     /**
@@ -88,6 +96,10 @@ class VipController extends Controller
     public function destroy(Vip $vip)
     {
         $vip->delete();
+
+        if (request()->ajax()) {
+            return $vip;
+        }
 
         return redirect()->route('admin.vips.index')
             ->withDanger('Vip destroyed!');
