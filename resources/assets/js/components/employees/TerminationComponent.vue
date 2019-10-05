@@ -21,6 +21,7 @@
                                 <date-picker input-class="form-control input-sm"
                                     v-model="form.fields.termination_date"
                                     @updated="updateTerminationDate"
+                                    :allowFutureDates="true"
                                 ></date-picker>
                                 <span class="text-danger" v-if="form.error.has('termination_date')">{{ form.error.get('termination_date') }}</span>
                             </div>

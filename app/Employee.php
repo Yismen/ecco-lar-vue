@@ -60,9 +60,10 @@ class Employee extends Model
     }
 
     /**
-     * sort the query in ascending order
+     * sort the query in ascending order.
      *
      * @param QueryBuilder $query
+     *
      * @return $query
      */
     public function scopeSorted($query)
@@ -74,9 +75,10 @@ class Employee extends Model
     }
 
     /**
-     * Limit the query to the Vips only     
+     * Limit the query to the Vips only.
      *
      * @param QueryBuilder $query
+     *
      * @return $query
      */
     public function scopeVips($query)
@@ -85,9 +87,10 @@ class Employee extends Model
     }
 
     /**
-     * Limit the query to those not assigned as vip
+     * Limit the query to those not assigned as vip.
      *
      * @param QueryBuilder $query
+     *
      * @return $query
      */
     public function scopeNoVips($query)
@@ -141,7 +144,12 @@ class Employee extends Model
      */
     public function scopeInactives($query)
     {
-        return $query->with('termination')->has('termination');
+        return $query->with('termination')
+            ->whereHas(
+                'termination', function ($query) {
+                    $query->whereDate('termination_date', '<=', Carbon::today());
+                }
+            );
     }
 
     public function scopeHiredSince($query, $date)
