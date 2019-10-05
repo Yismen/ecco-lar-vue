@@ -2,6 +2,8 @@
 
 namespace App\Http\Traits\Relationships;
 
+use Carbon\Carbon;
+
 trait EmployeeRelationships
 {
     public function address()
@@ -82,7 +84,8 @@ trait EmployeeRelationships
 
     public function termination()
     {
-        return $this->hasOne('App\Termination');
+        return $this->hasOne('App\Termination')
+            ->where('termination_date', '<=', Carbon::today());
     }
 
     /**
