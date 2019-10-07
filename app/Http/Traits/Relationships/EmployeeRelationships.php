@@ -138,6 +138,11 @@ trait EmployeeRelationships
         return $this->hasMany('App\PayrollIncentive');
     }
 
+    public function universal()
+    {
+        return $this->hasOne('App\Universal');
+    }
+
     public function vip()
     {
         return $this->hasOne('App\Vip');

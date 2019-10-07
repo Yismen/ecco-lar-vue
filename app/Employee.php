@@ -81,6 +81,30 @@ class Employee extends Model
      *
      * @return $query
      */
+    public function scopeUniversals($query)
+    {
+        return $query->with('universal')->has('universal');
+    }
+
+    /**
+     * Limit the query to those not assigned as universal.
+     *
+     * @param QueryBuilder $query
+     *
+     * @return $query
+     */
+    public function scopeNoUniversals($query)
+    {
+        return $query->with('universal')->has('universal', false);
+    }
+
+    /**
+     * Limit the query to the Vips only.
+     *
+     * @param QueryBuilder $query
+     *
+     * @return $query
+     */
     public function scopeVips($query)
     {
         return $query->with('vip')->has('vip');
