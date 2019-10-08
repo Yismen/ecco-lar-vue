@@ -73,8 +73,8 @@
                     "order": [[ 0, "desc" ], [ 1, "asc" ]],
                     "columns": [
                         {data: 'date', name: 'date'},
-                        {data: 'name', name: 'name', render: function(data, type, full){
-                            return '<a href="/admin/performances/' + full.id +'" title="Performance Details">' + (data).trim() + '</a>'
+                        {data: 'employee', name: 'employee.first_name', render: function(data, type, full){
+                            return '<a href="/admin/performances/' + full.id +'" title="Performance Details">' + (data.full_name).trim() + '</a>'
                         }},
                         {data: 'supervisor', name: 'supervisor.name', render: function(data, type, full) {
                             return full.supervisor ? full.supervisor.name : null;
