@@ -27,7 +27,7 @@ class PerformanceRepository
                         });
                 }
             )
-            ->take(20)
+            ->take(50)
             ->get();
     }
 

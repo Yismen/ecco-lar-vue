@@ -76,13 +76,13 @@
                         {data: 'name', name: 'name', render: function(data, type, full){
                             return '<a href="/admin/performances/' + full.id +'" title="Performance Details">' + (data).trim() + '</a>'
                         }},
-                        {data: 'supervisor_id', name: 'supervisor_id', orderable: false, searchable: false, render: function(data, type, full) {
+                        {data: 'supervisor', name: 'supervisor.name', render: function(data, type, full) {
                             return full.supervisor ? full.supervisor.name : null;
                         }},
-                        {data: 'campaign_id', name: 'campaign_id', orderable: false, searchable: false, render: function(data, type, full) {
+                        {data: 'campaign', name: 'campaign.project.name', render: function(data, type, full) {
                             return full.campaign && full.campaign.project ? full.campaign.project.name : null;
                         }},
-                        {data: 'campaign', name: 'campaign', orderable: false, searchable: false, render: function(data, type, full) {
+                        {data: 'campaign', name: 'campaign.name', render: function(data, type, full) {
                             return full.campaign ? full.campaign.name : null;
                         }},
                         {data: 'login_time', name: 'login_time', searchable: false},
