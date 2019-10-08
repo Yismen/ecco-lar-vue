@@ -36,12 +36,6 @@ class PerformanceController extends Controller
         }
 
         return DataTables::of($repo->datatables())
-            ->addColumn('dow', function ($query) {
-                return route('admin.performances.show', $query->id);
-            })
-            ->addColumn('edit', function ($query) {
-                return route('admin.performances.edit', $query->id);
-            })
             ->toJson(true);
     }
 

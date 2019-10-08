@@ -70,27 +70,29 @@
                         'type': 'get',
                         "url": "{{ route('admin.performances.index') }}",
                     },
-                    "order": [[ 0, "desc" ], [ 1, "asc" ]],
+                    "order": [[ 0, "desc" ]],
                     "columns": [
-                        {data: 'date', name: 'date'},
-                        {data: 'employee', name: 'employee.first_name', render: function(data, type, full){
-                            return '<a href="/admin/performances/' + full.id +'" title="Performance Details">' + (data.full_name).trim() + '</a>'
+                        {data: 'date', name: 'date', render: function(data, type, full) {
+                            return data
                         }},
-                        {data: 'supervisor', name: 'supervisor.name', orderable: false, render: function(data, type, full) {
+                        {data: 'name', name: 'name', render: function(data, type, full){
+                            return '<a href="/admin/performances/' + full.id +'" title="Performance Details">' + (data).trim() + '</a>'
+                        }},
+                        {data: 'supervisor', name: 'supervisor.name', orderable:false, render: function(data, type, full) {
                             return full.supervisor ? full.supervisor.name : null;
                         }},
-                        {data: 'campaign', name: 'campaign.project.name', orderable: false, render: function(data, type, full) {
+                        {data: 'campaign', name: 'campaign.project.name', orderable:false, render: function(data, type, full) {
                             return full.campaign && full.campaign.project ? full.campaign.project.name : null;
                         }},
-                        {data: 'campaign', name: 'campaign.name', orderable: false, render: function(data, type, full) {
+                        {data: 'campaign', name: 'campaign.name', orderable:false, render: function(data, type, full) {
                             return full.campaign ? full.campaign.name : null;
                         }},
                         {data: 'login_time', name: 'login_time', searchable: false},
                         {data: 'production_time', name: 'production_time', searchable: false},
                         {data: 'transactions', name: 'transactions', searchable: false},
                         {data: 'revenue', name: 'revenue', searchable: false},
-                        {data: 'edit', name: 'edit', searchable: "false", orderable: false, render: function(data, type, full) {
-                            return '<a href="'+data+'"><i class="fa fa-pencil"></i> Edit</a>'
+                        {data: 'date', name: 'edit', searchable: "false", orderable: false, render: function(data, type, full) {
+                            return '<a href="/admin/performances/'+full.id+'/edit"><i class="fa fa-pencil"></i> Edit</a>'
                         }},
                     ],
                     "footerCallback": function(row, data, start, end, display) {

@@ -117,7 +117,7 @@
                     {data: 'second_last_name', name: 'second_last_name', 'visible': false},
                     {data: 'hire_date', name: 'hire_date'},
                     {data: 'status', name: 'status', orderable: false, searchable: false},
-                    {data: 'position', name: 'position.name', render: function(data, type, full){
+                    {data: 'position', name: 'position.name', orderable:false, render: function(data, type, full){
                         let position = full.position ? full.position.name : '';
                         let project = full.project ? ', At ' + full.project.name : '';
                         let salary = full.position ? ', $' + full.position.salary : '';
