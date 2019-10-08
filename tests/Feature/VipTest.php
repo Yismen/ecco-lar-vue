@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use Carbon\Carbon;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -17,8 +18,6 @@ class VipTest extends TestCase
         $this->withExceptionHandling();
         $vip = create('App\Vip');
         $this->get(route('admin.vips.index'))->assertRedirect('/login');
-        $this->get(route('admin.vips.show', $vip->id))->assertRedirect('/login');
-        $this->get(route('admin.vips.create'))->assertRedirect('/login');
         $this->post(route('admin.vips.store', $vip->toArray()))->assertRedirect('/login');
         $this->get(route('admin.vips.edit', $vip->id))->assertRedirect('/login');
         $this->put(route('admin.vips.update', $vip->id))->assertRedirect('/login');
@@ -35,16 +34,12 @@ class VipTest extends TestCase
         $response = $this->get('/admin/vips');
         $response->assertStatus(403);
 
-        $response = $this->get("/admin/vips/{$vip->id}");
-        $response->assertStatus(403);
-
-        $response = $this->get(route('admin.vips.create'));
-        $response->assertStatus(403);
         $response = $this->post(route('admin.vips.store'));
         $response->assertStatus(403);
 
         $response = $this->get(route('admin.vips.edit', $vip->id));
         $response->assertStatus(403);
+
         $response = $this->put(route('admin.vips.update', $vip->id));
         $response->assertStatus(403);
 
@@ -58,29 +53,38 @@ class VipTest extends TestCase
         $this->withExceptionHandling();
         $user = $this->userWithPermission('view-vips');
         $vip = create('App\Vip');
+        $employee = create('App\Employee');
         $this->actingAs($user);
+
+        $vip->employee()->associate($employee);
+        $vip->save();
 
         $response = $this->get('/admin/vips');
         $response->assertSee('VIP List');
         $response->assertSee('Add to VIP List');
-        $response->assertSee($vip->employee->full_name);
-
-        $response = $this->get(route('admin.vips.show', $vip->id));
-        $response->assertSee('Details');
         $response->assertSee($vip->employee->full_name);
     }
 
     /** @test */
     public function authorized_users_can_create_vip_resource()
     {
-        $this->withExceptionHandling();
+        // $this->withExceptionHandling();
         $user = $this->userWithPermission('create-vips');
-        $vip = create('App\Vip');
         $this->actingAs($user);
 
-        $response = $this->post(route('admin.vips.store', $vip->id));
-        $response->assertRedirect(route('admin.vips.store'));
-        $response->assertSee($vip->employee->full_name);
+        $vip = create('App\Vip');
+        $employee = create('App\Employee');
+
+        $response = $this->post(
+            route(
+                'admin.vips.store', $this->formAttributes(
+                    ['employee_id' => $employee->id, 'since' => Carbon::now()->format('Y-m-d')]
+                )
+            )
+        );
+
+        $response->assertRedirect(route('admin.vips.index'));
+        // $response->assertSee($vip->employee->full_name);
     }
 
     /** @test */
@@ -109,20 +113,20 @@ class VipTest extends TestCase
         $this->actingAs($this->userWithPermission('create-vips'))
             ->post(route('admin.vips.store', $vip->toArray()));
 
-        $this->assertDatabaseHas('vips', ['name' => $vip->employee->full_name]);
+        $this->assertDatabaseHas('vips', ['employee_id' => $vip->employee_id]);
 
         $this->get(route('admin.vips.index'))
             ->assertSee($vip->employee->full_name);
     }
 
     /** @test */
-    public function it_requires_a_name_to_create_a_vip()
+    public function it_requires_a_date_to_create_a_vip()
     {
         $this->withExceptionHandling();
 
         $this->actingAs($this->userWithPermission('create-vips'))
-            ->post(route('admin.vips.store'), $this->formAttributes(['name' => '']))
-            ->assertSessionHasErrors('name');
+            ->post(route('admin.vips.store'), $this->formAttributes(['since' => '']))
+            ->assertSessionHasErrors('since');
     }
 
     /** @test */
@@ -133,18 +137,19 @@ class VipTest extends TestCase
 
         $this->actingAs($this->userWithPermission('edit-vips'))
             ->get(route('admin.vips.edit', $vip->id))
-            ->assertSee('Edit AFP ' . $vip->employee->full_name);
+            ->assertSee('Edit VIP '.$vip->employee->full_name);
     }
 
     /** @test */
-    public function it_requires_a_name_to_update_a_vip()
+    public function test_validations_to_update()
     {
         $this->withExceptionHandling();
+        $user = $this->userWithPermission('edit-vips');
         $vip = create('App\Vip');
 
-        $this->actingAs($this->userWithPermission('edit-vips'))
-            ->put(route('admin.vips.update', $vip->id), $this->formAttributes(['name' => '']))
-            ->assertSessionHasErrors('name');
+        $this->actingAs($user)
+            ->put(route('admin.vips.update', $vip->id), $this->formAttributes(['since' => '']))
+            ->assertSessionHasErrors('since');
     }
 
     /** @test */
@@ -152,14 +157,15 @@ class VipTest extends TestCase
     {
         $this->withExceptionHandling();
         $vip = create('App\Vip');
-        $vip->employee->full_name = 'New Name';
+        $date = Carbon::now();
+        $vip->since = $date;
 
         $this->actingAs($this->userWithPermission('edit-vips'))
             ->put(route('admin.vips.update', $vip->id), $vip->toArray());
 
-        $this->assertDatabaseHas('vips', ['name' => 'New Name']);
+        $this->assertDatabaseHas('vips', ['since' => $date]);
 
         $this->get(route('admin.vips.index'))
-            ->assertSee('New Name');
+            ->assertSee($date->diffForHumans());
     }
 }

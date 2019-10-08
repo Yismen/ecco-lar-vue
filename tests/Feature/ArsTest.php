@@ -167,6 +167,9 @@ class ArsTest extends TestCase
 
         $this->assertDatabaseHas('arss', ['name' => $ars->name]);
 
+        $employee = make('App\Employee');
+        $employee->ars()->associate($ars);
+        $employee->save();
         $this->get(route('admin.arss.index'))
             ->assertSee($ars->name);
     }
@@ -175,10 +178,14 @@ class ArsTest extends TestCase
     public function a_user_can_see_a_form_to_update_a_ars()
     {
         $this->withExceptionHandling();
+        $this->actingAs($this->userWithPermission('edit-arss'));
         $ars = create('App\Ars');
 
-        $this->actingAs($this->userWithPermission('edit-arss'))
-            ->get(route('admin.arss.edit', $ars->id))
+        $employee = create('App\Employee');
+        $employee->ars()->associate($ars);
+        $employee->save();
+
+        $this->get(route('admin.arss.edit', $ars->id))
             ->assertSee('Edit ARS '.$ars->name);
     }
 

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use Carbon\Carbon;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -33,14 +34,12 @@ class UniversalTest extends TestCase
         $response = $this->get('/admin/universals');
         $response->assertStatus(403);
 
-        $response = $this->get("/admin/universals/{$universal->id}");
-        $response->assertStatus(403);
-
         $response = $this->post(route('admin.universals.store'));
         $response->assertStatus(403);
 
         $response = $this->get(route('admin.universals.edit', $universal->id));
         $response->assertStatus(403);
+
         $response = $this->put(route('admin.universals.update', $universal->id));
         $response->assertStatus(403);
 
@@ -56,23 +55,38 @@ class UniversalTest extends TestCase
         $universal = create('App\Universal');
         $this->actingAs($user);
 
+        $employee = create('App\Employee');
+        $universal->employee()->associate($employee);
+        $universal->save();
+
         $response = $this->get('/admin/universals');
         $response->assertSee('Universal List');
-        $response->assertSee('Add to Universal List');
+        $response->assertSee('Add to Universals List');
         $response->assertSee($universal->employee->full_name);
     }
 
     /** @test */
     public function authorized_users_can_create_universal_resource()
     {
-        $this->withExceptionHandling();
+        // $this->withExceptionHandling();
         $user = $this->userWithPermission('create-universals');
-        $universal = create('App\Universal');
         $this->actingAs($user);
 
-        $response = $this->post(route('admin.universals.store', $universal->id));
-        $response->assertRedirect(route('admin.universals.store'));
-        $response->assertSee($universal->employee->full_name);
+        $universal = create('App\Universal');
+
+        $employee = create('App\Employee');
+        $universal->employee()->associate($employee);
+        $universal->save();
+
+        $response = $this->post(
+            route(
+                'admin.universals.store', $this->formAttributes(
+                    ['employee_id' => $employee->id, 'since' => Carbon::now()->format('Y-m-d')]
+                )
+            )
+        );
+
+        $response->assertRedirect(route('admin.universals.index'));
     }
 
     /** @test */
@@ -96,7 +110,11 @@ class UniversalTest extends TestCase
     public function a_user_can_create_a_universal()
     {
         // $this->withExceptionHandling();
-        $universal = make('App\Universal');
+        $universal = create('App\Universal');
+
+        $employee = create('App\Employee');
+        $universal->employee()->associate($employee);
+        $universal->save();
 
         $this->actingAs($this->userWithPermission('create-universals'))
             ->post(route('admin.universals.store', $universal->toArray()));
@@ -123,20 +141,25 @@ class UniversalTest extends TestCase
         $this->withExceptionHandling();
         $universal = create('App\Universal');
 
+        $employee = create('App\Employee');
+        $universal->employee()->associate($employee);
+        $universal->save();
+
         $this->actingAs($this->userWithPermission('edit-universals'))
             ->get(route('admin.universals.edit', $universal->id))
-            ->assertSee('Edit AFP '.$universal->employee->full_name);
+            ->assertSee('Edit Universal '.$universal->employee->full_name);
     }
 
     /** @test */
-    public function it_requires_a_name_to_update_a_universal()
+    public function test_validations_to_update()
     {
         $this->withExceptionHandling();
+        $user = $this->userWithPermission('edit-universals');
         $universal = create('App\Universal');
 
-        $this->actingAs($this->userWithPermission('edit-universals'))
-            ->put(route('admin.universals.update', $universal->id), $this->formAttributes(['name' => '']))
-            ->assertSessionHasErrors('name');
+        $this->actingAs($user)
+            ->put(route('admin.universals.update', $universal->id), $this->formAttributes(['since' => '']))
+            ->assertSessionHasErrors('since');
     }
 
     /** @test */
@@ -144,14 +167,15 @@ class UniversalTest extends TestCase
     {
         $this->withExceptionHandling();
         $universal = create('App\Universal');
-        $universal->employee->full_name = 'New Name';
+        $date = Carbon::now();
+        $universal->since = $date;
 
         $this->actingAs($this->userWithPermission('edit-universals'))
             ->put(route('admin.universals.update', $universal->id), $universal->toArray());
 
-        $this->assertDatabaseHas('universals', ['name' => 'New Name']);
+        $this->assertDatabaseHas('universals', ['since' => $date]);
 
         $this->get(route('admin.universals.index'))
-            ->assertSee('New Name');
+            ->assertSee($date->diffForHumans());
     }
 }
