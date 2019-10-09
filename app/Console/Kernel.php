@@ -30,9 +30,13 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('telescope:prune --hours=48')->dailyAt('12:20');
+
         $schedule->command('dainsys:feed-shifts --hours=7.5 --saturday=1')->dailyAt('14:59');
         $schedule->command('dainsys:feed-schedules --days=15 --since-days-ago=0')->dailyAt('15:10');
-        $schedule->command('dainsys:employees-hired --months=1')->dailyAt('15:59');
-        $schedule->command('dainsys:employees-terminated --months=1')->dailyAt('15:59');
+
+        $schedule->command('dainsys:employees-hired --months=1')->weeklyOn(2, '15:59');
+        $schedule->command('dainsys:employees-hired --months=1')->weeklyOn(5, '15:59');
+        $schedule->command('dainsys:employees-terminated --months=1')->weeklyOn(2, '15:59');
+        $schedule->command('dainsys:employees-terminated --months=1')->weeklyOn(5, '15:59');
     }
 }
