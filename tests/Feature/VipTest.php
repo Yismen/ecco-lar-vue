@@ -60,9 +60,9 @@ class VipTest extends TestCase
         $vip->save();
 
         $response = $this->get('/admin/vips');
-        $response->assertSee('VIP List');
-        $response->assertSee('Add to VIP List');
-        $response->assertSee($vip->employee->full_name);
+        $response->assertSee(e('VIP List'));
+        $response->assertSee(e('Add to VIP List'));
+        $response->assertSee(e($vip->employee->full_name));
     }
 
     /** @test */
@@ -84,7 +84,7 @@ class VipTest extends TestCase
         );
 
         $response->assertRedirect(route('admin.vips.index'));
-        // $response->assertSee($vip->employee->full_name);
+        // $response->assertSee(e($vip->employee->full_name));
     }
 
     /** @test */
@@ -116,7 +116,7 @@ class VipTest extends TestCase
         $this->assertDatabaseHas('vips', ['employee_id' => $vip->employee_id]);
 
         $this->get(route('admin.vips.index'))
-            ->assertSee($vip->employee->full_name);
+            ->assertSee(e($vip->employee->full_name));
     }
 
     /** @test */
@@ -137,7 +137,7 @@ class VipTest extends TestCase
 
         $this->actingAs($this->userWithPermission('edit-vips'))
             ->get(route('admin.vips.edit', $vip->id))
-            ->assertSee('Edit VIP '.$vip->employee->full_name);
+            ->assertSee(e('Edit VIP '.$vip->employee->full_name));
     }
 
     /** @test */
@@ -166,6 +166,6 @@ class VipTest extends TestCase
         $this->assertDatabaseHas('vips', ['since' => $date]);
 
         $this->get(route('admin.vips.index'))
-            ->assertSee($date->diffForHumans());
+            ->assertSee(e($date->diffForHumans()));
     }
 }

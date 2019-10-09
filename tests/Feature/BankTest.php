@@ -48,7 +48,7 @@ class BankTest extends TestCase
         $response = $this->get('/admin/banks');
 
         // assert
-        $response->assertSee($bank->name);
+        $response->assertSee(e($bank->name));
     }
 
     /** @test */
@@ -107,7 +107,7 @@ class BankTest extends TestCase
 
         $this->actingAs($this->userWithPermission('view-banks'))
             ->get(route('admin.banks.index'))
-            ->assertSee($bank->name);
+            ->assertSee(e($bank->name));
     }
 
     /** @test */
@@ -118,7 +118,7 @@ class BankTest extends TestCase
 
         $this->actingAs($this->userWithPermission('edit-banks'))
             ->get(route('admin.banks.edit', $bank->id))
-            ->assertSee('Edit Bank '.$bank->name);
+            ->assertSee(e('Edit Bank '.$bank->name));
     }
 
     /** @test */
@@ -145,6 +145,6 @@ class BankTest extends TestCase
         $this->assertDatabaseHas('banks', ['name' => 'New Name']);
 
         $this->get(route('admin.banks.index'))
-            ->assertSee('New Name');
+            ->assertSee(e('New Name'));
     }
 }

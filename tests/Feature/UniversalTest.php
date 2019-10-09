@@ -60,9 +60,9 @@ class UniversalTest extends TestCase
         $universal->save();
 
         $response = $this->get('/admin/universals');
-        $response->assertSee('Universal List');
-        $response->assertSee('Add to Universals List');
-        $response->assertSee($universal->employee->full_name);
+        $response->assertSee(e('Universal List'));
+        $response->assertSee(e('Add to Universals List'));
+        $response->assertSee(e($universal->employee->full_name));
     }
 
     /** @test */
@@ -122,7 +122,7 @@ class UniversalTest extends TestCase
         $this->assertDatabaseHas('universals', ['employee_id' => $universal->employee_id]);
 
         $this->get(route('admin.universals.index'))
-            ->assertSee($universal->employee->full_name);
+            ->assertSee(e($universal->employee->full_name));
     }
 
     /** @test */
@@ -147,7 +147,7 @@ class UniversalTest extends TestCase
 
         $this->actingAs($this->userWithPermission('edit-universals'))
             ->get(route('admin.universals.edit', $universal->id))
-            ->assertSee('Edit Universal '.$universal->employee->full_name);
+            ->assertSee(e('Edit Universal '.$universal->employee->full_name));
     }
 
     /** @test */
@@ -176,6 +176,6 @@ class UniversalTest extends TestCase
         $this->assertDatabaseHas('universals', ['since' => $date]);
 
         $this->get(route('admin.universals.index'))
-            ->assertSee($date->diffForHumans());
+            ->assertSee(e($date->diffForHumans()));
     }
 }
