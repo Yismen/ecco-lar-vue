@@ -20,11 +20,11 @@
 
                     <div class="row header-description">
                         <div class="col-sm-8 col-sm-offset-2">
-                            Created to provide you with valuable, timely and on point information to aggregate value to your job.
+                            Valuable, timely and on point information to aggregate value to your job.
                         </div>
                     </div>
                     <a href="/admin" class="btn btn-default btn-lg call-to-action">
-                        <i class="fa fa-user"></i> Get Started!
+                        <i class="fa fa-sign-in"></i> Get Started!
                     </a>
                 </div>
             </div>
@@ -32,27 +32,19 @@
 
         <div class="secondary-header no-margin text-center">
             <div class="row">
-                <div class="col-sm-10 col-sm-offset-1">
-                    <div class="col-md-4">
-                        <div class="row">
-                            <animation-scale>
-                                <i class="fa fa-5x fa-users text-primary"></i>
-                            </animation-scale>
-                            <h3>Employees</h3>
-                            <div class="col-xs-6 col-xs-offset-3 col-sm-8 col-sm-offset-2 col-md-10 col-md-offset-1 col-lg-12 col-lg-offset-0">
-                                <p>With {{ $app_name }} performance reports, dashboards, payrolls and invoicing are all one click away.</p>
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-sm-12" style="margin-bottom: 2rem;">
+                    <h1>Data Integration System</h1>
+                </div>
 
+                <div class="col-sm-10 col-sm-offset-1">
                     <div class="col-md-4">
                         <div class="row">
                             <animation-scale>
                                 <i class="fa fa-5x fa-dashboard text-primary"></i>
                             </animation-scale>
-                            <h3>Dashboards</h3>
+                            <h3>Roles Based Access</h3>
                             <div class="col-xs-6 col-xs-offset-3 col-sm-8 col-sm-offset-2 col-md-10 col-md-offset-1 col-lg-12 col-lg-offset-0">
-                                <p>We help create amazing dashboards with {{ $app_name }}. Your business at a glance.</p>
+                                <p>Limit access to sensitive information based on specific roles</p>
                             </div>
                         </div>
                     </div>
@@ -68,6 +60,18 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="col-md-4">
+                        <div class="row">
+                            <animation-scale>
+                                <i class="fa fa-5x fa-dashboard text-primary"></i>
+                            </animation-scale>
+                            <h3>Dashboards</h3>
+                            <div class="col-xs-6 col-xs-offset-3 col-sm-8 col-sm-offset-2 col-md-10 col-md-offset-1 col-lg-12 col-lg-offset-0">
+                                <p>We help create amazing dashboards with {{ $app_name }}. Your business at a glance.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -78,18 +82,17 @@
                 <div class="col-xs-8 col-xs-offset-2">
                     <p>Process documentation? Collect data? Customize reports? Just ask for it. Get in contact with the System Administrator and together create very useful components.</p>
                 </div>
-                </div>
-            </div>
-        </div>
 
-        <div class="secondary-header no-margin text-center">
-            <div class="container-fluid">
-                <h1 class="">Roles Based Access</h1>
-                <p>Routes are limited by roles and permissions. Please Log In to gain access. </p>
-                <a href="/admin" class="btn btn-primary">
-                    <i class="fa fa-sing-in"></i> Sign In
-                </a>
-                <p>Or @include('layouts.partials.links.webmaster'), System Administrator</p>
+                <div class="col-sm-12">
+                    <a href="/admin" class="btn btn-primary btn-lg"
+                        style="background-color: white;
+                        margin-top: 2rem;
+                        color: black;
+                        border: 1px #fefefe solid;"
+                    >
+                        <i class="fa fa-sign-in"></i> Sign In
+                    </a>
+                </div>
             </div>
         </div>
     </div>
