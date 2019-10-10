@@ -123,6 +123,11 @@ trait EmployeeRelationships
         return $this->hasOne('App\SocialSecurity');
     }
 
+    public function overnightHours()
+    {
+        return $this->hasMany('App\OvernightHour');
+    }
+
     public function payrollAdditionals()
     {
         return $this->hasMany('App\PayrollAdditional');
