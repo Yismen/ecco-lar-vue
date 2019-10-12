@@ -29,7 +29,8 @@
             <div class="form-group {{ $errors->has('date') ? 'has-error' : null }}">
                 {!! Form::label('date', 'Date:', ['class'=>'col-xs-4 col-md-12']) !!}
                 <div class="col-xs-8 col-md-12">
-                    <date-picker input-class="form-control input-sm" name="date" format="yyyy-MM-dd"></date-picker>
+                    <date-picker input-class="form-control input-sm" name="date" format="yyyy-MM-dd"
+                        value="{{ old('date') }}"></date-picker>
                     {!! $errors->first('date', '<span class="text-danger">:message</span>') !!}
                 </div>
             </div>
