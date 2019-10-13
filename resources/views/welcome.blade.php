@@ -7,23 +7,19 @@
 <div class="">
     <div class="no-margin bg-{{ $color ?? 'yellow'}}  intro-header">
         <div class="container-fluid">
-            <div class="col-sm-12 text-center">
-                <div style="min-height: 185px;">
-                    <dainsys-logo default-animation="shake" logo="{{ asset('images/logo.png') }}"
-                        :random-animation="true"></dainsys-logo>
+            <div class="col-sm-12 text-center intro-content">
+                <dainsys-logo default-animation="shake" logo="{{ asset('images/logo.png') }}" :random-animation="true">
+                </dainsys-logo>
+
+                <div class="header-title">
+                    {{ $app_name }}
                 </div>
 
-                <h1 class="my-main-header">
-                    {{ $app_name }}
-                </h1>
+                {{-- <div class="divider col-xs-6 col-sm-2"></div> --}}
 
-
-                <hr class="divider" style="max-width: 5.25rem; border-width: .8rem; border-color: #fff;">
-
-                <div class="row header-description">
-                    <div class="col-sm-8 col-sm-offset-2">
-                        Valuable, timely and on point information to aggregate value to your job.
-                    </div>
+                <div class="col-sm-8 col-sm-offset-2 header-description">
+                    Valuable, timely and on point information to
+                    aggregate value to your job.
                 </div>
                 <a href="/admin" class="btn btn-default btn-lg call-to-action">
                     <i class="fa fa-sign-in"></i> Get Started!
