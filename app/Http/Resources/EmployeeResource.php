@@ -21,6 +21,7 @@ class EmployeeResource extends JsonResource
             'full_name' => $this->full_name,
             'supervisor_id' => optional($this->supervisor)->id,
             'site_id' => optional($this->site)->id,
+            'punch' => optional($this->punch)->punch,
         ];
     }
 }
