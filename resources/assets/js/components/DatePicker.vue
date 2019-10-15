@@ -28,12 +28,12 @@ export default {
         allowFutureDates: {type: Boolean, default: false},
         disableSinceManyDaysAgo: {type: Number, default: 0},
         typeable: {type: Boolean, default: true},
-        value: {default: moment().format("Y-M-D")}
+        value: {default: moment().format('YYYY-MM-DD hh:mm:ss')}
     },
 
     data() {
         return {
-            currentDate: moment(this.value).format('Y-M-D'),
+            currentDate: moment(this.value).format('YYYY-MM-DD hh:mm:ss'),
             disabledDates: new Object({
                 from: this.allowFutureDates ? '' : new Date,
                 to: this.disableSinceManyDaysAgo > 0 ? new Date(moment().subtract(this.disableSinceManyDaysAgo, 'days').format()) : null,
