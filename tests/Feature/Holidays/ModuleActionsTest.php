@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Holidays;
 
+use App\Holiday;
 use Carbon\Carbon;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -29,7 +30,7 @@ class ModuleActionsTest extends TestCase
     public function authorized_users_can_create_a_holiday()
     {
         $response = $this->actingAs($this->userWithPermission('create-holidays'));
-        $holiday = raw('App\Holiday');
+        $holiday = make('App\Holiday')->toArray();
 
         $response->post(route('admin.holidays.store'), $holiday)
             ->assertRedirect(route('admin.holidays.index'));
@@ -90,5 +91,36 @@ class ModuleActionsTest extends TestCase
         $this->assertDatabaseMissing('holidays', [
             'id' => $holiday->id
         ]);
+    }
+
+    /** @test */
+    public function it_limit_dates_to_6_months_ago()
+    {
+        $months = 6;
+        $date = Carbon::now()->subMonths($months)->startOfMonth();
+        $this->disableExceptionHandling();
+        $holiday = create('App\Holiday', ['date' => $date]); // create a holiday $months old
+
+        $this->assertDatabaseHas('holidays', ['name' => $holiday->name]);
+
+        $collection = Holiday::sinceManyMonthsAgo($months - 1)->get();
+
+        $this->assertFalse($collection->contains('name', $holiday->name));
+    }
+
+    /** @test */
+    public function it_create_holidays_only_returns_holidays_limited_to_many_months()
+    {
+        $this->disableExceptionHandling(); 
+        $months = 6;
+        $date = Carbon::now()->subMonths($months)->startOfMonth();
+        $holiday = raw('App\Holiday', ['date' => $date]);
+
+        $response = $this->actingAs($this->userWithPermission('create-holidays'));
+        $response->post(route('admin.holidays.store'), $holiday);
+
+        $collection = Holiday::sinceManyMonthsAgo($months - 1)->get();
+
+        $this->assertFalse($collection->contains('name', $holiday['name']));
     }
 }

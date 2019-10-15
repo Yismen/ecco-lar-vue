@@ -38,7 +38,7 @@ production.'])
 	                    'type': 'get',
 	                    "url": "{{ route('admin.holidays.index') }}",
 	                },
-	                "order": [[ 0, "desc" ]],
+	                "order": [[ 0, "asc" ]],
 	                "columns": [
 	                    {data: 'date', name: 'date', render: function(data, type, full) {
                             return moment(data).format('Y-MM-DD')

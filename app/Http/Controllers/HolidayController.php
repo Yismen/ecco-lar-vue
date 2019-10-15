@@ -31,7 +31,7 @@ class HolidayController extends Controller
             return view('holidays.index', compact('employees'));
         }
 
-        return DataTables::of(Holiday::query())
+        return DataTables::of(Holiday::sinceManyMonthsAgo(6))
             ->toJson(true);
     }
 

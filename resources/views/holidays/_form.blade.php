@@ -17,6 +17,8 @@
         {!! Form::label('date', 'Date:', ['class'=>'col-xs-12']) !!}
         <div class="col-xs-12">
             <date-picker input-class="form-control input-sm" name="date" format="yyyy-MM-dd"
+                :allow-future-dates="true"
+                :disable-since-many-days-ago="{{ now()->subMonths(6)->startOfMonth()->diffInDays() }}"
                 value="{{ $holiday->date ?? old('date') }}">
             </date-picker>
             {!! $errors->first('date', '<span class="text-danger">:message</span>') !!}
