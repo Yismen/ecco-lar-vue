@@ -17,8 +17,7 @@
                     {{ $app_name }}
                 </h1>
 
-
-               
+                <hr class="divider" style="max-width: 5.25rem; border-width: .8rem; border-color: #fff;">               
 
                 <div class="row header-description">
                     <div class="col-sm-8 col-sm-offset-2">
