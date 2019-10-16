@@ -28,10 +28,13 @@ class CreatePerformancesTable extends Migration
             $table->integer('calls')->unsigned()->default(0);
             $table->integer('transactions')->unsigned()->default(0);
             $table->double('revenue', 15, 8)->default(0.00);
+            $table->integer('downtime_reason_id')->unsigned()->nullable();
+            $table->string('reported_by', 100)->nullable();
 
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
             $table->foreign('campaign_id')->references('id')->on('campaigns')->onDelete('cascade');
             $table->foreign('supervisor_id')->references('id')->on('supervisors')->onDelete('cascade');
+            $table->foreign('downtime_reason_id')->references('id')->on('downtime_reasons')->onDelete('cascade');
 
             $table->timestamps();
         });
