@@ -21,4 +21,18 @@ class LoginTest extends DuskTestCase
                 ->assertSee('Password');
         });
     }
+
+    /** @test */
+    public function a_user_can_sign_in()
+    {
+        $user = create(User::class);
+
+        $this->browse(function (Browser $browser) use ($user) {
+            $browser->visit('/login')
+                ->type('email', $user->email)
+                ->type('password', 'secret')
+                ->press('Sign In')
+                ->assertPathIs('/admin');
+        });
+    }
 }

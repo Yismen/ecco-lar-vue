@@ -12,15 +12,6 @@ abstract class DuskTestCase extends BaseTestCase
 {
     use CreatesApplication;
 
-
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-        DB::statement('PRAGMA foreign_keys=on;');
-        // $this->disableExceptionHandling();
-    }
-
     /**
      * Prepare for Dusk test execution.
      *
