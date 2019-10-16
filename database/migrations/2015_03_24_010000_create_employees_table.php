@@ -31,8 +31,10 @@ class CreateEmployeesTable extends Migration
             $table->integer('supervisor_id')->unsigned()->nullable()->index();
             $table->integer('gender_id')->unsigned()->index();
             $table->integer('marital_id')->unsigned()->index();
+
             $table->integer('ars_id')->unsigned()->nullable();
             $table->integer('afp_id')->unsigned()->nullable();
+            $table->integer('nationality_id')->unsigned()->nullable();
             $table->boolean('has_kids', 10)->default(0);
             // $table->integer('kids', 10)->default(0);
             $table->string('photo', 800)->nullable();
@@ -45,6 +47,8 @@ class CreateEmployeesTable extends Migration
             $table->foreign('marital_id')->references('id')->on('maritals');
             $table->foreign('ars_id')->references('id')->on('arss');
             $table->foreign('afp_id')->references('id')->on('afps');
+
+            $table->foreign('nationality_id')->references('id')->on('nationalities');
 
             $table->timestamps();
         });
