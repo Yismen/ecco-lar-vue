@@ -21,7 +21,7 @@ class PerformanceImportController extends Controller
         $this->middleware('authorize:view-performances-import', ['only' => ['index', 'show']]);
         $this->middleware('authorize:edit-performances-import', ['only' => ['edit', 'update']]);
         $this->middleware('authorize:create-performances-import', ['only' => ['create', 'store']]);
-        $this->middleware('authorize:destroy-performances-import', ['only' => ['destroy']]);
+        $this->middleware('authorize:destroy-performances-import', ['only' => ['destroy', 'confirmDestroy']]);
     }
 
     /**
@@ -31,6 +31,25 @@ class PerformanceImportController extends Controller
      */
     public function index()
     {
+        if (!request()->ajax()) {
+            return view('performances_import.index');
+        }
+
+        return DataTables::of(
+            Performance::orderBy('date', 'DESC')
+                ->with(['campaign.project'])
+                ->groupBy(['date', 'file_name'])
+        )
+            ->addColumn('destroy', function ($query) {
+                return '<delete-request-button
+                                url="/admin/performances_import/mass_delete?date=' . $query->date . '&file_name=' . $query->file_name . '"
+                                btn-class="btn btn-link no-padding text-red"
+                                redirect-url="/admin/performances_import"
+                            ></delete-request-button>';
+            })
+            ->toJson(true);
+
+
         $performances = Performance::orderBy('date', 'DESC')
             ->orderBy('file_name')
             ->groupBy(['date', 'file_name'])
@@ -49,8 +68,8 @@ class PerformanceImportController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-           'excel_file' => 'required',
-           'excel_file.*' => 'file|mimes:xls,xlsx',
+            'excel_file' => 'required',
+            'excel_file.*' => 'file|mimes:xls,xlsx',
         ]);
 
         return $this->importPerformance($request);
@@ -81,6 +100,14 @@ class PerformanceImportController extends Controller
             ->toJson(true);
     }
 
+    public function confirmDestroy()
+    {
+        $date = request('date');
+        $file_name = request('file_name');
+
+        return view('performances_import.confirm-destroy', compact('date', 'file_name'));
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -90,11 +117,10 @@ class PerformanceImportController extends Controller
      */
     public function destroy()
     {
-        $performances = Performance::where('date', request()->only('date'));
+        $performances = Performance::where('date', request('date'));
 
-        $performances = request()->file_name ?
-            $performances->where('file_name', request()->only('file_name')) :
-            $performances->whereNull('file_name');
+        $performances = request('file_name') && request('file_name') !== 'null' ?
+            $performances->where('file_name', request('file_name')) : $performances->whereNull('file_name');
 
         $performances = $performances->get();
 
