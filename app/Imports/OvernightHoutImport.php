@@ -26,12 +26,13 @@ class OvernightHoutImport implements ToModel, WithHeadingRow, WithValidation, Wi
     public function model(array $row)
     {
         (new OvernightHour())
-            ->removeDuplicated($row['date'], $row['employee_id']);
+            ->removeDuplicated($row['unique_id']);
 
         return new OvernightHour([
             'date' => $row['date'],
             'employee_id' => $row['employee_id'],
-            'hours' => $row['hours']
+            'hours' => $row['hours'],
+            'unique_id' => $row['unique_id']
         ]);
     }
 
@@ -62,9 +63,10 @@ class OvernightHoutImport implements ToModel, WithHeadingRow, WithValidation, Wi
     public function map($row): array
     {
         return [
+            'unique_id' => $row['unique_id'],
             'date' => $this->transformDate($row['date']),
             'employee_id' => $row['employee_id'],
-            'hours' => $row['hours']
+            'hours' => $row['hours'],
         ];
     }
 }
