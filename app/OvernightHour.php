@@ -12,7 +12,24 @@ class OvernightHour extends Model
      */
     protected $dates = ['date'];
 
-    protected $fillable = ['date', 'employee_id', 'hours'];
+    protected $fillable = ['date', 'employee_id', 'hours', 'unique_id'];
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (!$model->unique_id) {
+                $model->unique_id = join('-', [$model->date->format('Y-m-d'), $model->employee_id, 'punch']);
+            }
+        });
+
+        static::updating(function ($model) {
+            if (!$model->unique_id) {
+                $model->unique_id = join('-', [$model->date->format('Y-m-d'), $model->employee_id, 'punch']);
+            }
+        });
+    }
 
     public function employee()
     {
@@ -26,11 +43,11 @@ class OvernightHour extends Model
      * @param integer $employee_id
      * @return void
      */
-    public function removeDuplicated($date, $employee_id)
+    public function removeDuplicated($unique_id)
     {
-        $duplicateds = $this->whereDate('date', $date)
-            ->where('employee_id', $employee_id)
+        $duplicateds = $this->where('unique_id', $unique_id)
             ->get();
+
 
         foreach ($duplicateds as $duplicated) {
             $duplicated->delete();
