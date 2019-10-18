@@ -40,13 +40,6 @@ class PerformanceImportController extends Controller
                 ->with(['campaign.project'])
                 ->groupBy(['date', 'file_name'])
         )
-            ->addColumn('destroy', function ($query) {
-                return '<delete-request-button
-                                url="/admin/performances_import/mass_delete?date=' . $query->date . '&file_name=' . $query->file_name . '"
-                                btn-class="btn btn-link no-padding text-red"
-                                redirect-url="/admin/performances_import"
-                            ></delete-request-button>';
-            })
             ->toJson(true);
 
 

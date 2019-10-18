@@ -28,7 +28,6 @@
                     <div class="box-body">
                         <div class="box-header">
                             <h4>Imported Dates</h4>
-                            <span id="ready"></span>
                         </div>
 
                         <div class="box-body table-responsive">
@@ -55,12 +54,7 @@
 <script>
     (function($){
         $(document).ready(function($) {
-            document.getElementById('ready').innerHTML = `<delete-request-button
-                            url="/admin/performances_import/mass_delete?date=asdfad&
-                            file_name=2015157"
-                            btn-class="btn btn-link no-padding text-red"
-                            redirect-url="/admin/performances_import"
-                            ></delete-request-button>`
+
             let dTable = $('#performances-table').DataTable({
                 "processing": true,
                 "serverSide": true,
