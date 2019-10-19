@@ -4,7 +4,7 @@ namespace App\Http\Requests\Performance;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CraetePerformance extends FormRequest
+class UpdateDowntimeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,7 +23,7 @@ class CraetePerformance extends FormRequest
      */
     public function rules()
     {
-        return [
+        return [            
             'date' => 'required|date|',
             'employee_id' => 'required|exists:employees,id',
             'campaign_id' => 'required|exists:campaigns,id',

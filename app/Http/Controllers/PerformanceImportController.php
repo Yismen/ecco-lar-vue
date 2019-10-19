@@ -49,8 +49,8 @@ class PerformanceImportController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-           'excel_file' => 'required',
-           'excel_file.*' => 'file|mimes:xls,xlsx',
+            'excel_file' => 'required',
+            'excel_file.*' => 'file|mimes:xls,xlsx',
         ]);
 
         return $this->importPerformance($request);
@@ -93,8 +93,7 @@ class PerformanceImportController extends Controller
         $performances = Performance::where('date', request()->only('date'));
 
         $performances = request()->file_name ?
-            $performances->where('file_name', request()->only('file_name')) :
-            $performances->whereNull('file_name');
+            $performances->where('file_name', request()->only('file_name')) : $performances->whereNull('file_name');
 
         $performances = $performances->get();
 
@@ -130,7 +129,7 @@ class PerformanceImportController extends Controller
             return ['message' => 'Data Imported', 'success' => 'Data Imported', 'files' => $this->imported_files];
         }
 
-        return redirect()->route('admin.performances.index')
+        return redirect()->route('admin.performances_import.index')
             ->withSuccess('Data Imported!');
     }
 }

@@ -6,4 +6,8 @@ Route::resource('performances_import', 'PerformanceImportController')->except(['
 // Route::get('performances/by_date/{perf_date}', 'PerformanceController@byDate')->name('performances.by_date');
 // Route::delete('performances/mass_delete', 'PerformanceController@wantsMassDelete')->name('performances.mass_delete');
 
-Route::resource('performances', 'PerformanceController');
+Route::resource('performances', 'PerformanceController')
+    ->except('create', 'store');
+
+Route::resource('downtimes', 'DowntimeController')
+    ->except('show');
