@@ -39,33 +39,6 @@ class PerformanceController extends Controller
             ->toJson(true);
     }
 
-    public function create(PerformanceRepository $repo, Performance $performance)
-    {
-        $recents = $repo->recents();
-
-        return view('performances.create', compact('performance', 'recents'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function store(CraetePerformance $request, Performance $performance)
-    {
-        if ($exists = $this->exists($request)) {
-            return redirect()->route('admin.performances.edit', $exists->id)
-                ->withWarning('This data you tried to create exists already. You have been redirected to the edit page.');
-        }
-
-        $performance = $performance->createAsDowntime($request);
-
-        return redirect()->route('admin.performances.create')
-            ->withSuccess('Data Created! for '.$performance->name);
-    }
-
     /**
      * Display the specified resource.
      *
@@ -100,10 +73,10 @@ class PerformanceController extends Controller
      */
     public function update(UpdatePerformance $request, Performance $performance)
     {
-        $performance->updateAsDowntime($request);
+        $performance->update($request->all());
 
         return redirect()->back()
-            ->withSuccess('Updated! '.$performance->name);
+            ->withSuccess('Updated! ' . $performance->name);
     }
 
     /**
@@ -125,8 +98,8 @@ class PerformanceController extends Controller
         return Performance::whereDate('date', $request->date)
             ->where('employee_id', $request->employee_id)
             ->where('campaign_id', $request->campaign_id)
-            ->orWhere('unique_id', $request->date.'-'.$request->employee_id.'-downtime')
-            ->orWhere('unique_id', $request->date.'-'.$request->campaign_id.'-'.$request->campaign_id)
+            ->orWhere('unique_id', $request->date . '-' . $request->employee_id . '-downtime')
+            ->orWhere('unique_id', $request->date . '-' . $request->campaign_id . '-' . $request->campaign_id)
             ->first();
     }
 }

@@ -24,12 +24,15 @@ class UpdatePerformance extends FormRequest
     public function rules()
     {
         return [
+          'date' => 'required|date',
           'employee_id' => 'required|exists:employees,id',
           'supervisor_id' => 'required|exists:supervisors,id',
           'login_time' => 'required|numeric|min:0|max:14',
           'production_time' => 'required|numeric|min:0|max:14',
           'transactions' => 'required|numeric',
-          'revenue' => 'required|numeric',
+          'revenue' => 'required|numeric',          
+          'campaign_id' => 'required|exists:campaigns,id',
+
         ];
     }
 }

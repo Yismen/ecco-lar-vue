@@ -9,22 +9,18 @@
                     <div class="box-header">
                         <h4>
                             Performance Data
-                            <a href="{{ route('admin.downtimes.create') }}" class="pull-right">
+                            <a href="{{ route('admin.performances.create') }}" class="pull-right">
                                 <i class="fa fa-plus"></i> Add
                             </a>
                         </h4>
                     </div>
 
                     <div class="box-body table-responsive">
-                        <table class="table table-condensed table-bordered table-hover" id="performances-table">
-                        
+                        <table class="table table-condensed table-bordered" id="performances-table">
                             <thead>
                                 <tr>
                                     <th>Date</th>
                                     <th>Employee</th>
-                                    <th>Employee Second First Name</th>
-                                    <th>Employee Last Name</th>
-                                    <th>Employee Second Last Name</th>
                                     <th>Supervisor</th>
                                     <th>Project</th>
                                     <th>Campaign</th>
@@ -38,7 +34,7 @@
 
                             <tfoot>
                                 <tr>
-                                    <th colspan="8" style="text-align:right">Total:</th>
+                                    <th colspan="5" style="text-align:right">Total:</th>
                                     <th></th>
                                     <th></th>
                                     <th></th>
@@ -79,17 +75,8 @@
                         {data: 'date', name: 'date', render: function(data, type, full) {
                             return data
                         }},
-                        {data: 'employee', name: 'employee.first_name', orderable:false, render: function(data, type, full){                           
-                            return '<a href="/admin/performances/' + full.id +'" title="Performance Details">' + (data.full_name) + '</a>'
-                        }},
-                        {data: 'employee', name: 'employee.second_first_name', orderable:false, visible:false, render: function(data, type, full){                           
-                            return '<a href="/admin/performances/' + full.id +'" title="Performance Details">' + (data.full_name) + '</a>'
-                        }},
-                        {data: 'employee', name: 'employee.last_name', orderable:false, visible:false, render: function(data, type, full){                           
-                            return '<a href="/admin/performances/' + full.id +'" title="Performance Details">' + (data.full_name) + '</a>'
-                        }},
-                        {data: 'employee', name: 'employee.second_last_name', orderable:false, visible:false, render: function(data, type, full){                           
-                            return '<a href="/admin/performances/' + full.id +'" title="Performance Details">' + (data.full_name) + '</a>'
+                        {data: 'name', name: 'name', render: function(data, type, full){
+                            return '<a href="/admin/performances/' + full.id +'" title="Performance Details">' + (data).trim() + '</a>'
                         }},
                         {data: 'supervisor', name: 'supervisor.name', orderable:false, render: function(data, type, full) {
                             return full.supervisor ? full.supervisor.name : null;
@@ -109,10 +96,10 @@
                         }},
                     ],
                     "footerCallback": function(row, data, start, end, display) {
-                        $(row).children('th')[1].textContent = getSubTotal(data, 'login_time')
-                        $(row).children('th')[2].textContent = getSubTotal(data, 'production_time')
-                        $(row).children('th')[3].textContent = getSubTotal(data, 'transactions')
-                        $(row).children('th')[4].textContent = '$' + getSubTotal(data, 'revenue')
+                        $(row).children('th')[1].textContent = Number(getSubTotal(data, 'login_time')).toFixed(2)
+                        $(row).children('th')[2].textContent = Number(getSubTotal(data, 'production_time')).toFixed(2)
+                        $(row).children('th')[3].textContent = Number(getSubTotal(data, 'transactions')).toFixed(2)
+                        $(row).children('th')[4].textContent = '$' + Number(getSubTotal(data, 'revenue')).toFixed(2)
                     }
                 });
 
@@ -121,14 +108,10 @@
                         return 0
                     }
 
-                    var el
-                    const result = data.reduce(function(act, obj) {
-                        el = obj[field] == undefined ? 0 : obj[field]   
-                                       
-                        return act + Number(el)
-                    }, 0)
-
-                    return result.toFixed(2)
+                    return data.reduce(function(el1, el2) {
+                        el1 = el1[field] == undefined ? el1 : el1[field]
+                        return Number(el1) + Number(el2[field])
+                    })
                 }
             });
 

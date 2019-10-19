@@ -13,31 +13,29 @@ class PerformanceRepository
         $this->performance = $performance;
     }
 
-    public function recents()
+    public function downtimes()
     {
         return $this->performance
-            ->orderBy('updated_at', 'desc')
-            ->with('employee.termination', 'campaign.project')
+            ->with('employee', 'campaign.project', 'downtimeReason')
             ->whereHas(
-                'campaign', function ($query) {
+                'campaign',
+                function ($query) {
                     return $query->with('project')
                         ->where('name', 'like', '%downtime%')
                         ->orWhereHas('project', function ($query) {
                             return $query->where('name', 'like', '%downtime%');
                         });
                 }
-            )
-            ->take(50)
-            ->get();
+            );
     }
 
     public function datatables()
     {
         return $this->performance
             ->with(
-            ['campaign.project', 'supervisor', 'employee' => function ($query) {
-                return $query->with('supervisor', 'termination');
-            }]
-        );
+                ['campaign.project', 'supervisor', 'employee' => function ($query) {
+                    return $query->with('supervisor', 'termination');
+                }]
+            );
     }
 }

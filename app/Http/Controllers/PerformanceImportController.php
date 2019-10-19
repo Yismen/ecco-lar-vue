@@ -149,7 +149,7 @@ class PerformanceImportController extends Controller
             return ['message' => 'Data Imported', 'success' => 'Data Imported', 'files' => $this->imported_files];
         }
 
-        return redirect()->route('admin.performances.index')
+        return redirect()->route('admin.performances_import.index')
             ->withSuccess('Data Imported!');
     }
 }

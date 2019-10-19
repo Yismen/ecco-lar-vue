@@ -11,7 +11,44 @@ class Performance extends Model
 {
     use Trackable;
 
-    protected $fillable = ['unique_id', 'date', 'employee_id', 'name', 'campaign_id', 'supervisor_id', 'sph_goal', 'login_time', 'production_time', 'talk_time', 'billable_hours', 'contacts', 'calls', 'transactions', 'upsales', 'cc_sales', 'revenue', 'downtime_reason_id', 'reported_by', 'file_name'];
+    protected $fillable = [
+        'unique_id',
+        'date',
+        'employee_id',
+        'name',
+        'campaign_id',
+        'supervisor_id',
+        'sph_goal',
+        'login_time',
+        'production_time',
+        'talk_time',
+        'billable_hours',
+        'contacts',
+        'calls',
+        'transactions',
+        'upsales',
+        'cc_sales',
+        'revenue',
+        'downtime_reason_id',
+        'reported_by',
+        'file_name'
+    ];
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (!$model->unique_id) {
+                $model->unique_id = request()->date . '-' . request()->employee_id . '-' . request()->campaign_id;
+            }
+        });
+
+        static::updating(function ($model) {
+            $model->unique_id = request()->date . '-' . request()->employee_id . '-' . request()->campaign_id;
+            $model->name =  optional($model->employee)->fullName;
+        });
+    }
 
     public static function removeExisting($unique_id)
     {
@@ -60,7 +97,17 @@ class Performance extends Model
 
     public function getDowntimesCampaignsListAttribute()
     {
-        return Campaign::orderBy('name')->where('name', 'like', '%downtimes%')->get();
+        return Campaign::orderBy('name')->where(
+            'name',
+            'like',
+            '%downtimes%'
+        )->get();
+    }
+
+
+    public function getCampaignsListAttribute()
+    {
+        return Campaign::orderBy('name')->get();
     }
 
     public function getDowntimesReasonsListAttribute()
@@ -76,46 +123,5 @@ class Performance extends Model
     public function getActiveSupervisorsListAttribute()
     {
         return Supervisor::orderBy('name')->actives()->get();
-    }
-
-    public function createAsDowntime(Request $request)
-    {
-        $employee = Employee::with('supervisor')->findOrFail($request->employee_id);
-
-        return $this->create(
-            [
-                'unique_id' => $request->date.'-'.$request->employee_id.'-'.$request->campaign_id,
-                'date' => $request->date,
-                'employee_id' => $request->employee_id,
-                'name' => $employee->fullName,
-                'campaign_id' => $request->campaign_id,
-                'supervisor_id' => optional($employee->supervisor)->id,
-                'login_time' => $request->login_time,
-                'downtime_reason_id' => $request->downtime_reason_id,
-                'reported_by' => $request->reported_by,
-                'file_name' => Carbon::now()->format('Y-m-d').'-'.$request->campaign_id.'-downtime',
-            ]
-        );
-    }
-
-    public function updateAsDowntime(Request $request)
-    {
-        $employee = Employee::with('supervisor')->findOrFail($request->employee_id);
-
-        $this->update(
-            [
-                'employee_id' => $request->employee_id,
-                'name' => $employee->fullName,
-                'supervisor_id' => $request->supervisor_id,
-                'login_time' => $request->login_time,
-                'production_time' => $request->production_time,
-                'transactions' => $request->transactions,
-                'revenue' => $request->revenue,
-                'downtime_reason_id' => $request->downtime_reason_id,
-                'reported_by' => $request->reported_by,
-            ]
-        );
-
-        return $this;
     }
 }

@@ -1,6 +1,5 @@
 <?php
 
-use App\Marital;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -16,9 +15,6 @@ class CreateMaritalsTable extends Migration
             $table->string('name');
             $table->timestamps();
         });
-
-        Marital::create(['id' => 1, 'name' => 'Married']);
-        Marital::create(['id' => 2, 'name' => 'Single']);
     }
 
     /**
