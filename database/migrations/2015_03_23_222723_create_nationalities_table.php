@@ -1,6 +1,5 @@
 <?php
 
-use App\Nationality;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -18,15 +17,6 @@ class CreateNationalitiesTable extends Migration
             $table->string('name', 150)->unique();
             $table->timestamps();
         });
-
-        Nationality::create(['name' => 'Dominicano']);
-        Nationality::create(['name' => 'Hantiano']);
-        Nationality::create(['name' => 'Venezolano']);
-        Nationality::create(['name' => 'Estadounidense']);
-        Nationality::create(['name' => 'Puertoriqueno']);
-        Nationality::create(['name' => 'Mexicano']);
-        Nationality::create(['name' => 'Israeli']);
-        Nationality::create(['name' => 'Argentino']);
     }
 
     /**

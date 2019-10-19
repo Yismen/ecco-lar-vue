@@ -1,6 +1,5 @@
 <?php
 
-use App\PaymentType;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -19,8 +18,6 @@ class CreatePaymentTypesTable extends Migration
             $table->string('slug', 150)->nullable();
             $table->timestamps();
         });
-
-        $this->seedPaymentType();
     }
 
     /**
@@ -31,23 +28,5 @@ class CreatePaymentTypesTable extends Migration
     public function down()
     {
         Schema::drop('payment_types');
-    }
-
-    public function seedPaymentType()
-    {
-        PaymentType::create([
-            'name' => 'By Hours',
-            'slug' => 'by-hours',
-        ]);
-
-        PaymentType::create([
-            'name' => 'Salary',
-            'slug' => 'salary',
-        ]);
-
-        PaymentType::create([
-            'name' => 'By Sales',
-            'slug' => 'by-sales',
-        ]);
     }
 }

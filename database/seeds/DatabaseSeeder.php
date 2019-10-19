@@ -27,6 +27,15 @@ class DatabaseSeeder extends Seeder
         $this->call(SitesTableSeeder::class);
         $this->call(SourcesTableSeeder::class);
 
+        $this->call(GenderTableSeeder::class);
+        $this->call(MaritalTableSeeder::class);
+        $this->call(NationalityTableSeeder::class);
+        $this->call(PaymentFrequencyTableSeeder::class);
+        $this->call(PaymentTypeTableSeeder::class);
+        $this->call(PayrollAdditionalConceptTableSeeder::class);
+        $this->call(PayrollDiscountConceptTableSeeder::class);
+        $this->call(PayrollIncentiveTableSeeder::class);
+
         // DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         Model::reguard();
     }

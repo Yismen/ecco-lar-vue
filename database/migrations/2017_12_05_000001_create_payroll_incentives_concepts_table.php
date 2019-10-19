@@ -1,6 +1,5 @@
 <?php
 
-use App\PayrollIncentiveConcept;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -18,9 +17,6 @@ class CreatePayrollIncentivesConceptsTable extends Migration
             $table->string('name', 200);
             $table->timestamps();
         });
-
-        PayrollIncentiveConcept::create(['name' => 'Production']);
-        PayrollIncentiveConcept::create(['name' => 'Sales']);
     }
 
     /**
