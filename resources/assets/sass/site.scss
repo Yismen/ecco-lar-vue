@@ -11,7 +11,24 @@ body {
     }
   }
 }
-.my-main-header {
+
+
+.intro-header {
+  font-family: "Roboto", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  /*text-align: center;*/
+  color: #f8f8f8;
+  background-image: url(/images/main-header.jpg);
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+}
+.header-title {
   animation: from-left 1s 1 ease-in-out;
   font-weight: bold;
   font-size: 6rem;
@@ -20,19 +37,33 @@ body {
   text-transform: uppercase;
 }
 
-.intro-header {
-  font-family: "Roboto", sans-serif;
+.dainsys-logo {
+  cursor: pointer;
+  height: 250px;
+  max-width: 14rem;
+  max-height: 14rem;
+}
+
+.more-button {
+  position: absolute;
+  bottom: 20px;
+  color: white;
+}
+
+.more-button:hover, .more-button:focus {
+  color: #e3e3e3;
+}
+
+.divider {
+  border-top: white .95rem solid;
+  margin: 1.5rem;
+}
+
+.intro-content {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  /*text-align: center;*/
-  color: #f8f8f8;
-  background-image: url(/images/main-header.jpg);
-  background-position: 50%;
-  background-repeat: no-repeat;
-  background-size: cover;
-  min-height: 100vh;
-  padding: 3rem;
 }
 .secondary-header {
   padding-top: 7rem;
@@ -45,7 +76,7 @@ body {
   letter-spacing: 0.2rem;
 }
 .call-to-action {
-  margin-top: 2rem;
+  margin-top: 3.5rem;
   animation: from-right 1s 1 ease-in-out;
   // background-color: transparent;
   // color: white;
@@ -106,3 +137,13 @@ body {
     opacity: 0;
   }
 }
+
+// @media only screen and (min-width: 900px) {
+//   .dainsys-logo {
+//     position: absolute;
+//     bottom: 0;
+//     left: 0;
+//     width: 450px;
+//     height: 450px;
+//   }
+// }

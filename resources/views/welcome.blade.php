@@ -7,33 +7,41 @@
 <div class="">
     <div class="no-margin bg-{{ $color ?? 'yellow'}}  intro-header">
         <div class="container-fluid">
-            <div class="col-sm-12 text-center">
-                <div style="min-height: 185px;">
-                    <dainsys-logo default-animation="shake" logo="{{ asset('images/logo.png') }}"
-                        :random-animation="true"></dainsys-logo>
+            <div class="col-sm-12 intro-content">
+
+                <div class="header-title">
+                    {{ $app_name }}
                 </div>
 
-                <h1 class="my-main-header">
-                    {{ $app_name }}
-                </h1>
+                <dainsys-logo default-animation="shake" 
+                    logo="{{ asset('images/logo.png') }}" 
+                    :random-animation="true"
+                    >
+                </dainsys-logo>
 
-                <hr class="divider" style="max-width: 5.25rem; border-width: .8rem; border-color: #fff;">               
+                <div class="divider col-xs-2"></div>
 
-                <div class="row header-description">
-                    <div class="col-sm-8 col-sm-offset-2">
-                        Valuable, timely and on point information to aggregate value to your job.
-                    </div>
+                <div class="col-sm-8 header-description text-center">
+                    Valuable, timely and on point information to
+                    aggregate value to your job.
                 </div>
                 <a href="/admin" class="btn btn-default btn-lg call-to-action">
                     <i class="fa fa-sign-in"></i> Get Started!
                 </a>
             </div>
         </div>
+
+        
+
+            
+        <a href="#services" class="more-button">
+            <i class="fa fa-angle-double-down"></i> More
+        </a>
     </div>
 
-    <div class="secondary-header no-margin text-center">
+    <div class="secondary-header no-margin text-center" id="services">
         <div class="row">
-            <div class="col-sm-12" style="margin-bottom: 2rem;">
+            <div class="col-sm-12">
                 <h1>Data Integration System</h1>
             </div>
 
@@ -105,10 +113,12 @@
 @section('scripts')
 <script>
     (function(){
-            const animate = document.querySelectorAll(".animatable")
-            // animate.style.opacity = 0;
+            document.querySelector('.more-button').addEventListener('click', function(e) {
+                e.preventDefault()
 
-            console.log(animate)
+                document.querySelector("#services").scrollIntoView({behavior: 'smooth'})
+            })
+            const animate = document.querySelectorAll(".animatable")
 
             const observer = new IntersectionObserver(elements => {
                 elements.forEach(element => {
