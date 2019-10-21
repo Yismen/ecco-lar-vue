@@ -40,6 +40,12 @@ return [
     'sidebar_collapse' => '', // sidebar-collapse, ''
 
     /*
+     * Flash Notification positions.
+     * options: top|top-start|top-end|center|center-start|center-end|bottom|bottom-start|bottom-end
+     */
+    'flash_position' => env('FLASH_POSITION', 'bottom-end'),
+
+    /*
     |--------------------------------------------------------------------------
     | Emergency Memory Limit
     |--------------------------------------------------------------------------
@@ -49,22 +55,4 @@ return [
     |
     */
    'memory_limit' => env('EMERGENCY_MEMORY_LIMIT', '1G'),
-
-    /*
-    * Menu
-    */
-    'menu' => [
-        [
-            'title' => 'human-resources',
-            'items' => [
-                'employees',
-                'sites',
-                'campaigns',
-            ],
-        ],
-        [
-            'title' => 'statistic',
-            'items' => 'human-resources',
-        ],
-    ],
 ];

@@ -47,13 +47,12 @@
     ?>
 
 	@if($class)
-
         <flash-message
             type="{{ $class }}"
             title="{{ $title }}"
             text="{{ $message }}"
             show-confirm-button="{{ false }}"
-            position="{{ 'top-end' }}"
+            position="{{ config('dainsys.flash_position', 'bottom-end') }}"
             toast="{{ true }}"
         ></flash-message>
 	@endif
