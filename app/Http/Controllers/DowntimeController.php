@@ -28,7 +28,7 @@ class DowntimeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(PerformanceRepository $repo)
+    public function index()
     {
         return redirect()
             ->route('admin.downtimes.create');

@@ -17,6 +17,7 @@ class PerformanceRepository
     {
         return $this->performance
             ->with('employee', 'campaign.project', 'downtimeReason')
+            ->whereHas('downtimeReason')
             ->whereHas(
                 'campaign',
                 function ($query) {

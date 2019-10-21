@@ -10,7 +10,7 @@
                         <h4>
                             Create Downtimes <small>D Only</small>
                             <a href="{{ route('admin.performances.index') }}" class="pull-right" title="Back to List">
-                                <i class="fa fa-list"></i> List
+                                <i class="fa fa-list"></i> Performances
                             </a>
                         </h4>
                     </div>
@@ -110,7 +110,7 @@
                         {data: 'login_time', name: 'login_time', searchable: false, render: function(data, type, full) {
                             return Number(data).toFixed(3)
                         }},
-                        {data: 'downtime_reason', name: 'downtime_reason.name', orderable: false, searchable:false, render: function(data, type, full) {
+                        {data: 'downtime_reason', name: 'downtimeReason.name', orderable: false, render: function(data, type, full) {
                             return data ? data.name : ""
                         }},
                         {data: 'reported_by', name: 'reported_by', orderable: false, render: function(data, type, full) {

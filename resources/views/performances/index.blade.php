@@ -10,7 +10,7 @@
                         <h4>
                             Performance Data
                             <a href="{{ route('admin.downtimes.create') }}" class="pull-right">
-                                <i class="fa fa-plus"></i> Add
+                                <i class="fa fa-plus"></i> Add Downtime
                             </a>
                         </h4>
                     </div>
