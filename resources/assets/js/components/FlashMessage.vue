@@ -31,7 +31,7 @@ export default {
                 text: this.text,
                 showConfirmButton: this.showConfirmButton,
                 timer: this.timer,
-                background: this.type == 'error' ? '#F2DEDE' :'#FCFCFC',
+                background: this.type == 'error' ? '#F2DEDE' :'#F5F5F5',
                 toast: this.toast,
                 padding: '5em',
                 timer: 5000

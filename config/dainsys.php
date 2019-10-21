@@ -44,6 +44,11 @@ return [
      * options: top|top-start|top-end|center|center-start|center-end|bottom|bottom-start|bottom-end
      */
     'flash_position' => env('FLASH_POSITION', 'bottom-end'),
+    
+    /**
+     *  Whether or not the fash messages should be shown as a toast.
+     */
+    'flash_as_toast' => env('FLASH_AS_TOAST', false),
 
     /*
     |--------------------------------------------------------------------------

@@ -23,11 +23,27 @@ export default {
                 dictDefaultMessage: "<i class='fa fa-cloud-upload'></i> DRAG FILES HERE TO UPLOAD THE DATA",
                 // addRemoveLinks: true,
                 uploadMultiple: true,
+                timeout: 0,
+                // chunking: true,
                 paramName: 'excel_file',
                 acceptedFiles: 'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-                successmultiple: function() {
-                    location.reload()
+                successmultiple: function(response) {
+                    response.forEach(file => {
+                        Vue.swal({
+                            type: 'success',
+                            title: 'Done!',
+                            text: file.name,
+                            showConfirmButton: false,
+                            position: 'bottom-end',
+                            timer: 10000,
+                            background: '#f5f5f5',
+                            padding: '5em',
+                        })
+                    })
+                    setTimeout(function() {
+                        location.reload()
+                    }, 3000)
                 }
             }
         }

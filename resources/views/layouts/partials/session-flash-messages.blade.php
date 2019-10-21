@@ -53,7 +53,7 @@
             text="{{ $message }}"
             show-confirm-button="{{ false }}"
             position="{{ config('dainsys.flash_position', 'bottom-end') }}"
-            toast="{{ true }}"
+            toast="{{ config('dainsys.flash_as_toast', false) }}"
         ></flash-message>
 	@endif
 	<!-- /. Warning Messages -->
