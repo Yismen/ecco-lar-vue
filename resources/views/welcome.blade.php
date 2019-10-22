@@ -98,7 +98,7 @@
             </div>
 
             <div class="col-sm-12 ">
-                <a href="/admin" class="btn btn-primary btn-lg animatable" style="background-color: white;
+                <a href="/admin" class="btn btn-primary btn-lg animatable" data-animation="fadeInDown"  style="background-color: white;
                         margin-top: 2rem;
                         color: black;
                         border: 1px #fefefe solid;">
@@ -122,9 +122,15 @@
 
             const observer = new IntersectionObserver(elements => {
                 elements.forEach(element => {
+                    const animation = element.target.dataset.animation ? element.target.dataset.animation : "fadeIn"
+
                     if(element.intersectionRatio > 0) {
                         element.target.classList.add("animated")
-                        element.target.classList.add("slideInUp")
+                        element.target.classList.add(animation)
+                        // element.target.scrollIntoView({behavior: 'smooth'})
+                    } else {
+                        element.target.classList.remove("animated")
+                        element.target.classList.remove(animation)
                     }
                 });
             })
