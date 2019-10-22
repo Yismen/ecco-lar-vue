@@ -129,25 +129,34 @@ class PerformanceImportController extends Controller
         ini_set('memory_limit', config('dainsys.memory_limit'));
         ini_set('max_execution_time', 300);
 
-        foreach ($request->file('excel_file') as $key => $file) {
-            $file_name = $file->getClientOriginalName();
 
-            if (!Str::contains($file_name, '_performance_daily_data_')) {
-                return redirect()->back()
-                    ->withErrors(['excel_file' => 'Wrong file selected. Please make sure you pick a file which the correct naming convention _performance_daily_data_...']);
+        $file = $request->file('excel_file');
+        $file_name = $file->getClientOriginalName();
+        
+        if (!Str::contains($file_name, '_performance_daily_data_')) {
+            $message = 'Wrong file selected. 
+            Please make sure you pick a file which the correct naming 
+            convention _performance_daily_data_...';
+
+            if ($request->ajax()) {
+                return response($message, 403);
+            } else {
+                return redirect()->route('admin.performances_import.index')
+                    ->withError($message);
             }
+            
+        }
 
-            $this->imported_files[] = $file_name;
+        $this->imported_files[] = $file_name;
 
-            Excel::import(new PerformancesImport($file_name), $request->file('excel_file')[$key]);
+        Excel::import(new PerformancesImport($file_name), $file);
+
+        if ($request->ajax()) {
+            return response("File {$file_name} Imported", 200);
         }
 
         $request->session()->flash('imported_files', $this->imported_files);
         $request->session()->flash('success', 'Data Imported');
-
-        if ($request->ajax()) {
-            return ['message' => 'Data Imported', 'success' => 'Data Imported', 'files' => $this->imported_files];
-        }
 
         return redirect()->route('admin.performances_import.index')
             ->withSuccess('Data Imported!');
