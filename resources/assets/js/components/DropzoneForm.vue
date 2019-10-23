@@ -28,6 +28,21 @@ export default {
                 paramName: 'excel_file',
                 acceptedFiles: 'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                chunksUploaded: function(response, done) {
+                    console.log(response)
+                    Vue.swal({
+                        type: 'success',
+                        title: 'Done!',
+                        text: response.name,
+                        toast: true,
+                        position: 'bottom-end',
+                        timer: 10000,
+                        background: '#f5f5f5',
+                        padding: '5em',
+                    })
+
+                    done()
+                },
                 successmultiple: function(response) {
                     response.forEach(file => {
                         Vue.swal({
