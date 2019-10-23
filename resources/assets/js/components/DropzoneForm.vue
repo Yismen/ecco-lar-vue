@@ -21,7 +21,7 @@ export default {
                 url: this.url,
                 thumbnailWidth: 150,
                 dictDefaultMessage: "<i class='fa fa-cloud-upload'></i> DRAG FILES HERE TO UPLOAD THE DATA",
-                // addRemoveLinks: true,
+                addRemoveLinks: true,
                 uploadMultiple: true,
                 timeout: 0,
                 // chunking: true,

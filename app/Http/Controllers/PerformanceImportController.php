@@ -133,20 +133,25 @@ class PerformanceImportController extends Controller
             $file_name = $file->getClientOriginalName();
 
             if (!Str::contains($file_name, '_performance_daily_data_')) {
+                $message = 'Wrong file selected. Please make sure you pick a file which the correct naming convention _performance_daily_data_...';
+                if ($request->ajax()) {
+                    return response($message, 422);
+                }
+
                 return redirect()->back()
-                    ->withErrors(['excel_file' => 'Wrong file selected. Please make sure you pick a file which the correct naming convention _performance_daily_data_...']);
+                    ->withErrors(['excel_file' => $message]);
             }
 
             $this->imported_files[] = $file_name;
 
             Excel::import(new PerformancesImport($file_name), $request->file('excel_file')[$key]);
-        }
+        };
 
         $request->session()->flash('imported_files', $this->imported_files);
         $request->session()->flash('success', 'Data Imported');
 
         if ($request->ajax()) {
-            return ['message' => 'Data Imported', 'success' => 'Data Imported', 'files' => $this->imported_files];
+            return response($this->imported_files);
         }
 
         return redirect()->route('admin.performances_import.index')

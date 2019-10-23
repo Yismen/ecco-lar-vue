@@ -29,6 +29,7 @@
                                     <th>Sales</th>
                                     <th>Revenue</th>
                                     <th>Actions</th>
+                                    <th>File Name</th>
                                 </tr>
                             </thead>
 
@@ -76,7 +77,7 @@
                         {data: 'name', name: 'name', render: function(data, type, full){
                             return '<a href="/admin/performances/' + full.id +'" title="Performance Details" target="_performances">' + (data).trim() + '</a>'
                         }},
-                        {data: 'supervisor_id', name: 'supervisor_id', orderable: false, searchable: false, render: function(data, type, full) {
+                        {data: 'supervisor', name: 'supervisor.name', orderable: false, render: function(data, type, full) {
                             return full.supervisor ? full.supervisor.name : null;
                         }},
                         {data: 'campaign', name: 'campaign.project.name', orderable: false, render: function(data, type, full) {
@@ -92,6 +93,7 @@
                         {data: 'edit', name: 'edit', searchable: "false", orderable: false, render: function(data, type, full) {
                             return '<a href="'+data+'" target="_performances"><i class="fa fa-pencil"></i> Edit</a>'
                         }},
+                        {data: 'file_name', name: 'file_name', orderable: false, visible:false}
                     ],
                     "footerCallback": function(row, data, start, end, display) {
                         $(row).children('th')[1].textContent = Number(getSubTotal(data, 'login_time')).toFixed(2)
@@ -104,12 +106,16 @@
                 let getSubTotal = function(data, field) {
                     if(data.length == 0) {
                         return 0
-                    }
+                    }                    
 
-                    return data.reduce(function(el1, el2) {
-                        el1 = el1[field] == undefined ? el1 : el1[field]
-                        return Number(el1) + Number(el2[field])
-                    })
+                    var el
+                    const result = data.reduce(function(act, obj) {
+                        el = obj[field] == undefined ? 0 : obj[field]   
+                                       
+                        return act + Number(el)
+                    }, 0)
+
+                    return result.toFixed(2)
                 }
             });
 
