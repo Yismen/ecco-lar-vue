@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Performance;
+use App\Downtime;
 use Yajra\DataTables\Facades\DataTables;
 use App\Repositories\PerformanceRepository;
 use App\Http\Requests\Performance\UpdateDowntimeRequest;
@@ -34,7 +34,7 @@ class DowntimeController extends Controller
             ->route('admin.downtimes.create');
     }
 
-    public function create(PerformanceRepository $repo, Performance $downtime)
+    public function create(PerformanceRepository $repo, Downtime $downtime)
     {
         if (!request()->ajax()) {
             return view('downtimes.create', compact('downtime'));
@@ -51,7 +51,7 @@ class DowntimeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateDowntimeRequest $request, Performance $downtime)
+    public function store(CreateDowntimeRequest $request, Downtime $downtime)
     {
         if ($exists = $this->exists()) {
             return redirect()->route('admin.downtimes.edit', $exists->id)
@@ -67,11 +67,11 @@ class DowntimeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Performance $downtimes
+     * @param \App\Downtime $downtimes
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit(Performance $downtime)
+    public function edit(Downtime $downtime)
     {
         return view('downtimes.edit', compact('downtime'));
     }
@@ -80,13 +80,15 @@ class DowntimeController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \App\Performance         $downtime
+     * @param \App\Downtime         $downtime
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateDowntimeRequest $request, Performance $downtime)
+    public function update(UpdateDowntimeRequest $request, Downtime $downtime)
     {
         $downtime->update($request->all());
+        
+        // dd($request->all());
 
         return redirect()->back()
             ->withSuccess('Updated! ' . $downtime->name);
@@ -95,11 +97,11 @@ class DowntimeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Performance $downtime
+     * @param \App\Downtime $downtime
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Performance $downtime)
+    public function destroy(Downtime $downtime)
     {
         $downtime->delete();
 
@@ -108,7 +110,7 @@ class DowntimeController extends Controller
 
     private function exists()
     {
-        return Performance::whereDate('date', request()->date)
+        return Downtime::whereDate('date', request()->date)
             ->where('employee_id', request()->employee_id)
             ->where('campaign_id', request()->campaign_id)
             ->orWhere('unique_id', request()->date . '-' . request()->employee_id . '-downtime')

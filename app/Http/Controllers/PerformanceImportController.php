@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Performance;
+use App\PerformanceImport;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Imports\PerformancesImport;
@@ -36,19 +36,11 @@ class PerformanceImportController extends Controller
         }
 
         return DataTables::of(
-            Performance::orderBy('date', 'DESC')
+            PerformanceImport::orderBy('date', 'DESC')
                 ->with(['campaign.project'])
                 ->groupBy(['date', 'file_name'])
         )
             ->toJson(true);
-
-
-        $performances = Performance::orderBy('date', 'DESC')
-            ->orderBy('file_name')
-            ->groupBy(['date', 'file_name'])
-            ->paginate(25);
-
-        return view('performances_import.index', compact('performances'));
     }
 
     /**
@@ -71,17 +63,15 @@ class PerformanceImportController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Performance $performance
-     *
      * @return \Illuminate\Http\Response
      */
-    public function show(Performance $performance, $perf_date)
+    public function show($perf_date)
     {
         if (!request()->ajax()) {
             return view('performances_import.show')->with(['date' => $perf_date]);
         }
 
-        $performances = Performance::where('date', $perf_date)
+        $performances = PerformanceImport::where('date', $perf_date)
             ->with('campaign.project')
             ->with('supervisor')
             ->with('employee.supervisor');
@@ -110,7 +100,7 @@ class PerformanceImportController extends Controller
      */
     public function destroy()
     {
-        $performances = Performance::where('date', request('date'));
+        $performances = PerformanceImport::where('date', request('date'));
 
         $performances = request('file_name') && request('file_name') !== 'null' ?
             $performances->where('file_name', request('file_name')) : $performances->whereNull('file_name');
