@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Employee;
+use App\Http\Resources\EmployeesResource;
 
 class EmployeeController extends Controller
 {
@@ -13,53 +14,56 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Employee $employees)
+    public function index()
     {
-        return $employees->paginate(20);
+        $employees = $this->query()
+            ->get();
+
+        return EmployeesResource::collection($employees);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Limit to actives or where inactivation date is less than 30 days.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function recents()
     {
-        //
+        $employees = $this->query()
+            ->recents()
+            ->get();
+
+        return EmployeesResource::collection($employees);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
-     * Update the specified resource in storage.
+     * Limit to actives or where inactivation date is less than 30 days.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function actives()
     {
-        //
+        $employees = $this->query()
+            ->actives()
+            ->get();
+
+        return EmployeesResource::collection($employees);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    private function query()
     {
-        //
+        return employee::with([
+            'afp',
+            'ars',
+            'gender',
+            'marital',
+            'nationality',
+            'project', 
+            'position.department', 
+            'site', 
+            'supervisor',
+        ])
+        ->sorted();
     }
 }

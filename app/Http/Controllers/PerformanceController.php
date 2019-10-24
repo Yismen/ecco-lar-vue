@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Performance;
-use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use App\Repositories\PerformanceRepository;
-use App\Http\Requests\Performance\CraetePerformance;
 use App\Http\Requests\Performance\UpdatePerformance;
 
 class PerformanceController extends Controller
@@ -91,15 +89,5 @@ class PerformanceController extends Controller
         $performance->delete();
 
         return ['status' => 'sucess', 'message' => 'Performance Data Deleted', 'data' => $performance];
-    }
-
-    private function exists(Request $request)
-    {
-        return Performance::whereDate('date', $request->date)
-            ->where('employee_id', $request->employee_id)
-            ->where('campaign_id', $request->campaign_id)
-            ->orWhere('unique_id', $request->date . '-' . $request->employee_id . '-downtime')
-            ->orWhere('unique_id', $request->date . '-' . $request->campaign_id . '-' . $request->campaign_id)
-            ->first();
     }
 }

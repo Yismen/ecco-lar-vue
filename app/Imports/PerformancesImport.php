@@ -3,7 +3,7 @@
 namespace App\Imports;
 
 use Carbon\Carbon;
-use App\Performance;
+use App\PerformanceImport;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Concerns\Importable;
@@ -33,7 +33,7 @@ class PerformancesImport implements ToCollection, WithHeadingRow, WithValidation
 
             \Cache::flush();
 
-            Performance::removeExisting($row['unique_id'])
+            PerformanceImport::removeExisting($row['unique_id'])
                 ->create($row->all());
         }
     }
