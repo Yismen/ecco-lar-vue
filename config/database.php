@@ -51,6 +51,16 @@ return [
             'strict' => false,
             'engine' => 'InnoDB ROW_FORMAT=DYNAMIC',
         ],
+        'capillus' => [
+            'driver' => 'sqlsrv',
+            'host' => 'data.poliscript.org',
+            'port' => '1433',
+            'database' => 'Reports',
+            'username' => 'ecco_reports',
+            'password' => 'RFsLPCX4ZL',
+            'charset' => 'utf8',
+            'prefix' => ''
+        ],
         'pgsql' => [
             'driver' => 'pgsql',
             'host' => env('DB_HOST', '127.0.0.1'),
