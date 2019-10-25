@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Campaign;
 use Illuminate\Http\Request;
 use Cache;
+use Yajra\DataTables\DataTables;
 
 class CampaignsController extends Controller
 {
@@ -17,14 +18,15 @@ class CampaignsController extends Controller
     }
 
     public function index()
-    {
-        $campaigns = Cache::remember('campaigns', 60, function() {
-            return Campaign::orderBy('project_id')->orderBy('name')
-                ->with(['project', 'source', 'revenueType'])
-                ->get();
-        });
+    {        
+        if (!request()->ajax()) {
+            return view('campaigns.index');
+        }
 
-        return view('campaigns.index', compact('campaigns'));
+        return DataTables::of(
+            Campaign::with(['project', 'source', 'revenueType'])
+            )
+            ->toJson(true);
     }
 
     public function create()
@@ -49,8 +51,6 @@ class CampaignsController extends Controller
         ]);
 
         $campaign = Campaign::create($request->only(['name', 'project_id', 'source_id', 'revenue_type_id', 'sph_goal', 'revenue_rate']));
-
-        Cache::forget('campaigns');
 
         return redirect()->route('admin.campaigns.index')
             ->withSuccess('Campaign '. $campaign->name . ' has been created!');

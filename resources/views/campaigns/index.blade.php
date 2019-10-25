@@ -16,7 +16,7 @@
                     </div>
                     {{-- .box-header --}}
                     <div class="box-body">
-                        <table class="table table-condensed table-hover">
+                        <table class="table table-condensed table-hover" id="campaigns-table">
                             <thead>
                                 <tr>
                                     <th>Name</th>
@@ -28,25 +28,6 @@
                                     <th>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                @foreach ($campaigns as $campaign)
-                                    <tr>
-                                        <td>
-                                            <a href="{{ route('admin.campaigns.show', $campaign->id) }}">{{ $campaign->name }}</a>
-                                        </td>
-                                        <td>{{ $campaign->project->name }}</td>
-                                        <td>{{ $campaign->source->name }}</td>
-                                        <td>{{ $campaign->revenueType->name }}</td>
-                                        <td>${{ $campaign->revenue_rate }}</td>
-                                        <td>{{ $campaign->sph_goal }}</td>
-                                        <td>
-                                            <a href="{{ route('admin.campaigns.edit', $campaign->id) }}" class="text-warning">
-                                                <i class="fa fa-pencil"></i> Edit
-                                            </a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
                         </table>
                    </div>
                    {{-- .box-body --}}
@@ -57,4 +38,49 @@
 @endsection
 
 @section('scripts')
+<script>
+    (function($){
+        $(document).ready(function($) {
+
+            let dTable = $('#campaigns-table').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "searchDelay": 1000,
+                // "scrollY": "600px",
+                // "scrollCollapse": true,
+                "pageLength": 25,
+                "lengthMenu": [ [25, 100, 200, -1], [25, 100, 200, "All"] ],
+                "searching": { "regex": true },
+                "language": {
+                    "processing": "<i class='fa fa-spinner'></i> Loading, Please wait!"
+                },
+                "ajax": {
+                    'type': 'get',
+                    "url": "{{ route('admin.campaigns.index') }}",
+                },
+                "order": [[ 0, "asc" ]],
+                "columns": [
+                    {data: 'name', name: 'name'},
+                    {data: 'project', name: 'project.name', orderable:false, render: function(data, index, full) {
+                        return data.name;
+                    }},
+                    {data: 'source', name: 'source.name', orderable:false, render: function(data, index, full) {
+                        return data.name;
+                    }},
+                    {data: 'revenue_type', name: 'revenueType.name', orderable:false, render: function(data, index, full) {
+                        return data.name;
+                    }},
+                    {data: 'revenue_rate', name: 'revenue_rate'},   
+                    {data: 'sph_goal', name: 'sph_goal'},  
+                    {data: 'id', name: 'id', orderable: false, searchable: false, render: function(data, index, full) {
+                        return `<a href="/admin/campaigns/${data}/edit" class="btn-warning btn-sm">
+                            <i class="fa fa-edit"></i> Edit    
+                        </a>`
+                    }},                    
+                ],
+            });
+        });
+
+    })(jQuery);
+</script>
 @stop
