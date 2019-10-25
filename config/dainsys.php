@@ -60,4 +60,11 @@ return [
     |
     */
    'memory_limit' => env('EMERGENCY_MEMORY_LIMIT', '1G'),
+
+   /**
+    * Capillus Distro List
+    *
+    * This must be set in the env and have to be separated by the pipe symbol (|)
+    */
+    'capillus-flash-distro' => env('CAPILLUS_FLASH_DISTRO'),
 ];

@@ -39,6 +39,22 @@ class CapillusFlashCommand extends Command
      */
     public function handle()
     {
-        Mail::send(new CapillusFlashMail);
+        
+
+        Mail::send(new CapillusFlashMail(
+            $this->distroList()
+        ));
+    }
+
+    /**
+     * Parse the distro list from the dainsys config file
+     *
+     * @return array
+     */
+    protected function distroList(): array
+    {
+        $list = config('dainsys.capillus-flash-distro') ?? abort(404, "Invalid distro list. Set it up in the .env, separated by pipe (|).");
+
+        return explode("|", $list);
     }
 }
