@@ -13,6 +13,7 @@ use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 
 class CapillusFlashReportExport implements FromView, WithColumnFormatting, WithTitle, WithEvents
 {
@@ -37,6 +38,8 @@ class CapillusFlashReportExport implements FromView, WithColumnFormatting, WithT
                 // Format headers              
                 $event->sheet->getDelegate()->getStyle('A4:S4')->applyFromArray($this->headerStyle());
                 $event->sheet->getDelegate()->getStyle('A16:S16')->applyFromArray($this->headerStyle());
+                $event->sheet->getDelegate()->getRowDimension('4')->setRowHeight(60);
+                $event->sheet->getDelegate()->getRowDimension('16')->setRowHeight(60);
                 // format the total rows
                 $event->sheet->getDelegate()->getStyle('A13:S13')->applyFromArray($this->totalStyle());
                 $event->sheet->getDelegate()->getStyle('A25:S25')->applyFromArray($this->totalStyle());
@@ -46,6 +49,13 @@ class CapillusFlashReportExport implements FromView, WithColumnFormatting, WithT
                 //set Columns Width
                 $event->sheet->getDelegate()->getDefaultColumnDimension()->setWidth(10);
                 $event->sheet->getDelegate()->getColumnDimension('A')->setWidth(15);
+                $event->sheet->getDelegate()->getPageSetup()
+                    ->setFitToWidth(1)
+                    ->setFitToHeight(1)
+                    ->setOrientation(PageSetup::ORIENTATION_LANDSCAPE);
+                $event->sheet->getDelegate()->getPageMargins()
+                    ->setRight(0.17)
+                    ->setLeft(0.17);
             }
         ];
     }
