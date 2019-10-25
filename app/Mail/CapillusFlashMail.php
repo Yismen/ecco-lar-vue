@@ -50,6 +50,6 @@ class CapillusFlashMail extends Mailable
             ->bcc('yjorge@eccocorpbpo.com')
             ->view('emails.capillus-flash')
             ->attachFromStorage($this->capillus_file_name)
-            ->subject("KNYC E Flash Report");
+            ->subject("KNYC.E Flash Report");
     }
 }
