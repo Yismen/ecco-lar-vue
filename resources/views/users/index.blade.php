@@ -70,8 +70,12 @@ the users configurations and setting.']) @section('content')
                                         <span class="info-box-text">
                                             <a href="{{ route('admin.users.show', $user->id) }}">
                                                 <i class="fa fa-user"></i>
-                                                {{ $user->name }}
+                                                {{ $user->name }} 
                                             </a>
+                                            <i 
+                                                class="fa fa-circle {{ $user->isOnline() ? 'text-green' : 'text-gray'}}"
+                                                title="{{ $user->isOnline() ? 'Online' : 'Away'}}"
+                                            ></i>
                                             <a href="{{ route('admin.users.edit', $user->id) }}" class="pull-right">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
