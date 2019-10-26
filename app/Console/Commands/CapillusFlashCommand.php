@@ -39,11 +39,11 @@ class CapillusFlashCommand extends Command
      */
     public function handle()
     {
-        
+        Mail::send(
+            new CapillusFlashMail($this->distroList())
+        );
 
-        Mail::send(new CapillusFlashMail(
-            $this->distroList()
-        ));
+        $this->info("Capillus lash report sent!");
     }
 
     /**
@@ -53,7 +53,8 @@ class CapillusFlashCommand extends Command
      */
     protected function distroList(): array
     {
-        $list = config('dainsys.capillus-flash-distro') ?? abort(404, "Invalid distro list. Set it up in the .env, separated by pipe (|).");
+        $list = config('dainsys.capillus-flash-distro') ?? 
+            abort(404, "Invalid distro list. Set it up in the .env, separated by pipe (|).");
 
         return explode("|", $list);
     }

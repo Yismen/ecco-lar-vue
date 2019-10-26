@@ -30,6 +30,8 @@ class CapillusFlashMail extends Mailable
         $instance = Carbon::now()->format('Ymd_His');
 
         $this->capillus_file_name = "KNYC E Flash Report {$instance} .xlsx";
+        
+        Excel::store(new CapillusFlashReportExport(), $this->capillus_file_name);
     }
 
     /**
@@ -42,8 +44,6 @@ class CapillusFlashMail extends Mailable
         foreach ($this->distro as $recipient) {
             $this->to($recipient);
         }
-        
-        Excel::store(new CapillusFlashReportExport(), $this->capillus_file_name);
 
         return $this
             ->from('yjorge@eccocorpbpo.com', 'Yisme Jorge')

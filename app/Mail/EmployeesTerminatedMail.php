@@ -2,6 +2,8 @@
 
 namespace App\Mail;
 
+use App\Termination;
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -17,10 +19,11 @@ class EmployeesTerminatedMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct($terminations, $months)
+    public function __construct($months)
     {
-        $this->terminations = $terminations;
-        $this->months = (int) $months + 1;
+        $this->months = (int) $months;
+
+        $this->terminations = $this->getTerminations();
     }
 
     /**
@@ -30,8 +33,23 @@ class EmployeesTerminatedMail extends Mailable
      */
     public function build()
     {
+        $months = $this->months  + 1;
+        
         return $this->to('yjorge@eccocorpbpo.com')
-            ->subject('Employees Terminated Last '.$this->months.' Months')
+            ->subject('Employees Terminated Last ' . $months .' Months')
             ->markdown('emails.employees-terminated');
     }
+
+    protected function getTerminations()
+    {
+
+        $startOfMonth = Carbon::now()->subMonths($this->months)->startOfMonth();
+
+        return Termination::orderBy('termination_date', 'DESC')
+        ->where('termination_date', '>=', $startOfMonth)
+        ->with(['terminationType', 'terminationReason', 'employee' => function ($query) {
+            return $query->with('site');
+        }])
+        ->get();
+    }   
 }

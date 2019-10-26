@@ -2,9 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Employee;
 use App\Mail\EmployeesHiredMail;
-use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 
@@ -41,17 +39,8 @@ class EmployeesHired extends Command
     {
         $months = $this->option('months');
 
-        $employees = Employee::whereDate('hire_date', '>=', Carbon::now()->subMonths($months)->startOfMonth())
-            ->orderBy('hire_date', 'DESC')
-            ->orderBy('first_name')
-            ->orderBy('second_first_name')
-            ->orderBy('last_name')
-            ->with(['termination', 'supervisor', 'site', 'project'])
-            ->with(['position' => function ($query) {
-                return $query->with(['department', 'payment_type']);
-            }])
-            ->get();
+        Mail::send(new EmployeesHiredMail($months));
 
-        Mail::send(new EmployeesHiredMail($employees, $months));
+        $this->info("Employees hired email sent!");
     }
 }

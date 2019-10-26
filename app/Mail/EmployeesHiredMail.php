@@ -2,6 +2,8 @@
 
 namespace App\Mail;
 
+use App\Employee;
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -11,16 +13,18 @@ class EmployeesHiredMail extends Mailable
     use Queueable;
     use SerializesModels;
 
-    public $employees;
     public $months;
+    
+    public $employees;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($employees, $months)
+    public function __construct($months)
     {
-        $this->employees = $employees;
-        $this->months = (int) $months + 1;
+        $this->months = (int) $months;
+
+        $this->employees = $this->getEmployees();
     }
 
     /**
@@ -30,8 +34,24 @@ class EmployeesHiredMail extends Mailable
      */
     public function build()
     {
+        $months = $this->months + 1;
+        
         return $this->to('yjorge@eccocorpbpo.com')
-            ->subject('Employees Hired Last '.$this->months.' Months')
+            ->subject('Employees Hired Last ' . $months . ' Months')
             ->markdown('emails.employees-hired');
+    }
+
+    protected function getEmployees()
+    {
+        return Employee::whereDate('hire_date', '>=', Carbon::now()->subMonths($this->months)->startOfMonth())
+            ->orderBy('hire_date', 'DESC')
+            ->orderBy('first_name')
+            ->orderBy('second_first_name')
+            ->orderBy('last_name')
+            ->with(['termination', 'supervisor', 'site', 'project'])
+            ->with(['position' => function ($query) {
+                return $query->with(['department', 'payment_type']);
+            }])
+            ->get();
     }
 }
