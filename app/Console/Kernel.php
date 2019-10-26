@@ -13,14 +13,14 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        'App\Console\Commands\Inspire',
-        'App\Console\Commands\CapillusFlashCommand',
-        'App\Console\Commands\FeedSchedulesTable',
-        'App\Console\Commands\FeedShiftsTableCommand',
-        'App\Console\Commands\MigrationStatus',
-        'App\Console\Commands\EmployeesHired',
-        'App\Console\Commands\EmployeesTerminated',
-        'App\Console\Commands\UpdateSlugs',
+        Commands\Inspire::class,
+        Commands\CapillusFlashCommand::class,
+        Commands\FeedSchedulesTable::class,
+        Commands\FeedShiftsTableCommand::class,
+        Commands\MigrationStatus::class,
+        Commands\EmployeesHired::class,
+        Commands\EmployeesTerminated::class,
+        Commands\UpdateSlugs::class,
     ];
 
     /**
