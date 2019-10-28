@@ -30,6 +30,9 @@ class EmployeesResource extends JsonResource
             "site" => optional($this->site)->name,
             "project" => optional($this->project)->name,
             "position" => optional($this->position)->name,
+            "salary" => optional($this->position)->salary,
+            "salary_type" => optional(optional($this->position)->payment_type)->name,
+            "pay_per_hours" => optional($this->position)->pay_per_hours,
             "department" => optional(optional($this->position)->department)->name,
             "supervisor" => optional($this->supervisor)->name,
             "gender" => optional($this->gender)->name,
@@ -41,6 +44,9 @@ class EmployeesResource extends JsonResource
             "photo" => $this->photo,
             "active" => $this->active,
             "status" => $this->status,
+            "punch" => optional($this->punch)->punch,
+            "is_vip" => $this->isVip,
+            "is_universal" => $this->isUniversal,
         ];
     }
 }
