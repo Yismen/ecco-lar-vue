@@ -61,8 +61,13 @@ class EmployeeController extends Controller
             'nationality',
             'project', 
             'position.department', 
+            'position.payment_type', 
+            'punch',
             'site', 
             'supervisor',
+            'termination',
+            'vip',
+            'universal'
         ])
         ->sorted();
     }

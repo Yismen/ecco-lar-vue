@@ -82,7 +82,7 @@ class CapillusFlashReportExport implements FromView, WithColumnFormatting, WithT
 
     protected function getTodaysData()
     {
-        return DB::connection('capillus')->select(
+        return DB::connection('poliscript')->select(
             DB::raw("declare @reportDate as smalldatetime, @campaign as varchar(50) set @reportDate = GETDATE() AT TIME ZONE 'UTC' AT TIME ZONE 'Eastern Standard Time' set @campaign = 
             'Capillus DRTV' exec [sp_CapillusFlashReport] @reportDate, @campaign")
         );
@@ -90,7 +90,7 @@ class CapillusFlashReportExport implements FromView, WithColumnFormatting, WithT
 
     protected function getYesterdaysData()
     {
-        return DB::connection('capillus')->select(
+        return DB::connection('poliscript')->select(
             DB::raw("declare @reportDate as smalldatetime, @campaign as varchar(50) set @reportDate = GETDATE() - 1 AT TIME ZONE 'UTC' AT TIME ZONE 'Eastern Standard Time' set @campaign = 
             'Capillus DRTV' exec [sp_CapillusFlashReport] @reportDate, @campaign")
         );

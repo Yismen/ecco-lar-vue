@@ -38,7 +38,7 @@ class CreateOvernightHourRequest extends FormRequest
                 Rule::notIn($dates)
             ],
             'employee_id' => 'required|exists:employees,id',
-            'hours' => 'numeric|min:0|max:14'
+            'hours' => 'numeric|min:0|max:17'
         ];
     }
 

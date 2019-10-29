@@ -51,13 +51,13 @@ return [
             'strict' => false,
             'engine' => 'InnoDB ROW_FORMAT=DYNAMIC',
         ],
-        'capillus' => [
+        'poliscript' => [
             'driver' => 'sqlsrv',
-            'host' => 'data.poliscript.org',
             'port' => '1433',
-            'database' => 'Reports',
-            'username' => 'ecco_reports',
-            'password' => 'RFsLPCX4ZL',
+            'host' => env('POLISCRIPT_HOST', ''),
+            'database' => env('POLISCRIPT_DATABASE', ''),
+            'username' => env('POLISCRIPT_USERNAME', ''),
+            'password' => env('POLISCRIPT_PASSWORD', ''),
             'charset' => 'utf8',
             'prefix' => ''
         ],

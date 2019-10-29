@@ -76,6 +76,16 @@ trait EmployeeAccessors
         return $this->termination ? 'Inactive' : 'Active';
     }
 
+    public function getIsVipAttribute()
+    {
+        return $this->vip ? true : false;
+    }
+
+    public function getIsUniversalAttribute()
+    {
+        return $this->universal ? true : false;
+    }
+
     public function getActiveAttribute()
     {
         return false == $this->termination;
