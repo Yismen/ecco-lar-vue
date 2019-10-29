@@ -2,9 +2,13 @@
 
 namespace App\Console\Commands;
 
-use App\Mail\CapillusFlashMail;
+use App\Exports\CapillusFlashReportExport;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
+use App\Mail\CapillusFlashMail;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CapillusFlashCommand extends Command
 {
@@ -38,12 +42,24 @@ class CapillusFlashCommand extends Command
      * @return mixed
      */
     public function handle()
-    {
-        Mail::send(
-            new CapillusFlashMail($this->distroList())
-        );
+    {   
+        
+        try {
+            $instance = Carbon::now()->format('Ymd_His');
+    
+            $file_name = "KNYC E Flash Report {$instance} .xlsx";
 
-        $this->info("Capillus lash report sent!");
+            Excel::store(new CapillusFlashReportExport(), $this->capillus_file_name);
+    
+            Mail::send(
+                new CapillusFlashMail($this->distroList(), $file_name)
+            );
+    
+            $this->info("Capillus lash report sent!");
+        } catch (\Throwable $th) {
+            Log::error('File Not created');
+        }
+
     }
 
     /**

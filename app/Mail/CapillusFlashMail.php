@@ -2,13 +2,10 @@
 
 namespace App\Mail;
 
-use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
-use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Exports\CapillusFlashReportExport;
 
 class CapillusFlashMail extends Mailable
 {
@@ -24,12 +21,11 @@ class CapillusFlashMail extends Mailable
      *
      * @return void
      */
-    public function __construct(array $distro)
+    public function __construct(array $distro, $filename)
     {
         $this->distro = $distro;
-        $instance = Carbon::now()->format('Ymd_His');
 
-        $this->capillus_file_name = "KNYC E Flash Report {$instance} .xlsx";       
+        $this->capillus_file_name = $filename;            
         
     }
     
@@ -40,22 +36,15 @@ class CapillusFlashMail extends Mailable
      */
     public function build()
     {
-        $file = Excel::store(new CapillusFlashReportExport(), $this->capillus_file_name);
-
-        if ($file) {
-            foreach ($this->distro as $recipient) {
-                $this->to($recipient);
-            }
-            
-            return $this
-                ->from('yjorge@eccocorpbpo.com', 'Yisme Jorge')
-                ->bcc('yjorge@eccocorpbpo.com')
-                ->view('emails.capillus-flash')
-                ->attachFromStorage($this->capillus_file_name)
-                ->subject("KNYC.E Flash Report");
-        } else {
-            Log::alert('The email wasnt sent. Review please.');
+        foreach ($this->distro as $recipient) {
+            $this->to($recipient);
         }
-        
+
+        return $this
+            ->from('yjorge@eccocorpbpo.com', 'Yisme Jorge')
+            ->bcc('yjorge@eccocorpbpo.com')
+            ->view('emails.capillus-flash')
+            ->attachFromStorage($this->capillus_file_name)
+            ->subject("KNYC.E Flash Report");
     }
 }
