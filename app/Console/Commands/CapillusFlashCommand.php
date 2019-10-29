@@ -47,17 +47,17 @@ class CapillusFlashCommand extends Command
         try {
             $instance = Carbon::now()->format('Ymd_His');
     
-            $file_name = "KNYC E Flash Report {$instance} .xlsx";
+            $file_name = "KNYC E Flash Report {$instance}.xlsx";
 
-            Excel::store(new CapillusFlashReportExport(), $this->capillus_file_name);
-    
+            Excel::store(new CapillusFlashReportExport(), $file_name);
+
             Mail::send(
                 new CapillusFlashMail($this->distroList(), $file_name)
             );
     
             $this->info("Capillus lash report sent!");
         } catch (\Throwable $th) {
-            Log::error('File Not created');
+            Log::error($th);
         }
 
     }
