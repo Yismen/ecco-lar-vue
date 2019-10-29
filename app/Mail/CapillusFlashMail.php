@@ -29,11 +29,10 @@ class CapillusFlashMail extends Mailable
         $this->distro = $distro;
         $instance = Carbon::now()->format('Ymd_His');
 
-        $this->capillus_file_name = "KNYC E Flash Report {$instance} .xlsx";
+        $this->capillus_file_name = "KNYC E Flash Report {$instance} .xlsx";       
         
-        Excel::store(new CapillusFlashReportExport(), $this->capillus_file_name);
     }
-
+    
     /**
      * Build the message.
      *
@@ -41,15 +40,22 @@ class CapillusFlashMail extends Mailable
      */
     public function build()
     {
-        foreach ($this->distro as $recipient) {
-            $this->to($recipient);
-        }
+        $file = Excel::store(new CapillusFlashReportExport(), $this->capillus_file_name);
 
-        return $this
-            ->from('yjorge@eccocorpbpo.com', 'Yisme Jorge')
-            ->bcc('yjorge@eccocorpbpo.com')
-            ->view('emails.capillus-flash')
-            ->attachFromStorage($this->capillus_file_name)
-            ->subject("KNYC.E Flash Report");
+        if ($file) {
+            foreach ($this->distro as $recipient) {
+                $this->to($recipient);
+            }
+            
+            return $this
+                ->from('yjorge@eccocorpbpo.com', 'Yisme Jorge')
+                ->bcc('yjorge@eccocorpbpo.com')
+                ->view('emails.capillus-flash')
+                ->attachFromStorage($this->capillus_file_name)
+                ->subject("KNYC.E Flash Report");
+        } else {
+            Log::alert('The email wasnt sent. Review please.');
+        }
+        
     }
 }
