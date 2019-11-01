@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Exports\CapillusFlashReportExport;
+use App\Exports\Capillus\CapillusFlashReportExport;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use App\Mail\CapillusFlashMail;

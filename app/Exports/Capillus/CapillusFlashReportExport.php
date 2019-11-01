@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Exports;
+namespace App\Exports\Capillus;
 
 use App\Repositories\Capillus\CapillusFlashRepository;
 use Carbon\Carbon;
