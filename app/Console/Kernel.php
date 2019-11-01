@@ -21,7 +21,7 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\EmployeesHired::class,
         \App\Console\Commands\EmployeesTerminated::class,
         \App\Console\Commands\UpdateSlugs::class,
-        \App\Console\Commands\CapillusDailyReportsCommand::class
+        \App\Console\Commands\CapillusDailyLogTimeCommand::class
     ];
 
     /**
@@ -32,7 +32,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('telescope:prune --hours=24')->dailyAt('06:40')->timezone('America/New_York');
-        // $schedule->command('dainsys:capillus-daily')->dailyAt('06:50')->timezone('America/New_York');
+        // $schedule->command('dainsys:capillus-daily-log-time')->dailyAt('06:50')->timezone('America/New_York');
 
         $schedule->command('dainsys:feed-shifts --hours=7.5 --saturday=1')->dailyAt('14:59')->timezone('America/New_York');
         $schedule->command('dainsys:feed-schedules --days=15 --since-days-ago=0')->dailyAt('15:10')->timezone('America/New_York');

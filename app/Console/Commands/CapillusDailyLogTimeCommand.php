@@ -4,13 +4,13 @@ namespace App\Console\Commands;
 
 use Carbon\Carbon;
 use Illuminate\Console\Command;
-use App\Mail\Capillus\CapillusFlashMail;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\Capillus\CapillusFlashReportExport;
+use App\Mail\Capillus\CapillusDailyLogTimeMail;
+use App\Exports\Capillus\CapillusAgentLogTimeExport;
+use Illuminate\Support\Facades\Mail;
 
-class CapillusFlashCommand extends Command
+class CapillusDailyLogTimeCommand extends Command
 {
     use CapillusCommandsTrait;
     /**
@@ -18,14 +18,14 @@ class CapillusFlashCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'dainsys:capillus-flash';
+    protected $signature = 'dainsys:capillus-daily-log-time';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Send and email to the distro list with the Capillus Flash Report';
+    protected $description = 'Capillus daily log time.';
 
     /**
      * Create a new command instance.
@@ -43,22 +43,22 @@ class CapillusFlashCommand extends Command
      * @return mixed
      */
     public function handle()
-    {          
+    {
         try {
-            $instance = Carbon::now()->format('Ymd_His');
-    
-            $file_name = "KNYC E Flash Report {$instance}.xlsx";
+            $filename = 'Daily Log Time Report.xlsx'; 
 
-            Excel::store(new CapillusFlashReportExport(), $file_name);
+            $from = Carbon::now()->subDay()->format('Ymd');
+            $to = Carbon::now()->format('Ymd');
 
+            Excel::store(
+                new CapillusAgentLogTimeExport('Cap', $from, $to)
+            , $filename);
+            
             Mail::send(
-                new CapillusFlashMail($this->distroList(), $file_name)
+                new CapillusDailyLogTimeMail($this->distroList(), $filename)
             );
-    
-            $this->info("Capillus lash report sent!");
         } catch (\Throwable $th) {
             Log::error($th);
-        }
-
+        }        
     }
 }
