@@ -2,9 +2,9 @@
 
 namespace App\Exports;
 
+use App\Repositories\Capillus\CapillusFlashRepository;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use Maatwebsite\Excel\Concerns\WithEvents;
@@ -17,13 +17,20 @@ use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 
 class CapillusFlashReportExport implements FromView, WithColumnFormatting, WithTitle, WithEvents
 {
+    protected $repo;
+
+    public function __construct()
+    {
+        $this->repo = new CapillusFlashRepository();
+    }
+
     public function view(): View
     {
         return view('exports.capillus-flash.index', [
             'current_date' => Carbon::now()->format('d-M-Y'),
             'previous_date' => Carbon::now()->subDay()->format('d-M-Y'),
-            'todays' => $this->getTodaysData(),
-            'yesterdays' => $this->getYesterdaysData()
+            'todays' => $this->repo->todaysData(),
+            'yesterdays' => $this->repo->yesterdaysData()
         ]);
     }
 
@@ -78,22 +85,6 @@ class CapillusFlashReportExport implements FromView, WithColumnFormatting, WithT
     public function title(): string
     {
         return 'KNYC E Flash Report';
-    }
-
-    protected function getTodaysData()
-    {
-        return DB::connection('poliscript')->select(
-            DB::raw("declare @reportDate as smalldatetime, @campaign as varchar(50) set @reportDate = GETDATE() AT TIME ZONE 'UTC' AT TIME ZONE 'Eastern Standard Time' set @campaign = 
-            'Capillus DRTV' exec [sp_CapillusFlashReport] @reportDate, @campaign")
-        );
-    }
-
-    protected function getYesterdaysData()
-    {
-        return DB::connection('poliscript')->select(
-            DB::raw("declare @reportDate as smalldatetime, @campaign as varchar(50) set @reportDate = GETDATE() - 1 AT TIME ZONE 'UTC' AT TIME ZONE 'Eastern Standard Time' set @campaign = 
-            'Capillus DRTV' exec [sp_CapillusFlashReport] @reportDate, @campaign")
-        );
     }
 
     protected function headerStyle()
