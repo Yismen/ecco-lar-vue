@@ -7,8 +7,9 @@ use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\WithTitle;
 
-class CapillusAgentLogTimeExport implements FromArray, WithHeadings, ShouldAutoSize
+class CapillusAgentLogTimeExport implements FromArray, WithHeadings, ShouldAutoSize, WithTitle
 {
     protected $repo;
 
@@ -35,6 +36,11 @@ class CapillusAgentLogTimeExport implements FromArray, WithHeadings, ShouldAutoS
     public function array(): array
     {
         return $this->repo->report($this->campaign, $this->from, $this->to);
+    }
+
+    public function title(): string
+    {
+        return "Daily Log Time";
     }
 
     /**

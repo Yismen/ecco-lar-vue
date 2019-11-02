@@ -45,7 +45,7 @@ class CapillusDailyLogTimeCommand extends Command
     public function handle()
     {
         try {
-            $filename = 'Daily Log Time Report.xlsx'; 
+            $filename = 'Capillus Daily Log Time Report.xlsx'; 
 
             $from = Carbon::now()->subDay()->format('Ymd');
             $to = Carbon::now()->format('Ymd');
@@ -55,7 +55,7 @@ class CapillusDailyLogTimeCommand extends Command
             , $filename);
             
             Mail::send(
-                new CapillusDailyLogTimeMail($this->distroList(), $filename)
+                new CapillusDailyLogTimeMail($this->distroList(), $filename, "Capillus Daily Log Time")
             );
         } catch (\Throwable $th) {
             Log::error($th);

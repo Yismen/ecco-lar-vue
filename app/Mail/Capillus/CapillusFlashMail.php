@@ -14,7 +14,7 @@ class CapillusFlashMail extends CapillusMailBase
         return $this
             ->from('yjorge@eccocorpbpo.com', 'Yisme Jorge')
             ->bcc('yjorge@eccocorpbpo.com')
-            ->view('emails.capillus-flash')
+            ->view('emails.capillus')
             ->attachFromStorage($this->capillus_file_name)
             ->subject("KNYC.E Flash Report");
     }

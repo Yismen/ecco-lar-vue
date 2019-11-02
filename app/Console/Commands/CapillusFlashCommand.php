@@ -52,7 +52,7 @@ class CapillusFlashCommand extends Command
             Excel::store(new CapillusFlashReportExport(), $file_name);
 
             Mail::send(
-                new CapillusFlashMail($this->distroList(), $file_name)
+                new CapillusFlashMail($this->distroList(), $file_name, "KNYC E Flash")
             );
     
             $this->info("Capillus lash report sent!");
