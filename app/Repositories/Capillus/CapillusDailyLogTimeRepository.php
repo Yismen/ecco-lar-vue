@@ -8,7 +8,7 @@ class CapillusDailyLogTimeRepository extends CapillusBase
 {
     public function report($dial_group, $from, $to)
     {
-        return $this->connection->select(
+        return $this->connection()->select(
             DB::raw("
                 select
                     *
