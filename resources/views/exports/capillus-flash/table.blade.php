@@ -80,9 +80,9 @@
             <th>{{ $collection->sum('Cap Plus') }}</th>
             <th>{{ $collection->sum('Cap Pro') }}</th>
             <th>{{ $total_revenue }}</th>
-            <th>{{ $total_calls == 0 ? 0 : $collection->sum('Revenue Per Call Offered') / $total_calls }}</th>
-            <th>{{ $total_calls == 0 ? 0 : $collection->sum('Revenue Per Call Answered') / $total_calls }}</th>
-            <th>{{ $total_calls == 0 ? 0 : $collection->sum('Revenue Per Qualified Call') / $total_calls }}</th>
+            <th>{{ $total_calls == 0 ? 0 : $total_revenue / $total_calls }}</th>
+            <th>{{ $total_calls_answered == 0 ? 0 : $total_revenue / $total_calls_answered }}</th>
+            <th>{{ $qualified_calls == 0 ? 0 : $total_revenue / $qualified_calls }}</th>
             <th>{{ $qualified_calls }}</th>
             <th>{{ $non_qualified_calls }}</th>
         </tr>
