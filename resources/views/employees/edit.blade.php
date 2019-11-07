@@ -3,7 +3,7 @@
 
 @section('content')
 	<div class="container-fluid">
-		<div class="col-sm-12 col-md-10 col-md-offset-1">
+		<div class="col-sm-12">
 			<edit-employee :employee="{{ $employee }}"></edit-employee>
 		</div><!-- /. Main box -->
 	</div>

@@ -12,8 +12,8 @@
 
 
                 <div class="form-group" :class="{'has-error': form.error.has('sector')}">
-                    <label for="input" class="col-sm-2 control-label">Sector:</label>
-                    <div class="col-sm-10">
+                    <label for="input" class="col-xs-4 col-sm-12 col-md-4">Sector:</label>
+                    <div class="col-xs-8 col-sm-12 col-md-8">
                         <input type="text" id="sector"
                         name="sector" class="form-control"
                         v-model="form.fields.sector">
@@ -22,8 +22,8 @@
                 </div> <!-- ./Sector -->
 
                 <div class="form-group" :class="{'has-error': form.error.has('street_address')}">
-                    <label for="input" class="col-sm-2 control-label">Street Address:</label>
-                    <div class="col-sm-10">
+                    <label for="input" class="col-xs-4 col-sm-12 col-md-4">Street Address:</label>
+                    <div class="col-xs-8 col-sm-12 col-md-8">
                         <input type="text" id="street_address"
                         name="street_address" class="form-control"
                         v-model="form.fields.street_address">
@@ -32,8 +32,8 @@
                 </div> <!-- ./Street Address -->
 
                 <div class="form-group" :class="{'has-error': form.error.has('city')}">
-                    <label for="input" class="col-sm-2 control-label">City:</label>
-                    <div class="col-sm-10">
+                    <label for="input" class="col-xs-4 col-sm-12 col-md-4">City:</label>
+                    <div class="col-xs-8 col-sm-12 col-md-8">
                         <input type="text" id="city"
                         name="city" class="form-control"
                         v-model="form.fields.city">

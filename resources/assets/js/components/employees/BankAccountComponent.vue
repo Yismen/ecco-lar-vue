@@ -10,14 +10,13 @@
         </div>
 
         <div class="box-body">
-            <div class="col-sm-6">
+            <div class="col-md-6">
                 <div class="form-group" :class="{'has-error': form.error.has('bank_id')}">
-                    <label for="input" class="col-sm-2 control-label">Bank:</label>
-                    <div class="col-sm-10">
-
+                    <label for="input" class="col-xs-3 col-md-12 col-lg-3">Bank:</label>
+                    <div class="col-xs-9 col-md-12 col-lg-9">
                         <div class="input-group">
                             <select name="bank_id" id="bank_id" class="form-control" v-model="form.fields.bank_id">
-                                <option v-for="(bank, index) in banks_list" :value="bank.id" :key="bank.id">{{ bank.name }}</option>
+                                <option v-for="bank in banks_list" :value="bank.id" :key="bank.id">{{ bank.name }}</option>
                             </select>
                             <a href="#" @click.prevent="$modal.show('create-bank')" class="input-group-addon">
                                 <i class="fa fa-plus"></i> Add
@@ -28,10 +27,10 @@
                 </div> <!-- ./Bank-->
             </div>
 
-            <div class="col-sm-6">
+            <div class="col-md-6">
                 <div class="form-group" :class="{'has-error': form.error.has('bank_id')}">
-                    <label for="input" class="col-sm-2 control-label">Account Number:</label>
-                    <div class="col-sm-10">
+                    <label for="input" class="col-xs-3 col-md-12 col-lg-3">Account Number:</label>
+                    <div class="col-xs-9 col-md-12 col-lg-9">
                         <input type="text" class="form-control"
                          id="account_number" name="account_number"
                         v-model="form.fields.account_number">

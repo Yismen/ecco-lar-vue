@@ -12,11 +12,11 @@
 
             <div class="box-body" :class="{'has-error': form.error.has('ars_id')}">
                 <div class="form-group">
-                    <label for="input" class="col-sm-2 control-label">ARS:</label>
-                    <div class="col-sm-10">
+                    <label for="input" class="col-xs-3 col-md-12 col-lg-3">ARS:</label>
+                    <div class="col-xs-9 col-md-12 col-lg-9">
                         <div class="input-group">
                             <select name="ars_id" id="ars_id" class="form-control" v-model="form.fields.ars_id">
-                                <option v-for="(ars, index) in ars_list" :value="ars.id" :key="ars.id">{{ ars.name }}</option>
+                                <option v-for="ars in ars_list" :value="ars.id" :key="ars.id">{{ ars.name }}</option>
                             </select>
                             <a href="#" @click.prevent="$modal.show('create-ars')" class="input-group-addon">
                                 <i class="fa fa-plus"></i> Add

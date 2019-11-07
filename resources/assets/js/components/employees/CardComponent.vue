@@ -11,8 +11,8 @@
 
             <div class="box-body">
                 <div class="form-group" :class="{'has-error': form.error.has('card')}">
-                    <label for="input" class="col-sm-2 control-label">Card:</label>
-                    <div class="col-sm-10">
+                    <label for="input" class="col-xs-3 col-md-12 col-lg-3">Card:</label>
+                    <div class="col-xs-9 col-md-12 col-lg-9">
                         <input type="text" class="form-control"
                          id="card" name="card"
                         v-model="form.fields.card">

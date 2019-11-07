@@ -12,14 +12,14 @@
 
             <div class="box-body" :class="{'has-error': form.error.has('supervisor_id')}">
                 <div class="form-group">
-                    <label for="input" class="col-sm-2 control-label">Supervisor:</label>
-                    <div class="col-sm-10">
+                    <label for="input" class="col-xs-3 col-md-12 col-lg-3">Supervisor:</label>
+                    <div class="col-xs-9 col-md-12 col-lg-9">
                         <div class="input-group">
                             <select name="supervisor_id" id="supervisor_id"
                                 class="form-control"
                                 v-model="form.fields.supervisor_id"
                             >
-                                <option v-for="(supervisor, index) in supervisors_list" :value="supervisor.id" :key="supervisor.id">
+                                <option v-for="supervisor in supervisors_list" :value="supervisor.id" :key="supervisor.id">
                                     {{ supervisor.name }}
                                 </option>
                             </select>

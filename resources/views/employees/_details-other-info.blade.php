@@ -57,6 +57,24 @@
             </td>
         </tr>
 
+        @if ($employee->is_universal)
+            <tr>
+                <th colspan="2">
+                    <i class="fa fa-globe"></i> 
+                    This Agent is Universal
+                </th>
+            </tr>
+        @endif
+
+        @if ($employee->is_vip)
+            <tr>
+                <th colspan="2">
+                    <i class="fa fa-superpowers"></i> 
+                    This employee is VIP
+                </th>
+            </tr>
+        @endif
+
         <tr>
             <th>Sec. Card #: </th>
             <td>

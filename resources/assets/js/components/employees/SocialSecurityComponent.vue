@@ -11,11 +11,13 @@
 
             <div class="box-body">
                 <div class="form-group" :class="{'has-error': form.error.has('number')}">
-                    <label for="number" class="">Social Sec. Number:</label>
-                    <input type="text" class="form-control"
-                    id="number" name="number"
-                    v-model="form.fields.number">
-                    <span class="text-danger" v-if="form.error.has('number')">{{ form.error.get('number') }}</span>
+                    <label for="number" class="col-xs-3 col-md-12 col-lg-3">Social Sec. Number:</label>
+                    <div class="col-xs-9 col-md-12 col-lg-9">
+                        <input type="text" class=" form-control"
+                        id="number" name="number"
+                        v-model="form.fields.number">
+                        <span class="text-danger" v-if="form.error.has('number')">{{ form.error.get('number') }}</span>
+                    </div>
                 </div> <!-- ./Social Sec. Number-->
             </div>
 

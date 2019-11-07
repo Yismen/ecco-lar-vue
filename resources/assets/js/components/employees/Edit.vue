@@ -64,25 +64,25 @@
 
                 <div role="tabpanel" class="tab-pane" id="card_and_punch">
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-md-6">
                             <EmployeeCard />
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-md-6">
                             <EmployeePunch />
                         </div>
                     </div>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="tss">
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-md-6">
                             <EmployeeArs />
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-md-6">
                             <EmployeeAfp />
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-md-6">
                             <EmployeeSocialSecurity />
                         </div>
                     </div>
@@ -96,11 +96,14 @@
                 <div role="tabpanel" class="tab-pane" id="others">
                     <div class="box-body">
                         <div class="row">
-                            <div class="col-sm-6">
+                            <div class="col-md-6">
                                 <EmployeeSupervisor />
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-md-6">
                                 <EmployeeNationality />
+                            </div>
+                            <div class="col-md-12">
+                                <Especialities />
                             </div>
                         </div>
                     </div>
@@ -126,11 +129,14 @@
     import EmployeeSocialSecurity from './SocialSecurityComponent';
     import EmployeeSupervisor from './SupervisorComponent';
     import EmployeeTermination from './TerminationComponent';
+    import Especialities from './EspecialitiesComponent';
     export default {
         name: "EmployeeIndex",
         props: ['employee'],
         components: {
-            EmployeeAddress, EmployeeAfp, EmployeeArs, EmployeeBankAccount, EmployeeCard, EmployeeInfo, EmployeeLoginNames, EmployeeNationality, EmployeePhoto, EmployeePunch, EmployeeReactivation, EmployeeSocialSecurity, EmployeeSupervisor, EmployeeTermination
+            EmployeeAddress, EmployeeAfp, EmployeeArs, EmployeeBankAccount, EmployeeCard, EmployeeInfo, 
+            EmployeeLoginNames, EmployeeNationality, EmployeePhoto, EmployeePunch, 
+            EmployeeReactivation, EmployeeSocialSecurity, EmployeeSupervisor, EmployeeTermination, Especialities
         },
 
         created() {

@@ -106,6 +106,8 @@ class RouteServiceProvider extends ServiceProvider
                 'supervisors_list',
                 'termination_type_list',
                 'termination_reason_list',
+                'is_universal',
+                'is_vip',
                 ]);
         });
 
