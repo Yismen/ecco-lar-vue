@@ -100,3 +100,7 @@ Tasks:
   ☐ Conversion Rate (sales / contacts)
   ☐ Utilization (talk time / production time)
   ☐ Eficiency (production time vs paid time)
+☐ Capillus Daily Performance Report
+  ✔ Pull data from server and save it to Dainsys DB @started(19-11-15 10:24) @done(19-11-15 17:29) @lasted(7h5m25s)
+  ☐ Send daily performan email report
+
