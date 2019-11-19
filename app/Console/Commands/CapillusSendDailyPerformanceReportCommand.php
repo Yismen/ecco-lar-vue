@@ -2,15 +2,12 @@
 
 namespace App\Console\Commands;
 
-use App\CapillusDailyPerformance;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Mail\Capillus\CapillusDailyLogTimeMail;
-use App\Exports\Capillus\CapillusAgentLogTimeExport;
 use App\Exports\Capillus\CapillusPerformanceReportExport;
-use App\Repositories\Capillus\CapillusPerformanceReportRepository;
+use App\Mail\Capillus\CapillusDailyPerformanceMail;
 use Illuminate\Support\Facades\Mail;
 
 class CapillusSendDailyPerformanceReportCommand extends Command
@@ -57,30 +54,16 @@ class CapillusSendDailyPerformanceReportCommand extends Command
 
             Excel::store(new CapillusPerformanceReportExport($date), $file_name);
 
-            dd("df");
-
-
-
-
             Mail::send(
-                new CapillusFlashMail($this->distroList(), $file_name, "KNYC E Flash")
+                new CapillusDailyPerformanceMail($this->distroList(), $file_name, "Kipany Capillus Daily Performance")
             );
     
-            $this->info("Capillus lash report sent!");
-
-            // Log::info($mtd->sum('calls_offered'));
-            // Get the daily data for the week
-            // Sumarize the WTD Data
-            // Summarize the MTD Data
-
-            // Construct the excel file
-
-            // Send the file in an attachment
-
-            // Remove the file
+            $this->info("Capillus Daily Performance sent!");
 
         } catch (\Throwable $th) {
             Log::error($th);
+
+            $this->error("Something went wrong");
         }        
     }
 
