@@ -6,6 +6,7 @@ use App\Console\Commands\CapillusDailyLogTimeCommand;
 use App\Console\Commands\CapillusFlashCommand;
 use App\Console\Commands\CapillusMTDAgentsCallsReportCommand;
 use App\Console\Commands\CapillusPullDailyPerformanceDataCommand;
+use App\Console\Commands\CapillusSendDailyPerformanceReportCommand;
 use App\Console\Commands\EmployeesHired;
 use App\Console\Commands\EmployeesTerminated;
 use App\Console\Commands\FeedSchedulesTable;
@@ -27,6 +28,7 @@ class Kernel extends ConsoleKernel
         CapillusDailyLogTimeCommand::class,
         CapillusFlashCommand::class,
         CapillusPullDailyPerformanceDataCommand::class,
+        CapillusSendDailyPerformanceReportCommand::class,
         FeedSchedulesTable::class,
         FeedShiftsTableCommand::class,
         MigrationStatus::class,
@@ -61,8 +63,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('dainsys:capillus-flash')->twiceDaily(12, 15)->timezone('America/New_York');
         $schedule->command('dainsys:capillus-flash')->twiceDaily(18, 21)->timezone('America/New_York');
         
-        // $schedule->command('dainsys:capillus-pull-daily-permance-data --date=default')->dailyAt('06:30')->timezone('America/New_York');
-        // $schedule->command('dainsys:capillus-send-daily-permance-report --date=default)->dailyAt('06:35')->timezone('America/New_York');
+        $schedule->command('dainsys:capillus-pull-daily-permance-data --date=default')->dailyAt('06:30')->timezone('America/New_York');
+        $schedule->command('dainsys:capillus-send-daily-permance-report --date=default')->dailyAt('06:35')->timezone('America/New_York');
         
         
     }

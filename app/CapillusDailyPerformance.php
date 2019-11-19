@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class CapillusDailyPerformance extends Model
@@ -44,10 +45,28 @@ class CapillusDailyPerformance extends Model
         'wrong_number',
     ];
 
+    protected $dates = ['date'];
+    
     public function removeIfExists($date)
     {
         $this->whereDate('date', $date)->delete();
 
         return $this;
+    }
+
+    public function scopeWtd($query, Carbon $date)
+    {
+        return $query->whereBetween('date', [
+            $date->startOfWeek()->format('Y-m-d'),
+            $date->endOfWeek()->format('Y-m-d')
+        ]);
+    }
+
+    public function scopeMtd($query, Carbon $date)
+    {
+        return $query->whereBetween('date', [
+            $date->startOfMonth()->format('Y-m-d'),
+            $date->endOfMonth()->format('Y-m-d')
+        ]);
     }
 }

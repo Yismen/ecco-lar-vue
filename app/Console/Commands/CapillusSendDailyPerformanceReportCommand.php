@@ -9,10 +9,11 @@ use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Mail\Capillus\CapillusDailyLogTimeMail;
 use App\Exports\Capillus\CapillusAgentLogTimeExport;
-use App\Repositories\Capillus\CapillusPullDailyPerformanceDataRepository;
+use App\Exports\Capillus\CapillusPerformanceReportExport;
+use App\Repositories\Capillus\CapillusPerformanceReportRepository;
 use Illuminate\Support\Facades\Mail;
 
-class CapillusPullDailyPerformanceDataCommand extends Command
+class CapillusSendDailyPerformanceReportCommand extends Command
 {
     use CapillusCommandsTrait;
     /**
@@ -20,16 +21,14 @@ class CapillusPullDailyPerformanceDataCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'dainsys:capillus-pull-daily-permance-data {--date=default}';
+    protected $signature = 'dainsys:capillus-send-daily-permance-report {--date=default}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Capillus - pull daily performance data';
-
-    protected $repo;
+    protected $description = 'Capillus - send daily performance report';
 
     /**
      * Create a new command instance.
@@ -39,8 +38,6 @@ class CapillusPullDailyPerformanceDataCommand extends Command
     public function __construct()
     {
         parent::__construct();
-
-        $this->repo = new CapillusPullDailyPerformanceDataRepository;
     }
 
     /**
@@ -51,21 +48,36 @@ class CapillusPullDailyPerformanceDataCommand extends Command
     public function handle()
     {
         try {
-            
-            // Gather the data from the DB
-            $campaign = 'Capillus DRTV';
+            $instance = Carbon::now()->format('Ymd_His');
+            $file_name = "Capillus Daily Performance Report {$instance}.xlsx";
+
             $date = $this->option('date') == 'default' ? 
                 Carbon::now()->subDay() : 
                 Carbon::parse($this->option('date'));
 
-            $results = collect(
-                $this->repo->getData($campaign, $date->format('Y-m-d H:i:s'))[0]
-            )->toArray();
+            Excel::store(new CapillusPerformanceReportExport($date), $file_name);
 
-            // Save the data to my table
-            (new CapillusDailyPerformance)
-                ->removeIfExists($results['DATE'])
-                ->create($this->getArrayFields($results));
+            dd("df");
+
+
+
+
+            Mail::send(
+                new CapillusFlashMail($this->distroList(), $file_name, "KNYC E Flash")
+            );
+    
+            $this->info("Capillus lash report sent!");
+
+            // Log::info($mtd->sum('calls_offered'));
+            // Get the daily data for the week
+            // Sumarize the WTD Data
+            // Summarize the MTD Data
+
+            // Construct the excel file
+
+            // Send the file in an attachment
+
+            // Remove the file
 
         } catch (\Throwable $th) {
             Log::error($th);
