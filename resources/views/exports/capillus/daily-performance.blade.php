@@ -14,7 +14,7 @@
             @endfor
             <th>WTD</th>
             <th>MTD</th>
-            <th></th>
+            <th>PTD</th>
         </tr>
 
         <tr>
@@ -28,7 +28,7 @@
             @endfor
             <td>{{ $data['wtd']->sum('calls_offered') }}</td>  
             <td>{{ $data['mtd']->sum('calls_offered') }}</td>  
-            <td></td>
+            <td>{{ $data['ptd']->sum('calls_offered') }}</td>
             <td>All calls that hit the Telephony Switch</td>
         </tr>
 
@@ -43,7 +43,7 @@
             @endfor
             <td>{{ $data['wtd']->sum('calls_answered') }}</td>  
             <td>{{ $data['mtd']->sum('calls_answered') }}</td>  
-            <td></td>
+            <td>{{ $data['ptd']->sum('calls_answered') }}</td>
             <td>All calls that reach a live agent</td>
         </tr> 
 
@@ -58,21 +58,21 @@
             @endfor
             <td>{{ $data['wtd']->sum('short_abandons') }}</td>  
             <td>{{ $data['mtd']->sum('short_abandons') }}</td>  
-            <td></td>
+            <td>{{ $data['ptd']->sum('short_abandons') }}</td>
             <td>Abandonded Calls with a duration </= 10 seconds as measured from the moment the call hits the Switch to the moment the call is abandoned.</td>
         </tr> 
 
         <tr>
             <td>Short Abandon Rate</td>    
             @foreach ($data['wtd'] as $day)
-                <td>{{ $day->calls_offered <= 0 ? 0 : $day->short_abandons / $day->calls_offered }}</td>
+                <td></td>
             @endforeach
 
             @for ($i = count($data['wtd']); $i < 7; $i++)
                 <td></td>
             @endfor
-            <td>{{ $data['wtd']->sum('calls_offered') <= 0 ? 0 : $data['wtd']->sum('short_abandons') / $data['wtd']->sum('calls_offered')  }}</td>  
-            <td>{{ $data['mtd']->sum('calls_offered') <= 0 ? 0 : $data['mtd']->sum('short_abandons') / $data['mtd']->sum('calls_offered')  }}</td>  
+            <td></td>  
+            <td></td>  
             <td></td>
             <td>Total Short Abandons / Calls Offered</td>
         </tr> 
@@ -88,7 +88,7 @@
             @endfor
             <td>{{ $data['wtd']->sum('long_abandons') }}</td>  
             <td>{{ $data['mtd']->sum('long_abandons') }}</td>  
-            <td></td>
+            <td>{{ $data['ptd']->sum('long_abandons') }}</td>
             <td>Abandons Calls with a duration > 10 seconds as measured from the moment the call hits the Switch to the moment the call is abandoned
                     Note: Depending on the duration of the IVR greeting, we may want to tweak this.</td>
         </tr> 
@@ -96,14 +96,14 @@
         <tr>
             <td>Long Abandon Rate</td>
             @foreach ($data['wtd'] as $day)
-                <td>{{ $day->calls_offered <= 0 ? 0 : ($day->long_abandons / $day->calls_offered) }}</td>
+                <td></td>
             @endforeach
 
             @for ($i = count($data['wtd']); $i < 7; $i++)
                 <td></td>
             @endfor
-            <td>{{ $data['wtd']->sum('calls_offered') <= 0 ? 0 : $data['wtd']->sum('long_abandons') / $data['wtd']->sum('calls_offered')  }}</td>  
-            <td>{{ $data['mtd']->sum('calls_offered') <= 0 ? 0 : $data['mtd']->sum('long_abandons') / $data['mtd']->sum('calls_offered')  }}</td>  
+            <td></td>  
+            <td></td>  
             <td></td>
             <td>Total Long Abandons / Calls Offered</td>
         </tr>
@@ -111,14 +111,14 @@
         <tr>
             <td>% of Qualified Calls (Change the formula)</td>    
             @foreach ($data['wtd'] as $day)
-                <td>{{ $day->calls_offered <= 0 ? 0 : $day->long_abandons / $day->calls_offered }}</td>
+                <td></td>
             @endforeach
 
             @for ($i = count($data['wtd']); $i < 7; $i++)
                 <td></td>
             @endfor
-            <td>{{ $data['wtd']->sum('calls_offered') <= 0 ? 0 : $data['wtd']->sum('long_abandons') / $data['wtd']->sum('calls_offered')  }}</td>  
-            <td>{{ $data['mtd']->sum('calls_offered') <= 0 ? 0 : $data['mtd']->sum('long_abandons') / $data['mtd']->sum('calls_offered')  }}</td>  
+            <td></td>  
+            <td></td>  
             <td></td>
             <td>Qualified Calls / (Qualified Calls + Non-Qualified Calls)</td>
         </tr>
@@ -126,14 +126,14 @@
         <tr>
             <td>% of Non-Qualified Calls (Change the formula)</td>    
             @foreach ($data['wtd'] as $day)
-                <td>{{ $day->calls_offered <= 0 ? 0 : $day->long_abandons / $day->calls_offered }}</td>
+                <td></td>
             @endforeach
 
             @for ($i = count($data['wtd']); $i < 7; $i++)
                 <td></td>
             @endfor
-            <td>{{ $data['wtd']->sum('calls_offered') <= 0 ? 0 : $data['wtd']->sum('long_abandons') / $data['wtd']->sum('calls_offered')  }}</td>  
-            <td>{{ $data['mtd']->sum('calls_offered') <= 0 ? 0 : $data['mtd']->sum('long_abandons') / $data['mtd']->sum('calls_offered')  }}</td>  
+            <td></td>  
+            <td></td>  
             <td></td>
             <td>Non-Qualified Calls (Qualified Calls + Non-Qualified Calls)</td>
         </tr> 
@@ -152,7 +152,7 @@
             {{-- there is no outbound minutes  --}}
             <td>{{ $data['mtd']->sum('inbound_minutes') }}</td>  
             {{-- there is no outbound minutes --}}
-            <td></td>
+            <td>{{ $data['ptd']->sum('inbound_minutes') }}</td>
             <td>Total Inbound Talk Time Minutes + Total Oubtound Dial Minutes + Total Outbound Talk Time Minutes.</td>
         </tr>
 
@@ -167,7 +167,7 @@
             @endfor
             <td>{{ $data['wtd']->sum('inbound_minutes') }}</td>  
             <td>{{ $data['mtd']->sum('inbound_minutes') }}</td>  
-            <td></td>
+            <td>{{ $data['ptd']->sum('inbound_minutes') }}</td>
             <td>Total Inbound Talk Time Minutes.</td>
         </tr> 
 
@@ -182,7 +182,7 @@
             @endfor
             <td>{{ 0 }}</td>  
             <td>{{ 0 }}</td>  
-            <td></td>
+            <td>{{ 0 }}</td>
             <td>Total Outbound Dial and Talk Time Minutes.</td>
         </tr> 
 
@@ -193,14 +193,14 @@
         <tr>
             <td>Total Cap Sales</td>    
             @foreach ($data['wtd'] as $day)
-                <td>{{ $day->cap_ultra + $day->cap_plus + $day->cap_pro }}</td>
+                <td></td>
             @endforeach
 
             @for ($i = count($data['wtd']); $i < 7; $i++)
                 <td></td>
             @endfor
-            <td>{{ $data['wtd']->sum('cap_ultra') + $data['wtd']->sum('cap_plus') + $data['wtd']->sum('cap_pro') }}</td>  
-            <td>{{ $data['mtd']->sum('cap_ultra') + $data['mtd']->sum('cap_plus') + $data['mtd']->sum('cap_pro') }}</td>  
+            <td></td>  
+            <td></td>  
             <td></td>
             <td>Total Cap 82 + Cap 202 + Cap Pro Sales</td>
         </tr> 
@@ -216,7 +216,7 @@
             @endfor
             <td>{{ $data['wtd']->sum('cap_ultra') }}</td>  
             <td>{{ $data['mtd']->sum('cap_ultra') }}</td>  
-            <td></td>
+            <td>{{ $data['ptd']->sum('cap_ultra') }}</td>
             <td>Count of Sale - Cap Ultra</td>
         </tr> 
 
@@ -231,7 +231,7 @@
             @endfor
             <td>{{ $data['wtd']->sum('cap_plus') }}</td>  
             <td>{{ $data['mtd']->sum('cap_plus') }}</td>  
-            <td></td>
+            <td>{{ $data['ptd']->sum('cap_plus') }}</td>
             <td>Count of Sale - Cap Plus</td>
         </tr> 
 
@@ -246,7 +246,7 @@
             @endfor
             <td>{{ $data['wtd']->sum('cap_pro') }}</td>  
             <td>{{ $data['mtd']->sum('cap_pro') }}</td>  
-            <td></td>
+            <td>{{ $data['ptd']->sum('cap_pro') }}</td>
             <td>Count of Sale - Cap Pro</td>
         </tr> 
 
@@ -261,21 +261,21 @@
             @endfor
             <td>{{ $data['wtd']->sum('total_revenue') }}</td>  
             <td>{{ $data['mtd']->sum('total_revenue') }}</td>  
-            <td></td>
+            <td>{{ $data['ptd']->sum('total_revenue') }}</td>
             <td>(Cap Ultra Count x $999)+(Cap Plus Count x $1,999)+(Cap Pro Count x $2,999)</td>
         </tr> 
 
         <tr>
             <td>Revenue Per Calls Received</td>    
             @foreach ($data['wtd'] as $day)
-                <td>formulas</td>
+                <td></td>
             @endforeach
 
             @for ($i = count($data['wtd']); $i < 7; $i++)
-                <td>formulas</td>
+                <td></td>
             @endfor
-            <td>formulas</td>  
-            <td>formulas</td>  
+            <td></td>  
+            <td></td>  
             <td></td>
             <td>Total Revenue / Calls Offered</td>
         </tr> 
@@ -283,14 +283,14 @@
         <tr>
             <td>Revenue Per Call Answered</td>    
             @foreach ($data['wtd'] as $day)
-                <td>formulas</td>
+                <td></td>
             @endforeach
 
             @for ($i = count($data['wtd']); $i < 7; $i++)
-                <td>formulas</td>
+                <td></td>
             @endfor
-            <td>formulas</td>  
-            <td>formulas</td>  
+            <td></td>  
+            <td></td>  
             <td></td>
             <td>Total Revenue / Calls Answered</td>
         </tr> 
@@ -298,14 +298,14 @@
         <tr>
             <td>Revenue Per Qualified Calls</td>    
             @foreach ($data['wtd'] as $day)
-                <td>formulas</td>
+                <td></td>
             @endforeach
 
             @for ($i = count($data['wtd']); $i < 7; $i++)
-                <td>formulas</td>
+                <td></td>
             @endfor
-            <td>formulas</td>  
-            <td>formulas</td>  
+            <td></td>  
+            <td></td>  
             <td></td>
             <td>Total Revenue / Qualified Call</td>
         </tr> 
@@ -313,14 +313,14 @@
         <tr>
             <td>Conversion - Against Calls Received</td>    
             @foreach ($data['wtd'] as $day)
-                <td>formulas</td>
+                <td></td>
             @endforeach
 
             @for ($i = count($data['wtd']); $i < 7; $i++)
-                <td>formulas</td>
+                <td></td>
             @endfor
-            <td>formulas</td>  
-            <td>formulas</td>  
+            <td></td>  
+            <td></td>  
             <td></td>
             <td>(Cap Ultra Count + Cap Plus Count + Cap Pro Count) / Calls Offered</td>
         </tr> 
@@ -328,14 +328,14 @@
         <tr>
             <td>Conversion - Against Calls Answered</td>    
             @foreach ($data['wtd'] as $day)
-                <td>formulas</td>
+                <td></td>
             @endforeach
 
             @for ($i = count($data['wtd']); $i < 7; $i++)
-                <td>formulas</td>
+                <td></td>
             @endfor
-            <td>formulas</td>  
-            <td>formulas</td>  
+            <td></td>  
+            <td></td>  
             <td></td>
             <td>(Cap Ultra Count + Cap Plus Count + Cap Pro Count) / Calls Answered</td>
         </tr> 
@@ -343,14 +343,14 @@
         <tr>
             <td>Conversion - Against Qualified Calls</td>    
             @foreach ($data['wtd'] as $day)
-                <td>formulas</td>
+                <td></td>
             @endforeach
 
             @for ($i = count($data['wtd']); $i < 7; $i++)
-                <td>formulas</td>
+                <td></td>
             @endfor
-            <td>formulas</td>  
-            <td>formulas</td>  
+            <td></td>  
+            <td></td>  
             <td></td>
             <td>(Cap Ultra Count + Cap Plus Count + Cap Pro Count) / Calls Qualified Calls</td>
         </tr>
@@ -370,7 +370,7 @@
             @endfor
             <td>{{ $data['wtd']->sum('call_back') }}</td>  
             <td>{{ $data['mtd']->sum('call_back') }}</td>  
-            <td></td>
+            <td>{{ $data['ptd']->sum('call_back') }}</td>
             <td>Count only when the Call Back disposition is assigned to a record and it is the first time that ANI has called in</td>
         </tr>
 
@@ -385,7 +385,7 @@
             @endfor
             <td>{{ $data['wtd']->sum('caller_hung_up_after_pitch') }}</td>  
             <td>{{ $data['mtd']->sum('caller_hung_up_after_pitch') }}</td>  
-            <td></td>
+            <td>{{ $data['ptd']->sum('caller_hung_up_after_pitch') }}</td>
             <td>Caller Hung Up" Disposition is Assigned and Total Talk Time is >/=20 seconds</td>
         </tr>
 
@@ -400,7 +400,7 @@
             @endfor
             <td>{{ $data['wtd']->sum('doesn_t_have_a_credit_debit_card_paypal') }}</td>  
             <td>{{ $data['mtd']->sum('doesn_t_have_a_credit_debit_card_paypal') }}</td>  
-            <td></td>
+            <td>{{ $data['ptd']->sum('doesn_t_have_a_credit_debit_card_paypal') }}</td>
             <td>Caller indicates they do not have a credit card, debit card, or PayPal with which to pay</td>
         </tr>
 
@@ -415,7 +415,7 @@
             @endfor
             <td>{{ $data['wtd']->sum('doesn_t_want_to_pay_with_credit_debit_card') }}</td>  
             <td>{{ $data['mtd']->sum('doesn_t_want_to_pay_with_credit_debit_card') }}</td>  
-            <td></td>
+            <td>{{ $data['ptd']->sum('doesn_t_want_to_pay_with_credit_debit_card') }}</td>
             <td>Caller is unwilling to pay using a credit or debit card</td>
         </tr>
 
@@ -430,7 +430,7 @@
             @endfor
             <td>{{ $data['wtd']->sum('insufficient_funds') }}</td>  
             <td>{{ $data['mtd']->sum('insufficient_funds') }}</td>  
-            <td></td>
+            <td>{{ $data['ptd']->sum('insufficient_funds') }}</td>
             <td>Caller indicates they do not have enough money to pay for the product</td>
         </tr>
 
@@ -445,7 +445,7 @@
             @endfor
             <td>{{ $data['wtd']->sum('just_wants_information') }}</td>  
             <td>{{ $data['mtd']->sum('just_wants_information') }}</td>  
-            <td></td>
+            <td>{{ $data['ptd']->sum('just_wants_information') }}</td>
             <td>Caller asks questions and indicates they are just gathering information at the moment and not ready to purchase</td>
         </tr>
 
@@ -460,7 +460,7 @@
             @endfor
             <td>{{ $data['wtd']->sum('misunderstood_offer') }}</td>  
             <td>{{ $data['mtd']->sum('misunderstood_offer') }}</td>  
-            <td></td>
+            <td>{{ $data['ptd']->sum('misunderstood_offer') }}</td>
             <td>Caller misunderstood the offer that was made during the commercial and is no longer interested in purchasing</td>
         </tr>
 
@@ -475,7 +475,7 @@
             @endfor
             <td>{{ $data['wtd']->sum('needs_to_speak_with_spouse') }}</td>  
             <td>{{ $data['mtd']->sum('needs_to_speak_with_spouse') }}</td>  
-            <td></td>
+            <td>{{ $data['ptd']->sum('needs_to_speak_with_spouse') }}</td>
             <td>Caller wants to confer with spouse before placing an order</td>
         </tr>
 
@@ -490,7 +490,7 @@
             @endfor
             <td>{{ $data['wtd']->sum('not_interested') }}</td>  
             <td>{{ $data['mtd']->sum('not_interested') }}</td>  
-            <td></td>
+            <td>{{ $data['ptd']->sum('not_interested') }}</td>
             <td>Caller does not provide a specific reason for not wanting to place an order</td>
         </tr>
 
@@ -505,7 +505,7 @@
             @endfor
             <td>{{ $data['wtd']->sum('sent_to_web_for_financing_no_sale_secured') }}</td>  
             <td>{{ $data['mtd']->sum('sent_to_web_for_financing_no_sale_secured') }}</td>  
-            <td></td>
+            <td>{{ $data['ptd']->sum('sent_to_web_for_financing_no_sale_secured') }}</td>
             <td>Caller expressed interest in financing a Cap but did not walk through the process with the agent and no sale was secured.</td>
         </tr>
 
@@ -520,7 +520,7 @@
             @endfor
             <td>{{ $data['wtd']->sum('too_expensive') }}</td>  
             <td>{{ $data['mtd']->sum('too_expensive') }}</td>  
-            <td></td>
+            <td>{{ $data['ptd']->sum('too_expensive') }}</td>
             <td>Caller was interested in purchasing but declined due to price.</td>
         </tr>
 
@@ -535,21 +535,21 @@
             @endfor
             <td>{{ $data['wtd']->sum('will_think_about_it') }}</td>  
             <td>{{ $data['mtd']->sum('will_think_about_it') }}</td>  
-            <td></td>
+            <td>{{ $data['ptd']->sum('will_think_about_it') }}</td>
             <td>Caller indicated they need to think about it before placing an order</td>
         </tr>
 
         <tr>
             <td>Qualified Calls</td>    
             @foreach ($data['wtd'] as $day)
-                <td>formulas</td>
+                <td></td>
             @endforeach
 
             @for ($i = count($data['wtd']); $i < 7; $i++)
-                <td>formulas</td>
+                <td></td>
             @endfor
-            <td>formulas</td>  
-            <td>formulas</td>  
+            <td></td>  
+            <td></td>  
             <td></td>
             <td></td>
         </tr>
@@ -565,7 +565,7 @@
             @endfor
             <td>{{ $data['wtd']->sum('already_a_customer') }}</td>  
             <td>{{ $data['mtd']->sum('already_a_customer') }}</td>  
-            <td></td>
+            <td>{{ $data['ptd']->sum('already_a_customer') }}</td>
             <td>Caller purchased in the past, is not calling to place another order, and does not need to speak with Customer Care</td>
         </tr> 
 
@@ -580,7 +580,7 @@
             @endfor
             <td>{{ $data['wtd']->sum('caller_hung_up_less_than_20_sec') }}</td>  
             <td>{{ $data['mtd']->sum('caller_hung_up_less_than_20_sec') }}</td>  
-            <td></td>
+            <td>{{ $data['ptd']->sum('caller_hung_up_less_than_20_sec') }}</td>
             <td>"Caller Hung Up" Disposition is Assigned and Total Talk Time is less than 20 seconds</td>
         </tr> 
 
@@ -595,7 +595,7 @@
             @endfor
             <td>{{ $data['wtd']->sum('customer_care_after_hours') }}</td>  
             <td>{{ $data['mtd']->sum('customer_care_after_hours') }}</td>  
-            <td></td>
+            <td>{{ $data['ptd']->sum('customer_care_after_hours') }}</td>
             <td>Caller needed to speak with Customer Care but called in outside the Customer Care hours of operation</td>
         </tr> 
 
@@ -610,7 +610,7 @@
             @endfor
             <td>{{ $data['wtd']->sum('dead_air') }}</td>  
             <td>{{ $data['mtd']->sum('dead_air') }}</td>  
-            <td></td>
+            <td>{{ $data['ptd']->sum('dead_air') }}</td>
             <td>Agent answered the call but was met with silence on the other end, despite multiple attempts to communicate with caller</td>
         </tr> 
 
@@ -625,7 +625,7 @@
             @endfor
             <td>{{ $data['wtd']->sum('do_not_call') }}</td>  
             <td>{{ $data['mtd']->sum('do_not_call') }}</td>  
-            <td></td>
+            <td>{{ $data['ptd']->sum('do_not_call') }}</td>
             <td>Caller has asked to be placed on our Do Not Call list</td>
         </tr>
 
@@ -640,7 +640,7 @@
             @endfor
             <td>{{ $data['wtd']->sum('fax_machine_telephone_problem') }}</td>  
             <td>{{ $data['mtd']->sum('fax_machine_telephone_problem') }}</td>  
-            <td></td>
+            <td>{{ $data['ptd']->sum('fax_machine_telephone_problem') }}</td>
             <td>Agent answers but encounters a fax machine tone or issue with the phone connection that prohibits a conversation</td>
         </tr>
 
@@ -655,7 +655,7 @@
             @endfor
             <td>{{ $data['wtd']->sum('language_barrier') }}</td>  
             <td>{{ $data['mtd']->sum('language_barrier') }}</td>  
-            <td></td>
+            <td>{{ $data['ptd']->sum('language_barrier') }}</td>
             <td>Agent is unable to assist because caller is speaking a language other than English</td>
         </tr> 
 
@@ -670,7 +670,7 @@
             @endfor
             <td>{{ $data['wtd']->sum('other_catchall') }}</td>  
             <td>{{ $data['mtd']->sum('other_catchall') }}</td>  
-            <td></td>
+            <td>{{ $data['ptd']->sum('other_catchall') }}</td>
             <td>Miscellaneous bucket for calls where the outcome does not fit into any other bucket</td>
         </tr> 
 
@@ -685,7 +685,7 @@
             @endfor
             <td>{{ $data['wtd']->sum('prank_call') }}</td>  
             <td>{{ $data['mtd']->sum('prank_call') }}</td>  
-            <td></td>
+            <td>{{ $data['ptd']->sum('prank_call') }}</td>
             <td>Prank caller</td>
         </tr> 
 
@@ -700,7 +700,7 @@
             @endfor
             <td>{{ $data['wtd']->sum('test_call') }}</td>  
             <td>{{ $data['mtd']->sum('test_call') }}</td>  
-            <td></td>
+            <td>{{ $data['ptd']->sum('test_call') }}</td>
             <td>Test call placed to agent</td>
         </tr>
 
@@ -715,7 +715,7 @@
             @endfor
             <td>{{ $data['wtd']->sum('transfer_customer_service_question_issue') }}</td>  
             <td>{{ $data['mtd']->sum('transfer_customer_service_question_issue') }}</td>  
-            <td></td>
+            <td>{{ $data['ptd']->sum('transfer_customer_service_question_issue') }}</td>
             <td>Caller transferred to Customer Care</td>
         </tr>
 
@@ -730,7 +730,7 @@
             @endfor
             <td>{{ $data['wtd']->sum('transfer_physician_doctor') }}</td>  
             <td>{{ $data['mtd']->sum('transfer_physician_doctor') }}</td>  
-            <td></td>
+            <td>{{ $data['ptd']->sum('transfer_physician_doctor') }}</td>
             <td>Caller transferred to Capillus' Internal team for a reason other than Customer Care</td>
         </tr>
 
@@ -745,21 +745,21 @@
             @endfor
             <td>{{ $data['wtd']->sum('wrong_number') }}</td>  
             <td>{{ $data['mtd']->sum('wrong_number') }}</td>  
-            <td></td>
+            <td>{{ $data['ptd']->sum('wrong_number') }}</td>
             <td>Caller dialed wrong number</td>
         </tr>
 
         <tr>
             <td>Non-Qualified Calls</td>    
             @foreach ($data['wtd'] as $day)
-                <td>formulas</td>
+                <td></td>
             @endforeach
 
             @for ($i = count($data['wtd']); $i < 7; $i++)
-                <td>formulas</td>
+                <td></td>
             @endfor
-            <td>formulas</td>  
-            <td>formulas</td>  
+            <td></td>  
+            <td></td>  
             <td></td>
             <td></td>
         </tr>  

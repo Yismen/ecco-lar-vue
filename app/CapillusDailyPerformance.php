@@ -57,16 +57,21 @@ class CapillusDailyPerformance extends Model
     public function scopeWtd($query, Carbon $date)
     {
         return $query->whereBetween('date', [
-            $date->startOfWeek()->format('Y-m-d'),
-            $date->endOfWeek()->format('Y-m-d')
+            Carbon::parse($date)->startOfWeek()->format('Y-m-d'),
+            Carbon::parse($date)->endOfWeek()->format('Y-m-d')
         ]);
     }
 
     public function scopeMtd($query, Carbon $date)
     {
         return $query->whereBetween('date', [
-            $date->startOfMonth()->format('Y-m-d'),
-            $date->endOfMonth()->format('Y-m-d')
+            Carbon::parse($date)->startOfMonth()->format('Y-m-d'),
+            Carbon::parse($date)->format('Y-m-d')
         ]);
+    }
+
+    public function scopePtd($query, Carbon $date)
+    {
+        return $query->where('date', '<=', $date);
     }
 }

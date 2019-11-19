@@ -75,7 +75,7 @@ class CapillusPerformanceReportExport implements FromView, WithTitle, WithEvents
         $this->sheet->getColumnDimension('A')->setWidth(42);
         // $this->sheet->getColumnDimension('I')->setWidth(9.25);
         // $this->sheet->getColumnDimension('J')->setWidth(9.25);
-        $this->sheet->getColumnDimension('K')->setVisible(false); //hidden for now
+        // $this->sheet->getColumnDimension('K')->setWidth(9.25); //hidden for now
 
         return $this;
     }
