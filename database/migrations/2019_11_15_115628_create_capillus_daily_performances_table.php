@@ -15,7 +15,7 @@ class CreateCapillusDailyPerformancesTable extends Migration
     {
         Schema::create('capillus_daily_performances', function (Blueprint $table) {
             $table->increments('id');
-            $table->date('date')->unique();
+            $table->date('date')->index()->unique();
             $table->double('calls_offered', 15, 8)->default(0);
             $table->double('calls_answered', 15, 8)->default(0);
             $table->double('short_abandons', 15, 8)->default(0);
