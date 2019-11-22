@@ -48,7 +48,8 @@ class Kernel extends ConsoleKernel
 
         
         $schedule->command('dainsys:feed-shifts --hours=7.5 --saturday=1')->dailyAt('14:59')->timezone('America/New_York');
-        $schedule->command('dainsys:feed-schedules --days=15 --since-days-ago=0')->dailyAt('15:10')->timezone('America/New_York');
+        $schedule->command('dainsys:feed-schedules --days=15 --since-days-ago=0')->dailyAt('15:10')
+            ->timezone('America/New_York');
         
         $schedule->command('dainsys:employees-hired --months=1')->weeklyOn(2, '15:58')->timezone('America/New_York');
         $schedule->command('dainsys:employees-hired --months=1')->weeklyOn(5, '15:58')->timezone('America/New_York');
@@ -63,9 +64,9 @@ class Kernel extends ConsoleKernel
         $schedule->command('dainsys:capillus-flash')->twiceDaily(12, 15)->timezone('America/New_York');
         $schedule->command('dainsys:capillus-flash')->twiceDaily(18, 21)->timezone('America/New_York');
         
-        $schedule->command('dainsys:capillus-pull-daily-permance-data --date=default')->dailyAt('06:30')->timezone('America/New_York');
-        $schedule->command('dainsys:capillus-send-daily-permance-report --date=default')->dailyAt('06:35')->timezone('America/New_York');
-        
-        
+        $schedule->command('dainsys:capillus-pull-daily-permance-data --date=default')->dailyAt('05:45')
+            ->timezone('America/New_York');
+        $schedule->command('dainsys:capillus-send-daily-permance-report --date=default')->dailyAt('06:00')
+            ->timezone('America/New_York');
     }
 }
