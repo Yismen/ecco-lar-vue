@@ -15,7 +15,7 @@ abstract class TestCase extends BaseTestCase
     {
         parent::setUp();
         DB::statement('PRAGMA foreign_keys=on;');
-        $this->disableExceptionHandling();
+        $this->withExceptionHandling();
     }
 
     protected function signIn($user = null)
@@ -47,6 +47,8 @@ abstract class TestCase extends BaseTestCase
 
     protected function withExceptionHandling()
     {
+        $this->oldExceptionHandler = $this->app->make(ExceptionHandler::class);
+        
         $this->app->instance(ExceptionHandler::class, $this->oldExceptionHandler);
 
         return $this;
