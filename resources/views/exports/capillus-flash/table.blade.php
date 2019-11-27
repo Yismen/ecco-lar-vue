@@ -4,6 +4,8 @@
         <tr>
             <th>Window</th>
             <th>Calls Offered</th>
+            <th>Calls Rerouted</th>
+            <th>Calls Accepted</th>
             <th>Calls Answered</th>
             <th>Short Abandons</th>
             <th>Short Abandon Rate</th>
@@ -31,6 +33,8 @@
             <tr>
                 <td>{{ $window['window'] }}</td>
                 <td>{{ $window['Calls Offered'] }}</td>
+                <td>{{ $window['Calls Rerouted'] }}</td>
+                <td>{{ $window['Calls Accepted'] }}</td>
                 <td>{{ $window['Calls Answered'] }}</td>
                 <td>{{ $window['Short Abandons'] }}</td>
                 <td>{{ $window['Short Abandon Rate'] }}</td>
@@ -56,6 +60,8 @@
             @php 
                 $collection = collect($windows);
                 $total_calls = $collection->sum('Calls Offered');
+                $total_calls_rerouted = $collection->sum('Calls Rerouted');
+                $total_calls_accepted = $collection->sum('Calls Accepted');
                 $total_calls_answered = $collection->sum('Calls Answered');
                 $total_short_abandons = $collection->sum('Short Abandons');
                 $total_long_abandons = $collection->sum('Long Abandons');
@@ -68,6 +74,8 @@
              @endphp
             <th>Totals</th>
             <th>{{ $total_calls }}</th>
+            <th>{{ $total_calls_rerouted }}</th>
+            <th>{{ $total_calls_accepted }}</th>
             <th>{{ $total_calls_answered }}</th>
             <th>{{ $total_short_abandons }}</th>
             <th>{{ $total_calls == 0 ? 0: $total_short_abandons / $total_calls }}</th>

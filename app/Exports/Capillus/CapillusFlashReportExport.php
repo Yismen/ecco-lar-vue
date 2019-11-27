@@ -40,16 +40,16 @@ class CapillusFlashReportExport implements FromView, WithColumnFormatting, WithT
             AfterSheet::class => function(AfterSheet $event) {  
                 
                 // format the whole tables
-                $event->sheet->getDelegate()->getStyle('A4:S13')->applyFromArray($this->tableStyle());
-                $event->sheet->getDelegate()->getStyle('A16:S25')->applyFromArray($this->tableStyle());
+                $event->sheet->getDelegate()->getStyle('A4:U13')->applyFromArray($this->tableStyle());
+                $event->sheet->getDelegate()->getStyle('A16:U25')->applyFromArray($this->tableStyle());
                 // Format headers              
-                $event->sheet->getDelegate()->getStyle('A4:S4')->applyFromArray($this->headerStyle());
-                $event->sheet->getDelegate()->getStyle('A16:S16')->applyFromArray($this->headerStyle());
+                $event->sheet->getDelegate()->getStyle('A4:U4')->applyFromArray($this->headerStyle());
+                $event->sheet->getDelegate()->getStyle('A16:U16')->applyFromArray($this->headerStyle());
                 $event->sheet->getDelegate()->getRowDimension('4')->setRowHeight(60);
                 $event->sheet->getDelegate()->getRowDimension('16')->setRowHeight(60);
                 // format the total rows
-                $event->sheet->getDelegate()->getStyle('A13:S13')->applyFromArray($this->totalStyle());
-                $event->sheet->getDelegate()->getStyle('A25:S25')->applyFromArray($this->totalStyle());
+                $event->sheet->getDelegate()->getStyle('A13:U13')->applyFromArray($this->totalStyle());
+                $event->sheet->getDelegate()->getStyle('A25:U25')->applyFromArray($this->totalStyle());
                 // format the window columns
                 $event->sheet->getDelegate()->getStyle('A5:A12')->applyFromArray($this->windowCellsStyle());
                 $event->sheet->getDelegate()->getStyle('A17:A24')->applyFromArray($this->windowCellsStyle());
@@ -63,6 +63,7 @@ class CapillusFlashReportExport implements FromView, WithColumnFormatting, WithT
                 $event->sheet->getDelegate()->getPageMargins()
                     ->setRight(0.17)
                     ->setLeft(0.17);
+                $event->sheet->getDelegate()->getSheetView()->setZoomScale(90);
             }
         ];
     }
@@ -70,15 +71,15 @@ class CapillusFlashReportExport implements FromView, WithColumnFormatting, WithT
     public function columnFormats(): array
     {
         return [
-            'E' => NumberFormat::FORMAT_PERCENTAGE_00,
             'G' => NumberFormat::FORMAT_PERCENTAGE_00,
-            'H' => NumberFormat::FORMAT_PERCENTAGE_00,
             'I' => NumberFormat::FORMAT_PERCENTAGE_00,
+            'J' => NumberFormat::FORMAT_PERCENTAGE_00,
+            'K' => NumberFormat::FORMAT_PERCENTAGE_00,
 
-            'N' => NumberFormat::FORMAT_CURRENCY_USD_SIMPLE,
-            'O' => NumberFormat::FORMAT_CURRENCY_USD_SIMPLE,
             'P' => NumberFormat::FORMAT_CURRENCY_USD_SIMPLE,
             'Q' => NumberFormat::FORMAT_CURRENCY_USD_SIMPLE,
+            'R' => NumberFormat::FORMAT_CURRENCY_USD_SIMPLE,
+            'S' => NumberFormat::FORMAT_CURRENCY_USD_SIMPLE,
         ];
     }
 
