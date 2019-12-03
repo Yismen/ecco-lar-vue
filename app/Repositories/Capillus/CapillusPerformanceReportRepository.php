@@ -38,6 +38,8 @@ class CapillusPerformanceReportRepository
     {
         return '
             sum(calls_offered) as calls_offered, 
+            sum(calls_rerouted) as calls_rerouted, 
+            sum(calls_accepted) as calls_accepted, 
             sum(calls_answered) as calls_answered, 
             sum(short_abandons) as short_abandons, 
             sum(long_abandons) as long_abandons, 

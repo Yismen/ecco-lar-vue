@@ -45,6 +45,7 @@ class CapillusPerformanceReportExport implements FromView, WithTitle, WithEvents
                 $this->addFormulas()
                     ->configurePage()
                     ->setColumnsWidth()
+                    ->formatCallsAndHeader()
                     ->formatAbandonRates()
                     ->formatCallsPercentages()
                     ->formatCapResults()
@@ -53,7 +54,6 @@ class CapillusPerformanceReportExport implements FromView, WithTitle, WithEvents
                     ->formatTotalRevenues()
                     ->formatRevenueDetails()
                     ->formatConversionRates()
-                    ->formatCallsAndHeader()
                     ->setVerticalBorders();
 
                 $event->sheet->getDelegate()->getStyle('A1:k1')->applyFromArray($this->headerStyle());
@@ -99,31 +99,31 @@ class CapillusPerformanceReportExport implements FromView, WithTitle, WithEvents
     protected function addFormulas()
     {
         // Short Abandon Rate
-        $this->setDivisionFormulas([ 'row' => 6, 'dividend' => 5, 'divisor' => 3 ]);
+        $this->setDivisionFormulas([ 'row' => 8, 'dividend' => 7, 'divisor' => 5 ]);
         // Long Abandon Rate
-        $this->setDivisionFormulas([ 'row' => 8, 'dividend' => 7, 'divisor' => 3 ]);
+        $this->setDivisionFormulas([ 'row' => 10, 'dividend' => 9, 'divisor' => 5 ]);
         // % Qualified Calls
-        $this->setDivisionFormulas([ 'row' => 9, 'dividend' => 39, 'divisor' => 4 ]);
+        $this->setDivisionFormulas([ 'row' => 11, 'dividend' => 41, 'divisor' => 6 ]);
         // % Non Qualified Calls
-        $this->setDivisionFormulas([ 'row' => 10, 'dividend' => 53, 'divisor' => 4 ]);
+        $this->setDivisionFormulas([ 'row' => 12, 'dividend' => 55, 'divisor' => 6 ]);
         // Total Cap Sales
-        $this->setSumFormula([ 'row' => 15, 'from_row' => 16, 'to_row' => 18 ]);
+        $this->setSumFormula([ 'row' => 17, 'from_row' => 18, 'to_row' => 20 ]);
         // Revenue per call received
-        $this->setDivisionFormulas([ 'row' => 20, 'dividend' => 19, 'divisor' => 3 ]);
+        $this->setDivisionFormulas([ 'row' => 22, 'dividend' => 21, 'divisor' => 5 ]);
         // Revenue per call answered
-        $this->setDivisionFormulas([ 'row' => 21, 'dividend' => 19, 'divisor' => 4 ]);
+        $this->setDivisionFormulas([ 'row' => 23, 'dividend' => 21, 'divisor' => 6 ]);
         // Revenue per call qualified calls
-        $this->setDivisionFormulas([ 'row' => 22, 'dividend' => 19, 'divisor' => 39 ]);
+        $this->setDivisionFormulas([ 'row' => 24, 'dividend' => 21, 'divisor' => 41 ]);
         // Conversion - Against Calls Received
-        $this->setDivisionFormulas([ 'row' => 23, 'dividend' => 15, 'divisor' => 3 ]);
+        $this->setDivisionFormulas([ 'row' => 25, 'dividend' => 17, 'divisor' => 5 ]);
         // Conversion - Against Calls Answered
-        $this->setDivisionFormulas([ 'row' => 24, 'dividend' => 15, 'divisor' => 4 ]);
+        $this->setDivisionFormulas([ 'row' => 26, 'dividend' => 17, 'divisor' => 6 ]);
         // Conversion - Against Qualified Calls
-        $this->setDivisionFormulas([ 'row' => 25, 'dividend' => 15, 'divisor' => 39 ]);
+        $this->setDivisionFormulas([ 'row' => 27, 'dividend' => 17, 'divisor' => 41 ]);
         // Qualified Calls
-        $this->setSumFormula([ 'row' => 39, 'from_row' => 27, 'to_row' => 38 ]);
+        $this->setQualifiedCallsSumFormula([ 'row' => 41, 'from_row' => 29, 'to_row' => 40 ]);
         // Non Qualified Calls
-        $this->setSumFormula([ 'row' => 53, 'from_row' => 40, 'to_row' => 52 ]);
+        $this->setSumFormula([ 'row' => 55, 'from_row' => 42, 'to_row' => 54 ]);
 
         return $this;
     }
@@ -131,14 +131,21 @@ class CapillusPerformanceReportExport implements FromView, WithTitle, WithEvents
     protected function setDivisionFormulas(array $options)
     {
         foreach (range('B', 'K') as $letter) {
-            $this->sheet->setCellValue("{$letter}{$options['row']}", "={$letter}{$options['dividend']} / {$letter}{$options['divisor']}");
+            $this->sheet->setCellValue("{$letter}{$options['row']}", "={$letter}{$options['dividend']}/{$letter}{$options['divisor']}");
+        }
+    }
+
+    protected function setQualifiedCallsSumFormula(array $options)
+    {
+        foreach (range('B', 'K') as $letter) {
+            $this->sheet->setCellValue("{$letter}{$options['row']}", "=SUM({$letter}{$options['from_row']}:{$letter}{$options['to_row']})+{$letter}17");
         }
     }
 
     protected function setSumFormula(array $options)
     {
         foreach (range('B', 'K') as $letter) {
-            $this->sheet->setCellValue("{$letter}{$options['row']}", "=SUM({$letter}{$options['from_row']} : {$letter}{$options['to_row']})");
+            $this->sheet->setCellValue("{$letter}{$options['row']}", "=SUM({$letter}{$options['from_row']}:{$letter}{$options['to_row']})");
         }
     }
 
@@ -200,10 +207,10 @@ class CapillusPerformanceReportExport implements FromView, WithTitle, WithEvents
             ]
         ];
 
-        $this->sheet->getStyle('A6:K6')->applyFromArray($format);
-        $this->sheet->getStyle('B6:K6')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_PERCENTAGE_00);
         $this->sheet->getStyle('A8:K8')->applyFromArray($format);
         $this->sheet->getStyle('B8:K8')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_PERCENTAGE_00);
+        $this->sheet->getStyle('A10:K10')->applyFromArray($format);
+        $this->sheet->getStyle('B10:K10')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_PERCENTAGE_00);
         
         return $this;
     }
@@ -233,8 +240,8 @@ class CapillusPerformanceReportExport implements FromView, WithTitle, WithEvents
         ];
 
         $this->sheet->getStyle('A2:K2')->applyFromArray($format);         
-        $this->sheet->getStyle('A39:K39')->applyFromArray($format);
-        $this->sheet->getStyle('A53:K53')->applyFromArray($format);
+        $this->sheet->getStyle('A41:K41')->applyFromArray($format);
+        $this->sheet->getStyle('A55:K55')->applyFromArray($format);
 
         $this->sheet->getStyle('B2:K2')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_DATE_MYMINUS);
         $this->sheet->getStyle('B2:K2')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);         
@@ -270,14 +277,14 @@ class CapillusPerformanceReportExport implements FromView, WithTitle, WithEvents
             ]
         ];
 
-        $this->sheet->getStyle('A15:K15')->applyFromArray($format);
+        $this->sheet->getStyle('A17:K17')->applyFromArray($format);
 
         return $this;
     }
 
     protected function formatCallsPercentages()
     {
-        $this->sheet->getStyle('B9:K10')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_PERCENTAGE_00);
+        $this->sheet->getStyle('B11:K12')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_PERCENTAGE_00);
         
         return $this;
     }
@@ -302,8 +309,8 @@ class CapillusPerformanceReportExport implements FromView, WithTitle, WithEvents
             ]
         ];
 
-        $this->sheet->getStyle('A14:K14')->applyFromArray($format);
-        $this->sheet->getStyle('A26:K26')->applyFromArray($format);
+        $this->sheet->getStyle('A16:K16')->applyFromArray($format);
+        $this->sheet->getStyle('A28:K28')->applyFromArray($format);
 
         return $this;
     }
@@ -319,11 +326,11 @@ class CapillusPerformanceReportExport implements FromView, WithTitle, WithEvents
             ]
         ];
 
-        $this->sheet->getStyle('A2:A53')->applyFromArray($format);
-        $this->sheet->getStyle('I2:I53')->applyFromArray($format);
-        $this->sheet->getStyle('J2:J53')->applyFromArray($format);
-        $this->sheet->getStyle('K2:K53')->applyFromArray($format);
-        $this->sheet->getStyle('H2:H53')->applyFromArray([
+        $this->sheet->getStyle('A2:A55')->applyFromArray($format);
+        $this->sheet->getStyle('I2:I55')->applyFromArray($format);
+        $this->sheet->getStyle('J2:J55')->applyFromArray($format);
+        $this->sheet->getStyle('K2:K55')->applyFromArray($format);
+        $this->sheet->getStyle('H2:H55')->applyFromArray([
             'borders' => [
                 'right' => [
                     'borderStyle' => Border::BORDER_MEDIUM,
@@ -359,8 +366,8 @@ class CapillusPerformanceReportExport implements FromView, WithTitle, WithEvents
             ]
         ];
 
-        $this->sheet->getStyle('A11:K11')->applyFromArray($format);
-        $this->sheet->getStyle('A11:K13')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_NUMBER_00);
+        $this->sheet->getStyle('A13:K13')->applyFromArray($format);
+        $this->sheet->getStyle('A13:K15')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_NUMBER_00);
 
         return $this;
     }
@@ -385,9 +392,9 @@ class CapillusPerformanceReportExport implements FromView, WithTitle, WithEvents
             ]
         ];
 
-        $this->sheet->getStyle('A19:K19')->applyFromArray($format);
+        $this->sheet->getStyle('A21:K21')->applyFromArray($format);
 
-        $this->sheet->getStyle('A19:K19')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
+        $this->sheet->getStyle('A21:K23')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
 
         return $this;
     }
@@ -412,16 +419,16 @@ class CapillusPerformanceReportExport implements FromView, WithTitle, WithEvents
             ]
         ];
 
-        $this->sheet->getStyle('A20:K22')->applyFromArray($format);
+        $this->sheet->getStyle('A22:K24')->applyFromArray($format);
 
-        $this->sheet->getStyle('A20:K22')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
+        $this->sheet->getStyle('A22:K24')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
 
         return $this;
     }
 
     protected function formatConversionRates()
     {
-        $this->sheet->getStyle('B23:K25')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_PERCENTAGE_00);
+        $this->sheet->getStyle('B25:K27')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_PERCENTAGE_00);
 
         return $this;
     }
