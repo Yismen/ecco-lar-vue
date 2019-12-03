@@ -55,7 +55,7 @@ class CapillusSendDailyPerformanceReportCommand extends Command
             Excel::store(new CapillusPerformanceReportExport($date), $file_name);
 
             Mail::send(
-                new CapillusDailyPerformanceMail($this->distroList(), $file_name, "Kipany Capillus Daily Performance")
+                new CapillusDailyPerformanceMail($this->distroList(), $file_name, "KNYC.E Daily Performance Report")
             );
     
             $this->info("Capillus Daily Performance sent!");

@@ -16,6 +16,6 @@ class CapillusDailyPerformanceMail extends CapillusMailBase
             ->bcc('yjorge@eccocorpbpo.com')
             ->view('emails.capillus')
             ->attachFromStorage($this->capillus_file_name)
-            ->subject("Capillus Daily Performance");
+            ->subject("KNYC.E Daily Performance Report");
     }
 }

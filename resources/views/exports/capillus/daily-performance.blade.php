@@ -130,7 +130,7 @@
         </tr>
 
         <tr>
-            <td>% of Qualified Calls (Change the formula)</td>    
+            <td>% of Qualified Calls</td>    
             @foreach ($data['wtd'] as $day)
                 <td></td>
             @endforeach
@@ -144,7 +144,7 @@
         </tr>
 
         <tr>
-            <td>% of Non-Qualified Calls (Change the formula)</td>    
+            <td>% of Non-Qualified Calls</td>    
             @foreach ($data['wtd'] as $day)
                 <td></td>
             @endforeach
