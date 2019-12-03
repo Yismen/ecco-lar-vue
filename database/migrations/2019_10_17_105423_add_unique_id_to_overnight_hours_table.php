@@ -25,8 +25,11 @@ class AddUniqueIdToOvernightHoursTable extends Migration
      */
     public function down()
     {
-        Schema::table('overnight_hours', function (Blueprint $table) {
-            // $table->dropColumn('hours');
-        });
+        if (Schema::hasColumn('overnight_hours', 'unique_id')) {
+            Schema::table('overnight_hours', function (Blueprint $table) {
+                $table->dropColumn('unique_id');
+            });
+        }
+        
     }
 }

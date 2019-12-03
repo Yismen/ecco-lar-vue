@@ -32,6 +32,34 @@
         </tr>
 
         <tr>
+            <td>Calls Re-routed</td>    
+            @foreach ($data['wtd'] as $day)
+                <td>{{ $day->calls_rerouted }}</td>
+            @endforeach
+
+            @for ($i = count($data['wtd']); $i < 7; $i++)
+                <td></td>
+            @endfor
+            <td>{{ $data['wtd']->sum('calls_rerouted') }}</td>  
+            <td>{{ $data['mtd']->sum('calls_rerouted') }}</td>  
+            <td>{{ $data['ptd']->sum('calls_rerouted') }}</td>
+        </tr>
+
+        <tr>
+            <td>Calls Accepted</td>    
+            @foreach ($data['wtd'] as $day)
+                <td>{{ $day->calls_accepted }}</td>
+            @endforeach
+
+            @for ($i = count($data['wtd']); $i < 7; $i++)
+                <td></td>
+            @endfor
+            <td>{{ $data['wtd']->sum('calls_accepted') }}</td>  
+            <td>{{ $data['mtd']->sum('calls_accepted') }}</td>  
+            <td>{{ $data['ptd']->sum('calls_accepted') }}</td>
+        </tr>
+
+        <tr>
             <td>Calls Answered</td>    
             @foreach ($data['wtd'] as $day)
                 <td>{{ $day->calls_answered }}</td>

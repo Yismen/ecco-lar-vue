@@ -105,10 +105,12 @@ Tasks:
   ✔ Send daily performan email report @done(19-12-03 08:37)
 ☐ Issue # 4
   ✔ We don’t need the definitions of each row to appear on the report (Column L on the current report) @done(19-12-03 08:55)
-  ☐ Right now, the abonnement rate is based on all calls offered to your switch, including those that are re-routed to the other vendor. It should be based only on the calls that are accepted at Ecco, excluding any rerouted calls.
-  ☐ I added two rows to the report to show rerouted calls and accepted calls, matching the new flash report.
-  ☐ Sales should be included in the count of “Qualified Calls”
-  ☐ If we add up all the dispositions for some days, they don’t add up to the number of calls answered at Ecco. For example, on 11/25 there are a total of 12 dispositions but the report says 13 calls were answered, so one disposition is missing.
+  ✔ Add Columns for Campaign, Calls Accepted and Calls Re-Routed @done(19-12-03 09:32)
+  ☐ Modify Report
+    ☐ I added two rows to the report to show rerouted calls and accepted calls, matching the new flash report.
+    ☐ Right now, the abonnement rate is based on all calls offered to your switch, including those that are re-routed to the other vendor. It should be based only on the calls that are accepted at Ecco, excluding any rerouted calls.
+    ☐ Sales should be included in the count of “Qualified Calls”
+    ☐ If we add up all the dispositions for some days, they don’t add up to the number of calls answered at Ecco. For example, on 11/25 there are a total of 12 dispositions but the report says 13 calls were answered, so one disposition is missing.
   ☐ Flash and this report don’t always match. For example, the final flash for 11/27 shows 30 non-qualified calls, but the performance report shows 32 non-qualified calls.
   ☐ • Daily Performance Report
   ☐ o Delivery Method: Email

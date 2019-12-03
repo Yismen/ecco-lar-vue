@@ -8,7 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class CapillusDailyPerformance extends Model
 {
     protected $fillable = [
+        'campaign',
         'calls_offered',
+        'calls_rerouted',
+        'calls_accepted',
         'calls_answered',
         'short_abandons',
         'long_abandons',

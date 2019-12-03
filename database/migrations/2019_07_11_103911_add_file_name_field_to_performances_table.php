@@ -21,8 +21,10 @@ class AddFileNameFieldToPerformancesTable extends Migration
      */
     public function down()
     {
-        Schema::table('performances', function (Blueprint $table) {
-            $table->dropColumn('file_name');
-        });
+        if (Schema::hasColumn('performances', 'file_name')) {
+            Schema::table('performances', function (Blueprint $table) {
+                $table->dropColumn('file_name');
+            });
+        }        
     }
 }

@@ -21,8 +21,11 @@ class AddSlugFieldToLoginNamesTable extends Migration
      */
     public function down()
     {
-        Schema::table('login_names', function (Blueprint $table) {
-            $table->dropColumn('slug');
-        });
+        if (Schema::hasColumn('login_names', 'slug')) {
+            Schema::table('login_names', function (Blueprint $table) {
+                $table->dropColumn('slug');
+            });
+        }
+        
     }
 }

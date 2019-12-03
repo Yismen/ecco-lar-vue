@@ -26,8 +26,17 @@ class AddUpsalesAndCcsalesFieldsToPerformancesTable extends Migration
      */
     public function down()
     {
-        Schema::table('performances', function (Blueprint $table) {
-            $table->dropColumn(['upsales', 'cc_sales']);
-        });
+        if (Schema::hasColumn('performances', 'upsales')) {
+            Schema::table('performances', function (Blueprint $table) {
+                $table->dropColumn('upsales');
+            });
+        }
+        
+        if (Schema::hasColumn('performances', 'cc_sales')) {
+            Schema::table('performances', function (Blueprint $table) {
+                $table->dropColumn('cc_sales');
+            });
+        }
+        
     }
 }

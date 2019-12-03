@@ -64,7 +64,7 @@ class CapillusPullDailyPerformanceDataCommand extends Command
 
             // Save the data to my table
             (new CapillusDailyPerformance)
-                ->removeIfExists($results['DATE'])
+                ->removeIfExists($results['Current Date'])
                 ->create($this->getArrayFields($results));
 
         } catch (\Throwable $th) {
@@ -75,12 +75,15 @@ class CapillusPullDailyPerformanceDataCommand extends Command
     protected function getArrayFields($results)
     {
         return [
+            'campaign' => $results['Campaign'],
             'calls_offered' => $results['Calls Offered'],
+            'calls_rerouted' => $results['Calls Re-Routed'],
+            'calls_accepted' => $results['Calls Accepted'],
             'calls_answered' => $results['Calls Answered'],
             'short_abandons' => $results['Short Abandons'],
             'long_abandons' => $results['Long Abandons'],
             'cap_ultra' => $results['Cap Ultra'],
-            'date' => $results['DATE'],
+            'date' => $results['Current Date'],
             'cap_plus' => $results['Cap Plus'],
             'cap_pro' => $results['Cap Pro'],
             'total_revenue' => $results['Total Revenue'],
