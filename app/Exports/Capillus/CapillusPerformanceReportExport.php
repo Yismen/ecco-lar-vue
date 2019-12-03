@@ -54,8 +54,7 @@ class CapillusPerformanceReportExport implements FromView, WithTitle, WithEvents
                     ->formatRevenueDetails()
                     ->formatConversionRates()
                     ->formatCallsAndHeader()
-                    ->setVerticalBorders()
-                    ->formatLegends();
+                    ->setVerticalBorders();
 
                 $event->sheet->getDelegate()->getStyle('A1:k1')->applyFromArray($this->headerStyle());
                 $event->sheet->getDelegate()->getStyle('A1:A70')->applyFromArray($this->setBold());
@@ -76,20 +75,6 @@ class CapillusPerformanceReportExport implements FromView, WithTitle, WithEvents
         // $this->sheet->getColumnDimension('I')->setWidth(9.25);
         // $this->sheet->getColumnDimension('J')->setWidth(9.25);
         // $this->sheet->getColumnDimension('K')->setWidth(9.25); //hidden for now
-
-        return $this;
-    }
-    
-    protected function formatLegends()
-    {
-        $this->sheet->getStyle('L1:L70')->applyFromArray([
-            'font' => [
-                'size' => 8,
-                'color' => [
-                    'rgb' => '152EFD'
-                ]
-            ],
-        ]);
 
         return $this;
     }

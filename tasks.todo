@@ -100,7 +100,34 @@ Tasks:
   ☐ Conversion Rate (sales / contacts)
   ☐ Utilization (talk time / production time)
   ☐ Eficiency (production time vs paid time)
-☐ Capillus Daily Performance Report
+✔ Capillus Daily Performance Report @done(19-12-03 08:37)
   ✔ Pull data from server and save it to Dainsys DB @started(19-11-15 10:24) @done(19-11-15 17:29) @lasted(7h5m25s)
-  ☐ Send daily performan email report
+  ✔ Send daily performan email report @done(19-12-03 08:37)
+☐ Issue # 4
+  ✔ We don’t need the definitions of each row to appear on the report (Column L on the current report) @done(19-12-03 08:55)
+  ☐ Right now, the abonnement rate is based on all calls offered to your switch, including those that are re-routed to the other vendor. It should be based only on the calls that are accepted at Ecco, excluding any rerouted calls.
+  ☐ I added two rows to the report to show rerouted calls and accepted calls, matching the new flash report.
+  ☐ Sales should be included in the count of “Qualified Calls”
+  ☐ If we add up all the dispositions for some days, they don’t add up to the number of calls answered at Ecco. For example, on 11/25 there are a total of 12 dispositions but the report says 13 calls were answered, so one disposition is missing.
+  ☐ Flash and this report don’t always match. For example, the final flash for 11/27 shows 30 non-qualified calls, but the performance report shows 32 non-qualified calls.
+  ☐ • Daily Performance Report
+  ☐ o Delivery Method: Email
+  ☐ o Delivery Time: 6AM ET
+  ☐ o Email Recipients: kipanycapillus@kipany.com
+  ☐ o Subject Line: KNYC.E Daily Performance Report
+  ☐ o File Type: Excel
+  ☐ o This needs to be broken out by segment and then overall.
+  ☐ o The logic for call and sales activity reflected in this report should follow that of the call files, as follows:
 
+  ☐  Segment # 1 – DRTV
+    ☐ o All inbound calls to 321-430-0616
+    ☐ o Only inbound calls that result in a sale to 855-261-8772
+    ☐ o Only outbound calls that result in a sale and the original inbound call tracks back to 321-430-0616 and 855-261-8772
+  ☐ 
+  ☐  Segment #2 – Email
+    ☐ o All inbound calls to 321-418-7901
+    ☐ o Only outbound calls that result in a sale and the original inbound call tracks back to 321-418-7901
+    ☐ 
+  ☐  Segment #3 – Website
+    ☐ o All inbound calls to 321-418-3007
+    ☐ o Only outbound calls that result in a sale and the original inbound call tracks back to 321-418-3007
