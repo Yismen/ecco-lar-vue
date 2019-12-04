@@ -17,7 +17,11 @@ class AddColumnsCampaignCallsAcceptedAndCallsReroutedToCapillusPerformancesTable
             $table->string('campaign', 100)->nullable()->after('date');
             $table->double('calls_accepted', 15, 8)->nullable()->after('campaign');
             $table->double('calls_rerouted', 15, 8)->nullable()->after('calls_accepted');
+            
+            $table->dropUnique('capillus_daily_performances_date_unique');
         });
+
+        
     }
 
     /**
@@ -42,6 +46,13 @@ class AddColumnsCampaignCallsAcceptedAndCallsReroutedToCapillusPerformancesTable
         if (Schema::hasColumn('capillus_daily_performances', 'calls_rerouted')) {
             Schema::table('capillus_daily_performances', function (Blueprint $table) {
                 $table->dropColumn('calls_rerouted');
+            });
+        }
+
+        if (Schema::hasColumn('capillus_daily_performances', 'date')) {
+            Schema::table('capillus_daily_performances', function (Blueprint $table) {
+
+                $table->unique('date');
             });
         }
     }
