@@ -5,6 +5,12 @@ namespace App\Console\Commands;
 trait CapillusCommandsTrait 
 {  
 
+    protected $campaigns = [
+        'Capillus Caller ID',
+        'Capillus DRTV',
+        'Capillus Email',
+        'Capillus Sales',
+    ];
     /**
      * Parse the distro list from the dainsys config file
      *

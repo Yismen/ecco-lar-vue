@@ -50,9 +50,17 @@ class CapillusDailyPerformance extends Model
 
     protected $dates = ['date'];
     
-    public function removeIfExists($date)
+    public function removeIfExists(array $options = [])
     {
-        $this->whereDate('date', $date)->delete();
+        $options = array_merge([
+            'date' => Carbon::parse()->format('Y-m-d'),
+            'campaign' => 'Capillus DRTV'
+        ], $options);
+
+        $this
+            ->whereDate('date', $options['date']) 
+            ->where('campaign', $options['campaign'])
+            ->delete();
 
         return $this;
     }

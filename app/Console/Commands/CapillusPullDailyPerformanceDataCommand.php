@@ -51,23 +51,33 @@ class CapillusPullDailyPerformanceDataCommand extends Command
     public function handle()
     {
         try {
-            
-            // Gather the data from the DB
-            $campaign = 'Capillus DRTV';
             $date = $this->option('date') == 'default' ? 
                 Carbon::now()->subDay() : 
                 Carbon::parse($this->option('date'));
 
-            $results = collect(
-                $this->repo->getData($campaign, $date->format('Y-m-d H:i:s'))[0]
-            )->toArray();
+            $date = $date->format('Y-m-d H:i:s');
 
-            // Save the data to my table
-            (new CapillusDailyPerformance)
-                ->removeIfExists($results['Current Date'])
-                ->create($this->getArrayFields($results));
-
+            foreach ($this->campaigns as $campaign) {
+                // Gather the data from the DB
+                $results = $this->repo->getData($campaign, $date);
+                
+                    
+                if (count($results) > 0) {
+                    $results = collect($results[0]);
+                    // Save the data to my table
+                    (new CapillusDailyPerformance)
+                        ->removeIfExists([
+                            'date' => $results->get('Current Date'),
+                            'campaign' => $campaign
+                        ])
+                        ->create($this->getArrayFields($results));
+                }
+            }
+            
+            $this->info("Data pulled for date {$date}");
         } catch (\Throwable $th) {
+            $this->error("Something went wrong...!");
+
             Log::error($th);
         }        
     }
