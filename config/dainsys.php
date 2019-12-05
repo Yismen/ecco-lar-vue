@@ -59,12 +59,20 @@ return [
     | code dig in case it we need to change this property.
     |
     */
-   'memory_limit' => env('EMERGENCY_MEMORY_LIMIT', '1G'),
+    'memory_limit' => env('EMERGENCY_MEMORY_LIMIT', '1G'),
 
-   /**
-    * Capillus Distro List
-    *
-    * This must be set in the env and have to be separated by the pipe symbol (|)
-    */
-    'capillus-flash-distro' => env('CAPILLUS_FLASH_DISTRO'),
+    'capillus' => [
+        /**
+        * Capillus Distro List
+        *
+        * This must be set in the env and have to be separated by the pipe symbol (|)
+        */
+        'distro' => env('CAPILLUS_FLASH_DISTRO', 'yjorge@eccocoporbpo.com'),
+        /**
+         * Capillus Campaigns List
+         *
+         * A list of the campaigns for Capillus
+         */
+        'campaigns' =>env('CAPILLUS_CAMPAIGNS', 'Capillus DRTV|Capillus Caller ID|Capillus Email|Capillus Sales')
+    ],
 ];
