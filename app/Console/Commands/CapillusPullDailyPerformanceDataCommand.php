@@ -57,7 +57,7 @@ class CapillusPullDailyPerformanceDataCommand extends Command
 
             $date = $date->format('Y-m-d H:i:s');
 
-            foreach ($this->campaigns as $campaign) {
+            foreach ($this->capillusCampaigns() as $campaign) {
                 // Gather the data from the DB
                 $results = $this->repo->getData($campaign, $date);
                 

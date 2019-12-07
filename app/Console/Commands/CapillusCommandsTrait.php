@@ -2,15 +2,21 @@
 
 namespace App\Console\Commands;
 
-trait CapillusCommandsTrait 
-{  
+use Exception;
 
-    protected $campaigns = [
-        'Capillus Caller ID',
-        'Capillus DRTV',
-        'Capillus Email',
-        'Capillus Sales',
-    ];
+trait CapillusCommandsTrait 
+{
+
+    public function capillusCampaigns()
+    {
+        $campaigns = config('dainsys.capillus.campaigns');
+
+        if (! $campaigns) {
+            throw new Exception("Capillus Campaigns not set in config.dainsys.capillus array!");
+        }
+
+        return explode('|', $campaigns);
+    }
     /**
      * Parse the distro list from the dainsys config file
      *
@@ -18,7 +24,7 @@ trait CapillusCommandsTrait
      */
     protected function distroList(): array
     {
-        $list = config('dainsys.capillus-flash-distro') ?? 
+        $list = config('dainsys.capillus.distro') ?? 
             abort(404, "Invalid distro list. Set it up in the .env, separated by pipe (|).");
 
         return explode("|", $list);
@@ -63,6 +69,7 @@ trait CapillusCommandsTrait
             'prank_call' => $results['Prank Call'],
             'test_call' => $results['Test Call'],
             'transfer_customer_service_question_issue' => $results['Transfer (Customer Service Question Issue)'],
+            'transfer_bulk_order' => $results['Transfer (Bulk Order)'],
             'transfer_physician_doctor' => $results['Transfer (Physician   Doctor)'],
             'wrong_number' => $results['Wrong Number'],
         ];

@@ -703,15 +703,15 @@
         <tr>
             <td>Transfer (Other)</td>    
             @foreach ($data['wtd'] as $day)
-                <td>{{ $day->transfer_physician_doctor }}</td>
+                <td>{{ $day->transfer_physician_doctor + $day->transfer_bulk_order }}</td>
             @endforeach
 
             @for ($i = count($data['wtd']); $i < 7; $i++)
                 <td></td>
             @endfor
-            <td>{{ $data['wtd']->sum('transfer_physician_doctor') }}</td>  
-            <td>{{ $data['mtd']->sum('transfer_physician_doctor') }}</td>  
-            <td>{{ $data['ptd']->sum('transfer_physician_doctor') }}</td>
+            <td>{{ $data['wtd']->sum('transfer_physician_doctor') + $data['wtd']->sum('transfer_bulk_order') }}</td>  
+            <td>{{ $data['mtd']->sum('transfer_physician_doctor') + $data['mtd']->sum('transfer_bulk_order') }}</td>  
+            <td>{{ $data['ptd']->sum('transfer_physician_doctor') + $data['ptd']->sum('transfer_bulk_order') }}</td>
         </tr>
 
         <tr>

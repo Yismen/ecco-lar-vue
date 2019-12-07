@@ -131,7 +131,10 @@ class CapillusPerformanceReportExport implements FromView, WithTitle, WithEvents
     protected function setDivisionFormulas(array $options)
     {
         foreach (range('B', 'K') as $letter) {
-            $this->sheet->setCellValue("{$letter}{$options['row']}", "={$letter}{$options['dividend']}/{$letter}{$options['divisor']}");
+            $this->sheet->setCellValue(
+                "{$letter}{$options['row']}", 
+                "=IFERROR({$letter}{$options['dividend']}/{$letter}{$options['divisor']}, 0)"
+            );
         }
     }
 

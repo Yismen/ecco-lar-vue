@@ -18,8 +18,13 @@ class CapillusPerformanceReportRepository
         ];
     }
     protected function wtd($date) 
-    {        
-        return CapillusDailyPerformance::orderBy('date')->wtd($date)->get();
+    {     
+        return CapillusDailyPerformance::select('date')
+            ->selectRaw($this->rawString())
+            ->orderBy('date')
+            ->groupBy('date')
+            ->wtd($date)
+            ->get();
     }
 
     protected function mtd($date) 
@@ -72,6 +77,7 @@ class CapillusPerformanceReportRepository
             sum(test_call) as test_call, 
             sum(transfer_customer_service_question_issue) as transfer_customer_service_question_issue, 
             sum(transfer_physician_doctor) as transfer_physician_doctor, 
+            sum(transfer_bulk_order) as transfer_bulk_order, 
             sum(wrong_number) as wrong_number        
         ';
     }

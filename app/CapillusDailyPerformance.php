@@ -45,6 +45,7 @@ class CapillusDailyPerformance extends Model
         'test_call',
         'transfer_customer_service_question_issue',
         'transfer_physician_doctor',
+        'transfer_bulk_order',
         'wrong_number',
     ];
 
