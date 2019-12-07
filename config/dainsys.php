@@ -73,6 +73,6 @@ return [
          *
          * A list of the campaigns for Capillus
          */
-        'campaigns' =>env('CAPILLUS_CAMPAIGNS', 'Capillus DRTV|Capillus Caller ID|Capillus Email|Capillus Sales')
+        'campaigns' =>env('CAPILLUS_CAMPAIGNS', 'Capillus DRTV|Capillus Email|Capillus Sales|Capillus Caller ID|Capillus DRTV Route|Capillus Sales Route')
     ],
 ];

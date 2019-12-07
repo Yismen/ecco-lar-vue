@@ -112,12 +112,12 @@ Tasks:
     ✔ Sales should be included in the count of “Qualified Calls” @done(19-12-03 14:09)
     ✘ If we add up all the dispositions for some days, they don’t add up to the number of calls answered at Ecco. For example, on 11/25 there are a total of 12 dispositions but the report says 13 calls were answered, so one disposition is missing. @started(19-12-03 14:12) @cancelled(19-12-03 14:12) @wasted(22s)
     ✘ Flash and this report don’t always match. For example, the final flash for 11/27 shows 30 non-qualified calls, but the performance report shows 32 non-qualified calls. @cancelled(19-12-03 14:12)
-    ☐ • Daily Performance Report
-    ☐ o Delivery Method: Email
-    ☐ o Delivery Time: 6AM ET
-    ☐ o Email Recipients: kipanycapillus@kipany.com
-    ☐ o Subject Line: KNYC.E Daily Performance Report
-    ☐ o File Type: Excel
+    ✔ • Daily Performance Report @done(19-12-03 16:09)
+    ✔ o Delivery Method: Email @done(19-12-03 16:09)
+    ✔ o Delivery Time: 6AM ET @done(19-12-03 16:09)
+    ✔ o Email Recipients: kipanycapillus@kipany.com @done(19-12-03 16:09)
+    ✔ o Subject Line: KNYC.E Daily Performance Report @done(19-12-03 16:09)
+    ✔ o File Type: Excel @done(19-12-03 16:09)
     ☐ o This needs to be broken out by segment and then overall.
     ☐ o The logic for call and sales activity reflected in this report should follow that of the call files, as follows:
 
