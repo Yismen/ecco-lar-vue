@@ -14,7 +14,7 @@ class CapillusFlashRepository extends CapillusBase
                     @reportDate as smalldatetime, 
                     @campaign as varchar(50) 
                 set @reportDate = GETDATE() AT TIME ZONE 'UTC' AT TIME ZONE 'Eastern Standard Time' 
-                set @campaign = 'Capillus DRTV' 
+                set @campaign = 'Capillus%' 
                 exec 
                     [sp_CapillusFlashReport] @reportDate, @campaign
             ")
@@ -29,7 +29,7 @@ class CapillusFlashRepository extends CapillusBase
                     @reportDate as smalldatetime, 
                     @campaign as varchar(50) 
                 set @reportDate = GETDATE() - 1 AT TIME ZONE 'UTC' AT TIME ZONE 'Eastern Standard Time' 
-                set @campaign = 'Capillus DRTV' 
+                set @campaign = 'Capillus%' 
                 exec [sp_CapillusFlashReport] @reportDate, @campaign
             ")
         );
