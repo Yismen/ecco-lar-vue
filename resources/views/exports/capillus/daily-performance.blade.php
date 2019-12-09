@@ -1,6 +1,6 @@
 <table>
     <thead>
-        <tr><th colspan="11">Kipany-Capillus Overflow Stats - Overall</th></tr>
+        <tr><th colspan="11">Kipany-Capillus Overflow Stats - {{ $title }}</th></tr>
     </thead>
     <tbody>
         <tr>

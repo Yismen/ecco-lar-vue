@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Exports\Capillus\CapillusPerformanceExport;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
@@ -52,7 +53,7 @@ class CapillusSendDailyPerformanceReportCommand extends Command
                 Carbon::now()->subDay() : 
                 Carbon::parse($this->option('date'));
 
-            Excel::store(new CapillusPerformanceReportExport($date), $file_name);
+            Excel::store(new CapillusPerformanceExport($date), $file_name);
 
             Mail::send(
                 new CapillusDailyPerformanceMail($this->distroList(), $file_name, "KNYC.E Daily Performance Report")

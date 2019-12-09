@@ -9,34 +9,53 @@ class CapillusPerformanceReportRepository
 {
     public $data;
 
-    public function __construct(Carbon $date)
+    protected $date;
+
+    protected $campaign;
+
+    public function __construct(array $options)
     {
+        $this->date = $options['date'];
+        $this->campaign = $options['campaign'];
+
         $this->data = [
-            'wtd' => $this->wtd($date),
-            'mtd' => $this->mtd($date),
-            'ptd' => $this->ptd($date),
+            'wtd' => $this->wtd(),
+            'mtd' => $this->mtd(),
+            'ptd' => $this->ptd(),
         ];
     }
-    protected function wtd($date) 
+
+    protected function baseQuery()
+    {
+        return CapillusDailyPerformance::selectRaw($this->rawString())
+            ->where('campaign', 'like', "{$this->campaign}%");
+    }
+
+    protected function wtd() 
     {     
         return CapillusDailyPerformance::select('date')
-            ->selectRaw($this->rawString())
-            ->orderBy('date')
-            ->groupBy('date')
-            ->wtd($date)
+        ->selectRaw($this->rawString())
+        ->orderBy('date')
+        ->groupBy('date')
+        ->wtd($this->date)
+        ->where('campaign', 'like', "{$this->campaign}%")
+        ->get();
+    }
+
+    protected function mtd() 
+    {
+        return CapillusDailyPerformance::selectRaw($this->rawString())
+            ->where('campaign', 'like', "{$this->campaign}%")
+            ->mtd($this->date)                
             ->get();
     }
 
-    protected function mtd($date) 
+    protected function ptd() 
     {
-        return CapillusDailyPerformance::selectRaw($this->rawString())->mtd($date)                
-                ->get();
-    }
-
-    protected function ptd($date) 
-    {
-        return CapillusDailyPerformance::selectRaw($this->rawString())->ptd($date)                
-                ->get();
+        return CapillusDailyPerformance::selectRaw($this->rawString())
+            ->where('campaign', 'like', "{$this->campaign}%")
+            ->ptd($this->date)                
+            ->get();
     }
 
     protected function rawString() 

@@ -3,7 +3,6 @@
 namespace App\Exports\Capillus;
 
 use App\Repositories\Capillus\CapillusPerformanceReportRepository;
-use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\WithCalculatedFormulas;
@@ -22,15 +21,21 @@ class CapillusPerformanceReportExport implements FromView, WithTitle, WithEvents
 
     protected $sheet;
 
-    public function __construct(Carbon $date)
+    public function __construct(array $options)
     {
-        $this->repo = new CapillusPerformanceReportRepository($date);
+        $this->sheet = $options['campaign'] == '%' ? 'Overall' : $options['campaign'];
+        
+        $this->repo = new CapillusPerformanceReportRepository([
+            'date' => $options['date'], 
+            'campaign' => $options['campaign']
+        ]);
     }
 
     public function view(): View
     {
         return view('exports.capillus.daily-performance', [
-            'data' => $this->repo->data
+            'data' => $this->repo->data,
+            'title' => $this->sheet
         ]);
     }
 
@@ -65,7 +70,7 @@ class CapillusPerformanceReportExport implements FromView, WithTitle, WithEvents
 
     public function title(): string
     {
-        return 'Capillus Daily Performance';
+        return $this->sheet;
     }
 
     protected function setColumnsWidth()
@@ -78,11 +83,25 @@ class CapillusPerformanceReportExport implements FromView, WithTitle, WithEvents
 
         return $this;
     }
+    
+    protected function formatLegends()
+    {
+        $this->sheet->getStyle('L1:L70')->applyFromArray([
+            'font' => [
+                'size' => 8,
+                'color' => [
+                    'rgb' => '152EFD'
+                ]
+            ],
+        ]);
+
+        return $this;
+    }
 
     protected function configurePage()
     {
         $this->sheet->getPageSetup()
-            ->setPrintArea('A1:K53')
+            ->setPrintArea('A1:K55')
             ->setFitToWidth(1)
             ->setFitToHeight(5)
             ->setOrientation(PageSetup::ORIENTATION_PORTRAIT);
@@ -148,7 +167,7 @@ class CapillusPerformanceReportExport implements FromView, WithTitle, WithEvents
     protected function setSumFormula(array $options)
     {
         foreach (range('B', 'K') as $letter) {
-            $this->sheet->setCellValue("{$letter}{$options['row']}", "=SUM({$letter}{$options['from_row']}:{$letter}{$options['to_row']})");
+            $this->sheet->setCellValue("{$letter}{$options['row']}", "=SUM({$letter}{$options['from_row']} : {$letter}{$options['to_row']})");
         }
     }
 
