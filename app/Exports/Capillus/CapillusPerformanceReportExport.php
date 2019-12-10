@@ -5,8 +5,8 @@ namespace App\Exports\Capillus;
 use App\Repositories\Capillus\CapillusPerformanceReportRepository;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
-use Maatwebsite\Excel\Concerns\WithCalculatedFormulas;
 use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Concerns\WithPreCalculateFormulas;
 use Maatwebsite\Excel\Concerns\WithTitle;
 use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
@@ -15,7 +15,7 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 
-class CapillusPerformanceReportExport implements FromView, WithTitle, WithEvents
+class CapillusPerformanceReportExport implements FromView, WithTitle, WithEvents, WithPreCalculateFormulas
 {
     protected $repo;
 
