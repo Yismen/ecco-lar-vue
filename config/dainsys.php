@@ -67,11 +67,13 @@ return [
         *
         * This must be set in the env and have to be separated by the pipe symbol (|)
         */
-        'distro' => env('CAPILLUS_FLASH_DISTRO', 'yjorge@eccocoporbpo.com'),
+        'distro' => env('CAPILLUS_FLASH_DISTRO', config('mail.from.address')),
+        
         /**
          * Capillus Campaigns List
          *
          * A list of the campaigns for Capillus
+         * This must be set in the env and have to be separated by the pipe symbol (|)
          */
         'campaigns' =>env('CAPILLUS_CAMPAIGNS', 'Capillus DRTV|Capillus Email|Capillus Sales|Capillus Caller ID|Capillus DRTV Route|Capillus Sales Route')
     ],
