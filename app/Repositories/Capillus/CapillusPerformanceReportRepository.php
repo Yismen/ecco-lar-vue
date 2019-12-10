@@ -28,7 +28,7 @@ class CapillusPerformanceReportRepository
     protected function baseQuery()
     {
         return CapillusDailyPerformance::selectRaw($this->rawString())
-            ->where('campaign', 'like', "{$this->campaign}%");
+            ->where('campaign', 'like', "{$this->campaign}");
     }
 
     protected function wtd() 
@@ -38,14 +38,14 @@ class CapillusPerformanceReportRepository
         ->orderBy('date')
         ->groupBy('date')
         ->wtd($this->date)
-        ->where('campaign', 'like', "{$this->campaign}%")
+        ->where('campaign', 'like', "{$this->campaign}")
         ->get();
     }
 
     protected function mtd() 
     {
         return CapillusDailyPerformance::selectRaw($this->rawString())
-            ->where('campaign', 'like', "{$this->campaign}%")
+            ->where('campaign', 'like', "{$this->campaign}")
             ->mtd($this->date)                
             ->get();
     }
@@ -53,7 +53,7 @@ class CapillusPerformanceReportRepository
     protected function ptd() 
     {
         return CapillusDailyPerformance::selectRaw($this->rawString())
-            ->where('campaign', 'like', "{$this->campaign}%")
+            ->where('campaign', 'like', "{$this->campaign}")
             ->ptd($this->date)                
             ->get();
     }
