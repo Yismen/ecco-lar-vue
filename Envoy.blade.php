@@ -1,4 +1,4 @@
-@servers(['web' => ['yjorge@192.168.10.24']])
+@servers(['web' => ['root@192.168.10.24']])
 
 @task('deploy', ['on' => 'web'])
     cd /var/www/html/dainsys
