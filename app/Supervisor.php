@@ -13,6 +13,17 @@ class Supervisor extends Model
         return $this->hasMany(Employee::class);
     }
 
+    public function users()
+    {
+        return $this->belongsToMany(User::class)
+            ->withPivot('id');
+    }
+
+    public function getStatusAttribute()
+    {
+        return $this->active ? "Active" : "Inactive";
+    }
+
     public function setNameAttribute($name)
     {
         return $this->attributes['name'] = ucwords(trim($name));

@@ -9,6 +9,7 @@ use App\Password;
 use App\EscalRecord;
 use App\UserSetting;
 use App\Contact;
+use App\Supervisor;
 
 trait UserRelationships
 {
@@ -75,5 +76,11 @@ trait UserRelationships
     public function contacts()
     {
         return $this->hasMany(Contact::class);
+    }
+
+    public function supervisors()
+    {
+        return $this->belongsToMany(Supervisor::class)
+            ->withPivot('id');
     }
 }

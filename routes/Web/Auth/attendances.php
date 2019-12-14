@@ -1,3 +1,3 @@
 <?php
 
-// Route::resource('attendances', 'AttendancesController');
+Route::resource('attendances', 'AttendancesController');
