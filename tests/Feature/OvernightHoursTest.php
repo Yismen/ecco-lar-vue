@@ -103,7 +103,7 @@ class OvernightHoursTest extends TestCase
             ->assertSessionHasErrors('hours');
 
         // Hours field cant be more than 14
-        $response->post(route('admin.overnight_hours.store'), array_merge($hour, ['hours' => 14.0001]))
+        $response->post(route('admin.overnight_hours.store'), array_merge($hour, ['hours' => 17.0001]))
             // ->assertRedirect(url()->previous())
             ->assertSessionHasErrors('hours');
     }
@@ -128,7 +128,7 @@ class OvernightHoursTest extends TestCase
             ->assertSessionHasErrors('hours');
 
         // Hours field cant be more than 14
-        $response->put(route('admin.overnight_hours.update', $hour['id']), array_merge($hour, ['hours' => 14.0001]))
+        $response->put(route('admin.overnight_hours.update', $hour['id']), array_merge($hour, ['hours' => 17.0001]))
             // ->assertRedirect(url()->previous())
             ->assertSessionHasErrors('hours');
     }
