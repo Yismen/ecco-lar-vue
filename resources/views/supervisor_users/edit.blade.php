@@ -15,17 +15,30 @@
 							</a>
 						</h4>
 					</div>
+					
+					{!! Form::model($supervisor_user, ['route'=>['admin.supervisor_users.update', $supervisor_user->id], 'method'=>'PUT', 'class'=>'', 'role'=>'form']) !!}
+
+						<div class="box-body">
+							@include('supervisor_users._form')
+						</div>
+
+						<div class="box-footer">
+							<div class="form-group">
+								<div class="col-sm-6 col-sm-offset-2">
+									<button type="submit" class="btn btn-warning">UPDATE</button>	
+								</div>			
+							</div>
+						</div>
 
 					
+					{!! Form::close() !!}
+				
 					<div class="box-footer">
-							UPDATE User: Supervisor:
-					</div>
-					{{-- <div class="box-footer">
 						<delete-request-button
-						    url="{{ route('admin.supervisor_users.destroy', $assigned->id) }}"
+						    url="{{ route('admin.supervisor_users.destroy', $supervisor_user->id) }}"
 						    redirect-url="{{ route('admin.supervisor_users.index') }}"
 						></delete-request-button>
-					</div> --}}
+					</div>
 				</div>
 			</div>
 		</div>
