@@ -3,17 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Attendance;
-use Illuminate\Http\Request;
+use App\Http\Requests\AttendanceRequest;
+use App\Repositories\AttendanceRepository;
 
 class AttendancesController extends Controller
 {
     
+    protected $repo;
+
     public function __construct()
     {
         $this->middleware('authorize:view-attendances|edit-attendances|create-attendances', ['only' => ['index', 'show']]);
         $this->middleware('authorize:edit-attendances', ['only' => ['edit', 'update']]);
         $this->middleware('authorize:create-attendances', ['only' => ['create', 'store']]);
         $this->middleware('authorize:destroy-attendances', ['only' => ['destroy']]);
+
+        
+        $this->repo = new AttendanceRepository;
     }
 
     /**
@@ -23,7 +29,9 @@ class AttendancesController extends Controller
      */
     public function index()
     {
-        //
+        $attendances = $this->repo->all();
+        
+        return view('attendances.index', compact('attendances'));
     }
 
     /**
@@ -39,10 +47,10 @@ class AttendancesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\AttendanceRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AttendanceRequest $request)
     {
         //
     }
@@ -72,11 +80,11 @@ class AttendancesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\AttendanceRequest  $request
      * @param  \App\Attendance  $attendance
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Attendance $attendance)
+    public function update(AttendanceRequest $request, Attendance $attendance)
     {
         //
     }

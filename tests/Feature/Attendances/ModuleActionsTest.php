@@ -3,6 +3,8 @@
 namespace Tests\Feature\Attendances;
 
 use App\Attendance;
+use App\AttendanceCode;
+use App\User;
 use Carbon\Carbon;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -14,80 +16,42 @@ class ModuleActionsTest extends TestCase
     use WithFaker;
 
     /** @test */
-    public function authorized_users_can_see_attendances_list()
+    public function it_lists_all_users_assigned_with_supervisor()
     {
-        $attendance = create('App\Attendance')->toArray();
-        $response = $this->actingAs($this->userWithPermission('view-attendances'));
+        $attendance = create(Attendance::class);
 
-        $response->get(route('admin.attendances.index'))
+        $this->actingAs($this->userWithPermission('view-supervisor-users'))
+            ->get(route('admin.supervisor_users.index'))
             ->assertOk()
-            ->assertViewIs('attendances.index');
+            ->assertViewIs('attendances.index')
+            ->assertSee('Attendance Event Date:')
+            ->assertSee('Add a new Attendance')
+            ->assertSee('Employee Name:')
+            ->assertSee('Attendance Code:')
+            ->assertSee('Date:')
+            ->assertSee('Employee:')
+            ->assertSee('Code:')
+            ->assertSee('Reported By:')
+            ->assertSee($attendance->date->format('Y-m-d'))
+            ->assertSee($attendance->employee->full_name)
+            ->assertSee($attendance->attendance_code->name)
+            ->assertSee($attendance->reporter->name)
+            ;
     }
 
     /** @test */
-    public function authorized_users_can_create_a_attendance()
-    {
-        $response = $this->actingAs($this->userWithPermission('create-attendances'));
-        $attendance = make('App\Attendance', [
-            'color' => '#sdffdd'
-        ])->toArray();
-
-        $response->post(route('admin.attendances.store'), $attendance)
-            ->assertRedirect(route('admin.attendances.index'));
-
-        $this->assertDatabaseHas('attendances', [
-            'name' => $attendance['name'],
-            'color' => $attendance['color']
-        ]);
-    }
+    public function it_only_shows_attendances_for_a_given_date()
+    {}    
 
     /** @test */
-    public function authorized_users_can_see_edit_page()
-    {
-        $attendance = create('App\Attendance');
-        $response = $this->actingAs($this->userWithPermission('edit-attendances'));
-
-        $response->get(route('admin.attendances.edit', $attendance->id))
-            ->assertOk()
-            ->assertViewIs('attendances.edit')
-            ->assertSee('Edit Attendance Code')
-            ->assertSee($attendance->color)
-            ->assertSee('Name:')
-            ->assertSee(e($attendance->name))
-            ->assertSee('UPDATE');
-    }
+    public function it_list_all_employees_assigned_to_an_user()
+    {} 
 
     /** @test */
-    public function authorized_users_can_update_attendance()
-    {
-        $attendance = create('App\Attendance');
-        $updated = [
-            'name' => 'Updated Name',
-            'color' => '#F4f4f4'
-        ];
-
-        $response = $this->actingAs($this->userWithPermission('edit-attendances'));
-
-        $response->put(route('admin.attendances.update', $attendance->id), $updated)
-            ->assertRedirect(route('admin.attendances.edit', $attendance->id));
-
-            $this->assertDatabaseMissing('attendances', $attendance->toArray());
-
-            $this->assertDatabaseHas('attendances', $updated);
-    }
+    public function it_only_lists_employees_assigned_to_an_user()
+    {}
 
     /** @test */
-    // public function authorized_users_can_destroy_attendance()
-    // {
-    //     // $this->disableExceptionHandling();
-    //     $attendance = create('App\Attendance');
-    //     $response = $this->actingAs($this->userWithPermission('destroy-attendances'));
-
-    //     $response->delete(route('admin.attendances.destroy', $attendance->id))
-    //         ->assertRedirect(route('admin.attendances.index'));
-
-    //     $this->assertDatabaseMissing('attendances', [
-    //         'id' => $attendance->id
-    //     ]);
-    // }
+    public function it_sumirize_montly_attendances_for_a_particular_employee()
+    {}
 }
