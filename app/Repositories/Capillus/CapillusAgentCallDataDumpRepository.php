@@ -3,7 +3,6 @@
 namespace App\Repositories\Capillus;
 
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 class CapillusAgentCallDataDumpRepository extends CapillusBase
 {

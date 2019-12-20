@@ -31,4 +31,14 @@ abstract class CapillusMailBase extends Mailable
             $this->to($recipient);
         }  
     }
+
+    public function defaultBuild($subject)
+    {        
+        return $this
+            ->from('yjorge@eccocorpbpo.com', 'Yisme Jorge')
+            ->bcc('yjorge@eccocorpbpo.com')
+            ->view('emails.capillus')
+            ->attachFromStorage($this->capillus_file_name)
+            ->subject($subject);
+    }
 }

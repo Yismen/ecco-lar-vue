@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Console\Commands\CapillusAgentCallDataDumpCommand;
+use App\Console\Commands\CapillusAgentReportCommand;
 use App\Console\Commands\CapillusDailyLogTimeCommand;
 use App\Console\Commands\CapillusFlashCommand;
 use App\Console\Commands\CapillusMTDAgentsCallsReportCommand;
@@ -31,6 +32,7 @@ class Kernel extends ConsoleKernel
         CapillusPullDailyPerformanceDataCommand::class,
         CapillusSendDailyPerformanceReportCommand::class,
         CapillusAgentCallDataDumpCommand::class,
+        CapillusAgentReportCommand::class,
         FeedSchedulesTable::class,
         FeedShiftsTableCommand::class,
         MigrationStatus::class,
@@ -71,6 +73,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('dainsys:capillus-send-daily-permance-report --date=default')->dailyAt('06:00')
         ->timezone('America/New_York');
 
-        // $schedule->command('dainsys:capillus-send-agent-call-data-dump-report')->dailyAt('07:15')->timezone('America/New_York');
+        // $schedule->command('dainsys:capillus-send-agent-call-data-dump-report')->dailyAt('07:10')->timezone('America/New_York'); 
+        
+        // $schedule->command('dainsys:capillus-send-agent-report-report')->dailyAt('07:15')->timezone('America/New_York');
     }
 }

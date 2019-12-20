@@ -3,13 +3,12 @@
 namespace Tests\Unit;
 
 use App\Mail\Capillus\CapillusAgentCallDataDumpEmail;
+use App\Mail\Capillus\CapillusAgentReportMail;
 use App\Mail\Capillus\CapillusDailyPerformanceMail;
 use App\Mail\Capillus\CapillusFlashMail;
-use Carbon\Carbon;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class CapillusCommandsTest extends TestCase
@@ -54,5 +53,17 @@ class CapillusCommandsTest extends TestCase
             ->assertExitCode(0);
             
         Mail::assertSent(CapillusAgentCallDataDumpEmail::class);
+    }
+
+    /** @test */
+    public function it_sends_capillus_agent_report()
+    {
+        Mail::fake();
+        
+        $this->artisan('dainsys:capillus-send-agent-report')
+            ->expectsOutput('Kipany-Capillus - Agent Report sent!')
+            ->assertExitCode(0);
+            
+        Mail::assertSent(CapillusAgentReportMail::class);
     }
 }
