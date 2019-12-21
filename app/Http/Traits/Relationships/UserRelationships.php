@@ -2,6 +2,7 @@
 
 namespace App\Http\Traits\Relationships;
 
+use App\Attendance;
 use App\Task;
 use App\Message;
 use App\Profile;
@@ -82,5 +83,10 @@ trait UserRelationships
     {
         return $this->belongsToMany(Supervisor::class)
             ->withPivot('id');
+    }
+
+    public function attendances()
+    {
+        return $this->hasManyThrough(Attendance::class, Supervisor::class);
     }
 }

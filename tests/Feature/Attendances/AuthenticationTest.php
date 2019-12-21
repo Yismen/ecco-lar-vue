@@ -18,6 +18,7 @@ class AuthenticationTest extends TestCase
         $this->get(route('admin.attendances.index'))
             ->assertStatus(302)
             ->assertRedirect(route('login'));
+
         $this->get(route('admin.attendances.show', $attendance->id))
             ->assertStatus(302)    
             ->assertRedirect(route('login'));
@@ -30,6 +31,7 @@ class AuthenticationTest extends TestCase
         $this->get(route('admin.attendances.create'))
             ->assertStatus(302)    
             ->assertRedirect(route('login'));
+
         $this->post(route('admin.attendances.store'), $attendance->toArray())
             ->assertStatus(302)    
             ->assertRedirect(route('login'));
@@ -42,6 +44,7 @@ class AuthenticationTest extends TestCase
         $this->get(route('admin.attendances.edit', $attendance->id))
             ->assertStatus(302)    
             ->assertRedirect(route('login'));
+            
         $this->put(route('admin.attendances.update', $attendance->id), $attendance->toArray())
             ->assertStatus(302)    
             ->assertRedirect(route('login'));

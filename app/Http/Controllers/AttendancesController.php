@@ -3,17 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Attendance;
-use Illuminate\Http\Request;
+use App\Http\Requests\AttendanceRequest;
+use App\Repositories\AttendanceRepository;
+use App\User;
 
 class AttendancesController extends Controller
-{
-    
+{    
+    protected $repo;
+
+    protected $user;
+
     public function __construct()
     {
         $this->middleware('authorize:view-attendances|edit-attendances|create-attendances', ['only' => ['index', 'show']]);
         $this->middleware('authorize:edit-attendances', ['only' => ['edit', 'update']]);
         $this->middleware('authorize:create-attendances', ['only' => ['create', 'store']]);
         $this->middleware('authorize:destroy-attendances', ['only' => ['destroy']]);
+
+        
+        $this->repo = new AttendanceRepository;
+        $this->user = User::find(auth()->user()->id);
     }
 
     /**
@@ -23,7 +32,10 @@ class AttendancesController extends Controller
      */
     public function index()
     {
-        //
+        $attendances = $this->repo->all();
+        $employees = $this->user->load('supervisors.employees');
+        
+        return view('attendances.index', compact('attendances', 'employees'));
     }
 
     /**
@@ -39,12 +51,16 @@ class AttendancesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\AttendanceRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AttendanceRequest $request)
     {
-        //
+        $this->user->attendances()->create($request->all());
+        
+        return redirect()
+            ->route('admin.attendances.index')
+            ->withSuccess("Attendance Created!");
     }
 
     /**
@@ -66,19 +82,23 @@ class AttendancesController extends Controller
      */
     public function edit(Attendance $attendance)
     {
-        //
+        return view('attendances.edit');
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\AttendanceRequest  $request
      * @param  \App\Attendance  $attendance
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Attendance $attendance)
+    public function update(AttendanceRequest $request, Attendance $attendance)
     {
-        //
+        $attendance->update($request->all());
+
+        return redirect()
+            ->route('admin.attendances.index')
+            ->withSuccess("Attendance Updated!");
     }
 
     /**
@@ -89,6 +109,10 @@ class AttendancesController extends Controller
      */
     public function destroy(Attendance $attendance)
     {
-        //
+        $attendance->delete();
+
+        return redirect()
+            ->route('admin.attendances.index')
+            ->withDanger("Attendance Removed!");
     }
 }
