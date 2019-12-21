@@ -169,7 +169,7 @@ class CapillusAgentReportExport implements FromView, WithTitle, WithEvents, With
                 ->setVertical(Alignment::VERTICAL_CENTER)
                 ->setWrapText(true);
         
-        $this->sheet->freezePane('C3');
+        $this->sheet->freezePane('B3');
 
         return $this;
     }
