@@ -75,11 +75,10 @@ class CapillusPerformanceReportExport implements FromView, WithTitle, WithEvents
 
     protected function setColumnsWidth()
     {
-        $this->sheet->getDefaultColumnDimension()->setWidth(10.75);
-        $this->sheet->getColumnDimension('A')->setWidth(42);
-        // $this->sheet->getColumnDimension('I')->setWidth(9.25);
-        // $this->sheet->getColumnDimension('J')->setWidth(9.25);
-        // $this->sheet->getColumnDimension('K')->setWidth(9.25); //hidden for now
+        foreach (range('A', 'K') as $col) {
+            $this->sheet->getColumnDimension($col)
+                ->setAutoSize(true);
+        }
 
         return $this;
     }
