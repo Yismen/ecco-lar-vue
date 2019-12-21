@@ -43,6 +43,37 @@ class FormValidationTest extends TestCase
     }
 
     /** @test */
+    public function date_cant_be_futuristic()
+    {
+        $future_date = Carbon::now()->addDay();
+        
+        $attendance = make(Attendance::class)->toArray();
+        $this->actingAs($this->userWithPermission('create-attendances'))
+            ->post(route('admin.attendances.store'), array_merge($attendance, ['date' => $future_date]))
+            ->assertSessionHasErrors('date');
+
+        $attendance = create(Attendance::class)->toArray();
+        $this->actingAs($this->userWithPermission('edit-attendances'))
+            ->put(route('admin.attendances.update', $attendance['id']), array_merge($attendance, ['date' => $future_date]))
+            ->assertSessionHasErrors('date');
+    }
+
+    /** @test */
+    public function date_cant_be_older_than_10_days()
+    {
+        $attendance = create(Attendance::class)->toArray();
+        $old_date = Carbon::now()->subDays(11);
+        
+        $this->actingAs($this->userWithPermission('create-attendances'))
+            ->post(route('admin.attendances.store'), array_merge($attendance, ['date' => $old_date]))
+            ->assertSessionHasErrors('date');
+
+        $this->actingAs($this->userWithPermission('edit-attendances'))
+            ->put(route('admin.attendances.update', $attendance['id']), array_merge($attendance, ['date' => $old_date]))
+            ->assertSessionHasErrors('date');
+    }
+
+    /** @test */
     public function employee_id_field_is_required()
     {
         $attendance = create(Attendance::class)->toArray();

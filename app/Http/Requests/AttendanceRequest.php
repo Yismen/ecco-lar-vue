@@ -3,7 +3,11 @@
 namespace App\Http\Requests;
 
 use App\Attendance;
+use App\Rules\DateBetweenRule;
+use App\Rules\DateCurrentOrOlderRule;
+use App\Rules\DateNewerThanRule;
 use App\Rules\UniqueInDBRule;
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Unique;
 
@@ -27,7 +31,11 @@ class AttendanceRequest extends FormRequest
     public function rules()
     {
         return [
-            'date' => 'required|date',
+            'date' => [
+                'required',
+                'date',
+                new DateBetweenRule(Carbon::now()->subDays(10), Carbon::now())
+            ],
             // 'user_id' => 'required|exists:users,id',
             'employee_id' => 'required|exists:employees,id',
             'code_id' => [

@@ -15,7 +15,7 @@ class CreateAttendancesTable extends Migration
     {
         Schema::create('attendances', function (Blueprint $table) {
             $table->increments('id');
-            $table->date('date')->index()->unique();
+            $table->date('date')->index();
             $table->integer('employee_id')->unsigned();
             $table->integer('code_id')->unsigned();
             $table->integer('user_id')->unsigned();

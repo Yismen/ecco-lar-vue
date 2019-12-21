@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Attendance;
 use App\Http\Requests\AttendanceRequest;
 use App\Repositories\AttendanceRepository;
+use App\User;
 
 class AttendancesController extends Controller
-{
-    
+{    
     protected $repo;
+
+    protected $user;
 
     public function __construct()
     {
@@ -20,6 +22,7 @@ class AttendancesController extends Controller
 
         
         $this->repo = new AttendanceRepository;
+        $this->user = User::find(auth()->user()->id);
     }
 
     /**
@@ -30,8 +33,9 @@ class AttendancesController extends Controller
     public function index()
     {
         $attendances = $this->repo->all();
+        $employees = $this->user->load('supervisors.employees');
         
-        return view('attendances.index', compact('attendances'));
+        return view('attendances.index', compact('attendances', 'employees'));
     }
 
     /**
@@ -52,7 +56,11 @@ class AttendancesController extends Controller
      */
     public function store(AttendanceRequest $request)
     {
-        //
+        $this->user->attendances()->create($request->all());
+        
+        return redirect()
+            ->route('admin.attendances.index')
+            ->withSuccess("Attendance Created!");
     }
 
     /**
@@ -74,7 +82,7 @@ class AttendancesController extends Controller
      */
     public function edit(Attendance $attendance)
     {
-        //
+        return view('attendances.edit');
     }
 
     /**
@@ -86,7 +94,11 @@ class AttendancesController extends Controller
      */
     public function update(AttendanceRequest $request, Attendance $attendance)
     {
-        //
+        $attendance->update($request->all());
+
+        return redirect()
+            ->route('admin.attendances.index')
+            ->withSuccess("Attendance Updated!");
     }
 
     /**
@@ -97,6 +109,10 @@ class AttendancesController extends Controller
      */
     public function destroy(Attendance $attendance)
     {
-        //
+        $attendance->delete();
+
+        return redirect()
+            ->route('admin.attendances.index')
+            ->withDanger("Attendance Removed!");
     }
 }
