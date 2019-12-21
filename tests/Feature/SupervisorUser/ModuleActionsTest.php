@@ -95,7 +95,7 @@ class ModuleActionsTest extends TestCase
             ->get(route('admin.supervisor_users.edit', $supervisor_user->id))
             ->assertOk()
             ->assertViewIs('supervisor_users.edit')
-            ->assertViewHasAll(['assigned', 'free_users', 'free_supervisors'])
+            ->assertViewHasAll(['free_users', 'free_supervisors'])
             ->assertSee('Edit Supervisor User Relationship')
             ->assertSee('User:')
             ->assertSee('Supervisor:')

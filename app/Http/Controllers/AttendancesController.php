@@ -22,7 +22,7 @@ class AttendancesController extends Controller
 
         
         $this->repo = new AttendanceRepository;
-        $this->user = User::find(auth()->user()->id);
+        $this->user = auth()->user() ? User::find(auth()->user()->id) : null;
     }
 
     /**

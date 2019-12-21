@@ -29,7 +29,6 @@ class SupervisorUserController extends Controller
      */
     public function index()
     {
-        // return $this->repo->data();
         return view('supervisor_users.index', $this->repo->data());
     }
 
