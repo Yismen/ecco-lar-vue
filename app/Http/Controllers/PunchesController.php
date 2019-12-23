@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-// use App\Http\Requests\Request;
+// use App\Http\PunchesCreateRequests\PunchesCreateRequest;
 use App\Punch;
 use App\Employee;
-use Illuminate\Http\Request;
+use App\Http\Requests\PunchesCreateRequest;
 use Yajra\DataTables\Facades\DataTables;
 
 class PunchesController extends Controller
@@ -57,13 +57,8 @@ class PunchesController extends Controller
      *
      * @return Response
      */
-    public function store(Punch $punch, Request $request)
+    public function store(Punch $punch, PunchesCreateRequest $request)
     {
-        $this->validate($request, [
-            'punch' => 'required|digits:5|unique:punches,punch',
-            'employee_id' => 'required|exists:employees,id|unique:punches,employee_id',
-        ]);
-
         $punch->create($request->only('punch', 'employee_id'));
 
         return redirect()->route('admin.punches.index')
@@ -101,16 +96,17 @@ class PunchesController extends Controller
      *
      * @return Response
      */
-    public function update(Punch $punch, Request $request)
+    public function update(Punch $punch, PunchesCreateRequest $request)
     {
-        $this->validate($request, [
-            'punch' => "required|digits:5|unique:punches,punch,$punch->id,id",
-            'employee_id' => "required|exists:employees,id|unique:punches,employee_id,$punch->id,id",
-        ]);
+        // $this->validate($request, [
+        //     'punch' => "required|digits:5|unique:punches,punch,$punch->id,id",
+        //     'employee_id' => "required|exists:employees,id|unique:punches,employee_id,$punch->id,id",
+        // ]);
 
         $punch->update($request->only('punch', 'employee_id'));
 
-        return redirect()->route('admin.punches.index')
+        return redirect()
+            ->route('admin.punches.index')
             ->withSuccess("Punch $punch->card has been updated");
     }
 

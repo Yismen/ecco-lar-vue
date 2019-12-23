@@ -81,7 +81,7 @@ class EmployeesController extends Controller
             'project_id' => 'required|exists:projects,id',
             'marital_id' => 'required|exists:maritals,id',
             'has_kids' => 'required|boolean',
-            'punch' => 'required|numeric|digits:5|unique:punches,punch',
+            'punch' => 'required|numeric|min:3|max:99|unique:punches,punch',
         ]);
 
         $employee = $employee->create($request->all());
@@ -91,7 +91,7 @@ class EmployeesController extends Controller
             return $employee;
         }
 
-        return \Redirect::route('admin.employees.edit', $employee->id)
+        return redirect()->route('admin.employees.edit', $employee->id)
             ->withSuccess("Succesfully added employee [$employee->first_name $employee->last_name];");
     }
 
