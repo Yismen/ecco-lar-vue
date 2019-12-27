@@ -24,8 +24,11 @@ class CapillusAgentCallDataDumpExport implements FromView, WithTitle, WithEvents
     {        
         $this->repo = new CapillusAgentCallDataDumpRepository([
             'date' => $options['date'], 
+            'startOfMonth' => $options['startOfMonth'],
             'campaign' => $options['campaign']
         ]);
+
+        $this->count = count($this->repo->data);
     }
 
     public function view(): View
@@ -56,7 +59,8 @@ class CapillusAgentCallDataDumpExport implements FromView, WithTitle, WithEvents
                     ->setColumnsWidth()
                     ;     
                     
-                $this->sheet->setAutoFilter("A1:M1000");
+                $this->sheet->setAutoFilter("A1:M{$this->count}");
+                $this->sheet->freezePane('A2');
             }
         ];
     }
@@ -84,7 +88,7 @@ class CapillusAgentCallDataDumpExport implements FromView, WithTitle, WithEvents
     protected function configurePage()
     {
         $this->sheet->getPageSetup()
-            ->setPrintArea('A1:M55')
+            ->setPrintArea("A1:M{$this->count}")
             ->setFitToWidth(1)
             ->setFitToHeight(1000)
             ->setOrientation(PageSetup::ORIENTATION_LANDSCAPE);
@@ -100,9 +104,9 @@ class CapillusAgentCallDataDumpExport implements FromView, WithTitle, WithEvents
 
     protected function formatDateColumn()
     {
-        $this->sheet->getStyle('A1:A1000')
+        $this->sheet->getStyle("A1:A{$this->count}")
             ->getNumberFormat()
-            ->setFormatCode(NumberFormat::FORMAT_DATE_DDMMYYYY);
+            ->setFormatCode('mm/dd/yyyy');
         
         return $this;
     }
@@ -138,10 +142,10 @@ class CapillusAgentCallDataDumpExport implements FromView, WithTitle, WithEvents
 
     protected function formatTimecolumns()
     {
-        $this->sheet->getStyle('B1:B1000')->getNumberFormat()
+        $this->sheet->getStyle("B1:B{$this->count}")->getNumberFormat()
             ->setFormatCode(NumberFormat::FORMAT_DATE_TIME2);
             
-        $this->sheet->getStyle('I1:M1000')->getNumberFormat()
+        $this->sheet->getStyle("I1:M{$this->count}")->getNumberFormat()
             ->setFormatCode(NumberFormat::FORMAT_DATE_TIME4);
         
         return $this;

@@ -52,7 +52,13 @@ class CapillusAgentCallDataDumpCommand extends Command
                 Carbon::now()->subDay() : 
                 Carbon::parse($this->option('date'));
 
-            Excel::store(new CapillusAgentCallDataDumpExport(['date' => $date->format('m/d/Y'), 'campaign' => 'Capillus%']), $file_name);
+            $startOfMonth = Carbon::parse($date)->startOfMonth()->format('m/d/Y');
+
+            Excel::store(new CapillusAgentCallDataDumpExport([
+                'date' => $date->format('m/d/Y'),
+                'startOfMonth' => $startOfMonth, 
+                'campaign' => 'Capillus%'
+            ]), $file_name);
 
             Mail::send(
                 new CapillusAgentCallDataDumpEmail($this->distroList(), $file_name, "Kipany-Capillus - Agent Call Data Dump")

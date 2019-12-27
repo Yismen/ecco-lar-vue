@@ -73,7 +73,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('dainsys:capillus-send-daily-permance-report --date=default')->dailyAt('06:00')
         ->timezone('America/New_York');
 
-        // $schedule->command('dainsys:capillus-send-agent-call-data-dump-report')->dailyAt('07:10')->timezone('America/New_York'); 
+        $schedule->command('dainsys:capillus-send-agent-call-data-dump-report')->dailyAt('06:10')->timezone('America/New_York'); 
         
         // $schedule->command('dainsys:capillus-send-agent-report-report')->dailyAt('07:15')->timezone('America/New_York');
     }
