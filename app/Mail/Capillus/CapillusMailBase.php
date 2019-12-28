@@ -8,7 +8,6 @@ use Illuminate\Queue\SerializesModels;
 
 abstract class CapillusMailBase extends Mailable
 {
-    
     use Queueable, SerializesModels;
 
     public $capillus_file_name;
@@ -21,24 +20,34 @@ abstract class CapillusMailBase extends Mailable
      * @return void
      */
     public function __construct(array $distro, $filename, $report_name)
-    {     
-
-        $this->capillus_file_name = $filename;  
+    {
+        $this->capillus_file_name = $filename;
         $this->report_name = $report_name;
 
         
         foreach ($distro as $recipient) {
             $this->to($recipient);
-        }  
+        }
     }
 
-    public function defaultBuild($subject)
-    {        
+    public function defaultBuild($subject, $defaults = [])
+    {
+        $defaults = $this->mergeDefaults($defaults);
+
         return $this
-            ->from('yjorge@eccocorpbpo.com', 'Yisme Jorge')
-            ->bcc('yjorge@eccocorpbpo.com')
-            ->view('emails.capillus')
+            ->from($defaults['from'], 'Yisme Jorge')
+            ->bcc($defaults['bcc'])
+            ->view($defaults['view'])
             ->attachFromStorage($this->capillus_file_name)
             ->subject($subject);
+    }
+
+    protected function mergeDefaults(array $defaults)
+    {
+        return array_merge([
+            'from' => 'yjorge@eccocorpbpo.com',
+            'bcc' => 'yjorge@eccocorpbpo.com',
+            'view' => 'emails.capillus'
+        ], $defaults);
     }
 }

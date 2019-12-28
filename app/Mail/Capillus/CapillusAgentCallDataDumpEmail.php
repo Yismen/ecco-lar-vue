@@ -3,7 +3,7 @@
 namespace App\Mail\Capillus;
 
 class CapillusAgentCallDataDumpEmail extends CapillusMailBase
-{    
+{
     /**
      * Build the message.
      *
@@ -11,11 +11,6 @@ class CapillusAgentCallDataDumpEmail extends CapillusMailBase
      */
     public function build()
     {
-        return $this
-            ->from('yjorge@eccocorpbpo.com', 'Yisme Jorge')
-            ->bcc('yjorge@eccocorpbpo.com')
-            ->view('emails.capillus')
-            ->attachFromStorage($this->capillus_file_name)
-            ->subject("Kipany-Capillus – Agent Call Data Dump");
+        return $this->defaultBuild("Kipany-Capillus – MTD Agent Call Data Dump");
     }
 }
