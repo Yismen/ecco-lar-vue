@@ -48,28 +48,27 @@ class CapillusAgentCallDataDumpCommand extends Command
             $instance = Carbon::now()->format('Ymd_His');
             $file_name = "Kipany-Capillus - Agent Call Data Dump {$instance}.xlsx";
 
-            $date = $this->option('date') == 'default' ? 
-                Carbon::now()->subDay() : 
+            $date = $this->option('date') == 'default' ?
+                Carbon::now()->subDay() :
                 Carbon::parse($this->option('date'));
 
             $startOfMonth = Carbon::parse($date)->startOfMonth()->format('m/d/Y');
 
             Excel::store(new CapillusAgentCallDataDumpExport([
                 'date' => $date->format('m/d/Y'),
-                'startOfMonth' => $startOfMonth, 
+                'startOfMonth' => $startOfMonth,
                 'campaign' => 'Capillus%'
             ]), $file_name);
 
             Mail::send(
-                new CapillusAgentCallDataDumpEmail($this->distroList(), $file_name, "Kipany-Capillus - Agent Call Data Dump")
+                new CapillusAgentCallDataDumpEmail($this->distroList(), $file_name, "Kipany-Capillus - MTD Agent Call Data Dump")
             );
     
             $this->info("Kipany-Capillus - Agent Call Data Dump sent!");
-
         } catch (\Throwable $th) {
             Log::error($th);
 
             $this->error("Something went wrong");
-        }        
+        }
     }
 }
