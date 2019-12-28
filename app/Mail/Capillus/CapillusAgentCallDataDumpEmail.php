@@ -11,6 +11,6 @@ class CapillusAgentCallDataDumpEmail extends CapillusMailBase
      */
     public function build()
     {
-        return $this->defaultBuild("Kipany-Capillus – MTD Agent Call Data Dump");
+        return $this->defaultBuild("KNYC.E MTD Agent Call Data Dump");
     }
 }
