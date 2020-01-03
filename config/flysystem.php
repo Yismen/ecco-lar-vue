@@ -79,7 +79,7 @@ return [
 
         'dropbox' => [
             'driver' => 'dropbox',
-            'token' => '_qC2yoCb-wgAAAAAAAABA7tMsRm5ErylHS7-SQ4eL5FRaTLG_UQO48Ki8qwtTaRu',
+            'token' => config('dainsys.dropbox_token'),
             'app' => 'dainsys',
             // 'prefix'     => 'your-prefix',
             // 'visibility' => 'public',

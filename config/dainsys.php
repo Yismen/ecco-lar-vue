@@ -61,6 +61,11 @@ return [
     */
     'memory_limit' => env('EMERGENCY_MEMORY_LIMIT', '1G'),
 
+    /**
+     * Dropbox api token
+     */
+    'dropbox_token' => env('DROPBOX_TOKEN'),
+
     'capillus' => [
         /**
         * Capillus Distro List
