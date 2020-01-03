@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Punch;
 use App\Employee;
 use App\Http\Requests\PunchesCreateRequest;
+use App\Repositories\PunchRepository;
 use Yajra\DataTables\Facades\DataTables;
 
 class PunchesController extends Controller
@@ -27,9 +28,7 @@ class PunchesController extends Controller
     {
         if (!request()->ajax()) {
             $employees_missing_punch = Employee::actives()->whereDoesntHave('punch')
-                ->orderBy('first_name')
-                ->orderBy('second_first_name')
-                ->orderBy('last_name')
+                ->sorted()
                 ->paginate(25);
 
             return view('punches.index', compact('employees_missing_punch'));
@@ -48,7 +47,7 @@ class PunchesController extends Controller
      * @return Response
      */
     public function create(Punch $punch)
-    {
+    {        
         return view('punches.create', compact('punch'));
     }
 

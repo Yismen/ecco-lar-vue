@@ -81,7 +81,7 @@ class EmployeesController extends Controller
             'project_id' => 'required|exists:projects,id',
             'marital_id' => 'required|exists:maritals,id',
             'has_kids' => 'required|boolean',
-            'punch' => 'required|numeric|min:3|max:99|unique:punches,punch',
+            'punch' => 'required|min:4|max:90|unique:punches,punch',
         ]);
 
         $employee = $employee->create($request->all());
@@ -173,7 +173,8 @@ class EmployeesController extends Controller
             Employee::query()->with(
                 'position.department',
                 'position.payment_type',
-                'project', 'termination',
+                'project',
+                'termination',
                 'punch'
             )
         )

@@ -7,7 +7,7 @@
 			<div class="col-sm-8 col-sm-offset-2">
 				<div class="box box-primary">
 					<div class="box-header with-border">
-						Create New Employee
+						Create New Employee @include('punches._last_punch_id')
 						<a href="{{ route('admin.employees.index') }}" class="pull-right" title="Return to the employees' list."><i class="fa fa-list"></i></a>
 					</div>
 					<create-employee :employee="{{ $employee }}"></create-employee>

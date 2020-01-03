@@ -8,7 +8,9 @@
 				<div class="box box-primary pad">
 					
 					{!! Form::open(['route'=>['admin.punches.store'], 'method'=>'POST', 'class'=>'form-horizontal', 'role'=>'form']) !!}		
-						<legend>New Punch ID</legend>
+						<h5>
+							New Punch ID @include('punches._last_punch_id')
+						</h5>
 					
 						@include('punches._form')
 

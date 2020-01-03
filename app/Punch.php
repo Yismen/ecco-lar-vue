@@ -57,4 +57,13 @@ class Punch extends Model
 
         return $employees->pluck('fullName', 'id');
     }
+
+    public function getFreeEmployeesAttribute()
+    {
+        return Employee::with('punch')
+            ->sorted()
+            ->actives()
+            ->whereDoesntHave('punch')
+            ->get();
+    }
 }

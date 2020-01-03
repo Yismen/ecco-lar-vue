@@ -27,7 +27,7 @@
 <div class="form-group {{ $errors->has('employee_id') ? 'has-error' : null }}">
 	{!! Form::label('employee_id', 'Employee:', ['class'=>'col-sm-2 control-label']) !!}
 	<div class="col-sm-10">
-		{!! Form::select('employee_id', $punch->employeesList, null, ['class'=>'form-control']) !!}
+		{!! Form::select('employee_id', $punch->freeEmployees->pluck('full_name', 'id'), null, ['class'=>'form-control']) !!}
 	</div>
 </div>
 <!-- /. Employee -->
