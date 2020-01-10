@@ -19,6 +19,11 @@ class Supervisor extends Model
             ->withPivot('id');
     }
 
+    public function attendances()
+    {
+        return $this->hasManyThrough(Attendance::class, User::class);
+    }
+
     public function getStatusAttribute()
     {
         return $this->active ? "Active" : "Inactive";

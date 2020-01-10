@@ -87,6 +87,13 @@ trait UserRelationships
 
     public function attendances()
     {
-        return $this->hasManyThrough(Attendance::class, Supervisor::class);
+        return $this->hasMany(Attendance::class);
+    }
+
+    public function employees()
+    {
+        return $this->supervisors()->map(function($item, $key) {
+            return $item->employees;
+        })->collapse();
     }
 }

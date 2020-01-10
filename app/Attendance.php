@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Attendance extends Model
@@ -28,5 +29,24 @@ class Attendance extends Model
     public function attendance_code()
     {
         return $this->belongsTo(AttendanceCode::class, 'code_id');
+    }
+
+    public function getDateAttribute($date)
+    {
+        return Carbon::parse($date)->format('Y-m-d');
+    }
+
+    public function getCodesListAttribute()
+    {
+        return AttendanceCode::all();
+    }
+
+    public function getEmployeesListAttribute()
+    {
+        return auth()->user()->supervisors->load(['employees' => function($query) {
+            return $query->actives()->sorted();
+        }])->map(function($item, $key) {
+            return $item->employees;
+        })->collapse();
     }
 }

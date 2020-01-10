@@ -28,35 +28,15 @@ class ModuleActionsTest extends TestCase
         $this->get(route('admin.attendances.index'))
             ->assertOk()
             ->assertViewIs('attendances.index')
-            ->assertSee('My Employees:')
-            ->assertSee('Attendance Event Date:')
             ->assertSee('Add a new Attendance')
             ->assertSee('Employee Name:')
             ->assertSee('Attendance Code:')
             ->assertSee('Date:')
-            ->assertSee('Employee:')
-            ->assertSee('Code:')
-            ->assertSee('Reported By:')
-            ->assertViewHas('attendances')
-            ->assertSee($attendance->date->format('Y-m-d'))
-            ->assertSee($attendance->employee->full_name)
-            ->assertSee($attendance->reporter->name)
-            ->assertSee($attendance->attendance_code->name)
+            ->assertSee('Employee Name:')
+            ->assertSee('Attendance Code:')
+            ->assertViewHas('attendance')
             ;
-    }
-
-    /** @test */
-    public function it_only_shows_attendances_for_a_given_date()
-    {
-        create(Attendance::class, ['date' => '2019-12-20'], 5);
-        create(Attendance::class, ['date' => '2008-11-15'], 5);
-
-        $this->actingAs($this->userWithPermission('view-attendances'))
-            ->get(route('admin.attendances.index', ['date' => '2019-12-20']))
-            ->assertSee('2019-12-20')
-            ->assertDontSee('2008-11-15')
-            ;
-    }    
+    }  
 
     /** @test */
     public function it_list_all_employees_assigned_to_an_user_and_not_other_uers()
@@ -86,16 +66,18 @@ class ModuleActionsTest extends TestCase
     /** @test */
     public function authorized_users_can_store_attendance()
     {
-        $attendance = make(Attendance::class)->toArray();
-
-        $this->withoutExceptionHandling();
+        $attendance = make(Attendance::class, ['date' => Carbon::now()])->toArray();
         
         $this->actingAs($this->userWithPermission('create-attendances'))
             ->post(route('admin.attendances.store', $attendance))
             ->assertRedirect()
             ->assertLocation(route('admin.attendances.index'));
 
-        $this->assertDatabaseHas('attendances', $attendance);
+        $this->assertDatabaseHas('attendances', [
+            'employee_id' => $attendance['employee_id'],
+            'code_id' => $attendance['code_id'],
+            'user_id' => auth()->user()->id,
+        ]);
     }
 
     /** @test */
@@ -108,9 +90,9 @@ class ModuleActionsTest extends TestCase
             ->assertOk()
             ->assertViewIs('attendances.edit')
             ->assertSee('Edit Attendance:')
-            ->assertSee('Employee:')
+            ->assertSee('Employee Name:')
             ->assertSee('Date:')
-            ->assertSee('Code:')
+            ->assertSee('Attendance Code:')
             ->assertSee('Comments:')
             ->assertSee('UPDATE');
     }
@@ -125,7 +107,7 @@ class ModuleActionsTest extends TestCase
 
         $data_array = [
             'employee_id' => $employee->id,
-            'date' => '2019-12-15 00:00:00',
+            'date' => Carbon::now()->subDays(5),
             'code_id' => $code->id,
             'comments' => 'Updated Comment!'
         ];
@@ -133,7 +115,8 @@ class ModuleActionsTest extends TestCase
         $this->actingAs($this->userWithPermission('edit-attendances'))
             ->put(route('admin.attendances.update', $attendance->id), array_merge($attendance->toArray(), $data_array))
             ->assertRedirect()
-            ->assertLocation(route('admin.attendances.index'));
+            ->assertLocation(route('admin.attendances.index'))
+            ;
 
             $this->assertDatabaseHas('attendances', $data_array);
     }
