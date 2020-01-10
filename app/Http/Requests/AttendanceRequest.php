@@ -30,6 +30,8 @@ class AttendanceRequest extends FormRequest
      */
     public function rules()
     {
+        $model = $this->route()->parameters('attendance');
+        
         return [
             'date' => [
                 'required',
@@ -37,14 +39,14 @@ class AttendanceRequest extends FormRequest
                 new DateBetweenRule(Carbon::now()->subDays(10), Carbon::now())
             ],
             // 'user_id' => 'required|exists:users,id',
-            'employee_id' => 'required|exists:employees,id',
-            'code_id' => [
+            'employee_id' => [
                 'required',
-                'exists:attendance_codes,id',
+                'exists:employees,id',
                 new UniqueInDBRule(
-                    new Attendance(), ['user_id', 'employee_id', 'code_id', 'date']
-                ) 
+                    new Attendance(), ['employee_id', 'date'], $model['attendance']->id ?? 0, ['date']
+                )
             ],
+            'code_id' => 'required|exists:attendance_codes,id',
                        
         ];
     }

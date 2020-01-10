@@ -2,6 +2,7 @@
 
 namespace App\Http\Traits\Relationships;
 
+use App\Attendance;
 use Carbon\Carbon;
 
 trait EmployeeRelationships
@@ -14,6 +15,11 @@ trait EmployeeRelationships
     public function ars()
     {
         return $this->belongsTo('App\Ars');
+    }
+
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class);
     }
 
     public function afp()

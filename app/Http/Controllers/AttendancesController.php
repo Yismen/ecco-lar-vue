@@ -4,25 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Attendance;
 use App\Http\Requests\AttendanceRequest;
-use App\Repositories\AttendanceRepository;
-use App\User;
+use Yajra\DataTables\Facades\DataTables;
 
 class AttendancesController extends Controller
-{    
-    protected $repo;
-
-    protected $user;
-
+{
     public function __construct()
     {
         $this->middleware('authorize:view-attendances|edit-attendances|create-attendances', ['only' => ['index', 'show']]);
         $this->middleware('authorize:edit-attendances', ['only' => ['edit', 'update']]);
         $this->middleware('authorize:create-attendances', ['only' => ['create', 'store']]);
         $this->middleware('authorize:destroy-attendances', ['only' => ['destroy']]);
-
-        
-        $this->repo = new AttendanceRepository;
-        $this->user = auth()->user() ? User::find(auth()->user()->id) : null;
     }
 
     /**
@@ -30,12 +21,15 @@ class AttendancesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Attendance $attendance)
     {
-        $attendances = $this->repo->all();
-        $employees = $this->user->load('supervisors.employees');
-        
-        return view('attendances.index', compact('attendances', 'employees'));
+        if (! request()->ajax()) {          
+            
+            return view('attendances.index', compact('attendance'));
+        }
+
+        return DataTables::of(auth()->user()->attendances()->with('employee', 'attendance_code'))
+            ->toJson(true);
     }
 
     /**
@@ -45,7 +39,8 @@ class AttendancesController extends Controller
      */
     public function create()
     {
-        //
+        return redirect()
+            ->route('admin.attendances.index');
     }
 
     /**
@@ -56,7 +51,7 @@ class AttendancesController extends Controller
      */
     public function store(AttendanceRequest $request)
     {
-        $this->user->attendances()->create($request->all());
+        auth()->user()->attendances()->create($request->all());
         
         return redirect()
             ->route('admin.attendances.index')
@@ -82,7 +77,7 @@ class AttendancesController extends Controller
      */
     public function edit(Attendance $attendance)
     {
-        return view('attendances.edit');
+        return view('attendances.edit', compact('attendance'));
     }
 
     /**

@@ -127,48 +127,20 @@ class FormValidationTest extends TestCase
         $this->actingAs($this->userWithPermission('edit-attendances'))
             ->put(route('admin.attendances.update', $attendance['id']), array_merge($attendance, ['code_id' => 150]))
             ->assertSessionHasErrors('code_id');
-    }
-
-    /** @test */
-    // public function user_id_field_is_required()
-    // {
-    //     $attendance = create(Attendance::class)->toArray();
-        
-    //     $this->actingAs($this->userWithPermission('create-attendances'))
-    //         ->post(route('admin.attendances.store'), array_merge($attendance, ['user_id' => '']))
-    //         ->assertSessionHasErrors('user_id');
-
-    //     $this->actingAs($this->userWithPermission('edit-attendances'))
-    //         ->put(route('admin.attendances.update', $attendance['id']), array_merge($attendance, ['user_id' => '']))
-    //         ->assertSessionHasErrors('user_id');
-    // }
-
-    /** @test */
-    // public function user_id_should_exists_on_users_table()
-    // {
-    //     $attendance = create(Attendance::class)->toArray();
-        
-    //     $this->actingAs($this->userWithPermission('create-attendances'))
-    //         ->post(route('admin.attendances.store'), array_merge($attendance, ['user_id' => 150]))
-    //         ->assertSessionHasErrors('user_id');
-
-    //     $this->actingAs($this->userWithPermission('edit-attendances'))
-    //         ->put(route('admin.attendances.update', $attendance['id']), array_merge($attendance, ['user_id' => 150]))
-    //         ->assertSessionHasErrors('user_id');
-    // }
-    
+    }    
 
     /** @test */
     public function it_prevents_from_duplicating_rows()
     {
         $attendance = create(Attendance::class)->toArray();
+        $attendance2 = create(Attendance::class)->toArray();
         
         $this->actingAs($this->userWithPermission('create-attendances'))
-            ->post(route('admin.attendances.store'), array_merge($attendance))
-            ->assertSessionHasErrors('code_id');
+            ->post(route('admin.attendances.store'), $attendance)
+            ->assertSessionHasErrors('employee_id');
 
         $this->actingAs($this->userWithPermission('edit-attendances'))
-            ->put(route('admin.attendances.update', $attendance['id']), array_merge($attendance))
-            ->assertSessionHasErrors('code_id');
+            ->put(route('admin.attendances.update', $attendance['id']), $attendance2)
+            ->assertSessionHasErrors('employee_id');
     }
 }

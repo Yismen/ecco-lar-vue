@@ -20,11 +20,12 @@ class UniqueInDBRule implements Rule
      * @param array $fields
      * @param integer $except_id
      */
-    public function __construct($model, array $fields, int $except_id = 0)
+    public function __construct($model, array $fields, int $except_id = 0, array $dates = [])
     {
         $this->model = $this->getModelInstance($model);
         $this->fields = $fields;
         $this->except_id = $except_id;
+        $this->dates = $dates;
     }
 
     /**
@@ -35,12 +36,14 @@ class UniqueInDBRule implements Rule
      * @return bool
      */
     public function passes($attribute, $value)
-    {        
-
+    {    
         foreach ($this->fields as $field) {
-            $this->model = $this->model->where($field, request($field));
+            $this->model = in_array($field, $this->dates) ?
+                $this->model->whereDate($field, request($field)) : 
+                $this->model->where($field, request($field));
         }
-
+        
+        
         $model = $this->model->first();
 
         return $model == null || $model->id == $this->except_id;
