@@ -35,7 +35,7 @@ class Employees implements FromQuery, WithTitle, ShouldAutoSize, WithColumnForma
             ->orderBy('first_name')
             ->with([
                 'punch', 'address', 'gender', 'marital', 'nationality',
-                'site', 'project', 'position', 'bankAccount',
+                'site', 'project', 'position', 'bankAccount', 'termination'
             ])
             ->$status();
     }
@@ -72,6 +72,8 @@ class Employees implements FromQuery, WithTitle, ShouldAutoSize, WithColumnForma
             optional($employee->position)->salary,
             optional($employee->bankAccount)->account_number,
             $employee->status,
+            $employee->termination ? Date::dateTimeToExcel( $employee->termination->termination_date) : '',
+            optional(optional($employee->termination)->terminationType)->name
         ];
     }
 
@@ -85,35 +87,38 @@ class Employees implements FromQuery, WithTitle, ShouldAutoSize, WithColumnForma
             'K' => NumberFormat::FORMAT_TEXT,
             'L' => NumberFormat::FORMAT_TEXT,
             'V' => NumberFormat::FORMAT_NUMBER,
+            'X' => NumberFormat::FORMAT_DATE_XLSX15,
         ];
     }
 
     public function headings(): array
     {
         return [
-            'id',
-            'full_name',
-            'first_name',
-            'second_first_name',
-            'last_name',
-            'second_last_name',
-            'punch',
-            'personal_id or passport',
-            'hire_date',
-            'date_of_birth',
-            'phone_area',
-            'phone_number',
-            'address',
-            'gender',
-            'relationship',
-            'nationality',
-            'site',
-            'project',
-            'position',
-            'department',
-            'salary',
-            'account_number',
-            'status',
+            'Employee ID',
+            'Full Name',
+            'First Name',
+            'Second First Name',
+            'Last Name',
+            'Second Last name',
+            'Punch ID',
+            'Personal ID or Passport',
+            'Hire Date',
+            'Date of Birth',
+            'Phone Area',
+            'Phone Number',
+            'Address',
+            'Gender',
+            'Relationship',
+            'Nationality',
+            'Site',
+            'Project',
+            'Position',
+            'Department',
+            'Salary',
+            'Account Number',
+            'Status',
+            'Termination Date',
+            'Termination Type',
         ];
     }
 }
