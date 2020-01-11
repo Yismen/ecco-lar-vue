@@ -6,6 +6,7 @@ use App\Employee;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Str;
 
 class EmployeesController extends Controller
 {
@@ -170,18 +171,20 @@ class EmployeesController extends Controller
     protected function getDatatables()
     {
         return DataTables::of(
-            Employee::query()->with(
+            Employee::query()
+            ->with([
                 'position.department',
                 'position.payment_type',
                 'project',
                 'termination',
-                'punch'
-            )
-        )
-        // ->editColumn('id', function ($query) {
-        //     return route('admin.employees.show', $query->id);
-        //     // return '<a href="' . route('admin.employees.show', $query->id) . '" class="">' . $query->id . '</a>';
-        // })
+                'punch',
+                'site'
+            ])
+        )->filterColumn('status', function ($query, $keyword) {
+            $method = $this->getScope($keyword);
+
+            $query->$method();
+        }, true)
         ->editColumn('hire_date', function ($query) {
             return $query->hire_date->format('d-M-Y');
         })
@@ -190,8 +193,20 @@ class EmployeesController extends Controller
         })
         ->addColumn('edit', function ($query) {
             return route('admin.employees.edit', $query->id);
-            // return '<a href="' . route('admin.employees.edit', $query->id) . '" class=""><i class="fa fa-edit"></i> Edit</a>';
         })
         ->toJson(true);
+    }
+
+    protected function getScope($keyword)
+    {        
+        if(Str::startsWith($keyword, "active")) {
+            return "actives";
+        }   
+
+        if(Str::startsWith($keyword, "inactive")) {
+            return "inactives";
+        }
+
+        return "all";
     }
 }

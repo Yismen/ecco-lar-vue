@@ -2,7 +2,7 @@
 @extends('layouts.'.$layout->app(), ['page_header'=>'Employees', 'page_description'=>'List of active employees.'])
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container-fluids">
         <div class="row">
             <div class="col-sm-12">
                 <div class="box box-primary">
@@ -51,17 +51,19 @@
                             <table class="table table-hover table-condensed table-bordered" id="employees-table">
                                 <thead>
                                     <tr>
-                                        <th>Employee ID:</th>
+                                        <th> ID:</th>
                                         <th>Name:</th>
                                         <th>Second First Name:</th>
                                         <th>Last Name:</th>
                                         <th>Second Last Name:</th>
                                         <th>Hire Date</th>
                                         <th>Status</th>
-                                        <th>Position:</th>
-                                        <th>Personal ID / Passport:</th>
+                                        <th>Position:</th> 
+                                        <th>Project:</th> 
+                                        <th>Site:</th> 
+                                        <th class="col-xs-1">Personal ID / Passport:</th>
                                         <th>Passport:</th>
-                                        <th>Punch ID:</th>
+                                        <th class="col-xs-1">Punch ID:</th>
                                         <th>Cell Phone:</th>
                                         <th>Other Phone:</th>
                                         <th>Edit:</th>
@@ -107,6 +109,12 @@
                 "order": [[ 1, "asc" ], [ 2, "asc" ], [ 3, "asc" ], [ 4, "asc" ]],
                 "columns": [
                     {data: 'id', name: 'id', render: function(data, type, full) {
+                        return `<a 
+                            href="/admin/employees/${data}"
+                            title="View employee details"
+                            >
+                            ${data} <i class="fa fa-eye"></i>
+                        </a>`
                         return '<a href="/admin/employees/'+data+'">'+ data +'</a>'
                     }},
                     {data: 'first_name', name: 'first_name', render: function(data, type, full){
@@ -116,13 +124,19 @@
                     {data: 'last_name', name: 'last_name', 'visible': false},
                     {data: 'second_last_name', name: 'second_last_name', 'visible': false},
                     {data: 'hire_date', name: 'hire_date'},
-                    {data: 'status', name: 'status', orderable: false, searchable: false},
+                    {data: 'status', name: 'status', orderable: false, visible:false},
                     {data: 'position', name: 'position.name', orderable:false, render: function(data, type, full){
                         let position = full.position ? full.position.name : '';
-                        let project = full.project ? ', At ' + full.project.name : '';
-                        let salary = full.position ? ', $' + full.position.salary : '';
-
-                        return position + project + salary;
+                        let project = full.project ? full.project.name : '';
+                        let site = full.site ? full.site.name : '';
+                        
+                        return `${position}, ${project}, @ ${site}`;
+                    }},
+                    {data: 'project', name: 'project.name', orderable: false, visible:false, render: function(data, type, full) {
+                        return data.name
+                    }},
+                    {data: 'site', name: 'site.name', orderable: false, visible:false, render: function(data, type, full) {
+                        return data.name
                     }},
                     {data: 'personal_id', name: 'personal_id', render: function(data, type, full) {
                         return data ? data : full.passport
@@ -134,7 +148,9 @@
                     {data: 'cellphone_number', name: 'cellphone_number'},
                     {data: 'secondary_phone', name: 'secondary_phone', visible: false},
                     {data: 'edit', name: 'edit', searchable: "false", orderable: false, render: function(data, type, full) {
-                        return '<a href="'+data+'"><i class="fa fa-pencil"></i> Edit</a>'
+                        return `<a href="${data}" class="text-warning">
+                            <i class="fa fa-pencil"></i> Edit
+                        </a>`
                     }},
                 ]
             });
