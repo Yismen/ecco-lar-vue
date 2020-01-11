@@ -28,9 +28,7 @@ class ModuleActionsTest extends TestCase
     public function authorized_users_can_create_a_attendance_code()
     {
         $response = $this->actingAs($this->userWithPermission('create-attendance-codes'));
-        $attendance_code = make('App\AttendanceCode', [
-            'color' => '#sdffdd'
-        ])->toArray();
+        $attendance_code = make('App\AttendanceCode')->toArray();
 
         $response->post(route('admin.attendance_codes.store'), $attendance_code)
             ->assertRedirect(route('admin.attendance_codes.index'));
@@ -54,6 +52,8 @@ class ModuleActionsTest extends TestCase
             ->assertSee($attendance_code->color)
             ->assertSee('Name:')
             ->assertSee(e($attendance_code->name))
+            ->assertSee('Is Absence:')
+            ->assertSee(e($attendance_code->absence))
             ->assertSee('UPDATE');
     }
 
@@ -63,7 +63,8 @@ class ModuleActionsTest extends TestCase
         $attendance_code = create('App\AttendanceCode');
         $updated = [
             'name' => 'Updated Name',
-            'color' => '#F4f4f4'
+            'color' => '#F4f4f4',
+            'absence' => ! $attendance_code->absence
         ];
 
         $response = $this->actingAs($this->userWithPermission('edit-attendance-codes'));
@@ -75,19 +76,4 @@ class ModuleActionsTest extends TestCase
 
             $this->assertDatabaseHas('attendance_codes', $updated);
     }
-
-    /** @test */
-    // public function authorized_users_can_destroy_attendance_code()
-    // {
-    //     // $this->disableExceptionHandling();
-    //     $attendance_code = create('App\AttendanceCode');
-    //     $response = $this->actingAs($this->userWithPermission('destroy-attendance-codes'));
-
-    //     $response->delete(route('admin.attendance_codes.destroy', $attendance_code->id))
-    //         ->assertRedirect(route('admin.attendance_codes.index'));
-
-    //     $this->assertDatabaseMissing('attendance_codes', [
-    //         'id' => $attendance_code->id
-    //     ]);
-    // }
 }

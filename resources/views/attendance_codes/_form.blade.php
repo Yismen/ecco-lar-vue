@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="col-xs-8">
+	<div class="col-xs-6">
 		<!-- Name -->
 			<div class="form-group {{ $errors->has('name') ? 'has-error' : null }}">
 			{!! Form::label('name', ' Name:', ['class'=>'col-sm-12']) !!}
@@ -11,7 +11,7 @@
 		<!-- /. Name -->
 	</div>
 	
-	<div class="col-xs-4">
+	<div class="col-xs-3">
 		<!-- Color -->
 		<div class="form-group {{ $errors->has('color') ? 'has-error' : null }}">
 			{!! Form::label('color', ' Color:', ['class'=>'col-sm-12']) !!}
@@ -21,5 +21,16 @@
 			</div>
 		</div>
 		<!-- /. Color -->
+	</div>
+	
+	<div class="col-xs-3">
+		<!-- Is Absence -->
+			@component('components.fields.checkbox', [
+				'field_name' => 'absence',
+				'required' => false,
+			])
+				Is Absence:
+			@endcomponent
+		<!-- /. Is Absence -->
 	</div>
 </div>

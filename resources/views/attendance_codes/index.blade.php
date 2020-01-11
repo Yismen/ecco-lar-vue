@@ -4,11 +4,11 @@
 @section('content')
     <div class="container-fluid">
         <div class="row">
-            <div class="col-xs-12 col-lg-4">
+            <div class="col-xs-12 col-lg-5">
                     @include('attendance_codes.create')
             </div>
             
-            <div class="col-xs-12 col-lg-8">
+            <div class="col-xs-12 col-lg-7">
                 <div class="box box-info">
                     <div class="box-header with-border">
                         <h4>
@@ -23,14 +23,16 @@
                                 <tr>    
                                     <th>Code</th>    
                                     <th>Color</th>
+                                    <th>Absence</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($attendance_codes as $code)
-                                    <tr>
+                                    <tr style="background-color: {{ $code->color }};">
                                         <td>{{ $code->name }}</td>
-                                        <td style="background-color: {{ $code->color }};">{{ $code->color }}</td>
+                                        <td>{{ $code->color }}</td>
+                                        <td>{{ $code->absence ? "Yes" : "No" }} </td>
                                         <td>
                                             <a href="{{ route('admin.attendance_codes.edit', $code->id) }}" class="text-warning">
                                                 <i class="fa fa-pencil"></i> 

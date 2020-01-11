@@ -39,8 +39,8 @@ class AttendanceCodesController extends Controller
             'name' => 'required|min:4|max:150|unique:attendance_codes',
             'color' => 'required|not_in:#000,#000000|unique:attendance_codes,color'
         ]);
-
-        $code = AttendanceCode::create($request->all());
+        
+        AttendanceCode::create($request->all());
 
         return redirect()
             ->route('admin.attendance_codes.index')
