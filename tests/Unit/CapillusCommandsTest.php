@@ -22,7 +22,7 @@ class CapillusCommandsTest extends TestCase
         Mail::fake();
         
         $this->artisan('dainsys:capillus-flash')
-            ->expectsOutput('Capillus lash report sent!')
+            ->expectsOutput('Capillus Flash report sent!')
             ->assertExitCode(0);
     
         Mail::assertSent(CapillusFlashMail::class);
