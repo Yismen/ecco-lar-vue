@@ -12,13 +12,12 @@ class CapillusPullDailyPerformanceDataRepository extends CapillusBase
         return $this->data =  $this->connection()->select(
             DB::raw("
                 declare 
-                    @reportDate as smalldatetime, 
-                    @campaignName as varchar(50)
-                set 
-                    @reportDate = '{$date}'
-                    set @campaignName = '{$dial_group}'
+                    @startDate as smalldatetime, @endDate as smalldatetime, @campaignName as varchar(50)
+                set @startDate = '{$date}'
+                set @endDate = '{$date}'
+                set @campaignName = '{$dial_group}' 
                 exec 
-                    sp_CapillusProductionReport @reportDate, @campaignName
+                    sp_CapillusProductionReport @startDate, @endDate, @campaignName
             ")
         );
 
