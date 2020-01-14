@@ -69,7 +69,9 @@ class Employees implements FromQuery, WithTitle, ShouldAutoSize, WithColumnForma
             optional($employee->project)->name,
             optional($employee->position)->name,
             optional(optional($employee->position)->department)->name,
+            optional($employee->supervisor)->name,
             optional($employee->position)->salary,
+            optional($employee->position)->pay_per_hours,
             optional($employee->bankAccount)->account_number,
             $employee->status,
             $employee->termination ? Date::dateTimeToExcel( $employee->termination->termination_date) : '',
@@ -87,7 +89,9 @@ class Employees implements FromQuery, WithTitle, ShouldAutoSize, WithColumnForma
             'K' => NumberFormat::FORMAT_TEXT,
             'L' => NumberFormat::FORMAT_TEXT,
             'V' => NumberFormat::FORMAT_NUMBER,
-            'X' => NumberFormat::FORMAT_DATE_XLSX15,
+            'W' => NumberFormat::FORMAT_NUMBER,
+            'X' => NumberFormat::FORMAT_NUMBER,
+            'Z' => NumberFormat::FORMAT_DATE_XLSX15,
         ];
     }
 
@@ -114,7 +118,9 @@ class Employees implements FromQuery, WithTitle, ShouldAutoSize, WithColumnForma
             'Project',
             'Position',
             'Department',
+            'Supervisor',
             'Salary',
+            'Hourly Pay',
             'Account Number',
             'Status',
             'Termination Date',
