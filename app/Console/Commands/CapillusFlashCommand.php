@@ -55,7 +55,7 @@ class CapillusFlashCommand extends Command
                 new CapillusFlashMail($this->distroList(), $file_name, "KNYC E Flash")
             );
     
-            $this->info("Capillus lash report sent!");
+            $this->info("Capillus Flash report sent!");
         } catch (\Throwable $th) {
             Log::error($th);
         }
