@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Position;
 use Illuminate\Http\Request;
 use App\Rules\PositionUnique;
+use Yajra\DataTables\Facades\DataTables;
 
 class PositionsController extends Controller
 {
@@ -24,21 +25,20 @@ class PositionsController extends Controller
      */
     public function index(Request $request)
     {
-        $positions = Position::orderBy('department_id')
-                ->orderBy('name')
+        if ($request->ajax()) {
+            return DataTables::of(
+                Position::orderBy('department_id')
                 ->with('department')
                 ->withCount(['employees' => function ($query) {
                     return $query->actives();
                 }])
                 ->with('payment_type')
                 ->with('payment_frequency')
-                ->paginate(50);
-
-        if ($request->ajax()) {
-            return $positions;
+            )
+            ->toJson(true);
         }
 
-        return view('positions.index', compact('positions'));
+        return view('positions.index');
     }
 
     /**
