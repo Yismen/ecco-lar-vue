@@ -84,7 +84,7 @@
 						</a>`
 					}},
 					{data:'salary', name: 'salary', render: function(data, type, full) {
-						return `$ ${Number(data).toFixed(2)}`
+						return `$ ${Number(Number(data).toFixed(2)).toLocaleString()}`
 					}},					
 					{data: 'payment_type', name: 'payment_type.name', orderable:false, render: function(data, type, full) {
 						return data.name
