@@ -214,7 +214,7 @@
                                 class="form-control"
                                 v-model="form.fields.project_id"
                             >
-                                <option v-for="project in employee.projects_list" :value="project.id" :key="project.id">
+                                <option v-for="project in projects_list" :value="project.id" :key="project.id">
                                     {{ project.name }}
                                 </option>
                             </select>
@@ -286,7 +286,8 @@
       data () {
         return {
             form: new (this.$ioc.resolve('Form')) (this.getEmployeeObject(), false),
-            positions_list: []
+            positions_list: [],
+            projects_list: []
         };
     },
 
@@ -302,10 +303,16 @@
     components: {DatePicker, CreatePosition},
 
     mounted() {
-        return this.positions_list = this.employee.positions_list
+        this.positions_list = this.employee.positions_list
+        this.projects_list = this.getProjectsList(this.employee.projects_list)
     },
 
     methods: {
+        getProjectsList(projects) {
+            return projects.filter(function(element) {
+                return element.name.toLowerCase().search("downtime") == -1
+            })
+        },
         handleEdit() {
             this.form.put('/admin/employees/' + this.employee.id)
                 .then(({data}) => {
