@@ -25,10 +25,11 @@
         <tr>
             <th>Bank Info: </th>
             <td>
-                {{ optional($employee->bankAccount)->account_number }}
-                @if ($employee->bankAccount && $employee->bankAccount->has('bank'))
-                    , at {{ $employee->bankAccount->bank->name }}
-                @endif
+                {{ 
+                    optional($employee->bankAccount)->account_number 
+                }}@if ($employee->bankAccount && $employee->bankAccount->has('bank')){{ 
+                    ", at {$employee->bankAccount->bank->name}" 
+                }}@endif
             </td>
         </tr>
     </tbody>
