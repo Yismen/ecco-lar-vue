@@ -12,7 +12,7 @@ class PunchController extends Controller
     public function update(Employee $employee, Request $request)
     {
         $this->validate($request, [
-            'punch' => 'required|numeric|digits:5|unique:punches,punch,'.$employee->id.',employee_id'
+            'punch' => 'required|unique:punches,punch,'.$employee->id.',employee_id'
         ]);
 
         $employee->punch()->updateOrCreate([], $request->only(['punch']));

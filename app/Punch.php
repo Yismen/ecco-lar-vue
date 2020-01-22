@@ -66,4 +66,9 @@ class Punch extends Model
             ->whereDoesntHave('punch')
             ->get();
     }
+
+    public function setPunchAttribute($punch)
+    {
+        $this->attributes['punch'] = strtoupper($punch);
+    }
 }
