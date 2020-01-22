@@ -1,10 +1,10 @@
 @inject('layout', 'App\Layout')
-@extends('layouts.'.$layout->app(), ['page_header'=>'Employees', 'page_description'=>'Insert a ne employee!'])
+@extends('layouts.'.$layout->app(), ['page_header'=>'Employees', 'page_description'=>'Create a new employee!'])
 
 @section('content')
 	<div class="container-fluid">
     	<div class="row">
-			<div class="col-sm-8 col-sm-offset-2">
+			<div class="col-sm-10 col-sm-offset-1">
 				<div class="box box-primary">
 					<div class="box-header with-border">
 						Create New Employee @include('punches._last_punch_id')
