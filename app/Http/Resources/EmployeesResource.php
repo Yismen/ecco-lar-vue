@@ -45,6 +45,7 @@ class EmployeesResource extends JsonResource
             "active" => $this->active,
             "status" => $this->status,
             "punch" => optional($this->punch)->punch,
+            "account_number" => optional($this->bankAccount)->account_number,
             "is_vip" => $this->isVip,
             "is_universal" => $this->isUniversal,
         ];
