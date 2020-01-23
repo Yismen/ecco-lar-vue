@@ -43,4 +43,6 @@ Route::middleware('auth:api')->group(function () {
     
     Route::get('performances/performance_data/last/{many}/months', 'Api\Performances\PerformancesController@data');
     Route::get('/blackhawk/de/management', 'Blackhawk\DE\ManagementController@dashboardData');
+    
+    Route::get('holidays', 'Api\HolidayController@index');
 });
