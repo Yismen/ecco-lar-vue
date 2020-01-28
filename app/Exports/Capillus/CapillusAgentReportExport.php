@@ -13,6 +13,8 @@ use Maatwebsite\Excel\Concerns\WithTitle;
 use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Color;
+use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
@@ -28,7 +30,7 @@ class CapillusAgentReportExport implements FromView, WithTitle, WithEvents, With
     protected $last_column;
 
     public function __construct(array $options)
-    {           
+    {
         $this->options = $options;
 
         $this->repo = new CapillusAgentReportRepository([
@@ -67,7 +69,7 @@ class CapillusAgentReportExport implements FromView, WithTitle, WithEvents, With
                 break;
             
             default:
-                throw new Exception("Unknown Period passed!", 1);                
+                throw new Exception("Unknown Period passed!", 1);
                 break;
         }
     }
@@ -82,7 +84,7 @@ class CapillusAgentReportExport implements FromView, WithTitle, WithEvents, With
     public function registerEvents(): array
     {
         return [
-            AfterSheet::class => function(AfterSheet $event) {  
+            AfterSheet::class => function (AfterSheet $event) {
                 
                 // auto
                 $this->sheet = $event->sheet->getDelegate();
@@ -94,11 +96,12 @@ class CapillusAgentReportExport implements FromView, WithTitle, WithEvents, With
                     ->mergeCells()
                     ->setVerticalBorders()
                     ->applySpecialFormats()
+                    ->applyConditionalFormats()
                     ;
 
                 // $event->sheet->getDelegate()->getStyle('A1:k1')->applyFromArray($this->headerStyle());
                 // $event->sheet->getDelegate()->getStyle('A1:A70')->applyFromArray($this->setBold());
-                // $event->sheet->getDelegate()->getStyle('I1:K70')->applyFromArray($this->setBold());                
+                // $event->sheet->getDelegate()->getStyle('I1:K70')->applyFromArray($this->setBold());
             }
         ];
     }
@@ -140,7 +143,6 @@ class CapillusAgentReportExport implements FromView, WithTitle, WithEvents, With
 
     protected function formatHeaders()
     {
-
         $this->sheet->getStyle("A1:{$this->last_column}2")->applyFromArray([
             'fill' => [
                 'fillType' => Fill::FILL_SOLID,
@@ -161,7 +163,7 @@ class CapillusAgentReportExport implements FromView, WithTitle, WithEvents, With
             'font' => [
                 'bold' => true,
             ]
-        ]);    
+        ]);
         
         $this->sheet->getStyle("A1:{$this->last_column}{$this->rows}")
             ->getAlignment()
@@ -249,7 +251,7 @@ class CapillusAgentReportExport implements FromView, WithTitle, WithEvents, With
     }
     
     protected function applySpecialFormats()
-    {            
+    {
         $this->sheet->getStyle("B1:B{$this->rows}")
             ->getNumberFormat()
             ->setFormatCode(NumberFormat::FORMAT_DATE_DDMMYYYY);
@@ -271,5 +273,20 @@ class CapillusAgentReportExport implements FromView, WithTitle, WithEvents, With
             ->setFormatCode(NumberFormat::FORMAT_DATE_TIME4);
         
         return $this;
+    }
+
+    protected function applyConditionalFormats()
+    {
+        $conditional1 = new Conditional();
+        $conditional1->setConditionType(Conditional::CONDITION_CELLIS);
+        $conditional1->setOperatorType(Conditional::OPERATOR_EQUAL);
+        $conditional1->addCondition(0);
+        $conditional1->getStyle()->getFont()->getColor()->setARGB(
+            Color::COLOR_WHITE
+        );
+        $conditionalStyles = $this->sheet->getStyle("A3:T{$this->rows}")->getConditionalStyles();
+        $conditionalStyles[] = $conditional1;
+
+        $this->sheet->getStyle("A3:T{$this->rows}")->setConditionalStyles($conditionalStyles);
     }
 }
