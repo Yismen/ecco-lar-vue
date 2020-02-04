@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\User;
 use Exception;
 
 /**
@@ -13,14 +14,13 @@ trait Trackable
     {
         parent::boot();
 
-        static::updating(function($model) {
+        static::updating(function ($model) {
             $model->recordChanges();
         });
     }
 
     protected function recordChanges()
     {
-
         if (! auth()->check()) {
             abort(405, 'Trackable trait requires authenticated users');
         }
@@ -41,6 +41,6 @@ trait Trackable
 
     public function changes()
     {
-        return $this->morphMany('App\Track', 'trackable');
+        return $this->morphMany('App\Track', 'trackable')->latest()->take(35);
     }
 }

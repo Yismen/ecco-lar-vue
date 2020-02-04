@@ -87,6 +87,7 @@ class RouteServiceProvider extends ServiceProvider
             }])
             ->with('supervisor')
             ->with('site')
+            ->with('changes')
 
             ->firstOrFail()
             ->append([
