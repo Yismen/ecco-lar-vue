@@ -23,8 +23,7 @@ class AttendancesController extends Controller
      */
     public function index(Attendance $attendance)
     {
-        if (! request()->ajax()) {          
-            
+        if (! request()->ajax()) {
             return view('attendances.index', compact('attendance'));
         }
 
@@ -51,7 +50,23 @@ class AttendancesController extends Controller
      */
     public function store(AttendanceRequest $request)
     {
-        auth()->user()->attendances()->create($request->all());
+        foreach ($request->employee_id as $id) {
+            $newAttendance = array_merge($request->all(), ['employee_id' => $id]);
+            
+            $exists = Attendance::whereDate('date', $newAttendance['date'])
+                // ->where('code_id', $newAttendance['code_id'])
+                ->where('employee_id', $newAttendance['employee_id'])
+                ->first();
+
+            if(! $exists) {
+                // $exists->delete();
+
+                auth()->user()
+                    ->attendances()
+                    ->create($newAttendance);
+            }
+        }
+        
         
         return redirect()
             ->route('admin.attendances.index')

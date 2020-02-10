@@ -29,10 +29,9 @@ class ModuleActionsTest extends TestCase
             ->assertOk()
             ->assertViewIs('attendances.index')
             ->assertSee('Add a new Attendance')
-            ->assertSee('Employee Name:')
             ->assertSee('Attendance Code:')
             ->assertSee('Date:')
-            ->assertSee('Employee Name:')
+            ->assertSee('Your Employees: (select one or more)')
             ->assertSee('Attendance Code:')
             ->assertViewHas('attendance')
             ;
@@ -67,6 +66,7 @@ class ModuleActionsTest extends TestCase
     public function authorized_users_can_store_attendance()
     {
         $attendance = make(Attendance::class, ['date' => Carbon::now()])->toArray();
+        $attendance = array_merge($attendance, ['employee_id' => [$attendance['employee_id']]]);
         
         $this->actingAs($this->userWithPermission('create-attendances'))
             ->post(route('admin.attendances.store', $attendance))
@@ -114,7 +114,6 @@ class ModuleActionsTest extends TestCase
         
         $this->actingAs($this->userWithPermission('edit-attendances'))
             ->put(route('admin.attendances.update', $attendance->id), array_merge($attendance->toArray(), $data_array))
-            ->assertRedirect()
             ->assertLocation(route('admin.attendances.index'))
             ;
 
