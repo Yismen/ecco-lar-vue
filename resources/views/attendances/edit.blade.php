@@ -6,7 +6,7 @@
 		<div class="box box-primary">
             <div class="box-header">
                 <h4>
-                    Edit Attendance: 
+                    Edit Attendance for {{ $attendance->employee->full_name }}: 
                     <a href="{{ route('admin.attendances.index') }}" title="Back to list!" class="pull-right">
                         <i class="fa fa-list"></i> List
                     </a>
@@ -15,15 +15,14 @@
 
             {!! Form::model($attendance, ['route'=>['admin.attendances.update', $attendance->id], 'method'=>'PUT', 'class'=>'', 'role'=>'form']) !!}	
                 <div class="box-body">
-                    <div class="col-xs-6">
                         @component('components.fields.select', [
                             'field_name' => 'employee_id',
                             'list_array' => $attendance->employeesList->pluck('full_name', 'id'),
+                            'disabled' => true
                         ])
                             Employee Name:
-                        @endcomponent       
-                    </div>
-					@include('attendances._form')	
+                        @endcomponent     	
+					@include('attendances._form')
                 </div>
 
                 <div class="box-footer">

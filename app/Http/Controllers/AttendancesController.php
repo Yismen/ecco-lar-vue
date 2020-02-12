@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Attendance;
-use App\Http\Requests\AttendanceRequest;
+use App\Http\Requests\Attendance\CreateAttendanceRequest;
+use App\Http\Requests\Attendance\EditAttendanceRequest;
 use Yajra\DataTables\Facades\DataTables;
 
 class AttendancesController extends Controller
@@ -45,10 +46,10 @@ class AttendancesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\AttendanceRequest  $request
+     * @param  \Illuminate\Http\Requests\Attendance\CreateAttendanceRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AttendanceRequest $request)
+    public function store(CreateAttendanceRequest $request)
     {
         foreach ($request->employee_id as $id) {
             $newAttendance = array_merge($request->all(), ['employee_id' => $id]);
@@ -58,7 +59,7 @@ class AttendancesController extends Controller
                 ->where('employee_id', $newAttendance['employee_id'])
                 ->first();
 
-            if(! $exists) {
+            if (! $exists) {
                 // $exists->delete();
 
                 auth()->user()
@@ -98,11 +99,11 @@ class AttendancesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\AttendanceRequest  $request
+     * @param  \Illuminate\Http\Requests\Attendance\CreateAttendanceRequest  $request
      * @param  \App\Attendance  $attendance
      * @return \Illuminate\Http\Response
      */
-    public function update(AttendanceRequest $request, Attendance $attendance)
+    public function update(EditAttendanceRequest $request, Attendance $attendance)
     {
         $attendance->update($request->all());
 

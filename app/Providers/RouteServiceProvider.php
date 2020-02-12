@@ -39,6 +39,11 @@ class RouteServiceProvider extends ServiceProvider
             ->findOrFail($id);
         });
 
+        Route::bind('attendance', function ($id) {
+            return \App\Attendance::with(['employee', 'user', 'attendance_code'])
+            ->findOrFail($id);
+        });
+
         Route::bind('campaign', function ($id) {
             return \App\Campaign::with(['project', 'revenueType'])
                 ->findOrFail($id);
