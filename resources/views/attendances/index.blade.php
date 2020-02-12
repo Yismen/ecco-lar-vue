@@ -1,5 +1,5 @@
 @inject('layout', 'App\Layout')
-@extends('layouts.'.$layout->app(), ['page_header'=>'Schedules ID', 'page_description'=>'Current Schedules ID.'])
+@extends('layouts.'.$layout->app(), ['page_header'=>'Attendances', 'page_description'=>'Your Employees\' Attendances.'])
 
 @section('content')
 	<div class="container-fluid">
@@ -17,7 +17,7 @@
 
 					<div class="box-header with-border">
 						<h4>
-							Schedules Items List
+							Attendances List
 						</h4>
 					</div>
 

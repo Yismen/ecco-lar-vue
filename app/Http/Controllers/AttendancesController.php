@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Attendance;
 use App\Http\Requests\Attendance\CreateAttendanceRequest;
 use App\Http\Requests\Attendance\EditAttendanceRequest;
+use Illuminate\Support\Facades\Cache;
 use Yajra\DataTables\Facades\DataTables;
 
 class AttendancesController extends Controller
@@ -51,6 +52,8 @@ class AttendancesController extends Controller
      */
     public function store(CreateAttendanceRequest $request)
     {
+        Cache::flush();
+
         foreach ($request->employee_id as $id) {
             $newAttendance = array_merge($request->all(), ['employee_id' => $id]);
             

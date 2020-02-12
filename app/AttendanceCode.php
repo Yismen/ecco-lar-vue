@@ -12,4 +12,9 @@ class AttendanceCode extends Model
     {
         return $this->hasMany(Attendance::class, 'code_id');
     }
+
+    protected function getNameAttribute($name)
+    {
+        return ucwords(trim($name));
+    }
 }

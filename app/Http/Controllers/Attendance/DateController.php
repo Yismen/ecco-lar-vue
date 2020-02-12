@@ -2,25 +2,26 @@
 
 namespace App\Http\Controllers\Attendance;
 
+use App\AttendanceCode;
 use App\Http\Controllers\Controller;
+use App\Repositories\Attendances\AttendanceDatesCodesRepository;
+use App\Repositories\Attendances\AttendanceDatesRepository;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Facades\App\Repositories\Attendances\ByDate;
 
 class DateController extends Controller
 {
     public function show(Request $request, $date)
     {
-        // $this->validate($request, [
-        //     'date' => 'required'
-        // ]);
-        
-        $codes =  ByDate::data([
-            'date' => $date,
-            'user_id' => auth()->user()->id
-        ]);
+        $repo = new AttendanceDatesRepository(Carbon::parse($date));
 
-        $dates = ByDate::dates(['user_id' => auth()->user()->id]);
+        return view('attendances._by_date', ['codes' => $repo->data(), 'dates' => $repo->dates()]);
+    }
 
-        return view('attendances._by_date', compact('codes', 'dates'));
+    protected function employees($date, AttendanceCode $code)
+    {
+        $repo = new AttendanceDatesCodesRepository(Carbon::parse($date), $code->id);
+
+        return view('attendances._by_date_code', ['employees' => $repo->data(), 'dates' => $repo->dates()]);
     }
 }
