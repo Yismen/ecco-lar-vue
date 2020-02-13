@@ -4,8 +4,12 @@
 
 {!! Form::open(['route'=>['admin.attendances.store'], 'method'=>'POST', 'class'=>'', 'role'=>'form']) !!}
     <div class="box-body">
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">     
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">   
             <h4>Your Employees: (select one or more)</h4>
+            {{-- <div class="row">
+                <a href="#" class="btn btn-primary">Select All</a>
+                <a href="#" class="btn btn-warning">Unselect All</a>
+            </div> --}}
             <div class="form-group {{ $errors->has('employee_id') ? 'has-error' : null }}" style="max-height: 300px; overflow-y: overlay;">
                 @foreach ($attendance->employeesList as $employee)            
                     <div class="checkbox">

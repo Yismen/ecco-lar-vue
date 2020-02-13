@@ -91,6 +91,7 @@ Vue.component('create-employee', require('./components/employees/CreateEmployee'
 
 Vue.component('employee-row', require('./components/employees/partials/RowCheckBox').default);
 Vue.component('employee-check-box', require('./components/employees/partials/DinamicCheckbox').default);
+Vue.component('employee-checkbox-list', require('./components/employees/partials/DinamicCheckboxList').default);
 
 Vue.component('dropzone-form', require('./components/DropzoneForm').default);
 
