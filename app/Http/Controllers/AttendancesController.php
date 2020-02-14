@@ -108,6 +108,7 @@ class AttendancesController extends Controller
      */
     public function update(EditAttendanceRequest $request, Attendance $attendance)
     {
+        Cache::flush();
         $attendance->update($request->all());
 
         return redirect()
