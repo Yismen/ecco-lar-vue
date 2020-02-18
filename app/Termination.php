@@ -5,10 +5,11 @@ namespace App;
 use Carbon\Carbon;
 use App\Traits\Trackable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Termination extends Model
 {
-    use Trackable;
+    use Trackable, SoftDeletes;
 
     protected $fillable = ['employee_id', 'termination_date', 'termination_type_id', 'termination_reason_id', 'can_be_rehired', 'comments'];
 

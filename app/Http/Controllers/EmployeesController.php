@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Employee;
+use App\Termination;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -105,7 +106,12 @@ class EmployeesController extends Controller
      */
     public function show(Employee $employee)
     {
-        return view('employees.show', compact('employee'));
+        $terminations = Termination::where('employee_id', $employee->id)
+            ->withTrashed()
+            ->with(['terminationType', 'terminationReason'])
+            ->get();
+
+        return view('employees.show', compact('employee', 'terminations'));
     }
 
     /**

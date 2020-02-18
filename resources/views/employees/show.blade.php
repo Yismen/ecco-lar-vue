@@ -17,6 +17,8 @@
 						@if ($employee->termination)
 							@include('employees._details-termination-info')
 						@endif
+
+						@include('employees._terminations')
 					</div>
 					{{-- /. Photo	 --}}
 					<div class="col-md-6 animated fadeIn">
