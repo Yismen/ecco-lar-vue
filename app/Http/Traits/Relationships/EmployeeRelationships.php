@@ -90,8 +90,7 @@ trait EmployeeRelationships
 
     public function termination()
     {
-        return $this->hasOne('App\Termination')
-            ->whereDate('termination_date', '<=', Carbon::now());
+        return $this->hasOne('App\Termination');
     }
 
     /**
