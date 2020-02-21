@@ -51,8 +51,8 @@ class CapillusPullDailyPerformanceDataCommand extends Command
     public function handle()
     {
         try {
-            $date = $this->option('date') == 'default' ? 
-                Carbon::now()->subDay() : 
+            $date = $this->option('date') == 'default' ?
+                Carbon::now()->subDay() :
                 Carbon::parse($this->option('date'));
 
             $date = $date->format('Y-m-d H:i:s');
@@ -79,8 +79,6 @@ class CapillusPullDailyPerformanceDataCommand extends Command
             $this->error("Something went wrong...!");
 
             Log::error($th);
-        }        
+        }
     }
-
-    
 }

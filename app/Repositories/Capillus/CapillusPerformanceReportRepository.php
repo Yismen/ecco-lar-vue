@@ -31,8 +31,8 @@ class CapillusPerformanceReportRepository
             ->where('campaign', 'like', "{$this->campaign}");
     }
 
-    protected function wtd() 
-    {     
+    protected function wtd()
+    {
         return CapillusDailyPerformance::select('date')
         ->selectRaw($this->rawString())
         ->orderBy('date')
@@ -42,23 +42,23 @@ class CapillusPerformanceReportRepository
         ->get();
     }
 
-    protected function mtd() 
+    protected function mtd()
     {
         return CapillusDailyPerformance::selectRaw($this->rawString())
             ->where('campaign', 'like', "{$this->campaign}")
-            ->mtd($this->date)                
+            ->mtd($this->date)
             ->get();
     }
 
-    protected function ptd() 
+    protected function ptd()
     {
         return CapillusDailyPerformance::selectRaw($this->rawString())
             ->where('campaign', 'like', "{$this->campaign}")
-            ->ptd($this->date)                
+            ->ptd($this->date)
             ->get();
     }
 
-    protected function rawString() 
+    protected function rawString()
     {
         return '
             sum(calls_offered) as calls_offered, 
@@ -72,6 +72,7 @@ class CapillusPerformanceReportRepository
             sum(cap_pro) as cap_pro, 
             sum(total_revenue) as total_revenue, 
             sum(inbound_minutes) as inbound_minutes, 
+            sum(outbound_minutes) as outbound_minutes, 
             sum(call_back) as call_back, 
             sum(caller_hung_up_after_pitch) as caller_hung_up_after_pitch, 
             sum(doesn_t_have_a_credit_debit_card_paypal) as doesn_t_have_a_credit_debit_card_paypal, 

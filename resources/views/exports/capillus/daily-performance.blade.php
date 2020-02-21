@@ -160,18 +160,17 @@
         <tr>
             <td>Total Overall Minutes</td>    
             @foreach ($data['wtd'] as $day)
-                <td>{{ $day->inbound_minutes }}</td>
+                <td></td>
                 {{-- there is no outbound minutes --}}
             @endforeach
 
             @for ($i = count($data['wtd']); $i < 7; $i++)
                 <td></td>
             @endfor
-            <td>{{ $data['wtd']->sum('inbound_minutes') }}</td> 
-            {{-- there is no outbound minutes  --}}
-            <td>{{ $data['mtd']->sum('inbound_minutes') }}</td>  
+            <td></td> 
+            <td></td>  
             {{-- there is no outbound minutes --}}
-            <td>{{ $data['ptd']->sum('inbound_minutes') }}</td>
+            <td></td>
         </tr>
 
         <tr>
@@ -191,15 +190,15 @@
         <tr>
             <td>Total Outbound Minutes</td>    
             @foreach ($data['wtd'] as $day)
-                <td>{{ 0 }}</td>
+                <td>{{ $day->outbound_minutes }}</td>
             @endforeach
 
             @for ($i = count($data['wtd']); $i < 7; $i++)
                 <td></td>
             @endfor
-            <td>{{ 0 }}</td>  
-            <td>{{ 0 }}</td>  
-            <td>{{ 0 }}</td>
+            <td>{{ $data['wtd']->sum('outbound_minutes') }}</td>  
+            <td>{{ $data['mtd']->sum('outbound_minutes') }}</td>  
+            <td>{{ $data['ptd']->sum('outbound_minutes') }}</td>
         </tr> 
 
         <tr>

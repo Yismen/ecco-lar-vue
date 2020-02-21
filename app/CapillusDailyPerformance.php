@@ -21,6 +21,7 @@ class CapillusDailyPerformance extends Model
         'cap_pro',
         'total_revenue',
         'inbound_minutes',
+        'outbound_minutes',
         'call_back',
         'caller_hung_up_after_pitch',
         'doesn_t_have_a_credit_debit_card_paypal',
@@ -59,7 +60,7 @@ class CapillusDailyPerformance extends Model
         ], $options);
 
         $this
-            ->whereDate('date', $options['date']) 
+            ->whereDate('date', $options['date'])
             ->where('campaign', $options['campaign'])
             ->delete();
 

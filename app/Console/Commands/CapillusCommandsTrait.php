@@ -4,9 +4,8 @@ namespace App\Console\Commands;
 
 use Exception;
 
-trait CapillusCommandsTrait 
+trait CapillusCommandsTrait
 {
-
     public function capillusCampaigns()
     {
         $campaigns = config('dainsys.capillus.campaigns');
@@ -24,11 +23,11 @@ trait CapillusCommandsTrait
      */
     protected function distroList(): array
     {
-        $list = config('dainsys.capillus.distro') ?? 
+        $list = config('dainsys.capillus.distro') ??
             abort(404, "Invalid distro list. Set it up in the .env, separated by pipe (|).");
 
         return explode("|", $list);
-    } 
+    }
 
     protected function getArrayFields($results)
     {
@@ -46,6 +45,7 @@ trait CapillusCommandsTrait
             'cap_pro' => $results['Cap Pro'],
             'total_revenue' => $results['Total Revenue'],
             'inbound_minutes' => $results['Inbound Minutes'],
+            'outbound_minutes' => $results['Outbound Minutes'],
             'call_back' => $results['Call Back'],
             'caller_hung_up_after_pitch' => $results['Caller Hung Up After Pitch'],
             'doesn_t_have_a_credit_debit_card_paypal' => $results['Doesn t Have a Credit   Debit Card   PayPal'],

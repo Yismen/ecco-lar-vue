@@ -26,7 +26,7 @@ class CapillusPerformanceReportExport implements FromView, WithTitle, WithEvents
         $this->sheet = $options['campaign'] == '%' ? 'Overall' : $options['campaign'];
         
         $this->repo = new CapillusPerformanceReportRepository([
-            'date' => $options['date'], 
+            'date' => $options['date'],
             'campaign' => $options['campaign']
         ]);
     }
@@ -42,7 +42,7 @@ class CapillusPerformanceReportExport implements FromView, WithTitle, WithEvents
     public function registerEvents(): array
     {
         return [
-            AfterSheet::class => function(AfterSheet $event) {  
+            AfterSheet::class => function (AfterSheet $event) {
                 
                 // auto
                 $this->sheet = $event->sheet->getDelegate();
@@ -63,7 +63,7 @@ class CapillusPerformanceReportExport implements FromView, WithTitle, WithEvents
 
                 $event->sheet->getDelegate()->getStyle('A1:k1')->applyFromArray($this->headerStyle());
                 $event->sheet->getDelegate()->getStyle('A1:A70')->applyFromArray($this->setBold());
-                $event->sheet->getDelegate()->getStyle('I1:K70')->applyFromArray($this->setBold());                
+                $event->sheet->getDelegate()->getStyle('I1:K70')->applyFromArray($this->setBold());
             }
         ];
     }
@@ -124,6 +124,8 @@ class CapillusPerformanceReportExport implements FromView, WithTitle, WithEvents
         $this->setDivisionFormulas([ 'row' => 11, 'dividend' => 41, 'divisor' => 6 ]);
         // % Non Qualified Calls
         $this->setDivisionFormulas([ 'row' => 12, 'dividend' => 55, 'divisor' => 6 ]);
+        // Total Overall Minutes
+        $this->setSumFormula([ 'row' => 13, 'from_row' => 14, 'to_row' => 15 ]);
         // Total Cap Sales
         $this->setSumFormula([ 'row' => 17, 'from_row' => 18, 'to_row' => 20 ]);
         // Revenue per call received
@@ -150,7 +152,7 @@ class CapillusPerformanceReportExport implements FromView, WithTitle, WithEvents
     {
         foreach (range('B', 'K') as $letter) {
             $this->sheet->setCellValue(
-                "{$letter}{$options['row']}", 
+                "{$letter}{$options['row']}",
                 "=IFERROR({$letter}{$options['dividend']}/{$letter}{$options['divisor']}, 0)"
             );
         }
@@ -260,12 +262,12 @@ class CapillusPerformanceReportExport implements FromView, WithTitle, WithEvents
             ]
         ];
 
-        $this->sheet->getStyle('A2:K2')->applyFromArray($format);         
+        $this->sheet->getStyle('A2:K2')->applyFromArray($format);
         $this->sheet->getStyle('A41:K41')->applyFromArray($format);
         $this->sheet->getStyle('A55:K55')->applyFromArray($format);
 
         $this->sheet->getStyle('B2:K2')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_DATE_MYMINUS);
-        $this->sheet->getStyle('B2:K2')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);         
+        $this->sheet->getStyle('B2:K2')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
         $this->sheet->getStyle('A2:K2')->applyFromArray([
             'borders' => [
                 'bottom' => [
@@ -371,7 +373,7 @@ class CapillusPerformanceReportExport implements FromView, WithTitle, WithEvents
                 'color' => [
                     'rgb' => 'E3E9F5',
                 ],
-            ],            
+            ],
             'font' => [
                 'bold' => true,
             ],
