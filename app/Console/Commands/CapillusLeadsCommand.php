@@ -46,9 +46,6 @@ class CapillusLeadsCommand extends Command
     public function handle()
     {
         try {
-            $instance = Carbon::now()->format('Y-m-d_His');
-            $file_name = "Kipany Lead {$instance} ECC.xlsx";
-
             $date = $this->option('date') == 'default' ?
                 Carbon::now()->subDay() :
                 Carbon::parse($this->option('date'));
@@ -56,6 +53,9 @@ class CapillusLeadsCommand extends Command
             $from = $this->option('from') == 'default' ?
                 $date :
                 Carbon::parse($this->option('from'));
+
+            $instance = $date->format('Y-m-d');
+            $file_name = "Kipany Lead {$instance} ECC.xlsx";
 
             Excel::store(new CapillusLeadsExport([
                 'date_from' => $from->format('Y-m-d'),
