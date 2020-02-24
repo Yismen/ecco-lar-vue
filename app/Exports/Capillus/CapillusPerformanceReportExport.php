@@ -390,7 +390,8 @@ class CapillusPerformanceReportExport implements FromView, WithTitle, WithEvents
         ];
 
         $this->sheet->getStyle('A13:K13')->applyFromArray($format);
-        $this->sheet->getStyle('A13:K15')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_NUMBER_00);
+        $this->sheet->getStyle('A13:K15')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+        $this->sheet->getStyle('A28:K55')->getNumberFormat()->setFormatCode('#,##0');
 
         return $this;
     }
