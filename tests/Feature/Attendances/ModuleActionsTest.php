@@ -89,7 +89,7 @@ class ModuleActionsTest extends TestCase
             ->get(route('admin.attendances.edit', $attendance->id))
             ->assertOk()
             ->assertViewIs('attendances.edit')
-            ->assertSee('Edit Attendance:')
+            ->assertSee('Edit Attendance for ')
             ->assertSee('Employee Name:')
             ->assertSee('Date:')
             ->assertSee('Attendance Code:')
