@@ -6,6 +6,7 @@ use App\Mail\Capillus\CapillusAgentCallDataDumpEmail;
 use App\Mail\Capillus\CapillusAgentReportMail;
 use App\Mail\Capillus\CapillusDailyPerformanceMail;
 use App\Mail\Capillus\CapillusFlashMail;
+use App\Mail\Capillus\CapillusLeadsReportMail;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -65,5 +66,17 @@ class CapillusCommandsTest extends TestCase
             ->assertExitCode(0);
             
         Mail::assertSent(CapillusAgentReportMail::class);
+    }
+
+    /** @test */
+    public function it_sends_capillus_leads_report()
+    {
+        Mail::fake();
+        
+        $this->artisan('dainsys:capillus-send-daily-leads-report')
+            ->expectsOutput('Kipany-Capillus - Leads Report Sent!')
+            ->assertExitCode(0);
+            
+        Mail::assertSent(CapillusLeadsReportMail::class);
     }
 }

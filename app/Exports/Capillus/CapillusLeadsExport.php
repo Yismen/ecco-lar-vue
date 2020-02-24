@@ -2,7 +2,7 @@
 
 namespace App\Exports\Capillus;
 
-use App\Repositories\Capillus\CapillusAgentCallDataDumpRepository;
+use App\Repositories\Capillus\CapillusLeadsRepository;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\WithEvents;
@@ -14,7 +14,7 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 
-class CapillusAgentCallDataDumpExport implements FromView, WithTitle, WithEvents, WithPreCalculateFormulas
+class CapillusLeadsExport implements FromView, WithTitle, WithEvents, WithPreCalculateFormulas
 {
     protected $repo;
 
@@ -22,10 +22,9 @@ class CapillusAgentCallDataDumpExport implements FromView, WithTitle, WithEvents
 
     public function __construct(array $options)
     {        
-        $this->repo = new CapillusAgentCallDataDumpRepository([
-            'date' => $options['date'], 
-            'startOfMonth' => $options['startOfMonth'],
-            'campaign' => $options['campaign']
+        $this->repo = new CapillusLeadsRepository([
+            'date_from' => $options['date_from'], 
+            'date_to' => $options['date_to'], 
         ]);
 
         $this->count = count($this->repo->data);
@@ -34,7 +33,7 @@ class CapillusAgentCallDataDumpExport implements FromView, WithTitle, WithEvents
 
     public function view(): View
     {
-        return view('exports.capillus.agent-call-data-dump', [
+        return view('exports.capillus.leads-report', [
             'data' => $this->repo->data,
             'title' => $this->sheet
         ]);
@@ -42,7 +41,7 @@ class CapillusAgentCallDataDumpExport implements FromView, WithTitle, WithEvents
 
     public function title(): string
     {
-        return "Agent Call Data Dump";
+        return "Capillus Leads";
     }
 
     public function registerEvents(): array
@@ -59,9 +58,9 @@ class CapillusAgentCallDataDumpExport implements FromView, WithTitle, WithEvents
                     ->formatTimecolumns()
                     ->setColumnsWidth()
                     ;     
-                    
-                $this->sheet->setAutoFilter("A1:M{$this->count}");
-                $this->sheet->freezePane('A2');
+
+                $this->sheet->setAutoFilter("A1:O{$this->count}");
+                $this->sheet->freezePane('E2');
             }
         ];
     }
@@ -72,16 +71,16 @@ class CapillusAgentCallDataDumpExport implements FromView, WithTitle, WithEvents
 
         $this->sheet->getRowDimension('1')->setRowHeight(32); 
                     
-        foreach (range(1, 8) as $col) { 
+        foreach (range(1, 15) as $col) { 
             $this->sheet->getColumnDimensionByColumn($col)
                 ->setAutoSize(true);
         }
         
-        $this->sheet->getColumnDimension('D')
-            ->setWidth(23);
+        // $this->sheet->getColumnDimension('D')
+        //     ->setWidth(23);
             
-        $this->sheet->getColumnDimension('F')
-            ->setWidth(23);
+        // $this->sheet->getColumnDimension('F')
+        //     ->setWidth(23);
 
         return $this;
     }
@@ -89,7 +88,7 @@ class CapillusAgentCallDataDumpExport implements FromView, WithTitle, WithEvents
     protected function configurePage()
     {
         $this->sheet->getPageSetup()
-            ->setPrintArea("A1:M{$this->count}")
+            ->setPrintArea("A1:O{$this->count}")
             ->setFitToWidth(1)
             ->setFitToHeight(1000)
             ->setOrientation(PageSetup::ORIENTATION_LANDSCAPE);
@@ -133,7 +132,7 @@ class CapillusAgentCallDataDumpExport implements FromView, WithTitle, WithEvents
         ];
 
         $this->sheet
-            ->getStyle('A1:M1')
+            ->getStyle('A1:O1')
                 ->applyFromArray($format)
                 ->getAlignment()
                     ->setWrapText(true);
@@ -146,8 +145,8 @@ class CapillusAgentCallDataDumpExport implements FromView, WithTitle, WithEvents
         $this->sheet->getStyle("B1:B{$this->count}")->getNumberFormat()
             ->setFormatCode(NumberFormat::FORMAT_DATE_TIME2);
             
-        $this->sheet->getStyle("I1:M{$this->count}")->getNumberFormat()
-            ->setFormatCode(NumberFormat::FORMAT_DATE_TIME4);
+        // $this->sheet->getStyle("I1:M{$this->count}")->getNumberFormat()
+        //     ->setFormatCode(NumberFormat::FORMAT_DATE_TIME4);
         
         return $this;
     }
