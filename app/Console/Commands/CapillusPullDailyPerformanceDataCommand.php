@@ -20,7 +20,7 @@ class CapillusPullDailyPerformanceDataCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'dainsys:capillus-pull-daily-permance-data {--date=default}';
+    protected $signature = 'dainsys:capillus-pull-daily-permance-data {--date=default} {--from=default}';
 
     /**
      * The console command description.
@@ -55,25 +55,34 @@ class CapillusPullDailyPerformanceDataCommand extends Command
                 Carbon::now()->subDay() :
                 Carbon::parse($this->option('date'));
 
-            $date = $date->format('Y-m-d H:i:s');
-
-            foreach ($this->capillusCampaigns() as $campaign) {
-                // Gather the data from the DB
-                $results = $this->repo->getData($campaign, $date);
+            $date_from = $this->option('from') == 'default' ?
+                Carbon::parse($date) :
+                Carbon::parse($this->option('from'));
+                ;
                 
+            while ($date_from <= $date) {
+
+                foreach ($this->capillusCampaigns() as $campaign) {
+                    // Gather the data from the DB
+                    $results = $this->repo->getData($campaign, $date_from->format('Y-m-d H:i:s'));
                     
-                if (count($results) > 0) {
-                    $results = collect($results[0]);
-                    // Save the data to my table
-                    (new CapillusDailyPerformance)
-                        ->removeIfExists([
-                            'date' => $results->get('Current Date'),
-                            'campaign' => $campaign
-                        ])
-                        ->create($this->getArrayFields($results));
+                        
+                    if (count($results) > 0) {
+                        $results = collect($results[0]);
+                        // Save the data to my table
+                        (new CapillusDailyPerformance)
+                            ->removeIfExists([
+                                'date' => $results->get('Current Date'),
+                                'campaign' => $campaign
+                            ])
+                            ->create($this->getArrayFields($results));
+                    }
                 }
+                
+
+                $date_from->addDay();
             }
-            
+
             $this->info("Data pulled for date {$date}");
         } catch (\Throwable $th) {
             $this->error("Something went wrong...!");
