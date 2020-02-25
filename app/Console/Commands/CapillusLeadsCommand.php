@@ -10,6 +10,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Mail;
+use Maatwebsite\Excel\Excel as ExcelExcel;
 
 class CapillusLeadsCommand extends Command
 {
@@ -57,14 +58,22 @@ class CapillusLeadsCommand extends Command
             $instance = $date->format('Y-m-d');
             $file_name = "Kipany Lead {$instance} ECC.xlsx";
 
-            Excel::store(new CapillusLeadsExport([
-                'date_from' => $from->format('Y-m-d'),
-                'date_to' => $date->format('Y-m-d'),
-            ]), $file_name);
-
-            Mail::send(
-                new CapillusLeadsReportMail($this->distroList(), $file_name, "Kipany-Capillus - ECCO Leads File")
+            Excel::store(
+                new CapillusLeadsExport([
+                    'date_from' => $from->format('Y-m-d'),
+                    'date_to' => $date->format('Y-m-d'),
+                ]), // Create file
+                $file_name, // file name
+                'kipany-sftp' // disk
             );
+
+            // Mail::send(
+            //      new CapillusLeadsReportMail(
+            //          $this->distroList(), 
+            //          $file_name, 
+            //          "Kipany-Capillus - ECCO Leads File
+            //      )
+            // );
     
             $this->info("Kipany-Capillus - Leads Report Sent!");
         } catch (\Throwable $th) {
