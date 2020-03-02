@@ -82,4 +82,8 @@ return [
          */
         'campaigns' =>env('CAPILLUS_CAMPAIGNS', 'Capillus DRTV|Capillus Email|Capillus Sales|Capillus Caller ID|Capillus DRTV Route|Capillus Sales Route')
     ],
+
+    'political' => [
+        'distro' => env('POLITICAL_FLASH_DISTRO', config('mail.from.address')),
+    ]
 ];

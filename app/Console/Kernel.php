@@ -16,6 +16,7 @@ use App\Console\Commands\FeedSchedulesTable;
 use App\Console\Commands\FeedShiftsTableCommand;
 use App\Console\Commands\MigrationStatus;
 use App\Console\Commands\UpdateSlugs;
+use App\Console\Political\PoliticalSendFlash;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -35,6 +36,7 @@ class Kernel extends ConsoleKernel
         CapillusSendDailyPerformanceReportCommand::class,
         CapillusAgentCallDataDumpCommand::class,
         CapillusAgentReportCommand::class,
+        PoliticalSendFlash::class,
         FeedSchedulesTable::class,
         FeedShiftsTableCommand::class,
         MigrationStatus::class,
@@ -79,6 +81,8 @@ class Kernel extends ConsoleKernel
                 
         $schedule->command('dainsys:capillus-send-agent-call-data-dump-report')->dailyAt('06:10')->timezone('America/New_York'); 
         $schedule->command('dainsys:capillus-send-daily-leads-report')->dailyAt('06:15')->timezone('America/New_York');
+
+        $schedule->command('dainsys:political-send-hourly-flash')->hourly()->timezone('America/New_York');
         
     }
 }
