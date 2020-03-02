@@ -26,7 +26,7 @@
     cd /var/www/html/dainsys
     git checkout prod
     git pull origin prod
-    composer install --no-dev --optiminize-autoloader --no-interaction
+    composer install --no-dev
     php artisan migrate --force
     php artisan optimize
 @endtask
