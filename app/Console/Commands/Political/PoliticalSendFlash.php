@@ -49,7 +49,7 @@ class PoliticalSendFlash extends Command
             $file_name = "Political Flash Report {$instance}.xlsx";
 
             $date_to = $this->option('date') == 'default' ? 
-                Carbon::now()->subDay() : 
+                Carbon::now() : 
                 Carbon::parse($this->option('date'));            
 
             $date_from = $this->option('from') == 'default' ?
