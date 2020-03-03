@@ -56,7 +56,7 @@ class CapillusLeadsCommand extends Command
                 Carbon::parse($this->option('from'));
 
             $instance = $date->format('Y-m-d');
-            $file_name = "Kipany Lead {$instance} ECC.xlsx";
+            $file_name = "Kipany Lead {$instance} ECC.csv";
 
             Excel::store(
                 new CapillusLeadsExport([
@@ -64,7 +64,8 @@ class CapillusLeadsCommand extends Command
                     'date_to' => $date->format('Y-m-d'),
                 ]), // Create file
                 $file_name, // file name
-                'kipany-sftp' // disk
+                'kipany-sftp', // disk,
+                ExcelExcel::CSV
             );
 
             // Mail::send(
