@@ -2,8 +2,6 @@
 
 namespace App\Exports\Political\Sheets;
 
-use App\Repositories\Capillus\CapillusPerformanceReportRepository;
-use App\Repositories\Political\PoliticalHoursRepository;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\WithEvents;
@@ -13,7 +11,6 @@ use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
-use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 
 class FlashCampaignsSheet implements FromView, WithTitle, WithEvents, WithPreCalculateFormulas
@@ -80,7 +77,7 @@ class FlashCampaignsSheet implements FromView, WithTitle, WithEvents, WithPreCal
 
     public function title(): string
     {
-        return $this->campaign;
+        return substr($this->campaign, -28);
     }
 
     protected function setColumnsWidth()

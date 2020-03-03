@@ -35,12 +35,12 @@ class FlashReportExport implements WithMultipleSheets
 
         $repo = new PoliticalCampaignsRepository(['date' => $this->date_to]);
         $dispositions = collect($repo->dispositions)->groupBy('campaign_name');
-        $answers = collect($repo->answers)->groupBy('campaign_name');
+        $answersCollection = collect($repo->answers)->groupBy('campaign_name');
         
         foreach ($dispositions as $name => $disposition) {
-            $answer = $answers->get($name);
+            $answers = $answersCollection->get($name);
 
-            $sheets[] = new FlashCampaignsSheet($disposition, $answer, $name);
+            $sheets[] = new FlashCampaignsSheet($disposition, $answers, $name);
         }
         
         return $sheets;
