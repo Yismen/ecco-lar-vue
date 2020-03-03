@@ -59,5 +59,13 @@ return [
             'region' => 'your-region',
             'bucket' => 'your-bucket',
         ],
+        'kipany-sftp' => [
+            'driver' => 'sftp',
+            'host' => '199.189.137.98',
+            'port' => 22,
+            'root'       => '/ftproot/EC/',
+            'username' => env('CAPILLUS_FTP_USER'),
+            'password' => env('CAPILLUS_FTP_PASSWORD'),
+        ]
     ],
 ];
