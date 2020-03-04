@@ -63,7 +63,7 @@ return [
             'driver' => 'sftp',
             'host' => '199.189.137.98',
             'port' => 22,
-            'root'       => '/ftproot/EC/',
+            'root'       => '/ftproot/EC/Capillus',
             'username' => env('CAPILLUS_FTP_USER'),
             'password' => env('CAPILLUS_FTP_PASSWORD'),
         ]
