@@ -2,8 +2,14 @@
 
 namespace App\Mail\Capillus;
 
-class CapillusLeadsReportMail extends CapillusMailBase
+use Carbon\Carbon;
+use Illuminate\Bus\Queueable;
+use Illuminate\Mail\Mailable;
+use Illuminate\Queue\SerializesModels;
+
+class CapillusLeadsReportMail extends Mailable
 {
+    use Queueable, SerializesModels;
     /**
      * Build the message.
      *
@@ -11,6 +17,8 @@ class CapillusLeadsReportMail extends CapillusMailBase
      */
     public function build()
     {
-        return $this->defaultBuild("Ecco - Capillus leads file");
+        return $this->to('yjorge@eccocorpbpo.com')
+            ->view('emails.capillus-leads', ['instance' => Carbon::now()->format("Ymd_His")])
+            ->subject("Ecco - Capillus leads file");
     }
 }

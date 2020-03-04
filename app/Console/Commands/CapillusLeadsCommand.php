@@ -68,13 +68,9 @@ class CapillusLeadsCommand extends Command
                 ExcelExcel::CSV
             );
 
-            // Mail::send(
-            //      new CapillusLeadsReportMail(
-            //          $this->distroList(), 
-            //          $file_name, 
-            //          "Kipany-Capillus - ECCO Leads File
-            //      )
-            // );
+            Mail::send(
+                 new CapillusLeadsReportMail()
+            );
     
             $this->info("Kipany-Capillus - Leads Report Sent!");
         } catch (\Throwable $th) {
