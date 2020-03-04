@@ -2,7 +2,6 @@
 
 namespace App\Exports\Capillus;
 
-use App\Repositories\Capillus\CapillusLeadsRepository;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\WithEvents;
@@ -16,25 +15,24 @@ use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 
 class CapillusLeadsExport implements FromView, WithTitle, WithEvents, WithPreCalculateFormulas
 {
-    protected $repo;
+    protected $report_data;
 
     protected $sheet;
 
-    public function __construct(array $options)
-    {        
-        $this->repo = new CapillusLeadsRepository([
-            'date_from' => $options['date_from'], 
-            'date_to' => $options['date_to'], 
-        ]);
+    protected $count;
 
-        $this->count = count($this->repo->data);
+    public function __construct($report_data)
+    {        
+        $this->report_data = $report_data;
+        
+        $this->count = count($this->report_data);
         $this->count = $this->count > 0 ? $this->count : 1;
     }
 
     public function view(): View
     {
         return view('exports.capillus.leads-report', [
-            'data' => $this->repo->data,
+            'data' => $this->report_data,
             'title' => $this->sheet
         ]);
     }

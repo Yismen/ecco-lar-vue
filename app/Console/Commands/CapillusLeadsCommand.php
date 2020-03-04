@@ -3,8 +3,8 @@
 namespace App\Console\Commands;
 
 use App\Exports\Capillus\CapillusLeadsExport;
-use App\Mail\Capillus\CapillusAgentCallDataDumpEmail;
 use App\Mail\Capillus\CapillusLeadsReportMail;
+use App\Repositories\Capillus\CapillusLeadsRepository;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
@@ -28,6 +28,9 @@ class CapillusLeadsCommand extends Command
      * @var string
      */
     protected $description = 'Capillus - send daily call data dump report';
+
+    protected $file_name;
+    protected $data;
 
     /**
      * Create a new command instance.
@@ -56,21 +59,16 @@ class CapillusLeadsCommand extends Command
                 Carbon::parse($this->option('from'));
 
             $instance = $date->format('Y-m-d');
-            $file_name = "Kipany Lead {$instance} ECC.csv";
+            $this->file_name = "Kipany Lead {$instance} ECC";
 
-            Excel::store(
-                new CapillusLeadsExport([
-                    'date_from' => $from->format('Y-m-d'),
-                    'date_to' => $date->format('Y-m-d'),
-                ]), // Create file
-                $file_name, // file name
-                'kipany-sftp', // disk,
-                ExcelExcel::CSV
-            );
-
-            Mail::send(
-                 new CapillusLeadsReportMail()
-            );
+            $this->data = (new CapillusLeadsRepository([
+                'date_from' => $from->format('Y-m-d'), 
+                'date_to' => $date->format('Y-m-d'), 
+            ]))->data;
+            
+            $this
+                ->postFileToFTP()
+                ->sendFileByEmail();
     
             $this->info("Kipany-Capillus - Leads Report Sent!");
         } catch (\Throwable $th) {
@@ -78,5 +76,35 @@ class CapillusLeadsCommand extends Command
 
             $this->error("Something went wrong");
         }
+    }
+
+    protected function postFileToFTP()
+    {
+        Excel::store(
+            new CapillusLeadsExport($this->data), // Create file
+            $this->file_name.".csv", // file name
+            'kipany-sftp', // disk,
+            ExcelExcel::CSV
+        );
+
+        return $this;
+    }
+
+    protected function sendFileByEmail()
+    {
+        $file_name = $this->file_name . ".xlsx";
+
+        Excel::store(
+            new CapillusLeadsExport($this->data), // Create file
+            $file_name // file name
+        );
+
+        Mail::send(
+            new CapillusLeadsReportMail(
+                $this->distroList(), $file_name, "Kipany-Capillus - ECCO Leads File"
+            )
+        );
+
+        return $this;
     }
 }
