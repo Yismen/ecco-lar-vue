@@ -52,7 +52,7 @@ class CapillusLeadsExport implements FromView, WithTitle, WithEvents, WithPreCal
 
                 $this->configurePage()
                     ->formatHeaderRow()
-                    ->formatDateColumn()
+                    // ->formatDateColumn()
                     ->formatTimecolumns()
                     ->setColumnsWidth()
                     ;     
