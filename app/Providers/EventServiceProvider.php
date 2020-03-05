@@ -13,7 +13,7 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         'Illuminate\Mail\Events\MessageSent' => [
-            'App\Listeners\RemoveCapillusFlashFile'
+            'App\Listeners\RemoveTemporaryMailAttachments'
         ],
         'App\Events\EmployeeDeactivated' => [
             'App\Listeners\SemdEmailToHumanResources',

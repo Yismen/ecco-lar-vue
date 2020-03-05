@@ -15,7 +15,7 @@ class CapillusDailyLogTimeMail extends CapillusMailBase
             ->from('yjorge@eccocorpbpo.com', 'Yisme Jorge')
             ->bcc('yjorge@eccocorpbpo.com')
             ->view('emails.capillus')
-            ->attachFromStorage($this->capillus_file_name)
+            ->attachFromStorage($this->temporary_mail_attachment)
             ->subject("Daily Log Time Report");
     }
 }

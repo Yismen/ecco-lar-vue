@@ -10,7 +10,7 @@ abstract class PoliticalMailBase extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $political_file_name;
+    public $temporary_mail_attachment;
 
     public $report_name;
 
@@ -21,7 +21,7 @@ abstract class PoliticalMailBase extends Mailable
      */
     public function __construct(array $distro, $filename, $report_name)
     {
-        $this->political_file_name = $filename;
+        $this->temporary_mail_attachment = $filename;
         $this->report_name = $report_name;
 
         
@@ -38,7 +38,7 @@ abstract class PoliticalMailBase extends Mailable
             ->from($defaults['from'], 'Yisme Jorge')
             ->bcc($defaults['bcc'])
             ->view($defaults['view'])
-            ->attachFromStorage($this->political_file_name)
+            ->attachFromStorage($this->temporary_mail_attachment)
             ->subject($subject);
     }
 

@@ -6,7 +6,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Mail\Events\MessageSent;
 use Illuminate\Support\Facades\Storage;
 
-class RemoveCapillusFlashFile
+class RemoveTemporaryMailAttachments
 {
     use InteractsWithQueue;
     
@@ -33,8 +33,8 @@ class RemoveCapillusFlashFile
 
     protected function removeFileIfExists(MessageSent $event)
     {
-        if (array_has($event->data, 'capillus_file_name') && Storage::exists($event->data['capillus_file_name'])) {
-            Storage::delete($event->data['capillus_file_name']);
+        if (array_has($event->data, 'temporary_mail_attachment') && Storage::exists($event->data['temporary_mail_attachment'])) {
+            Storage::delete($event->data['temporary_mail_attachment']);
         }
     }
 }
