@@ -23,7 +23,7 @@
                 $row = collect($row);
             @endphp
             <tr>
-                <td>{{ \Carbon\Carbon::parse($row->get('Date'))->format('m/d/Y') }}</td>
+                <td>{{ \Carbon\Carbon::parse($row->get('Date'))->format('Y-m-d') }}</td>
                 <td>{{ $row->get('Time') }}</td>
                 <td>{{ str_replace(['-', '(', ')'], '', $row->get('ANI')) }}</td>
                 <td>{{ str_replace(['-', '(', ')'], '', $row->get('CBR')) }}</td>
