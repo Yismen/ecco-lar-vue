@@ -4,6 +4,7 @@ namespace App\Exports\Capillus;
 
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Concerns\WithCustomCsvSettings;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\WithPreCalculateFormulas;
 use Maatwebsite\Excel\Concerns\WithTitle;
@@ -13,7 +14,7 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 
-class CapillusLeadsExport implements FromView, WithTitle, WithEvents, WithPreCalculateFormulas
+class CapillusLeadsExport implements FromView, WithTitle, WithEvents, WithPreCalculateFormulas, WithCustomCsvSettings
 {
     protected $report_data;
 
@@ -60,6 +61,18 @@ class CapillusLeadsExport implements FromView, WithTitle, WithEvents, WithPreCal
                 $this->sheet->setAutoFilter("A1:O{$this->count}");
                 $this->sheet->freezePane('E2');
             }
+        ];
+    }  
+
+    public function getCsvSettings(): array
+    {
+        return [
+            'delimiter'              => ',',
+            'enclosure'              => '',
+            'line_ending'            => PHP_EOL,
+            'use_bom'                => false,
+            'include_separator_line' => false,
+            'excel_compatibility'    => false,
         ];
     }
 
