@@ -36,7 +36,7 @@ class AttendanceCodesController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|min:4|max:150|unique:attendance_codes',
+            'name' => 'required|min:4|max:150|unique:attendance_codes,name',
             'color' => 'required|not_in:#000,#000000|unique:attendance_codes,color'
         ]);
         
