@@ -14,27 +14,30 @@
             <th>Zip Code</th>
             <th>Country</th>
             <th>Interested In</th>
-            <th>Connected Disposition</th>
+            <th>Disposition</th>
             <th>comments</th>
         </tr>
 
         @foreach ($data as $row)
+            @php
+                $row = collect($row);
+            @endphp
             <tr>
-                <td>{{ \Carbon\Carbon::parse(collect($row)->get('Date'))->format('m/d/Y') }}</td>
-                <td>{{ collect($row)->get('Time') }}</td>
-                <td>{{ collect($row)->get('ANI') }}</td>
-                <td>{{ collect($row)->get('CBR') }}</td>
-                <td>{{ collect($row)->get('Fname') }}</td>
-                <td>{{ collect($row)->get('Lname') }}</td>
-                <td>{{ collect($row)->get('Email') }}</td>
-                <td>{{ collect($row)->get('StreetAddress') }}</td>
-                <td>{{ collect($row)->get('City') }}</td>
-                <td>{{ collect($row)->get('State') }}</td>
-                <td>{{ collect($row)->get('Zip Code') }}</td>
-                <td>{{ collect($row)->get('Country') }}</td>
-                <td>{{ collect($row)->get('Interested In') }}</td>
-                <td>{{ collect($row)->get('connected_disposition') }}</td>
-                <td>{{ collect($row)->get('Comments') }}</td>
+                <td>{{ \Carbon\Carbon::parse($row->get('Date'))->format('m/d/Y') }}</td>
+                <td>{{ $row->get('Time') }}</td>
+                <td>{{ str_replace(['-', '(', ')'], '', $row->get('ANI')) }}</td>
+                <td>{{ str_replace(['-', '(', ')'], '', $row->get('CBR')) }}</td>
+                <td>{{ str_replace(['"'], "", $row->get('Fname')) }}</td>
+                <td>{{ str_replace(['"'], "", $row->get('Lname')) }}</td>
+                <td>{{ str_replace(['"'], "", $row->get('Email')) }}</td>
+                <td>{{ str_replace(['"'], "", $row->get('StreetAddress')) }}</td>
+                <td>{{ str_replace(['"'], "", $row->get('City')) }}</td>
+                <td>{{ str_replace(['"'], "", $row->get('State')) }}</td>
+                <td>{{ str_replace(['"'], "", $row->get('Zip Code')) }}</td>
+                <td>{{ str_replace(['"'], "", $row->get('Country')) }}</td>
+                <td>{{ str_replace(['"'], "", $row->get('Interested In')) }}</td>
+                <td>{{ str_replace(['"'], "", $row->get('connected_disposition')) }}</td>
+                <td>{{ str_replace(['"'], "", $row->get('Comments')) }}</td>
             </tr>
         @endforeach
     </tbody>

@@ -58,7 +58,8 @@ class CapillusLeadsCommand extends Command
                 $date :
                 Carbon::parse($this->option('from'));
 
-            $instance = $date->format('Y-m-d');
+            $instance = $date->format('m-d-Y');
+
             $this->file_name = "Kipany Lead {$instance} ECC";
 
             $this->data = (new CapillusLeadsRepository([
