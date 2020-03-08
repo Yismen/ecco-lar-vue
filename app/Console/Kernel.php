@@ -82,8 +82,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('dainsys:capillus-send-agent-call-data-dump-report')->dailyAt('06:10')->timezone('America/New_York'); 
         $schedule->command('dainsys:capillus-send-daily-leads-report')->dailyAt('06:15')->timezone('America/New_York');
 
-        $schedule->command('dainsys:political-send-hourly-flash')->hourly()->timezone('America/New_York');
-        $schedule->command('dainsys:capillus-send-daily-leads-report')->dailyAt('04:00')->timezone('America/New_York');
+        $schedule->command('dainsys:capillus-send-daily-leads-report')->dailyAt('03:00')->timezone('America/New_York');
         
+        $schedule->command('dainsys:political-send-hourly-flash')->hourly()->timezone('America/New_York');
     }
 }
