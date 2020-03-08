@@ -5,10 +5,8 @@ namespace App\Exports\Political;
 use App\Console\Commands\CapillusCommandsTrait;
 use App\Exports\Political\Sheets\FlashCampaignsSheet;
 use App\Exports\Political\Sheets\FlashHoursSheet;
-use App\Repositories\Capillus\CapillusPerformanceReportRepository;
+use App\Repositories\Political\DropNullColumnsOnFlashDispositions;
 use App\Repositories\Political\PoliticalCampaignsRepository;
-use Carbon\Carbon;
-use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 
 class FlashReportExport implements WithMultipleSheets
@@ -39,7 +37,13 @@ class FlashReportExport implements WithMultipleSheets
         
         foreach ($dispositions as $name => $disposition) {
             $answers = $answersCollection->get($name);
-
+            
+            $answers = (new DropNullColumnsOnFlashDispositions())
+                ->handle($answers->all())
+                ->padKeys('num_leads')
+                ->data
+                ;
+                
             $sheets[] = new FlashCampaignsSheet($disposition, $answers, $name);
         }
         
