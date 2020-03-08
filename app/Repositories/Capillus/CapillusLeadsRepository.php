@@ -30,6 +30,7 @@ class CapillusLeadsRepository extends CapillusBase
                 select * from Reports.dbo.vw_CapillusLeads
                 where [connected_disposition] <> ''  
                 and connected_disposition not like 'Sale %'
+                and connected_disposition <> 'Call Back'
                 and convert(date, [Date]) between '{$this->date_from}' and '{$this->date_to}'
                 order by convert(date, [Date]) desc
             ")
