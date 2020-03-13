@@ -2,6 +2,7 @@
 
 namespace App\Exports\Political\Sheets;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\WithEvents;
@@ -19,6 +20,7 @@ class FlashCampaignsSheet implements FromView, WithTitle, WithEvents, WithPreCal
     protected $sheet;
     
     protected $rowsDispo;
+    protected $rowsAnswers;
 
     protected $dispositions;
 
@@ -26,14 +28,21 @@ class FlashCampaignsSheet implements FromView, WithTitle, WithEvents, WithPreCal
 
     protected $campaign;
 
-    public function __construct($dispositions, $answers, $campaign)
+    protected $answersLastColumn;
+
+    protected $date_to;
+
+    public function __construct($dispositions, $answers, $campaign, $date_to)
     {
 
         $this->rowsDispo = count($dispositions) + 3;
+        $this->rowsAnswers = count($answers);
 
         $this->dispositions = $dispositions ;
         $this->answers = $answers;
         $this->campaign = $campaign;
+        $this->answersLastColumn = $this->answersLastColumn();
+        $this->date_to = $date_to;
     }
 
     public function view(): View
@@ -41,7 +50,8 @@ class FlashCampaignsSheet implements FromView, WithTitle, WithEvents, WithPreCal
         return view('exports.political.campaigns', [
             'dispositions' => $this->dispositions,
             'answers' => $this->answers,
-            'campaign' => $this->campaign
+            'campaign' => $this->campaign,
+            'date' => Carbon::parse($this->date_to)
         ]);
     }
 
@@ -71,6 +81,19 @@ class FlashCampaignsSheet implements FromView, WithTitle, WithEvents, WithPreCal
                     ]
                 ]);
 
+                $this->sheet->getStyle("A{$this->answersStart()}:{$this->answersLastColumn}{$this->answersEnd()}")->applyFromArray([
+                    'borders' => [
+                        'outline' => [
+                            'borderStyle' => Border::BORDER_THIN,
+                            'color' => ['rgb' => '000000'],
+                        ],
+                        'inside' => [
+                            'borderStyle' => Border::BORDER_THIN,
+                            'color' => ['rgb' => '000000'],
+                        ]
+                    ]
+                ]);
+
             }
         ];
     }
@@ -80,12 +103,32 @@ class FlashCampaignsSheet implements FromView, WithTitle, WithEvents, WithPreCal
         return substr($this->campaign, -28);
     }
 
+    protected function answersStart() 
+    {
+        return array_sum([$this->rowsDispo, 3]);
+    }
+
+    protected function answersEnd() 
+    {
+        return array_sum([$this->answersStart(), $this->rowsAnswers, -1]);
+    }
+
+    protected function answersLastColumn() 
+    {
+        $range = range('A', 'ZZ');
+
+        $col = collect($this->answers)->first();
+        
+
+        return $range[count(array_keys($col)) - 6];
+    }
+
     protected function setColumnsWidth()
     {
         
         $this->sheet->getDefaultColumnDimension()->setWidth(8.25);
 
-        foreach (range('A', 'B') as $col) {
+        foreach (range('A', $this->answersLastColumn) as $col) {
             $this->sheet->getColumnDimension($col)
                 ->setAutoSize(true);
         }

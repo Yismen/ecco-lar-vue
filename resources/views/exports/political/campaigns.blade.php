@@ -1,4 +1,4 @@
-<h3>{{ $campaign }} </h3>
+<h3>{{ $campaign }}</h3>
 <h4>Dispositions</h4>
 <table>
     <tbody>
@@ -15,7 +15,6 @@
         @endforeach
     </tbody>
 </table>
-<br>
 <h4>Answers</h4>
 <table>
     <tbody>

@@ -44,7 +44,7 @@ class FlashReportExport implements WithMultipleSheets
                 ->data
                 ;
                 
-            $sheets[] = new FlashCampaignsSheet($disposition, $answers, $name);
+            $sheets[] = new FlashCampaignsSheet($disposition, $answers, $name, $this->date_to);
         }
         
         return $sheets;
