@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Capillus;
 
 use App\Exports\Capillus\CapillusPerformanceExport;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\Capillus\CapillusPerformanceReportExport;
 use App\Mail\Capillus\CapillusDailyPerformanceMail;
 use Illuminate\Support\Facades\Mail;
 
@@ -49,8 +48,8 @@ class CapillusSendDailyPerformanceReportCommand extends Command
             $instance = Carbon::now()->format('Ymd_His');
             $file_name = "Capillus Daily Performance Report {$instance}.xlsx";
 
-            $date = $this->option('date') == 'default' ? 
-                Carbon::now()->subDay() : 
+            $date = $this->option('date') == 'default' ?
+                Carbon::now()->subDay() :
                 Carbon::parse($this->option('date'));
 
             Excel::store(new CapillusPerformanceExport($date), $file_name);
@@ -60,11 +59,10 @@ class CapillusSendDailyPerformanceReportCommand extends Command
             );
     
             $this->info("Capillus Daily Performance sent!");
-
         } catch (\Throwable $th) {
             Log::error($th);
 
             $this->error("Something went wrong");
-        }        
+        }
     }
 }

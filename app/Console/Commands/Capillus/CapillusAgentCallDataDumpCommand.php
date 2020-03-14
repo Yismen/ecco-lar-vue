@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Capillus;
 
 use App\Exports\Capillus\CapillusAgentCallDataDumpExport;
 use App\Mail\Capillus\CapillusAgentCallDataDumpEmail;
