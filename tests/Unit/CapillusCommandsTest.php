@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use App\Mail\Capillus\CapillusAgentCallDataDumpEmail;
 use App\Mail\Capillus\CapillusAgentReportMail;
+use App\Mail\Capillus\CapillusCallTypeReportMail;
 use App\Mail\Capillus\CapillusDailyPerformanceMail;
 use App\Mail\Capillus\CapillusFlashMail;
 use App\Mail\Capillus\CapillusLeadsReportMail;
@@ -109,5 +110,22 @@ class CapillusCommandsTest extends TestCase
         Excel::assertStored("Kipany Lead {$date->format('m-d-Y')} ECC.xlsx");
             
         Mail::assertSent(CapillusLeadsReportMail::class);
+    }
+
+    /** @test */
+    public function it_sends_capillus_calls_type_report()
+    {
+        Mail::fake();
+        Excel::fake();
+        $this->withExceptionHandling();
+        $instance = Carbon::now()->format('Ymd_His');
+        
+        $this->artisan('dainsys:capillus-send-calls-type-report')
+            ->expectsOutput('Kipany-Capillus - Calls Type Report sent!')
+            ->assertExitCode(0);
+            
+        Excel::assertStored("Kipany-Capillus - Fax Calls Report {$instance}.xlsx");
+            
+        Mail::assertSent(CapillusCallTypeReportMail::class);
     }
 }

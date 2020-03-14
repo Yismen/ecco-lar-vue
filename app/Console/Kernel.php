@@ -4,6 +4,7 @@ namespace App\Console;
 
 use App\Console\Commands\Capillus\CapillusAgentCallDataDumpCommand;
 use App\Console\Commands\Capillus\CapillusAgentReportCommand;
+use App\Console\Commands\Capillus\CapillusCallTypeCommand;
 use App\Console\Commands\Capillus\CapillusFlashCommand;
 use App\Console\Commands\Capillus\CapillusLeadsCommand;
 use App\Console\Commands\Capillus\CapillusPullDailyPerformanceDataCommand;
@@ -32,6 +33,7 @@ class Kernel extends ConsoleKernel
         CapillusSendDailyPerformanceReportCommand::class,
         CapillusAgentCallDataDumpCommand::class,
         CapillusAgentReportCommand::class,
+        CapillusCallTypeCommand::class,
         PoliticalSendFlash::class,
         FeedSchedulesTable::class,
         FeedShiftsTableCommand::class,
@@ -75,6 +77,9 @@ class Kernel extends ConsoleKernel
         $schedule->command('dainsys:capillus-send-agent-call-data-dump-report')->dailyAt('06:10')->timezone('America/New_York');
 
         $schedule->command('dainsys:capillus-send-daily-leads-report')->dailyAt('03:00')->timezone('America/New_York');
+
+        // Waiting for Tyson on time and subject
+        // $schedule->command('dainsys:capillus-send-calls-type-report')->dailyAt('03:30')->timezone('America/New_York');
         
         $schedule->command('dainsys:political-send-hourly-flash')->hourly()->timezone('America/New_York');
     }
