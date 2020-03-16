@@ -1,16 +1,12 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Capillus;
 
 use App\CapillusDailyPerformance;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
-use Maatwebsite\Excel\Facades\Excel;
-use App\Mail\Capillus\CapillusDailyLogTimeMail;
-use App\Exports\Capillus\CapillusAgentLogTimeExport;
 use App\Repositories\Capillus\CapillusPullDailyPerformanceDataRepository;
-use Illuminate\Support\Facades\Mail;
 
 class CapillusPullDailyPerformanceDataCommand extends Command
 {

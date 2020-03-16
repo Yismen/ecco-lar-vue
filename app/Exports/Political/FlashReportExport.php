@@ -2,7 +2,7 @@
 
 namespace App\Exports\Political;
 
-use App\Console\Commands\CapillusCommandsTrait;
+use App\Console\Commands\Capillus\CapillusCommandsTrait;
 use App\Exports\Political\Sheets\FlashCampaignsSheet;
 use App\Exports\Political\Sheets\FlashHoursSheet;
 use App\Repositories\Political\DropNullColumnsOnFlashDispositions;
