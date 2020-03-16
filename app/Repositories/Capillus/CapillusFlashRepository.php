@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 class CapillusFlashRepository extends CapillusBase
 {
     public function todaysData()
-    {        
+    {
         return $this->execQuery(0);
     }
 
@@ -16,7 +16,7 @@ class CapillusFlashRepository extends CapillusBase
         return $this->execQuery(1);
     }
     
-    protected function execQuery($subdays = 0)
+    protected function execQuery(int $subdays = 0)
     {
         return $this->connection()->select(
             DB::raw("
@@ -28,6 +28,5 @@ class CapillusFlashRepository extends CapillusBase
                 exec [sp_CapillusFlashReport] @startDate, @endDate, @campaign
             ")
         );
-
     }
 }
