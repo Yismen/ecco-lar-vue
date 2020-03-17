@@ -5,6 +5,7 @@ namespace App\Imports;
 use Carbon\Carbon;
 use App\PerformanceImport;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\ToCollection;
@@ -31,7 +32,7 @@ class PerformancesImport implements ToCollection, WithHeadingRow, WithValidation
                 $this->rules()
             )->validate();
 
-            \Cache::flush();
+            Cache::flush();
 
             PerformanceImport::removeExisting($row['unique_id'])
                 ->create($row->all());
@@ -50,7 +51,13 @@ class PerformancesImport implements ToCollection, WithHeadingRow, WithValidation
             'sph_goal' => 'required|numeric',
             'login_time' => 'required|numeric',
             'production_time' => 'required|numeric',
-            'talk_time' => 'required|numeric',
+            'talk_time' => 'numeric',
+            'break_time' => 'numeric',
+            'lunch_time' => 'numeric',
+            'training_time' => 'numeric',
+            'pending_dispo_time' => 'numeric',
+            'off_hook_time' => 'numeric',
+            'away_time' => 'numeric',
             'billable_hours' => 'required|numeric',
             'contacts' => 'required|numeric',
             'calls' => 'required|numeric',
@@ -94,6 +101,12 @@ class PerformancesImport implements ToCollection, WithHeadingRow, WithValidation
             'login_time' => $row['login_time_parsed'],
             'production_time' => $row['production_time_parsed'],
             'talk_time' => $row['talk_time_parsed'],
+            'break_time' => $row['break_time_parsed'],
+            'lunch_time' => $row['lunch_time_parsed'],
+            'training_time' => $row['training_time_parsed'],
+            'away_time' => $row['away_time_parsed'],
+            'off_hook_time' => $row['off_hook_time_parsed'],
+            'pending_dispo_time' => $row['pending_dispo_time_parsed'],
             'billable_hours' => $row['billable_hours'],
             'contacts' => $row['contacts'],
             'calls' => $row['calls'],
