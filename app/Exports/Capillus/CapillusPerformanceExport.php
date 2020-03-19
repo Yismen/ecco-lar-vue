@@ -2,10 +2,8 @@
 
 namespace App\Exports\Capillus;
 
-use App\Console\Commands\CapillusCommandsTrait;
-use App\Repositories\Capillus\CapillusPerformanceReportRepository;
+use App\Console\Commands\Capillus\CapillusCommandsTrait;
 use Carbon\Carbon;
-use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 
 class CapillusPerformanceExport implements WithMultipleSheets

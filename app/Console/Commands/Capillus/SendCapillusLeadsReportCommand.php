@@ -12,7 +12,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Excel as ExcelExcel;
 
-class CapillusLeadsCommand extends Command
+class SendCapillusLeadsReportCommand extends Command
 {
     use CapillusCommandsTrait;
     /**
@@ -63,8 +63,8 @@ class CapillusLeadsCommand extends Command
             $this->file_name = "Kipany Lead {$instance} ECC";
 
             $this->data = (new CapillusLeadsRepository([
-                'date_from' => $from->format('Y-m-d'), 
-                'date_to' => $date->format('Y-m-d'), 
+                'date_from' => $from->format('Y-m-d'),
+                'date_to' => $date->format('Y-m-d'),
             ]))->data;
             
             $this
@@ -102,7 +102,9 @@ class CapillusLeadsCommand extends Command
 
         Mail::send(
             new CapillusLeadsReportMail(
-                $this->distroList(), $file_name, "Kipany-Capillus - ECCO Leads File"
+                $this->distroList(),
+                $file_name,
+                "Kipany-Capillus - ECCO Leads File"
             )
         );
 

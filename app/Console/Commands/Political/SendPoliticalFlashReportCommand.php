@@ -1,17 +1,16 @@
 <?php
 
-namespace App\Console\Political;
+namespace App\Console\Commands\Political;
 
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\Political\FlashReportExport;
-use App\Mail\Capillus\CapillusDailyPerformanceMail;
 use App\Mail\Political\PoliticalFlashMail;
 use Illuminate\Support\Facades\Mail;
 
-class PoliticalSendFlash extends Command
+class SendPoliticalFlashReportCommand extends Command
 {
     /**
      * The name and signature of the console command.
@@ -48,9 +47,9 @@ class PoliticalSendFlash extends Command
             $instance = Carbon::now()->format('Ymd_His');
             $file_name = "Political Flash Report {$instance}.xlsx";
 
-            $date_to = $this->option('date') == 'default' ? 
-                Carbon::now() : 
-                Carbon::parse($this->option('date'));            
+            $date_to = $this->option('date') == 'default' ?
+                Carbon::now() :
+                Carbon::parse($this->option('date'));
 
             $date_from = $this->option('from') == 'default' ?
                 $date_to :
@@ -66,12 +65,11 @@ class PoliticalSendFlash extends Command
             );
     
             $this->info("Political Hourly Flash sent!");
-
         } catch (\Throwable $th) {
             Log::error($th);
 
             $this->error("Something went wrong");
-        }        
+        }
     }
 
     protected function distroList()

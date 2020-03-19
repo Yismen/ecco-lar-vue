@@ -2,17 +2,15 @@
 
 namespace App\Console\Commands\Capillus;
 
-use App\Exports\Capillus\CapillusAgentExport;
-use App\Exports\Capillus\CapillusCallTypeExport;
-use App\Mail\Capillus\CapillusAgentReportMail;
-use App\Mail\Capillus\CapillusCallTypeReportMail;
+use App\Exports\Capillus\CapillusPerformanceExport;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Mail\Capillus\CapillusDailyPerformanceMail;
 use Illuminate\Support\Facades\Mail;
 
-class CapillusCallTypeCommand extends Command
+class SendDailyPerformanceReportCommand extends Command
 {
     use CapillusCommandsTrait;
     /**
@@ -20,14 +18,14 @@ class CapillusCallTypeCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'dainsys:capillus-send-calls-type-report {--date=default}';
+    protected $signature = 'dainsys:capillus-send-daily-performance-report {--date=default}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Capillus - send daily call type report';
+    protected $description = 'Capillus - send daily performance report';
 
     /**
      * Create a new command instance.
@@ -48,19 +46,19 @@ class CapillusCallTypeCommand extends Command
     {
         try {
             $instance = Carbon::now()->format('Ymd_His');
-            $file_name = "Kipany-Capillus - Fax Calls Report {$instance}.xlsx";
+            $file_name = "Capillus Daily Performance Report {$instance}.xlsx";
 
             $date = $this->option('date') == 'default' ?
                 Carbon::now()->subDay() :
                 Carbon::parse($this->option('date'));
-            
-            Excel::store(new CapillusCallTypeExport($date), $file_name);
+
+            Excel::store(new CapillusPerformanceExport($date), $file_name);
 
             Mail::send(
-                new CapillusCallTypeReportMail($this->distroList(), $file_name, "Kipany-Capillus - Call Type Report")
+                new CapillusDailyPerformanceMail($this->distroList(), $file_name, "KNYC.E Daily Performance Report")
             );
     
-            $this->info("Kipany-Capillus - Calls Type Report sent!");
+            $this->info("Capillus Daily Performance sent!");
         } catch (\Throwable $th) {
             Log::error($th);
 

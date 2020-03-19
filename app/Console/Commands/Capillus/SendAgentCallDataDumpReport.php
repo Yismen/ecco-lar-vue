@@ -2,15 +2,15 @@
 
 namespace App\Console\Commands\Capillus;
 
-use App\Exports\Capillus\CapillusPerformanceExport;
+use App\Exports\Capillus\CapillusAgentCallDataDumpExport;
+use App\Mail\Capillus\CapillusAgentCallDataDumpEmail;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Mail\Capillus\CapillusDailyPerformanceMail;
 use Illuminate\Support\Facades\Mail;
 
-class CapillusSendDailyPerformanceReportCommand extends Command
+class SendAgentCallDataDumpReport extends Command
 {
     use CapillusCommandsTrait;
     /**
@@ -18,14 +18,14 @@ class CapillusSendDailyPerformanceReportCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'dainsys:capillus-send-daily-permance-report {--date=default}';
+    protected $signature = 'dainsys:capillus-send-agent-call-data-dump-report {--date=default}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Capillus - send daily performance report';
+    protected $description = 'Capillus - send daily call data dump report';
 
     /**
      * Create a new command instance.
@@ -46,19 +46,25 @@ class CapillusSendDailyPerformanceReportCommand extends Command
     {
         try {
             $instance = Carbon::now()->format('Ymd_His');
-            $file_name = "Capillus Daily Performance Report {$instance}.xlsx";
+            $file_name = "Kipany-Capillus - Agent Call Data Dump {$instance}.xlsx";
 
             $date = $this->option('date') == 'default' ?
                 Carbon::now()->subDay() :
                 Carbon::parse($this->option('date'));
 
-            Excel::store(new CapillusPerformanceExport($date), $file_name);
+            $startOfMonth = Carbon::parse($date)->startOfMonth()->format('m/d/Y');
+
+            Excel::store(new CapillusAgentCallDataDumpExport([
+                'date' => $date->format('m/d/Y'),
+                'startOfMonth' => $startOfMonth,
+                'campaign' => 'Capillus%'
+            ]), $file_name);
 
             Mail::send(
-                new CapillusDailyPerformanceMail($this->distroList(), $file_name, "KNYC.E Daily Performance Report")
+                new CapillusAgentCallDataDumpEmail($this->distroList(), $file_name, "Kipany-Capillus - MTD Agent Call Data Dump")
             );
     
-            $this->info("Capillus Daily Performance sent!");
+            $this->info("Kipany-Capillus - Agent Call Data Dump sent!");
         } catch (\Throwable $th) {
             Log::error($th);
 

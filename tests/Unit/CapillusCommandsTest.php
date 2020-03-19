@@ -27,7 +27,7 @@ class CapillusCommandsTest extends TestCase
         Excel::fake();
         $instance = Carbon::now()->format('Ymd_His');
         
-        $this->artisan('dainsys:capillus-flash')
+        $this->artisan('dainsys:capillus-send-flash-report')
             ->expectsOutput('Capillus Flash report sent!')
             ->assertExitCode(0);
 
@@ -41,7 +41,7 @@ class CapillusCommandsTest extends TestCase
     {
         $date = Carbon::now()->subDay();
 
-        $this->artisan("dainsys:capillus-pull-daily-permance-data")
+        $this->artisan("dainsys:capillus-pull-daily-performance-data")
         ->expectsOutput("Data pulled for date {$date}")
         ->assertExitCode(0);
     }
@@ -54,7 +54,7 @@ class CapillusCommandsTest extends TestCase
         Excel::fake();
         $instance = Carbon::now()->format('Ymd_His');
         
-        $this->artisan('dainsys:capillus-send-daily-permance-report')
+        $this->artisan('dainsys:capillus-send-daily-performance-report')
         ->expectsOutput("Capillus Daily Performance sent!")
         ->assertExitCode(0);
         
@@ -93,7 +93,10 @@ class CapillusCommandsTest extends TestCase
             
         Excel::assertStored("Kipany-Capillus - Agent Report {$instance}.xlsx");
             
-        Mail::assertSent(CapillusAgentReportMail::class);
+        Mail::assertSent(CapillusAgentReportMail::class, function ($mail) {
+            return $mail->hasTo("yismen.jorge@ecco.com.do");
+            dd($mail);
+        });
     }
 
     /** @test */

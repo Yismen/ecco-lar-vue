@@ -6,6 +6,15 @@ use Illuminate\Support\Facades\DB;
 
 class CapillusFlashRepository extends CapillusBase
 {
+    public $data;
+
+    public function __construct()
+    {
+        $this->data['todays'] = $this->todaysData();
+
+        $this->data['yesterdays'] = $this->yesterdaysData();
+    }
+
     public function todaysData()
     {
         return $this->execQuery(0);

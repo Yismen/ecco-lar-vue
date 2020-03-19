@@ -2,7 +2,7 @@
 
 namespace App\Exports\Capillus;
 
-use App\Console\Commands\CapillusCommandsTrait;
+use App\Console\Commands\Capillus\CapillusCommandsTrait;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 
@@ -21,11 +21,11 @@ class CapillusAgentExport implements WithMultipleSheets
     {
         $sheets = [];
 
-        $periods =  [            
+        $periods =  [
             'pd',
             'wtd',
             'mtd',
-            'ptd',        
+            'ptd',
         ];
 
         foreach ($periods as $period) {

@@ -9,8 +9,9 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\Capillus\CapillusFlashReportExport;
+use App\Repositories\Capillus\CapillusFlashRepository;
 
-class CapillusFlashCommand extends Command
+class SendFlashReportCommand extends Command
 {
     use CapillusCommandsTrait;
     /**
@@ -18,7 +19,7 @@ class CapillusFlashCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'dainsys:capillus-flash';
+    protected $signature = 'dainsys:capillus-send-flash-report';
 
     /**
      * The console command description.
@@ -43,13 +44,15 @@ class CapillusFlashCommand extends Command
      * @return mixed
      */
     public function handle()
-    {          
+    {
         try {
             $instance = Carbon::now()->format('Ymd_His');
     
             $file_name = "KNYC E Flash Report {$instance}.xlsx";
 
-            Excel::store(new CapillusFlashReportExport(), $file_name);
+            $data = new CapillusFlashRepository();
+
+            Excel::store(new CapillusFlashReportExport($data->data), $file_name);
 
             Mail::send(
                 new CapillusFlashMail($this->distroList(), $file_name, "KNYC E Flash")
@@ -59,6 +62,5 @@ class CapillusFlashCommand extends Command
         } catch (\Throwable $th) {
             Log::error($th);
         }
-
     }
 }

@@ -17,11 +17,11 @@ use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 
 class CapillusFlashReportExport implements FromView, WithColumnFormatting, WithTitle, WithEvents
 {
-    protected $repo;
+    protected $data;
 
-    public function __construct()
+    public function __construct(array $data)
     {
-        $this->repo = new CapillusFlashRepository();
+        $this->data = $data;
     }
 
     public function view(): View
@@ -29,20 +29,20 @@ class CapillusFlashReportExport implements FromView, WithColumnFormatting, WithT
         return view('exports.capillus-flash.index', [
             'current_date' => Carbon::now()->format('d-M-Y'),
             'previous_date' => Carbon::now()->subDay()->format('d-M-Y'),
-            'todays' => $this->repo->todaysData(),
-            'yesterdays' => $this->repo->yesterdaysData()
+            'todays' => $this->data['todays'],
+            'yesterdays' => $this->data['yesterdays']
         ]);
     }
 
     public function registerEvents(): array
     {
         return [
-            AfterSheet::class => function(AfterSheet $event) {  
+            AfterSheet::class => function (AfterSheet $event) {
                 
                 // format the whole tables
                 $event->sheet->getDelegate()->getStyle('A4:U13')->applyFromArray($this->tableStyle());
                 $event->sheet->getDelegate()->getStyle('A16:U25')->applyFromArray($this->tableStyle());
-                // Format headers              
+                // Format headers
                 $event->sheet->getDelegate()->getStyle('A4:U4')->applyFromArray($this->headerStyle());
                 $event->sheet->getDelegate()->getStyle('A16:U16')->applyFromArray($this->headerStyle());
                 $event->sheet->getDelegate()->getRowDimension('4')->setRowHeight(60);

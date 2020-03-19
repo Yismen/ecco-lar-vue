@@ -8,7 +8,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 use App\Repositories\Capillus\CapillusPullDailyPerformanceDataRepository;
 
-class CapillusPullDailyPerformanceDataCommand extends Command
+class PullDailyPerformanceDataCommand extends Command
 {
     use CapillusCommandsTrait;
     /**
@@ -16,7 +16,7 @@ class CapillusPullDailyPerformanceDataCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'dainsys:capillus-pull-daily-permance-data {--date=default} {--from=default}';
+    protected $signature = 'dainsys:capillus-pull-daily-performance-data {--date=default} {--from=default}';
 
     /**
      * The console command description.
@@ -54,10 +54,9 @@ class CapillusPullDailyPerformanceDataCommand extends Command
             $date_from = $this->option('from') == 'default' ?
                 Carbon::parse($date) :
                 Carbon::parse($this->option('from'));
-                ;
+            ;
                 
             while ($date_from <= $date) {
-
                 foreach ($this->capillusCampaigns() as $campaign) {
                     // Gather the data from the DB
                     $results = $this->repo->getData($campaign, $date_from->format('Y-m-d H:i:s'));

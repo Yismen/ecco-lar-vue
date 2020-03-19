@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Mail;
 
-class CapillusAgentReportCommand extends Command
+class SendAgentReportCommand extends Command
 {
     use CapillusCommandsTrait;
     /**
@@ -48,8 +48,8 @@ class CapillusAgentReportCommand extends Command
             $instance = Carbon::now()->format('Ymd_His');
             $file_name = "Kipany-Capillus - Agent Report {$instance}.xlsx";
 
-            $date = $this->option('date') == 'default' ? 
-                Carbon::now()->subDay() : 
+            $date = $this->option('date') == 'default' ?
+                Carbon::now()->subDay() :
                 Carbon::parse($this->option('date'));
             
             Excel::store(new CapillusAgentExport($date), $file_name);
@@ -59,11 +59,10 @@ class CapillusAgentReportCommand extends Command
             );
     
             $this->info("Kipany-Capillus - Agent Report sent!");
-
         } catch (\Throwable $th) {
             Log::error($th);
 
             $this->error("Something went wrong");
-        }        
+        }
     }
 }
