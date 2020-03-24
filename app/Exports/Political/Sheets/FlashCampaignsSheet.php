@@ -30,9 +30,7 @@ class FlashCampaignsSheet implements FromView, WithTitle, WithEvents, WithPreCal
 
     protected $answersLastColumn;
 
-    protected $date_to;
-
-    public function __construct($dispositions, $answers, $campaign, $date_to)
+    public function __construct($dispositions, $answers, $campaign)
     {
 
         $this->rowsDispo = count($dispositions) + 3;
@@ -42,7 +40,6 @@ class FlashCampaignsSheet implements FromView, WithTitle, WithEvents, WithPreCal
         $this->answers = $answers;
         $this->campaign = $campaign;
         $this->answersLastColumn = $this->answersLastColumn();
-        $this->date_to = $date_to;
     }
 
     public function view(): View
@@ -50,8 +47,7 @@ class FlashCampaignsSheet implements FromView, WithTitle, WithEvents, WithPreCal
         return view('exports.political.campaigns', [
             'dispositions' => $this->dispositions,
             'answers' => $this->answers,
-            'campaign' => $this->campaign,
-            'date' => Carbon::parse($this->date_to)
+            'campaign' => $this->campaign
         ]);
     }
 

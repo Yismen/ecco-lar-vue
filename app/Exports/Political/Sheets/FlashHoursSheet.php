@@ -18,26 +18,23 @@ use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 
 class FlashHoursSheet implements FromView, WithTitle, WithEvents, WithPreCalculateFormulas
 {
-    protected $repo;
+    protected $hours;
 
     protected $sheet;
     
     protected $rows;
 
-    public function __construct(array $options)
-    {        
-        $this->repo = new PoliticalHoursRepository([
-            'date_from' => $options['date_from'],
-            'date_to' => $options['date_to']
-        ]);
+    public function __construct(array $hours)
+    {
+        $this->hours = $hours;
 
-        $this->rows = count($this->repo->data) + 1;
-    }   
+        $this->rows = count($this->hours) + 1;
+    }
 
     public function view(): View
     {
         return view('exports.political.hours', [
-            'data' => $this->repo->data,
+            'data' => $this->hours,
             'title' => "Hours"
         ]);
     }
@@ -69,7 +66,6 @@ class FlashHoursSheet implements FromView, WithTitle, WithEvents, WithPreCalcula
                         ]
                     ]
                 ]);
-
             }
         ];
     }

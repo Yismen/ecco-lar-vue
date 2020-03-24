@@ -2,32 +2,54 @@
 
 namespace App\Repositories\Political;
 
-use App\CapillusDailyPerformance;
-use App\Repositories\Capillus\CapillusBase;
-use Carbon\Carbon;
+use App\Connections\RingCentralConnection;
 use Illuminate\Support\Facades\DB;
 
-class PoliticalCampaignsRepository extends CapillusBase
+class PoliticalFlashRepository extends RingCentralConnection implements PoliticalFlashInterface
 {
-    public $data;
+    public $hours;
 
-    protected $date;
+    public $dispositions;
+
+    public $answers;
+
+    protected $date_from;
+
+    protected $date_to;
 
     public function __construct(array $options)
     {
-        $this->date = $options['date'];
-
+        $this->date_from = $options['date_from'];
+        $this->date_to = $options['date_to'];
+        $this->hours = $this->getHours();
         $this->dispositions = $this->getDispositions();
-        
         $this->answers = $this->getAnswers();
     }
 
-    protected function getDispositions()
+    public function hasHours()
+    {
+        return count($this->hours) > 0;
+    }
+
+    public function getHours()
+    {
+        return $this->connection()->select(
+            DB::raw("
+                declare @fromDate as smalldatetime, @toDate as smalldatetime, @campaign as varchar(50)
+                set @fromDate = '{$this->date_from}'
+                set @toDate = '{$this->date_to}'
+                
+                exec [sp_POL_Campaign_Hours_Total] @fromDate, @toDate
+            ")
+        );
+    }
+
+    public function getDispositions()
     {
         return $this->connection()->select(
             DB::raw("
                 declare @reportDate as date
-                set @reportDate = '{$this->date}'
+                set @reportDate = '{$this->date_to}'
                 
                 select
                     campaign_name,
@@ -52,7 +74,7 @@ class PoliticalCampaignsRepository extends CapillusBase
         return $this->connection()->select(
             DB::raw("
                 declare @reportDate as date
-                set @reportDate = '{$this->date}'
+                set @reportDate = '{$this->date_to}'
                 
                 select
                     *

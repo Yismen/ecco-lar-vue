@@ -2,29 +2,9 @@
 
 namespace App\Repositories\Capillus;
 
-use Illuminate\Support\Facades\DB;
+use App\Connections\RingCentralConnection;
 
-abstract class CapillusBase
+abstract class CapillusBase extends RingCentralConnection
 {
-    /**
-     * Current connection as a property
-     *
-     * @var DB::connection
-     */
-    protected $connection;
-
-    public function __construct()
-    {        
-        $this->connection = $this->connection();
-    }
-
-    /**
-     * Current connection
-     *
-     * @return DB::connection
-     */
-    public function connection($connection = 'poliscript')
-    {
-        return DB::connection($connection);
-    }
+   
 }

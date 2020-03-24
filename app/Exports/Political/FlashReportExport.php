@@ -6,21 +6,23 @@ use App\Console\Commands\Capillus\CapillusCommandsTrait;
 use App\Exports\Political\Sheets\FlashCampaignsSheet;
 use App\Exports\Political\Sheets\FlashHoursSheet;
 use App\Repositories\Political\DropNullColumnsOnFlashDispositions;
-use App\Repositories\Political\PoliticalCampaignsRepository;
+use App\Repositories\Political\PoliticalFlashInterface;
 use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 
 class FlashReportExport implements WithMultipleSheets
 {
     use CapillusCommandsTrait;
-        
-    protected $date_from;
-    
-    protected $date_to;
-    
-    public function __construct(array $options)
+
+    /**
+     * Array of hours
+     *
+     * @var array
+     */
+    protected $repo;
+
+    public function __construct(PoliticalFlashInterface $repo)
     {
-        $this->date_from = $options['date_from'];
-        $this->date_to = $options['date_to'];
+        $this->repo = $repo;
     }
 
     /**
@@ -29,11 +31,10 @@ class FlashReportExport implements WithMultipleSheets
     public function sheets(): array
     {
         $sheets = [];
-        $sheets[] = new FlashHoursSheet(['date_from' => $this->date_from, 'date_to' => $this->date_to]);
+        $sheets[] = new FlashHoursSheet($this->repo->hours);
 
-        $repo = new PoliticalCampaignsRepository(['date' => $this->date_to]);
-        $dispositions = collect($repo->dispositions)->groupBy('campaign_name');
-        $answersCollection = collect($repo->answers)->groupBy('campaign_name');
+        $dispositions = collect($this->repo->dispositions)->groupBy('campaign_name');
+        $answersCollection = collect($this->repo->answers)->groupBy('campaign_name');
         
         foreach ($dispositions as $name => $disposition) {
             $answers = $answersCollection->get($name);
@@ -44,7 +45,7 @@ class FlashReportExport implements WithMultipleSheets
                 ->data
                 ;
                 
-            $sheets[] = new FlashCampaignsSheet($disposition, $answers, $name, $this->date_to);
+            $sheets[] = new FlashCampaignsSheet($disposition, $answers, $name);
         }
         
         return $sheets;
