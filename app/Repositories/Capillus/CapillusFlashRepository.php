@@ -2,9 +2,10 @@
 
 namespace App\Repositories\Capillus;
 
+use App\Connections\RingCentralConnection;
 use Illuminate\Support\Facades\DB;
 
-class CapillusFlashRepository extends CapillusBase
+class CapillusFlashRepository extends RingCentralConnection
 {
     public $data;
 

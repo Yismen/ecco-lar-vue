@@ -2,9 +2,10 @@
 
 namespace App\Repositories\Capillus;
 
+use App\Connections\RingCentralConnection;
 use Illuminate\Support\Facades\DB;
 
-class CapillusPullDailyPerformanceDataRepository extends CapillusBase
+class CapillusPullDailyPerformanceDataRepository extends RingCentralConnection
 {
     
     public function getData($dial_group, $date)

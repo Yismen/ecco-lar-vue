@@ -2,9 +2,10 @@
 
 namespace App\Repositories\Capillus;
 
+use App\Connections\RingCentralConnection;
 use Illuminate\Support\Facades\DB;
 
-class CapillusAgentCallDataDumpRepository extends CapillusBase
+class CapillusAgentCallDataDumpRepository extends RingCentralConnection
 {
     public $data;
 
