@@ -29,4 +29,5 @@
     composer install --no-dev
     php artisan migrate --force
     php artisan optimize
+    php artisan log-viewer:clear -n
 @endtask
