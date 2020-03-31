@@ -5,9 +5,9 @@
             </div>
             @foreach ($birthdays as $employee)
                 <div class="col-lg-6">
-                    <div class="box box-widget widget-user-2" style="height: 120px; overflow-y: auto;">
+                    <div class="box box-widget widget-user-2">
                         <!-- Add the bg color to the header using any of the bg-* classes -->
-                        <div class="widget-user-header bg-green">
+                        <div class="widget-user-header bg-green" style="height: 120px; overflow-y: auto;">
                             <div class="widget-user-image">
                                 <img class="img-circle" src="{{ $employee->photo }}" alt="User Avatar">
                             </div>
