@@ -37,8 +37,13 @@
                             </thead>
 
                             <tfoot>
-                                <tr>
-                                    <th colspan="8" style="text-align:right">Total:</th>
+                                <tr class="footer-row">
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
                                     <th></th>
                                     <th></th>
                                     <th></th>
@@ -110,10 +115,10 @@
                         }},
                     ],
                     "footerCallback": function(row, data, start, end, display) {
-                        $(row).children('th')[1].textContent = getSubTotal(data, 'login_time')
-                        $(row).children('th')[2].textContent = getSubTotal(data, 'production_time')
-                        $(row).children('th')[3].textContent = getSubTotal(data, 'transactions')
-                        $(row).children('th')[4].textContent = '$' + getSubTotal(data, 'revenue')
+                        $(row).children('th')[8].textContent = getSubTotal(data, 'login_time')
+                        // $(row).children('th')[6].textContent = getSubTotal(data, 'production_time')
+                        // $(row).children('th')[7].textContent = getSubTotal(data, 'transactions')
+                        // $(row).children('th')[8].textContent = '$' + getSubTotal(data, 'revenue')
                     }
                 });
 
@@ -123,12 +128,12 @@
                     }
 
                     var el
-                    const result = data.reduce(function(act, obj) {
+                    let result = data.reduce(function(act, obj) {
                         el = obj[field] == undefined ? 0 : obj[field]   
                                        
                         return act + Number(el)
                     }, 0)
-
+                    
                     return Number(result.toFixed(2))
                         .toLocaleString()
                 }
