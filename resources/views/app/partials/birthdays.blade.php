@@ -4,10 +4,10 @@
                 <h4 style="text-transform: uppercase;">The following employees have birthday today!</h4>
             </div>
             @foreach ($birthdays as $employee)
-                <div class="col-md-6">
+                <div class="col-lg-6">
                     <div class="box box-widget widget-user-2">
                         <!-- Add the bg color to the header using any of the bg-* classes -->
-                        <div class="widget-user-header bg-green">
+                        <div class="widget-user-header bg-green" style="height: 120px; overflow-y: auto;">
                             <div class="widget-user-image">
                                 <img class="img-circle" src="{{ $employee->photo }}" alt="User Avatar">
                             </div>
