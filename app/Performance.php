@@ -38,9 +38,9 @@ class Performance extends Model
         parent::boot();
         
         static::saving(function ($model) {
-            $employee = Employee::findOrfail(request('employee_id'));
+            $employee = Employee::findOrfail($model->employee_id);
 
-            $model->unique_id = request('date') . '-' . request('employee_id') . '-' . request('campaign_id');
+            $model->unique_id = $model->date . '-' . $model->employee_id . '-' . $model->campaign_id;
             $model->name =  $employee->fullName;
             
         });
