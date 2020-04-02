@@ -4,7 +4,7 @@ namespace App\Console\Commands\Traits;
 
 use App\User;
 use Illuminate\Support\Facades\Log;
-use App\Notifications\ConsoleCommandFailedNotification;
+use App\Notifications\UserAppNotification;
 use Illuminate\Support\Facades\Cache;
 
 trait NotifyUsersOnFailedCommandsTrait
@@ -28,10 +28,14 @@ trait NotifyUsersOnFailedCommandsTrait
         Cache::flush();
         
         $users = User::role($this->notifiable_roles)->get();
+        $time = now();
+        $class_name = get_class($this);
 
         foreach ($users as $user) {
-            $user->notify(new ConsoleCommandFailedNotification(
-                get_class($this), $th->getMessage()
+
+            $user->notify(new UserAppNotification(
+                "Command failed!",
+                "Command {$class_name} failed at ! {$time} with exception {$th->getMessage()}",
             ));
         }
 

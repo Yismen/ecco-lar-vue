@@ -7,25 +7,24 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class ConsoleCommandFailedNotification extends Notification
+class UserAppNotification extends Notification
 {
     use Queueable;
 
-    protected $command;
+    protected $subject;
 
-    protected $exception_message;
+    protected $body;
 
     /**
      * Create a new notification instance
      *
-     * @param array $roles
-     * @param [type] $command
+     * @param String $subject
+     * @param String $body
      */
-    public function __construct($command, $exception_message)
+    public function __construct($subject, $body)
     {        
-        $this->command = $command;
-        $this->exception_message = $exception_message;
-
+        $this->subject = $subject;
+        $this->body = $body;
     }
     
     /**
@@ -48,20 +47,9 @@ class ConsoleCommandFailedNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'body' => $this->messageBody()
-        ];
-    }
-    
-    /**
-     * Construct the defult messageBody
-     *
-     * @return string
-     */
-    protected function messageBody()
-    {
-        $time = now();
+            'subject' => $this->subject,
 
-        return "Command {$this->command} failed at ! {$time}" . 
-            " with exception {$this->exception_message}";
+            'body' => $this->body,
+        ];
     }
 }
