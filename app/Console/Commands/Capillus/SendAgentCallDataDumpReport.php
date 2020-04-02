@@ -66,8 +66,7 @@ class SendAgentCallDataDumpReport extends Command
     
             $this->info("Kipany-Capillus - Agent Call Data Dump sent!");
         } catch (\Throwable $th) {
-            Log::error($th);
-
+            $this->notifyUsersAndLogError($th);
             $this->error("Something went wrong");
         }
     }

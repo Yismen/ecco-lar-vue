@@ -2,10 +2,13 @@
 
 namespace App\Console\Commands\Capillus;
 
+use App\Console\Commands\Traits\NotifyUsersOnFailedCommandsTrait;
 use Exception;
 
 trait CapillusCommandsTrait
 {
+    use NotifyUsersOnFailedCommandsTrait;
+    
     public function capillusCampaigns()
     {
         $campaigns = config('dainsys.capillus.campaigns');

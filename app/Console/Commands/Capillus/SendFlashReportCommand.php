@@ -4,10 +4,9 @@ namespace App\Console\Commands\Capillus;
 
 use Carbon\Carbon;
 use Illuminate\Console\Command;
-use App\Mail\Capillus\CapillusFlashMail;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Mail\Capillus\CapillusFlashMail;
 use App\Exports\Capillus\CapillusFlashReportExport;
 use App\Repositories\Capillus\CapillusFlashRepository;
 
@@ -45,6 +44,7 @@ class SendFlashReportCommand extends Command
      */
     public function handle()
     {
+        
         try {
             $instance = Carbon::now()->format('Ymd_His');
     
@@ -60,7 +60,8 @@ class SendFlashReportCommand extends Command
     
             $this->info("Capillus Flash report sent!");
         } catch (\Throwable $th) {
-            Log::error($th);
+            $this->notifyUsersAndLogError($th);
+            $this->error("Something went wrong");
         }
     }
 }

@@ -73,8 +73,7 @@ class SendCapillusLeadsReportCommand extends Command
     
             $this->info("Kipany-Capillus - Leads Report Sent!");
         } catch (\Throwable $th) {
-            Log::error($th);
-
+            $this->notifyUsersAndLogError($th);
             $this->error("Something went wrong");
         }
     }

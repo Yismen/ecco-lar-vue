@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands\Political;
 
+use App\Console\Commands\Traits\NotifyUsersOnFailedCommandsTrait;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\Mail;
 
 class SendPoliticalFlashReportCommand extends Command
 {
+    use NotifyUsersOnFailedCommandsTrait;
     /**
      * The name and signature of the console command.
      *
@@ -69,8 +71,8 @@ class SendPoliticalFlashReportCommand extends Command
                 $this->info("Political Hourly Flash sent!");
             }
         } catch (\Throwable $th) {
-            Log::error($th);
-
+            $this->notifyUsersAndLogError($th);
+            
             $this->error("Something went wrong");
         }
     }

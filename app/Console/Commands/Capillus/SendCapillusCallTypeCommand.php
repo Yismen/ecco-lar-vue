@@ -60,8 +60,7 @@ class SendCapillusCallTypeCommand extends Command
     
             $this->info("Kipany-Capillus - Calls Type Report sent!");
         } catch (\Throwable $th) {
-            Log::error($th);
-
+            $this->notifyUsersAndLogError($th);
             $this->error("Something went wrong");
         }
     }

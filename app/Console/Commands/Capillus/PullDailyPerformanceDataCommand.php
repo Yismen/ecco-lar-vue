@@ -80,9 +80,8 @@ class PullDailyPerformanceDataCommand extends Command
 
             $this->info("Data pulled for date {$date}");
         } catch (\Throwable $th) {
-            $this->error("Something went wrong...!");
-
-            Log::error($th);
+            $this->notifyUsersAndLogError($th);
+            $this->error("Something went wrong");
         }
     }
 }

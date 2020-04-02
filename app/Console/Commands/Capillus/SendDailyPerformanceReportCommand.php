@@ -60,8 +60,7 @@ class SendDailyPerformanceReportCommand extends Command
     
             $this->info("Capillus Daily Performance sent!");
         } catch (\Throwable $th) {
-            Log::error($th);
-
+            $this->notifyUsersAndLogError($th);
             $this->error("Something went wrong");
         }
     }
