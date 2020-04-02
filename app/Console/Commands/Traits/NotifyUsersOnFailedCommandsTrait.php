@@ -5,6 +5,7 @@ namespace App\Console\Commands\Traits;
 use App\User;
 use Illuminate\Support\Facades\Log;
 use App\Notifications\ConsoleCommandFailedNotification;
+use Illuminate\Support\Facades\Cache;
 
 trait NotifyUsersOnFailedCommandsTrait
 {
@@ -24,6 +25,8 @@ trait NotifyUsersOnFailedCommandsTrait
      */
     protected function notifyUsers($th)
     {
+        Cache::flush();
+        
         $users = User::role($this->notifiable_roles)->get();
 
         foreach ($users as $user) {

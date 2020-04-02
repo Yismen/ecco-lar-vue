@@ -3,21 +3,33 @@
     <!-- Menu toggle button -->
     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
       <i class="fa fa-bell-o"></i>
-      <span class="label label-warning">10</span>
+      <span class="label {{ $user->unreadNotifications->count() > 0 ? 'label-info' : 'bg-gray' }}">
+        {{ $user->unreadNotifications->count() }} 
+      </span>
     </a>
     <ul class="dropdown-menu">
-      <li class="header">You have 10 notifications</li>
+      <li class="header">You have {{  $user->unreadNotifications->count()  }} new notifications</li>
       <li>
         <!-- Inner Menu: contains the notifications -->
         <ul class="menu">
-          <li><!-- start notification -->
-            <a href="#">
-              <i class="fa fa-users text-aqua"></i> 5 new members joined today
-            </a>
-          </li>
-          <!-- end notification -->
+          @foreach ($user->unreadNotifications as $notification)
+            <li><!-- start notification -->
+              <a href="#" title="{{ \Illuminate\Support\Arr::get($notification->data, 'body') }} ">
+                <i class="fa fa-bell-o text-aqua"></i> {{ substr($notification->type, strrpos($notification->type, "\\") + 1) }}
+              </a>
+            </li>
+            <!-- end notification -->
+          @endforeach
         </ul>
       </li>
-      <li class="footer"><a href="#">View all</a></li>
+      @if ($user->unreadNotifications->count() > 0)
+        <a href="{{ route('admin.mark-all-notifications-as-read') }}" 
+          class="btn btn-danger form-control"
+          title="All notifications will be marked as completed!">
+          Mark All as Read
+        </a>
+        {{-- <li class="footer">
+        </li> --}}
+      @endif
     </ul>
   </li>

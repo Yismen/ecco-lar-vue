@@ -56,6 +56,7 @@ class AppComposer
                                     return $query->orderBy('display_name');
                                 }]);
                         },
+                        'unreadNotifications',
                     ]);
             });
         }

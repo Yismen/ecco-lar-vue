@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Cache;
+
 class HomeController extends Controller
 {
     /**
@@ -22,5 +24,16 @@ class HomeController extends Controller
     public function welcome()
     {
         return view('welcome');
+    }
+
+    public function markAllNotificationsAsReadForUser()
+    {
+        
+        foreach (auth()->user()->unreadNotifications as $notification) {
+            $notification->markAsRead();
+        }
+        
+        Cache::flush();
+        return redirect()->back();
     }
 }
