@@ -32,10 +32,9 @@ trait NotifyUsersOnFailedCommandsTrait
         $class_name = get_class($this);
 
         foreach ($users as $user) {
-
             $user->notify(new UserAppNotification(
                 "Command failed!",
-                "Command {$class_name} failed at ! {$time} with exception {$th->getMessage()}",
+                "Command {$class_name} failed at ! {$time} with exception {$th->getMessage()}"
             ));
         }
 
@@ -53,7 +52,7 @@ trait NotifyUsersOnFailedCommandsTrait
         Log::error($th);
 
         return $this;
-    }   
+    }
 
     /**
      * Wrapper to Notify all desired users and log the errors
