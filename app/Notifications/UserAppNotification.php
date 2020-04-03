@@ -35,7 +35,21 @@ class UserAppNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['mail', 'database'];
+    }
+
+    /**
+     * Get the mail representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return \Illuminate\Notifications\Messages\MailMessage
+     */
+    public function toMail($notifiable)
+    {
+        return (new MailMessage)
+                    ->subject("Dainsys: ". $this->subject)
+                    ->line($this->body)
+                    ->action('Open App', url('/admin'));
     }
     
     /**
@@ -48,7 +62,6 @@ class UserAppNotification extends Notification
     {
         return [
             'subject' => $this->subject,
-
             'body' => $this->body,
         ];
     }
