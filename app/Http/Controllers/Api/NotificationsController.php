@@ -19,6 +19,8 @@ class NotificationsController extends Controller
             $notification->markAsRead();
         }        
         
+        Cache::flush();
+        
         return auth()->user()->unreadNotifications()->get();
     }
 }
