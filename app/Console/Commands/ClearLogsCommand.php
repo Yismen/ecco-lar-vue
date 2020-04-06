@@ -5,7 +5,6 @@ namespace App\Console\Commands;
 use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Facades\Storage;
 
 class ClearLogsCommand extends Command
 {
@@ -25,8 +24,20 @@ class ClearLogsCommand extends Command
      *
      * @var string
      */
-    protected $description = '';
+    protected $description = 'Clear the storage/logs folder while keeping the last (n) amount of files';
 
+    /**
+     * Files placeholder 
+     * 
+     * @var Illuminate\Filesystem\Filesystem
+     */
+    protected $files;
+
+     /**
+      * Filesystem manager
+      * 
+      * @var Illuminate\Filesystem\Filesystem
+      */
     protected $filesystem;
 
     /**
@@ -37,7 +48,6 @@ class ClearLogsCommand extends Command
     public function __construct(Filesystem $filesystem)
     {
         parent::__construct();
-
         
         $this->filesystem = $filesystem;
     }
@@ -49,51 +59,92 @@ class ClearLogsCommand extends Command
      */
     public function handle()
     {      
-        $files = $this->getFiles();
+        $this->files = $this->startUp();
 
-        if($this->option('clear'))
+        
+        if($this->wantsListOnly())
         {
-            $deleted = $this->deleteFiles($files);
-            $this->info("Deleted {$deleted} files!");
-            return ;
+            return $this->info($this->getFileNamesList());
         }
 
-        $this->info($this->listFiles($files));
+        $this->deleteFiles($this->files);        
     }
 
-    protected function deleteFiles($files): int
+    /**
+     * Return a list of all log files!
+     *
+     * @param Array $this->files
+     * @return Array
+     */
+    protected function getFileNamesList()
     {
-        if ($files == null) {
-            return 0;
-        }
-        $files->each(function($file) {
-            $this->filesystem->delete($file);
-        });
-
-        return count($files);
-    }
-
-    protected function listFiles($files)
-    {
-        return $files == null 
+        return $this->files == null 
             ? "Nothing to list!"
-            : $files->map(function($file) {
+            : $this->files->map(function($file) {
                 return $file->getFileName();
             });
     }
 
-    protected function getFiles()
+    /**
+     * Delete all the log files, keeping the latest desired to keep.
+     *
+     * @param Array $this->files
+     * @return void
+     */
+    protected function deleteFiles()
     {
-        $files = collect(
+        $this->dropKeepingFiles();
+
+        $count = count($this->files);
+
+        if ($count > 0) {  
+            $this->files->each(function($file) {
+                $this->filesystem->delete($file);
+            });
+        }
+
+        $this->warn("{$count} Files Deleted!");
+    }
+
+    /**
+     * Initialize the command,
+     *
+     * @return void
+     */
+    protected function startUp()
+    {
+        return collect(
             $this->filesystem->allFiles(storage_path('logs'))
         )->sortByDesc('mtime')->filter(function($file) {
             return Str::startsWith($file->getFilename(), $this->argument('filename'));
         });
+    }
 
-        if($files->count() > $this->option('keep')) {
-            $splice = $files->splice($files->count() - $this->option('keep'));
+    /**
+     * If the clear option was not passed
+     *
+     * @return boolean
+     */
+    protected function wantsListOnly():bool
+    {
+        return $this->option('clear') == false;
+    }
 
-            return $files;
+    /**
+     * Remove from the array the (n) number of files that shouldnt be deleted!
+     * Returns the files to be deleted
+     *
+     * @return void
+     */
+    protected function dropKeepingFiles()
+    {
+        $keep = (int) $this->option('keep');
+        $count = $this->files->count();
+
+        if($count > $keep) {
+            return $this->files->splice($count - $keep);
         }
+
+        return $this->files = [];
     }
 }
