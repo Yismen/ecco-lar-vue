@@ -259,17 +259,22 @@
         },
         {
             "name": "dainsys/clear-log-files",
-            "version": "v1.3",
+            "version": "v1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Yismen/clear-log-files.git",
-                "reference": "7006b4f75cf04136848dc57a5536d4dd5c191184"
+                "reference": "fcbdc3abe1a12c360d44e13b01adb65f88821baf"
             },
             "require": {
                 "illuminate/console": "~5.7|~5.8",
                 "illuminate/filesystem": "~5.7|~5.8",
                 "illuminate/support": "~5.7|~5.8",
                 "php": ">=7.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.0",
+                "orchestra/testbench": "^3.7",
+                "phpunit/phpunit": "^8.0"
             },
             "type": "library",
             "extra": {
@@ -286,7 +291,7 @@
             },
             "autoload-dev": {
                 "classmap": [
-                    "tests/Middleware/MiddlewareTest.php"
+                    "src/tests/ClearLogFilesTest.php"
                 ]
             },
             "license": [
@@ -299,7 +304,7 @@
                 }
             ],
             "description": "Clear Laravel log files",
-            "time": "2020-04-07T15:08:45+00:00"
+            "time": "2020-04-07T18:08:58+00:00"
         },
         {
             "name": "defuse/php-encryption",
