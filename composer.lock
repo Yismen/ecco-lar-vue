@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1585526391776cca7030877508cd3496",
+    "content-hash": "884c90e6ae7eb984325dbc6e929118d3",
     "packages": [
         {
             "name": "arcanedev/log-viewer",
@@ -256,6 +256,50 @@
                 "sluggable"
             ],
             "time": "2018-09-05T02:03:48+00:00"
+        },
+        {
+            "name": "dainsys/clear-log-files",
+            "version": "v1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Yismen/clear-log-files.git",
+                "reference": "7006b4f75cf04136848dc57a5536d4dd5c191184"
+            },
+            "require": {
+                "illuminate/console": "~5.7|~5.8",
+                "illuminate/filesystem": "~5.7|~5.8",
+                "illuminate/support": "~5.7|~5.8",
+                "php": ">=7.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Dainsys\\Commands\\ClearLogsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dainsys\\Commands\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "classmap": [
+                    "tests/Middleware/MiddlewareTest.php"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Yismen Jorge",
+                    "email": "yjorge@gmail.com"
+                }
+            ],
+            "description": "Clear Laravel log files",
+            "time": "2020-04-07T15:08:45+00:00"
         },
         {
             "name": "defuse/php-encryption",
@@ -1502,6 +1546,7 @@
                     "email": "jakub.onderka@gmail.com"
                 }
             ],
+            "abandoned": "php-parallel-lint/php-console-color",
             "time": "2018-09-29T17:23:10+00:00"
         },
         {
@@ -1548,6 +1593,7 @@
                 }
             ],
             "description": "Highlight PHP code in terminal",
+            "abandoned": "php-parallel-lint/php-console-highlighter",
             "time": "2018-09-29T18:48:56+00:00"
         },
         {
@@ -3415,16 +3461,16 @@
         },
         {
             "name": "phpseclib/phpseclib",
-            "version": "2.0.26",
+            "version": "2.0.27",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "09655fcc1f8bab65727be036b28f6f20311c126c"
+                "reference": "34620af4df7d1988d8f0d7e91f6c8a3bf931d8dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/09655fcc1f8bab65727be036b28f6f20311c126c",
-                "reference": "09655fcc1f8bab65727be036b28f6f20311c126c",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/34620af4df7d1988d8f0d7e91f6c8a3bf931d8dc",
+                "reference": "34620af4df7d1988d8f0d7e91f6c8a3bf931d8dc",
                 "shasum": ""
             },
             "require": {
@@ -3503,7 +3549,7 @@
                 "x.509",
                 "x509"
             ],
-            "time": "2020-03-13T04:15:39+00:00"
+            "time": "2020-04-04T23:17:33+00:00"
         },
         {
             "name": "psr/container",
