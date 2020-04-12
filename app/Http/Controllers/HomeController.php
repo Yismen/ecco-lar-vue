@@ -18,7 +18,7 @@ class HomeController extends Controller
             return redirect()->route('admin.profiles.create');
         }
 
-        return view('app');
+        return redirect()->route('admin.dashboards');
     }
 
     public function welcome()

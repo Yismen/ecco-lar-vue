@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Dashboards;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
@@ -26,9 +26,9 @@ class DashboardController extends Controller
      */
     public function __invoke(Request $request)
     {
-        if(Gate::denies('view-dashboards')) {
-            abort(401);
-        }
+        // if(Gate::denies('view-dashboards')) {
+        //     abort(401);
+        // }
 
         $this->roles_hierarchy = config('dainsys.dashboards.roles_hierarchy');
         
@@ -42,6 +42,6 @@ class DashboardController extends Controller
             }
         }
 
-        return view('dashboards.unassigned');
+        return (new DefaultDashboardController)->index('default');
     }
 }
