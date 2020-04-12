@@ -34,6 +34,7 @@
         "maatwebsite/excel": "*",
         "spatie/flysystem-dropbox": "^1.0",
         "spatie/laravel-permission": "^2.21",
+        "tucker-eric/eloquentfilter": "^2.3",
         "yajra/laravel-datatables-oracle": "^8.0",
         "zizaco/entrust": "5.2.x-dev"
     },

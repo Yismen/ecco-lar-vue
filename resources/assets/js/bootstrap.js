@@ -111,6 +111,7 @@ Vue.component('animation-scale', require('./components/animations/ScaleComponent
 Vue.component('date-picker', require('./components/DatePicker').default);
 
 Vue.component('app-notifications', require('./components/AppNotifications').default);
+Vue.component('line-base-chart', require('./components/charts/LineBaseChart').default);
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting

@@ -30,16 +30,6 @@ class AppComposer
             'client_name_mini' => strtoupper(config('dainsys.client_name_mini', 'DAINSYS')),
             'settings' => $this->settings(),
             'color' => $this->color(),
-            'users_count' => User::count(),
-            'employees_count' => Employee::actives()->count(),
-            'profiles' => Profile::latest()->take(6)->get(),
-            'sites' => Site::whereHas('employees', function ($query) {
-                return $query->actives();
-            })->count(),
-            'projects' => Project::whereHas('employees', function ($query) {
-                return $query->actives();
-            })->count(),
-            'birthdays' => (new BirthdaysToday())->list(),
         ]);
     }
 

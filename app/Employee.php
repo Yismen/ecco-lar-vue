@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Http\Traits\Mutators\EmployeeMutators;
 use App\Http\Traits\Accessors\EmployeeAccessors;
 use App\Http\Traits\Relationships\EmployeeRelationships;
+use App\Traits\FilterableTrait;
 
 class Employee extends Model
 {
@@ -15,6 +16,7 @@ class Employee extends Model
     use EmployeeAccessors;
     use EmployeeMutators;
     use Trackable;
+    use FilterableTrait;
 
     protected $fillable = [
         'first_name',
