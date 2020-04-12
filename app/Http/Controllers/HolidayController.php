@@ -28,7 +28,7 @@ class HolidayController extends Controller
     public function index()
     {
         if (!request()->ajax()) {
-            return view('holidays.index', compact('employees'));
+            return view('holidays.index');
         }
 
         return DataTables::of(Holiday::sinceManyMonthsAgo(6))
