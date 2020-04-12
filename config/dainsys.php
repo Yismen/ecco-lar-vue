@@ -85,5 +85,13 @@ return [
 
     'political' => [
         'distro' => env('POLITICAL_FLASH_DISTRO', config('mail.from.address')),
+    ], 
+
+    'dashboards' => [
+        'roles_hierarchy' => [
+            'admin' => 'AdminDashboardController',
+            'owner' => 'AdminDashboardController',
+            'management' => 'AdminDashboardController',
+        ]
     ]
 ];
