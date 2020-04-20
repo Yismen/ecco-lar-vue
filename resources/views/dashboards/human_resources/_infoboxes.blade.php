@@ -12,7 +12,7 @@
     @component('components.info-box',[
         'number' => number_format($attrition_mtd, 2) . '%',
         'color' => 'bg-yellow-active',
-        'icon' => 'fa fa-users',
+        'icon' => 'fa fa-chain-broken',
     ]) 
         MTD Attrition 
     @endcomponent
@@ -22,7 +22,7 @@
     @component('components.info-box',[
         'number' => $hired_tm,
         'color' => 'bg-green-active',
-        'icon' => 'fa fa-users',
+        'icon' => 'fa fa-link',
     ]) 
         MTD Hires 
     @endcomponent
@@ -32,7 +32,7 @@
     @component('components.info-box',[
         'number' => $terminated_tm,
         'color' => 'bg-red-active',
-        'icon' => 'fa fa-users',
+        'icon' => 'fa fa-chain-broken',
     ]) 
         MTD Terminations 
     @endcomponent

@@ -1,5 +1,5 @@
 @inject('layout', 'App\Layout')
-@extends('layouts.'.$layout->app(), ['page_header'=>'Departments', 'page_description'=>'List of departments available.'])
+@extends('layouts.'.$layout->app(), ['page_header'=>'Dashboard', 'page_description'=>'Owner\'s dashboard.'])
 
 @section('content')
 <div class="col-xs-12">
