@@ -32,7 +32,8 @@ class HumanResourcesRepository
                         'data' => $monthly_attrition->map->head_count,
                         'backgroundColor' => 'rgba(2,119,189 ,0.25)',
                         'borderColor' => 'rgba(2,119,189 ,1)',
-                        'borderWidth' => 1
+                        'borderWidth' => 1,
+                        // "yAxisID" => "y1",
                     ],
                     [
                         'label' => 'Attrition',
@@ -41,6 +42,7 @@ class HumanResourcesRepository
                         'borderColor' => 'rgba(221,44,0 ,1)',
                         'type' => 'line',
                         'fill' => false,
+                        // "yAxisID" => "y1",
                     ]
                 ]
             ],

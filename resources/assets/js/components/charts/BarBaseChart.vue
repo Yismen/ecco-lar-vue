@@ -2,7 +2,7 @@
     <bar-chart
         :labels="labels"
         :datasets="datasets"
-        :options="options"
+        :options="mergedOptions"
         :height="200"
     ></bar-chart>
 </template>
@@ -15,20 +15,9 @@
             goal: {default: null},
             labels: {required: true, type: Array},
             datasets: {required:true, type: Array},
+            options: {}
         },
-        data() {
-            return {
-                options: {
-                    label: {display: true},
-                    legend: {display: false},
-                    tooltips: {
-                        mode: 'index',
-                        intersect: false
-                    }
-                }
-            }
-        },
-        created() {
+        created() {            
             if (this.goal) {
                 let data = []
                 this.datasets[0].data.forEach(element => {
@@ -46,5 +35,40 @@
         components: {
             BarChart
         },
+        computed: {
+            mergedOptions() {
+                return Object.assign({ 
+                    maintainAspectRatio: false ,
+                    label: {display: true},
+                    legend: {display: false},
+                    tooltips: {
+                        mode: 'index',
+                        intersect: false
+                    },
+                    // scales: {
+                    //     yAxes: [
+                    //         {
+                    //             type: 'linear',
+                    //             display: true,
+                    //             position: 'left',
+                    //             id: 'y1',
+                    //             gridLines: {
+                    //                 drawOnChartArea: true, 
+                    //             },
+                    //         },
+                    //         {
+                    //             type: 'linear', 
+                    //             display: true,
+                    //             position: 'right',
+                    //             id: 'y2',
+                    //             gridLines: {
+                    //                 drawOnChartArea: false,
+                    //             },
+                    //         }
+                    //     ]
+                    // },
+                }, this.options)
+            }
+        }
     }
 </script>
