@@ -34,7 +34,7 @@ class OwnerRepository
                 // 'by_gender' => $static->getDataset(EmployeeRepository::byGender()),
                 // 'by_department' => $static->getDataset(EmployeeRepository::byDepartment()),
                 // 'by_position' => $static->getDataset(EmployeeRepository::byPosition()),
-                // 'by_supervisor' => $static->getDataset(EmployeeRepository::bySupervisor()),
+                // 'by_supervisor' => $static->getDataset(EmployeeRepository::bySupervisor()), 
                 // 'by_nationality' => $static->getDataset(EmployeeRepository::byNationality()),
             ],
             'performance' => [
