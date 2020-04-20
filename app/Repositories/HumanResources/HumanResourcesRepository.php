@@ -2,28 +2,19 @@
 
 namespace App\Repositories\HumanResources;
 
+use App\Repositories\BirthdaysRepository;
+use App\Repositories\EmployeeRepository;
 use App\Repositories\HumanResources\HeadCount\BySite;
-use App\Repositories\HumanResources\Issues\MissingAfp;
-use App\Repositories\HumanResources\Issues\MissingArs;
 use App\Repositories\HumanResources\HeadCount\ByGender;
 use App\Repositories\HumanResources\HeadCount\ByStatus;
 use App\Repositories\HumanResources\HeadCount\ByProject;
-use App\Repositories\HumanResources\Issues\MissingPunch;
 use App\Repositories\HumanResources\HeadCount\ByPosition;
-use App\Repositories\HumanResources\Issues\MissingAddress;
 use App\Repositories\HumanResources\HeadCount\ByDepartment;
 use App\Repositories\HumanResources\HeadCount\BySupervisor;
-use App\Repositories\HumanResources\Issues\MissingSchedule;
 use App\Repositories\HumanResources\HeadCount\ByNationality;
-use App\Repositories\HumanResources\Birthdays\BirthdaysToday;
-use App\Repositories\HumanResources\Issues\MissingSupervisor;
-use App\Repositories\HumanResources\Issues\MissingBankAccount;
-use App\Repositories\HumanResources\Issues\MissingNationality;
 use App\Repositories\HumanResources\Attrition\MonthlyAttrition;
-use App\Repositories\HumanResources\Birthdays\BirthdaysLastMonth;
-use App\Repositories\HumanResources\Birthdays\BirthdaysNextMonth;
-use App\Repositories\HumanResources\Birthdays\BirthdaysThisMonth;
 use App\Repositories\HumanResources\Employees\Rotations\MonthlyRotation;
+use App\Repositories\MissingInfoRepository;
 
 class HumanResourcesRepository
 {
@@ -31,30 +22,30 @@ class HumanResourcesRepository
     {
         return [
             'issues' => [
-                'missing_address' => (new MissingAddress())->count(),
-                'missing_ars' => (new MissingArs())->count(),
-                'missing_afp' => (new MissingAfp())->count(),
-                'missing_bank_account' => (new MissingBankAccount())->count(),
-                'missing_nationality' => (new MissingNationality())->count(),
-                'missing_punch' => (new MissingPunch())->count(),
-                'missing_supervisor' => (new MissingSupervisor())->count(),
-                'missing_schedule' => (new MissingSchedule())->count(),
+                'missing_address' => MissingInfoRepository::address()->count(),
+                'missing_ars' => MissingInfoRepository::ars()->count(),
+                'missing_afp' => MissingInfoRepository::afp()->count(),
+                'missing_bank_account' => MissingInfoRepository::bankAccount()->count(),
+                'missing_nationality' => MissingInfoRepository::nationality()->count(),
+                'missing_punch' => MissingInfoRepository::punch()->count(),
+                'missing_supervisor' => MissingInfoRepository::supervisor()->count(),
+                'missing_schedule' => MissingInfoRepository::schedules()->count(),
             ],
             'birthdays' => [
-                'today' => (new BirthdaysToday())->list(),
-                'this_month' => (new BirthdaysThisMonth())->count(),
-                'next_month' => (new BirthdaysNextMonth())->count(),
-                'last_month' => (new BirthdaysLastMonth())->count(),
+                'today' => BirthdaysRepository::today()->get(),
+                'this_month' => BirthdaysRepository::thisMonth()->count(),
+                'next_month' => BirthdaysRepository::nextMonth()->count(),
+                'last_month' => BirthdaysRepository::lastMonth()->count(),
             ],
             'headcounts' => [
                 'by_status' => (new ByStatus())->count(),
-                'by_site' => (new BySite())->count(),
-                'by_department' => (new ByDepartment())->bySite()->count(),
-                'by_gender' => (new ByGender())->bySite()->count(),
-                'by_nationality' => (new ByNationality())->bySite()->count(),
-                'by_project' => (new ByProject())->bySite()->count(),
-                'by_position' => (new ByPosition())->bySite()->count(),
-                'by_supervisor' => (new BySupervisor())->bySite()->count(),
+                'by_site' => EmployeeRepository::bySite()->count(),
+                'by_department' => EmployeeRepository::byDepartment()->count(),
+                'by_gender' => EmployeeRepository::byGender()->count(),
+                'by_nationality' => EmployeeRepository::byNationality()->count(),
+                'by_project' => EmployeeRepository::byProject()->count(),
+                'by_position' => EmployeeRepository::byPosition()->count(),
+                'by_supervisor' => EmployeeRepository::bySupervisor()->count(),
             ],
             'rotations' => [
                 'monthly' => (new MonthlyRotation())->bySite()->count(6),

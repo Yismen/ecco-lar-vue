@@ -1,6 +1,6 @@
 <div class="small-box bg-red">
     <div class="inner">
-        <h3>{{ $stats['birthdays']['last_month'] }}</h3>
+        <h3>{{ $birthdays['last_month'] }}</h3>
 
         <p>Employess Had Birthdays In Last Month</p>
     </div>

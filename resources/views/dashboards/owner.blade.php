@@ -3,7 +3,7 @@
 
 @section('content')
 <div class="col-xs-12">
-    @include('dashboards.admin._filters')
+    @include('dashboards._filters')
 </div>
 <div class="row">
     <div class="col-xs-12">
