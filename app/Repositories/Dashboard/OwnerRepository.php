@@ -25,9 +25,9 @@ class OwnerRepository
             'sites' => SiteRepository::actives(),
             'projects' => ProjectRepository::actives(),
             'employees' => EmployeeRepository::actives()->count(),
-            'revenue_mtd' => $mtdData->sum('revenue'),
-            'login_hours_mtd' => $mtdData->sum('login_time'),
-            'production_hours_mtd' => $mtdData->sum('production_time'),
+            'revenue_mtd' => number_format($mtdData->sum('revenue'), 2),
+            'login_hours_mtd' => number_format($mtdData->sum('login_time'), 2),
+            'production_hours_mtd' => number_format($mtdData->sum('production_time'), 2),
             'headcounts' => [
                 // 'by_site' => $static->getDataset(EmployeeRepository::bySite()),
                 // 'by_project' => $static->getDataset(EmployeeRepository::byProject()),
@@ -41,45 +41,59 @@ class OwnerRepository
                 'labels' => $data->map->month,
                 'revenue' => [
                     $data_repo->toArray([
-                        'data' => $data->map->revenue,
+                        'data' => $data->map(function($data) {
+                            return number_format($data->revenue, 2);
+                        }),
                         'label' => 'Revenue'
                     ])
                 ],
                 'rph' => [
                     $data_repo->toArray([
-                        'data' => $data->map->rph,
+                        'data' => $data->map(function($data) {
+                            return number_format($data->rph, 2);
+                        }),
                         'label' => 'RPH',
                         'fill' => false
                     ])
                 ],
                 'login_time' => [
                     $data_repo->toArray([
-                        'data' => $data->map->login_time,
+                        'data' => $data->map(function($data) {
+                            return number_format($data->login_time, 2);
+                        }),
                         'label' => 'Login Hours'
                     ])
                 ],
                 'production_time' => [
                     $data_repo->toArray([
-                        'data' => $data->map->production_time,
+                        'data' => $data->map(function($data) {
+                            return number_format($data->production_time, 2);
+                        }),
                         'label' => 'Prod. Hours'
                     ])
                 ],
                 'sph' => [
                     $data_repo->toArray([
-                        'data' => $data->map->sph_goal,
+                        'data' => $data->map(function($data) {
+                            return number_format($data->sph_goal, 2);
+                        }),
                         'label' => 'Goal',
                         'borderColor' => 'rgba(211,47,47 ,1)',
                         'backgroundColor' => 'rgba(211,47,47 ,.25)',
                     ]),
                     $data_repo->toArray([
-                        'data' => $data->map->sph,
+                        'data' => $data->map(function($data) {
+                            return number_format($data->sph, 2);
+                        }),
                         'fill' => false,
                         'label' => 'SPH'
                     ])
                 ],
                 'efficiency' => [
                     $data_repo->toArray([
-                        'data' => $data->map->efficiency,
+                        'data' => $data->map(function($data) {
+                            return number_format($data->efficiency, 2);
+                        }),
                         'label' => 'Efficiency',
                         'fill' => false
                     ])
