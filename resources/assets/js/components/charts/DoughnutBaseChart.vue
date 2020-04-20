@@ -1,16 +1,36 @@
+<template>
+    <doughnut-chart
+        :labels="labels"
+        :datasets="computedDataset"
+        :options="options"
+        :height="200"
+    ></doughnut-chart>
+</template>
 
-    import { Doughnut } from 'vue-chartjs'
+<script>
+    import DoughnutChart from './DoughnutChart'
 
     export default {
         props: {
-            labels: {
-                type: Array,
-                default: () => ["Jan", "Feb", "Mar"]
-            },
-            datasets: {
-                type: Array, default: () => [
-                {
-                    data: [450, 325, 1500],
+            labels: {required: true, type: Array},
+            dataset: {required:true, type: Array},
+        },
+        data() {
+            return {
+                options: {
+                    label: {display: true},
+                    legend: {display: false},
+                    tooltips: {
+                        mode: 'index',
+                        intersect: false
+                    }
+                }
+            }
+        },
+        computed: {
+            computedDataset() {                
+                return [{
+                    data: this.dataset,
                     backgroundColor: [
                         "rgba(0, 166, 90, .80)",
                         "rgba(243, 156, 18, .80)",
@@ -30,19 +50,10 @@
                         "rgba(215, 219, 221, 0.8)",
                     ]
                 }]
-            },
-            options: { type: Object}
-        },
-        extends: Doughnut,
-        mounted() {
-            this.renderChart({
-                labels: this.labels,
-                datasets: this.datasets
-            }, this.defaultOptions());
-        },
-        methods: {
-            defaultOptions() {
-                return Object.assign({ responsive: true, maintainAspectRatio: false }, this.options)
             }
-        }
+        },
+        components: {
+            DoughnutChart
+        },
     }
+</script>

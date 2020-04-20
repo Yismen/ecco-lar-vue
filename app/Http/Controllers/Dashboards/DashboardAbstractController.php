@@ -8,5 +8,5 @@ abstract class DashboardAbstractController extends Controller
 {    
     protected $views_location = 'dashboards';
 
-    abstract function index(string $role);
+    abstract function index();
 }

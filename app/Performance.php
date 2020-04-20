@@ -2,13 +2,14 @@
 
 namespace App;
 
+use App\Traits\FilterableTrait;
 use App\Traits\PerformanceTrait;
 use App\Traits\Trackable;
 use Illuminate\Database\Eloquent\Model;
 
 class Performance extends Model
 {
-    use Trackable, PerformanceTrait;
+    use Trackable, PerformanceTrait, FilterableTrait;
 
     protected $fillable = [
         'date',

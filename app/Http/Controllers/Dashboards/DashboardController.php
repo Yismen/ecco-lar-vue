@@ -34,14 +34,19 @@ class DashboardController extends Controller
         
         foreach ($this->roles_hierarchy as $role => $class) {
             if (auth()->user()->hasRole($role)) {
-                $class_name = $this->dashboards_namespace . $class;
-
-                $controller =  new $class_name;
-
-                return $controller->index($role);
+                return $this->renderRoleController($role, $class);
             }
         }
 
         return (new DefaultDashboardController)->index('default');
+    }
+
+    protected function renderRoleController($role, $class)
+    {
+        $class_name = $this->dashboards_namespace . $class;
+
+        $controller =  new $class_name;
+
+        return $controller->index($role);
     }
 }

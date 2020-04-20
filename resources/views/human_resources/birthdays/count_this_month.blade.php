@@ -1,6 +1,6 @@
 <div class="small-box bg-aqua">
     <div class="inner">
-        <h3>{{ $stats['birthdays']['this_month'] }}</h3>
+        <h3>{{ $birthdays['this_month'] }}</h3>
 
         <p>Employess Are Having Birthdays This Month</p>
     </div>

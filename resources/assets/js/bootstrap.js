@@ -95,22 +95,25 @@ Vue.component('employee-checkbox-list', require('./components/employees/partials
 
 Vue.component('dropzone-form', require('./components/DropzoneForm').default);
 
-Vue.component('headcounts', require('./components/human_resources/HeadCountsComponent').default);
-Vue.component('hc-rotations', require('./components/human_resources/RotationsComponent').default);
+// Vue.component('headcounts', require('./components/human_resources/HeadCountsComponent').default);
+// Vue.component('hc-rotations', require('./components/human_resources/RotationsComponent').default);
 
 Vue.component('sites-metric', require('./components/dashboards/SitesOverview').default);
 Vue.component('sites-sph', require('./components/dashboards/sites/Sph').default);
 
 
 
-Vue.component('monthly-rotation', require('./components/human_resources/MonthlyRotation').default);
-Vue.component('monthly-attrition', require('./components/human_resources/MonthlyAttrition').default);
+// Vue.component('monthly-rotation', require('./components/human_resources/MonthlyRotation').default);
+// Vue.component('monthly-attrition', require('./components/human_resources/MonthlyAttrition').default);
 
 Vue.component('animation-scale', require('./components/animations/ScaleComponent').default);
 
 Vue.component('date-picker', require('./components/DatePicker').default);
 
 Vue.component('app-notifications', require('./components/AppNotifications').default);
+Vue.component('line-base-chart', require('./components/charts/LineBaseChart').default);
+Vue.component('doughnut-base-chart', require('./components/charts/DoughnutBaseChart').default);
+Vue.component('bar-base-chart', require('./components/charts/BarBaseChart').default);
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
