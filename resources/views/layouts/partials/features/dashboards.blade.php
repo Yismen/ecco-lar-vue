@@ -7,6 +7,11 @@
             <i class="fa fa-dashboard"></i> <i class="fa fa-caret-down"></i>
         </a>
         <ul class="dropdown-menu">
+            <li>
+                <a href="{{ route('admin.default_dashboard') }}">
+                    <i class="fa fa-dashboard"></i> Default
+                </a>
+            </li>
             @can('view-owner-dashbaord')
                 <li>
                     <a href="{{ route('admin.owner_dashboard') }}">
