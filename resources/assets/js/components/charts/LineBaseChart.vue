@@ -43,7 +43,7 @@
                 })
             }
             this.datasets.forEach((item) => {
-                item.data = item.data.map((value) => {return Number(value, 2)})
+                item.data = item.data.map((value) =>  Number(Number(value).toFixed(2)))
             })
         },
         components: {
