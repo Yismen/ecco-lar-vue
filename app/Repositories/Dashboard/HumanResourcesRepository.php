@@ -2,13 +2,10 @@
 
 namespace App\Repositories\Dashboard;
 
-use App\Performance;
 use App\Repositories\AttritionRepository;
 use App\Repositories\BirthdaysRepository;
-use App\Repositories\Dashboard\DataRepository;
 use App\Repositories\EmployeeRepository;
 use App\Repositories\MissingInfoRepository;
-use App\Repositories\PerformanceRepository;
 use App\Repositories\ProjectRepository;
 use App\Repositories\SiteRepository;
 
