@@ -19,7 +19,7 @@ class AttritionRepository
                 'month' => $date->format('Y-m'),
                 'head_count' => $actives,
                 'terminations' => $terminations,
-                'attrition' => number_format($terminations / $actives * 100, 2)
+                'attrition' => $static->calculate($terminations, $actives),
             ];
         }
 
@@ -36,7 +36,9 @@ class AttritionRepository
     {
         $static = new self();
 
-        return $static->terminatedThisMonth( $months) / $static->activesStartOfMonth( $months) * 100;
+        return $static->calculate(
+            $static->terminatedThisMonth( $months), $static->activesStartOfMonth( $months)
+        );
     }
 
     public static function activesStartOfMonth(int $months = 0):int
@@ -70,5 +72,10 @@ class AttritionRepository
 
         return Employee::whereYear('hire_date', $start_of_month->year)->filter(request()->all())
             ->whereMonth('hire_date', $start_of_month->month)->count();
+    }
+
+    protected function calculate($terminations, $actives)
+    {
+        return number_format($actives == 0 ? 0 : $terminations / $actives * 100, 2);
     }
 }
