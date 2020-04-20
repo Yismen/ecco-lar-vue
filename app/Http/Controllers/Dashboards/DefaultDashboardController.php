@@ -4,11 +4,10 @@ namespace App\Http\Controllers\Dashboards;
 
 use App\Employee;
 use App\Profile;
-use App\Project;
-use App\Site;
+use App\Repositories\BirthdaysRepository;
 use App\User;
-use Illuminate\Support\Facades\Cache;
-use App\Repositories\HumanResources\Birthdays\BirthdaysToday;
+use App\Repositories\ProjectRepository;
+use App\Repositories\SiteRepository;
 
 class DefaultDashboardController extends DashboardAbstractController
 {    
@@ -18,27 +17,17 @@ class DefaultDashboardController extends DashboardAbstractController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index(string $role)
+    public function index()
     {
-        return view("{$this->views_location}.{$role}", [
+        return view("{$this->views_location}.default", [
             'user' => auth()->user(),
             'app_name' => ucwords(config('dainsys.app_name', 'Dainsys')),
             'users_count' => User::count(),
             'employees_count' => Employee::actives()->count(),
             'profiles' => Profile::latest()->take(6)->get(),
-            'sites' => Cache::remember('active_sites', 60, function () {
-                return Site::whereHas('employees', function ($query) {
-                    return $query->actives();
-                })->count();
-            }),
-            'projects' => Cache::remember('active_projects', now()->addHour(), function () {
-                return Project::whereHas('employees', function ($query) {
-                    return $query->actives();
-                })->count();
-            }),
-            'birthdays' => Cache::remember('active_birthdays', now()->addHour(), function () {
-                return (new BirthdaysToday())->list();
-            }),
+            'sites' => SiteRepository::actives()->count(),
+            'projects' => ProjectRepository::actives()->count(),
+            'birthdays' => BirthdaysRepository::today()->get(),
         ]);
     }
 }

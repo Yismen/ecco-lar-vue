@@ -41,59 +41,45 @@ class OwnerRepository
                 'labels' => $data->map->month,
                 'revenue' => [
                     $data_repo->toArray([
-                        'data' => $data->map(function($data) {
-                            return number_format($data->revenue, 2);
-                        }),
+                        'data' => $data->map->revenue,
                         'label' => 'Revenue'
                     ])
                 ],
                 'rph' => [
                     $data_repo->toArray([
-                        'data' => $data->map(function($data) {
-                            return number_format($data->rph, 2);
-                        }),
+                        'data' => $data->map->rph,
                         'label' => 'RPH',
                         'fill' => false
                     ])
                 ],
                 'login_time' => [
                     $data_repo->toArray([
-                        'data' => $data->map(function($data) {
-                            return number_format($data->login_time, 2);
-                        }),
+                        'data' => $data->map->login_time,
                         'label' => 'Login Hours'
                     ])
                 ],
                 'production_time' => [
                     $data_repo->toArray([
-                        'data' => $data->map(function($data) {
-                            return number_format($data->production_time, 2);
-                        }),
+                        'data' => $data->map->production_time,
                         'label' => 'Prod. Hours'
                     ])
                 ],
                 'sph' => [
                     $data_repo->toArray([
-                        'data' => $data->map(function($data) {
-                            return number_format($data->sph_goal, 2);
-                        }),
+                        'data' => $data->map->sph_goal,
                         'label' => 'Goal',
                         'borderColor' => 'rgba(211,47,47 ,1)',
                         'backgroundColor' => 'rgba(211,47,47 ,.25)',
                     ]),
                     $data_repo->toArray([
-                        'data' => $data->map(function($data) {
-                            return number_format($data->sph, 2);
-                        }),
+                        'data' => $data->map->sph,
                         'fill' => false,
                         'label' => 'SPH'
                     ])
                 ],
                 'efficiency' => [
                     $data_repo->toArray([
-                        'data' => $data->map(function($data) {
-                            return number_format($data->efficiency, 2);
-                        }),
+                        'data' => $data->map->efficiency,
                         'label' => 'Efficiency',
                         'fill' => false
                     ])

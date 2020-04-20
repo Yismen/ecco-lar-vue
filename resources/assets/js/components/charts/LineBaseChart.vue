@@ -42,6 +42,9 @@
                     label: 'Goal'
                 })
             }
+            this.datasets.forEach((item) => {
+                item.data = item.data.map((value) => {return Number(value, 2)})
+            })
         },
         components: {
             LineChart
