@@ -5,7 +5,7 @@
         <div class="info-box-number">{{ $number }}</div>
         @isset($project)
             <span class="info-box-text"> 
-                Proj.: {{ number_format($number / now()->day * now()->daysInMonth, 0) }}
+                {{-- Proj.: {{ number_format($number / now()->day * now()->daysInMonth, 0) }} --}}
             </span>
         @endisset
     </div>
