@@ -91,7 +91,7 @@ return [
         'roles_hierarchy' => [
             'admin' => 'OwnerDashboardController',
             'owner' => 'OwnerDashboardController',
-            'human_resources' => 'HumanResourcesDashboardController',
+            'human-resource' => 'HumanResourcesDashboardController',
         ]
     ]
 ];

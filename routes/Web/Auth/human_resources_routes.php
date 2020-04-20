@@ -1,8 +1,6 @@
 <?php
 
 Route::group(['middleware' => 'authorize:view-human-resources-dashboard'], function () {
-    Route::get('human_resources', ['as' => 'human_resources.index', 'uses' => 'Dashboards\HumanResourcesDashboardController@index']);
-    // Route::get('human_resources', ['as' => 'human_resources.index', 'uses' => 'HumanResourcesController@index']);
 
     Route::get('human_resources/employees/dgt3', 'HumanResources\DGT3Controller@dgt3');
     Route::get('human_resources/employees/dgt3_to_excel/{year}', 'HumanResources\DGT3Controller@dgt3ToExcel');

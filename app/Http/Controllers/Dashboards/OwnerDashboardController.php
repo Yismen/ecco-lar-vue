@@ -6,6 +6,11 @@ use App\Repositories\Dashboard\OwnerRepository;
 
 class OwnerDashboardController extends DashboardAbstractController
 {    
+
+    public function __construct()
+    {
+        $this->middleware('role:owner');     
+    }
     /**
      * Handle the incoming request.
      *

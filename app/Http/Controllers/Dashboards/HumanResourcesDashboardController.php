@@ -12,6 +12,12 @@ class HumanResourcesDashboardController extends DashboardAbstractController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('role:human-resource');     
+    }
+
     public function index()
     {
         request()->flash();
