@@ -16,7 +16,6 @@ mix
     .sass('resources/assets/sass/site.scss', 'public/css/site.css')
     .copy('node_modules/select2', 'storage/app/public/vendor/select2')
     .js('resources/assets/js/app.js/', 'public/js/app.js')
-    .purgeCss()
     .version()
 ;
 
