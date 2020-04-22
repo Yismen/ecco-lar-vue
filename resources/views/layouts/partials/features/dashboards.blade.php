@@ -12,14 +12,14 @@
                     <i class="fa fa-dashboard"></i> Default
                 </a>
             </li>
-            @can('view-owner-dashbaord')
+            @can('view-owner-dashboard')
                 <li>
                     <a href="{{ route('admin.owner_dashboard') }}">
                         <i class="fa fa-dashboard"></i> Owner
                     </a>
                 </li>
             @endcan  
-            @can('view-admin-dashbaord')
+            @can('view-admin-dashboard')
                 <li>
                     <a href="{{ route('admin.admin_dashboard') }}">
                         <i class="fa fa-dashboard"></i> Admin
