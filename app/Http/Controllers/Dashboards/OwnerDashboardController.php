@@ -20,10 +20,7 @@ class OwnerDashboardController extends DashboardAbstractController
     public function index()
     {
         request()->flash();
-
-        $data = (new OwnerRepository)->toArray();
-        // atrition, rotation, hc by gender, hc by department, hc by position, hc by supervisor
-        // dd($data);
-        return view("{$this->views_location}.owner", $data);
+        
+        return view("{$this->views_location}.owner", OwnerRepository::toArray());
     }
 }

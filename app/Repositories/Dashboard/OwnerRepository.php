@@ -11,11 +11,11 @@ use App\Repositories\SiteRepository;
 
 class OwnerRepository
 {
-    public function toArray()
+    public static function toArray()
     {
         $data_repo = new DataRepository();
         
-        $performance_repo = new PerformanceRepository(new Performance());
+        $performance_repo = new PerformanceRepository();
 
         $data = $performance_repo->monthlyManyMonths(12);
 

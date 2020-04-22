@@ -10,9 +10,9 @@ class PerformanceRepository
 {
     protected $performance;
 
-    public function __construct(Performance $performance)
+    public function __construct()
     {
-        $this->performance = $performance;
+        $this->performance = new Performance();
     }
 
     public function monthlyManyMonths(int $months = 12)
