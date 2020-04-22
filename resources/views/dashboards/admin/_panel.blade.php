@@ -28,14 +28,14 @@
             <tbody>
                @foreach ($roles as $role)
                     <tr>
-                        <td style="max-height: 40px; overflow-y: auto;">
+                        <td>
                             <div class="text-center">
                                 <h5>{{ $role->name_parsed }}</h5>
                                 <i class="fa fa-users fa-2x"></i>
                             </div>
                         </td>
-                        <td style="max-height: 40px; overflow-y: auto;">
-                            <ul>
+                        <td>
+                            <ul style="max-height: 200px; overflow-y: auto;">
                                 @foreach ($role->users as $user)
                                     <li>
                                         <a href="{{ route('admin.profiles.show', $user->id) }}" target="_users">
@@ -53,8 +53,8 @@
                             </ul>
                         </td>
                         
-                        <td style="max-height: 40px; overflow-y: auto;">
-                            <ul>
+                        <td>
+                            <ul style="max-height: 200px; overflow-y: auto;">
                                 @foreach ($role->permissions as $permission)
                                     <li>
                                         {{ $permission->name }} 
@@ -65,8 +65,8 @@
                                 @endforeach
                             </ul>
                         </td>
-                        <td style="max-height: 40px; overflow-y: auto;">
-                            <ul>
+                        <td>
+                            <ul style="max-height: 200px; overflow-y: auto;">
                                 @foreach ($role->menus as $menu)
                                     <li>
                                         {{ $menu->name }} 
