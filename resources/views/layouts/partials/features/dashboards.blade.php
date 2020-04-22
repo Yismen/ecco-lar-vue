@@ -18,6 +18,13 @@
                         <i class="fa fa-dashboard"></i> Owner
                     </a>
                 </li>
+            @endcan  
+            @can('view-admin-dashbaord')
+                <li>
+                    <a href="{{ route('admin.admin_dashboard') }}">
+                        <i class="fa fa-dashboard"></i> Admin
+                    </a>
+                </li>
             @endcan       
             @can('view-human-resources-dashboard')
                 <li>

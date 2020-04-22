@@ -89,7 +89,7 @@ return [
 
     'dashboards' => [
         'roles_hierarchy' => [
-            'admin' => 'OwnerDashboardController',
+            'admin' => 'AdminDashboardController',
             'owner' => 'OwnerDashboardController',
             'human-resource' => 'HumanResourcesDashboardController',
         ]

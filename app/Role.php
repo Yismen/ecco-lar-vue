@@ -9,6 +9,8 @@ class Role extends EmpatieRole
 {
     protected $fillable = ['name', 'guard_name'];
 
+    protected $appends = ['name_parsed'];
+
     public function menus()
     {
         return $this->belongsToMany(Menu::class);
@@ -77,6 +79,11 @@ class Role extends EmpatieRole
         Cache::forget('menus');
 
         return $this->syncRelations($this, $request);
+    }
+
+    public function getNameParsedAttribute()
+    {
+        return ucwords(str_replace(['_', '-'], ' ', $this->attributes['name']));
     }
 
     /**
