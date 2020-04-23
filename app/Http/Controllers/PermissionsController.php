@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Permission;
+use Illuminate\Support\Facades\Cache;
+use Yajra\DataTables\Facades\DataTables;
 
 class PermissionsController extends Controller
 {
@@ -22,11 +24,27 @@ class PermissionsController extends Controller
      *
      * @return Response
      */
-    public function index(Permission $permissions)
+    public function index()
     {
-        $permissions = $permissions->orderBy('resource')->get();
+        if (!request()->ajax()) {
+            return view('permissions.index');
+        }
 
-        return view('permissions.index', compact('permissions'));
+        return DataTables::of(
+            Permission::query()
+            ->with([
+                'roles'
+            ])
+        )
+        ->addColumn('delete', function ($query) {
+            return "
+                <delete-request-button
+                url='{route('admin.permissions.destroy', $query->name)}'
+                redirect-url='{route('admin.permissions.index')}'
+            ></delete-request-button>
+            ";
+        })
+        ->toJson(true);
     }
 
     /**
@@ -54,7 +72,7 @@ class PermissionsController extends Controller
 
         $permission->createPermission($request);
 
-        \Cache::flush();
+        Cache::flush();
 
         return redirect()->route('admin.permissions.index')
             ->withSuccess('Permissions created.');
@@ -97,7 +115,7 @@ class PermissionsController extends Controller
 
         $permission = $permission->updatePermission($request);
 
-        \Cache::flush();
+        Cache::flush();
 
         return redirect()->route('admin.permissions.show', $permission->name)
             ->withSuccess("Menu $permission->name has been updated.");
@@ -113,7 +131,7 @@ class PermissionsController extends Controller
     {
         $permission->delete();
 
-        \Cache::flush();
+        Cache::flush();
 
         return redirect()->route('admin.permissions.index')
             ->withWarning("Permission [$permission->name] has been removed!");

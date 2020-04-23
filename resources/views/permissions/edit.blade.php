@@ -16,8 +16,8 @@
 						</h4>
 					</div>
 					
-					<div class="box-body">
-						{!! Form::model($permission, ['route'=>['admin.permissions.update', $permission->name], 'method'=>'PUT', 'class'=>'form-horizontal', 'role'=>'form']) !!}	
+					{!! Form::model($permission, ['route'=>['admin.permissions.update', $permission->name], 'method'=>'PUT', 'class'=>'form-horizontal', 'role'=>'form']) !!}	
+						<div class="box-body">
 
 							<!-- Name -->
 							<div class="form-group {{ $errors->has('name') ? 'has-error' : null }}">
@@ -49,13 +49,25 @@
 							</div>
 							<!-- /. Roles -->
 
+						</div>
+						<div class="box-footer">
 							<div class="col-sm-8 col-sm-offset-2 clear-fix">
 								<div class="form-group">
 									<button type="submit" class="btn btn-warning">Update</button>
 								</div>
 							</div>	
+						</div>
 						{!! Form::close() !!}
-					</div>
+						<div class="box-footer">
+							<div class="col-sm-10 col-sm-offset-1">
+								<div class="form-group">
+									<delete-request-button
+										url="{{ route('admin.permissions.destroy', $permission->name) }}"
+										redirect-url="{{ route('admin.permissions.index') }}"
+									></delete-request-button>
+								</div>
+							</div>
+						</div>
 				</div>
 			</div>
 		</div>
