@@ -34,7 +34,7 @@ axios.interceptors.request.use(function (config) {
 axios.interceptors.response.use(function (response) {
     Store.dispatch("loading/hideLoadingSpinner");
 
-    axios.interceptors.sweetAlert('success', 'Well Done!', "Process Completed!")
+    // axios.interceptors.sweetAlert('success', 'Well Done!', "Process Completed!")
 
     return response;
 }, function (error) {
@@ -47,7 +47,7 @@ axios.interceptors.response.use(function (response) {
         return window.location.assign(response.responseURL)
     }
 
-    Store.dispatch("loading/hideLoadingSpinner");
+    Store.dispatch("loading",["hideLoadingSpinner"]);
 
     return Promise.reject(error);
 });
