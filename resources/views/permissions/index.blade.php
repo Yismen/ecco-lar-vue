@@ -67,7 +67,7 @@
                     {data: 'roles', name: 'roles.name', orderable:false, render: function(data, type, full){
 						let string = ''
 						data.forEach(element => {
-							string += `<label class="bg-green">${element.name_parsed}</label> ` 
+							string += `<span class="label label-info">${element.name_parsed}</span> ` 
 						});
 
 						return string
