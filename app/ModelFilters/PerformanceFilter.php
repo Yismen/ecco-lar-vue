@@ -24,6 +24,11 @@ class PerformanceFilter extends ModelFilter
         return $this->filterQuery($request, __FUNCTION__);
     }
 
+    public function department($request)
+    {
+        return $this->filterQuery($request, 'position.department');
+    }
+
     public function position($request)
     {
         return $this->filterQuery($request, __FUNCTION__);

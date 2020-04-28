@@ -4,9 +4,9 @@ namespace App\Repositories\Dashboard;
 
 use App\Repositories\AttritionRepository;
 use App\Repositories\BirthdaysRepository;
+use App\Repositories\DepartmentRepository;
 use App\Repositories\EmployeeRepository;
 use App\Repositories\MissingInfoRepository;
-use App\Repositories\PositionRepository;
 use App\Repositories\ProjectRepository;
 use App\Repositories\SiteRepository;
 
@@ -21,7 +21,7 @@ class HumanResourcesRepository
         return [
             'sites' => SiteRepository::actives(),
             'projects' => ProjectRepository::actives(),
-            'positions' => PositionRepository::actives(),
+            'departments' => DepartmentRepository::actives(),
             'head_count' => EmployeeRepository::actives()->count(),
             'attrition_mtd' => AttritionRepository::mtd(),
             'hired_tm' => AttritionRepository::hiredThisMonth(),

@@ -4,9 +4,9 @@ namespace App\Repositories\Dashboard;
 
 use App\Performance;
 use App\Repositories\Dashboard\DataRepository;
+use App\Repositories\DepartmentRepository;
 use App\Repositories\EmployeeRepository;
 use App\Repositories\PerformanceRepository;
-use App\Repositories\PositionRepository;
 use App\Repositories\ProjectRepository;
 use App\Repositories\SiteRepository;
 
@@ -22,12 +22,10 @@ class OwnerRepository
 
         $mtdData = $performance_repo->monthToDateData();
 
-        // dd(PositionRepository::actives()->first()->employees);
-
         return [
             'sites' => SiteRepository::actives(),
             'projects' => ProjectRepository::actives(),
-            'positions' => PositionRepository::actives(),
+            'departments' => DepartmentRepository::actives(),
             'employees' => EmployeeRepository::actives()->count(),
             'revenue_mtd' => number_format($mtdData->sum('revenue'), 2),
             'login_hours_mtd' => number_format($mtdData->sum('login_time'), 2),

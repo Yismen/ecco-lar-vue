@@ -45,13 +45,13 @@
                     {{-- /.col                   --}}
                     <div class="col-xs-6 col-lg-4">
                         <div class="form-group">
-                            <label for="">Positions</label>
-                            <select name="position[]" id="" class="form-control" multiple size="10">
+                            <label for="">Departments</label>
+                            <select name="department[]" id="" class="form-control" multiple size="10">
                                 <option value="%">All</option>
-                                @foreach ($positions as $position)
-                                <option value="{{ $position->name }}"
-                                    {{ in_array($position->name, old('position', [])) ? 'selected' : '' }}
-                                >{{ $position->name }}</option>
+                                @foreach ($departments as $department)
+                                <option value="{{ $department->name }}"
+                                    {{ in_array($department->name, old('department', [])) ? 'selected' : '' }}
+                                >{{ $department->name }}</option>
                                 @endforeach
                             </select>
                         </div>
