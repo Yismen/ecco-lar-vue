@@ -41,9 +41,37 @@
                     maintainAspectRatio: false ,
                     label: {display: true},
                     legend: {display: false},
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                callback: function(value, index, values) {                                    
+                                    return value.toLocaleString()
+                                }
+                            }
+                        }]
+                    },
                     tooltips: {
                         mode: 'index',
-                        intersect: false
+                        intersect: false,
+                        callbacks: {
+                            label: function(TooltipItem, data) {
+                                var label = data.datasets[TooltipItem.datasetIndex].label || ''
+
+                                 if (label) {
+                                    label += ': ';
+                                }
+
+                                let returnValue = ''
+                                
+                                let value = TooltipItem.yLabel.toString() // get the value and convert to string    
+                                
+                                value.split(",").forEach(function(item) {
+                                    return returnValue += item
+                                })// split the value and iterate to generate new value 
+                                
+                                return label += Number(returnValue, 2).toLocaleString()
+                            }
+                        }
                     },
                     // scales: {
                     //     yAxes: [
