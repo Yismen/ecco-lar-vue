@@ -1,1 +1,0 @@
-@include('dashboards.filters._filters', ['clear_route' => route('admin.human_resources_dashboard')])

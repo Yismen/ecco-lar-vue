@@ -13,7 +13,7 @@
                     </button>
                     <h4 class="modal-title">
                         Select Filters
-                        <a href="{{ $clear_route }}" class="btn btn-xs btn-danger pull-right" style="margin-right: 10px">Clear</a>
+                        <a href="{{ $clear_route ?? '/'.request()->route()->uri }}" class="btn btn-xs btn-danger pull-right" style="margin-right: 10px">Clear</a>
                     </h4>
                     
                 </div>
