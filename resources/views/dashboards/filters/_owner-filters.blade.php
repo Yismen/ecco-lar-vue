@@ -1,0 +1,1 @@
+@include('dashboards.filters._filters', ['clear_route' => route('admin.owner_dashboard')])
