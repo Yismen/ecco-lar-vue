@@ -1,174 +1,226 @@
 body {
-  height: auto;
-  min-height: 100%;
+    height: auto;
+    min-height: 100%;
 }
 .wrapper {
-  height: auto;
-  .content-wrapper {
-    min-height: 960px;
-    .content {
-      padding: 0;
+    height: auto;
+    .content-wrapper {
+        min-height: 960px;
+        .content {
+            padding: 0;
+        }
     }
-  }
+}
+.overlay::after {
+    content:"";
+    display: block;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0,0,0,.5);
+}
+.header-wrapper::after {
+    content:"";
+    display: block;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0,0,0,.5);
+}
+.header-wrapper {
+    
+    background-image: url(/images/main-header.jpg);
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    .main-header {
+        font-family: "Roboto", sans-serif;
+        color: #f8f8f8;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .app-title {
+            text-transform: uppercase;
+            font-stretch: normal;
+            font-weight: 900;
+            font-size: 50px;
+            margin-bottom: 20px;
+            text-shadow: -2px 1px 6px #030303;
+        }
+        .lead {
+            max-width: 50%;
+            font-weight: 100;
+            font-size: medium;
+            letter-spacing: 3px;
+        }
+        .dainsys-logo {
+            cursor: pointer;
+            height: 250px;
+            max-width: 14rem;
+            max-height: 14rem;
+        }
+        .call-to-action {
+            margin-top: 3.5rem;
+            background-color: white;
+            color: #030303;
+            font-weight: 800;
+            text-transform: uppercase;
+            box-shadow: -1.5px 1.5px 3px #030303;
+        }
+    }
 }
 
-
-.intro-header {
-  font-family: "Roboto", sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  position: relative;
-  /*text-align: center;*/
-  color: #f8f8f8;
-  background-image: url(/images/main-header.jpg);
-  background-position: 50%;
-  background-repeat: no-repeat;
-  background-size: cover;
-  min-height: 100vh;
-}
-.header-title {
-  font-weight: bold;
-  font-size: 6rem;
-  font-stretch: extra-expanded;
-  text-shadow: -2px 1px 6px #4a4747;
-  text-transform: uppercase;
-}
-
-.dainsys-logo {
-  cursor: pointer;
-  height: 250px;
-  max-width: 14rem;
-  max-height: 14rem;
+.secondary-header {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
+    text-align: center;
 }
 
 .more-button {
-  position: absolute;
-  bottom: 20px;
-  color: white;
+    position: absolute;
+    bottom: 20px;
+    color: white;
 }
 
 .more-button:hover, .more-button:focus {
-  color: #e3e3e3;
+    color: #e3e3e3;
 }
 
-.divider {
-  border-top: white .95rem solid;
-  margin: 1.5rem;
-}
-
-.intro-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.secondary-header {
-  padding-top: 7rem;
-  padding-bottom: 7rem;
-  text-align: center;
-}
-.header-description {
-  font-size: 2rem;
-  letter-spacing: 0.2rem;
-}
-.call-to-action {
-  margin-top: 3.5rem;
-  // background-color: transparent;
-  // color: white;
-  font-weight: 800;
-  text-transform: uppercase;
-  // text-shadow: -1px 1px 3px #030303;
-  box-shadow: -1.5px 1.5px 3px #030303;
-}
 .animatable {
-  visibility: hidden;
+    visibility: hidden;
 }
 
 .hidden {
-  visibility: hidden;
+    visibility: hidden;
 }
 
 .visible {
-  visibility: visible;
+    visibility: visible;
 }
 
 .from-left {
-  animation: from-left 0.5s 1 ease-in-out;
+    animation: from-left 0.5s 1 ease-in-out;
 }
 .from-bottom {
-  animation: from-bottom 0.5s 1 ease-in-out;
+    animation: from-bottom 0.5s 1 ease-in-out;
 }
 .from-right {
-  animation: from-right 0.5s 1 ease-in-out;
+    animation: from-right 0.5s 1 ease-in-out;
 }
 .from-top {
-  animation: from-top 0.5s 1 ease-in-out;
+    animation: from-top 0.5s 1 ease-in-out;
 }
 
 @keyframes from-left {
-  from {
-    transform: translateX(-15px);
-    opacity: 0;
-  }
+    from {
+        transform: translateX(-15px);
+        opacity: 0;
+    }
 }
 @keyframes from-top {
-  from {
-    transform: translateY(-15px);
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+    from {
+        transform: translateY(-15px);
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 @keyframes from-bottom {
-  from {
-    transform: translateY(15px);
-    opacity: 0;
-  }
+    from {
+        transform: translateY(15px);
+        opacity: 0;
+    }
 }
 @keyframes from-right {
-  from {
-    transform: translateX(15px);
-    opacity: 0;
-  }
+    from {
+        transform: translateX(15px);
+        opacity: 0;
+    }
 }
 @keyframes from-bottom-left {
-  from {
-    transform: translateY(15px);
-    transform: translateX(-15px);
-    opacity: 0;
-  }
+    from {
+        transform: translateY(15px);
+        transform: translateX(-15px);
+        opacity: 0;
+    }
 }
 @keyframes from-bottom-right {
-  from {
-    transform: translateY(15px);
-    transform: translateX(15px);
-    opacity: 0;
-  }
+    from {
+        transform: translateY(15px);
+        transform: translateX(15px);
+        opacity: 0;
+    }
 }
 @keyframes from-top-left {
-  from {
-    transform: translateY(-15px);
-    transform: translateX(-15px);
-    opacity: 0;
-  }
+    from {
+        transform: translateY(-15px);
+        transform: translateX(-15px);
+        opacity: 0;
+    }
 }
 @keyframes from-top-right {
-  from {
-    transform: translateY(-15px);
-    transform: translateX(15px);
-    opacity: 0;
-  }
+    from {
+        transform: translateY(-15px);
+        transform: translateX(15px);
+        opacity: 0;
+    }
 }
 
-// @media only screen and (min-width: 900px) {
-//   .dainsys-logo {
-//     position: absolute;
-//     bottom: 0;
-//     left: 0;
-//     width: 450px;
-//     height: 450px;
-//   }
-// }
+@media only screen and (min-width: 992px) {
+    
+    
+    // .wraper-right { 
+    //     background-image: url(/images/main-header.jpg);
+    //     background-position: 50%;
+    //     background-repeat: no-repeat;
+    //     background-size: cover;
+    //     min-height: 100vh;
+    // }
+    
+    // .header-wrapper::after {
+    //     content:"";
+    //     display: block;
+    //     height: 100%;
+    //     position: absolute;
+    //     top: 0;
+    //     left: 0;
+    //     width: 100%;
+    //     background-color: #FFF;
+    // }
+    .header-wrapper {
+        
+    //     background-image: none;
+    //     background-color: #fff;
+
+        .app-title {
+            font-size: 70px !important;
+        }
+        .main-header {
+    //         font-family: "Roboto", sans-serif;
+    //         color: #000;
+    //         display: flex;
+    //         flex-direction: column;
+    //         justify-content: center;
+    //         align-items: flex-start;
+    //         padding: 10rem;
+            .lead {
+                max-width: 80%;
+                letter-spacing: 4px;
+            }
+    //         .dainsys-logo {
+    //             width: 100%;
+    //             display: block;
+            // }
+            .call-to-action {
+                font-weight: 600;
+            }
+        }
+    }
+}

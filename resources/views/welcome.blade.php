@@ -5,38 +5,32 @@
 @section('content')
 <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 <div class="">
-    <div class="no-margin bg-{{ $color ?? 'yellow'}}  intro-header">
-        <div class="container-fluid">
-            <div class="col-sm-12 intro-content">
-
-                <div class="header-title animatable"  data-animation="from-top" >
-                    {{ $app_name }}
+    <div class="no-margin intro-header">
+        <div class="row row-no-gutters">
+            <div class="col-xs-12 header-wrapper">
+                <div class="main-header ">
+                    <h1 class="app-title">{{ $app_name }}</h1>
+                    <p class="lead">Valuable, timely and on point information to aggregate value to your job.</p>
+                    <dainsys-logo default-animation="shake" class="logo"
+                        logo="{{ asset('images/logo.png') }}" 
+                        :random-animation="true"
+                        >
+                    </dainsys-logo>
+                    <hr class="my-2 hidden">
+                    <p class="">
+                        <a class="btn btn-default btn-lg animatable call-to-action"  data-animation="from-bottom"href="Jumbo action link" role="button" >
+                            <i class="fa fa-sign-in"></i> Get Started!
+                        </a>
+                    </p>
+                    <a href="#services" class="more-button animatable "  data-animation="from-top">
+                        <i class="fa fa-angle-double-down"></i> More
+                    </a>
                 </div>
+            </div>
 
-                <dainsys-logo default-animation="shake" 
-                    logo="{{ asset('images/logo.png') }}" 
-                    :random-animation="true"
-                    >
-                </dainsys-logo>
-
-                <div class="divider col-xs-2"></div>
-
-                <div class="col-sm-8 header-description text-center">
-                    Valuable, timely and on point information to
-                    aggregate value to your job.
-                </div>
-                <a href="/admin" class="btn btn-default btn-lg call-to-action animatable"  data-animation="from-bottom">
-                    <i class="fa fa-sign-in"></i> Get Started!
-                </a>
+            <div class="hidden-xl hidden-sm col-md-4 wraper-right">
             </div>
         </div>
-
-        
-
-            
-        <a href="#services" class="more-button">
-            <i class="fa fa-angle-double-down"></i> More
-        </a>
     </div>
 
     <div class="secondary-header no-margin text-center" id="services">
