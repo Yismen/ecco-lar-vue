@@ -18,7 +18,7 @@
                     </dainsys-logo>
                     <hr class="my-2 hidden">
                     <p class="">
-                        <a class="btn btn-default btn-lg animatable call-to-action"  data-animation="from-bottom"href="Jumbo action link" role="button" >
+                        <a class="btn btn-default btn-lg animatable call-to-action"  data-animation="from-bottom" href="/admin" role="button" >
                             <i class="fa fa-sign-in"></i> Get Started!
                         </a>
                     </p>
