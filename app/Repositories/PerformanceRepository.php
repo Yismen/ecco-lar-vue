@@ -44,7 +44,7 @@ class PerformanceRepository
 
         return Performance::filter(request()->all())
             ->whereDate('date', '>=', $date)
-            ->whereDate('date', '<', now()->subDay());
+            ->whereDate('date', '<', now());
     }
 
     public function weekToDate()
