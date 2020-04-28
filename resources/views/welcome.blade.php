@@ -9,7 +9,7 @@
         <div class="container-fluid">
             <div class="col-sm-12 intro-content">
 
-                <div class="header-title">
+                <div class="header-title animatable"  data-animation="from-top" >
                     {{ $app_name }}
                 </div>
 
@@ -25,7 +25,7 @@
                     Valuable, timely and on point information to
                     aggregate value to your job.
                 </div>
-                <a href="/admin" class="btn btn-default btn-lg call-to-action">
+                <a href="/admin" class="btn btn-default btn-lg call-to-action animatable"  data-animation="from-bottom">
                     <i class="fa fa-sign-in"></i> Get Started!
                 </a>
             </div>
@@ -41,8 +41,8 @@
 
     <div class="secondary-header no-margin text-center" id="services">
         <div class="row">
-            <div class="col-sm-12">
-                <h1>Data Integration System</h1>
+            <div class="col-sm-12 animatable" data-animation="from-bottom">
+                <h1 class=" animatable" data-animation="from-bottom-left">Data Integration System</h1>
             </div>
 
             <div class="col-sm-10 col-sm-offset-1">
@@ -98,7 +98,7 @@
             </div>
 
             <div class="col-sm-12 ">
-                <a href="/admin" class="btn btn-primary btn-lg animatable" data-animation="fadeInDown"  style="background-color: white;
+                <a href="/admin" class="btn btn-primary btn-lg animatable" data-animation="from-bottom"  style="background-color: white;
                         margin-top: 2rem;
                         color: black;
                         border: 1px #fefefe solid;">
@@ -118,24 +118,23 @@
 
                 document.querySelector("#services").scrollIntoView({behavior: 'smooth'})
             })
-            const animate = document.querySelectorAll(".animatable")
 
             const observer = new IntersectionObserver(elements => {
                 elements.forEach(element => {
-                    const animation = element.target.dataset.animation ? element.target.dataset.animation : "fadeIn"
-
+                    const animation = element.target.dataset.animation ? element.target.dataset.animation : "from-top"
+                    console.log(element.intersectionRatio);
+                    
                     if(element.intersectionRatio > 0) {
-                        element.target.classList.add("animated")
+                        element.target.style.visibility ="visible"
                         element.target.classList.add(animation)
-                        // element.target.scrollIntoView({behavior: 'smooth'})
                     } else {
-                        element.target.classList.remove("animated")
+                        element.target.style.visibility ="hidden"
                         element.target.classList.remove(animation)
                     }
                 });
             })
 
-            animate.forEach(element => {
+            document.querySelectorAll(".animatable").forEach(element => {
                 observer.observe(element)
             });
         })()

@@ -29,7 +29,6 @@ body {
   min-height: 100vh;
 }
 .header-title {
-  animation: from-left 1s 1 ease-in-out;
   font-weight: bold;
   font-size: 6rem;
   font-stretch: extra-expanded;
@@ -71,13 +70,11 @@ body {
   text-align: center;
 }
 .header-description {
-  animation: from-bottom 1s 1 ease-in-out;
   font-size: 2rem;
   letter-spacing: 0.2rem;
 }
 .call-to-action {
   margin-top: 3.5rem;
-  animation: from-right 1s 1 ease-in-out;
   // background-color: transparent;
   // color: white;
   font-weight: 800;
@@ -85,55 +82,83 @@ body {
   // text-shadow: -1px 1px 3px #030303;
   box-shadow: -1.5px 1.5px 3px #030303;
 }
+.animatable {
+  visibility: hidden;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.visible {
+  visibility: visible;
+}
+
+.from-left {
+  animation: from-left 0.5s 1 ease-in-out;
+}
+.from-bottom {
+  animation: from-bottom 0.5s 1 ease-in-out;
+}
+.from-right {
+  animation: from-right 0.5s 1 ease-in-out;
+}
+.from-top {
+  animation: from-top 0.5s 1 ease-in-out;
+}
+
 @keyframes from-left {
   from {
-    transform: translateX(-50px);
+    transform: translateX(-15px);
     opacity: 0;
   }
 }
 @keyframes from-top {
   from {
-    transform: translateY(-50px);
+    transform: translateY(-15px);
     opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 @keyframes from-bottom {
   from {
-    transform: translateY(50px);
+    transform: translateY(15px);
     opacity: 0;
   }
 }
 @keyframes from-right {
   from {
-    transform: translateX(50px);
+    transform: translateX(15px);
     opacity: 0;
   }
 }
 @keyframes from-bottom-left {
   from {
-    transform: translateY(50px);
-    transform: translateX(-50px);
+    transform: translateY(15px);
+    transform: translateX(-15px);
     opacity: 0;
   }
 }
 @keyframes from-bottom-right {
   from {
-    transform: translateY(50px);
-    transform: translateX(50px);
+    transform: translateY(15px);
+    transform: translateX(15px);
     opacity: 0;
   }
 }
 @keyframes from-top-left {
   from {
-    transform: translateY(-50px);
-    transform: translateX(-50px);
+    transform: translateY(-15px);
+    transform: translateX(-15px);
     opacity: 0;
   }
 }
 @keyframes from-top-right {
   from {
-    transform: translateY(-50px);
-    transform: translateX(50px);
+    transform: translateY(-15px);
+    transform: translateX(15px);
     opacity: 0;
   }
 }
