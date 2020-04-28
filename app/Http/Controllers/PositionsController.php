@@ -27,8 +27,7 @@ class PositionsController extends Controller
     {
         if ($request->ajax()) {
             return DataTables::of(
-                Position::orderBy('department_id')
-                ->with('department')
+                Position::with('department')
                 ->withCount(['employees' => function ($query) {
                     return $query->actives();
                 }])
