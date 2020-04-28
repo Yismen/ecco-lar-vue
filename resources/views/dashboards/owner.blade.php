@@ -22,7 +22,7 @@
                 'number' => $revenue_mtd,
                 'color' => 'bg-green-active',
                 'icon' => 'fa fa-dollar',
-                'project' => true
+                'projected' => true
             ]) 
                 MTD Revenue 
             @endcomponent
@@ -33,7 +33,7 @@
                 'number' => $login_hours_mtd,
                 'color' => 'bg-black',
                 'icon' => 'fa fa-chain',
-                'project' => true
+                'projected' => true
             ]) 
                 MTD Payroll Hours
             @endcomponent            
@@ -44,7 +44,7 @@
                 'number' => $production_hours_mtd,
                 'color' => 'bg-blue-active',
                 'icon' => 'fa fa-battery-3',
-                'project' => true
+                'projected' => true
             ]) 
                 MTD Prod. Hours
             @endcomponent

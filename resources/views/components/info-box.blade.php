@@ -3,9 +3,15 @@
     <div class="info-box-content">
         <div class="info-box-text" title="{{ $slot }}">{{ $slot }}</div>
         <div class="info-box-number">{{ $number }}</div>
-        @isset($project)
+        @isset($projected)
             <span class="info-box-text"> 
-                {{-- Proj.: {{ number_format($number / now()->day * now()->daysInMonth, 0) }} --}}
+                Proj.: {{ 
+                    number_format(
+                        filter_var(
+                            $number, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION
+                        ) / now()->subDay()->day * now()->daysInMonth
+                        , 0) 
+                }}
             </span>
         @endisset
     </div>
