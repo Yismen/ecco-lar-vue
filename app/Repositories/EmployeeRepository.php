@@ -87,15 +87,20 @@ class EmployeeRepository
 
         return $static->constrained(Nationality::class);
     }
-
+    
     protected function constrained($class)
     {
         $class = new $class;
 
-        return $class->withCount('employees')
-            ->whereHas('employees', function($query) {
-                return $query->actives()
-                ->filter(request()->all());
-            })->get();
+        return $class->withCount(['employees' =>  $this->constrainCallback()])
+            ->whereHas('employees', $this->constrainCallback())->get();
+    }
+
+    protected function constrainCallback()
+    {
+        return  function($query) {
+            return $query->actives()
+            ->filter(request()->all());
+        };
     }
 }
