@@ -24,6 +24,7 @@ class PositionRepository
         
         return $instance->query()->whereHas('employees', function($query) {
             return $query->actives();
-        });
+        })
+        ->get();
     }
 }

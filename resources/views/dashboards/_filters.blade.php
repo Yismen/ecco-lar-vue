@@ -15,7 +15,7 @@
                 </div>
 
                 <div class="modal-body">
-                    <div class="col-xs-6">
+                    <div class="col-xs-6 col-lg-4">
                         <div class=form-group>
                             <label for="">Site</label>
                             <select name="site[]" id="" class="form-control" multiple size="10">
@@ -29,7 +29,7 @@
                         </div>
                     </div>
                     {{-- /.col --}}
-                    <div class="col-xs-6">
+                    <div class="col-xs-6 col-lg-4">
                         <div class="form-group">
                             <label for="">Project</label>
                             <select name="project[]" id="" class="form-control" multiple size="10">
@@ -38,6 +38,20 @@
                                 <option value="{{ $project->name }}"
                                     {{ in_array($project->name, old('project', [])) ? 'selected' : '' }}
                                 >{{ $project->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>  
+                    {{-- /.col                   --}}
+                    <div class="col-xs-6 col-lg-4">
+                        <div class="form-group">
+                            <label for="">Positions</label>
+                            <select name="position[]" id="" class="form-control" multiple size="10">
+                                <option value="%">All</option>
+                                @foreach ($positions as $position)
+                                <option value="{{ $position->name }}"
+                                    {{ in_array($position->name, old('position', [])) ? 'selected' : '' }}
+                                >{{ $position->name }}</option>
                                 @endforeach
                             </select>
                         </div>

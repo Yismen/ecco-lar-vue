@@ -3,14 +3,9 @@
 namespace App\Repositories\Dashboard;
 
 use App\Performance;
-use App\Repositories\Dashboard\DataRepository;
-use App\Repositories\EmployeeRepository;
 use App\Repositories\PerformanceRepository;
-use App\Repositories\ProjectRepository;
-use App\Repositories\SiteRepository;
 use App\Role;
 use App\User;
-use Illuminate\Support\Facades\Cache;
 
 class AdminRepository
 {

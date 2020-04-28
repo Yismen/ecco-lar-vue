@@ -14,30 +14,31 @@ class PerformanceFilter extends ModelFilter
     */
     public $relations = [];
 
-    public function site($sites)
+    public function site($request)
     {
-        return $this->whereHas('employee.site', function($query) use ($sites) {
-            if (is_array($sites)) {
-                $query->where('name', 'like', $sites[0]);
-                for ($i=1; $i < count($sites); $i++) { 
-                    $query->orWhere('name', 'like', $sites[$i]);
-                }
-            } else {
-                $query->where('name', 'like', $sites);
-            }
-        });
+        return $this->filterQuery($request, __FUNCTION__);
     }
 
-    public function project($projects)
+    public function project($request)
     {
-        return $this->whereHas('employee.project', function($query) use ($projects) {
-            if (is_array($projects)) {
-                $query->where('name', 'like', $projects[0]);
-                for ($i=1; $i < count($projects); $i++) { 
-                    $query->orWhere('name', 'like', $projects[$i]);
+        return $this->filterQuery($request, __FUNCTION__);
+    }
+
+    public function position($request)
+    {
+        return $this->filterQuery($request, __FUNCTION__);
+    }
+
+    protected function filterQuery($request, $relationship)
+    {
+        return $this->whereHas("employee.{$relationship}", function($query) use ($request) {
+            if (is_array($request)) {
+                $query->where('name', 'like', $request[0]);
+                for ($i=1; $i < count($request); $i++) { 
+                    $query->orWhere('name', 'like', $request[$i]);
                 }
             } else {
-                $query->where('name', 'like', $projects);
+                $query->where('name', 'like', $request);
             }
         });
     }
