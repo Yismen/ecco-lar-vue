@@ -23,12 +23,13 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\Political\SendPoliticalFlashReportCommand::class,
 
         \App\Console\Commands\EmployeesHired::class,
-        
+
         \App\Console\Commands\EmployeesTerminated::class,
         \App\Console\Commands\FeedSchedulesTable::class,
         \App\Console\Commands\FeedShiftsTableCommand::class,
         \App\Console\Commands\MigrationStatus::class,
         \App\Console\Commands\UpdateSlugs::class,
+        \App\Console\Commands\DainsysInit::class,
     ];
 
     /**
@@ -39,13 +40,13 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('telescope:prune --hours=24')->dailyAt('06:40')->timezone('America/New_York');
-        
+
         $schedule->command('dainsys:laravel-logs laravel- --clear --keep=8')->dailyAt('04:00')->timezone('America/New_York');
-        
+
         $schedule->command('dainsys:feed-shifts --hours=7.5 --saturday=1')->dailyAt('14:59')->timezone('America/New_York');
         $schedule->command('dainsys:feed-schedules --days=15 --since-days-ago=0')->dailyAt('15:10')
             ->timezone('America/New_York');
-        
+
         $schedule->command('dainsys:employees-hired --months=1')->weeklyOn(2, '15:58')->timezone('America/New_York');
         $schedule->command('dainsys:employees-hired --months=1')->weeklyOn(5, '15:58')->timezone('America/New_York');
         $schedule->command('dainsys:employees-terminated --months=1')->weeklyOn(2, '15:59')->timezone('America/New_York');
@@ -66,7 +67,7 @@ class Kernel extends ConsoleKernel
         // $schedule->command('dainsys:capillus-send-daily-leads-report')->dailyAt('03:00')->timezone('America/New_York');
 
         // $schedule->command('dainsys:capillus-send-calls-type-report')->dailyAt('03:30')->timezone('America/New_York');
-        
+
         $schedule->command('dainsys:political-send-hourly-flash')->hourly()->timezone('America/New_York');
     }
 }
