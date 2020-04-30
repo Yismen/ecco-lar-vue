@@ -20,7 +20,7 @@ class Project extends Model
 
     public function performances()
     {
-        return $this->hasManyThrough(Performance::class, Employee::class);
+        return $this->hasManyThrough(Performance::class, Campaign::class);
     }
 
     public function isNotDowntimes($query)

@@ -37,15 +37,15 @@ class Performance extends Model
     public static function boot()
     {
         parent::boot();
-        
+
         static::saving(function ($model) {
             $employee = Employee::findOrfail($model->employee_id);
 
             $model->unique_id = $model->date . '-' . $model->employee_id . '-' . $model->campaign_id;
-            $model->name =  $employee->fullName;
-            
+            $model->name = $employee->fullName;
+
         });
 
     }
-    
+
 }
