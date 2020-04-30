@@ -4,7 +4,7 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Eloquent\Model;
+use App\DainsysModel as Model;
 
 class PayrollDiscount extends Model
 {

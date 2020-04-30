@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use App\DainsysModel as Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 
 class HoursType extends Model

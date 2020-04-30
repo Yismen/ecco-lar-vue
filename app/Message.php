@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use App\DainsysModel as Model;
 
 class Message extends Model
 {

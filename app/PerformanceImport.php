@@ -4,7 +4,7 @@ namespace App;
 
 use App\Traits\Trackable;
 use App\Traits\PerformanceTrait;
-use Illuminate\Database\Eloquent\Model;
+use App\DainsysModel as Model;
 
 class PerformanceImport extends Model
 {

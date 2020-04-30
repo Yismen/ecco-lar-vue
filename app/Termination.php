@@ -4,7 +4,7 @@ namespace App;
 
 use Carbon\Carbon;
 use App\Traits\Trackable;
-use Illuminate\Database\Eloquent\Model;
+use App\DainsysModel as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Termination extends Model
