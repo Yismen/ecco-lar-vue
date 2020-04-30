@@ -34,6 +34,14 @@ class Department extends Model
     }
 
     /**
+     * 
+     */
+    public function performances()
+    {
+        return $this->hasManyThrough(Performance::class, Employee::class, 'id', 'employee_id');
+    }
+
+    /**
      * Return the count of employees assigned to the current name
      * @return integer Count of employees assigned to the current name
      */

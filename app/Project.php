@@ -18,6 +18,11 @@ class Project extends Model
         return $this->hasMany(Employee::class);
     }
 
+    public function performances()
+    {
+        return $this->hasManyThrough(Performance::class, Employee::class);
+    }
+
     public function isNotDowntimes($query)
     {
         return $query;
