@@ -4,7 +4,7 @@ namespace App;
 
 use Carbon\Carbon;
 use App\Traits\Trackable;
-use Illuminate\Database\Eloquent\Model;
+use App\DainsysModel as Model;
 use App\Http\Traits\Mutators\EmployeeMutators;
 use App\Http\Traits\Accessors\EmployeeAccessors;
 use App\Http\Traits\Relationships\EmployeeRelationships;

@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use App\DainsysModel as Model;
 
 class Curve extends Model
 {

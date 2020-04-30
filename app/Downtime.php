@@ -5,7 +5,7 @@ namespace App;
 use Carbon\Carbon;
 use App\Traits\Trackable;
 use App\Traits\PerformanceTrait;
-use Illuminate\Database\Eloquent\Model;
+use App\DainsysModel as Model;
 
 class Downtime extends Model
 {

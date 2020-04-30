@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use App\DainsysModel as Model;
 use Illuminate\Database\Eloquent\Builder;
 
 class Contact extends Model

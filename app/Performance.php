@@ -5,7 +5,7 @@ namespace App;
 use App\Traits\FilterableTrait;
 use App\Traits\PerformanceTrait;
 use App\Traits\Trackable;
-use Illuminate\Database\Eloquent\Model;
+use App\DainsysModel as Model;
 
 class Performance extends Model
 {
