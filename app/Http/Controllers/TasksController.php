@@ -22,10 +22,10 @@ class TasksController extends Controller
     public function index(Task $tasks, Request $request)
     {
         $tasks = $tasks
-                // ->pending()
-                ->foruser()
-                ->latest()
-                ->paginate(25);
+            // ->pending()
+            ->foruser()
+            ->latest()
+            ->paginate(25);
 
         if ($request->ajax()) {
             return $tasks;
@@ -146,7 +146,7 @@ class TasksController extends Controller
 
     public function getAjaxRemoveCompleted()
     {
-        if (\Input::has('removeAll')) {
+        if (request()->has('removeAll')) {
             $task = Task::completed()->foruser()->delete();
         }
 
