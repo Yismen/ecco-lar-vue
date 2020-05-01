@@ -18,7 +18,7 @@
                     </dainsys-logo>
                     <hr class="my-2 hidden">
                     <p class="">
-                        <a class="btn btn-default btn-lg animatable call-to-action"  data-animation="from-bottom" href="/admin" role="button" >
+                        <a class="btn btn-warning btn-lg animatable call-to-action"  data-animation="from-bottom" href="/admin" role="button" >
                             <i class="fa fa-sign-in"></i> Get Started!
                         </a>
                     </p>
@@ -92,12 +92,14 @@
             </div>
 
             <div class="col-sm-12 ">
-                <a href="/admin" class="btn btn-primary btn-lg animatable" data-animation="from-bottom"  style="background-color: white;
-                        margin-top: 2rem;
-                        color: black;
-                        border: 1px #fefefe solid;">
-                    <i class="fa fa-sign-in"></i> Go For It!
-                </a>
+                <a href="/admin" class="btn btn-default btn-lg animatable"
+                    data-animation="from-bottom"  
+                    style="margin-top: 2rem;
+                    box-shadow: rgba(0, 0, 0, .5) -2px 2px 2px 0px;
+                    text-transform: uppercase;
+                    visibility: visible;
+                    font-weight: 700"
+                > <i class="fa fa-sign-in"></i> Go For It! </a>
             </div>
         </div>
     </div>
