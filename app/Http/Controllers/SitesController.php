@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Site;
 use App\Employee;
 use Illuminate\Http\Request;
-use Cache;
+use Illuminate\Support\Facades\Cache;
 
 class SitesController extends Controller
 {
@@ -19,7 +19,7 @@ class SitesController extends Controller
 
     public function index()
     {
-        $sites = Cache::remember('sites', 60, function () {
+        $sites = Cache::remember('sites', now()->addHours(4), function () {
             return Site::with(['employees' => function ($query) {
                 return $query->orderBy('first_name')
                     ->orderBy('second_first_name')
@@ -27,7 +27,7 @@ class SitesController extends Controller
                     ->orderBy('second_last_name')
                     ->actives();
             }])
-            ->get();
+                ->get();
         });
 
         return view('sites.index', compact('sites'));
@@ -49,7 +49,7 @@ class SitesController extends Controller
         Cache::forget('sites');
 
         return redirect()->route('admin.sites.index')
-            ->withSuccess('Site '.$site->name.' has been created!');
+            ->withSuccess('Site ' . $site->name . ' has been created!');
     }
 
     public function show(Site $site)
@@ -65,7 +65,7 @@ class SitesController extends Controller
     public function update(Site $site, Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|unique:sites,name,'.$site->id,
+            'name' => 'required|unique:sites,name,' . $site->id,
         ]);
 
         $site->update($request->only(['name']));
@@ -73,7 +73,7 @@ class SitesController extends Controller
         Cache::forget('sites');
 
         return redirect()->route('admin.sites.index')
-            ->withSuccess('Site '.$site->name.' has been updated!');
+            ->withSuccess('Site ' . $site->name . ' has been updated!');
     }
 
     public function assignEmployees(Request $request)

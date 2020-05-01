@@ -11,7 +11,7 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         DB::statement('PRAGMA foreign_keys=on;');
@@ -33,10 +33,12 @@ abstract class TestCase extends BaseTestCase
         $this->app->instance(ExceptionHandler::class, new class () extends Handler
         {
             public function __construct()
-            { }
+            {
+            }
 
             public function report(\Exception $e)
-            { }
+            {
+            }
 
             public function render($request, \Exception $e)
             {
@@ -48,7 +50,7 @@ abstract class TestCase extends BaseTestCase
     protected function withExceptionHandling()
     {
         $this->oldExceptionHandler = $this->app->make(ExceptionHandler::class);
-        
+
         $this->app->instance(ExceptionHandler::class, $this->oldExceptionHandler);
 
         return $this;

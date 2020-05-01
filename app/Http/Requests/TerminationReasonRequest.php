@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Support\Arr;
+
 class TerminationReasonRequest extends Request
 {
     /**
@@ -21,7 +23,7 @@ class TerminationReasonRequest extends Request
      */
     public function rules()
     {
-        $id = array_has(Request::route()->parameters(), 'termination_reasons') ?
+        $id = Arr::has(Request::route()->parameters(), 'termination_reasons') ?
             Request::route()->parameters()['termination_reasons']->id :
             null;
 

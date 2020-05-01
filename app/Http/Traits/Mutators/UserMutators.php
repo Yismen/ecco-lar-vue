@@ -2,6 +2,8 @@
 
 namespace App\Http\Traits\Mutators;
 
+use Illuminate\Support\Str;
+
 trait UserMutators
 {
     public function setNameAttribute($name)
@@ -11,6 +13,6 @@ trait UserMutators
 
     public function setUsernameAttribute($username)
     {
-        return $this->attributes['username'] = str_slug($username);
+        return $this->attributes['username'] = Str::slug($username);
     }
 }

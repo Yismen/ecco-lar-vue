@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Support\Str;
 use Spatie\Permission\Models\Role as EmpatieRole;
 use Illuminate\Support\Facades\Cache;
 
@@ -19,7 +20,7 @@ class Role extends EmpatieRole
 
     public function setNameAttribute($name)
     {
-        $this->attributes['name'] = strtolower(trim(str_slug($name)));
+        $this->attributes['name'] = strtolower(trim(Str::slug($name)));
     }
 
     /**

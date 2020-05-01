@@ -3,26 +3,27 @@
 namespace App;
 
 use Spatie\Permission\Models\Permission as EmpatiePermission;
+use Illuminate\Support\Str;
 
 class Permission extends EmpatiePermission
 {
     protected $fillable = ['name', 'guard_name', 'resource'];
 
     protected $actions = [
-            'view',
-            'edit',
-            'create',
-            'destroy'
-        ];
+        'view',
+        'edit',
+        'create',
+        'destroy'
+    ];
 
     public function setNameAttribute($name)
     {
-        $this->attributes['name'] = trim(str_slug($name));
+        $this->attributes['name'] = trim(Str::slug($name));
     }
 
     public function setResourceAttribute($resource)
     {
-        $this->attributes['resource'] = trim(str_slug($resource));
+        $this->attributes['resource'] = trim(Str::slug($resource));
     }
 
     public function getRolesListAttribute()
@@ -41,7 +42,7 @@ class Permission extends EmpatiePermission
 
     public function updatePermission($request)
     {
-        $resource = explode("-", str_slug($request->name), 2);
+        $resource = explode("-", Str::slug($request->name), 2);
         $resource = count($resource) > 1 ? $resource[1] : $resource[0];
 
         $request->merge([
@@ -72,7 +73,7 @@ class Permission extends EmpatiePermission
 
     protected function getParsedPermission($action, $resource)
     {
-        return $action. ' ' . $resource;
+        return $action . ' ' . $resource;
     }
 
     protected function createNonResourcePermission($request)

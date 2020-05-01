@@ -28,7 +28,7 @@ class ArticlesController extends Controller
      */
     public function index(Article $article)
     {
-        $articles = Cache::remember('articles', 60 * 3, function () {
+        $articles = Cache::remember('articles', now()->addHours(5), function () {
             return Article::with('user')
                 ->latest('published_at')
                 ->published()
@@ -211,7 +211,7 @@ class ArticlesController extends Controller
          * set optional parameters
          */
         $localPath = 'images/articles/'; // local folder where the image will be loaded to
-        $fileName = sha1($request->input('slug')); // $fileName = str_random(40); //username sha1ed, so it is unique
+        $fileName = sha1($request->input('slug')); // 
         $extension = '.png'; // the destinied extension
         $extendedName = $localPath . $fileName . $extension;
 
@@ -250,7 +250,7 @@ class ArticlesController extends Controller
          * set optional parameters
          */
         $localPath = 'images/articles/'; // local folder where the image will be loaded to
-        $fileName = sha1($request->input('slug')); // $fileName = str_random(40); //username sha1ed, so it is unique
+        $fileName = sha1($request->input('slug')); //
         $extension = '.png'; // the destinied extension
         $extendedName = $localPath . $fileName . $extension;
 

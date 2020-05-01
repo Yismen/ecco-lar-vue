@@ -26,11 +26,11 @@ class ModuleActionsTest extends TestCase
 
     /** @test */
     public function it_lists_all_users_assigned_with_supervisor()
-    {        
+    {
         $users = create(User::class, [], 3);
         $supervisor = create(Supervisor::class)->toArray();
         $supervisors[] =  $supervisor['id'];
-        
+
         $users->first()->supervisors()->sync((array) $supervisors);
 
         $this->actingAs($this->userWithPermission('view-supervisor-users'))
@@ -41,18 +41,18 @@ class ModuleActionsTest extends TestCase
 
     /** @test */
     public function it_lists_all_users_without_supervisors()
-    {        
+    {
         $users = create(User::class, [], 2);
 
         $this->actingAs($this->userWithPermission('view-supervisor-users'))
             ->get(route('admin.supervisor_users.index'))
-            ->assertSee($users->first()->name)
-            ->assertSee($users->last()->name);
+            ->assertSee(e($users->first()->name))
+            ->assertSee(e($users->last()->name));
     }
 
     /** @test */
     public function it_lists_all_supervisors_without_users()
-    {        
+    {
         $this->withoutExceptionHandling();
         $supervisors = create(Supervisor::class, [], 2);
 
@@ -73,7 +73,7 @@ class ModuleActionsTest extends TestCase
             'supervisor_id' => $supervisor->id,
             'user_id' => $user->id,
         ];
-        
+
         $this->actingAs($this->userWithPermission('create-supervisor-users'))
             ->post(route('admin.supervisor_users.store', $data_array))
             ->assertRedirect()
@@ -118,13 +118,13 @@ class ModuleActionsTest extends TestCase
             'user_id' => $new_user->id,
             'supervisor_id' => $new_supervisor->id,
         ];
-        
+
         $this->actingAs($this->userWithPermission('edit-supervisor-users'))
             ->put(route('admin.supervisor_users.update', $supervisor_user->id), $data_array)
             ->assertRedirect()
             ->assertLocation('admin/supervisor_users');
 
-            $this->assertDatabaseHas('supervisor_user', $data_array);
+        $this->assertDatabaseHas('supervisor_user', $data_array);
     }
 
     /** @test */
@@ -148,6 +148,6 @@ class ModuleActionsTest extends TestCase
             ->assertRedirect()
             ->assertLocation('admin/supervisor_users');
 
-            $this->assertDatabaseMissing('supervisor_user', $data_array);
+        $this->assertDatabaseMissing('supervisor_user', $data_array);
     }
 }
