@@ -39,15 +39,33 @@ class DainsysInit extends Command
     public function handle()
     {
         try {
-            $this->wantsEnv()
-                ->wantsMigration()
-                ->wantsSeeders();
+            $this->askForEnv()
+                ->askForComposer()
+                ->askForNpm()
+                ->askForMigration()
+                ->askForSeeders();
         } catch (\Throwable $th) {
             throw $th;
         }
     }
 
-    protected function wantsEnv()
+    protected function askForComposer()
+    {
+        if ($this->confirm('Do you want to instal COMPOSER dependencies?')) {
+            shell_exec('composer isntall');
+        }
+        return $this;
+    }
+
+    protected function askForNpm()
+    {
+        if ($this->confirm('Do you want to instal NODE NPM dependencies?')) {
+            shell_exec('npm isntall');
+        }
+        return $this;
+    }
+
+    protected function askForEnv()
     {
         if (!file_exists('.env') && file_exists('.env.example')) {
             if ($this->confirm('Do you want to copy env file?')) {
@@ -59,7 +77,7 @@ class DainsysInit extends Command
         return $this;
     }
 
-    protected function wantsMigration()
+    protected function askForMigration()
     {
         if ($this->confirm('Do you want to migrate?')) {
             $this->call('migrate', [
@@ -69,7 +87,7 @@ class DainsysInit extends Command
         return $this;
     }
 
-    protected function wantsSeeders()
+    protected function askForSeeders()
     {
         if ($this->confirm('Do you want to seed the database?')) {
             $this->call('db:seed');
