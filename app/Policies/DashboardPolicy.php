@@ -19,6 +19,11 @@ class DashboardPoliscy
         //
     }
 
+    public function viewAny(User $user)
+    {
+        return $user->hasAnyPermission(['view-dashboards']);
+    }
+
     public function view(User $user)
     {
         return $user->hasAnyPermission(['view-dashboards']);

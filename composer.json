@@ -17,26 +17,25 @@
 
     "require": {
         "php": "^7.1.3",
-        "arcanedev/log-viewer": "~4.7.0",
-        "cviebrock/eloquent-sluggable": "4.8.*",
+        "arcanedev/log-viewer": "~5.0.0",
+        "cviebrock/eloquent-sluggable": "6.0.*",
         "dainsys/clear-log-files": "^v2",
         "doctrine/dbal": "^2.8",
         "fideloper/proxy": "^4.0",
-        "graham-campbell/flysystem": "^5.1",
+        "graham-campbell/flysystem": "^7.0",
         "guzzlehttp/guzzle": "~5.3|~6.0",
         "intervention/image": "*",
-        "laravel/framework": "5.8.*",
+        "laravel/framework": "^6.0",
         "laravel/passport": "^7.0",
         "laravel/telescope": "~2.0",
         "laravel/tinker": "^1.0",
-        "laravelcollective/html": "^5.8",
+        "laravelcollective/html": "^6.0",
         "league/flysystem-sftp": "^1.0",
         "maatwebsite/excel": "*",
         "spatie/flysystem-dropbox": "^1.0",
-        "spatie/laravel-permission": "^2.21",
+        "spatie/laravel-permission": "^3.0",
         "tucker-eric/eloquentfilter": "^2.3",
-        "yajra/laravel-datatables-oracle": "^9.0",
-        "zizaco/entrust": "5.2.x-dev"
+        "yajra/laravel-datatables-oracle": "^9.0"
     },
     "require-dev": {
         "filp/whoops": "^2.1",
@@ -62,7 +61,11 @@
         "psr-4": {
             "Tests\\": "tests/"
         },
-        "files": ["tests/utilities/functions.php"]
+        "files": ["tests/utilities/functions.php"],        
+        "classmap": [
+            "tests/Feature",
+            "tests/Unit"
+        ]
     },
     "scripts": {
         "post-root-package-install": [
