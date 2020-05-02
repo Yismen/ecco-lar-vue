@@ -46,8 +46,8 @@ class ModuleActionsTest extends TestCase
 
         $this->actingAs($this->userWithPermission('view-supervisor-users'))
             ->get(route('admin.supervisor_users.index'))
-            ->assertSee(e($users->first()->name))
-            ->assertSee(e($users->last()->name));
+            ->assertSee($users->first()->name)
+            ->assertSee($users->last()->name);
     }
 
     /** @test */
@@ -59,7 +59,6 @@ class ModuleActionsTest extends TestCase
         $this->actingAs($this->userWithPermission('view-supervisor-users'))
             ->get(route('admin.supervisor_users.index'))
             ->assertSee($supervisors->first()->name)
-            // ->assertSee($supervisors->last()->name)
             ->assertSee('Relate Users to Supervisors')
             ->assertViewHasAll(['assigned', 'free_users', 'free_supervisors']);
     }

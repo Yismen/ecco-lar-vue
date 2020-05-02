@@ -20,7 +20,7 @@ class ContactTest extends TestCase
         $this->actingAs($user);
 
         $this->get(route('admin.contacts.index'))
-            ->assertSee(e($contact->name));
+            ->assertSee($contact->name);
     }
 
     /** @test */
@@ -34,7 +34,7 @@ class ContactTest extends TestCase
         $this->actingAs(create('App\User'));
 
         $this->get(route('admin.contacts.index'))
-            ->assertDontSee($contact->name);
+            ->assertDontSee(e($contact->name));
     }
 
     /** @test */
@@ -48,7 +48,7 @@ class ContactTest extends TestCase
         $this->actingAs($user);
 
         $this->get(route('admin.contacts.show', $contact->id))
-            ->assertSee(e($contact->name));
+            ->assertSee($contact->name);
     }
 
     /** @test */

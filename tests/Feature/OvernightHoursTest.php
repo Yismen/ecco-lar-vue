@@ -142,8 +142,8 @@ class OvernightHoursTest extends TestCase
         $response->get(route('admin.overnight_hours.index'))
             ->assertOk()
             ->assertViewIs('overnight-hours.index')
-            ->assertSee('<h4 class="text-warning">Create Overnight Hours Manually</h4>')
-            ->assertSee('<span class="text-danger text-sm">Only if extremely necessary. Try to avoid this practice</span>')
+            ->assertSee('Create Overnight Hours Manually')
+            ->assertSee('Only if extremely necessary. Try to avoid this practice')
             ->assertSee('Overnight Hours List');
     }
 
@@ -182,7 +182,7 @@ class OvernightHoursTest extends TestCase
             ->assertSee('Overnight Hours:')
             ->assertSee($hour->hours)
             ->assertSee('UPDATE')
-            ->assertSee(e($hour->employee->full_name));
+            ->assertSee($hour->employee->full_name);
 
         $response->put(route('admin.overnight_hours.update', $hour->id), [
             'hours' => 4.2354568755645,

@@ -64,7 +64,7 @@ class AfpTest extends TestCase
         $response = $this->get('/admin/afps');
 
         // assert
-        $response->assertSee(e($afp->name));
+        $response->assertSee($afp->name);
     }
 
     /** @test */
@@ -80,7 +80,7 @@ class AfpTest extends TestCase
         $response = $this->get(route('admin.afps.show', $afp->id));
 
         // assert
-        $response->assertSee(e($afp->name));
+        $response->assertSee($afp->name);
     }
 
     /** @test */
@@ -168,7 +168,7 @@ class AfpTest extends TestCase
         $this->assertDatabaseHas('afps', ['name' => $afp->name]);
 
         $this->get(route('admin.afps.index'))
-            ->assertSee(e($afp->name));
+            ->assertSee($afp->name);
     }
 
     /** @test */
@@ -179,7 +179,7 @@ class AfpTest extends TestCase
 
         $this->actingAs($this->userWithPermission('edit-afps'))
             ->get(route('admin.afps.edit', $afp->id))
-            ->assertSee(e('Edit AFP '.$afp->name));
+            ->assertSee('Edit AFP '.$afp->name);
     }
 
     /** @test */
@@ -206,6 +206,6 @@ class AfpTest extends TestCase
         $this->assertDatabaseHas('afps', ['name' => 'New Name']);
 
         $this->get(route('admin.afps.index'))
-            ->assertSee(e('New Name'));
+            ->assertSee('New Name');
     }
 }

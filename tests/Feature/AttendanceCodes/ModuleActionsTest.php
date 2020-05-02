@@ -51,9 +51,9 @@ class ModuleActionsTest extends TestCase
             ->assertSee('Edit Attendance Code')
             ->assertSee($attendance_code->color)
             ->assertSee('Name:')
-            ->assertSee(e($attendance_code->name))
+            ->assertSee($attendance_code->name)
             ->assertSee('Is Absence:')
-            ->assertSee(e($attendance_code->absence))
+            ->assertSee($attendance_code->absence)
             ->assertSee('UPDATE');
     }
 
@@ -64,7 +64,7 @@ class ModuleActionsTest extends TestCase
         $updated = [
             'name' => 'Updated Name',
             'color' => '#F4f4f4',
-            'absence' => ! $attendance_code->absence
+            'absence' => !$attendance_code->absence
         ];
 
         $response = $this->actingAs($this->userWithPermission('edit-attendance-codes'));
@@ -72,8 +72,8 @@ class ModuleActionsTest extends TestCase
         $response->put(route('admin.attendance_codes.update', $attendance_code->id), $updated)
             ->assertRedirect(route('admin.attendance_codes.edit', $attendance_code->id));
 
-            $this->assertDatabaseMissing('attendance_codes', $attendance_code->toArray());
+        $this->assertDatabaseMissing('attendance_codes', $attendance_code->toArray());
 
-            $this->assertDatabaseHas('attendance_codes', $updated);
+        $this->assertDatabaseHas('attendance_codes', $updated);
     }
 }

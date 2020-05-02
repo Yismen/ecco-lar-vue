@@ -64,7 +64,7 @@ class ArsTest extends TestCase
         $response = $this->get('/admin/arss');
 
         // assert
-        $response->assertSee(e($ars->name));
+        $response->assertSee($ars->name);
     }
 
     /** @test */
@@ -80,7 +80,7 @@ class ArsTest extends TestCase
         $response = $this->get(route('admin.arss.show', $ars->id));
 
         // assert
-        $response->assertSee(e($ars->name));
+        $response->assertSee($ars->name);
     }
 
     /** @test */
@@ -171,7 +171,7 @@ class ArsTest extends TestCase
         $employee->ars()->associate($ars);
         $employee->save();
         $this->get(route('admin.arss.index'))
-            ->assertSee(e($ars->name));
+            ->assertSee($ars->name);
     }
 
     /** @test */
@@ -186,7 +186,7 @@ class ArsTest extends TestCase
         $employee->save();
 
         $this->get(route('admin.arss.edit', $ars->id))
-            ->assertSee(e('Edit ARS '.$ars->name));
+            ->assertSee('Edit ARS ' . $ars->name);
     }
 
     /** @test */
@@ -213,6 +213,6 @@ class ArsTest extends TestCase
         $this->assertDatabaseHas('arss', ['name' => 'New Name']);
 
         $this->get(route('admin.arss.index'))
-            ->assertSee(e('New Name'));
+            ->assertSee('New Name');
     }
 }

@@ -61,7 +61,7 @@ class CampaignViewTest extends TestCase
 
         // assert
         $response->assertSuccessful();
-        // $response->assertSee(e($campaign->name));
+        // $response->assertSee($campaign->name);
     }
 
     /** @test */
@@ -77,6 +77,6 @@ class CampaignViewTest extends TestCase
         $response = $this->get(route('admin.campaigns.show', $campaign->id));
 
         // assert
-        $response->assertSee(e($campaign->name));
+        $response->assertSee($campaign->name);
     }
 }
