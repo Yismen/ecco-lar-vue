@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Str;
+
 use App\Tag;
 
 class TagsController extends Controller
@@ -33,7 +35,7 @@ class TagsController extends Controller
      */
     public function create()
     {
-        return str_slug('Esta boca es mia.-/asdfasdf');
+        return Str::slug('Esta boca es mia.-/asdfasdf');
     }
 
     /**

@@ -17,7 +17,7 @@ class OnlineUsers
     public function handle($request, Closure $next)
     {
         if (auth()->check()) {
-            Cache::put('online-user-' . auth()->user()->id, true, 10);
+            Cache::put('online-user-' . auth()->user()->id, true, now()->addMinutes(10));
         }
         return $next($request);
     }

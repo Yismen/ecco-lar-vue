@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\ProductionsUpdateRequest;
+use Illuminate\Support\Str;
 
 class ProductionsController extends Controller
 {
@@ -26,19 +27,19 @@ class ProductionsController extends Controller
      * the data would not be loaded.
      */
     protected $requiredFields = [
-                    'insert_date',
-                    'employee_id',
-                    'name',
-                    'in_time',
-                    'production_hours',
-                    'break_time',
-                    'downtime',
-                    'out_time',
-                    'production',
-                    'reason_id',
-                    'client_id',
-                    'source_id',
-                ];
+        'insert_date',
+        'employee_id',
+        'name',
+        'in_time',
+        'production_hours',
+        'break_time',
+        'downtime',
+        'out_time',
+        'production',
+        'reason_id',
+        'client_id',
+        'source_id',
+    ];
 
     /**
      * Display a listing of the resource.
@@ -96,9 +97,9 @@ class ProductionsController extends Controller
             if (!$this->checkFileName($file->getClientOriginalName(), $request)) {
                 if ($request->ajax()) {
                     return response()->json([
-                    'type' => 'error',
-                    'message' => 'Seems like the wrong file was selected. Make sure you pick a \'production_data\' file!'
-                ]);
+                        'type' => 'error',
+                        'message' => 'Seems like the wrong file was selected. Make sure you pick a \'production_data\' file!'
+                    ]);
                 }
 
                 return redirect()->route('admin.productions.create')
@@ -213,10 +214,7 @@ class ProductionsController extends Controller
 
             // These values will be mutated by the model. Just making sure
             // they are part of the data sent.
-            // $row['year']  = str_random(4);
-            // $row['month'] = str_random(2);
-            // $row['week']  = str_random(2);
-            $row['unique_id'] = str_random(20);
+            $row['unique_id'] = Str::random(20);
             $production = $production->create($row);
         }
 

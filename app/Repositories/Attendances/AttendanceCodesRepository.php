@@ -23,7 +23,7 @@ class AttendanceCodesRepository
 
     public function data()
     {
-        return Cache::remember('attendances-' . $this->code . '-' . $this->current_user, 20, function () {
+        return Cache::remember('attendances-' . $this->code . '-' . $this->current_user, now()->addHours(4), function () {
             return [
                 'this_week' => $this->thisWeek(),
                 'last_week' => $this->lastWeek(),
@@ -42,14 +42,14 @@ class AttendanceCodesRepository
 
     protected function thisWeek()
     {
-        return $this->prepare()->whereDate('date', '>=',Carbon::now()->startOfWeek() )->get();
+        return $this->prepare()->whereDate('date', '>=', Carbon::now()->startOfWeek())->get();
     }
 
     protected function lastWeek()
     {
         return $this->prepare()
-            ->whereDate('date', '>=',Carbon::now()->subWeek()->startOfWeek())
-            ->whereDate('date', '<=',Carbon::now()->subWeek()->endOfweek())
+            ->whereDate('date', '>=', Carbon::now()->subWeek()->startOfWeek())
+            ->whereDate('date', '<=', Carbon::now()->subWeek()->endOfweek())
             ->get();
     }
 
@@ -79,5 +79,4 @@ class AttendanceCodesRepository
             ->where('user_id', 'like', $this->current_user)
             ->where('code_id', $this->code);
     }
-
 }

@@ -3,7 +3,8 @@
 namespace App;
 
 use App\DainsysModel as Model;
-use Cache;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Cache;
 
 class Menu extends Model
 {
@@ -25,11 +26,6 @@ class Menu extends Model
     {
         return $roles =  Role::pluck('name', 'id')->toArray();
     }
-
-    // public function setNameAttribute($name)
-    // {
-    //     return $this->attributes['name'] = str_slug($name, '-');
-    // }
 
     public function setDisplayNameAttribute($display_name)
     {
@@ -77,13 +73,13 @@ class Menu extends Model
 
         Cache::forget('menus');
 
-        $name = starts_with($this->name, 'admin/') ?
+        $name = Str::startsWith($this->name, 'admin/') ?
             strtolower(explode('admin/', $this->name, 2)[1]) :
             $this->name;
 
         $permissions = Permission::where('resource', $name)->get();
 
-        foreach($permissions as $permission) {
+        foreach ($permissions as $permission) {
             $permission->delete();
         }
     }
@@ -95,7 +91,7 @@ class Menu extends Model
         $request->merge(['name' => $name]);
 
         if ($request->is_admin) {
-            $request->merge(['name' => 'admin/'. $request->name]);
+            $request->merge(['name' => 'admin/' . $request->name]);
         }
 
         return $name;
@@ -108,7 +104,7 @@ class Menu extends Model
 
     private function stripAdmin($name)
     {
-        if (starts_with($name, 'admin/')) {
+        if (Str::startsWith($name, 'admin/')) {
             return explode('admin/', $name, 2)[1];
         }
 
@@ -120,9 +116,9 @@ class Menu extends Model
         $names = ['create', 'view', 'edit', 'destroy'];
 
         foreach ($names as $key => $value) {
-            $new_name = $value.'-'.$name;
+            $new_name = $value . '-' . $name;
 
-            if (! Permission::where('name', $new_name)->first()) {
+            if (!Permission::where('name', $new_name)->first()) {
                 Permission::create([
                     'name' => $new_name,
                     'resource' => $name

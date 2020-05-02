@@ -17,6 +17,7 @@ use App\Http\Traits\Accessors\UserAccessors;
 use Illuminate\Contracts\Auth\CanResetPassword;
 use App\Http\Traits\Relationships\UserRelationships;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable implements CanResetPassword
 {
@@ -55,8 +56,8 @@ class User extends Authenticatable implements CanResetPassword
 
     public function userHasProfileOrCreate()
     {
-        if (Auth::check()) {
-            if (Auth::user()->has('profile')) {
+        if (auth()->check()) {
+            if (auth()->user()->has('profile')) {
                 return $this->profile;
             }
         }
@@ -73,7 +74,7 @@ class User extends Authenticatable implements CanResetPassword
 
     public function createUser($request)
     {
-        $new_password = str_random(15);
+        $new_password = Str::random(15);
 
         $user = $this->create([
             'name' => $request->name,
@@ -118,9 +119,9 @@ class User extends Authenticatable implements CanResetPassword
             abort(401, 'You cant set your self as Admin. No changes made.');
         }
 
-        $new_password = str_random(15);
+        $new_password = Str::random(15);
 
-        $this->update(['password' => Hash::make($new_password)]) ;
+        $this->update(['password' => Hash::make($new_password)]);
 
         if ($request->notify) {
             Mail::send(new UpdatedPassword($this, $new_password));

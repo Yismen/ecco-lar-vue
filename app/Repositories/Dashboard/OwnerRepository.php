@@ -95,21 +95,21 @@ class OwnerRepository
 
     protected function sites()
     {
-        return Cache::remember('sites-performance', 60 * 60, function () {
+        return Cache::remember('sites-performance', now()->addHours(4), function () {
             return $this->list(new Site());
         });
     }
 
     protected function projects()
     {
-        return Cache::remember('projects-performance', 60 * 60, function () {
+        return Cache::remember('projects-performance', now()->addHours(4), function () {
             return $this->list(new Project());
         });
     }
 
     protected function departments()
     {
-        return Cache::remember('departments-performance', 60 * 60 * 8, function () {
+        return Cache::remember('departments-performance', now()->addHours(4), function () {
             return $this->list(new Department());
         });
     }

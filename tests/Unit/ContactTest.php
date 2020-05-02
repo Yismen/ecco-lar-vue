@@ -12,8 +12,6 @@ class ContactTest extends TestCase
     /** @test */
     public function unauthenticated_users_are_redirected()
     {
-        $this->withExceptionHandling();
-
         $this->get('/admin/contacts')
             ->assertRedirect('login');
     }
