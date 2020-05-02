@@ -60,9 +60,9 @@ class UniversalTest extends TestCase
         $universal->save();
 
         $response = $this->get('/admin/universals');
-        $response->assertSee(e('Universal List'));
-        $response->assertSee(e('Add to Universals List'));
-        $response->assertSee(e($universal->employee->full_name));
+        $response->assertSee('Universal List');
+        $response->assertSee('Add to Universals List');
+        $response->assertSee($universal->employee->full_name);
     }
 
     /** @test */
@@ -80,7 +80,8 @@ class UniversalTest extends TestCase
 
         $response = $this->post(
             route(
-                'admin.universals.store', $this->formAttributes(
+                'admin.universals.store',
+                $this->formAttributes(
                     ['employee_id' => $employee->id, 'since' => Carbon::now()->format('Y-m-d')]
                 )
             )
@@ -122,7 +123,7 @@ class UniversalTest extends TestCase
         $this->assertDatabaseHas('universals', ['employee_id' => $universal->employee_id]);
 
         $this->get(route('admin.universals.index'))
-            ->assertSee(e($universal->employee->full_name));
+            ->assertSee($universal->employee->full_name);
     }
 
     /** @test */
@@ -147,7 +148,7 @@ class UniversalTest extends TestCase
 
         $this->actingAs($this->userWithPermission('edit-universals'))
             ->get(route('admin.universals.edit', $universal->id))
-            ->assertSee(e('Edit Universal '.$universal->employee->full_name));
+            ->assertSee('Edit Universal ' . $universal->employee->full_name);
     }
 
     /** @test */
@@ -167,15 +168,15 @@ class UniversalTest extends TestCase
     {
         $this->withExceptionHandling();
         $universal = create('App\Universal');
-        $date = Carbon::now();
-        $universal->since = $date;
+        $date = Carbon::now()->format('Y-m-d 00:00:00');
+        $array = ['since' => $date];
 
         $this->actingAs($this->userWithPermission('edit-universals'))
-            ->put(route('admin.universals.update', $universal->id), $universal->toArray());
+            ->put(route('admin.universals.update', $universal->id), $array);
 
-        $this->assertDatabaseHas('universals', ['since' => $date]);
+        $this->assertDatabaseHas('universals', $array);
 
         $this->get(route('admin.universals.index'))
-            ->assertSee(e($date->diffForHumans()));
+            ->assertSee(Carbon::parse($date)->diffForHumans());
     }
 }

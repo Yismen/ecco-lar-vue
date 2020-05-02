@@ -89,6 +89,6 @@ class CampaignCreateTest extends TestCase
         $this->assertDatabaseHas('campaigns', ['name' => $campaign->name]);
 
         $this->get(route('admin.campaigns.index'))
-            ->assertSee(e($campaign->name));
+            ->assertSee($campaign->name);
     }
 }

@@ -60,9 +60,9 @@ class VipTest extends TestCase
         $vip->save();
 
         $response = $this->get('/admin/vips');
-        $response->assertSee(e('VIP List'));
-        $response->assertSee(e('Add to VIP List'));
-        $response->assertSee(e($vip->employee->full_name));
+        $response->assertSee('VIP List');
+        $response->assertSee('Add to VIP List');
+        $response->assertSee($vip->employee->full_name);
     }
 
     /** @test */
@@ -77,14 +77,15 @@ class VipTest extends TestCase
 
         $response = $this->post(
             route(
-                'admin.vips.store', $this->formAttributes(
+                'admin.vips.store',
+                $this->formAttributes(
                     ['employee_id' => $employee->id, 'since' => Carbon::now()->format('Y-m-d')]
                 )
             )
         );
 
         $response->assertRedirect(route('admin.vips.index'));
-        // $response->assertSee(e($vip->employee->full_name));
+        // $response->assertSee($vip->employee->full_name);
     }
 
     /** @test */
@@ -116,7 +117,7 @@ class VipTest extends TestCase
         $this->assertDatabaseHas('vips', ['employee_id' => $vip->employee_id]);
 
         $this->get(route('admin.vips.index'))
-            ->assertSee(e($vip->employee->full_name));
+            ->assertSee($vip->employee->full_name);
     }
 
     /** @test */
@@ -137,7 +138,7 @@ class VipTest extends TestCase
 
         $this->actingAs($this->userWithPermission('edit-vips'))
             ->get(route('admin.vips.edit', $vip->id))
-            ->assertSee(e('Edit VIP '.$vip->employee->full_name));
+            ->assertSee('Edit VIP ' . $vip->employee->full_name);
     }
 
     /** @test */
@@ -157,15 +158,15 @@ class VipTest extends TestCase
     {
         $this->withExceptionHandling();
         $vip = create('App\Vip');
-        $date = Carbon::now();
-        $vip->since = $date;
+        $date = Carbon::now()->format('Y-m-d 00:00:00');
+        $array = ['since' => $date];
 
         $this->actingAs($this->userWithPermission('edit-vips'))
-            ->put(route('admin.vips.update', $vip->id), $vip->toArray());
+            ->put(route('admin.vips.update', $vip->id), $array);
 
-        $this->assertDatabaseHas('vips', ['since' => $date]);
+        $this->assertDatabaseHas('vips', $array);
 
         $this->get(route('admin.vips.index'))
-            ->assertSee(e($date->diffForHumans()));
+            ->assertSee(Carbon::parse($date)->diffForHumans());
     }
 }

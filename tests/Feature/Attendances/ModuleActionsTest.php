@@ -20,11 +20,11 @@ class ModuleActionsTest extends TestCase
     /** @test */
     public function it_lists_all_users_assigned_with_attendances()
     {
-        $user = $this->userWithPermission('view-attendances'); 
+        $user = $this->userWithPermission('view-attendances');
         $this->be($user);
         $attendance = create(Attendance::class, ['date' => Carbon::now()]);
         $attendance->load(['employee', 'reporter', 'attendance_code']);
-        
+
         $this->get(route('admin.attendances.index'))
             ->assertOk()
             ->assertViewIs('attendances.index')
@@ -33,9 +33,8 @@ class ModuleActionsTest extends TestCase
             ->assertSee('Date:')
             ->assertSee('Your Employees: (select one or more)')
             ->assertSee('Attendance Code:')
-            ->assertViewHas('attendance')
-            ;
-    }  
+            ->assertViewHas('attendance');
+    }
 
     /** @test */
     public function it_list_all_employees_assigned_to_an_user_and_not_other_uers()
@@ -45,8 +44,8 @@ class ModuleActionsTest extends TestCase
         $user2 = create(User::class);
         $this->be($user1);
 
-        $supervisor1 = create(Supervisor::class);        
-        $supervisor2 = create(Supervisor::class);        
+        $supervisor1 = create(Supervisor::class);
+        $supervisor2 = create(Supervisor::class);
         $user1->supervisors()->sync((array) $supervisor1->id);
         $user2->supervisors()->sync((array) $supervisor2->id);
 
@@ -54,12 +53,11 @@ class ModuleActionsTest extends TestCase
         $employee1->update(['supervisor_id' => $supervisor1->id]);
         $employee2 = create(Employee::class);
         $employee2->update(['supervisor_id' => $supervisor2->id]);
-        
+
         $this->actingAs($user1)
             ->get(route('admin.attendances.index'))
             ->assertSee($employee1->full_name)
-            ->assertDontSee($employee2->full_name)
-            ;
+            ->assertDontSee(e($employee2->full_name));
     }
 
     /** @test */
@@ -67,7 +65,7 @@ class ModuleActionsTest extends TestCase
     {
         $attendance = make(Attendance::class, ['date' => Carbon::now()])->toArray();
         $attendance = array_merge($attendance, ['employee_id' => [$attendance['employee_id']]]);
-        
+
         $this->actingAs($this->userWithPermission('create-attendances'))
             ->post(route('admin.attendances.store', $attendance))
             ->assertRedirect()
@@ -111,19 +109,18 @@ class ModuleActionsTest extends TestCase
             'code_id' => $code->id,
             'comments' => 'Updated Comment!'
         ];
-        
+
         $this->actingAs($this->userWithPermission('edit-attendances'))
             ->put(route('admin.attendances.update', $attendance->id), array_merge($attendance->toArray(), $data_array))
-            ->assertLocation(route('admin.attendances.index'))
-            ;
+            ->assertLocation(route('admin.attendances.index'));
 
-            $this->assertDatabaseHas('attendances', $data_array);
+        $this->assertDatabaseHas('attendances', $data_array);
     }
 
     /** @test */
     public function authorized_users_can_destroy_attendance()
     {
-        
+
         $attendance = create(Attendance::class);
 
         $this->actingAs($this->userWithPermission('destroy-attendances'))

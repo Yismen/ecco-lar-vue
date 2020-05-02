@@ -53,8 +53,7 @@ class ModuleActionsTest extends TestCase
             ->assertSee('Punch ID:')
             ->assertSee($punch->punch)
             ->assertSee('Employee:')
-            ->assertSee(e($punch->employee->full_name))
-            ;
+            ->assertSee($punch->employee->full_name);
     }
 
     /** @test */
@@ -71,12 +70,12 @@ class ModuleActionsTest extends TestCase
         $response->put(route('admin.punches.update', $punch->punch), $updated)
             ->assertRedirect(route('admin.punches.index'));
 
-            $this->assertDatabaseMissing('punches', [
-                'punch' => $punch->punch,
-                'employee_id' => $punch->employee_id,
-            ]);
+        $this->assertDatabaseMissing('punches', [
+            'punch' => $punch->punch,
+            'employee_id' => $punch->employee_id,
+        ]);
 
-            $this->assertDatabaseHas('punches', $updated);
+        $this->assertDatabaseHas('punches', $updated);
     }
 
     /** @test */

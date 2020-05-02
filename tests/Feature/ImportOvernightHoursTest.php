@@ -48,7 +48,7 @@ class ImportOvernightHoursTest extends TestCase
         $response->get(route('admin.overnight_hours.index'))
             ->assertOk()
             ->assertViewIs('overnight-hours.index')
-            ->assertSee('<h4 class="text-warning">Create Overnight Hours Manually</h4>');
+            ->assertSee('Create Overnight Hours Manually');
     }
 
     /** Validations: Validate fields to reate */

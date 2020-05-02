@@ -22,7 +22,7 @@ class ModuleActionsTest extends TestCase
         $response->get(route('admin.holidays.index'))
             ->assertOk()
             ->assertViewIs('holidays.index')
-            ->assertSee('<h4>Create Holidays</h4>')
+            ->assertSee('Create Holidays')
             ->assertSee('Holidays List');
     }
 
@@ -55,7 +55,7 @@ class ModuleActionsTest extends TestCase
             ->assertSee('Edit Holidays')
             ->assertSee($holiday->date->format('d-M-Y'))
             ->assertSee('Holiday Name:')
-            ->assertSee(e($holiday->name))
+            ->assertSee($holiday->name)
             ->assertSee('UPDATE');
     }
 
@@ -111,7 +111,7 @@ class ModuleActionsTest extends TestCase
     /** @test */
     public function it_create_holidays_only_returns_holidays_limited_to_many_months()
     {
-        $this->disableExceptionHandling(); 
+        $this->disableExceptionHandling();
         $months = 6;
         $date = Carbon::now()->subMonths($months)->startOfMonth();
         $holiday = raw('App\Holiday', ['date' => $date]);

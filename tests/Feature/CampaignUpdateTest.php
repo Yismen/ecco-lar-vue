@@ -30,7 +30,7 @@ class CampaignUpdateTest extends TestCase
 
         $this->actingAs($this->userWithPermission('edit-campaigns'))
             ->get(route('admin.campaigns.edit', $campaign->id))
-            ->assertSee(e('Edit Campaign '.$campaign->name));
+            ->assertSee('Edit Campaign '.$campaign->name);
     }
 
     /** @test */
@@ -57,7 +57,7 @@ class CampaignUpdateTest extends TestCase
         $this->assertDatabaseHas('campaigns', ['name' => 'New Name']);
 
         $this->get(route('admin.campaigns.index'))
-            ->assertSee(e('New Name'));
+            ->assertSee('New Name');
     }
 
     /* @test */
