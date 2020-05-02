@@ -42,12 +42,11 @@ axios.interceptors.response.use(function (response) {
     let response = error.response;
 
     axios.interceptors.sweetAlert('error', 'Ohh Crap!', response.data.message)
+    Store.dispatch("loading/hideLoadingSpinner");
 
     if(response.status == 405) {
         return window.location.assign(response.responseURL)
     }
-
-    Store.dispatch("loading",["hideLoadingSpinner"]);
 
     return Promise.reject(error);
 });
