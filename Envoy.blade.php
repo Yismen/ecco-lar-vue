@@ -28,6 +28,6 @@
     git pull origin prod
     composer install --no-dev
     php artisan migrate --force
-    php artisan optimize
+    sudo php artisan optimize
     php artisan dainsys:laravel-logs laravel- --clear --keep=8
 @endtask
