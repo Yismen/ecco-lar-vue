@@ -34,7 +34,7 @@ class Department extends Model
     }
 
     /**
-     * 
+     *
      */
     public function performances()
     {

@@ -39,7 +39,7 @@ class OwnerRepository
                 // 'by_gender' => $static->getDataset(EmployeeRepository::byGender()),
                 // 'by_department' => $static->getDataset(EmployeeRepository::byDepartment()),
                 // 'by_position' => $static->getDataset(EmployeeRepository::byPosition()),
-                // 'by_supervisor' => $static->getDataset(EmployeeRepository::bySupervisor()), 
+                // 'by_supervisor' => $static->getDataset(EmployeeRepository::bySupervisor()),
                 // 'by_nationality' => $static->getDataset(EmployeeRepository::byNationality()),
             ],
             'performance' => [
@@ -110,12 +110,12 @@ class OwnerRepository
     protected function departments()
     {
         return Cache::remember('departments-performance', now()->addHours(4), function () {
-            return $this->list(new Department());
+            return $this->list(new Department(), 'employees.performances');
         });
     }
 
-    protected function list(Model $model)
+    protected function list(Model $model, $relationship = 'performances')
     {
-        return $model->orderBy('name')->whereHas('performances')->get();
+        return $model->orderBy('name')->whereHas($relationship)->get();
     }
 }

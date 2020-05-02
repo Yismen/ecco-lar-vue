@@ -3,6 +3,7 @@
 namespace App\Http\Traits\Relationships;
 
 use App\Attendance;
+use App\Performance;
 use Carbon\Carbon;
 
 trait EmployeeRelationships
@@ -60,6 +61,11 @@ trait EmployeeRelationships
     public function marital()
     {
         return $this->belongsTo('App\Marital', 'marital_id');
+    }
+
+    public function performances()
+    {
+        return $this->hasMany(Performance::class);
     }
 
     public function productions()
