@@ -24,7 +24,7 @@ import JsModal from 'vue-js-modal'
 
 export default {
     props: {
-        show: {type Boolean, default: false},
+        show: {type: Boolean, default: false},
         name: {type: String, required: true},
         delay: {type: Number, default: 0},
         resizable: {type: Boolean, default: false},
