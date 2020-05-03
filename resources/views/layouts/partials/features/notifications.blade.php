@@ -13,7 +13,7 @@
         <!-- Inner Menu: contains the notifications -->
         <ul class="menu">
           @foreach ($user->unreadNotifications as $notification)
-            <li><!-- start notification -->
+            <li class="bg-{{ $notification->type ?: '' }}"><!-- start notification -->
               <a href="#" title="{{ \Illuminate\Support\Arr::get($notification->data, 'body') }} ">
                 <i class="fa fa-bell-o text-aqua"></i> {{ \Illuminate\Support\Arr::get($notification->data, 'subject') }} 
               </a>

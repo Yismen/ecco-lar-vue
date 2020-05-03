@@ -8,7 +8,7 @@
                 <div class="box box-primary">
 
                     <div class="box-body">
-                        {!! Form::open(['route'=>['admin.imports.performances'], 'method'=>'POST', 'class'=>'form-horizontal', 'role'=>'form', 'autocomplete'=>"off",  'enctype'=>"multipart/form-data"]) !!}
+                        {!! Form::open(['route'=>['admin.imports.performances'], 'files' => true, 'method'=>'POST', 'class'=>'form-horizontal', 'role'=>'form', 'autocomplete'=>"off"]) !!}
 
                            <div class="box-header with-border"><h4>Import Perforces Data</h4></div>
 

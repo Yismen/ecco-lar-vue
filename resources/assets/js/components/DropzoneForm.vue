@@ -1,15 +1,25 @@
 <template>
-    <vue-dropzone
-        ref="myVueDropzone"
-        id="dropzone"
-        :options="dropzoneOptions"
-        @vdropzone-error="errorHappened"
-    ></vue-dropzone>
+    <div>
+        <vue-dropzone
+            ref="dainsys-vue-dropzone"
+            id="dropzone"
+            :options="dropzoneOptions"
+            @vdropzone-success="filesUploaded"
+            @vdropzone-error="errorHappened"
+        ></vue-dropzone>
+        <div class="box-footer" v-if="uploadedFiles.length > 0">
+            <ul>
+                <li v-for="(file, index) in uploadedFiles" :key="index">
+                    {{ file }}
+                </li>
+            </ul>
+        </div>
+    </div>
 </template>
 
 <script>
-import vue2Dropzone from 'vue2-dropzone'
 import 'vue2-dropzone/dist/vue2Dropzone.min.css'
+import vue2Dropzone from 'vue2-dropzone'
 
 export default {
 
@@ -17,19 +27,19 @@ export default {
 
     data () {
         return {
+            uploadedFiles: [],
             dropzoneOptions: {
                 url: this.url,
-                thumbnailWidth: 150,
+                thumbnailWidth: 50,
                 dictDefaultMessage: "<i class='fa fa-cloud-upload'></i> DRAG FILES HERE TO UPLOAD THE DATA",
                 addRemoveLinks: true,
                 uploadMultiple: true,
                 timeout: 0,
                 // chunking: true,
                 paramName: 'excel_file',
-                acceptedFiles: 'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                acceptedFiles: '.csv,text/*',
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                 chunksUploaded: function(response, done) {
-                    console.log(response)
                     Vue.swal({
                         type: 'success',
                         title: 'Done!',
@@ -47,8 +57,9 @@ export default {
                     response.forEach(file => {
                         Vue.swal({
                             type: 'success',
-                            title: 'Done!',
-                            text: file.name,
+                            title: 'File Uploaded!',
+                            text: `File ${file.name} was uploaded and will be processed by the backend.
+                            You will be notified by Email and by the app!`,
                             showConfirmButton: false,
                             position: 'bottom-end',
                             timer: 10000,
@@ -56,9 +67,6 @@ export default {
                             padding: '5em',
                         })
                     })
-                    setTimeout(function() {
-                        location.reload()
-                    }, 3000)
                 }
             }
         }
@@ -68,6 +76,9 @@ export default {
         vueDropzone: vue2Dropzone
     },
     methods: {
+        filesUploaded(file) {
+            this.uploadedFiles.push(file.name)
+        },
         errorHappened(error, errorMessage) {
             let message = errorMessage.errors[Object.keys(errorMessage.errors)[0]][0]
 

@@ -7,13 +7,15 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class UserAppNotification extends Notification
+class UserAppNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    protected $subject;
+    public $subject;
 
-    protected $body;
+    public $body;
+
+    public $css_class;
 
     /**
      * Create a new notification instance
@@ -21,14 +23,18 @@ class UserAppNotification extends Notification
      * @param String $subject
      * @param String $body
      */
-    public function __construct($subject, $body)
-    {        
+    public function __construct($subject, $body, $css_class = '')
+    {
         $this->subject = $subject;
         $this->body = $body;
+        $this->css_class = $css_class;
     }
-    
+
     /**
      * Get the notification's delivery channels.
+     * 
+     * The Listner \App\Listeners\AppNotificationReceived will fire event 
+     * \App\Events\UserAppNotificationReceived
      *
      * @param  mixed  $notifiable
      * @return array
@@ -47,11 +53,11 @@ class UserAppNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject("Dainsys: ". $this->subject)
-                    ->line($this->body)
-                    ->action('Open App', url('/admin'));
+            ->subject("Dainsys: " . $this->subject)
+            ->line($this->body)
+            ->action('Open App', url('/admin'));
     }
-    
+
     /**
      * Get the array representation of the notification.
      *
@@ -63,6 +69,7 @@ class UserAppNotification extends Notification
         return [
             'subject' => $this->subject,
             'body' => $this->body,
+            'css_class' => $this->css_class
         ];
     }
 }

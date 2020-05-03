@@ -4,39 +4,39 @@ namespace App\Imports;
 
 use Carbon\Carbon;
 use App\PerformanceImport;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Maatwebsite\Excel\Concerns\Importable;
-use Maatwebsite\Excel\Concerns\ToCollection;
+use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithBatchInserts;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Concerns\WithEvents;
 
-class PerformancesImport implements ToCollection, WithHeadingRow, WithValidation, WithMapping
+class PerformancesImport implements ToModel, WithHeadingRow, WithMapping, WithValidation, WithEvents, WithBatchInserts, WithChunkReading, ShouldQueue
 {
+    use Importable, ExcelImportTrait;
+
     protected $file_name;
+
+    protected $importedBy;
+
+    protected $cleaned;
+
+    public $tries = 3;
 
     public function __construct($file_name)
     {
         $this->file_name = $file_name;
+
+        $this->importedBy = auth()->user();
     }
 
-    use Importable;
-
-    public function collection(Collection $rows)
+    public function model(array $row)
     {
-        foreach ($rows as $row) {
-            Validator::make(
-                $row->all(),
-                $this->rules()
-            )->validate();
-
-            Cache::flush();
-
-            PerformanceImport::removeExisting($row['unique_id'])
-                ->create($row->all());
-        }
+        PerformanceImport::where('unique_id', $row['unique_id'])->delete();
+        return new PerformanceImport($row);
     }
 
     public function rules(): array
@@ -69,25 +69,6 @@ class PerformancesImport implements ToCollection, WithHeadingRow, WithValidation
         ];
     }
 
-    /**
-     * Convert an date in a carbon instance.
-     *
-     * @param value  $value  the value to be parsed
-     * @param format $format the format from where the carbon instance is created
-     *
-     * @return Carbon instance
-     */
-    public function transformDate($value, $format = 'Y-m-d')
-    {
-        try {
-            return Carbon::instance(
-                \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($value)
-            );
-        } catch (\ErrorException $e) {
-            return Carbon::createFromFormat($format, $value);
-        }
-    }
-
     public function map($row): array
     {
         return [
@@ -118,5 +99,15 @@ class PerformancesImport implements ToCollection, WithHeadingRow, WithValidation
             'reported_by' => $row['reported_by'],
             'file_name' => $this->file_name,
         ];
+    }
+
+    protected function removeDuplicateRows()
+    {
+        if (!$this->cleaned) {
+            PerformanceImport::whereIn('unique_id', (array) $this->unique_ids_list)->delete();
+        }
+        $this->cleaned = true;
+
+        return $this;
     }
 }

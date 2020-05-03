@@ -18,9 +18,9 @@
       <li>
         <!-- Inner Menu: contains the notifications -->
         <ul class="menu">
-            <li v-for="notification in notificationsData" :key="notification.id"><!-- start notification -->
-              <a href="#" :title="notification.data.body || 'No body message!'">
-                <i class="fa fa-bell-o text-aqua"></i>{{ notification.data.subject || 'No subject' }} 
+            <li v-for="notification in notificationsData" :key="notification.id" :class="parseClass(notification.type)"><!-- start notification -->
+              <a href="#" @click.prevent="showModal(notification)" :title="notification.data.body || 'No body message!'">
+                <i class="fa fa-bell-o text-aqua"></i>{{ notification.data.subject || 'No Subject' }} 
               </a>
             </li>
             <!-- end notification -->
@@ -36,6 +36,25 @@
         <!-- <li class="footer">
         </li> -->
       </ul>
+
+      <modal name="notifications-modal" @before-open="beforeOpen"
+         height="auto" :scrollable="true"
+      >
+        <div class="box box-solid">
+          <div class="box-header with-border">
+            <h4>
+              {{ notification.subject || 'No Subject' }} 
+              <a href="#" @click.prevent="closeModal" class="btn btn-link pull-right">
+                X
+              </a>
+            </h4>
+          </div>
+          <div class="box-body">
+            <p v-if="notification.body">{{ notification.body}} </p>
+            <pre v-else>{{ notification }} </pre>
+          </div>
+        </div>
+      </modal>
   </li>
 </template>
 
@@ -43,7 +62,8 @@
 export default {
     data() {
         return {
-            notificationsData: this.notifications
+            notificationsData: this.notifications,
+            notification: {}
         }
     },
 
@@ -56,19 +76,31 @@ export default {
     }, 
     
     methods: {
-        fetchUnreadNotifications() {
-            axios.get('/api/notifications/unread')
-                .then(response => this.notificationsData = response.data)
-        },
+      fetchUnreadNotifications() {
+          axios.get('/api/notifications/unread')
+              .then(response => this.notificationsData = response.data)
+      },
 
-        markAllAsRead() {
-            axios.post('/api/notifications/mark-all-as-read').
-                then(response => {
-                  console.log(response.data)
-                  this.notificationsData = response.data
-                })
-        }
-      
+      parseClass(css_class) {
+        return css_class ? `bg-${css_class}` : ''
+      },
+      showModal(notification) {
+        this.$modal.show("notifications-modal", notification)
+      },
+      closeModal() {
+        this.$modal.hide('notifications-modal')
+      },
+      beforeOpen(event) {
+        // console.log(event)
+        // send ajax to mark as read
+        this.notification = event.params.data        
+      },
+      markAllAsRead() {
+          axios.post('/api/notifications/mark-all-as-read').
+              then(response => {
+                this.notificationsData = response.data
+              })
+      }
     }
 }
 </script>

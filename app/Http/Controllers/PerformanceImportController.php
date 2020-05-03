@@ -6,6 +6,7 @@ use App\PerformanceImport;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Imports\PerformancesImport;
+use App\Notifications\UserAppNotification;
 use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -54,7 +55,7 @@ class PerformanceImportController extends Controller
     {
         $this->validate($request, [
             'excel_file' => 'required',
-            'excel_file.*' => 'file|mimes:xls,xlsx',
+            'excel_file.*' => 'file|mimes:csv,txt',
         ]);
 
         return $this->importPerformance($request);
@@ -134,17 +135,15 @@ class PerformanceImportController extends Controller
 
             $this->imported_files[] = $file_name;
 
-            Excel::import(new PerformancesImport($file_name), $request->file('excel_file')[$key]);
+            Excel::queueImport(new PerformancesImport($file_name), $file);
         };
 
         $request->session()->flash('imported_files', $this->imported_files);
-        $request->session()->flash('success', 'Data Imported');
 
         if ($request->ajax()) {
             return response($this->imported_files);
         }
 
-        return redirect()->route('admin.performances_import.index')
-            ->withSuccess('Data Imported!');
+        return redirect()->route('admin.performances_import.index');
     }
 }

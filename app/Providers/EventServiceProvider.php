@@ -15,6 +15,9 @@ class EventServiceProvider extends ServiceProvider
         'Illuminate\Mail\Events\MessageSent' => [
             'App\Listeners\RemoveTemporaryMailAttachments'
         ],
+        'Illuminate\Notifications\Events\NotificationSent' => [
+            'App\Listeners\AppNotificationReceived',
+        ],
         'App\Events\EmployeeDeactivated' => [
             'App\Listeners\SemdEmailToHumanResources',
         ],
