@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Notification;
+use Illuminate\Notifications\Notification as NotificationsNotification;
 use Illuminate\Support\Facades\Cache;
 
 class NotificationsController extends Controller
@@ -22,5 +24,12 @@ class NotificationsController extends Controller
         Cache::flush();
         
         return auth()->user()->unreadNotifications()->get();
+    }
+
+    public function show(Notification $notification)
+    {
+        $notification->markAsRead();
+
+        return $notification;
     }
 }
