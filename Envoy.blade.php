@@ -25,11 +25,14 @@
 @task('serve', ['on' => 'web'])
     cd /var/www/html/dainsys
     git checkout prod
-    git pull origin prod
-    composer install --no-dev
+    git pull origin prod --force
+    composer install --no-dev -o -n
     php artisan migrate --force
     php artisan optimize
     npm install
     npm run production
     php artisan dainsys:laravel-logs laravel- --clear --keep=8
+    supervisorctl reread
+    supervisorctl update
+    supervisorctl start laravel-worker:*
 @endtask
