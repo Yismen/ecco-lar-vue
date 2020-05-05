@@ -1,0 +1,10 @@
+<?php
+
+namespace {{ namespace }};
+
+use App\DainsysModel as Model;
+
+class {{ class }} extends Model
+{
+    protected $fillable = [];
+}
