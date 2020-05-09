@@ -32,6 +32,7 @@
 
 @task('create_release', ['on' => 'web2'])    
     cp -rvfp {{ $projectFolder }} {{ $releaseFolder }}
+    sudo chmod -R 775 {{ $releaseFolder.'/storage' }}
     php artisan optimize
     ln -sfn {{ $releaseFolder }} {{ $serverLink }}
     
