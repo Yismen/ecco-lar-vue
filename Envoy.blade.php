@@ -13,7 +13,6 @@
     merge
     push
     cmaster
-    create_release
     serve
 @endstory
 
@@ -30,26 +29,30 @@
     git checkout master
 @endtask
 
-@task('create_release', ['on' => 'web2'])    
-    cp -rvfp {{ $projectFolder }} {{ $releaseFolder }}
-    php artisan optimize
+@task('serve', ['on' => 'web2'])    
+    {{-- 1: Make sure the link is poiting to production folder --}}
+    ln -sfn {{ $projectFolder }} {{ $serverLink }}
+    {{-- 2: Create release folder a bulk production content in it --}}
+    [ -d {{ $releaseFolder }} ] || mkdir {{ $releaseFolder }}
+    cp -rvfp {{ $projectFolder . "/*" }} {{ $releaseFolder }}
+    {{-- chmod -R 775 {{ $releaseFolder.'/storage' }}
+    chmod -R 775 {{ $releaseFolder.'/bootstrap/cache' }}
+    chown -R :www-data {{ $releaseFolder }}
+    chown -R :www-data {{ $serverLink }} --}}
+    {{-- 3: Make the symlink point to the release folder --}}
     ln -sfn {{ $releaseFolder }} {{ $serverLink }}
-    
-    {{-- chown -R :www-data {{ $releaseFolder }} --}}
-    chown -R :www-data {{ $serverLink }}
-@endtask
-
-@task('serve', ['on' => 'web2'])  
+    {{-- 4: CD into production folder and update git, composer and NPM --}}
     cd {{ $projectFolder }}
     git checkout {{ $branch }}
-    {{-- git pull origin {{ $branch }} --force --}}
+    git pull origin {{ $branch }} --force
     composer install --no-dev -o -n
     php artisan migrate --force
     npm install
     npm run production
     php artisan dainsys:laravel-logs laravel- --clear --keep=8
     php artisan optimize
+    {{-- 5: Point link to production folder --}}
     ln -sfn {{ $projectFolder }} {{ $serverLink }}    
     {{-- chown -R :www-data {{ $projectFolder }} --}}
-    chown -R :www-data {{ $serverLink }}
+    {{-- chown -R :www-data {{ $serverLink }} --}}
 @endtask
