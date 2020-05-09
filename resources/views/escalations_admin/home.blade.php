@@ -22,6 +22,6 @@
         </div>
     </div>
 @endsection
-@section('scripts')
+@push('scripts')
     @yield('dashboard_scripts')
-@stop
+@endpush

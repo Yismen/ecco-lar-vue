@@ -17,7 +17,7 @@ production.'])
 </div>
 @endsection
 
-@section('scripts')
+@push('scripts')
 <script>
     (function($){
 	        $(document).ready(function($) {
@@ -65,4 +65,4 @@ production.'])
 
 	    })(jQuery);
 </script>
-@stop
+@endpush

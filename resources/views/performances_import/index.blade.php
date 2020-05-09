@@ -50,7 +50,7 @@
         </div>
     </div>
 @endsection
-@section('scripts')
+@push('scripts')
 
 <script>
     (function($){
@@ -100,4 +100,4 @@
     })(jQuery);
 
 </script>
-@stop
+@endpush

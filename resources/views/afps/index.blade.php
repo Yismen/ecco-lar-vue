@@ -75,5 +75,5 @@
     </div>
 @stop
 
-@section('scripts')
-@stop
+@push('scripts')
+@endpush

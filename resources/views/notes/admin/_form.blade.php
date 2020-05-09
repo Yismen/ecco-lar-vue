@@ -26,6 +26,6 @@
 </div>
 <!-- /. Content -->
 
-@section('scripts')
+@push('scripts')
 	
-@stop
+@endpush

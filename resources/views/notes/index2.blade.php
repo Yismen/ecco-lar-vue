@@ -33,7 +33,7 @@
 
 @stop
 
-@section('scripts')
+@push('scripts')
 	<script type="text/javascript">
 
 	  ;(function($){
@@ -84,4 +84,4 @@
 
 	  })(jQuery)
 	</script>
-@stop
+@endpush

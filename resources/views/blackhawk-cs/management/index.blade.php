@@ -13,6 +13,6 @@
         </transition> 
     </div>
 @endsection
-@section('scripts')
+@push('scripts')
     <script src="{{ asset('js/dainsys/app.js') }}"></script>
-@stop
+@endpush

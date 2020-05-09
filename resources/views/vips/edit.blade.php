@@ -1,4 +1,4 @@
-@section('scripts')
+@push('scripts')
 
 @stop
 
@@ -59,4 +59,4 @@
 @endsection
 @section('scripts')
 
-@stop
+@endpush

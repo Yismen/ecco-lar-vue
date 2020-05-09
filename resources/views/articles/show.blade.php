@@ -82,6 +82,6 @@
   
 @stop
 
-@section('scripts')
+@push('scripts')
     @include('layouts.partials.disqus')
-@stop
+@endpush

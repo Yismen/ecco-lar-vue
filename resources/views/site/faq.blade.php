@@ -135,6 +135,6 @@
     </div>
 @stop
 
-@section('scripts')
+@push('scripts')
 	
-@stop
+@endpush

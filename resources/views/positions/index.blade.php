@@ -37,7 +37,7 @@
 	</div>
 @stop
 
-@section('scripts')
+@push('scripts')
 <script>
 	(function($){
 		$(document).ready(function($) {
@@ -103,4 +103,4 @@
 
 	})(jQuery);
 </script>
-@stop
+@endpush

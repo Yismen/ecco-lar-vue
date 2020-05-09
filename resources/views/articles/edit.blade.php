@@ -23,7 +23,7 @@
 	</div>
 	@include('articles._modal_forms', ['slug' => $article->slug])
 @stop
-@section('scripts')
+@push('scripts')
 	@include( 'layouts.tinyMce.basic', ['item'=>'#body'])	
 {{-- 	<link rel="stylesheet" href="{{ asset('plugins/select2/dist/css/select2.min.css') }}">
 	<link rel="stylesheet" href="{{ asset('plugins/select2/select2-bootstrap.css') }}">
@@ -33,5 +33,5 @@
 			$("#category_id").select2();
 		});
 	</script> --}}
-@stop
+@endpush
 

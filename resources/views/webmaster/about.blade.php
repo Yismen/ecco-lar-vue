@@ -394,7 +394,7 @@ opacity:0.9;
   </div>
 @stop
 
-@section('scripts')
+@push('scripts')
   
-@stop
+@endpush
   

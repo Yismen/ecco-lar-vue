@@ -16,10 +16,10 @@
 	<!-- /. Main container -->
 @stop
 
-@section('scripts')
+@push('scripts')
 	<script>
 		$('input[name=task_name]').focus();
 	</script>
 	<script src="{{ asset('js/scripts/tasks.js') }}"></script>
     <script src="{{ asset('plugins/bootbox/bootbox.min.js') }}"></script>
-@stop
+@endpush

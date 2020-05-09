@@ -23,7 +23,7 @@
     </div>
 @endsection
 
-@section('scripts')
+@push('scripts')
     <script type="text/javascript">
         $(document).ready(function() {
             $('#testing').DataTable( {
@@ -42,4 +42,4 @@
 
         } );
     </script>
-@stop
+@endpush
