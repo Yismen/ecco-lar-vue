@@ -28,6 +28,6 @@
 	@endif
 @stop
 
-@section('scripts')
+@push('scripts')
 
-@stop
+@endpush

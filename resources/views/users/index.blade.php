@@ -93,7 +93,7 @@ the users configurations and setting.']) @section('content')
     </div>
 </div>
 @stop
-@section('scripts')
+@push('scripts')
     <script defer>
         (function() {
             document.getElementById('js-search')
@@ -104,4 +104,4 @@ the users configurations and setting.']) @section('content')
                 }, 700))
         })()
     </script>
-@stop
+@endpush

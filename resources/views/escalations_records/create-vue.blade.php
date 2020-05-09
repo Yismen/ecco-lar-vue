@@ -16,6 +16,6 @@
         </div>
     </div>
 @endsection
-@section('scripts')
+@push('scripts')
     <script src="/js/app.js"></script>
-@stop
+@endpush

@@ -25,7 +25,7 @@
         </div>
     </div>
 @endsection
-@section('scripts')
+@push('scripts')
     @section('scripts')
         <script type="text/javascript">
             (function($){
@@ -34,4 +34,4 @@
             })(jQuery);
         </script>
     @endsection
-@stop
+@endpush

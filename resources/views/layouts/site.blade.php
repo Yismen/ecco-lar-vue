@@ -114,7 +114,7 @@
             | All scripts will be placed here
             |************************************|
              -->
-        @yield('scripts')
+        @stack('scripts')
     </body>
 
 </html>

@@ -16,6 +16,6 @@
         </div>
     </div>
 @endsection
-@section('scripts')
+@push('scripts')
 <script src="{{ elixir('js/passwords.js') }}"></script>
-@stop
+@endpush

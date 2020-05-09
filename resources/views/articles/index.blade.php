@@ -63,7 +63,7 @@
     </div>
 @stop
 
-@section('scripts')
+@push('scripts')
    <script src="{{ asset('plugins/animatescroll/animatescroll.min.js') }}"></script>
    <script src="{{ asset('plugins/jquery.scrollfixed-master/jquery.scrollfixed.js') }}"></script>
 	
@@ -87,4 +87,4 @@
     <script src="{{ asset('js/scripts/articles.js') }}"></script>
 
 
-@stop
+@endpush

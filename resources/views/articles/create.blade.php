@@ -15,10 +15,10 @@
 	{{-- @include('articles._modal_forms') --}}
 @stop
 
-@section('scripts')
+@push('scripts')
 	
 	@include( 'layouts.tinyMce.basic', ['item'=>'#body'])		
 	
-@stop
+@endpush
 
 

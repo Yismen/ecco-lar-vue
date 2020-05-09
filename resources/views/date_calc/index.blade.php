@@ -40,8 +40,8 @@
     </div>
 @endsection
 
-@section('scripts')
+@push('scripts')
     <script type="text/javascript">
         $('form').myFormSubmit();
     </script>
-@stop
+@endpush

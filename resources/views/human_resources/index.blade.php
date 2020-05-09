@@ -63,7 +63,7 @@
     </div>
 @stop
 
-@section('scripts')
+@push('scripts')
     <script>
         $(function () {
             setTimeout(function() {
@@ -71,5 +71,5 @@
             }, 1000);
         });
     </script>
-@stop
+@endpush
 
