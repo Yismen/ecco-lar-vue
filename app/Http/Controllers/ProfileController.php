@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Image;
 use App\User;
 use App\Profile;
 use Illuminate\Http\Request;
@@ -58,36 +57,16 @@ class ProfileController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, User $user, Image $img)
+    public function store(Request $request)
     {
-        $this->validate($request, [
-            'photo' => 'image|max:4000',
-            'gender' => 'required',
-            'name' => 'required|max:70',
-            'bio' => 'max:4500',
-            'phone' => 'max:50',
-            'education' => 'max:1500',
-            'skills' => 'max:300',
-            'work' => 'max:1000',
-            'location' => 'max:100',
-        ]);
+        $user = $this->validateRequestAndUpdateUserName();
 
-        $user = auth()->user();
-
-        $user->name = $request->input('name');
-        $user->save();
-
-        $photoPath = $this->saveImage($request, $user);
-
-        $user->profile()->create($request->all());
-
-        Cache::forget('user-navbar');
-        Cache::forget('profiles');
-
-        if ($photoPath) {
-            $user->profile->photo = $photoPath;
-            $user->profile->save();
-        }
+        $user->profile()->create(
+            array_merge(
+                request()->all(),
+                ['photo' => $this->saveImage($request, $user)]
+            )
+        );
 
         if ($request->ajax()) {
             return response()->json([
@@ -137,34 +116,16 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Profile $profile, Image $img)
+    public function update(Request $request, Profile $profile)
     {
-        $this->validate($request, [
-            'photo' => 'image|max:4000',
-            'gender' => 'required',
-            'name' => 'required|max:70',
-            'bio' => 'max:4500',
-            'phone' => 'max:50',
-            'education' => 'max:1500',
-            'skills' => 'max:300',
-            'work' => 'max:1000',
-            'location' => 'max:100',
-        ]);
+        $user = $this->validateRequestAndUpdateUserName();
 
-        $user = $profile->user;
-
-        $user->name = $request->input('name');
-        $user->save();
-
-        $photoPath = $this->saveImage($request, $user);
-
-        $profile->update($request->all());
-
-        Cache::forget('user-navbar');
-        Cache::forget('profiles');
-
-        $profile->photo = $photoPath;
-        $profile->save();
+        $profile->update(
+            array_merge(
+                request()->all(),
+                ['photo' => $this->saveImage($request, $user)]
+            )
+        );
 
         if ($request->ajax()) {
             return response()->json([
@@ -193,12 +154,6 @@ class ProfileController extends Controller
      */
     public function saveImage(Request $request, User $user)
     {
-        /**
-         * If not photo file passed, first we check if
-         * the user is created already. If so we
-         * return the actual photo, otherwise
-         * we return null;
-         */
         if (!$request->hasFile('photo')) {
             if ($user->profile) {
                 return $user->profile->photo;
@@ -206,14 +161,35 @@ class ProfileController extends Controller
             return null;
         };
 
-        $this->validate($request, [
-            'photo' => 'file|image|max:4000'
-        ]);
+        $extension = $request->file('photo')->getClientOriginalExtension();
 
-        $path = "images/profiles/{$user->id}.png";
+        $path = "images/profiles/{$user->id}.{$extension}";
 
         Storage::drive('public')->put($path, ImageMaker::make($request->photo));
 
         return "storage/{$path}";
+    }
+
+    protected function validateRequestAndUpdateUserName()
+    {
+        $this->validate(request(), [
+            'photo' => 'image|max:4000',
+            'gender' => 'required',
+            'name' => 'required|max:70',
+            'bio' => 'max:4500',
+            'phone' => 'max:50',
+            'education' => 'max:1500',
+            'skills' => 'max:300',
+            'work' => 'max:1000',
+            'location' => 'max:100',
+        ]);
+
+        $user = auth()->user();
+
+        $user->update([
+            'name' => request('name')
+        ]);
+
+        return $user;
     }
 }
