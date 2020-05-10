@@ -26,12 +26,12 @@
     </div>
 @endsection
 @push('scripts')
-    @section('scripts')
+    @push('scripts')
         <script type="text/javascript">
             (function($){
                 
                 // $('#search-production-hours').myFormSubmit();   
             })(jQuery);
         </script>
-    @endsection
+    @endpush
 @endpush
