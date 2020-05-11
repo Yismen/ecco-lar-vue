@@ -106,7 +106,7 @@
 </div>
 @endsection
 
-@section('scripts')
+@push('scripts')
 <script>
     (function(){
             document.querySelector('.more-button').addEventListener('click', function(e) {
@@ -135,4 +135,4 @@
             });
         })()
 </script>
-@endsection
+@endpush

@@ -36,7 +36,7 @@
     </div>
 @endsection
 
-@section('scripts')
+@push('scripts')
     <script>
         $(function() {
             new Chart(document.getElementById("stats-doughnut-chart"), {
@@ -50,4 +50,4 @@
             });
         });
     </script>
-@endsection
+@endpush

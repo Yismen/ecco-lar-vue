@@ -202,7 +202,7 @@
     </div>
 @endsection
 
-@section('scripts')
+@push('scripts')
     <script>
         $(function () {
             var deleteLogModal = $('div#delete-log-modal'),
@@ -249,4 +249,4 @@
             @endunless
         });
     </script>
-@endsection
+@endpush
