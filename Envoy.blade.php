@@ -5,44 +5,25 @@
     $releaseFolder = $root .'release';
     $projectFolder = $root . 'dainsys';
     $serverLink = $root . 'current';
-    $branch = 'prod';
+    $branch = 'master';
 @endsetup
 
-@story('deploy')
-    checkout
-    merge
-    push
-    cmaster
-    serve
-@endstory
-
-@task('checkout', ['on' => 'local'])
-    git checkout {{ $branch }}
-@endtask
-@task('merge', ['on' => 'local'])
-    git merge master
-@endtask
-@task('push', ['on' => 'local'])
-    git push origin {{ $branch }}
-@endtask
-@task('cmaster', ['on' => 'local'])
-    git checkout master
-@endtask
-
-@task('serve', ['on' => 'web2'])    
-    {{-- 1: Make sure the link is poiting to production folder --}}
+@task('deploy', ['on' => 'web2'])    
     ln -sfn {{ $projectFolder }} {{ $serverLink }}
-    {{-- 2: Create release folder a bulk production content in it --}}
+    
     [ -d {{ $releaseFolder }} ] || mkdir {{ $releaseFolder }}
     cp -rvfp {{ $projectFolder . "/*" }} {{ $releaseFolder }}
-    {{-- chmod -R 775 {{ $releaseFolder.'/storage' }}
-    chmod -R 775 {{ $releaseFolder.'/bootstrap/cache' }}
-    chown -R :www-data {{ $releaseFolder }}
-    chown -R :www-data {{ $serverLink }} --}}
-    {{-- 3: Make the symlink point to the release folder --}}
+    {{-- cp -rvfp {{ $projectFolder . "/.env" }} {{ $releaseFolder }} --}}
+    {{-- chmod -R 775 {{ $releaseFolder.'/storage' }} --}}
+    {{-- chmod -R 775 {{ $releaseFolder.'/bootstrap/cache' }} --}}
+
+    {{-- cd {{ $releaseFolder }} --}}
+    {{-- php artisan optimize --}}
+
     ln -sfn {{ $releaseFolder }} {{ $serverLink }}
-    {{-- 4: CD into production folder and update git, composer and NPM --}}
+    
     cd {{ $projectFolder }}
+    git reset --hard
     git checkout {{ $branch }}
     git pull origin {{ $branch }} --force
     composer install --no-dev -o -n
@@ -51,8 +32,6 @@
     npm run production
     php artisan dainsys:laravel-logs laravel- --clear --keep=8
     php artisan optimize
-    {{-- 5: Point link to production folder --}}
-    ln -sfn {{ $projectFolder }} {{ $serverLink }}    
-    {{-- chown -R :www-data {{ $projectFolder }} --}}
-    {{-- chown -R :www-data {{ $serverLink }} --}}
+
+    ln -sfn {{ $projectFolder }} {{ $serverLink }}
 @endtask
