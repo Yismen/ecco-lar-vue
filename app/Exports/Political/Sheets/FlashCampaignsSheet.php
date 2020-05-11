@@ -16,7 +16,6 @@ use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 
 class FlashCampaignsSheet implements FromView, WithTitle, WithEvents, WithPreCalculateFormulas
 {
-
     protected $sheet;
     
     protected $rowsDispo;
@@ -32,7 +31,6 @@ class FlashCampaignsSheet implements FromView, WithTitle, WithEvents, WithPreCal
 
     public function __construct($dispositions, $answers, $campaign)
     {
-
         $this->rowsDispo = count($dispositions) + 3;
         $this->rowsAnswers = count($answers);
 
@@ -89,7 +87,6 @@ class FlashCampaignsSheet implements FromView, WithTitle, WithEvents, WithPreCal
                         ]
                     ]
                 ]);
-
             }
         ];
     }
@@ -99,31 +96,32 @@ class FlashCampaignsSheet implements FromView, WithTitle, WithEvents, WithPreCal
         return substr($this->campaign, -28);
     }
 
-    protected function answersStart() 
+    protected function answersStart()
     {
         return array_sum([$this->rowsDispo, 3]);
     }
 
-    protected function answersEnd() 
+    protected function answersEnd()
     {
         return array_sum([$this->answersStart(), $this->rowsAnswers, -1]);
     }
 
-    protected function answersLastColumn() 
+    protected function answersLastColumn()
     {
         $range = range('A', 'ZZ');
 
         $col = collect($this->answers)->first();
-        
 
-        return $range[count(array_keys($col)) - 6];
+        try {
+            return $range[count(array_keys($col)) - 6];
+        } catch (\Throwable $th) {
+            return $range[count(array_keys($col)) - 7];
+        }
     }
 
     protected function setColumnsWidth()
     {
-        
         $this->sheet->getDefaultColumnDimension()->setWidth(8.25);
-
         foreach (range('A', $this->answersLastColumn) as $col) {
             $this->sheet->getColumnDimension($col)
                 ->setAutoSize(true);
