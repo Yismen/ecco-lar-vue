@@ -29,24 +29,10 @@
     git checkout master
 @endtask
 
-<<<<<<< HEAD
 @task('create_release', ['on' => 'web2'])    
     cp -rvfp {{ $projectFolder }} {{ $releaseFolder }}
     sudo chmod -R 775 {{ $releaseFolder.'/storage' }}
     php artisan optimize
-=======
-@task('serve', ['on' => 'web2'])    
-    {{-- 1: Make sure the link is poiting to production folder --}}
-    ln -sfn {{ $projectFolder }} {{ $serverLink }}
-    {{-- 2: Create release folder a bulk production content in it --}}
-    [ -d {{ $releaseFolder }} ] || mkdir {{ $releaseFolder }}
-    cp -rvfp {{ $projectFolder . "/*" }} {{ $releaseFolder }}
-    {{-- chmod -R 775 {{ $releaseFolder.'/storage' }}
-    chmod -R 775 {{ $releaseFolder.'/bootstrap/cache' }}
-    chown -R :www-data {{ $releaseFolder }}
-    chown -R :www-data {{ $serverLink }} --}}
-    {{-- 3: Make the symlink point to the release folder --}}
->>>>>>> master
     ln -sfn {{ $releaseFolder }} {{ $serverLink }}
     {{-- 4: CD into production folder and update git, composer and NPM --}}
     cd {{ $projectFolder }}
