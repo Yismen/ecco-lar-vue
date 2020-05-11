@@ -87,26 +87,15 @@ Tasks:
   ✔  Performance Store @created(19-07-11 16:17) @done (19-07-11 23:06)
       ✔ Limit it to only import downtimes @created(19-07-11 16:17) @done (19-07-11 23:05)
       ✔ Check if Existis, redirect to edit @created(19-07-11 16:17) @done (19-07-11 23:06)
-☐ Change all Data Generators to stick to the format "Y-m-d-employee_id-campaign_id" for the unique_id (including downtimes) @created(19-07-11 23:06)
-☐ Refactor/update sites oviwerview
-  ☐ Current Headcount
-  ☐ MTD Revenue
-  ☐ Monthly Gross Revenue
-  ☐ Yearly Gross Revenue
-  ☐ Attrition
-  ☐ Rotation
-  ☐ RPH (revenue / production hours)
-  ☐ SPH (sales / productions hours) vs SPH Goal (calculate...)
-  ☐ Conversion Rate (sales / contacts)
-  ☐ Utilization (talk time / production time)
-  ☐ Eficiency (production time vs paid time)
+✔ Change all Data Generators to stick to the format "Y-m-d-employee_id-campaign_id" for the unique_id (including downtimes) @created(19-07-11 23:06) @done(20-05-09 15:34)
+
 ✔ Capillus Daily Performance Report @done(19-12-03 08:37)
   ✔ Pull data from server and save it to Dainsys DB @started(19-11-15 10:24) @done(19-11-15 17:29) @lasted(7h5m25s)
   ✔ Send daily performan email report @done(19-12-03 08:37)
 ☐ Issue # 4
   ✔ We don’t need the definitions of each row to appear on the report (Column L on the current report) @done(19-12-03 08:55)
   ✔ Add Columns for Campaign, Calls Accepted and Calls Re-Routed @done(19-12-03 09:32)
-  ☐ Modify Report @started(19-12-03 09:40)
+  ✔ Modify Report @started(19-12-03 09:40) @done(20-05-09 15:33) @lasted(22w4d4h53m30s)
     ✔ I added two rows to the report to show rerouted calls and accepted calls, matching the new flash report. @done(19-12-03 13:59)
     ✔ Right now, the abonnement rate is based on all calls offered to your switch, including those that are re-routed to the other vendor. It should be based only on the calls that are accepted at Ecco, excluding any rerouted calls. @done(19-12-03 13:59)
     ✔ Sales should be included in the count of “Qualified Calls” @done(19-12-03 14:09)
@@ -118,19 +107,49 @@ Tasks:
     ✔ o Email Recipients: kipanycapillus@kipany.com @done(19-12-03 16:09)
     ✔ o Subject Line: KNYC.E Daily Performance Report @done(19-12-03 16:09)
     ✔ o File Type: Excel @done(19-12-03 16:09)
-    ☐ o This needs to be broken out by segment and then overall.
-    ☐ o The logic for call and sales activity reflected in this report should follow that of the call files, as follows:
+    ✔ o This needs to be broken out by segment and then overall. @done(20-05-09 15:31)
+    ✔ o The logic for call and sales activity reflected in this report should follow that of the call files, as follows: @done(20-05-09 15:31)
 
-  ☐  Segment # 1 – DRTV
-    ☐ o All inbound calls to 321-430-0616
-    ☐ o Only inbound calls that result in a sale to 855-261-8772
-    ☐ o Only outbound calls that result in a sale and the original inbound call tracks back to 321-430-0616 and 855-261-8772
-  ☐ 
-  ☐  Segment #2 – Email
-    ☐ o All inbound calls to 321-418-7901
-    ☐ o Only outbound calls that result in a sale and the original inbound call tracks back to 321-418-7901
-    ☐ 
-  ☐  Segment #3 – Website
-    ☐ o All inbound calls to 321-418-3007
-    ☐ o Only outbound calls that result in a sale and the original inbound call tracks back to 321-418-3007
+  ✔  Segment # 1 – DRTV @done(20-05-09 15:31)
+    ✔ o All inbound calls to 321-430-0616 @done(20-05-09 15:31)
+    ✔ o Only inbound calls that result in a sale to 855-261-8772 @done(20-05-09 15:31)
+    ✔ o Only outbound calls that result in a sale and the original inbound call tracks back to 321-430-0616 and 855-261-8772 @done(20-05-09 15:31)
+  ✔ @done(20-05-09 15:31)
+  ✔  Segment #2 – Email @done(20-05-09 15:31)
+    ✔ o All inbound calls to 321-418-7901 @done(20-05-09 15:31)
+    ✔ o Only outbound calls that result in a sale and the original inbound call tracks back to 321-418-7901 @done(20-05-09 15:31)
+    ✔ @done(20-05-09 15:31)
+  ✔  Segment #3 – Website @done(20-05-09 15:31)
+    ✔ o All inbound calls to 321-418-3007 @done(20-05-09 15:31)
+    ✔ o Only outbound calls that result in a sale and the original inbound call tracks back to 321-418-3007 @done(20-05-09 15:31)
+  ☐ Import csv files with the hours_type and calculate the payroll
+    ☐ -- payroll
+      ☐ -- Employee id
+      ☐ -- employee name
+      ☐ -- file
+      ☐ -- total hours
+      ☐ -- hours_type
+      ☐ -- salary
+      ☐ -- amount
+      ☐ -- payroll (date or period string)
+      ☐ -- unique id (computed with the date, hours type, employee id)
+      
+    ☐ Select date
+    ☐ select hours type
+    ☐ upload file
+    ☐ check the file name includes hour type
+    ☐ check file name has't been worked
+    ☐ check for unique id
+  ☐ OWNER DASHBOARD   
+    ✔ Current Headcount @done(20-05-11 09:15)
+    ✔ MTD Revenue @done(20-05-11 09:15)
+    ✔ Monthly Gross Revenue @done(20-05-11 09:15)
+    ✘ Yearly Gross Revenue @cancelled(20-05-11 09:15)
+    ☐ Attrition
+    ☐ Rotation
+    ✔ RPH (revenue / production hours) @done(20-05-11 09:14)
+    ✔ SPH (sales / productions hours) vs SPH Goal (calculate...) @done(20-05-11 09:14)
+    ☐ Conversion Rate (sales / contacts)
+    ☐ Utilization (talk time / production time)
+    ✔ Eficiency (production time vs paid time) @done(20-05-11 09:14)
 Archive:

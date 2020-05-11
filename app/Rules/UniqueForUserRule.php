@@ -4,7 +4,7 @@ namespace App\Rules;
 
 use Illuminate\Database\Eloquent\Model;
 
-class UniqueFormUserRule
+class UniqueForUserRule
 {
     /**
      * Construct
@@ -14,5 +14,6 @@ class UniqueFormUserRule
      * @param string $field
      */
     public function __construct(Model $model, $id, $field)
-    { }
+    {
+    }
 }

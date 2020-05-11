@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Utilities\CropColumns;
+namespace App\Utilities\FromCollection;
 
 class FromArray
 {
-    
+
     public $data_array = [];
 
     public $keys = [];
@@ -16,10 +16,10 @@ class FromArray
 
     public function parse()
     {
-        $this->data_array = array_map(function($item) {
+        $this->data_array = array_map(function ($item) {
             foreach ($item as $key => $value) {
-                $return[] = array_filter($item, function($elem) use ($key, $value){               
-                    if (! in_array($key, $this->keys)) {
+                $return[] = array_filter($item, function ($elem) use ($key, $value) {
+                    if (!in_array($key, $this->keys)) {
                         $this->keys[$key] = null;
                     }
                     return $elem !== null;
@@ -30,16 +30,14 @@ class FromArray
         }, $this->data_array);
 
         return $this;
-    }   
+    }
 
     public function mergeKeys()
     {
-        $this->data_array = array_map(function($item) {
-            return array_merge($this->keys,$item[0]);
+        $this->data_array = array_map(function ($item) {
+            return array_merge($this->keys, $item[0]);
         }, $this->data_array);
 
         return $this;
     }
-
 }
-

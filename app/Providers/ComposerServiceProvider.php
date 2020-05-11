@@ -7,7 +7,7 @@ use App\Http\ViewComposers\DgtComposer;
 use App\Http\ViewComposers\LatestPunchComposer;
 use Illuminate\Support\ServiceProvider;
 
-class ComposerserviceProvider extends ServiceProvider
+class ComposerServiceProvider extends ServiceProvider
 {
     public function boot()
     {
