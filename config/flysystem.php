@@ -79,7 +79,8 @@ return [
 
         'dropbox' => [
             'driver' => 'dropbox',
-            'token' => config('dainsys.dropbox_token'),
+            'accessToken' => env('DROPBOX_ACCESS_TOKEN'),
+            'appSecret' => env('DROPBOX_APP_SECRET'),
             'app' => 'dainsys',
             // 'prefix'     => 'your-prefix',
             // 'visibility' => 'public',
@@ -108,15 +109,6 @@ return [
             'driver' => 'gridfs',
             'server' => 'mongodb://localhost:27017',
             'database' => 'your-database',
-            // 'visibility' => 'public',
-            // 'pirate'     => false,
-            // 'eventable'  => true,
-            // 'cache'      => 'foo'
-        ],
-
-        'local' => [
-            'driver' => 'local',
-            'path' => storage_path('files'),
             // 'visibility' => 'public',
             // 'pirate'     => false,
             // 'eventable'  => true,

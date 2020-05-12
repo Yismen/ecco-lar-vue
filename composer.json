@@ -37,6 +37,7 @@
         "maatwebsite/excel": "^3.0",
         "pusher/pusher-php-server": "^4.1",
         "spatie/flysystem-dropbox": "^1.0",
+        "spatie/laravel-backup": "^6.9",
         "spatie/laravel-permission": "^3.0",
         "tucker-eric/eloquentfilter": "^2.3",
         "yajra/laravel-datatables-oracle": "^9.0"
