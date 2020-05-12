@@ -71,6 +71,6 @@ class Kernel extends ConsoleKernel
         $schedule->command('dainsys:political-send-hourly-flash')->hourly()->timezone('America/New_York');
 
         $schedule->command('backup:run')->dailyAt('21:15')->timezone('America/New_York');
-        $schedule->command('backup:clean')->dailyAt('2:15')->timezone('America/New_York');
+        $schedule->command('backup:clean')->dailyAt('22:15')->timezone('America/New_York');
     }
 }

@@ -1,7 +1,3 @@
-@push('scripts')
-
-@stop
-
 @inject('layout', 'App\Layout')
 @extends('layouts.'.$layout->app(), ['page_header'=>'Performances', 'page_description'=>'Edit Performance.'])
 
