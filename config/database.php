@@ -50,6 +50,14 @@ return [
             'prefix' => '',
             'strict' => false,
             'engine' => 'InnoDB ROW_FORMAT=DYNAMIC',
+            'dump' => [
+                'excludeTables' => [
+                    'telescope_entries',
+                    'telescope_entries_tags',
+                    'telescope_monitoring',
+                ],
+                'doNotCreateTables' => true
+            ]
         ],
         'poliscript' => [
             'driver' => 'sqlsrv',
@@ -72,6 +80,14 @@ return [
             'prefix' => '',
             'schema' => 'public',
             'sslmode' => 'prefer',
+            'dump' => [
+                'excludeTables' => [
+                    'telescope_entries',
+                    'telescope_entries_tags',
+                    'telescope_monitoring',
+                ],
+                'doNotCreateTables' => true
+            ]
         ],
         'sqlsrv' => [
             'driver' => 'sqlsrv',

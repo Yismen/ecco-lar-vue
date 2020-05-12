@@ -52,6 +52,19 @@ return [
             'visibility' => 'public',
         ],
 
+
+        'dropbox' => [
+            'driver' => 'dropbox',
+            'accessToken' => env('DROPBOX_ACCESS_TOKEN'),
+            'appSecret' => env('DROPBOX_APP_SECRET'),
+            'app' => 'dainsys',
+            // 'prefix'     => 'your-prefix',
+            // 'visibility' => 'public',
+            // 'pirate'     => false,
+            // 'eventable'  => true,
+            // 'cache'      => 'foo'
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => 'your-key',
