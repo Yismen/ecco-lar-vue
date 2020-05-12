@@ -20,10 +20,10 @@
             <ul class="menu">
                 <li v-for="notification in notificationsData" 
                     :key="notification.id" 
-                    :class="parseClass(notification.data.css_class)"
+                    :class="parseClass(notification)"
                 ><!-- start notification -->
                     <a href="#" @click.prevent="showModal(notification)">
-                        <i class="fa fa-bell-o text-aqua"></i>{{ notification.data.subject || 'No Subject' }} 
+                        <i class="fa fa-bell-o text-aqua"></i>{{ notification.data ? notification.data.subject : 'No Subject' }} 
                     </a>
                 </li>
                 <!-- end notification -->
@@ -47,18 +47,18 @@
         <div class="box box-solid">
             <div class="box-header with-border">
                 <h4>
-                    {{ notification.subject || 'No Subject' }} 
+                    {{ notification.data ? notification.data.subject : 'No Subject' }} 
                     <a href="#" @click.prevent="closeModal" class="btn btn-link pull-right"> X </a>
                 </h4>
             </div> 
             <!-- /.box-header -->
             <div class="box-body">
-                <p v-if="notification.body">{{ notification.body}} </p>
+                <p v-if="notification.data && notification.data.body">{{ notification.data.body}} </p>
                 <pre v-else>{{ notification }} </pre>
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
-                Notification type: {{ notification.type }}
+                Notification type: {{ notification.type }}, @ {{ moment(notification.created_at).format("Y-MM-DD H:mm:ss") }}
             </div>
             <!-- /.box-footer -->
         </div>
@@ -71,7 +71,8 @@ export default {
     data() {
         return {
             notificationsData: this.notifications,
-            notification: {}
+            notification: {},
+            moment: window.moment
         }
     },
 
@@ -92,7 +93,9 @@ export default {
     }, 
     
     methods: {
-        parseClass(css_class) {
+        parseClass(notification) {
+            let css_class = notification.data ? notification.data.css_class : 'bg-gray'
+            
             return String(css_class).search('bg-') >= 0 ? css_class : `bg-${css_class}`
         },
         showModal(notification) {
@@ -103,7 +106,7 @@ export default {
         },
         beforeOpen(event) {
             let params = event.params
-            this.notification = params.data
+            this.notification = params
             this.notification.type = params.type
 
             axios.get(`/api/notifications/show/${params.id}`)
