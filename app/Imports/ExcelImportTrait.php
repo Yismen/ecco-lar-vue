@@ -14,12 +14,12 @@ trait ExcelImportTrait
 
     public function chunkSize(): int
     {
-        return 300;
+        return 150;
     }
 
     public function batchSize(): int
     {
-        return 1000;
+        return 150;
     }
 
     public function registerEvents(): array
