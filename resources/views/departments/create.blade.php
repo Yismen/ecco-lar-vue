@@ -1,4 +1,3 @@
-
 @inject('layout', 'App\Layout')
 @extends('layouts.'.$layout->app(), ['page_header'=>'Departments', 'page_description'=>'Create a new department.'])
 

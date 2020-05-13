@@ -1,4 +1,3 @@
-
 @inject('layout', 'App\Layout')
 @extends('layouts.'.$layout->app(), ['page_header'=>'Payrolls Temporary', 'page_description'=>'Import temporary data from Excel file.'])
 

@@ -1,4 +1,3 @@
-
 @inject('layout', 'App\Layout')
 @extends('layouts.'.$layout->app(), ['page_header'=>'Roles Management', 'page_description'=>'Manage roles, permissions and menus items per role.'])
 

@@ -1,4 +1,3 @@
-
 @inject('layout', 'App\Layout')
 @extends('layouts.'.$layout->app(), ['page_header'=>'Logins', 'page_description'=>'Create a new login.'])
 

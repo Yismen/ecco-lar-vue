@@ -1,5 +1,3 @@
-
-
 @inject('layout', 'App\Layout')
 @extends('layouts.'.$layout->app(), ['page_header'=>'Ars', 'page_description'=>'Create a new AFP.'])
 
