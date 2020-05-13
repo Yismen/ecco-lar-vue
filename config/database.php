@@ -52,6 +52,7 @@ return [
             'engine' => 'InnoDB ROW_FORMAT=DYNAMIC',
             'dump' => [
                 'excludeTables' => [
+                    'migrations',
                     'telescope_entries',
                     'telescope_entries_tags',
                     'telescope_monitoring',
@@ -82,6 +83,7 @@ return [
             'sslmode' => 'prefer',
             'dump' => [
                 'excludeTables' => [
+                    'migrations',
                     'telescope_entries',
                     'telescope_entries_tags',
                     'telescope_monitoring',
