@@ -5,10 +5,6 @@
     "license": "MIT",
     "type": "project",
     "repositories": [
-        {
-            "type": "git",
-            "url": "https://github.com/Yismen/cors.git"
-        },
         { 
             "type": "git", 
             "url": "https://github.com/Yismen/clear-log-files.git" 
