@@ -21,7 +21,7 @@ body {
     width: 100%;
     background-color: rgba(0,0,0,.5);
 }
-.header-wrapper::after {
+.intro-header::after {
     content:"";
     display: block;
     height: 100%;
@@ -31,16 +31,21 @@ body {
     width: 100%;
     background-color: rgba(0,0,0,.5);
 }
-.header-wrapper {
-    
+.intro-header {
+    background-color: black;
     background-image: url(/images/main-header.jpg);
-    background-position: 50%;
+    background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     .main-header {
-        font-family: "Roboto", sans-serif;
-        color: #f8f8f8;
         min-height: 100vh;
+        width: 100%;
+        // font-family: "Roboto", sans-serif;
+        color: #f8f8f8;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -55,7 +60,7 @@ body {
         }
         .lead {
             max-width: 50%;
-            font-weight: 100;
+            line-height: 1.75;
             font-size: medium;
             letter-spacing: 3px;
         }
@@ -66,14 +71,22 @@ body {
             max-height: 14rem;
         }
         .call-to-action {
-            margin-top: 3.5rem;
+            margin-top: 1.5rem;
             color: #030303;
             font-weight: 900;
             text-transform: uppercase;
             // text-shadow: rgba(0, 0, 0, 0.7) -2px 2px 0px;
             box-shadow: -1.5px 1.5px 3px rgba(0, 0, 0, 0.8);
-            padding: 14px 20px;
-            font-size: 22px;
+        }     
+        .more-button {
+            position: absolute;
+            bottom: 20px;
+            color: white;
+            align-self: center;
+        }
+            
+        .more-button:hover, .more-button:focus {
+            color: #e3e3e3;
         }
     }
 }
@@ -82,17 +95,7 @@ body {
     padding-top: 7rem;
     padding-bottom: 7rem;
     text-align: center;
-}
-
-.more-button {
-    position: absolute;
-    bottom: 20px;
-    color: white;
-}
-
-.more-button:hover, .more-button:focus {
-    color: #e3e3e3;
-}
+}   
 
 .animatable {
     visibility: hidden;
@@ -176,53 +179,58 @@ body {
 }
 
 @media only screen and (min-width: 992px) {
-    
-    
-    // .wraper-right { 
-    //     background-image: url(/images/main-header.jpg);
-    //     background-position: 50%;
-    //     background-repeat: no-repeat;
-    //     background-size: cover;
-    //     min-height: 100vh;
-    // }
-    
-    // .header-wrapper::after {
-    //     content:"";
-    //     display: block;
-    //     height: 100%;
-    //     position: absolute;
-    //     top: 0;
-    //     left: 0;
-    //     width: 100%;
-    //     background-color: #FFF;
-    // }
-    .header-wrapper {
-        
-    //     background-image: none;
-    //     background-color: #fff;
-
-        .app-title {
-            font-size: 70px !important;
-        }
+    .intro-header::after {
+        content:"";
+        display: block;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        background-color: rgba(0,0,0,0);
+    }
+    .intro-header {    
+        background-position: 300px center;
+        background-size: contain;
         .main-header {
-    //         font-family: "Roboto", sans-serif;
-    //         color: #000;
-    //         display: flex;
-    //         flex-direction: column;
-    //         justify-content: center;
-    //         align-items: flex-start;
-    //         padding: 10rem;
-            .lead {
-                max-width: 80%;
-                letter-spacing: 4px;
+            min-height: 100vh;
+            align-items: flex-start;
+            width: 70%;
+            .app-title {
+                font-size: 70px;
             }
-    //         .dainsys-logo {
-    //             width: 100%;
-    //             display: block;
-            // }
+            .dainsys-logo {
+                display: none;
+            }
             .call-to-action {
-                font-weight: 600;
+                margin-top: 6rem;
             }
         }
     }
+    
+}
+
+@media only screen and (min-width: 1100px) {
+    .intro-header {    
+        background-position: 450px center;
+        .main-header {
+            min-height: 80vh;
+            padding-left: 0px;
+            .app-title {
+                font-size: 60px;
+            }
+        }
+    }    
+}
+@media only screen and (min-width: 1250px) {
+    .intro-header {    
+        background-position: 500px center;
+        .main-header {
+            width: 70%;
+            min-height: 90vh;
+            .app-title {
+                font-size: 60px;
+            }
+        }
+    }    
 }
