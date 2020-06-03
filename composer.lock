@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "746fd34a65219e625bf79332e33f8dc0",
+    "content-hash": "20e97545f79c86c9d489e901804ceb4e",
     "packages": [
         {
             "name": "arcanedev/log-viewer",
@@ -369,11 +369,11 @@
         },
         {
             "name": "dainsys/clear-laravel-logs",
-            "version": "2.2.2",
+            "version": "2.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Yismen/clear-log-files.git",
-                "reference": "1f1aa8d22ad55ddfa5809b9e8bf18f1d5e4950a9"
+                "reference": "0e029bac05bedfbe682d8f96ebb31ff6d43e6247"
             },
             "require": {
                 "illuminate/console": ">=5.7",
@@ -401,7 +401,7 @@
             },
             "autoload-dev": {
                 "psr-4": {
-                    "Dainsys\\Commands\\Tests\\": "tests/"
+                    "Dainsys\\Commands\\ClearLogs\\Tests\\": "tests/"
                 }
             },
             "license": [
@@ -414,7 +414,7 @@
                 }
             ],
             "description": "Clear Laravel log files",
-            "time": "2020-06-03T15:39:38+00:00"
+            "time": "2020-06-03T15:44:10+00:00"
         },
         {
             "name": "defuse/php-encryption",
