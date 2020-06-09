@@ -1,7 +1,7 @@
 <template>
-    <div class="dainsys-logo">
+    <div class="dainsys-logo animated">
         <img :src="logo"
-            class="img-responsive center-block animated" alt="Logo"
+            class="img-responsive center-block" alt="Logo"
             @click="animateLogo"
         >
     </div>
