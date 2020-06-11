@@ -102,6 +102,7 @@
         <!-- ./wrapper -->
         <!-- REQUIRED JS SCRIPTS -->
         <script src="{{ mix('js/app.js') }}"></script>
+        <script src="{{ mix('js/site.js') }}"></script>
         <script>
         </script>
         <!-- Optionally, you can add Slimscroll and FastClick plugins.

@@ -14,11 +14,9 @@
             >
         </dainsys-logo>
         <hr class="my-2 hidden">
-        <p class="">
-            <a class="btn btn-warning btn-lg animatable call-to-action"  data-animation="from-bottom" href="/admin" role="button" >
-                <i class="fa fa-sign-in"></i> Get Started!
-            </a>
-        </p>
+        <a class="btn btn-warning btn-lg animatable call-to-action"  data-animation="from-bottom" href="/admin" role="button" >
+            <i class="fa fa-sign-in"></i> Get Started!
+        </a>
         <a href="#services" class="more-button animatable "  data-animation="from-top">
             <i class="fa fa-angle-double-down"></i> More
         </a>
@@ -96,34 +94,3 @@
     </div>
 </div>
 @endsection
-
-@push('scripts')
-<script>
-    (function(){
-            document.querySelector('.more-button').addEventListener('click', function(e) {
-                e.preventDefault()
-
-                document.querySelector("#services").scrollIntoView({behavior: 'smooth'})
-            })
-
-            const observer = new IntersectionObserver(elements => {
-                elements.forEach(element => {
-                    const animation = element.target.dataset.animation ? element.target.dataset.animation : "from-top"
-                    console.log(element.intersectionRatio);
-                    
-                    if(element.intersectionRatio > 0) {
-                        element.target.style.visibility ="visible"
-                        element.target.classList.add(animation)
-                    } else {
-                        element.target.style.visibility ="hidden"
-                        element.target.classList.remove(animation)
-                    }
-                });
-            })
-
-            document.querySelectorAll(".animatable").forEach(element => {
-                observer.observe(element)
-            });
-        })()
-</script>
-@endpush
