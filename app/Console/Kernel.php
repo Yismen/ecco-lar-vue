@@ -21,6 +21,7 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\Capillus\SendAgentReportCommand::class,
         \App\Console\Commands\Capillus\SendCapillusCallTypeCommand::class,
         \App\Console\Commands\Political\SendPoliticalFlashReportCommand::class,
+        \App\Console\Commands\Wow\SendWowDailyReportCommand::class,
 
         \App\Console\Commands\EmployeesHired::class,
 
@@ -69,6 +70,8 @@ class Kernel extends ConsoleKernel
         // $schedule->command('dainsys:capillus-send-calls-type-report')->dailyAt('03:30')->timezone('America/New_York');
 
         $schedule->command('dainsys:political-send-hourly-flash')->hourly()->timezone('America/New_York');
+
+        $schedule->command('dainsys:wow-daily-report')->dailyAt('07:00')->timezone('America/New_York');
 
         $schedule->command('backup:run')->dailyAt('21:15')->timezone('America/New_York');
         $schedule->command('backup:clean')->dailyAt('22:15')->timezone('America/New_York');
