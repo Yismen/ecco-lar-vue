@@ -72,7 +72,7 @@ return [
         *
         * This must be set in the env and have to be separated by the pipe symbol (|)
         */
-        'distro' => env('CAPILLUS_FLASH_DISTRO', config('mail.from.address')),
+        'distro' => env('CAPILLUS_FLASH_DISTRO'),
         
         /**
          * Capillus Campaigns List
@@ -84,8 +84,12 @@ return [
     ],
 
     'political' => [
-        'distro' => env('POLITICAL_FLASH_DISTRO', config('mail.from.address')),
-    ], 
+        'distro' => env('POLITICAL_FLASH_DISTRO'),
+    ],
+
+    'wow' => [
+        'distro' => env('WOW_MAILING_DISTRO'),
+    ],
 
     'dashboards' => [
         'roles_hierarchy' => [
