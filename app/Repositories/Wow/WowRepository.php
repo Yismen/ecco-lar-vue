@@ -31,7 +31,7 @@ class WowRepository extends RingCentralConnection
                 set @toDate = '{$this->date_to}'
                 set @campaign = 'CTV%'
                 
-                exec [sp_Hours_Summary_WOW] @fromDate, @toDate, @campaign
+                exec [sp_Hours_Summary] @fromDate, @toDate, @campaign
             ")
         );
     }
