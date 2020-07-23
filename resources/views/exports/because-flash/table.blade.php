@@ -51,7 +51,7 @@
                 $calls_answered = $collection->sum('Calls Answered');
                 $qualified_calls = $collection->sum('Qualified Calls');
                 $non_qualified_calls = $collection->sum('Non-Qualified Calls');
-                $ivr_abandoned = $collection->sum('IVR Abandoned');
+                $calls_abandoned = $collection->sum('Calls Abandoned');
                 $sales = $collection->sum('Sales');
                 $ivr_disconnects = $collection->sum('IVR Disconnects');
              @endphp
@@ -60,8 +60,8 @@
             <th>{{ $calls_answered }}</th>
             <th>{{ $ivr_disconnects }}</th>
             <th>{{ $calls_offered == 0 ? 0 : $ivr_disconnects / $calls_offered }}</th>
-            <th>{{ $ivr_abandoned }}</th>
-            <th>{{ $calls_offered == 0 ? 0 : $ivr_abandoned / $calls_offered }}</th>
+            <th>{{ $calls_abandoned }}</th>
+            <th>{{ $calls_offered == 0 ? 0 : $calls_abandoned / $calls_offered }}</th>
             <th>{{ $sales }}</th>
             <th>{{ $calls_answered == 0 ? 0 : $qualified_calls / $calls_answered }}</th>
             <th>{{ $calls_answered == 0 ? 0 : $non_qualified_calls / $calls_answered }}</th>
