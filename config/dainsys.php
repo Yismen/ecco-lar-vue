@@ -83,6 +83,23 @@ return [
         'campaigns' =>env('CAPILLUS_CAMPAIGNS', 'Capillus DRTV|Capillus Email|Capillus Sales|Capillus Caller ID|Capillus DRTV Route|Capillus Sales Route')
     ],
 
+    'because' => [
+        /**
+        * Capillus Distro List
+        *
+        * This must be set in the env and have to be separated by the pipe symbol (|)
+        */
+        'distro' => env('BECAUSE_FLASH_DISTRO'),
+        
+        /**
+         * Capillus Campaigns List
+         *
+         * A list of the campaigns for Capillus
+         * This must be set in the env and have to be separated by the pipe symbol (|)
+         */
+        'campaigns' =>env('BECAUSE_CAMPAIGNS', 'LA Times|Comcast DRTV')
+    ],
+
     'political' => [
         'distro' => env('POLITICAL_FLASH_DISTRO'),
     ],

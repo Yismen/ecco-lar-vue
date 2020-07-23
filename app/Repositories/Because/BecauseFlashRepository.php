@@ -33,7 +33,7 @@ class BecauseFlashRepository extends RingCentralConnection
                 declare 
                     @reportDate as smalldatetime, @endDate as smalldatetime, @campaign as varchar(50) 
                 set @reportDate = GETDATE() - {$subdays} AT TIME ZONE 'UTC' AT TIME ZONE 'Eastern Standard Time'
-                set @campaign = 'Capillus%'                    
+                set @campaign = '%'                    
                 exec [sp_BecauseFlashReport] @reportDate, @campaign
             ")
         );

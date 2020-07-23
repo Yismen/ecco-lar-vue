@@ -26,7 +26,7 @@ trait BecauseCommandsTrait
      */
     protected function distroList(): array
     {
-        $list = config('dainsys.capillus.distro') ??
+        $list = config('dainsys.because.distro') ??
             abort(404, "Invalid distro list. Set it up in the .env, separated by pipe (|).");
 
         return explode("|", $list);
