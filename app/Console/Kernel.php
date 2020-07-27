@@ -16,6 +16,7 @@ class Kernel extends ConsoleKernel
         
         \App\Console\Commands\Because\BecauseFlashReportCommand::class,
         \App\Console\Commands\Because\PullDailyPerformanceDataCommand::class,
+        \App\Console\Commands\Because\SendDailyPerformanceReportCommand::class,
 
         \App\Console\Commands\Capillus\SendFlashReportCommand::class,
         \App\Console\Commands\Capillus\SendCapillusLeadsReportCommand::class,
@@ -79,8 +80,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('dainsys:because-send-flash-report')->twiceDaily(6, 9)->timezone('America/New_York');
         $schedule->command('dainsys:because-send-flash-report')->twiceDaily(12, 15)->timezone('America/New_York');
         $schedule->command('dainsys:because-send-flash-report')->twiceDaily(18, 21)->timezone('America/New_York');
-        $schedule->command('dainsys:because-pull-daily-performance-data')->dailyAt('05:35')->timezone('America/New_York');
-        $schedule->command('dainsys:because-send-daily-performance-report')->dailyAt('05:55')->timezone('America/New_York');
+        $schedule->command('dainsys:because-pull-daily-performance-data')->dailyAt('06:35')->timezone('America/New_York');
+        $schedule->command('dainsys:because-send-daily-performance-report')->dailyAt('06:55')->timezone('America/New_York');
 
         $schedule->command('dainsys:political-send-hourly-flash')->hourly()->timezone('America/New_York');
 

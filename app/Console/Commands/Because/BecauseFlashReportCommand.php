@@ -50,14 +50,14 @@ class BecauseFlashReportCommand extends Command
         try {
             $instance = Carbon::now()->format('Ymd_His');
     
-            $file_name = "KNYC E Flash Report - Because {$instance}.xlsx";
+            $file_name = "Kipany - Because Flash Report {$instance}.xlsx";
 
             $data = new BecauseFlashRepository();
 
             Excel::store(new BecauseFlashReportExport($data->data), $file_name);
 
             Mail::send(
-                new BecauseFlashMail($this->distroList(), $file_name, "KNYC E Flash")
+                new BecauseFlashMail($this->distroList(), $file_name, "Kipany - Because Flash")
             );
     
             $this->info("Because Flash report sent!");
