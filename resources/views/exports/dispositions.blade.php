@@ -9,17 +9,17 @@
             <th>Total</th>
             <th>Percentage</th>
         </tr>
-        @php
-            $total_dispos = collect($data)->sum('dispo_count');
-        @endphp
         @foreach ($data as $row)
             <tr>
+                @php
+                    $totalForCampaign = collect($data)->where('campaign_name', $row->campaign_name)->sum('dispo_count');
+                @endphp
                 <td>{{ $row->campaign_name }}</td>
                 <td>{{ $row->agent_disposition }}</td>
                 <td>{{ $row->date_from }}</td>
                 <td>{{ $row->date_to }}</td>
                 <td>{{ $row->dispo_count }}</td>
-                <td>{{ $total_dispos > 0 ? $row->dispo_count / $total_dispos : 0 }}</td>
+                <td>{{ $totalForCampaign > 0 ? $row->dispo_count / $totalForCampaign : 0 }}</td>
             </tr>
         @endforeach
     </tbody>

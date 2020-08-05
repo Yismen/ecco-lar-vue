@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands\Political\HourlyProductionReport\Sheets;
+namespace App\Console\Commands\Common\HourlyProductionReport\Sheets;
 
 use App\Exports\RangeFormarter;
 use Illuminate\Contracts\View\View;
@@ -20,19 +20,25 @@ class DispositionsSheet implements FromView, WithTitle, WithEvents, WithPreCalcu
     protected $rows;
     protected $last_column;
 
-    public function __construct(array $data)
+    protected $sheetName;
+
+    protected $title;
+
+    public function __construct(array $data, $sheetName, $title)
     {
         $this->data = $data;
 
         $this->rows = count($this->data) + 2;
         $this->last_column = "F";
+        $this->sheetName = $sheetName;
+        $this->title = $title;
     }
 
     public function view(): View
     {
         return view('exports.dispositions', [
             'data' => $this->data,
-            'dispositionsTitle' => 'Political Hourly Dispositions Report'
+            'dispositionsTitle' => $this->title,
         ]);
     }
 
@@ -61,6 +67,6 @@ class DispositionsSheet implements FromView, WithTitle, WithEvents, WithPreCalcu
 
     public function title(): string
     {
-        return "Dispositions";
+        return $this->sheetName;
     }
 }

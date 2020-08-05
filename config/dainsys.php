@@ -104,6 +104,10 @@ return [
         'distro' => env('POLITICAL_FLASH_DISTRO'),
     ],
 
+    'publishing' => [
+        'distro' => env('PUBLISHING_FLASH_DISTRO'),
+    ],
+
     'wow' => [
         'distro' => env('WOW_MAILING_DISTRO'),
     ],
