@@ -28,6 +28,8 @@ class Kernel extends ConsoleKernel
 
         \App\Console\Commands\Political\SendPoliticalFlashReportCommand::class,
         \App\Console\Commands\Political\SendPoliticallHourlyProductionReportCommand::class,
+        
+        \App\Console\Commands\Publishing\SendPublishinglHourlyProductionReportCommand::class,
 
         \App\Console\Commands\Wow\SendWowDailyReportCommand::class,
 
@@ -87,6 +89,8 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('dainsys:political-send-hourly-flash')->hourly()->timezone('America/New_York');
         $schedule->command('dainsys:political-send-hourly-production-report')->hourlyAt(59)->timezone('America/New_York');
+        
+        $schedule->command('dainsys:publishing-send-hourly-production-report')->hourlyAt(58)->timezone('America/New_York');
 
         // $schedule->command('dainsys:wow-daily-report')->dailyAt('07:00')->timezone('America/New_York');
 
