@@ -108,7 +108,13 @@ class FlashCampaignsSheet implements FromView, WithTitle, WithEvents, WithPreCal
 
     protected function answersLastColumn()
     {
-        $range = range('A', 'ZZ');
+        $range = [];
+        $firstLetter = 'A';
+        for($i = 1 ; $i <= 200; $i++){
+            
+            $range[] = $firstLetter++;
+        }
+
 
         $col = collect($this->answers)->first();
 
