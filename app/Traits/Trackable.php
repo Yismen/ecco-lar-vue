@@ -21,11 +21,11 @@ trait Trackable
 
     protected function recordChanges()
     {
-        if (! auth()->check()) {
-            abort(405, 'Trackable trait requires authenticated users');
+        if (auth()->check()) {
+            // abort(405, 'Trackable trait requires authenticated users');
+            $this->changes()->create($this->getDiff());
         }
 
-        $this->changes()->create($this->getDiff());
     }
 
     protected function getDiff()
