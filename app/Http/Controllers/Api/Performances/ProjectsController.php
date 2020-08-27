@@ -10,8 +10,8 @@ class ProjectsController extends Controller
 {
     public function list()
     {
-        $campaigns = Project::get();
+        $projects = Project::with('client')->get();
 
-        return ProjectResource::collection($campaigns);
+        return ProjectResource::collection($projects);
     }
 }
