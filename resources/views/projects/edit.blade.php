@@ -6,10 +6,14 @@
     	<div class="row">
 			<div class="col-sm-8 col-sm-offset-2">
 				<div class="box box-warning">
-					<div class="box-header">
+					<div class="box-header with-border">
 						<h4>
 							Edit Project
-							<a href="{{ route('admin.projects.show', $project->id) }}">{{ $project->name }}</a>
+							[<a href="{{ route('admin.projects.show', $project->id) }}">{{ $project->name }}</a>]
+							<a href="/admin/projects" class="pull-right">
+					    		Back to the list
+						    	<i class="fa fa-list"></i>
+						    </a>
 						</h4>
 					</div>
 
@@ -36,14 +40,6 @@
 							redirect-url="{{ route('admin.projects.index') }}"
 						></delete-request-button>
 					</div>
-
-					    <div class="form-group col-sm-offset-4">
-					    	<a href="/admin/projects" class="push-right">
-					    		Back to the list
-						    	<i class="fa fa-list"></i>
-						    </a>
-					    </div>
-
 				</div>
 			</div>
 		</div>

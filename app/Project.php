@@ -11,7 +11,7 @@ class Project extends Model
      *
      * @var array
      */
-    public $fillable = ['name'];
+    public $fillable = ['name', 'client_id'];
 
     public function employees()
     {
@@ -21,6 +21,16 @@ class Project extends Model
     public function performances()
     {
         return $this->hasManyThrough(Performance::class, Campaign::class);
+    }
+
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
+    }
+
+    public function getClientsListAttribute()
+    {
+        return Client::orderBy('name')->pluck('name', 'id');
     }
 
     public function isNotDowntimes($query)
