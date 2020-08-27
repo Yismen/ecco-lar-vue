@@ -24,7 +24,9 @@
                             <div class="box box-info">
                                 <div class="box-header">
                                     <h4>
-                                        <a href="{{ route('admin.projects.show', $project->id) }}">
+                                        <a href="{{ route('admin.projects.show', $project->id) }}"
+                                            class="{{ $project->client == null ? 'text-danger' : '' }}"  
+                                        >
                                             {{ $project->name }}, {{ optional($project->client)->name }}
                                         </a>
                                         <span class="badge bg-light-blue">{{ $project->employees->count() }}</span>
@@ -78,7 +80,7 @@
                                     @foreach ($projectsList as $project)
                                         @if ($project->employees->count() == 0)
                                             <li class="list-group-item">
-                                                <a href="{{ route('admin.projects.show', $project->id) }}">
+                                                <a href="{{ route('admin.projects.show', $project->id) }}" class="{{ $project->client == null ? 'text-danger' : '' }}" >
                                                     {{ $project->name }}, {{ optional($project->client)->name }}
                                                 </a>
                                                 <a href="{{ route('admin.projects.edit', $project->id) }}" class="pull-right text-warning"><i class="fa fa-pencil"></i></a>
