@@ -19,15 +19,14 @@
 
                 <form action="/admin/projects/employees" method="POST">
                     @csrf
-
-
-
                     @foreach ($projects as $project)
                         @if ($project->employees->count() > 0)
                             <div class="box box-info">
                                 <div class="box-header">
                                     <h4>
-                                        <a href="{{ route('admin.projects.show', $project->id) }}">{{ $project->name }}</a>
+                                        <a href="{{ route('admin.projects.show', $project->id) }}">
+                                            {{ $project->name }}, {{ optional($project->client)->name }}
+                                        </a>
                                         <span class="badge bg-light-blue">{{ $project->employees->count() }}</span>
                                         <a href="{{ route('admin.projects.edit', $project->id) }}" class="pull-right text-info">
                                             <i class="fa fa-edit"></i>
@@ -69,20 +68,26 @@
                     </div>
                 </form>
 
-                {{-- Empty Projects --}}
-                <div class="col-sm-6 col-sm-offset-3">
-                    <h5>Empty Projects</h5>
-
-                    <ul class="list-group">
-                        @foreach ($projects as $project)
-                            @if ($project->employees->count() == 0)
-                                <li class="list-group-item">
-                                    {{ $project->name }}
-                                    <a href="{{ route('admin.projects.edit', $project->id) }}" class="pull-right text-warning"><i class="fa fa-pencil"></i></a>
-                                </li>
-                            @endif
-                        @endforeach
-                    </ul>
+                <div class="row">
+                        {{-- Empty Projects --}}
+                        <div class="col-sm-12">
+                            <h5>Empty Projects (Without Employees)</h5>
+    
+                            @foreach ($projects->split(2) as $projectsList)
+                                <ul class="list-group col-sm-6">
+                                    @foreach ($projectsList as $project)
+                                        @if ($project->employees->count() == 0)
+                                            <li class="list-group-item">
+                                                <a href="{{ route('admin.projects.show', $project->id) }}">
+                                                    {{ $project->name }}, {{ optional($project->client)->name }}
+                                                </a>
+                                                <a href="{{ route('admin.projects.edit', $project->id) }}" class="pull-right text-warning"><i class="fa fa-pencil"></i></a>
+                                            </li>
+                                        @endif
+                                    @endforeach
+                                </ul>
+                            @endforeach
+                        </div>
                 </div>
             </div>
         </div>

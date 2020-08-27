@@ -19,7 +19,7 @@ class ClientsController extends Controller
     public function index()
     {
         $clients = Cache::remember('clients', now()->addHours(4), function () {
-            return Client::get();
+            return Client::with('projects')->orderBy('name')->get();
         });
 
         return view('clients.index', compact('clients'));

@@ -18,7 +18,7 @@ class ProjectsController extends Controller
 
     public function index()
     {
-        $projects = Project::with(['employees' => function ($query) {
+        $projects = Project::with(['client', 'employees' => function ($query) {
             // give it the possition
             return $query->orderBy('first_name')
                 ->orderBy('second_first_name')
@@ -30,8 +30,8 @@ class ProjectsController extends Controller
                 }])
                 ->actives();
         }])
-        ->orderBy('name')
-        ->get();
+            ->orderBy('name')
+            ->get();
 
         return view('projects.index', compact('projects'));
     }
@@ -43,7 +43,9 @@ class ProjectsController extends Controller
      */
     public function create()
     {
-        return view('projects.create');
+        $project = new Project();
+
+        return view('projects.create', compact('project'));
     }
 
     /**
@@ -57,12 +59,13 @@ class ProjectsController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|min:3|unique:projects',
+            'client_id' => 'required|exists:clients,id'
         ]);
 
-        $project = $project->create($request->only(['name']));
+        $project = $project->create($request->only(['name', 'client_id']));
 
         return redirect()->route('admin.projects.index')
-            ->withSuccess('Project '.$project->name.' created');
+            ->withSuccess('Project ' . $project->name . ' created');
     }
 
     /**
@@ -100,10 +103,11 @@ class ProjectsController extends Controller
     public function update(Request $request, Project $project)
     {
         $this->validate($request, [
-            'name' => 'required|min:3|unique:projects,name,'.$project->id,
+            'name' => 'required|min:3|unique:projects,name,' . $project->id,
+            'client_id' => 'required|exists:clients,id'
         ]);
 
-        $project->update($request->only(['name']));
+        $project->update($request->only(['name', 'client_id']));
 
         return redirect()->route('admin.projects.index', $project->id)
             ->withWarning("Project $project->name has been updated");

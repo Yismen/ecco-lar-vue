@@ -17,4 +17,9 @@ class Client extends Model
     {
         $this->attributes['contact_name'] = ucwords(trim($contact_name));
     }
+
+    public function projects()
+    {
+        return $this->hasMany(Project::class);
+    }
 }
