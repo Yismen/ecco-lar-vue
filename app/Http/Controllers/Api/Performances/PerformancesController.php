@@ -27,7 +27,7 @@ class PerformancesController extends Controller
 
         $performances = Performance::with(['supervisor', 'downtimeReason'])
             ->with(['campaign' => function ($query) {
-                return $query->with(['source', 'project']);
+                return $query->with(['source', 'project.client']);
             }])
             ->with(['employee' => function ($query) {
                 return $query

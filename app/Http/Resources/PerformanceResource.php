@@ -30,6 +30,7 @@ class PerformanceResource extends JsonResource
             'status' => $this->employee->status,
             'supervisor_employee' => optional($this->employee->supervisor)->name,
             'project_employee' => optional($this->employee->project)->name,
+            'client' => optional(optional(optional($this->campaign)->project)->client)->name,
             'department' => optional(optional($this->employee->position)->department)->name,
             'site' => optional($this->employee->site)->name,
             'salary' => optional(optional($this->employee)->position)->salary,
