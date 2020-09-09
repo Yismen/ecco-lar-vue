@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -46,8 +48,8 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/blackhawk/de/management', 'Blackhawk\DE\ManagementController@dashboardData');
 
     Route::get('holidays', 'Api\HolidayController@index');
-
-    Route::get('notifications/unread', 'Api\NotificationsController@unread');
-    Route::post('notifications/mark-all-as-read', 'Api\NotificationsController@markAllAsRead');
-    Route::get('notifications/show/{notification}', 'Api\NotificationsController@show');
+    
+    // Route::get('notifications/unread', 'Api\NotificationsController@unread');
+    // Route::post('notifications/mark-all-as-read', 'Api\NotificationsController@markAllAsRead');
+    // Route::get('notifications/show/{notification}', 'Api\NotificationsController@show');
 });

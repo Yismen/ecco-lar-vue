@@ -31,3 +31,9 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {
         }
     });
 });
+
+Route::middleware(['web', 'auth'])->prefix('api')->group(function () {
+    Route::get('notifications/unread', 'Api\NotificationsController@unread');
+    Route::post('notifications/mark-all-as-read', 'Api\NotificationsController@markAllAsRead');
+    Route::get('notifications/show/{notification}', 'Api\NotificationsController@show');
+});
