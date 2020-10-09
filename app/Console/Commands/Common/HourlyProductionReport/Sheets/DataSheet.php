@@ -29,7 +29,7 @@ class DataSheet implements FromView, WithTitle, WithEvents, WithPreCalculateForm
         $this->data = $data;
 
         $this->rows = count($this->data) + 2;
-        $this->last_column = "O";
+        $this->last_column = "P";
         $this->sheetName = $sheetName;
         $this->title = $title;
     }
@@ -58,17 +58,19 @@ class DataSheet implements FromView, WithTitle, WithEvents, WithPreCalculateForm
                     ->formatTitle("A1:D1")
                     ->formatHeaderRow("A2:{$this->last_column}2")
                     ->applyBorders("A3:{$this->last_column}{$this->rows}")
-                    ->applyNumberFormats("E3:G{$totalsRow}", '#,##0.00')
-                    ->applyNumberFormats("K3:K{$totalsRow}", '#,##0.00')
-                    ->applyNumberFormats("L3:{$this->last_column}{$totalsRow}", NumberFormat::FORMAT_PERCENTAGE_00)
+                    ->applyNumberFormats("F3:H{$totalsRow}", '#,##0.00')
+                    ->applyNumberFormats("L3:L{$totalsRow}", '#,##0.00')
+                    ->applyNumberFormats("M3:{$this->last_column}{$totalsRow}", NumberFormat::FORMAT_PERCENTAGE_00)
                 ;
    
                 $this->addSubTotals();
 
-                $this->sheet->freezePane('C3');
+                $this->sheet->freezePane('D3');
                 
                 $this->sheet->setAutoFilter("A2:{$this->last_column}{$this->rows}");
 
+                // Adjust DialGroup column width
+                $this->sheet->getColumnDimension('A')->setWidth(10);
             }
         ];
     }
@@ -82,7 +84,7 @@ class DataSheet implements FromView, WithTitle, WithEvents, WithPreCalculateForm
     {
         $totalsRow = $this->rows + 1;
 
-        foreach (range('E', 'J') as $letter) {
+        foreach (range('F', 'K') as $letter) {
             $this->sheet->setCellValue(
                 "{$letter}{$totalsRow}",
                 "=SUBTOTAL(9, {$letter}2:{$letter}{$this->rows})"
@@ -91,31 +93,31 @@ class DataSheet implements FromView, WithTitle, WithEvents, WithPreCalculateForm
 
         // SPH Rate
         $this->sheet->setCellValue(
-            "K{$totalsRow}",
+            "L{$totalsRow}",
             "=IFERROR(I{$totalsRow}/F{$totalsRow},0)"
         );
 
         // Conversion Rate
         $this->sheet->setCellValue(
-            "L{$totalsRow}",
+            "M{$totalsRow}",
             "=IFERROR(I{$totalsRow}/J{$totalsRow},0)"
         );
 
         // Contact Rate
         $this->sheet->setCellValue(
-            "M{$totalsRow}",
+            "N{$totalsRow}",
             "=IFERROR(J{$totalsRow}/H{$totalsRow},0)"
         );
 
         // Hours Efficiency Rate
         $this->sheet->setCellValue(
-            "N{$totalsRow}",
+            "O{$totalsRow}",
             "=IFERROR(F{$totalsRow}/E{$totalsRow},0)"
         );
 
         // Talk Time Rate
         $this->sheet->setCellValue(
-            "O{$totalsRow}",
+            "P{$totalsRow}",
             "=IFERROR(G{$totalsRow}/F{$totalsRow},0)"
         );
     }

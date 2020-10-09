@@ -2,7 +2,8 @@
 <table>
     <tbody>
         <tr>
-            <th>Campaign</th>
+            <th>Dial Group</th>
+            <th>Team</th>
             <th>Agent Name</th>
             <th>From Date</th>
             <th>To Date</th>
@@ -22,6 +23,7 @@
         @foreach ($data as $row)
             <tr>
                 <td>{{ $row->dial_group }}</td>
+                <td>{{ $row->Team }}</td>
                 <td>{{ $row->agent_name }}</td>
                 <td>{{ $row->date_from }}</td>
                 <td>{{ $row->date_to }}</td>

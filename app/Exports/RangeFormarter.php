@@ -14,13 +14,13 @@ class RangeFormarter
 
     protected $sheet;
 
-    public function __construct(AfterSheet $event, string $range)
+    public function __construct(AfterSheet $event, string $range, int $width = 10, int $height = 15)
     {
         $this->range = $range;
 
         $this->sheet = $event->sheet->getDelegate();
-        $this->sheet->getDefaultColumnDimension()->setWidth(10);
-        $this->sheet->getDefaultRowDimension()->setRowHeight(15);
+        $this->sheet->getDefaultColumnDimension()->setWidth($width);
+        $this->sheet->getDefaultRowDimension()->setRowHeight($height);
     }
 
     public function configurePage($orientation = PageSetup::ORIENTATION_LANDSCAPE)
