@@ -4,6 +4,7 @@ namespace App\Imports;
 
 use App\Notifications\UserAppNotification;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Events\AfterImport;
 use Maatwebsite\Excel\Events\ImportFailed;
 
@@ -11,12 +12,12 @@ trait ExcelImportTrait
 {
     public function chunkSize(): int
     {
-        return 225;
+        return 200;
     }
 
     public function batchSize(): int
     {
-        return 225;
+        return 200;
     }
 
     public function registerEvents(): array
