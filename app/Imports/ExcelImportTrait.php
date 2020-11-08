@@ -10,16 +10,14 @@ use Maatwebsite\Excel\Events\ImportFailed;
 
 trait ExcelImportTrait
 {
-
-
     public function chunkSize(): int
     {
-        return 150;
+        return 300;
     }
 
     public function batchSize(): int
     {
-        return 150;
+        return 300;
     }
 
     public function registerEvents(): array
