@@ -4,6 +4,7 @@ namespace App\Imports;
 
 use App\PerformanceImport;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
@@ -42,30 +43,30 @@ class PerformancesImport implements ToModel, WithHeadingRow, WithMapping, WithVa
     public function rules(): array
     {
         return [
-            'unique_id' => 'required',
-            'date' => 'required|date',
-            'employee_id' => 'required|exists:employees,id',
-            'name' => 'required',
-            'campaign_id' => 'required|exists:campaigns,id',
-            'supervisor_id' => 'required|exists:supervisors,id',
-            'sph_goal' => 'required|numeric',
-            'login_time' => 'required|numeric',
-            'production_time' => 'required|numeric',
-            'talk_time' => 'numeric',
-            'break_time' => 'numeric',
-            'lunch_time' => 'numeric',
-            'training_time' => 'numeric',
-            'pending_dispo_time' => 'numeric',
-            'off_hook_time' => 'numeric',
-            'away_time' => 'numeric',
-            'billable_hours' => 'required|numeric',
-            'contacts' => 'required|numeric',
-            'calls' => 'required|numeric',
-            'transactions' => 'required|numeric',
-            'upsales' => 'required|numeric',
-            'cc_sales' => 'required|numeric',
-            'revenue' => 'required|numeric',
-            'downtime_reason_id' => 'nullable|exists:downtime_reasons,id',
+            '*.unique_id' => 'required',
+            '*.date' => 'required|date',
+            '*.employee_id' => 'required|exists:employees,id',
+            '*.name' => 'required',
+            '*.campaign_id' => 'required|exists:campaigns,id',
+            '*.supervisor_id' => 'required|exists:supervisors,id',
+            '*.sph_goal' => 'required|numeric',
+            '*.login_time' => 'required|numeric',
+            '*.production_time' => 'required|numeric',
+            '*.talk_time' => 'numeric',
+            '*.break_time' => 'numeric',
+            '*.lunch_time' => 'numeric',
+            '*.training_time' => 'numeric',
+            '*.pending_dispo_time' => 'numeric',
+            '*.off_hook_time' => 'numeric',
+            '*.away_time' => 'numeric',
+            '*.billable_hours' => 'required|numeric',
+            '*.contacts' => 'required|numeric',
+            '*.calls' => 'required|numeric',
+            '*.transactions' => 'required|numeric',
+            '*.upsales' => 'required|numeric',
+            '*.cc_sales' => 'required|numeric',
+            '*.revenue' => 'required|numeric',
+            '*.downtime_reason_id' => 'nullable|exists:downtime_reasons,id',
         ];
     }
 
