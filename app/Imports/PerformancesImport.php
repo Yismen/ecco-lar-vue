@@ -34,7 +34,7 @@ class PerformancesImport implements ToModel, WithHeadingRow, WithValidation, Wit
      *
      * @var int
      */
-    public $tries = 10;
+    public $tries = 5;
     /**
      * The number of seconds the job can run before timing out.
      *
