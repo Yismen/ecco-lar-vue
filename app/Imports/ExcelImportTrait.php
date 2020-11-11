@@ -6,23 +6,28 @@ use App\Notifications\UserAppNotification;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Events\AfterImport;
+use Maatwebsite\Excel\Events\BeforeImport;
 use Maatwebsite\Excel\Events\ImportFailed;
+use Maatwebsite\Excel\Importer;
 
 trait ExcelImportTrait
 {
     public function chunkSize(): int
     {
-        return 200;
+        return 150;
     }
 
     public function batchSize(): int
     {
-        return 200;
+        return 150;
     }
 
     public function registerEvents(): array
     {
         return [
+            BeforeImport::class => function (BeforeImport $event) {
+                // dd(get_class_methods($event->getDelegate()), $event->getDelegate()->toArray(null, false));
+            },
             AfterImport::class => function (AfterImport $event) {
                 $this->importedBy->notify(new UserAppNotification(
                     "Data Imported Succesfully!",

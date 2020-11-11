@@ -4,7 +4,6 @@ namespace App\Imports;
 
 use App\PerformanceImport;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
@@ -14,17 +13,13 @@ use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithEvents;
 
-class PerformancesImport implements ToModel, WithHeadingRow, WithMapping, WithValidation, WithEvents, WithBatchInserts, WithChunkReading, ShouldQueue
+class PerformancesImport implements ToModel, WithHeadingRow, WithValidation, WithBatchInserts, WithEvents, WithChunkReading, ShouldQueue
 {
     use Importable, ExcelImportTrait;
 
     protected $file_name;
 
     protected $importedBy;
-
-    protected $cleaned;
-
-    public $tries = 3;
 
     public function __construct($file_name)
     {
@@ -37,42 +32,7 @@ class PerformancesImport implements ToModel, WithHeadingRow, WithMapping, WithVa
     {
         PerformanceImport::where('unique_id', $row['unique_id'])->delete();
         
-        return new PerformanceImport($row);
-    }
-
-    public function rules(): array
-    {
-        return [
-            'unique_id' => 'required',
-            'date' => 'required|date',
-            'employee_id' => 'required|exists:employees,id',
-            'name' => 'required',
-            'campaign_id' => 'required|exists:campaigns,id',
-            'supervisor_id' => 'required|exists:supervisors,id',
-            'sph_goal' => 'required|numeric',
-            'login_time' => 'required|numeric',
-            'production_time' => 'required|numeric',
-            'talk_time' => 'numeric',
-            'break_time' => 'numeric',
-            'lunch_time' => 'numeric',
-            'training_time' => 'numeric',
-            'pending_dispo_time' => 'numeric',
-            'off_hook_time' => 'numeric',
-            'away_time' => 'numeric',
-            'billable_hours' => 'required|numeric',
-            'contacts' => 'required|numeric',
-            'calls' => 'required|numeric',
-            'transactions' => 'required|numeric',
-            'upsales' => 'required|numeric',
-            'cc_sales' => 'required|numeric',
-            'revenue' => 'required|numeric',
-            'downtime_reason_id' => 'nullable|exists:downtime_reasons,id',
-        ];
-    }
-
-    public function map($row): array
-    {
-        return [
+        return new PerformanceImport([
             'unique_id' => $row['unique_id'],
             'date' => $this->transformDate($row['date'])->format('Y-m-d'),
             'employee_id' => $row['employee_id'],
@@ -99,16 +59,36 @@ class PerformancesImport implements ToModel, WithHeadingRow, WithMapping, WithVa
             'downtime_reason_id' => $row['reason_id'],
             'reported_by' => $row['reported_by'],
             'file_name' => $this->file_name,
-        ];
+        ]);
     }
 
-    protected function removeDuplicateRows()
+    public function rules(): array
     {
-        if (!$this->cleaned) {
-            PerformanceImport::whereIn('unique_id', (array) $this->unique_ids_list)->delete();
-        }
-        $this->cleaned = true;
-
-        return $this;
+        return [
+            '*.unique_id' => 'required',
+            '*.date' => 'required|date',
+            '*.employee_id' => 'required|exists:employees,id',
+            '*.employee_name' => 'required',
+            '*.campaign_id' => 'required|exists:campaigns,id',
+            '*.supervisor_id' => 'required|exists:supervisors,id',
+            '*.sph_goal' => 'required|numeric',
+            '*.login_time_parsed' => 'required|numeric',
+            '*.production_time_parsed' => 'required|numeric',
+            '*.talk_time_parsed' => 'numeric',
+            '*.break_time_parsed' => 'numeric',
+            '*.lunch_time_parsed' => 'numeric',
+            '*.training_time_parsed' => 'numeric',
+            '*.pending_dispo_time_parsed' => 'numeric',
+            '*.off_hook_time_parsed' => 'numeric',
+            '*.away_time_parsed' => 'numeric',
+            '*.billable_hours' => 'required|numeric',
+            '*.contacts' => 'required|numeric',
+            '*.calls' => 'required|numeric',
+            '*.transactions' => 'required|numeric',
+            '*.upsales' => 'required|numeric',
+            '*.cc_sales' => 'required|numeric',
+            '*.revenue' => 'required|numeric',
+            '*.downtime_reason_id' => 'nullable|exists:downtime_reasons,id',
+        ];
     }
 }

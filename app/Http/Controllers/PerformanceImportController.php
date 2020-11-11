@@ -135,7 +135,7 @@ class PerformanceImportController extends Controller
 
             $this->imported_files[] = $file_name;
 
-            Excel::queueImport(new PerformancesImport($file_name), $file);
+            Excel::import(new PerformancesImport($file_name), $file);
         };
 
         $request->session()->flash('imported_files', $this->imported_files);
