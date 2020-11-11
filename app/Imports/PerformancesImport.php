@@ -17,10 +17,37 @@ class PerformancesImport implements ToModel, WithHeadingRow, WithValidation, Wit
 {
     use Importable, ExcelImportTrait;
 
+    /**
+     * The name with the file will be saved.
+     *
+     * @var string
+     */
     protected $file_name;
-
+    /**
+     * The user who imported the file.
+     *
+     * @var App\User::class
+     */
     protected $importedBy;
+    /**
+     * The number of times the job may be attempted.
+     *
+     * @var int
+     */
+    public $tries = 10;
+    /**
+     * The number of seconds the job can run before timing out.
+     *
+     * @var int
+     */
+    public $timeout = 120;
 
+
+    /**
+     * class constructor
+     *
+     * @param string $file_name
+     */
     public function __construct($file_name)
     {
         $this->file_name = $file_name;
@@ -28,6 +55,12 @@ class PerformancesImport implements ToModel, WithHeadingRow, WithValidation, Wit
         $this->importedBy = auth()->user();
     }
 
+    /**
+     * Use ToModel logic to save the data
+     *
+     * @param array $row
+     * @return PerformanceImport instance
+     */
     public function model(array $row)
     {
         PerformanceImport::where('unique_id', $row['unique_id'])->delete();
@@ -61,7 +94,11 @@ class PerformancesImport implements ToModel, WithHeadingRow, WithValidation, Wit
             'file_name' => $this->file_name,
         ]);
     }
-
+    /**
+     * Validation rules
+     *
+     * @return array
+     */
     public function rules(): array
     {
         return [

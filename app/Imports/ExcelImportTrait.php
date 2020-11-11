@@ -12,22 +12,32 @@ use Maatwebsite\Excel\Importer;
 
 trait ExcelImportTrait
 {
+    /**
+     * The size of file chunks
+     *
+     * @return integer
+     */
     public function chunkSize(): int
     {
         return 150;
     }
-
+    /**
+     * The size of batches to insert.
+     *
+     * @return integer
+     */
     public function batchSize(): int
     {
         return 150;
     }
-
+    /**
+     * Events listeners for the Importer.
+     *
+     * @return array
+     */
     public function registerEvents(): array
     {
         return [
-            BeforeImport::class => function (BeforeImport $event) {
-                // dd(get_class_methods($event->getDelegate()), $event->getDelegate()->toArray(null, false));
-            },
             AfterImport::class => function (AfterImport $event) {
                 $this->importedBy->notify(new UserAppNotification(
                     "Data Imported Succesfully!",
