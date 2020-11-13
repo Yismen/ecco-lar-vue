@@ -4,7 +4,7 @@ namespace App\Exports\Support\Formats;
 
 use PhpOffice\PhpSpreadsheet\Style\Border;
 
-class Borders
+class Backgrounds
 {
     public static function apply(
         $sheet,
