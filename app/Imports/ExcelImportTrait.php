@@ -19,7 +19,7 @@ trait ExcelImportTrait
      */
     public function chunkSize(): int
     {
-        return 150;
+        return 500;
     }
     /**
      * The size of batches to insert.
@@ -28,7 +28,7 @@ trait ExcelImportTrait
      */
     public function batchSize(): int
     {
-        return 150;
+        return 500;
     }
     /**
      * Events listeners for the Importer.
