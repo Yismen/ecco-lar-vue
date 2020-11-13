@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "149748973f567fd09afcc982ee34d972",
+    "content-hash": "3de0e1ef704bd5c688016b306eff0dc7",
     "packages": [
         {
             "name": "arcanedev/log-viewer",
@@ -476,8 +476,14 @@
             "version": "2.3.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Yismen/clear-log-files.git",
+                "url": "https://github.com/Yismen/clear-laravel-logs.git",
                 "reference": "46d501b409e1833a34740bf29628e5cd93c105cc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Yismen/clear-laravel-logs/zipball/46d501b409e1833a34740bf29628e5cd93c105cc",
+                "reference": "46d501b409e1833a34740bf29628e5cd93c105cc",
+                "shasum": ""
             },
             "require": {
                 "illuminate/console": "^5.7 || ^5.8 || ^6.0 || ^7.0",
@@ -503,11 +509,7 @@
                     "Dainsys\\ClearLogs\\": "src/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "Dainsys\\ClearLogs\\Tests\\": "tests/"
-                }
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -518,6 +520,10 @@
                 }
             ],
             "description": "Clear Laravel log files",
+            "support": {
+                "issues": "https://github.com/Yismen/clear-laravel-logs/issues",
+                "source": "https://github.com/Yismen/clear-laravel-logs/tree/2.3.0"
+            },
             "time": "2020-11-05T03:49:43+00:00"
         },
         {
