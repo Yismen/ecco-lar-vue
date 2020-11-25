@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\ModelFilters;
 
@@ -36,10 +36,10 @@ class EmployeeFilter extends ModelFilter
 
     protected function filterQuery($request, $relationship)
     {
-        return $this->whereHas($relationship, function($query) use ($request) {
+        return $this->whereHas($relationship, function ($query) use ($request) {
             if (is_array($request)) {
                 $query->where('name', 'like', $request[0]);
-                for ($i=1; $i < count($request); $i++) { 
+                for ($i=1; $i < count($request); $i++) {
                     $query->orWhere('name', 'like', $request[$i]);
                 }
             } else {
