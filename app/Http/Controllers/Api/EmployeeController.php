@@ -53,22 +53,23 @@ class EmployeeController extends Controller
 
     private function query()
     {
-        return employee::with([
+        return Employee::with([
             'afp',
             'ars',
             'gender',
             'marital',
             'nationality',
-            'project', 
-            'position.department', 
-            'position.payment_type', 
+            'project',
+            'position.department',
+            'position.payment_type',
             'punch',
-            'site', 
+            'site',
             'supervisor',
             'termination',
             'vip',
             'universal'
         ])
-        ->sorted();
+        ->sorted()
+        ->filter(request()->all());
     }
 }
