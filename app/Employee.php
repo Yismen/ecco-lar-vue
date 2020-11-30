@@ -8,7 +8,7 @@ use App\DainsysModel as Model;
 use App\Http\Traits\Mutators\EmployeeMutators;
 use App\Http\Traits\Accessors\EmployeeAccessors;
 use App\Http\Traits\Relationships\EmployeeRelationships;
-use App\Traits\FilterableTrait;
+use App\ModelFilters\FilterableTrait;
 
 class Employee extends Model
 {
@@ -172,7 +172,8 @@ class Employee extends Model
     {
         return $query->with('termination')
             ->whereHas(
-                'termination', function ($query) {
+                'termination',
+                function ($query) {
                     $query->whereDate('termination_date', '<=', Carbon::today());
                 }
             );

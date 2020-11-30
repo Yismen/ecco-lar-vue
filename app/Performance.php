@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Traits\FilterableTrait;
+use App\ModelFilters\FilterableTrait;
 use App\Traits\PerformanceTrait;
 use App\Traits\Trackable;
 use App\DainsysModel as Model;
