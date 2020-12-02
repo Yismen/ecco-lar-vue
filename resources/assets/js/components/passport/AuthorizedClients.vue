@@ -6,13 +6,13 @@
 
 <template>
     <div>
-        <div>
+        <div v-if="tokens.length > 0">
             <div class="card card-default">
                 <div class="card-header">Authorized Applications</div>
 
                 <div class="card-body">
                     <!-- Authorized Tokens -->
-                    <table class="table table-borderless mb-0" v-if="tokens.length > 0">
+                    <table class="table table-responsive table-borderless mb-0">
                         <thead>
                             <tr>
                                 <th>Name</th>
@@ -22,7 +22,7 @@
                         </thead>
 
                         <tbody>
-                            <tr v-for="(token, index) in tokens" :key="index">
+                            <tr v-for="token in tokens">
                                 <!-- Client Name -->
                                 <td style="vertical-align: middle;">
                                     {{ token.client.name }}
@@ -44,10 +44,6 @@
                             </tr>
                         </tbody>
                     </table>
-
-                    <p class="mb-0" v-else>
-                        You have not authorized any application.
-                    </p>
                 </div>
             </div>
         </div>
