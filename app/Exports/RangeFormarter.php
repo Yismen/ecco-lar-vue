@@ -87,6 +87,42 @@ class RangeFormarter
         return $this;
     }
 
+    public function formatTotals(string $range)
+    {
+        $this->sheet->getStyle($range)
+            ->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLACK);
+            
+        $this->sheet
+            ->getStyle($range)
+            ->applyFromArray([
+                'font' => [
+                    'bold' => true,
+                    'italic' => true
+                ],
+                'fill' => [
+                    'fillType' => Fill::FILL_SOLID,
+                    'color' => [
+                        'rgb' => 'EDEDED',
+                    ],
+                ],
+                'alignment' => [
+                    'horizontal' => Alignment::HORIZONTAL_RIGHT
+                ],
+                'borders' => [
+                    'outline' => [
+                        'borderStyle' => Border::BORDER_THIN,
+                        'color' => ['rgb' => '000000'],
+                    ],
+                    'inside' => [
+                        'borderStyle' => Border::BORDER_THIN,
+                        'color' => ['rgb' => '000000'],
+                    ]
+                ]
+            ]);
+
+        return $this;
+    }
+
     public function formatHeaderRow(string $range, $header_row = 2)
     {
         $this->sheet->getStyle($range)->getAlignment()->setWrapText(true);

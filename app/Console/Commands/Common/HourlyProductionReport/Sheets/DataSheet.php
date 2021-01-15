@@ -54,13 +54,14 @@ class DataSheet implements FromView, WithTitle, WithEvents, WithPreCalculateForm
                 
                 (new RangeFormarter($event, "A1:{$this->last_column}{$this->rows}"))
                     ->configurePage()
-                    ->setColumnsWidth("A", "D")
+                    ->setColumnsWidth("B", "E")
                     ->formatTitle("A1:D1")
                     ->formatHeaderRow("A2:{$this->last_column}2")
                     ->applyBorders("A3:{$this->last_column}{$this->rows}")
                     ->applyNumberFormats("F3:H{$totalsRow}", '#,##0.00')
                     ->applyNumberFormats("L3:L{$totalsRow}", '#,##0.00')
                     ->applyNumberFormats("M3:{$this->last_column}{$totalsRow}", NumberFormat::FORMAT_PERCENTAGE_00)
+                    ->formatTotals("F{$totalsRow}:P{$totalsRow}")
                 ;
    
                 $this->addSubTotals();
@@ -82,43 +83,50 @@ class DataSheet implements FromView, WithTitle, WithEvents, WithPreCalculateForm
 
     protected function addSubTotals()
     {
-        $totalsRow = $this->rows + 1;
+        $totalsRow = ($this->rows + 1);
+        $loginTimeColumn = 'F';
+        $workTimeColumn = 'G';
+        $talkTimeColumn = 'H';
+        $callsColumn = 'I';
+        $salesColumn = 'J';
+        $contactsColumn = 'K';
 
-        foreach (range('F', 'K') as $letter) {
+
+        foreach (range($loginTimeColumn, $contactsColumn) as $letter) {
             $this->sheet->setCellValue(
                 "{$letter}{$totalsRow}",
-                "=SUBTOTAL(9, {$letter}2:{$letter}{$this->rows})"
+                "=SUBTOTAL(9, {$letter}3:{$letter}{$this->rows})"
             );
         }
 
         // SPH Rate
         $this->sheet->setCellValue(
             "L{$totalsRow}",
-            "=IFERROR(I{$totalsRow}/F{$totalsRow},0)"
+            "=IFERROR({$salesColumn}{$totalsRow}/{$workTimeColumn}{$totalsRow},0)"
         );
 
         // Conversion Rate
         $this->sheet->setCellValue(
             "M{$totalsRow}",
-            "=IFERROR(I{$totalsRow}/J{$totalsRow},0)"
+            "=IFERROR({$salesColumn}{$totalsRow}/{$contactsColumn}{$totalsRow},0)"
         );
 
         // Contact Rate
         $this->sheet->setCellValue(
             "N{$totalsRow}",
-            "=IFERROR(J{$totalsRow}/H{$totalsRow},0)"
+            "=IFERROR({$contactsColumn}{$totalsRow}/{$callsColumn}{$totalsRow},0)"
         );
 
         // Hours Efficiency Rate
         $this->sheet->setCellValue(
             "O{$totalsRow}",
-            "=IFERROR(F{$totalsRow}/E{$totalsRow},0)"
+            "=IFERROR({$workTimeColumn}{$totalsRow}/{$loginTimeColumn}{$totalsRow},0)"
         );
 
         // Talk Time Rate
         $this->sheet->setCellValue(
             "P{$totalsRow}",
-            "=IFERROR(G{$totalsRow}/F{$totalsRow},0)"
+            "=IFERROR({$talkTimeColumn}{$totalsRow}/{$workTimeColumn}{$totalsRow},0)"
         );
     }
 }
