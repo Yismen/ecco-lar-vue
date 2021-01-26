@@ -20,7 +20,7 @@ class CapillusCommandsTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
-    // /** @test */
+    /** @test */
     public function it_sends_the_capillus_flash_report()
     {
         create(\App\Role::class, ['name' => 'admin']);
@@ -33,12 +33,12 @@ class CapillusCommandsTest extends TestCase
             ->expectsOutput('Capillus Flash report sent!')
             ->assertExitCode(0);
 
-        // Excel::assertStored("KNYC E Flash Report {$instance}.xlsx");
+        Excel::assertStored("KNYC E Flash Report {$instance}.xlsx");
     
-        // Mail::assertSent(CapillusFlashMail::class);
+        Mail::assertSent(CapillusFlashMail::class);
     }
     
-    // /** @test */
+    /** @test */
     public function it_pulls_the_capillus_daily_performance_report()
     {
         create(\App\Role::class, ['name' => 'admin']);
@@ -49,7 +49,7 @@ class CapillusCommandsTest extends TestCase
         ->assertExitCode(0);
     }
     
-    // /** @test */
+    /** @test */
     
     public function it_sends_the_capillus_daily_performance_report()
     {
@@ -62,12 +62,12 @@ class CapillusCommandsTest extends TestCase
         ->expectsOutput("Capillus Daily Performance sent!")
         ->assertExitCode(0);
         
-        // Excel::assertStored("Capillus Daily Performance Report {$instance}.xlsx");
+        Excel::assertStored("Capillus Daily Performance Report {$instance}.xlsx");
         
-        // Mail::assertSent(CapillusDailyPerformanceMail::class);
+        Mail::assertSent(CapillusDailyPerformanceMail::class);
     }
 
-    // /** @test */
+    /** @test */
     public function it_sends_capillus_calls_data_dump_command()
     {
         create(\App\Role::class, ['name' => 'admin']);
@@ -79,12 +79,12 @@ class CapillusCommandsTest extends TestCase
             ->expectsOutput('Kipany-Capillus - Agent Call Data Dump sent!')
             ->assertExitCode(0);
 
-        // Excel::assertStored("Kipany-Capillus - Agent Call Data Dump {$instance}.xlsx");
+        Excel::assertStored("Kipany-Capillus - Agent Call Data Dump {$instance}.xlsx");
             
-        // Mail::assertSent(CapillusAgentCallDataDumpEmail::class);
+        Mail::assertSent(CapillusAgentCallDataDumpEmail::class);
     }
 
-    // /** @test */
+    /** @test */
     public function it_sends_capillus_agent_report()
     {
         create(\App\Role::class, ['name' => 'admin']);
@@ -97,15 +97,14 @@ class CapillusCommandsTest extends TestCase
             ->expectsOutput('Kipany-Capillus - Agent Report sent!')
             ->assertExitCode(0);
             
-        // Excel::assertStored("Kipany-Capillus - Agent Report {$instance}.xlsx");
+        Excel::assertStored("Kipany-Capillus - Agent Report {$instance}.xlsx");
             
-        // Mail::assertSent(CapillusAgentReportMail::class, function ($mail) {
-            // return $mail->hasTo("yismen.jorge@ecco.com.do");
-            // dd($mail);
-        // });
+        Mail::assertSent(CapillusAgentReportMail::class, function ($mail) {
+            return $mail->hasTo("eccocapillus@eccocorpbpo.com");
+        });
     }
 
-    // /** @test */
+    /** @test */
     public function it_sends_capillus_leads_report()
     {
         create(\App\Role::class, ['name' => 'admin']);
@@ -117,12 +116,12 @@ class CapillusCommandsTest extends TestCase
             ->expectsOutput('Kipany-Capillus - Leads Report Sent!')
             ->assertExitCode(0);
 
-        // Excel::assertStored("Kipany Lead {$date->format('m-d-Y')} ECC.xlsx");
+        Excel::assertStored("Kipany Lead {$date->format('m-d-Y')} ECC.xlsx");
             
-        // Mail::assertSent(CapillusLeadsReportMail::class);
+        Mail::assertSent(CapillusLeadsReportMail::class);
     }
 
-    // /** @test */
+    /** @test */
     public function it_sends_capillus_calls_type_report()
     {
         create(\App\Role::class, ['name' => 'admin']);
@@ -135,8 +134,8 @@ class CapillusCommandsTest extends TestCase
             ->expectsOutput('Kipany-Capillus - Calls Type Report sent!')
             ->assertExitCode(0);
             
-        // Excel::assertStored("Kipany-Capillus - Fax Calls Report {$instance}.xlsx");
+        Excel::assertStored("Kipany-Capillus - Fax Calls Report {$instance}.xlsx");
             
-        // Mail::assertSent(CapillusCallTypeReportMail::class);
+        Mail::assertSent(CapillusCallTypeReportMail::class);
     }
 }

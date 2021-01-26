@@ -13,7 +13,7 @@ class PoliticalCommandsTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
-    // /** @test */
+    /** @test */
     public function it_sends_the_political_flash_report()
     {
         Mail::fake();

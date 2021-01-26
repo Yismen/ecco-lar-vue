@@ -12,9 +12,9 @@
         @foreach ($data as $row)
             <tr>
                 @php
-                    $totalForCampaign = collect($data)->where('campaign_name', $row->campaign_name)->sum('dispo_count');
+                    $totalForCampaign = collect($data)->where('dial_group_name', $row->dial_group_name)->sum('dispo_count');
                 @endphp
-                <td>{{ $row->campaign_name }}</td>
+                <td>{{ $row->dial_group_name }}</td>
                 <td>{{ $row->agent_disposition }}</td>
                 <td>{{ $row->date_from }}</td>
                 <td>{{ $row->date_to }}</td>
