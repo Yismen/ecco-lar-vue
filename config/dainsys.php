@@ -2,13 +2,13 @@
 
 return [
     /*
-     * Define the name of the app. This can be consistent
-     * all accross the app. Set this in your ".env" file.
-     */
+                     * Define the name of the app. This can be consistent
+                     * all accross the app. Set this in your ".env" file.
+                     */
     'app_name' => env('APP_NAME', 'Dainsys'),
 
     /*
-     * The name of the company using the app. This name will
+             * The name of the company using the app. This name will
      * be used a the top of the page, as well as at the
      * bottom. Set this in your ".env" file.
      */
@@ -44,7 +44,7 @@ return [
      * options: top|top-start|top-end|center|center-start|center-end|bottom|bottom-start|bottom-end
      */
     'flash_position' => env('FLASH_POSITION', 'bottom-end'),
-    
+
     /**
      *  Whether or not the fash messages should be shown as a toast.
      */
@@ -73,14 +73,14 @@ return [
         * This must be set in the env and have to be separated by the pipe symbol (|)
         */
         'distro' => env('CAPILLUS_FLASH_DISTRO'),
-        
+
         /**
          * Capillus Campaigns List
          *
          * A list of the campaigns for Capillus
          * This must be set in the env and have to be separated by the pipe symbol (|)
          */
-        'campaigns' =>env('CAPILLUS_CAMPAIGNS', 'Capillus DRTV|Capillus Email|Capillus Sales|Capillus Caller ID|Capillus DRTV Route|Capillus Sales Route')
+        'campaigns' => env('CAPILLUS_CAMPAIGNS', 'Capillus DRTV|Capillus Email|Capillus Sales|Capillus Caller ID|Capillus DRTV Route|Capillus Sales Route')
     ],
 
     'because' => [
@@ -90,14 +90,14 @@ return [
         * This must be set in the env and have to be separated by the pipe symbol (|)
         */
         'distro' => env('BECAUSE_FLASH_DISTRO'),
-        
+
         /**
          * Capillus Campaigns List
          *
          * A list of the campaigns for Capillus
          * This must be set in the env and have to be separated by the pipe symbol (|)
          */
-        'campaigns' =>env('BECAUSE_CAMPAIGNS', 'LA Times|Comcast DRTV')
+        'campaigns' => env('BECAUSE_CAMPAIGNS', 'LA Times|Comcast DRTV')
     ],
 
     'political' => [
@@ -106,6 +106,10 @@ return [
 
     'publishing' => [
         'distro' => env('PUBLISHING_FLASH_DISTRO'),
+    ],
+
+    'workforce' => [
+        'distro' => env('WORKFORCE_FLASH_DISTRO', 'yjorge@eccocorpbpo.com|workforce.support@eccocorpbpo.com'),
     ],
 
     'wow' => [

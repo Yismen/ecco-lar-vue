@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        
+
         \App\Console\Commands\Because\BecauseFlashReportCommand::class,
         \App\Console\Commands\Because\PullDailyPerformanceDataCommand::class,
         \App\Console\Commands\Because\SendDailyPerformanceReportCommand::class,
@@ -28,8 +28,10 @@ class Kernel extends ConsoleKernel
 
         \App\Console\Commands\Political\SendPoliticalFlashReportCommand::class,
         \App\Console\Commands\Political\SendPoliticallHourlyProductionReportCommand::class,
-        
+
         \App\Console\Commands\Publishing\SendPublishinglHourlyProductionReportCommand::class,
+
+        \App\Console\Commands\General\SendGeneralDailyProductionReportCommand::class,
 
         \App\Console\Commands\Wow\SendWowDailyReportCommand::class,
 
@@ -63,6 +65,9 @@ class Kernel extends ConsoleKernel
         $schedule->command('dainsys:employees-terminated --months=1')->weeklyOn(2, '15:59')->timezone('America/New_York');
         $schedule->command('dainsys:employees-terminated --months=1')->weeklyOn(5, '15:59')->timezone('America/New_York');
 
+
+        $schedule->command('dainsys:general-rc-production-report')->dailyAt('06:25')->timezone('America/New_York');
+
         // $schedule->command('dainsys:capillus-send-flash-report')->twiceDaily(0, 3)->timezone('America/New_York');
         // $schedule->command('dainsys:capillus-send-flash-report')->twiceDaily(6, 9)->timezone('America/New_York');
         // $schedule->command('dainsys:capillus-send-flash-report')->twiceDaily(12, 15)->timezone('America/New_York');
@@ -70,7 +75,7 @@ class Kernel extends ConsoleKernel
 
 
         // $schedule->command('dainsys:capillus-send-agent-report')->dailyAt('05:55')->timezone('America/New_York');
-        
+
         // $schedule->command('dainsys:capillus-pull-daily-performance-data')->dailyAt('05:45')->timezone('America/New_York');
         // $schedule->command('dainsys:capillus-send-daily-performance-report')->dailyAt('06:00')->timezone('America/New_York');
 
@@ -89,12 +94,24 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('dainsys:political-send-hourly-flash')->hourly()->timezone('America/New_York');
         $schedule->command('dainsys:political-send-hourly-production-report')->hourlyAt(59)->timezone('America/New_York');
-        
+
         $schedule->command('dainsys:publishing-send-hourly-production-report')->hourlyAt(58)->timezone('America/New_York');
 
         // $schedule->command('dainsys:wow-daily-report')->dailyAt('07:00')->timezone('America/New_York');
 
         $schedule->command('backup:run')->dailyAt('21:15')->timezone('America/New_York');
         $schedule->command('backup:clean')->dailyAt('22:15')->timezone('America/New_York');
+    }
+
+    /**
+     * Register the commands for the application.
+     *
+     * @return void
+     */
+    protected function commands()
+    {
+        // $this->load(__DIR__.'/Commands');
+
+        require base_path('routes/console.php');
     }
 }
